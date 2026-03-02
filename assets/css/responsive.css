@@ -1,0 +1,511 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * QUIRRELY MOBILE RESPONSIVE CSS v1.0
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * 
+ * Mobile-first responsive breakpoints for Quirrely app.
+ * Include AFTER compat.css and main styles.
+ * 
+ * Breakpoints:
+ * - Mobile: 0 - 480px
+ * - Tablet: 481px - 768px
+ * - Desktop: 769px - 1024px
+ * - Wide: 1025px+
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   BASE MOBILE STYLES (Mobile First)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Touch-friendly defaults */
+:root {
+  --touch-target: 44px;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+}
+
+/* Ensure all buttons and links are touch-friendly */
+button,
+.btn,
+[role="button"],
+input[type="submit"],
+input[type="button"] {
+  min-height: var(--touch-target);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+/* Ensure all form inputs are properly sized */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+textarea,
+select {
+  font-size: 16px; /* Prevent iOS zoom */
+  min-height: var(--touch-target);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   MOBILE PORTRAIT (0 - 480px)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media screen and (max-width: 480px) {
+  /* Typography scaling */
+  html {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 1.35rem;
+  }
+  
+  h3 {
+    font-size: 1.1rem;
+  }
+  
+  /* Full-width containers */
+  .container,
+  .content,
+  .main-content {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+    max-width: 100%;
+  }
+  
+  /* Stack navigation */
+  .nav,
+  .header-nav,
+  nav {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  /* Full-width buttons */
+  .btn,
+  button:not(.icon-btn) {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  /* Stack grids */
+  .grid,
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Stack flex rows */
+  .flex-row,
+  .row {
+    flex-direction: column;
+  }
+  
+  /* Hide on mobile */
+  .hide-mobile,
+  .desktop-only {
+    display: none !important;
+  }
+  
+  /* Forms */
+  .form-row {
+    flex-direction: column;
+  }
+  
+  .form-row > * {
+    width: 100%;
+  }
+  
+  /* Cards */
+  .card {
+    padding: var(--spacing-md);
+    border-radius: 12px;
+  }
+  
+  /* Modals */
+  .modal,
+  .dialog {
+    width: 95vw;
+    max-width: none;
+    margin: var(--spacing-sm);
+    max-height: 90vh;
+  }
+  
+  /* Tables - scroll horizontally */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  table {
+    min-width: 600px;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   MOBILE LANDSCAPE / SMALL TABLET (481px - 768px)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+  
+  .container {
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+  }
+  
+  /* 2-column grids */
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Side-by-side buttons */
+  .btn-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .btn-group > * {
+    flex: 1 1 45%;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   TABLET (769px - 1024px)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+  
+  .container {
+    max-width: 960px;
+    padding-left: var(--spacing-xl);
+    padding-right: var(--spacing-xl);
+  }
+  
+  /* 3-column grids */
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Show tablet-specific */
+  .tablet-only {
+    display: block;
+  }
+  
+  .hide-tablet {
+    display: none !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   DESKTOP (1025px+)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media screen and (min-width: 1025px) {
+  html {
+    font-size: 16px;
+  }
+  
+  .container {
+    max-width: 1200px;
+  }
+  
+  /* Full grid columns */
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  /* Show desktop-specific */
+  .desktop-only {
+    display: block;
+  }
+  
+  .hide-desktop {
+    display: none !important;
+  }
+  
+  /* Inline buttons */
+  .btn {
+    width: auto;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   QUIRRELY-SPECIFIC RESPONSIVE OVERRIDES
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Header */
+@media screen and (max-width: 768px) {
+  .header,
+  .site-header {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  .header-inner {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+  
+  .logo {
+    font-size: 1.1rem;
+  }
+  
+  .header-nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border, #e9ecef);
+  }
+}
+
+/* Main textarea (for writing input) */
+@media screen and (max-width: 480px) {
+  textarea#writing-input,
+  textarea.writing-input,
+  .input-textarea {
+    min-height: 200px;
+    font-size: 16px;
+    padding: var(--spacing-md);
+  }
+}
+
+/* Results cards */
+@media screen and (max-width: 600px) {
+  .result-card,
+  .profile-card,
+  .voice-card {
+    padding: var(--spacing-md);
+  }
+  
+  .profile-icon,
+  .result-icon {
+    font-size: 2.5rem;
+  }
+  
+  .profile-name,
+  .result-title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Blog layout */
+@media screen and (max-width: 768px) {
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-sidebar {
+    display: none;
+  }
+  
+  .post-card {
+    flex-direction: column;
+  }
+  
+  .post-icon {
+    align-self: flex-start;
+  }
+}
+
+/* Dashboard */
+@media screen and (max-width: 600px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: var(--spacing-md);
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+  }
+}
+
+/* Footer */
+@media screen and (max-width: 600px) {
+  footer,
+  .site-footer {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    text-align: center;
+  }
+  
+  .footer-social {
+    justify-content: center;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   STRETCH FEATURE MOBILE STYLES
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media screen and (max-width: 480px) {
+  .stretch-container {
+    padding: var(--spacing-md);
+  }
+  
+  .stretch-prompt {
+    font-size: 1.1rem;
+    padding: var(--spacing-md);
+  }
+  
+  .stretch-input-area {
+    min-height: 150px;
+  }
+  
+  .stretch-input-area textarea {
+    font-size: 16px; /* Prevent iOS zoom */
+    padding: var(--spacing-md);
+  }
+  
+  .stretch-timer {
+    font-size: 2rem;
+  }
+  
+  .stretch-word-count {
+    font-size: 1rem;
+  }
+  
+  .stretch-controls {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .stretch-controls .btn {
+    width: 100%;
+  }
+}
+
+/* STRETCH keyboard handling on mobile */
+@media screen and (max-width: 768px) {
+  /* When keyboard is open, adjust layout */
+  .stretch-active .stretch-container {
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+  
+  /* Hide non-essential elements when typing */
+  .stretch-active .stretch-stats,
+  .stretch-active .stretch-tips {
+    display: none;
+  }
+  
+  /* Keep prompt visible but smaller */
+  .stretch-active .stretch-prompt {
+    font-size: 0.95rem;
+    padding: var(--spacing-sm);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   ORIENTATION HANDLING
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Landscape phone */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .header,
+  .site-header {
+    position: relative; /* Don't sticky in landscape */
+  }
+  
+  /* Compact textarea in landscape */
+  textarea {
+    min-height: 100px;
+  }
+  
+  /* Hide large icons */
+  .hero-icon,
+  .large-emoji {
+    display: none;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   TOUCH INTERACTION ENHANCEMENTS
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover states on touch devices */
+  .btn:hover,
+  .card:hover,
+  a:hover {
+    transform: none;
+  }
+  
+  /* Add active states instead */
+  .btn:active,
+  .card:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+  
+  /* Larger tap areas for links in text */
+  p a,
+  .content a {
+    padding: 0.25em 0;
+    margin: -0.25em 0;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   PRINT OVERRIDES
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media print {
+  /* Reset font size */
+  html {
+    font-size: 12pt;
+  }
+  
+  /* Full width */
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  /* Single column */
+  .grid,
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}

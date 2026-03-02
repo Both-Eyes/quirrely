@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quirrely Settings</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0D1117;
+      color: #E2E8F0;
+      min-height: 100vh;
+      padding: 40px;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    
+    .logo {
+      width: 48px;
+      height: 48px;
+    }
+    
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+    }
+    
+    h1 .coral { color: #FF6B5A; }
+    h1 .italic { font-style: italic; }
+    
+    .section {
+      background: #161B22;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #718096;
+      margin-bottom: 16px;
+    }
+    
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .setting-row:last-child {
+      border-bottom: none;
+    }
+    
+    .setting-info h3 {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    
+    .setting-info p {
+      font-size: 12px;
+      color: #718096;
+    }
+    
+    .toggle {
+      appearance: none;
+      width: 44px;
+      height: 24px;
+      background: #2D3748;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    
+    .toggle::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      background: #718096;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+    
+    .toggle:checked {
+      background: #FF6B5A;
+      border-color: #FF6B5A;
+    }
+    
+    .toggle:checked::before {
+      left: 22px;
+      background: white;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    
+    .stat-card {
+      background: #1A202C;
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 28px;
+      font-weight: 600;
+      color: #FF6B5A;
+    }
+    
+    .stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #718096;
+      margin-top: 4px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      background: #FF6B5A;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .btn:hover {
+      background: #FF8A7A;
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #E2E8F0;
+    }
+    
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-danger {
+      background: transparent;
+      border: 1px solid #E53E3E;
+      color: #E53E3E;
+    }
+    
+    .btn-danger:hover {
+      background: rgba(229, 62, 62, 0.1);
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #4A5568;
+      font-size: 12px;
+    }
+    
+    .footer a {
+      color: #FF6B5A;
+      text-decoration: none;
+    }
+    
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <svg class="logo" width="48" height="48" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="35" r="25" fill="#E8E4E1"/>
+        <ellipse cx="50" cy="75" rx="20" ry="15" fill="#CBD5E0"/>
+        <circle cx="42" cy="30" r="4" fill="#2D3748"/>
+        <circle cx="58" cy="30" r="4" fill="#2D3748"/>
+        <ellipse cx="50" cy="40" rx="3" ry="2" fill="#FF6B5A"/>
+        <ellipse cx="50" cy="18" rx="12" ry="8" fill="#E8E4E1"/>
+        <ellipse cx="75" cy="60" rx="8" ry="20" fill="#E8E4E1" transform="rotate(30 75 60)"/>
+      </svg>
+      <h1>Quir<span class="coral">rel</span><span class="italic">ly</span> Settings</h1>
+    </header>
+    
+    <section class="section">
+      <h2 class="section-title">Your Stats</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-total">0</div>
+          <div class="stat-label">Total Analyses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-profile">—</div>
+          <div class="stat-label">Top Profile</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-today">0</div>
+          <div class="stat-label">Today</div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2 class="section-title">Display</h2>
+      
+      <div class="setting-row">
+        <div class="setting-info">
+          <h3>Floating Analyze Button</h3>
+          <p>Show a button when you select text on any webpage</p>
+        </div>
+        <input type="checkbox" id="setting-floating" class="toggle" checked>
+      </div>
+      
+      <div class="setting-row">
+        <div class="setting-info">
+          <h3>Notifications</h3>
+          <p>Show notifications when analysis completes</p>
+        </div>
+        <input type="checkbox" id="setting-notifications" class="toggle" checked>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2 class="section-title">Privacy</h2>
+      
+      <div class="setting-row">
+        <div class="setting-info">
+          <h3>Store History Locally</h3>
+          <p>Keep a local history of your analyses</p>
+        </div>
+        <input type="checkbox" id="setting-history" class="toggle" checked>
+      </div>
+      
+      <div class="setting-row">
+        <div class="setting-info">
+          <h3>Help Improve Quirrely</h3>
+          <p>Send anonymous usage data to improve the service</p>
+        </div>
+        <input type="checkbox" id="setting-anonymous" class="toggle" checked>
+      </div>
+    </section>
+    
+    <section class="section">
+      <h2 class="section-title">Data</h2>
+      
+      <div class="setting-row">
+        <div class="setting-info">
+          <h3>Export History</h3>
+          <p>Download your analysis history as JSON</p>
+        </div>
+        <button id="btn-export" class="btn btn-outline">Export</button>
+      </div>
+      
+      <div class="setting-row">
+        <div class="setting-info">
+          <h3>Clear All Data</h3>
+          <p>Delete all local data including history and settings</p>
+        </div>
+        <button id="btn-clear" class="btn btn-danger">Clear Data</button>
+      </div>
+    </section>
+    
+    <footer class="footer">
+      <p>Quirrely Extension v1.0.0</p>
+      <p><a href="https://quirrely.com" target="_blank">quirrely.com</a> · <a href="https://quirrely.com/privacy" target="_blank">Privacy</a> · <a href="https://quirrely.com/terms" target="_blank">Terms</a></p>
+    </footer>
+  </div>
+  
+  <script>
+    // Load settings and stats
+    async function initialize() {
+      // Load stats
+      chrome.runtime.sendMessage({ type: 'GET_STATS' }, (response) => {
+        if (response && response.stats) {
+          document.getElementById('stat-total').textContent = response.stats.totalAnalyses || 0;
+          document.getElementById('stat-profile').textContent = response.stats.dominantProfile || '—';
+          document.getElementById('stat-today').textContent = response.stats.todayCount || 0;
+        }
+      });
+      
+      // Load settings
+      chrome.runtime.sendMessage({ type: 'GET_SETTINGS' }, (settings) => {
+        document.getElementById('setting-floating').checked = settings.showFloatingButton !== false;
+        document.getElementById('setting-notifications').checked = settings.showNotifications !== false;
+        document.getElementById('setting-history').checked = settings.storeHistory !== false;
+        document.getElementById('setting-anonymous').checked = settings.sendAnonymousData !== false;
+      });
+    }
+    
+    // Setting change handlers
+    document.getElementById('setting-floating').addEventListener('change', (e) => {
+      chrome.runtime.sendMessage({ type: 'UPDATE_SETTINGS', settings: { showFloatingButton: e.target.checked } });
+    });
+    
+    document.getElementById('setting-notifications').addEventListener('change', (e) => {
+      chrome.runtime.sendMessage({ type: 'UPDATE_SETTINGS', settings: { showNotifications: e.target.checked } });
+    });
+    
+    document.getElementById('setting-history').addEventListener('change', (e) => {
+      chrome.runtime.sendMessage({ type: 'UPDATE_SETTINGS', settings: { storeHistory: e.target.checked } });
+    });
+    
+    document.getElementById('setting-anonymous').addEventListener('change', (e) => {
+      chrome.runtime.sendMessage({ type: 'UPDATE_SETTINGS', settings: { sendAnonymousData: e.target.checked } });
+    });
+    
+    // Export button
+    document.getElementById('btn-export').addEventListener('click', () => {
+      chrome.runtime.sendMessage({ type: 'GET_HISTORY', limit: 1000 }, (response) => {
+        const data = JSON.stringify(response.history || [], null, 2);
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'quirrely-history.json';
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    });
+    
+    // Clear button
+    document.getElementById('btn-clear').addEventListener('click', () => {
+      if (confirm('This will delete all your local data including history and settings. Continue?')) {
+        chrome.storage.local.clear(() => {
+          alert('All data cleared. The extension will reload.');
+          chrome.runtime.reload();
+        });
+      }
+    });
+    
+    initialize();
+  </script>
+</body>
+</html>

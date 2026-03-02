@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase6-summary-output-schema-v0.1.0.json",
+  "title": "LNCP Phase-6 Summary Output Schema",
+  "description": "Schema for Phase-6 Summary output. Phase-6 synthesizes all prior phases into a cohesive summary with High-Intent reflection and a suggested next step. Output varies based on Phase-4 mode (Prompting vs Guidance).",
+  "type": "object",
+  
+  "required": [
+    "phase6_version",
+    "source_contract_version",
+    "source_phase2_version",
+    "source_phase3_version",
+    "source_phase4_mode",
+    "synthesis_scope",
+    "interpretive_frame",
+    "summary",
+    "high_intent_reflection",
+    "next_step",
+    "forward_pointers",
+    "llm_enhanced"
+  ],
+  
+  "properties": {
+    "phase6_version": {
+      "type": "string",
+      "const": "0.1.0",
+      "description": "Version of the Phase-6 output format"
+    },
+    
+    "source_contract_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Version of the LNCP contract this output derives from"
+    },
+    
+    "source_phase2_version": {
+      "type": "string",
+      "const": "0.1.0",
+      "description": "Version of the Phase-2 input"
+    },
+    
+    "source_phase3_version": {
+      "type": "string",
+      "const": "0.1.0",
+      "description": "Version of the Phase-3 input"
+    },
+    
+    "source_phase4_mode": {
+      "type": "string",
+      "enum": ["PROMPTING", "GUIDANCE"],
+      "description": "Which Phase-4 mode was used (determines summary variation)"
+    },
+    
+    "synthesis_scope": {
+      "type": "string",
+      "const": "SAMPLE_ONLY",
+      "description": "Scope constraint inherited from upstream phases"
+    },
+    
+    "interpretive_frame": {
+      "type": "string",
+      "const": "LNCP_PEIRCEAN",
+      "description": "Semiotic framework used for interpretation"
+    },
+    
+    "summary": {
+      "type": "object",
+      "description": "The main synthesis summarizing the analysis",
+      "required": ["title", "structural_overview", "semiotic_synthesis", "mode_reflection"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "A brief, evocative title for this analysis"
+        },
+        "structural_overview": {
+          "type": "string",
+          "minLength": 50,
+          "description": "2-3 paragraphs summarizing structural patterns from Phase-2. Should be 2-3x longer than individual Phase-2 outputs, interpretive but non-directive."
+        },
+        "semiotic_synthesis": {
+          "type": "string",
+          "minLength": 50,
+          "description": "2-3 paragraphs weaving together Phase-3 syntheses into a unified interpretation. Should explain how the three semiotic lenses relate to each other in this sample."
+        },
+        "mode_reflection": {
+          "type": "string",
+          "minLength": 50,
+          "description": "1-2 paragraphs reflecting on the Phase-4 content (prompts or guidance) and how they might serve the writer. Varies based on source_phase4_mode."
+        }
+      },
+      "additionalProperties": false
+    },
+    
+    "high_intent_reflection": {
+      "type": "object",
+      "description": "Reflection on modal/epistemic patterns (High-Intent words)",
+      "required": ["present", "overview", "epistemic_stance", "notable_markers"],
+      "properties": {
+        "present": {
+          "type": "boolean",
+          "description": "Whether any High-Intent markers were detected"
+        },
+        "overview": {
+          "type": "string",
+          "minLength": 1,
+          "description": "1-2 paragraphs interpreting the High-Intent profile. Non-directive; describes what is present, not what should be."
+        },
+        "epistemic_stance": {
+          "type": "string",
+          "enum": ["OPEN", "CLOSED", "BALANCED", "MINIMAL"],
+          "description": "Characterization of the writer's epistemic stance based on marker distribution. OPEN = more possibility/hedging; CLOSED = more certainty/emphasis; BALANCED = mixed; MINIMAL = few markers."
+        },
+        "notable_markers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["word", "category", "interpretation"],
+            "properties": {
+              "word": { "type": "string" },
+              "category": { "type": "string" },
+              "interpretation": { 
+                "type": "string",
+                "description": "Brief interpretation of how this marker shapes meaning in context"
+              }
+            }
+          },
+          "description": "Up to 3 notable High-Intent markers with interpretations"
+        }
+      },
+      "additionalProperties": false
+    },
+    
+    "next_step": {
+      "type": "object",
+      "description": "Suggested next step for the writer",
+      "required": ["prompt_id", "prompt_text", "rationale", "category"],
+      "properties": {
+        "prompt_id": {
+          "type": "string",
+          "pattern": "^NS_[0-9]{3}$",
+          "description": "Identifier from the next-step pool"
+        },
+        "prompt_text": {
+          "type": "string",
+          "minLength": 10,
+          "description": "The suggested next step, phrased as an invitation"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 20,
+          "description": "Why this next step is suggested, based on the analysis"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["VOLUME", "DENSITY", "MODAL", "VARIETY", "DEPTH", "EXPLORATION"],
+          "description": "Category of the next-step prompt"
+        }
+      },
+      "additionalProperties": false
+    },
+    
+    "forward_pointers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pointer_id", "title", "description", "availability"],
+        "properties": {
+          "pointer_id": {
+            "type": "string",
+            "pattern": "^FP_[0-9]{3}$"
+          },
+          "title": {
+            "type": "string",
+            "description": "Name of the future exercise or round"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of what this exercise involves"
+          },
+          "availability": {
+            "type": "string",
+            "enum": ["AVAILABLE", "COMING_SOON", "LOCKED"],
+            "description": "Whether this exercise is currently available"
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 5,
+      "description": "Pointers to future exercises, rounds, or features"
+    },
+    
+    "llm_enhanced": {
+      "type": "boolean",
+      "description": "Whether this output was enhanced by LLM expansion (true) or is template-only fallback (false)"
+    },
+    
+    "enhancement_notice": {
+      "type": "string",
+      "description": "If llm_enhanced is false, this contains a notice about enhanced analysis being available"
+    }
+  },
+  
+  "additionalProperties": false
+}

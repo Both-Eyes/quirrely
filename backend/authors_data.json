@@ -1,0 +1,922 @@
+{
+  "conversational": [
+    {
+      "name": "Nora Ephron",
+      "note": "Warm, witty, effortlessly personal",
+      "wikipedia": "https://en.wikipedia.org/wiki/Nora_Ephron",
+      "books": [
+        {
+          "title": "I Feel Bad About My Neck",
+          "isbn": "9780307276827"
+        },
+        {
+          "title": "Heartburn",
+          "isbn": "9780679767954"
+        }
+      ]
+    },
+    {
+      "name": "David Sedaris",
+      "note": "Dry humor meets everyday storytelling",
+      "wikipedia": "https://en.wikipedia.org/wiki/David_Sedaris",
+      "books": [
+        {
+          "title": "Me Talk Pretty One Day",
+          "isbn": "9780316776967"
+        },
+        {
+          "title": "Dress Your Family in Corduroy and Denim",
+          "isbn": "9780316010795"
+        }
+      ]
+    },
+    {
+      "name": "Roxane Gay",
+      "note": "Candid cultural commentary",
+      "wikipedia": "https://en.wikipedia.org/wiki/Roxane_Gay",
+      "books": [
+        {
+          "title": "Bad Feminist",
+          "isbn": "9780062282712"
+        },
+        {
+          "title": "Hunger",
+          "isbn": "9780062362599"
+        }
+      ]
+    },
+    {
+      "name": "Sloane Crosley",
+      "note": "Sharp wit disguised as casual confession",
+      "wikipedia": "https://en.wikipedia.org/wiki/Sloane_Crosley",
+      "books": [
+        {
+          "title": "I Was Told There'd Be Cake",
+          "isbn": "9781594483066"
+        },
+        {
+          "title": "Look Alive Out There",
+          "isbn": "9780374279844"
+        }
+      ]
+    },
+    {
+      "name": "Samantha Irby",
+      "note": "Raw, funny, unfiltered honesty",
+      "wikipedia": "https://en.wikipedia.org/wiki/Samantha_Irby",
+      "books": [
+        {
+          "title": "Wow, No Thank You.",
+          "isbn": "9780525563488"
+        },
+        {
+          "title": "We Are Never Meeting in Real Life.",
+          "isbn": "9781101912195"
+        }
+      ]
+    },
+    {
+      "name": "Nick Hornby",
+      "note": "Pop culture as emotional shorthand",
+      "wikipedia": "https://en.wikipedia.org/wiki/Nick_Hornby",
+      "books": [
+        {
+          "title": "High Fidelity",
+          "isbn": "9781573225519"
+        },
+        {
+          "title": "Fever Pitch",
+          "isbn": "9781573226882"
+        }
+      ]
+    }
+  ],
+  "assertive": [
+    {
+      "name": "Christopher Hitchens",
+      "note": "Fearless intellectual provocation",
+      "wikipedia": "https://en.wikipedia.org/wiki/Christopher_Hitchens",
+      "books": [
+        {
+          "title": "Letters to a Young Contrarian",
+          "isbn": "9780465030330"
+        },
+        {
+          "title": "Hitch-22",
+          "isbn": "9780446540346"
+        }
+      ]
+    },
+    {
+      "name": "Ta-Nehisi Coates",
+      "note": "Uncompromising moral clarity",
+      "wikipedia": "https://en.wikipedia.org/wiki/Ta-Nehisi_Coates",
+      "books": [
+        {
+          "title": "Between the World and Me",
+          "isbn": "9780451482211"
+        },
+        {
+          "title": "The Water Dancer",
+          "isbn": "9780399590597"
+        }
+      ]
+    },
+    {
+      "name": "Joan Didion",
+      "note": "Precise, unflinching observation",
+      "wikipedia": "https://en.wikipedia.org/wiki/Joan_Didion",
+      "books": [
+        {
+          "title": "The Year of Magical Thinking",
+          "isbn": "9781400078431"
+        },
+        {
+          "title": "Slouching Towards Bethlehem",
+          "isbn": "9780374531386"
+        }
+      ]
+    },
+    {
+      "name": "James Baldwin",
+      "note": "Moral urgency that demands you listen",
+      "wikipedia": "https://en.wikipedia.org/wiki/James_Baldwin",
+      "books": [
+        {
+          "title": "The Fire Next Time",
+          "isbn": "9780679744726"
+        },
+        {
+          "title": "Notes of a Native Son",
+          "isbn": "9780807006238"
+        }
+      ]
+    },
+    {
+      "name": "Rebecca Solnit",
+      "note": "Quiet authority, no permission needed",
+      "wikipedia": "https://en.wikipedia.org/wiki/Rebecca_Solnit",
+      "books": [
+        {
+          "title": "Men Explain Things to Me",
+          "isbn": "9781608464661"
+        },
+        {
+          "title": "A Field Guide to Getting Lost",
+          "isbn": "9780143037248"
+        }
+      ]
+    },
+    {
+      "name": "Zadie Smith",
+      "note": "Intellectual force wrapped in warmth",
+      "wikipedia": "https://en.wikipedia.org/wiki/Zadie_Smith",
+      "books": [
+        {
+          "title": "Feel Free",
+          "isbn": "9780143110255"
+        },
+        {
+          "title": "Changing My Mind",
+          "isbn": "9780143117957"
+        }
+      ]
+    }
+  ],
+  "poetic": [
+    {
+      "name": "Ocean Vuong",
+      "note": "Lyrical, deeply felt prose",
+      "wikipedia": "https://en.wikipedia.org/wiki/Ocean_Vuong",
+      "books": [
+        {
+          "title": "On Earth We're Briefly Gorgeous",
+          "isbn": "9780525562023"
+        },
+        {
+          "title": "Night Sky with Exit Wounds",
+          "isbn": "9781556594953"
+        }
+      ]
+    },
+    {
+      "name": "Maggie Nelson",
+      "note": "Blurs poetry and philosophy",
+      "wikipedia": "https://en.wikipedia.org/wiki/Maggie_Nelson",
+      "books": [
+        {
+          "title": "Bluets",
+          "isbn": "9781933517407"
+        },
+        {
+          "title": "The Argonauts",
+          "isbn": "9781555977351"
+        }
+      ]
+    },
+    {
+      "name": "Mary Oliver",
+      "note": "Nature as spiritual practice",
+      "wikipedia": "https://en.wikipedia.org/wiki/Mary_Oliver",
+      "books": [
+        {
+          "title": "Devotions",
+          "isbn": "9780399563263"
+        },
+        {
+          "title": "Upstream",
+          "isbn": "9780143130086"
+        }
+      ]
+    },
+    {
+      "name": "Claudia Rankine",
+      "note": "Lyric precision meets lived experience",
+      "wikipedia": "https://en.wikipedia.org/wiki/Claudia_Rankine",
+      "books": [
+        {
+          "title": "Citizen: An American Lyric",
+          "isbn": "9781555976903"
+        },
+        {
+          "title": "Don't Let Me Be Lonely",
+          "isbn": "9781555974077"
+        }
+      ]
+    },
+    {
+      "name": "Michael Ondaatje",
+      "note": "Prose that moves like memory",
+      "wikipedia": "https://en.wikipedia.org/wiki/Michael_Ondaatje",
+      "books": [
+        {
+          "title": "The English Patient",
+          "isbn": "9780679745204"
+        },
+        {
+          "title": "Running in the Family",
+          "isbn": "9780679746690"
+        }
+      ]
+    },
+    {
+      "name": "Jesmyn Ward",
+      "note": "Southern landscape as emotional weather",
+      "wikipedia": "https://en.wikipedia.org/wiki/Jesmyn_Ward",
+      "books": [
+        {
+          "title": "Sing, Unburied, Sing",
+          "isbn": "9781501126062"
+        },
+        {
+          "title": "Men We Reaped",
+          "isbn": "9781608195213"
+        }
+      ]
+    }
+  ],
+  "analytical": [
+    {
+      "name": "Malcolm Gladwell",
+      "note": "Makes complexity accessible",
+      "wikipedia": "https://en.wikipedia.org/wiki/Malcolm_Gladwell",
+      "books": [
+        {
+          "title": "Outliers",
+          "isbn": "9780316017930"
+        },
+        {
+          "title": "The Tipping Point",
+          "isbn": "9780316346627"
+        }
+      ]
+    },
+    {
+      "name": "Atul Gawande",
+      "note": "Medical precision meets humanity",
+      "wikipedia": "https://en.wikipedia.org/wiki/Atul_Gawande",
+      "books": [
+        {
+          "title": "Being Mortal",
+          "isbn": "9780805095159"
+        },
+        {
+          "title": "Complications",
+          "isbn": "9780312421700"
+        }
+      ]
+    },
+    {
+      "name": "Nate Silver",
+      "note": "Data-driven storytelling",
+      "wikipedia": "https://en.wikipedia.org/wiki/Nate_Silver",
+      "books": [
+        {
+          "title": "The Signal and the Noise",
+          "isbn": "9780143125082"
+        },
+        {
+          "title": "On the Edge",
+          "isbn": "9781594204128"
+        }
+      ]
+    },
+    {
+      "name": "Mary Roach",
+      "note": "Curiosity applied to everything bodily",
+      "wikipedia": "https://en.wikipedia.org/wiki/Mary_Roach",
+      "books": [
+        {
+          "title": "Stiff",
+          "isbn": "9780393324822"
+        },
+        {
+          "title": "Gulp",
+          "isbn": "9780393348743"
+        }
+      ]
+    },
+    {
+      "name": "Oliver Sacks",
+      "note": "Neuroscience with tenderness",
+      "wikipedia": "https://en.wikipedia.org/wiki/Oliver_Sacks",
+      "books": [
+        {
+          "title": "The Man Who Mistook His Wife for a Hat",
+          "isbn": "9780684853949"
+        },
+        {
+          "title": "Awakenings",
+          "isbn": "9780375704055"
+        }
+      ]
+    },
+    {
+      "name": "Michael Lewis",
+      "note": "Systems thinking told as narrative",
+      "wikipedia": "https://en.wikipedia.org/wiki/Michael_Lewis",
+      "books": [
+        {
+          "title": "The Big Short",
+          "isbn": "9780393338829"
+        },
+        {
+          "title": "Moneyball",
+          "isbn": "9780393324815"
+        }
+      ]
+    }
+  ],
+  "minimal": [
+    {
+      "name": "Raymond Carver",
+      "note": "Says everything with nothing",
+      "wikipedia": "https://en.wikipedia.org/wiki/Raymond_Carver",
+      "books": [
+        {
+          "title": "What We Talk About When We Talk About Love",
+          "isbn": "9780679723059"
+        },
+        {
+          "title": "Cathedral",
+          "isbn": "9780679723691"
+        }
+      ]
+    },
+    {
+      "name": "Ernest Hemingway",
+      "note": "The iceberg theory master",
+      "wikipedia": "https://en.wikipedia.org/wiki/Ernest_Hemingway",
+      "books": [
+        {
+          "title": "The Old Man and the Sea",
+          "isbn": "9780684801223"
+        },
+        {
+          "title": "A Moveable Feast",
+          "isbn": "9780684833637"
+        }
+      ]
+    },
+    {
+      "name": "Amy Hempel",
+      "note": "Brevity as emotional force",
+      "wikipedia": "https://en.wikipedia.org/wiki/Amy_Hempel",
+      "books": [
+        {
+          "title": "The Collected Stories of Amy Hempel",
+          "isbn": "9780743291637"
+        },
+        {
+          "title": "Sing to It",
+          "isbn": "9781982109127"
+        }
+      ]
+    },
+    {
+      "name": "Lydia Davis",
+      "note": "Entire worlds in a single sentence",
+      "wikipedia": "https://en.wikipedia.org/wiki/Lydia_Davis",
+      "books": [
+        {
+          "title": "The Collected Stories of Lydia Davis",
+          "isbn": "9780312655396"
+        },
+        {
+          "title": "Can't and Won't",
+          "isbn": "9781250054579"
+        }
+      ]
+    },
+    {
+      "name": "Denis Johnson",
+      "note": "Stripped bare and still burning",
+      "wikipedia": "https://en.wikipedia.org/wiki/Denis_Johnson",
+      "books": [
+        {
+          "title": "Jesus' Son",
+          "isbn": "9780312428747"
+        },
+        {
+          "title": "Train Dreams",
+          "isbn": "9781250007650"
+        }
+      ]
+    },
+    {
+      "name": "Joy Williams",
+      "note": "Eerie restraint, nothing wasted",
+      "wikipedia": "https://en.wikipedia.org/wiki/Joy_Williams_(American_writer)",
+      "books": [
+        {
+          "title": "The Visiting Privilege",
+          "isbn": "9781101875438"
+        },
+        {
+          "title": "Ninety-Nine Stories of God",
+          "isbn": "9781941040904"
+        }
+      ]
+    }
+  ],
+  "provocative": [
+    {
+      "name": "Hunter S. Thompson",
+      "note": "Gonzo journalism pioneer",
+      "wikipedia": "https://en.wikipedia.org/wiki/Hunter_S._Thompson",
+      "books": [
+        {
+          "title": "Fear and Loathing in Las Vegas",
+          "isbn": "9780679785897"
+        },
+        {
+          "title": "Hell's Angels",
+          "isbn": "9780345410085"
+        }
+      ]
+    },
+    {
+      "name": "Chuck Palahniuk",
+      "note": "Transgressive, visceral, unforgettable",
+      "wikipedia": "https://en.wikipedia.org/wiki/Chuck_Palahniuk",
+      "books": [
+        {
+          "title": "Fight Club",
+          "isbn": "9780393327342"
+        },
+        {
+          "title": "Invisible Monsters",
+          "isbn": "9780393319293"
+        }
+      ]
+    },
+    {
+      "name": "Bret Easton Ellis",
+      "note": "Detached cultural critique",
+      "wikipedia": "https://en.wikipedia.org/wiki/Bret_Easton_Ellis",
+      "books": [
+        {
+          "title": "Less Than Zero",
+          "isbn": "9780679781493"
+        },
+        {
+          "title": "White",
+          "isbn": "9780525563983"
+        }
+      ]
+    },
+    {
+      "name": "Kathy Acker",
+      "note": "Language as demolition",
+      "wikipedia": "https://en.wikipedia.org/wiki/Kathy_Acker",
+      "books": [
+        {
+          "title": "Blood and Guts in High School",
+          "isbn": "9780802131638"
+        },
+        {
+          "title": "Great Expectations",
+          "isbn": "9780802131621"
+        }
+      ]
+    },
+    {
+      "name": "Irvine Welsh",
+      "note": "Voice from the gutter, unapologetic",
+      "wikipedia": "https://en.wikipedia.org/wiki/Irvine_Welsh",
+      "books": [
+        {
+          "title": "Trainspotting",
+          "isbn": "9780393314809"
+        },
+        {
+          "title": "Filth",
+          "isbn": "9780393341676"
+        }
+      ]
+    },
+    {
+      "name": "Ottessa Moshfegh",
+      "note": "Repulsive clarity, darkly magnetic",
+      "wikipedia": "https://en.wikipedia.org/wiki/Ottessa_Moshfegh",
+      "books": [
+        {
+          "title": "My Year of Rest and Relaxation",
+          "isbn": "9780525522133"
+        },
+        {
+          "title": "Eileen",
+          "isbn": "9780143128755"
+        }
+      ]
+    }
+  ],
+  "reflective": [
+    {
+      "name": "Marilynne Robinson",
+      "note": "Deep spiritual contemplation",
+      "wikipedia": "https://en.wikipedia.org/wiki/Marilynne_Robinson",
+      "books": [
+        {
+          "title": "Gilead",
+          "isbn": "9780312424404"
+        },
+        {
+          "title": "Housekeeping",
+          "isbn": "9780312424091"
+        }
+      ]
+    },
+    {
+      "name": "Pico Iyer",
+      "note": "Stillness in a moving world",
+      "wikipedia": "https://en.wikipedia.org/wiki/Pico_Iyer",
+      "books": [
+        {
+          "title": "The Art of Stillness",
+          "isbn": "9781476784724"
+        },
+        {
+          "title": "Autumn Light",
+          "isbn": "9780451493903"
+        }
+      ]
+    },
+    {
+      "name": "Annie Dillard",
+      "note": "Mystical nature observation",
+      "wikipedia": "https://en.wikipedia.org/wiki/Annie_Dillard",
+      "books": [
+        {
+          "title": "Pilgrim at Tinker Creek",
+          "isbn": "9780061233326"
+        },
+        {
+          "title": "The Writing Life",
+          "isbn": "9780060919887"
+        }
+      ]
+    },
+    {
+      "name": "Wendell Berry",
+      "note": "Rootedness as philosophy",
+      "wikipedia": "https://en.wikipedia.org/wiki/Wendell_Berry",
+      "books": [
+        {
+          "title": "The Unsettling of America",
+          "isbn": "9781619025998"
+        },
+        {
+          "title": "Jayber Crow",
+          "isbn": "9781582431604"
+        }
+      ]
+    },
+    {
+      "name": "bell hooks",
+      "note": "Tenderness as intellectual practice",
+      "wikipedia": "https://en.wikipedia.org/wiki/Bell_hooks",
+      "books": [
+        {
+          "title": "All About Love",
+          "isbn": "9780060959470"
+        },
+        {
+          "title": "Belonging",
+          "isbn": "9780415968164"
+        }
+      ]
+    },
+    {
+      "name": "Alan Lightman",
+      "note": "Physics and wonder intertwined",
+      "wikipedia": "https://en.wikipedia.org/wiki/Alan_Lightman",
+      "books": [
+        {
+          "title": "Einstein's Dreams",
+          "isbn": "9781400077809"
+        },
+        {
+          "title": "The Accidental Universe",
+          "isbn": "9780345805959"
+        }
+      ]
+    }
+  ],
+  "technical": [
+    {
+      "name": "Paul Graham",
+      "note": "Startup wisdom, clear thinking",
+      "wikipedia": "https://en.wikipedia.org/wiki/Paul_Graham_(programmer)",
+      "books": [
+        {
+          "title": "Hackers & Painters",
+          "isbn": "9781449389550"
+        },
+        {
+          "title": "On Lisp",
+          "isbn": "9780130305527"
+        }
+      ]
+    },
+    {
+      "name": "Cal Newport",
+      "note": "Deep work philosophy",
+      "wikipedia": "https://en.wikipedia.org/wiki/Cal_Newport",
+      "books": [
+        {
+          "title": "Deep Work",
+          "isbn": "9781455586691"
+        },
+        {
+          "title": "Digital Minimalism",
+          "isbn": "9780525536512"
+        }
+      ]
+    },
+    {
+      "name": "Shane Parrish",
+      "note": "Mental models for better decisions",
+      "wikipedia": "https://en.wikipedia.org/wiki/Shane_Parrish",
+      "books": [
+        {
+          "title": "Clear Thinking",
+          "isbn": "9780593086117"
+        },
+        {
+          "title": "The Great Mental Models Volume 1",
+          "isbn": "9781999449001"
+        }
+      ]
+    },
+    {
+      "name": "Steven Johnson",
+      "note": "Innovation explained through stories",
+      "wikipedia": "https://en.wikipedia.org/wiki/Steven_Johnson_(author)",
+      "books": [
+        {
+          "title": "Where Good Ideas Come From",
+          "isbn": "9781594485381"
+        },
+        {
+          "title": "How We Got to Now",
+          "isbn": "9781594632969"
+        }
+      ]
+    },
+    {
+      "name": "Kara Swisher",
+      "note": "Tech truth-telling, no jargon fog",
+      "wikipedia": "https://en.wikipedia.org/wiki/Kara_Swisher",
+      "books": [
+        {
+          "title": "Burn Book",
+          "isbn": "9781982163891"
+        },
+        {
+          "title": "aol.com",
+          "isbn": "9780812930894"
+        }
+      ]
+    },
+    {
+      "name": "Edward Tufte",
+      "note": "Clarity as a design principle",
+      "wikipedia": "https://en.wikipedia.org/wiki/Edward_Tufte",
+      "books": [
+        {
+          "title": "The Visual Display of Quantitative Information",
+          "isbn": "9781930824133"
+        },
+        {
+          "title": "Envisioning Information",
+          "isbn": "9780961392116"
+        }
+      ]
+    }
+  ],
+  "narrative": [
+    {
+      "name": "Chimamanda Ngozi Adichie",
+      "note": "Vivid, sweeping storytelling",
+      "wikipedia": "https://en.wikipedia.org/wiki/Chimamanda_Ngozi_Adichie",
+      "books": [
+        {
+          "title": "Americanah",
+          "isbn": "9780307455925"
+        },
+        {
+          "title": "Half of a Yellow Sun",
+          "isbn": "9781400095209"
+        }
+      ]
+    },
+    {
+      "name": "Anthony Bourdain",
+      "note": "Food as cultural journey",
+      "wikipedia": "https://en.wikipedia.org/wiki/Anthony_Bourdain",
+      "books": [
+        {
+          "title": "Kitchen Confidential",
+          "isbn": "9780060899226"
+        },
+        {
+          "title": "A Cook's Tour",
+          "isbn": "9780060012786"
+        }
+      ]
+    },
+    {
+      "name": "Jon Krakauer",
+      "note": "Adventure as human drama",
+      "wikipedia": "https://en.wikipedia.org/wiki/Jon_Krakauer",
+      "books": [
+        {
+          "title": "Into the Wild",
+          "isbn": "9780385486804"
+        },
+        {
+          "title": "Into Thin Air",
+          "isbn": "9780385494786"
+        }
+      ]
+    },
+    {
+      "name": "Hanya Yanagihara",
+      "note": "Emotional immersion without mercy",
+      "wikipedia": "https://en.wikipedia.org/wiki/Hanya_Yanagihara",
+      "books": [
+        {
+          "title": "A Little Life",
+          "isbn": "9780385539265"
+        },
+        {
+          "title": "The People in the Trees",
+          "isbn": "9780385536790"
+        }
+      ]
+    },
+    {
+      "name": "Colson Whitehead",
+      "note": "History made viscerally present",
+      "wikipedia": "https://en.wikipedia.org/wiki/Colson_Whitehead",
+      "books": [
+        {
+          "title": "The Underground Railroad",
+          "isbn": "9780385542364"
+        },
+        {
+          "title": "The Nickel Boys",
+          "isbn": "9780385537070"
+        }
+      ]
+    },
+    {
+      "name": "Arundhati Roy",
+      "note": "Language drunk on its own beauty",
+      "wikipedia": "https://en.wikipedia.org/wiki/Arundhati_Roy",
+      "books": [
+        {
+          "title": "The God of Small Things",
+          "isbn": "9780812979657"
+        },
+        {
+          "title": "The Ministry of Utmost Happiness",
+          "isbn": "9780525434817"
+        }
+      ]
+    }
+  ],
+  "persuasive": [
+    {
+      "name": "Brené Brown",
+      "note": "Vulnerability as strength",
+      "wikipedia": "https://en.wikipedia.org/wiki/Bren%C3%A9_Brown",
+      "books": [
+        {
+          "title": "Daring Greatly",
+          "isbn": "9781592408412"
+        },
+        {
+          "title": "The Gifts of Imperfection",
+          "isbn": "9781592858491"
+        }
+      ]
+    },
+    {
+      "name": "Simon Sinek",
+      "note": "Start with Why framework",
+      "wikipedia": "https://en.wikipedia.org/wiki/Simon_Sinek",
+      "books": [
+        {
+          "title": "Start with Why",
+          "isbn": "9781591846444"
+        },
+        {
+          "title": "Leaders Eat Last",
+          "isbn": "9781591848011"
+        }
+      ]
+    },
+    {
+      "name": "Seth Godin",
+      "note": "Marketing as art form",
+      "wikipedia": "https://en.wikipedia.org/wiki/Seth_Godin",
+      "books": [
+        {
+          "title": "Purple Cow",
+          "isbn": "9781591843177"
+        },
+        {
+          "title": "This Is Marketing",
+          "isbn": "9780525540830"
+        }
+      ]
+    },
+    {
+      "name": "Naomi Klein",
+      "note": "Systemic critique that converts readers",
+      "wikipedia": "https://en.wikipedia.org/wiki/Naomi_Klein",
+      "books": [
+        {
+          "title": "No Logo",
+          "isbn": "9780312429270"
+        },
+        {
+          "title": "The Shock Doctrine",
+          "isbn": "9780312427993"
+        }
+      ]
+    },
+    {
+      "name": "Malcolm X",
+      "note": "Conviction as rhetorical weapon",
+      "wikipedia": "https://en.wikipedia.org/wiki/Malcolm_X",
+      "books": [
+        {
+          "title": "The Autobiography of Malcolm X",
+          "isbn": "9780345350688"
+        },
+        {
+          "title": "Malcolm X Speaks",
+          "isbn": "9780802132130"
+        }
+      ]
+    },
+    {
+      "name": "Mariame Kaba",
+      "note": "Abolition as patient, radical persuasion",
+      "wikipedia": "https://en.wikipedia.org/wiki/Mariame_Kaba",
+      "books": [
+        {
+          "title": "We Do This 'Til We Free Us",
+          "isbn": "9781642595253"
+        },
+        {
+          "title": "Let This Radicalize You",
+          "isbn": "9781642598278"
+        }
+      ]
+    }
+  ]
+}

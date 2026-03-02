@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Dashboard | Quirrely</title>
+  <meta name="description" content="Track your writing voice evolution, view your analysis history, and unlock insights.">
+  <link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       QUIRRELY DASHBOARD v2.0
+       Aligned with LNCP v3.8 and backend capabilities
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    :root {
+      /* Core palette */
+      --bg: #FFFBF5;
+      --bg-dark: #F8F5F0;
+      --card: #FFFFFF;
+      --ink: #2D3436;
+      --muted: #636E72;
+      --light: #B2BEC3;
+      --border: #E9ECEF;
+      
+      /* Brand colors */
+      --coral: #FF6B6B;
+      --coral-light: #FF8E8E;
+      --coral-dark: #E55A4A;
+      --teal: #4ECDC4;
+      --purple: #A29BFE;
+      --yellow: #FDCB6E;
+      --green: #00B894;
+      --blue: #0984E3;
+      
+      /* Tier colors */
+      --tier-free: #636E72;
+      --tier-trial: #0984E3;
+      --tier-pro: #FF6B6B;
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(45, 52, 54, 0.06);
+      --shadow-md: 0 4px 16px rgba(45, 52, 54, 0.08);
+      --shadow-lg: 0 8px 32px rgba(45, 52, 54, 0.12);
+      
+      /* Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      /* Font */
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       HEADER
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .logo span { color: var(--coral); }
+    .logo em { font-style: italic; }
+    
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .tier-badge.free { background: var(--tier-free); color: white; }
+    .tier-badge.trial { background: var(--tier-trial); color: white; }
+    .tier-badge.pro { background: var(--tier-pro); color: white; }
+    
+    .header-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .header-nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    
+    .header-nav a:hover { color: var(--ink); }
+    .header-nav a.active { color: var(--coral); border-bottom-color: var(--coral); }
+    
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      background: var(--coral);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--coral-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-secondary {
+      background: var(--card);
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--bg-dark);
+      border-color: var(--muted);
+    }
+    
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       MAIN LAYOUT
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 2rem;
+    }
+    
+    @media (max-width: 900px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       CARDS
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    
+    .card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .card-footer {
+      padding: 1rem 1.5rem;
+      background: var(--bg-dark);
+      border-top: 1px solid var(--border);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       CURRENT PROFILE CARD
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .profile-card {
+      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      margin-bottom: 2rem;
+    }
+    
+    .profile-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .profile-icon {
+      font-size: 3rem;
+      line-height: 1;
+      background: rgba(255,255,255,0.2);
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+    }
+    
+    .profile-info h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .profile-info .tagline {
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+    
+    .profile-badges {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .profile-badge {
+      padding: 0.3rem 0.75rem;
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .profile-traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .trait-tag {
+      padding: 0.25rem 0.6rem;
+      background: rgba(255,255,255,0.15);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+    }
+    
+    .profile-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .profile-actions .btn {
+      background: white;
+      color: var(--coral);
+    }
+    
+    .profile-actions .btn:hover {
+      background: var(--bg);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       EVOLUTION CHART
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .evolution-chart {
+      height: 200px;
+      position: relative;
+      margin: 1rem 0;
+    }
+    
+    .chart-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-dark);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    
+    .evolution-summary {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+    
+    .evolution-stat {
+      text-align: center;
+    }
+    
+    .evolution-stat .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    
+    .evolution-stat .label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .trend-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .trend-indicator.up { color: var(--green); }
+    .trend-indicator.down { color: var(--coral); }
+    .trend-indicator.stable { color: var(--muted); }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       HISTORY LIST
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .history-list {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .history-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    
+    .history-item:hover {
+      background: var(--bg-dark);
+    }
+    
+    .history-item:last-child {
+      border-bottom: none;
+    }
+    
+    .history-icon {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+    }
+    
+    .history-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .history-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .history-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    
+    .history-badge {
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .history-badge.ASSERTIVE { background: rgba(255, 107, 107, 0.15); color: #FF6B6B; }
+    .history-badge.MINIMAL { background: rgba(78, 205, 196, 0.15); color: #4ECDC4; }
+    .history-badge.POETIC { background: rgba(162, 155, 254, 0.15); color: #A29BFE; }
+    .history-badge.DENSE { background: rgba(108, 92, 231, 0.15); color: #6C5CE7; }
+    .history-badge.CONVERSATIONAL { background: rgba(253, 203, 110, 0.15); color: #E17055; }
+    .history-badge.FORMAL { background: rgba(99, 110, 114, 0.15); color: #636E72; }
+    .history-badge.BALANCED { background: rgba(0, 184, 148, 0.15); color: #00B894; }
+    .history-badge.LONGFORM { background: rgba(9, 132, 227, 0.15); color: #0984E3; }
+    .history-badge.INTERROGATIVE { background: rgba(225, 112, 85, 0.15); color: #E17055; }
+    .history-badge.HEDGED { background: rgba(129, 236, 236, 0.15); color: #00B894; }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       SIDEBAR
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       UPGRADE CARD
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .upgrade-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+    
+    .upgrade-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .upgrade-card p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+    
+    .upgrade-features {
+      margin-bottom: 1.5rem;
+    }
+    
+    .upgrade-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .upgrade-feature .check {
+      color: #7bed9f;
+    }
+    
+    .upgrade-card .btn {
+      width: 100%;
+      background: white;
+      color: #667eea;
+    }
+    
+    .upgrade-card .btn:hover {
+      background: var(--bg);
+    }
+    
+    .upgrade-price {
+      text-align: center;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       TRIAL BANNER
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .trial-banner {
+      background: linear-gradient(135deg, var(--blue) 0%, #0770C4 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    
+    .trial-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .trial-icon {
+      font-size: 1.5rem;
+    }
+    
+    .trial-text h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.1rem;
+    }
+    
+    .trial-text p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    
+    .trial-countdown {
+      text-align: right;
+    }
+    
+    .trial-days {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    
+    .trial-label {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       QUICK STATS
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .stat-card {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       FEATURE LOCK OVERLAY
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    .feature-locked {
+      position: relative;
+    }
+    
+    .feature-locked::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(2px);
+      border-radius: inherit;
+    }
+    
+    .lock-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .lock-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .lock-message {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .lock-cta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════════════════════════════ */
+    
+    @media (max-width: 768px) {
+      .header {
+        padding: 0.75rem 1rem;
+      }
+      
+      .header-nav {
+        display: none;
+      }
+      
+      .main {
+        padding: 1rem;
+      }
+      
+      .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .profile-badges,
+      .profile-traits {
+        justify-content: center;
+      }
+      
+      .profile-actions {
+        flex-direction: column;
+      }
+      
+      .quick-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <a href="/" class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365 100" width="140" height="41" style="vertical-align: middle;"><g transform="translate(5, 2) scale(0.7)"><path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><path d="M20 68 Q12 72, 14 80 Q16 86, 24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/><ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/><ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/></g><text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">rel</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text></svg>
+        <span class="tier-badge trial" id="tierBadge">TRIAL</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/dashboard" class="active">Dashboard</a>
+        <a href="/analyze">Analyze</a>
+        <a href="/history">History</a>
+        <a href="/blog">Blog</a>
+      <div class="social-links" style="display: flex; gap: 0.5rem; align-items: center; margin-left: 0.5rem;">
+          <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color: var(--muted, #636E72); opacity: 0.7; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        </div></nav>
+    </div>
+    <div class="header-right">
+      <a href="/analyze" class="btn btn-primary">+ New Analysis</a>
+      <div class="user-avatar" id="userAvatar">JD</div>
+    </div>
+  </header>
+  
+  <main class="main">
+    <!-- Trial Banner (shown for trial users) -->
+    <div class="trial-banner" id="trialBanner">
+      <div class="trial-info">
+        <span class="trial-icon">⏳</span>
+        <div class="trial-text">
+          <h4>Your 7-Day Trial is Active</h4>
+          <p>Enjoying Pro features? Keep them forever.</p>
+        </div>
+      </div>
+      <div class="trial-countdown">
+        <div class="trial-days" id="trialDays">5</div>
+        <div class="trial-label">days left</div>
+      </div>
+      <button class="btn btn-secondary" onclick="showUpgradeModal()">Upgrade Now</button>
+    </div>
+    
+    <div class="dashboard-grid">
+      <!-- Main Column -->
+      <div class="main-column">
+        <!-- Current Profile Card -->
+        <div class="profile-card" id="profileCard">
+          <div class="profile-header">
+            <div class="profile-icon" id="profileIcon">🎯</div>
+            <div class="profile-info">
+              <h2 id="profileTitle">The Confident Listener</h2>
+              <p class="tagline" id="profileTagline">You state your case. Then you listen.</p>
+            </div>
+          </div>
+          
+          <div class="profile-badges">
+            <span class="profile-badge" id="profileType">ASSERTIVE</span>
+            <span class="profile-badge" id="profileStance">OPEN</span>
+            <span class="profile-badge" id="profileConfidence">87% confident</span>
+          </div>
+          
+          <div class="profile-traits" id="profileTraits">
+            <span class="trait-tag">Direct statements</span>
+            <span class="trait-tag">High confidence</span>
+            <span class="trait-tag">Clear positions</span>
+            <span class="trait-tag">Inquiry-driven</span>
+          </div>
+          
+          <div class="profile-actions">
+            <button class="btn" onclick="window.location.href='/analyze'">Analyze New Text</button>
+            <button class="btn" onclick="showProfileDetails()">View Full Profile</button>
+          </div>
+        </div>
+        
+        <!-- Evolution Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📈 Voice Evolution</h3>
+            <select id="evolutionRange" style="padding: 0.3rem 0.6rem; border-radius: 6px; border: 1px solid var(--border);">
+              <option value="7">Last 7 days</option>
+              <option value="30" selected>Last 30 days</option>
+              <option value="90">Last 90 days</option>
+            </select>
+          </div>
+          <div class="card-body">
+            <div class="evolution-chart">
+              <canvas id="evolutionChart"></canvas>
+              <div class="chart-placeholder" id="chartPlaceholder">
+                Loading evolution data...
+              </div>
+            </div>
+            
+            <div class="evolution-summary">
+              <div class="evolution-stat">
+                <div class="value" id="totalAnalyses">23</div>
+                <div class="label">Total Analyses</div>
+              </div>
+              <div class="evolution-stat">
+                <div class="value" id="dominantProfile">ASSERTIVE</div>
+                <div class="label">Dominant Profile</div>
+              </div>
+              <div class="evolution-stat">
+                <div class="value">
+                  <span class="trend-indicator stable" id="evolutionTrend">
+                    → Consistent
+                  </span>
+                </div>
+                <div class="label">Trend</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent History -->
+        <div class="card" style="margin-top: 1.5rem;">
+          <div class="card-header">
+            <h3 class="card-title">📜 Recent History</h3>
+            <a href="/history" style="color: var(--coral); text-decoration: none; font-size: 0.85rem;">View All →</a>
+          </div>
+          <div class="history-list" id="historyList">
+            <!-- History items will be populated by JS -->
+          </div>
+          <div class="card-footer" style="text-align: center;">
+            <a href="/history" class="btn btn-secondary">View Complete History</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+          <div class="stat-card">
+            <div class="stat-value" id="todayCount">3</div>
+            <div class="stat-label">Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="weekCount">12</div>
+            <div class="stat-label">This Week</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="streakCount">5</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="limitRemaining">97</div>
+            <div class="stat-label">Remaining</div>
+          </div>
+        </div>
+        
+        <!-- Upgrade Card (shown for free/trial users) -->
+        <div class="upgrade-card" id="upgradeCard">
+          <h3>🚀 Unlock Full Power</h3>
+          <p>Get unlimited analyses, detailed insights, and export capabilities.</p>
+          
+          <div class="upgrade-features">
+            <div class="upgrade-feature">
+              <span class="check">✓</span>
+              <span>Unlimited analyses</span>
+            </div>
+            <div class="upgrade-feature">
+              <span class="check">✓</span>
+              <span>Detailed LNCP insights</span>
+            </div>
+            <div class="upgrade-feature">
+              <span class="check">✓</span>
+              <span>Export as PDF/JSON</span>
+            </div>
+            <div class="upgrade-feature">
+              <span class="check">✓</span>
+              <span>Featured writer submission</span>
+            </div>
+            <div class="upgrade-feature">
+              <span class="check">✓</span>
+              <span>Priority support</span>
+            </div>
+          </div>
+          
+          <button class="btn" onclick="showUpgradeModal()">Upgrade to Pro</button>
+          <div class="upgrade-price">$4.99/month or $50/year (save 17%)</div>
+        </div>
+        
+        <!-- Writer Match -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">✍️ Writers Like You</h3>
+          </div>
+          <div class="card-body">
+            <div id="writerMatches">
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--bg-dark); display: flex; align-items: center; justify-content: center;">📚</div>
+                <div>
+                  <div style="font-weight: 600; font-size: 0.9rem;">Barack Obama</div>
+                  <div style="font-size: 0.8rem; color: var(--muted);">Speeches & Memoirs</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--bg-dark); display: flex; align-items: center; justify-content: center;">📚</div>
+                <div>
+                  <div style="font-weight: 600; font-size: 0.9rem;">Brené Brown</div>
+                  <div style="font-size: 0.8rem; color: var(--muted);">Non-fiction</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--bg-dark); display: flex; align-items: center; justify-content: center;">📚</div>
+                <div>
+                  <div style="font-weight: 600; font-size: 0.9rem;">Simon Sinek</div>
+                  <div style="font-size: 0.8rem; color: var(--muted);">Leadership</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Extension Promo -->
+        <div class="card">
+          <div class="card-body" style="text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">🧩</div>
+            <h4 style="margin-bottom: 0.5rem;">Browser Extension</h4>
+            <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Analyze text anywhere on the web with one click.</p>
+            <a href="/extension" class="btn btn-secondary" style="width: 100%;">Get Extension</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Upgrade Modal (hidden by default) -->
+  <div id="upgradeModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 16px; max-width: 480px; width: 90%; padding: 2rem; text-align: center;">
+      <h2 style="margin-bottom: 0.5rem;">🚀 Upgrade to Pro</h2>
+      <p style="color: var(--muted); margin-bottom: 1.5rem;">Unlock the full power of Quirrely</p>
+      
+      <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="flex: 1; padding: 1rem; border: 2px solid var(--border); border-radius: 12px; cursor: pointer;" onclick="selectPlan('monthly')">
+          <div style="font-weight: 600;">Monthly</div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--coral);">$4.99</div>
+          <div style="font-size: 0.8rem; color: var(--muted);">/month</div>
+        </div>
+        <div style="flex: 1; padding: 1rem; border: 2px solid var(--coral); border-radius: 12px; background: rgba(255,107,107,0.05); cursor: pointer;" onclick="selectPlan('annual')">
+          <div style="font-weight: 600;">Annual</div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--coral);">$50</div>
+          <div style="font-size: 0.8rem; color: var(--muted);">/year (save 17%)</div>
+        </div>
+      </div>
+      
+      <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="processUpgrade()">
+        Continue to Payment
+      </button>
+      
+      <button style="margin-top: 1rem; background: none; border: none; color: var(--muted); cursor: pointer;" onclick="closeUpgradeModal()">
+        Maybe later
+      </button>
+    </div>
+  </div>
+  
+  <script>
+    // ═══════════════════════════════════════════════════════════════════
+    // DASHBOARD CONTROLLER
+    // ═══════════════════════════════════════════════════════════════════
+    
+    // Mock data (replace with API calls in production)
+    const mockUser = {
+      name: 'Jane Doe',
+      email: 'jane@example.com',
+      tier: 'trial', // 'free', 'trial', 'pro'
+      trialEndsAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+      currentProfile: {
+        id: 'ASSERTIVE-OPEN',
+        type: 'ASSERTIVE',
+        stance: 'OPEN',
+        title: 'The Confident Listener',
+        icon: '🎯',
+        tagline: 'You state your case. Then you listen.',
+        confidence: 0.87,
+        traits: ['Direct statements', 'High confidence', 'Clear positions', 'Inquiry-driven']
+      }
+    };
+    
+    const mockHistory = [
+      { id: '1', profileType: 'ASSERTIVE', stance: 'OPEN', title: 'The Confident Listener', icon: '🎯', timestamp: '2 hours ago', wordCount: 245 },
+      { id: '2', profileType: 'CONVERSATIONAL', stance: 'OPEN', title: 'The Curious Friend', icon: '💬', timestamp: 'Yesterday', wordCount: 189 },
+      { id: '3', profileType: 'ASSERTIVE', stance: 'CLOSED', title: 'The Commander', icon: '⚡', timestamp: '2 days ago', wordCount: 156 },
+      { id: '4', profileType: 'DENSE', stance: 'BALANCED', title: 'The Synthesizer', icon: '🔬', timestamp: '3 days ago', wordCount: 412 },
+      { id: '5', profileType: 'ASSERTIVE', stance: 'OPEN', title: 'The Confident Listener', icon: '🎯', timestamp: '4 days ago', wordCount: 278 },
+    ];
+    
+    const mockStats = {
+      totalAnalyses: 23,
+      todayCount: 3,
+      weekCount: 12,
+      streakDays: 5,
+      limitRemaining: 97,
+      dominantProfile: 'ASSERTIVE',
+      trend: 'stable' // 'up', 'down', 'stable'
+    };
+    
+    // Initialize dashboard
+    function initDashboard() {
+      updateTierUI();
+      updateProfileCard();
+      updateHistory();
+      updateStats();
+      updateEvolution();
+    }
+    
+    function updateTierUI() {
+      const badge = document.getElementById('tierBadge');
+      badge.className = `tier-badge ${mockUser.tier}`;
+      badge.textContent = mockUser.tier.toUpperCase();
+      
+      // Show/hide trial banner
+      const trialBanner = document.getElementById('trialBanner');
+      if (mockUser.tier === 'trial') {
+        trialBanner.style.display = 'flex';
+        const daysLeft = Math.ceil((new Date(mockUser.trialEndsAt) - new Date()) / (1000 * 60 * 60 * 24));
+        document.getElementById('trialDays').textContent = daysLeft;
+      } else {
+        trialBanner.style.display = 'none';
+      }
+      
+      // Show/hide upgrade card
+      const upgradeCard = document.getElementById('upgradeCard');
+      upgradeCard.style.display = mockUser.tier === 'pro' ? 'none' : 'block';
+      
+      // Update avatar
+      document.getElementById('userAvatar').textContent = mockUser.name.split(' ').map(n => n[0]).join('');
+    }
+    
+    function updateProfileCard() {
+      const profile = mockUser.currentProfile;
+      document.getElementById('profileIcon').textContent = profile.icon;
+      document.getElementById('profileTitle').textContent = profile.title;
+      document.getElementById('profileTagline').textContent = profile.tagline;
+      document.getElementById('profileType').textContent = profile.type;
+      document.getElementById('profileStance').textContent = profile.stance;
+      document.getElementById('profileConfidence').textContent = `${Math.round(profile.confidence * 100)}% confident`;
+      
+      const traitsContainer = document.getElementById('profileTraits');
+      traitsContainer.innerHTML = profile.traits.map(t => `<span class="trait-tag">${t}</span>`).join('');
+    }
+    
+    function updateHistory() {
+      const container = document.getElementById('historyList');
+      container.innerHTML = mockHistory.map(item => `
+        <div class="history-item" onclick="viewAnalysis('${item.id}')">
+          <div class="history-icon">${item.icon}</div>
+          <div class="history-info">
+            <div class="history-title">${item.title}</div>
+            <div class="history-meta">${item.timestamp} · ${item.wordCount} words</div>
+          </div>
+          <span class="history-badge ${item.profileType}">${item.profileType}</span>
+        </div>
+      `).join('');
+    }
+    
+    function updateStats() {
+      document.getElementById('totalAnalyses').textContent = mockStats.totalAnalyses;
+      document.getElementById('todayCount').textContent = mockStats.todayCount;
+      document.getElementById('weekCount').textContent = mockStats.weekCount;
+      document.getElementById('streakCount').textContent = mockStats.streakDays;
+      document.getElementById('limitRemaining').textContent = mockStats.limitRemaining;
+      document.getElementById('dominantProfile').textContent = mockStats.dominantProfile;
+      
+      const trendEl = document.getElementById('evolutionTrend');
+      const trends = {
+        up: { icon: '↑', text: 'Shifting', class: 'up' },
+        down: { icon: '↓', text: 'Changing', class: 'down' },
+        stable: { icon: '→', text: 'Consistent', class: 'stable' }
+      };
+      const trend = trends[mockStats.trend];
+      trendEl.innerHTML = `${trend.icon} ${trend.text}`;
+      trendEl.className = `trend-indicator ${trend.class}`;
+    }
+    
+    function updateEvolution() {
+      // In production, this would render a Chart.js chart
+      // For now, show placeholder
+      document.getElementById('chartPlaceholder').innerHTML = `
+        <div style="text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+          <div>Your voice evolution over time</div>
+          <div style="font-size: 0.8rem; margin-top: 0.5rem;">23 analyses in the last 30 days</div>
+        </div>
+      `;
+    }
+    
+    function viewAnalysis(id) {
+      window.location.href = `/results/${id}`;
+    }
+    
+    function showProfileDetails() {
+      window.location.href = `/profile/${mockUser.currentProfile.id}`;
+    }
+    
+    function showUpgradeModal() {
+      document.getElementById('upgradeModal').style.display = 'flex';
+    }
+    
+    function closeUpgradeModal() {
+      document.getElementById('upgradeModal').style.display = 'none';
+    }
+    
+    function selectPlan(plan) {
+      console.log('Selected plan:', plan);
+      // Update UI to show selected plan
+    }
+    
+    function processUpgrade() {
+      // In production, redirect to Stripe checkout
+      alert('Redirecting to payment... (Stripe integration pending)');
+    }
+    
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', initDashboard);
+  </script>
+</body>
+</html>

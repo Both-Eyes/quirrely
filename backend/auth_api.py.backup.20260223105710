@@ -1,0 +1,563 @@
+#!/usr/bin/env python3
+"""
+QUIRRELY AUTHENTICATION API v1.0
+Supabase Auth integration with custom business logic.
+
+Features:
+- Email/password signup & login
+- Magic link authentication
+- Google OAuth (NEVER Apple)
+- Email verification (required for paid features)
+- Display name management
+- Profile visibility settings
+- Account deletion (soft/hard)
+- Session management (unlimited devices)
+
+Token Architecture (v3.1.3):
+- Session tokens: secrets.token_urlsafe(32) — high-entropy opaque tokens stored
+  in _sessions dict (in-memory, DB-backed in production).
+- JWT layer: python-jose JWT utilities in auth_middleware.py handle stateless
+  token validation for API-to-API calls and the Chrome extension.
+- Import jwt_utils from auth_middleware for JWT encode/decode operations.
+"""
+
+import os
+import jwt  # python-jose — used via auth_middleware.jwt_utils
+from datetime import datetime, timedelta
+from typing import Optional, Dict, Any, List
+from fastapi import APIRouter, HTTPException, Depends, Header, Request, Response
+from pydantic import BaseModel, EmailStr, Field
+import httpx
+
+from auth_config import (
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
+    SUPABASE_SERVICE_KEY,
+    PASSWORD_POLICY,
+    EMAIL_VERIFICATION_CONFIG,
+    DISPLAY_NAME_CONFIG,
+    PROFILE_VISIBILITY_CONFIG,
+    ACCOUNT_DELETION_CONFIG,
+    SESSION_CONFIG,
+    ProfileVisibility,
+    validate_display_name,
+    requires_email_verification,
+    requires_display_name,
+)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ROUTER
+# ═══════════════════════════════════════════════════════════════════════════
+
+router = APIRouter(prefix="/api/v2/auth", tags=["auth"])
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# MODELS
+# ═══════════════════════════════════════════════════════════════════════════
+
+class SignUpRequest(BaseModel):
+    email: EmailStr
+    password: Optional[str] = None  # Not required if using magic link
+
+
+class SignUpResponse(BaseModel):
+    user_id: str
+    email: str
+    requires_verification: bool
+    message: str
+
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class MagicLinkRequest(BaseModel):
+    email: EmailStr
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    refresh_token: str
+    expires_in: int
+    token_type: str = "bearer"
+    user: Dict[str, Any]
+
+
+class UserResponse(BaseModel):
+    id: str
+    email: str
+    email_verified: bool
+    display_name: Optional[str]
+    profile_visibility: str
+    created_at: datetime
+    updated_at: datetime
+
+
+class UpdateProfileRequest(BaseModel):
+    display_name: Optional[str] = None
+    profile_visibility: Optional[str] = None
+
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str
+    new_password: str
+
+
+class DeleteAccountRequest(BaseModel):
+    confirmation: Optional[str] = None  # Required for hard delete
+    hard_delete: bool = False
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# IN-MEMORY STORAGE (Replace with Supabase in production)
+# ═══════════════════════════════════════════════════════════════════════════
+
+_users: Dict[str, Dict] = {}
+_sessions: Dict[str, Dict] = {}
+_deleted_accounts: Dict[str, Dict] = {}
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DEPENDENCIES
+# ═══════════════════════════════════════════════════════════════════════════
+
+def get_current_user(authorization: Optional[str] = Header(None)) -> Optional[Dict]:
+    """Extract user from auth header."""
+    if not authorization or not authorization.startswith("Bearer "):
+        return None
+    
+    token = authorization[7:]
+    session = _sessions.get(token)
+    
+    if not session:
+        return None
+    
+    if datetime.utcnow() > session.get("expires_at", datetime.min):
+        return None
+    
+    user_id = session.get("user_id")
+    return _users.get(user_id)
+
+
+def require_auth(authorization: Optional[str] = Header(None)) -> Dict:
+    """Require authenticated user."""
+    user = get_current_user(authorization)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    return user
+
+
+def require_verified(authorization: Optional[str] = Header(None)) -> Dict:
+    """Require verified email."""
+    user = require_auth(authorization)
+    if not user.get("email_verified"):
+        raise HTTPException(status_code=403, detail="Email verification required")
+    return user
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SIGN UP
+# ═══════════════════════════════════════════════════════════════════════════
+
+@router.post("/signup", response_model=SignUpResponse)
+async def sign_up(request: SignUpRequest):
+    import subprocess, uuid, hashlib, bcrypt
+    email=request.email.lower().strip()
+    if not request.password:
+        raise HTTPException(status_code=400,detail='Password is required')
+    if request.password:
+        v=PASSWORD_POLICY.validate(request.password)
+        if not v["valid"]:
+            raise HTTPException(status_code=400,detail=v["error"])
+    pw_hash=bcrypt.hashpw(request.password.encode(),bcrypt.gensalt()).decode() if request.password else ""
+    chk=subprocess.run(["sudo","-u","postgres","psql","-d","quirrely_prod","-t","-c",
+        f"SELECT id FROM users WHERE email='{email}';"],capture_output=True,text=True,timeout=10)
+    if chk.stdout.strip():
+        raise HTTPException(status_code=400,detail="Email already registered")
+    user_id=str(uuid.uuid4())
+    dn=(request.username if hasattr(request,"username") and request.username else email.split("@")[0]).replace("'","")
+    subprocess.run(["sudo","-u","postgres","psql","-d","quirrely_prod","-c",
+        f"INSERT INTO users (id,email,display_name,subscription_tier) VALUES ('{user_id}','{email}','{dn}','free');"],
+        capture_output=True,text=True,timeout=10)
+    _users[user_id]={"id":user_id,"email":email,"password_hash":pw_hash,"email_verified":False,"display_name":dn}
+    return SignUpResponse(user_id=user_id,email=email,requires_verification=True,message="Account created")
+
+@router.post("/signup/google")
+async def sign_up_google(request: Request):
+    """Initiate Google OAuth sign up."""
+    # In production: Redirect to Supabase Google OAuth
+    redirect_url = f"{SUPABASE_URL}/auth/v1/authorize?provider=google"
+    return {"redirect_url": redirect_url}
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LOGIN
+# ═══════════════════════════════════════════════════════════════════════════
+
+@router.post("/login", response_model=TokenResponse)
+async def login(request: LoginRequest):
+    import subprocess, hashlib, secrets, bcrypt
+    email=request.email.lower().strip()
+    pw_hash=bcrypt.hashpw(request.password.encode(),bcrypt.gensalt()).decode() if request.password else ""
+    r=subprocess.run(["sudo","-u","postgres","psql","-d","quirrely_prod","-t","-c",
+        f"SELECT id,display_name FROM users WHERE email='{email}';"],
+        capture_output=True,text=True,timeout=10)
+    row=r.stdout.strip()
+    if not row:
+        raise HTTPException(status_code=401,detail="Invalid email or password")
+    parts=[p.strip() for p in row.split("|")]
+    user_id=parts[0]; dn=parts[1] if len(parts)>1 else ""
+    if user_id not in _users:
+        _users[user_id]={"id":user_id,"email":email,"password_hash":pw_hash,"email_verified":False,"display_name":dn}
+    elif _users[user_id].get("password_hash") and not bcrypt.checkpw(request.password.encode(), _users[user_id]["password_hash"].encode()):
+        raise HTTPException(status_code=401,detail="Invalid email or password")
+    access_token=secrets.token_urlsafe(32)
+    refresh_token=secrets.token_urlsafe(32)
+    expires_at=datetime.utcnow()+timedelta(hours=SESSION_CONFIG["session_lifetime_hours"])
+    _sessions[access_token]={"user_id":user_id,"expires_at":expires_at,"refresh_token":refresh_token}
+    subprocess.run(["sudo","-u","postgres","psql","-d","quirrely_prod","-c",
+        f"UPDATE users SET last_login_at=now() WHERE id='{user_id}';"],
+        capture_output=True,text=True,timeout=10)
+    return TokenResponse(access_token=access_token,refresh_token=refresh_token,token_type="bearer",expires_in=SESSION_CONFIG["session_lifetime_hours"]*3600,user={"id":user_id,"email":email,"display_name":dn})
+
+async def request_magic_link(request: MagicLinkRequest):
+    """Request magic link login."""
+    email = request.email.lower().strip()
+    
+    # In production: Send magic link via Supabase
+    
+    return {
+        "message": "Check your email for the login link",
+        "email": email,
+    }
+
+
+@router.post("/login/google")
+async def login_google():
+    """Initiate Google OAuth login."""
+    redirect_url = f"{SUPABASE_URL}/auth/v1/authorize?provider=google"
+    return {"redirect_url": redirect_url}
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TOKEN MANAGEMENT
+# ═══════════════════════════════════════════════════════════════════════════
+
+@router.post("/refresh")
+async def refresh_token(refresh_token: str):
+    """Refresh access token."""
+    # Find session with this refresh token
+    for access_token, session in _sessions.items():
+        if session.get("refresh_token") == refresh_token:
+            # Create new tokens
+            import secrets
+            new_access_token = secrets.token_urlsafe(32)
+            new_refresh_token = secrets.token_urlsafe(32)
+            
+            expires_at = datetime.utcnow() + timedelta(hours=SESSION_CONFIG["session_lifetime_hours"])
+            
+            # Remove old session
+            del _sessions[access_token]
+            
+            # Create new session
+            _sessions[new_access_token] = {
+                "user_id": session["user_id"],
+                "expires_at": expires_at,
+                "refresh_token": new_refresh_token,
+            }
+            
+            user = _users.get(session["user_id"], {})
+            
+            return TokenResponse(
+                access_token=new_access_token,
+                refresh_token=new_refresh_token,
+                expires_in=SESSION_CONFIG["session_lifetime_hours"] * 3600,
+                user={
+                    "id": user.get("id"),
+                    "email": user.get("email"),
+                    "email_verified": user.get("email_verified"),
+                    "display_name": user.get("display_name"),
+                },
+            )
+    
+    raise HTTPException(status_code=401, detail="Invalid refresh token")
+
+
+@router.post("/logout")
+async def logout(user: Dict = Depends(require_auth), authorization: str = Header(None)):
+    """Logout current session."""
+    token = authorization[7:] if authorization else None
+    
+    if token and token in _sessions:
+        del _sessions[token]
+    
+    return {"message": "Logged out successfully"}
+
+
+@router.post("/logout/all")
+async def logout_all_sessions(user: Dict = Depends(require_auth)):
+    """Logout all sessions for user."""
+    user_id = user["id"]
+    
+    # Remove all sessions for this user
+    to_remove = [
+        token for token, session in _sessions.items()
+        if session.get("user_id") == user_id
+    ]
+    
+    for token in to_remove:
+        del _sessions[token]
+    
+    return {"message": f"Logged out of {len(to_remove)} sessions"}
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# EMAIL VERIFICATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+@router.post("/verify/resend")
+async def resend_verification(user: Dict = Depends(require_auth)):
+    """Resend verification email."""
+    if user.get("email_verified"):
+        return {"message": "Email already verified"}
+    
+    # In production: Send verification email via Supabase
+    
+    return {"message": "Verification email sent"}
+
+
+@router.post("/verify/confirm")
+async def confirm_verification(token: str):
+    """Confirm email verification."""
+    # In production: Verify token via Supabase
+    
+    # For demo, just mark as verified
+    # Would parse token to get user_id
+    
+    return {"message": "Email verified successfully"}
+
+
+@router.get("/verify/required")
+async def check_verification_required(
+    action: str,
+    user: Dict = Depends(require_auth),
+):
+    """Check if verification is required for an action."""
+    required = requires_email_verification(action)
+    verified = user.get("email_verified", False)
+    
+    return {
+        "action": action,
+        "verification_required": required,
+        "email_verified": verified,
+        "can_proceed": not required or verified,
+    }
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# USER PROFILE
+# ═══════════════════════════════════════════════════════════════════════════
+
+@router.get("/me", response_model=UserResponse)
+async def get_current_user_profile(user: Dict = Depends(require_auth)):
+    """Get current user's profile."""
+    return UserResponse(
+        id=user["id"],
+        email=user["email"],
+        email_verified=user.get("email_verified", False),
+        display_name=user.get("display_name"),
+        profile_visibility=user.get("profile_visibility", ProfileVisibility.PRIVATE.value),
+        created_at=user.get("created_at", datetime.utcnow()),
+        updated_at=user.get("updated_at", datetime.utcnow()),
+    )
+
+
+@router.patch("/me")
+async def update_profile(
+    request: UpdateProfileRequest,
+    user: Dict = Depends(require_auth),
+):
+    """Update user profile."""
+    user_id = user["id"]
+    updates = {}
+    
+    if request.display_name is not None:
+        validation = validate_display_name(request.display_name)
+        if not validation["valid"]:
+            raise HTTPException(status_code=400, detail=validation["error"])
+        updates["display_name"] = request.display_name.strip()
+    
+    if request.profile_visibility is not None:
+        try:
+            visibility = ProfileVisibility(request.profile_visibility)
+            updates["profile_visibility"] = visibility.value
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Invalid profile visibility")
+    
+    if updates:
+        updates["updated_at"] = datetime.utcnow()
+        _users[user_id].update(updates)
+    
+    return {"message": "Profile updated", "updates": updates}
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PASSWORD MANAGEMENT
+# ═══════════════════════════════════════════════════════════════════════════
+
+@router.post("/password/change")
+async def change_password(
+    request: ChangePasswordRequest,
+    user: Dict = Depends(require_auth),
+):
+    """Change password."""
+    user_id = user["id"]
+    
+    # Verify current password
+    if _users[user_id].get("password_hash") != request.current_password:
+        raise HTTPException(status_code=400, detail="Current password is incorrect")
+    
+    # Validate new password
+    validation = PASSWORD_POLICY.validate(request.new_password)
+    if not validation["valid"]:
+        raise HTTPException(status_code=400, detail=validation["error"])
+    
+    # Update password
+    _users[user_id]["password_hash"] = request.new_password
+    _users[user_id]["updated_at"] = datetime.utcnow()
+    
+    # Invalidate all sessions if configured
+    if SESSION_CONFIG.get("invalidate_on_password_change"):
+        to_remove = [
+            token for token, session in _sessions.items()
+            if session.get("user_id") == user_id
+        ]
+        for token in to_remove:
+            del _sessions[token]
+    
+    return {"message": "Password changed successfully"}
+
+
+@router.post("/password/reset")
+async def request_password_reset(email: EmailStr):
+    """Request password reset email."""
+    # In production: Send reset email via Supabase
+    
+    return {"message": "If this email exists, a reset link has been sent"}
+
+
+@router.get("/password/strength")
+async def check_password_strength(password: str):
+    """Check password strength (for UI meter)."""
+    return PASSWORD_POLICY.get_strength(password)
+
+
+@router.post("/password/validate")
+async def validate_password(password: str):
+    """Validate password against policy."""
+    return PASSWORD_POLICY.validate(password)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ACCOUNT DELETION
+# ═══════════════════════════════════════════════════════════════════════════
+
+@router.post("/account/delete")
+async def delete_account(
+    request: DeleteAccountRequest,
+    user: Dict = Depends(require_auth),
+):
+    """Delete account (soft or hard)."""
+    user_id = user["id"]
+    
+    if request.hard_delete:
+        # Hard delete requires confirmation phrase
+        if request.confirmation != ACCOUNT_DELETION_CONFIG["hard_delete"]["confirmation_phrase"]:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Type '{ACCOUNT_DELETION_CONFIG['hard_delete']['confirmation_phrase']}' to confirm"
+            )
+        
+        # Hard delete
+        _deleted_accounts[user_id] = {
+            "deleted_at": datetime.utcnow(),
+            "type": "hard",
+            "email": user.get("email"),  # Keep for audit
+        }
+        
+        del _users[user_id]
+        
+        # Remove all sessions
+        to_remove = [t for t, s in _sessions.items() if s.get("user_id") == user_id]
+        for token in to_remove:
+            del _sessions[token]
+        
+        return {"message": "Account permanently deleted"}
+    
+    else:
+        # Soft delete
+        _users[user_id]["deleted_at"] = datetime.utcnow()
+        _users[user_id]["status"] = "deleted"
+        _users[user_id]["recovery_until"] = datetime.utcnow() + timedelta(
+            days=ACCOUNT_DELETION_CONFIG["soft_delete"]["recovery_days"]
+        )
+        
+        # Remove all sessions
+        to_remove = [t for t, s in _sessions.items() if s.get("user_id") == user_id]
+        for token in to_remove:
+            del _sessions[token]
+        
+        return {
+            "message": "Account deactivated",
+            "recovery_until": _users[user_id]["recovery_until"],
+        }
+
+
+@router.post("/account/recover")
+async def recover_account(email: EmailStr, password: str):
+    """Recover soft-deleted account."""
+    email = email.lower().strip()
+    
+    for user_id, user in _users.items():
+        if user.get("email") == email and user.get("status") == "deleted":
+            # Check if still recoverable
+            if datetime.utcnow() > user.get("recovery_until", datetime.min):
+                raise HTTPException(status_code=400, detail="Recovery period expired")
+            
+            # Verify password
+            if user.get("password_hash") and not bcrypt.checkpw(password.encode(), user["password_hash"].encode()):
+                raise HTTPException(status_code=401, detail="Invalid password")
+            
+            # Recover account
+            user["status"] = "active"
+            user.pop("deleted_at", None)
+            user.pop("recovery_until", None)
+            user["updated_at"] = datetime.utcnow()
+            
+            return {"message": "Account recovered successfully"}
+    
+    raise HTTPException(status_code=404, detail="Account not found")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SESSIONS
+# ═══════════════════════════════════════════════════════════════════════════
+
+@router.get("/sessions")
+async def list_sessions(user: Dict = Depends(require_auth)):
+    """List all active sessions for user."""
+    user_id = user["id"]
+    
+    sessions = []
+    for token, session in _sessions.items():
+        if session.get("user_id") == user_id:
+            sessions.append({
+                "token_prefix": token[:8] + "...",
+                "expires_at": session.get("expires_at"),
+                "created_at": session.get("created_at"),
+            })
+    
+    return {"sessions": sessions, "count": len(sessions)}

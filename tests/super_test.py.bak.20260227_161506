@@ -1,0 +1,574 @@
+#!/usr/bin/env python3
+"""QUIRRELY SUPER_TEST v1.1 — ASO · KIM · MARS"""
+import os,sys,json,time,socket,subprocess,urllib.request,urllib.error,ssl
+from datetime import datetime,timezone
+BASE_URL="http://127.0.0.1:8080"
+SITE_URL="https://quirrely.com"
+SITE_CA_URL="http://127.0.0.1:8080"
+DB_NAME="quirrely_prod"
+APP_DIR="/opt/quirrely/quirrely_v313_integrated/backend"
+RESEND_API_KEY=""  # read from .env at runtime
+FROM_EMAIL="Quirrely <hello@quirrely.com>"
+REPORT_EMAIL="hello@quirrely.com"
+TEST_EMAIL="supertest@quirrely.com"
+SSL_CTX=ssl.create_default_context()
+results={"run_at":datetime.now(timezone.utc).isoformat(),"part_a":{"pass":0,"fail":0,"tests":[]},"part_b":{"pass":0,"fail":0,"tests":[]},"part_c":{"pass":0,"fail":0,"tests":[]}}
+def record(part,name,passed,detail="",owner=""):
+    key="part_a" if part=="A" else "part_b" if part=="B" else "part_c"
+    results[key]["pass" if passed else "fail"]+=1
+    results[key]["tests"].append({"name":name,"status":"PASS" if passed else "FAIL","detail":detail,"owner":owner})
+    print(f"  {'✅' if passed else '❌'} [{owner}] {name}: {detail}")
+def http_get(url,timeout=10):
+    try:
+        req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; QuirrelyHealthCheck)"})
+        with urllib.request.urlopen(req,timeout=timeout,context=SSL_CTX) as r:
+            return r.status,r.read().decode("utf-8",errors="replace")
+    except urllib.error.HTTPError as e: return e.code,""
+    except Exception as e: return 0,str(e)
+def http_post(url,data,timeout=10):
+    try:
+        payload=json.dumps(data).encode("utf-8")
+        req=urllib.request.Request(url,data=payload,method="POST",headers={"Content-Type":"application/json","User-Agent":"Mozilla/5.0 (compatible; QuirrelyHealthCheck)"})
+        with urllib.request.urlopen(req,timeout=timeout,context=SSL_CTX) as r:
+            return r.status,json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        try: return e.code,json.loads(e.read().decode("utf-8"))
+        except: return e.code,{}
+    except Exception as e: return 0,{"error":str(e)}
+def db_query(sql):
+    try:
+        r=subprocess.run(["sudo","-u","postgres","psql","-d",DB_NAME,"-t","-c",sql],capture_output=True,text=True,timeout=10)
+        return r.stdout.strip(),r.returncode==0
+    except Exception as e: return str(e),False
+def pm2_status():
+    try:
+        r=subprocess.run(["pm2","jlist"],capture_output=True,text=True,timeout=10)
+        return json.loads(r.stdout)
+    except: return []
+def ssl_expiry_days(hostname):
+    try:
+        ctx=ssl.create_default_context()
+        with ctx.wrap_socket(socket.socket(),server_hostname=hostname) as s:
+            s.settimeout(5);s.connect((hostname,443))
+            cert=s.getpeercert()
+            exp=datetime.strptime(cert["notAfter"],"%b %d %H:%M:%S %Y %Z")
+            return (exp-datetime.now(timezone.utc).replace(tzinfo=None)).days
+    except: return -1
+def run_part_a():
+    print("\n"+"="*70+"\n  SUPER_TEST_PART_A — Environment [ASO+MARS]\n"+"="*70)
+    print("\n  [ASO] PM2")
+    procs=pm2_status()
+    proc=next((p for p in procs if p.get("name")=="quirrely"),None)
+    if proc:
+        st=proc.get("pm2_env",{}).get("status","unknown")
+        rs=proc.get("pm2_env",{}).get("restart_time",0)
+        mb=proc.get("monit",{}).get("memory",0)/1024/1024
+        record("A","PM2 quirrely online",st=="online",f"status={st}","ASO")
+        record("A","PM2 restarts < 25",rs<=25,f"restarts={rs}","ASO")
+        record("A","PM2 memory < 512MB",mb<512,f"{mb:.1f}MB","ASO")
+    else:
+        record("A","PM2 quirrely found",False,"not found","ASO")
+    print("\n  [ASO] API")
+    st,body=http_get(f"{BASE_URL}/health")
+    record("A","GET /health 200",st==200,f"status={st}","ASO")
+    if st==200:
+        try:
+            d=json.loads(body)
+            record("A","API version 3.1.3",d.get("version")=="3.1.3",f"version={d.get('version')}","ASO")
+            record("A","API status healthy",d.get("status")=="healthy",f"status={d.get('status')}","ASO")
+        except: record("A","API health JSON",False,"parse error","ASO")
+    st,_=http_get(f"{BASE_URL}/api/v2/health")
+    record("A","GET /api/v2/health",st==200,f"status={st}","ASO")
+    print("\n  [ASO] Database")
+    out,ok=db_query("SELECT version();")
+    record("A","PostgreSQL connection",ok,out[:40] if ok else out,"ASO")
+    out,ok=db_query("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public';")
+    cnt=int(out.strip()) if ok and out.strip().isdigit() else 0
+    record("A","Public schema 15+ tables",cnt>=15,f"{cnt} tables","ASO")
+    for tbl in ["users","writing_profiles","subscriptions","waitlist"]:
+        out,ok=db_query(f"SELECT COUNT(*) FROM {tbl};")
+        record("A",f"Table '{tbl}' accessible",ok,f"rows={out.strip()}" if ok else out,"ASO")
+    out,ok=db_query("SELECT COUNT(*) FROM stretch_prompts_base;")
+    cnt=int(out.strip()) if ok and out.strip().isdigit() else 0
+    record("A","STRETCH prompts 450+",cnt>=450,f"{cnt} prompts","ASO")
+    print("\n  [ASO] SSL+Sites")
+    st,body=http_get(SITE_URL)
+    record("A","quirrely.com 200",st==200,f"status={st}","ASO")
+    if st==200: record("A","quirrely.com has Quirrely","Quirrely" in body,"found" if "Quirrely" in body else "not found","ASO")
+    st,_=http_get(SITE_CA_URL)
+    record("A","quirrely.ca 200",st==200,f"status={st}","ASO")
+    for host in ["quirrely.com","api.quirrely.com","quirrely.ca"]:
+        days=ssl_expiry_days(host)
+        record("A",f"SSL valid: {host}",days>14,f"{days} days","ASO")
+    print("\n  [MARS] Stripe")
+    sk,wh="",""
+    try:
+        with open(os.path.join(APP_DIR,".env")) as f:
+            for line in f:
+                if line.startswith("STRIPE_SECRET_KEY="): sk=line.split("=",1)[1].strip()
+                if line.startswith("STRIPE_WEBHOOK_SECRET="): wh=line.split("=",1)[1].strip()
+    except: pass
+    record("A","STRIPE_SECRET_KEY present",bool(sk),"found" if sk else "missing","MARS")
+    record("A","STRIPE live key",sk.startswith("sk_live_"),"live" if sk.startswith("sk_live_") else "not live","MARS")
+    record("A","STRIPE_WEBHOOK_SECRET present",bool(wh),"found" if wh else "missing","MARS")
+def run_part_b():
+    print("\n"+"="*70+"\n  SUPER_TEST_PART_B — Functional [KIM]\n"+"="*70)
+    ts=int(time.time())
+    print("\n  [KIM] Auth Endpoints")
+    test_user=f"supertest_{ts}@quirrely.com"
+    st,resp=http_post(f"{BASE_URL}/api/v2/auth/signup",{"email":test_user,"password":"SuperTest2026!x","username":f"st_{ts}"})
+    record("B","Auth signup endpoint mounted",st not in [0,404],f"status={st}","KIM")
+    st,resp=http_post(f"{BASE_URL}/api/v2/auth/login",{"email":test_user,"password":"SuperTest2026!x"})
+    record("B","Auth login endpoint mounted",st not in [0,404],f"status={st}","KIM")
+    token=resp.get("access_token","") if st==200 else ""
+    record("B","Login returns token",bool(token),"token received" if token else "no token (auth not mounted)","KIM")
+    print("\n  [KIM] LNCP Pipeline")
+    sys.path.insert(0,APP_DIR)
+    try:
+        from lncp_orchestrator import get_orchestrator
+        orch=get_orchestrator()
+        sid,state=orch.create_session(mode="STORY")
+        record("B","LNCP session created",bool(sid),f"session={sid[:8]}...","KIM")
+        groups=[
+            ["The morning light came through the window.","She made coffee and sat down."],
+            ["Words are the only currency that compounds.","He wrote slowly, with intention."],
+            ["The ratio of silence to speech matters.","She paused before answering."],
+        ]
+        for i,grp in enumerate(groups):
+            state=orch.submit_group(sid,grp)
+            record("B",f"LNCP group {i+1} accepted",state.get("last_submission",{}).get("status")=="VALID",f"gate={state.get('gate',{}).get('completed',0)}/3","KIM")
+        record("B","LNCP gate complete",state.get("gate",{}).get("is_complete",False),"complete" if state.get("gate",{}).get("is_complete") else "incomplete","KIM")
+        analysis=orch.run_analysis(sid)
+        record("B","LNCP analysis runs",bool(analysis),f"sentences={len(analysis.get('sentences_analyzed',[]))}","KIM")
+        record("B","LNCP phase2 present","phase2" in analysis,f"mode={analysis.get('phase2',{}).get('presentation_mode','N/A')}","KIM")
+        record("B","LNCP phase3 syntheses",len(analysis.get("phase3",{}).get("syntheses",[]))>0,f"{len(analysis.get('phase3',{}).get('syntheses',[]))} syntheses","KIM")
+        orch.cleanup_session(sid)
+        record("B","LNCP session cleanup",True,"ok","KIM")
+    except Exception as e:
+        record("B","LNCP pipeline",False,str(e),"KIM")
+    print("\n  [KIM] Analyze API Endpoint")
+    _az_s,_az_r=http_post(BASE_URL+"/api/v2/analyze",{"text":"The morning light filtered through curtains. She sat quietly thinking about what to write next. Words matter more than we realize."})
+    record("B","Analyze endpoint 200",_az_s==200,f"status={_az_s}","KIM")
+    _az_ps=isinstance(_az_r,dict) and "profiles" in _az_r.get("scores",{})
+    record("B","Analyze returns profiles",_az_ps,"found" if _az_ps else "MISSING","KIM")
+    _az_st=isinstance(_az_r,dict) and "stances" in _az_r.get("scores",{})
+    record("B","Analyze returns stances",_az_st,"found" if _az_st else "MISSING","KIM")
+    _az_rej,_=http_post(BASE_URL+"/api/v2/analyze",{"text":"Short"})
+    record("B","Analyze rejects short text",_az_rej==422,f"status={_az_rej}","KIM")
+
+    print("\n  [KIM] Feature Gate")
+    try:
+        from feature_gate import FeatureGate,Tier
+        import tempfile; from pathlib import Path
+        gate=FeatureGate(storage_dir=Path(tempfile.mkdtemp())/"gate")
+        uid=f"testuser_{ts}"
+        gate.set_user_tier(uid,Tier.FREE)
+        record("B","FREE: basic_analysis allowed",gate.can_access("basic_analysis",user_id=uid).allowed,"allowed","KIM")
+        record("B","FREE: unlimited_analyses blocked",not gate.can_access("unlimited_analyses",user_id=uid).allowed,"blocked","KIM")
+        gate.set_user_tier(uid,Tier.PRO)
+        record("B","PRO: unlimited_analyses allowed",gate.can_access("unlimited_analyses",user_id=uid).allowed,"allowed","KIM")
+    except Exception as e:
+        record("B","Feature gate",False,str(e),"KIM")
+    print("\n  [KIM] STRETCH+Extension")
+    out,ok=db_query("SELECT COUNT(*) FROM stretch_prompts_base;")
+    cnt=int(out.strip()) if ok and out.strip().isdigit() else 0
+    record("B","STRETCH prompts 450+",cnt>=450,f"{cnt}","KIM")
+    out,ok=db_query("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public' AND (table_name LIKE 'stretch%' OR table_name LIKE 'tier_stretch%' OR table_name LIKE 'user_stretch%');")
+    cnt=int(out.strip()) if ok and out.strip().isdigit() else 0
+    record("B","STRETCH tables 9+",cnt>=9,f"{cnt} tables","KIM")
+    st,_=http_get(f"{BASE_URL}/api/extension/health")
+    record("B","Extension API responds",st in [200,401,404],f"status={st}","KIM")
+    # Extension Files
+    print("\n  [KIM] Extension Files")
+    _ext="/opt/quirrely/quirrely_v313_integrated/extension"
+    _popup_html=open(_ext+"/pages/popup.html").read() if os.path.isfile(_ext+"/pages/popup.html") else ""
+    _popup_js=open(_ext+"/pages/popup.js").read() if os.path.isfile(_ext+"/pages/popup.js") else ""
+    record("B","Extension wordmark correct",'coral">rel</span>' in _popup_html and 'italic">y</span>' in _popup_html and 'italic">ly</span>' not in _popup_html,"correct" if 'italic">y</span>' in _popup_html else "WRONG","KIM")
+    record("B","Extension has Featured tier","featuredAnalysesPerDay" in _popup_js,"found" if "featuredAnalysesPerDay" in _popup_js else "MISSING","KIM")
+    record("B","Extension upgrade URL correct","/billing/upgrade.html" in _popup_js,"found" if "/billing/upgrade.html" in _popup_js else "MISSING","KIM")
+    record("B","Extension login URL correct","/auth/login.html" in _popup_js,"found" if "/auth/login.html" in _popup_js else "MISSING","KIM")
+    record("B","Extension dashboard URL correct","/frontend/pro-dashboard.html" in _popup_js,"found" if "/frontend/pro-dashboard.html" in _popup_js else "MISSING","KIM")
+    record("B","Extension no double-L","Quirrelly" not in _popup_html and "Quirrelly" not in _popup_js,"clean" if "Quirrelly" not in _popup_html else "FOUND","KIM")
+    print("\n  [KIM] Dashboard API")
+    st,resp=http_get(f"{BASE_URL}/api/v2/me/dashboard")
+    record("B","Dashboard endpoint mounted",st==401,f"status={st} (401=auth required)","KIM")
+    st,resp=http_post(f"{BASE_URL}/api/v2/me/save-analysis",{"profile":"minimal","stance":"open","input_word_count":50})
+    record("B","Save-analysis endpoint mounted",st==401,f"status={st} (401=auth required)","KIM")
+    if token:
+        _req=urllib.request.Request(f"{BASE_URL}/api/v2/me/dashboard",headers={"User-Agent":"Mozilla/5.0 (compatible; QuirrelyHealthCheck)","Authorization":f"Bearer {token}"})
+        try:
+            with urllib.request.urlopen(_req,timeout=10,context=SSL_CTX) as _r: _dst,_db=_r.status,json.loads(_r.read().decode("utf-8"))
+        except urllib.error.HTTPError as e: _dst,_db=e.code,{}
+        except Exception as e: _dst,_db=0,{}
+        record("B","Dashboard returns user data",_dst==200 and "user" in _db,f"status={_dst}, keys={list(_db.keys())[:4]}","KIM")
+        record("B","Dashboard has stats",_dst==200 and "stats" in _db,f"stats={_db.get(chr(115)+chr(116)+chr(97)+chr(116)+chr(115),{})}","KIM")
+
+    # Webhook DB persistence
+    _wh1 = "Persist to DB" in open("/opt/quirrely/quirrely_v313_integrated/backend/payments_api.py").read()
+    record("B","Webhook persists checkout to DB",_wh1,"found" if _wh1 else "missing","MARS")
+    _wh2 = "Persist update to DB" in open("/opt/quirrely/quirrely_v313_integrated/backend/payments_api.py").read()
+    record("B","Webhook persists sub update to DB",_wh2,"found" if _wh2 else "missing","MARS")
+    _wh3 = "Persist deletion to DB" in open("/opt/quirrely/quirrely_v313_integrated/backend/payments_api.py").read()
+    record("B","Webhook persists sub deletion to DB",_wh3,"found" if _wh3 else "missing","MARS")
+    # Promo Codes
+    print("\n  [KIM] Save-Analysis Auto-Score")
+    _sa=open(os.path.join(APP_DIR,"dashboard_api.py")).read()
+    record("B","Save-analysis auto-score","Auto-compute scores" in _sa,"found" if "Auto-compute scores" in _sa else "MISSING","KIM")
+    record("B","Save-analysis imports classifier","get_classifier" in _sa,"found" if "get_classifier" in _sa else "MISSING","KIM")
+
+    print("\n  [MARS] Promo Codes")
+    _pay_src = open(os.path.join(APP_DIR, "payments_api.py")).read()
+    record("B","Checkout allows promo codes","allow_promotion_codes=True" in _pay_src,"found" if "allow_promotion_codes=True" in _pay_src else "MISSING","MARS")
+    _promo_file = os.path.join(os.path.dirname(APP_DIR), "promo_codes.txt")
+    _promo_exists = os.path.isfile(_promo_file)
+    _promo_count = len(open(_promo_file).readlines()) if _promo_exists else 0
+    record("B","Promo codes file exists (100)",_promo_exists and _promo_count==100,f"{_promo_count} codes" if _promo_exists else "MISSING","MARS")
+    try:
+        import stripe as _stripe
+        _env=read_env(); _stripe.api_key=_env.get("STRIPE_SECRET_KEY","")
+        _coupon=_stripe.Coupon.retrieve("qsaRUyUt")
+        record("B","Stripe coupon active",_coupon.valid,"valid" if _coupon.valid else "INVALID","MARS")
+    except Exception as e:
+        record("B","Stripe coupon active",False,str(e)[:60],"MARS")
+    # Multi-Currency Pricing
+    print("\n  [MARS] Multi-Currency Pricing")
+    import json as _json
+    for _cc, _exp_pro in [("cad",2.99),("gbp",1.99),("aud",4.99),("nzd",3.99)]:
+        try:
+            _req=urllib.request.Request(f"http://127.0.0.1:8000/api/v2/payments/pricing?currency={_cc}")
+            _resp=urllib.request.urlopen(_req,timeout=5)
+            _pd=_json.loads(_resp.read())
+            _ok=_pd.get("pro",{}).get("monthly")==_exp_pro and _pd.get("currency")==_cc
+            record("B",f"Pricing {_cc.upper()} correct",_ok,f"pro={_pd.get(chr(112)+chr(114)+chr(111),{}).get(chr(109)+chr(111)+chr(110)+chr(116)+chr(104)+chr(108)+chr(121))} expect={_exp_pro}","MARS")
+        except Exception as e:
+            record("B",f"Pricing {_cc.upper()} correct",False,str(e)[:60],"MARS")
+def read_env():
+    env={}
+    try:
+        import os
+        with open(os.path.join(APP_DIR,".env")) as f:
+            for line in f:
+                line=line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    k,v=line.split("=",1); env[k.strip()]=v.strip()
+    except: pass
+    return env
+
+def run_part_c():
+    print("\n"+"="*70+"\n  SUPER_TEST_PART_C — Readiness [ASO+KIM+MARS]\n"+"="*70)
+    import time as _time,re
+    print("\n  [ASO] Disk + Apache + Speed")
+    try:
+        r=subprocess.run(["df","-h","/"],capture_output=True,text=True,timeout=5)
+        parts=[l for l in r.stdout.splitlines() if "/" in l and "Filesystem" not in l][-1].split()
+        record("C","Disk usage < 80%",int(parts[4].replace("%",""))<80,parts[4]+" ("+parts[2]+"/"+parts[1]+")","ASO")
+    except Exception as e: record("C","Disk usage",False,str(e),"ASO")
+    try:
+        r=subprocess.run(["systemctl","is-active","httpd"],capture_output=True,text=True,timeout=5)
+        if r.stdout.strip()!="active":
+            r=subprocess.run(["systemctl","is-active","apache2"],capture_output=True,text=True,timeout=5)
+        record("C","Apache active",r.stdout.strip()=="active",r.stdout.strip(),"ASO")
+    except Exception as e: record("C","Apache active",False,str(e),"ASO")
+    t0=_time.time(); st,_=http_get(BASE_URL+"/health"); ms=int((_time.time()-t0)*1000)
+    record("C","API response < 500ms",ms<500,str(ms)+"ms","ASO")
+    try:
+        _ae=read_env();_req=urllib.request.Request(BASE_URL+"/api/admin/v2/overview",headers={"User-Agent":"Mozilla/5.0 (compatible; QuirrelyHealthCheck)","X-Admin-Key":_ae.get("ADMIN_API_KEY","")})
+        with urllib.request.urlopen(_req,timeout=10,context=SSL_CTX) as _r: st,body=_r.status,_r.read().decode("utf-8",errors="replace")
+    except urllib.error.HTTPError as e: st,body=e.code,""
+    except Exception as e: st,body=0,str(e)
+    record("C","Admin overview 200",st==200,"status="+str(st),"ASO")
+    if st==200:
+        try:
+            d=json.loads(body)
+            record("C","Admin has waitlist count","waitlist" in d,"waitlist="+str(d.get("waitlist",0)),"ASO")
+        except: pass
+    print("\n  [KIM] Auth + Blog + Files")
+    ts=int(_time.time()); tu="partc_"+str(ts)+"@quirrely.com"
+    st,resp=http_post(BASE_URL+"/api/v2/auth/signup",{"email":tu,"password":"PartC2026!x","username":"pc_"+str(ts)})
+    record("C","Signup 200",st==200,"status="+str(st),"KIM")
+    if st==200:
+        out,ok=db_query("SELECT COUNT(*) FROM users WHERE email='"+tu+"';")
+        record("C","Signup in DB",ok and out.strip()!="0","rows="+out.strip(),"KIM")
+        st2,r2=http_post(BASE_URL+"/api/v2/auth/login",{"email":tu,"password":"PartC2026!x"})
+        record("C","Login JWT",bool(r2.get("access_token")),"received" if r2.get("access_token") else "missing","KIM")
+    st,_=http_get(BASE_URL+"/api/stretch/eligibility/test")
+    record("C","STRETCH endpoint mounted",st not in [0,404],"status="+str(st),"KIM")
+    for slug in ["/blog/","/blog/how-assertive-balanced-writers-write.html"]:
+        st,_=http_get(SITE_URL+slug)
+        record("C","Blog "+slug,st in [200,301,302],"status="+str(st),"KIM")
+    ar="/home/quirrely/quirrely.ca"
+    record("C","index_app.html exists",os.path.isfile(ar+"/index_app.html"),"found" if os.path.isfile(ar+"/index_app.html") else "MISSING","KIM")
+    _idx=open(ar+"/index.html").read() if os.path.isfile(ar+"/index.html") else ""
+    record("C","index.html has save-analysis","save-analysis" in _idx,"found" if "save-analysis" in _idx else "MISSING","KIM")
+    _dash=os.path.isfile(ar+"/pro-dashboard.html")
+    record("C","pro-dashboard.html exists",_dash,"found" if _dash else "MISSING","KIM")
+    if _dash:
+        _dc=open(ar+"/pro-dashboard.html").read()
+        record("C","Dashboard no mock data","Sarah Mitchell" not in _dc,"clean" if "Sarah Mitchell" not in _dc else "MOCK DATA FOUND","KIM")
+        record("C","Dashboard fetches API","/api/v2/me/dashboard" in _dc,"found" if "/api/v2/me/dashboard" in _dc else "MISSING","KIM")
+    _pjs=open(ar+"/billing/pricing.js").read() if os.path.isfile(ar+"/billing/pricing.js") else ""
+    record("C","Pricing saves tier on redirect","checkout_tier" in _pjs,"found" if "checkout_tier" in _pjs else "MISSING","KIM")
+    record("C","Pricing auto-checkout from URL","URLSearchParams" in _pjs,"found" if "URLSearchParams" in _pjs else "MISSING","KIM")
+    _su=open(ar+"/auth/signup.html").read() if os.path.isfile(ar+"/auth/signup.html") else ""
+    record("C","Signup checkout redirect","checkout_tier" in _su,"found" if "checkout_tier" in _su else "MISSING","KIM")
+    record("C","Signup checkout banner","checkout-banner" in _su,"found" if "checkout-banner" in _su else "MISSING","KIM")
+    _li=open(ar+"/auth/login.html").read() if os.path.isfile(ar+"/auth/login.html") else ""
+    record("C","Login checkout redirect","checkout_tier" in _li,"found" if "checkout_tier" in _li else "MISSING","KIM")
+    record("C","welcome.html exists",os.path.isfile(ar+"/welcome.html"),"found" if os.path.isfile(ar+"/welcome.html") else "MISSING","KIM")
+    _ws,_=http_get(BASE_URL+"/welcome?session_id=test")
+    record("C","Welcome page loads",_ws==200,"status="+str(_ws),"KIM")
+    for _pf in ["formal","balanced"]:
+        _ps,_=http_get(BASE_URL+"/profiles/"+_pf)
+        record("C","Profile "+_pf+".html loads",_ps==200,"status="+str(_ps),"KIM")
+    print("\n  [KIM] Social Links")
+    _social_files = [
+        ("/opt/quirrely/quirrely_v313_integrated/frontend/index.html", "App index"),
+        ("/opt/quirrely/quirrely_v313_integrated/blog/index.html", "Blog index"),
+        ("/opt/quirrely/quirrely_v313_integrated/blog/featured.html", "Blog featured"),
+        ("/opt/quirrely/quirrely_v313_integrated/blog/submit-writing.html", "Blog submit"),
+    ]
+    _fb_url = "facebook.com/profile.php?id=61575643048349"
+    _li_url = "linkedin.com/company/"
+    for _sf, _sn in _social_files:
+        if os.path.isfile(_sf):
+            _sc = open(_sf).read()
+            record("C", _sn+" Facebook link", _fb_url in _sc and "display: none" not in _sc.split(_fb_url)[0].split(chr(10))[-1], "found" if _fb_url in _sc else "MISSING", "KIM")
+            record("C", _sn+" LinkedIn link", _li_url in _sc, "found" if _li_url in _sc else "MISSING", "KIM")
+        else:
+            record("C", _sn+" file exists", False, "MISSING", "KIM")
+    print("\n  [MARS] Stripe + Keys")
+    env=read_env()
+    for k in ["STRIPE_PRICE_PRO_MONTHLY","STRIPE_PRICE_PRO_ANNUAL","STRIPE_PRICE_FEATURED_MONTHLY","STRIPE_PRICE_FEATURED_ANNUAL","STRIPE_PRICE_AUTHORITY_MONTHLY","STRIPE_PRICE_AUTHORITY_ANNUAL"]:
+        val=env.get(k,"")
+        record("C",k,bool(val) and val.startswith("price_"),val if val else "missing","MARS")
+    st,_=http_get(BASE_URL+"/api/v2/payments/pricing")
+    record("C","Payments mounted",st not in [0,404],"status="+str(st),"MARS")
+    try:
+        last=json.load(open("/opt/quirrely/quirrely_v313_integrated/tests/last_run.json"))
+        lw=next((t["detail"] for t in last.get("part_a",{}).get("tests",[]) if "waitlist" in t["name"]),"rows=0")
+        lc=int(lw.replace("rows=","")) if "rows=" in lw else 0
+        out,ok=db_query("SELECT COUNT(*) FROM waitlist WHERE email NOT LIKE '%kimtest%' AND email NOT LIKE '%supertest%' AND email NOT LIKE '%quirrely.com%' AND email NOT LIKE '%test.com%';")
+        cc=int(out.strip()) if ok and out.strip().isdigit() else 0
+    except: pass
+    for fname in ["email_service.py","notify_api.py","email_config.py"]:
+        fpath=os.path.join(APP_DIR,fname)
+        if os.path.isfile(fpath):
+            fc=open(fpath).read()
+            bad="re_SKMTFrSH" in fc or "re_atnZAc7j" in fc or "re_BETww8EJ" in fc
+            record("C",fname+" key clean",not bad,"clean" if not bad else "HARDCODED KEY FOUND","MARS")
+
+        # Wordmark consistency - SVG logo with correct viewBox across all pages
+    print("\n  [MARS] Wordmark Consistency")
+    import glob as _glob
+    _all_html = _glob.glob("/home/quirrely/quirrely.ca/**/*.html", recursive=True) + _glob.glob("/opt/quirrely/quirrely_v313_integrated/**/*.html", recursive=True)
+    _old_css = [f for f in _all_html if "Quir<span>rel</span><em>ly</em>" in open(f).read()]
+    record("C","No old CSS text logos",len(_old_css)==0,str(len(_old_css))+" found" if _old_css else "clean","MARS")
+    _old_vb = [f for f in _all_html if 'viewBox="0 0 340' in open(f).read()]
+    record("C","No old 340 viewBox",len(_old_vb)==0,str(len(_old_vb))+" found" if _old_vb else "clean","MARS")
+    _dbl_l = [f for f in _all_html if "Quirrelly" in open(f).read()]
+    record("C","No double-L Quirrelly",len(_dbl_l)==0,str(len(_dbl_l))+" found" if _dbl_l else "clean","MARS")
+    _og = os.path.isfile("/home/quirrely/quirrely.ca/assets/logo/og-image.png")
+    record("C","OG image exists",_og,"found" if _og else "MISSING","MARS")
+
+    # Nav duplicate check — no double Pricing in index.html
+    print("\n  [MARS] Nav Consistency")
+    _idx=open(ar+"/index.html").read()
+    _pricing_count=_idx.count(">Pricing<")
+    record("C","No duplicate Pricing in nav",_pricing_count==2,f"{_pricing_count} found (expect 2)","MARS")
+    # Google Analytics
+    print("\n  [MARS] Google Analytics")
+    import glob as _glob
+    _ga_count = sum(1 for _f in _glob.glob(ar+"/**/*.html", recursive=True) if "G-HQ818WM2YB" in open(_f).read())
+    _ga_total = len(_glob.glob(ar+"/**/*.html", recursive=True))
+    record("C","GA4 tag on all pages",_ga_count==_ga_total,f"{_ga_count}/{_ga_total} pages","MARS")
+    # Sitemaps
+    print("\n  [MARS] Sitemaps")
+    _sm_ca_st,_sm_ca=http_get("https://quirrely.ca/sitemap.xml")
+    record("C","Sitemap quirrely.ca 200",_sm_ca_st==200,f"status={_sm_ca_st}","MARS")
+    record("C","Sitemap quirrely.ca valid XML","sitemapindex" in str(_sm_ca),"valid" if "sitemapindex" in str(_sm_ca) else "INVALID","MARS")
+    _sm_com_st,_sm_com=http_get("https://quirrely.com/sitemap.xml")
+    record("C","Sitemap quirrely.com 200",_sm_com_st==200,f"status={_sm_com_st}","MARS")
+    _sm_blog_st,_=http_get("https://quirrely.ca/sitemap-blog.xml")
+    record("C","Sitemap blog sub-sitemap 200",_sm_blog_st==200,f"status={_sm_blog_st}","MARS")
+    _sm_profiles_st,_=http_get("https://quirrely.ca/sitemap-profiles.xml")
+    record("C","Sitemap profiles sub-sitemap 200",_sm_profiles_st==200,f"status={_sm_profiles_st}","MARS")
+    _robots=open(ar+"/robots.txt").read() if os.path.isfile(ar+"/robots.txt") else ""
+    record("C","Robots.txt has sitemap","sitemap.xml" in _robots.lower(),f"found" if "sitemap.xml" in _robots.lower() else "MISSING","MARS")
+    # ===== DASHBOARD WIRING TESTS =====
+    print("\n  [KIM] Dashboard Routes")
+    for _dp,_dn in [("/dashboard/","Dashboard"),("/settings","Settings"),("/frontend/index.html","App index"),("/frontend/export.html","Export"),("/billing/","Billing"),("/profile/test","Public profile"),("/profiles/formal","Profile formal"),("/welcome","Welcome")]:
+        _ds,_=http_get(BASE_URL+_dp)
+        record("C",_dn+" route 200",_ds==200,f"status={_ds}","KIM")
+
+    print("\n  [KIM] Dashboard HTML Elements")
+    _dash_html=open(ar+"/frontend/dashboard.html").read()
+    for _eid in ["tierBadge","headerName","headerAvatar","sidebarName","sidebarAvatar","sidebarLocation","sidebarVoiceTag","sidebarStance","statTests","statWords","statConsistency","voiceBars","voiceCard","evolutionCard","writersCard","booksCard","stretchCard","featuredCard","authorityCard","upgradeCard","activityCard","welcomeBanner","welcomeHeading","userMenuToggle","userDropdown"]:
+        record("C",f"Dashboard ID #{_eid}",'id="'+_eid+'"' in _dash_html,"found" if 'id="'+_eid+'"' in _dash_html else "MISSING","KIM")
+    for _nl,_nn in [('/dashboard','Dashboard nav'),('/frontend/index.html','Retake Test nav'),('/blog/index.html','Blog nav'),('/settings','Settings nav')]:
+        record("C",f"Dashboard {_nn} link",'href="'+_nl+'"' in _dash_html,"found" if 'href="'+_nl+'"' in _dash_html else "MISSING","KIM")
+    record("C","Sidebar Take New Test",'/frontend/index.html' in _dash_html and 'Take New Test' in _dash_html,"found","KIM")
+    record("C","Sidebar Export Data",'/frontend/export.html' in _dash_html and 'Export Data' in _dash_html,"found","KIM")
+    record("C","Sidebar Upgrade link",'/billing/' in _dash_html and 'Upgrade' in _dash_html,"found","KIM")
+    for _fl in ["blog/terms.html","blog/privacy.html","blog/affiliates.html","mailto:support@quirrely.ca"]:
+        record("C",f"Footer {_fl}",_fl in _dash_html,"found" if _fl in _dash_html else "MISSING","KIM")
+    print("\n  [KIM] Dashboard JS Functions")
+    _required_fns=["function toggleUserMenu","function doLogout","function viewPublicProfile","function submitForFeatured","function copyProfileLink","function shareLinkedIn","function shareFacebook","function showToast","function formatLocation","function getInitial","function formatNumber","function timeAgo","function renderVoiceBars","function renderActivity","function renderWriters","function renderBooks","function renderStretch","function startStretch","function renderEvolution","function renderAuthorityMetrics","function setTier","async function init"]
+    for _fn in _required_fns:
+        _fname=_fn.replace("async ","").replace("function ","")
+        record("C",f"JS fn {_fname}()",_fn in _dash_html,"found" if _fn in _dash_html else "MISSING","KIM")
+    record("C","Dashboard no raw alert()","alert(" not in _dash_html,"clean" if "alert(" not in _dash_html else "STUB FOUND","KIM")
+    record("C","Dashboard uses analytics/me/summary","/api/v2/analytics/me/summary" in _dash_html,"found" if "/api/v2/analytics/me/summary" in _dash_html else "WRONG PATH","KIM")
+    record("C","Dashboard uses /api/v2/me/dashboard","/api/v2/me/dashboard" in _dash_html,"found" if "/api/v2/me/dashboard" in _dash_html else "MISSING","KIM")
+    record("C","Dashboard uses /api/v2/auth/logout","/api/v2/auth/logout" in _dash_html,"found" if "/api/v2/auth/logout" in _dash_html else "MISSING","KIM")
+    record("C","Dashboard uses /api/stretch/start","/api/stretch/start" in _dash_html,"found" if "/api/stretch/start" in _dash_html else "MISSING","KIM")
+    print("\n  [KIM] Dashboard API Endpoints")
+    _as,_=http_get(BASE_URL+"/api/v2/analytics/me/summary")
+    record("C","Analytics summary mounted",_as==401,f"status={_as} (401=auth required)","KIM")
+    _bs=http_post(BASE_URL+"/api/v2/payments/billing-portal",{})
+    record("C","Billing portal mounted",_bs[0]==401,f"status={_bs[0]} (401=auth required)","KIM")
+    print("\n  [KIM] Settings Page")
+    _settings=open(ar+"/settings.html").read() if os.path.isfile(ar+"/settings.html") else ""
+    record("C","Settings page exists",bool(_settings),"found" if _settings else "MISSING","KIM")
+    for _sfn in ["function manageBilling","function cancelSubscription","function deleteAccount","function exportData","function exportPDF","function changePassword","function clearHistory","function showToast"]:
+        _sfname=_sfn.replace("function ","")
+        record("C",f"Settings fn {_sfname}()",_sfn in _settings,"found" if _sfn in _settings else "MISSING","KIM")
+    record("C","Settings manageBilling wired","billing-portal" in _settings,"wired" if "billing-portal" in _settings else "STUB","KIM")
+    record("C","Settings no raw alert()","alert(" not in _settings,"clean" if "alert(" not in _settings else "STUB FOUND","KIM")
+    record("C","Settings Dashboard link",'/dashboard' in _settings,"found" if '/dashboard' in _settings else "MISSING","KIM")
+    print("\n  [KIM] Export Page")
+    _export=open(ar+"/frontend/export.html").read() if os.path.isfile(ar+"/frontend/export.html") else ""
+    record("C","Export page exists",bool(_export),"found" if _export else "MISSING","KIM")
+    record("C","Export back link to /dashboard",'href="/dashboard"' in _export,"found" if 'href="/dashboard"' in _export else "WRONG","KIM")
+    record("C","Export fn exportData()","function exportData" in _export,"found" if "function exportData" in _export else "MISSING","KIM")
+    for _et in ["profile","activity","all"]:
+        record("C",f"Export type {_et}","exportData('"+_et+"'" in _export,"found" if "exportData('"+_et+"'" in _export else "MISSING","KIM")
+
+
+    print("\n  [KIM] Dashboard Data Wiring")
+    record("C","Voice uses avg_scores","avg_scores" in _dash_html and "data.avg_scores" in _dash_html,"found" if "data.avg_scores" in _dash_html else "MISSING","KIM")
+    record("C","Writers link to blog","blogSlug" in _dash_html and "/blog/how-" in _dash_html,"found" if "blogSlug" in _dash_html else "MISSING","KIM")
+    record("C","Writers pass stance","renderWriters(voiceType, lp.stance)" in _dash_html,"found" if "renderWriters(voiceType, lp.stance)" in _dash_html else "MISSING","KIM")
+    record("C","Writers Wikipedia fallback","wikipedia.org" in _dash_html,"found" if "wikipedia.org" in _dash_html else "MISSING","KIM")
+    record("C","Books country-aware","getBookstore" in _dash_html and "BOOKSTORE_BY_COUNTRY" in _dash_html,"found" if "getBookstore" in _dash_html else "MISSING","KIM")
+    record("C","Books pass country","renderBooks(voiceType, (u.country" in _dash_html,"found" if "renderBooks(voiceType, (u.country" in _dash_html else "MISSING","KIM")
+    for _bk in ["Indigo","Waterstones","Booktopia","Mighty Ape"]:
+        record("C",f"Bookstore {_bk} configured",_bk in _dash_html,"found" if _bk in _dash_html else "MISSING","KIM")
+    record("C","No Twitter/X share","shareTwitter" not in _dash_html and "twitter.com/intent" not in _dash_html,"clean" if "shareTwitter" not in _dash_html else "FOUND","KIM")
+    record("C","Facebook share present","shareFacebook" in _dash_html and "facebook.com/sharer" in _dash_html,"found" if "shareFacebook" in _dash_html else "MISSING","KIM")
+    record("C","LinkedIn share present","shareLinkedIn" in _dash_html and "linkedin.com/sharing" in _dash_html,"found" if "shareLinkedIn" in _dash_html else "MISSING","KIM")
+    record("C","No hardcoded Indigo-only links","chapters.indigo.ca" not in _dash_html,"clean" if "chapters.indigo.ca" not in _dash_html else "HARDCODED","KIM")
+    record("C","Voice no lp.scores fallback","lp.scores ||" not in _dash_html,"clean" if "lp.scores ||" not in _dash_html else "STALE","KIM")
+    record("C","Dominant voice from avgEntries","avgEntries" in _dash_html,"found" if "avgEntries" in _dash_html else "MISSING","KIM")
+
+    print("\n  [KIM] Pro-Dashboard Wiring")
+    _pd=open(ar+"/pro-dashboard.html").read() if os.path.isfile(ar+"/pro-dashboard.html") else ""
+    record("C","Pro-dashboard exists",bool(_pd),"found" if _pd else "MISSING","KIM")
+    if _pd:
+        record("C","Pro uses avg_scores","avg_scores" in _pd,"found" if "avg_scores" in _pd else "MISSING","KIM")
+        record("C","Pro derives dominantVoice","dominantVoice" in _pd,"found" if "dominantVoice" in _pd else "MISSING","KIM")
+        record("C","Pro no stale lp.scores fallback","latest_profile.scores || avg_scores" not in _pd,"clean","KIM")
+        record("C","Pro no Twitter/X","shareTwitter" not in _pd and "twitter.com" not in _pd,"clean","KIM")
+
+    print("\n  [KIM] Dashboard Tier Variants")
+    for _tc,_tv in [("tier-free-only","Free-only card"),("tier-pro","Pro-gated card"),("tier-featured","Featured-gated card"),("tier-authority","Authority-gated card")]:
+        record("C",f"CSS class {_tv}",_tc in _dash_html,"found" if _tc in _dash_html else "MISSING","KIM")
+    for _tid,_tn in [("upgradeCard","Upgrade card"),("evolutionCard","Evolution card"),("writersCard","Writers card"),("booksCard","Books card"),("stretchCard","STRETCH card"),("featuredCard","Featured card"),("authorityCard","Authority card")]:
+        record("C",f"Tier element #{_tid}",'id="'+_tid+'"' in _dash_html,"found" if 'id="'+_tid+'"' in _dash_html else "MISSING","KIM")
+    record("C","setTier() function","function setTier" in _dash_html,"found" if "function setTier" in _dash_html else "MISSING","KIM")
+    record("C","Body class tier switching","is-pro" in _dash_html and "is-featured" in _dash_html and "is-authority" in _dash_html,"found","KIM")
+
+    print("\n  [KIM] Dashboard Country Variants")
+    record("C","BOOKSTORE_BY_COUNTRY defined","BOOKSTORE_BY_COUNTRY" in _dash_html,"found" if "BOOKSTORE_BY_COUNTRY" in _dash_html else "MISSING","KIM")
+    for _bk in ["Indigo","Waterstones","Booktopia","Mighty Ape"]:
+        record("C",f"Bookstore {_bk}",_bk in _dash_html,"found" if _bk in _dash_html else "MISSING","KIM")
+    record("C","getBookstore() function","function getBookstore" in _dash_html,"found" if "function getBookstore" in _dash_html else "MISSING","KIM")
+    record("C","Country flags COUNTRY_FLAGS","COUNTRY_FLAGS" in _dash_html,"found" if "COUNTRY_FLAGS" in _dash_html else "MISSING","KIM")
+    record("C","Books country-aware render","renderBooks(voiceType" in _dash_html and "country" in _dash_html,"found","KIM")
+
+    print("\n  [KIM] Dashboard JS Functions (master)")
+    _mfns = ["function doLogout","function viewPublicProfile","function submitForFeatured",
+        "function copyProfileLink","function shareLinkedIn","function shareFacebook",
+        "function showToast","function getBookstore","function renderVoiceBars",
+        "function renderWriters","function renderBooks","function renderActivity",
+        "function renderStretch","function startStretch","function renderEvolution",
+        "function renderAuthorityMetrics","function setTier","async function init",
+        "function toggleUserMenu","function getInitial","function formatNumber","function timeAgo"]
+    for _fn in _mfns:
+        _fname=_fn.replace("async ","").replace("function ","")
+        record("C",f"Master JS fn {_fname}()",_fn in _dash_html,"found" if _fn in _dash_html else "MISSING","KIM")
+
+    print("\n  [KIM] Dashboard Nav & Actions")
+    for _href,_label in [("/dashboard","Dashboard nav"),("/frontend/index.html","Retake nav"),("/blog/index.html","Blog nav"),("/settings","Settings nav"),("/billing/","Billing link"),("/frontend/export.html","Export link")]:
+        record("C",f"Master {_label}",_href in _dash_html,"found" if _href in _dash_html else "MISSING","KIM")
+    record("C","Master no alert()","alert(" not in _dash_html,"clean" if "alert(" not in _dash_html else "FOUND","KIM")
+    record("C","Master API /api/v2/me/dashboard","/api/v2/me/dashboard" in _dash_html,"found","KIM")
+    record("C","Master API /api/v2/auth/logout","/api/v2/auth/logout" in _dash_html,"found","KIM")
+
+    print("\n  [KIM] Dashboard Share Buttons")
+    record("C","Share Copy Link",'copyProfileLink' in _dash_html,"found" if "copyProfileLink" in _dash_html else "MISSING","KIM")
+    record("C","Share LinkedIn styled","linkedin-btn" in _dash_html and "shareLinkedIn" in _dash_html,"found","KIM")
+    record("C","Share Facebook styled","facebook-btn" in _dash_html and "shareFacebook" in _dash_html,"found","KIM")
+    record("C","No Twitter/X in dashboard","shareTwitter" not in _dash_html and "twitter.com" not in _dash_html,"clean","KIM")
+
+    print("\n  [MARS] Sentense Cleanup")
+    record("C","Affiliate no sentense","sentense" not in open(os.path.join(APP_DIR,"affiliate_service.py")).read(),"clean" if "sentense" not in open(os.path.join(APP_DIR,"affiliate_service.py")).read() else "FOUND","MARS")
+    _auth_dash=open(ar+"/authority-dashboard.html").read() if os.path.isfile(ar+"/authority-dashboard.html") else ""
+    record("C","Authority dashboard no Sentense","Sentense" not in _auth_dash,"clean" if "Sentense" not in _auth_dash else "FOUND","MARS")
+    _logo_readme=open(ar+"/assets/logo/README.md").read() if os.path.isfile(ar+"/assets/logo/README.md") else ""
+    record("C","Logo README no Sentense","Sentense" not in _logo_readme,"clean" if "Sentense" not in _logo_readme else "FOUND","MARS")
+
+def send_report():
+    env=read_env();RESEND_API_KEY=env.get("RESEND_API_KEY","")
+    if not RESEND_API_KEY:
+        print("  Email skipped: RESEND_API_KEY not in .env"); return
+#    removed duplicate run_part_c()
+    pa=results["part_a"];pb=results["part_b"];pc=results["part_c"]
+    tp=pa["pass"]+pb["pass"]+pc["pass"];tf=pa["fail"]+pb["fail"]+pc["fail"];tot=tp+tf
+    pct=int(100*tp/tot) if tot>0 else 0
+    sw="ALL SYSTEMS GO" if tf==0 else f"ATTENTION REQUIRED ({tf} failures)"
+    def rows(tests):
+        r=""
+        for t in tests:
+            ic="PASS" if t["status"]=="PASS" else "FAIL"
+            color="#27ae60" if t["status"]=="PASS" else "#e74c3c"
+            r+=f"<tr><td style='color:{color}'>{ic}</td><td>{t['name']}</td><td>{t['detail']}</td><td>{t['owner']}</td></tr>"
+        return r
+    html="<html><body><h2>"+sw+"</h2><p>"+str(tp)+"/"+str(tot)+" passed ("+str(pct)+"%) "+results["run_at"][:19]+" UTC</p><h3>Part A</h3><table>"+rows(pa["tests"])+"</table><h3>Part B</h3><table>"+rows(pb["tests"])+"</table></body></html>"
+    subj="SUPER_TEST "+"PASS" if tf==0 else "FAIL"
+    try:
+        import httpx, asyncio
+        async def _send():
+            async with httpx.AsyncClient() as c:
+                r = await c.post("https://api.resend.com/emails",
+                    headers={"Authorization":"Bearer "+RESEND_API_KEY,"Content-Type":"application/json"},
+                    json={"from":FROM_EMAIL,"to":[REPORT_EMAIL],"subject":subj,"html":html},
+                    timeout=10)
+                return r.status_code, r.text
+        code,body = asyncio.run(_send())
+        if code==200:
+            print("  Report emailed to " + REPORT_EMAIL)
+        else:
+            print("  Email failed: " + str(code) + " " + str(body))
+    except Exception as e:
+        print("  Email error: " + str(e))
+
+if __name__=="__main__":
+    print("\nQUIRRELY SUPER_TEST v1.1 — ASO · KIM · MARS")
+    print(f"Run at: {results['run_at']}")
+    run_part_a()
+    run_part_b()
+    run_part_c()
+    pa=results["part_a"];pb=results["part_b"];pc=results["part_c"]
+    tp=pa["pass"]+pb["pass"]+pc["pass"];tf=pa["fail"]+pb["fail"]+pc["fail"];tot=tp+tf
+    print("\n"+"="*70)
+    print(f"  Part A : {pa['pass']}/{pa['pass']+pa['fail']} passed")
+    print(f"  Part B : {pb['pass']}/{pb['pass']+pb['fail']} passed")
+    print(f"  Part C : {pc['pass']}/{pc['pass']+pc['fail']} passed")
+    print(f"  Total  : {tp}/{tot} ({int(100*tp/tot) if tot else 0}%)")
+    print("="*70)
+    send_report()
+    try:
+        json.dump(results,open("/opt/quirrely/quirrely_v313_integrated/tests/last_run.json","w"),indent=2)
+        print("  Results saved to last_run.json")
+    except Exception as e: print(f"  Save failed: {e}")
+    sys.exit(0 if tf==0 else 1)

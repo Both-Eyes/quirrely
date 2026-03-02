@@ -1,0 +1,170 @@
+{
+  "passed": 23,
+  "failed": 0,
+  "warned": 4,
+  "score": 85.2,
+  "results": [
+    {
+      "cat": "ENV",
+      "test": ".env chmod 600",
+      "status": "PASS",
+      "detail": "600"
+    },
+    {
+      "cat": "ENV",
+      "test": "No hardcoded keys",
+      "status": "PASS",
+      "detail": "clean"
+    },
+    {
+      "cat": "ENV",
+      "test": "JWT set",
+      "status": "PASS",
+      "detail": "ok"
+    },
+    {
+      "cat": "HDR",
+      "test": "API up",
+      "status": "PASS",
+      "detail": "200"
+    },
+    {
+      "cat": "HDR",
+      "test": "X-Content-Type",
+      "status": "PASS",
+      "detail": "nosniff"
+    },
+    {
+      "cat": "HDR",
+      "test": "/docs disabled",
+      "status": "PASS",
+      "detail": "404"
+    },
+    {
+      "cat": "HDR",
+      "test": ".env not exposed",
+      "status": "PASS",
+      "detail": "404"
+    },
+    {
+      "cat": "HDR",
+      "test": "app.py not exposed",
+      "status": "PASS",
+      "detail": "404"
+    },
+    {
+      "cat": "HDR",
+      "test": ".git/config not exposed",
+      "status": "PASS",
+      "detail": "404"
+    },
+    {
+      "cat": "DOM",
+      "test": "com up",
+      "status": "PASS",
+      "detail": "200"
+    },
+    {
+      "cat": "DOM",
+      "test": "com coming soon",
+      "status": "WARN",
+      "detail": "check!"
+    },
+    {
+      "cat": "DOM",
+      "test": "ca up",
+      "status": "PASS",
+      "detail": "200"
+    },
+    {
+      "cat": "DOM",
+      "test": "ca coming soon",
+      "status": "WARN",
+      "detail": "check!"
+    },
+    {
+      "cat": "AUTH",
+      "test": "Signup rejects bad",
+      "status": "PASS",
+      "detail": "ok"
+    },
+    {
+      "cat": "AUTH",
+      "test": "Bad login blocked",
+      "status": "PASS",
+      "detail": "ok"
+    },
+    {
+      "cat": "AUTH",
+      "test": "Admin needs auth",
+      "status": "PASS",
+      "detail": "403"
+    },
+    {
+      "cat": "AUTH",
+      "test": "Bcrypt preferred",
+      "status": "PASS",
+      "detail": "ok"
+    },
+    {
+      "cat": "EXT",
+      "test": "No TICKER_MAP",
+      "status": "PASS",
+      "detail": "clean"
+    },
+    {
+      "cat": "EXT",
+      "test": "API proxy",
+      "status": "PASS",
+      "detail": "ok"
+    },
+    {
+      "cat": "EXT",
+      "test": "No secrets",
+      "status": "PASS",
+      "detail": "clean"
+    },
+    {
+      "cat": "EXT",
+      "test": "Meta not in ext",
+      "status": "PASS",
+      "detail": "clean"
+    },
+    {
+      "cat": "DB",
+      "test": "5432 closed",
+      "status": "PASS",
+      "detail": "closed"
+    },
+    {
+      "cat": "DB",
+      "test": "No plain passwords",
+      "status": "WARN",
+      "detail": ""
+    },
+    {
+      "cat": "LNCP",
+      "test": "/lncp blocked",
+      "status": "PASS",
+      "detail": "404"
+    },
+    {
+      "cat": "LNCP",
+      "test": "GET=405",
+      "status": "PASS",
+      "detail": "405"
+    },
+    {
+      "cat": "STRIPE",
+      "test": "Webhook exists",
+      "status": "WARN",
+      "detail": "404"
+    },
+    {
+      "cat": "STRIPE",
+      "test": "No secret in ext",
+      "status": "PASS",
+      "detail": "clean"
+    }
+  ]
+}

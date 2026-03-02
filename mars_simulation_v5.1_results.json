@@ -1,0 +1,72 @@
+{
+  "scenario": "v5.1.1 Full Integration",
+  "version": "5.1.0",
+  "timestamp": "2026-02-16T17:59:04.671854",
+  "config": {
+    "total_visitors": 100000,
+    "days": 100,
+    "daily_growth": 1.005
+  },
+  "final": {
+    "day": 100,
+    "mrr": 43326.01,
+    "arr": 519912.17,
+    "total_revenue": 49851.99
+  },
+  "funnel": {
+    "total_visitors": 129930,
+    "organic_visitors": 45429,
+    "organic_share": 35.0,
+    "total_signups": 21094,
+    "signup_rate": 16.23,
+    "total_trials": 7956,
+    "trial_rate": 37.72
+  },
+  "users": {
+    "free": 13138,
+    "trial": 2316,
+    "monthly_paid": 3277,
+    "annual_paid": 1723,
+    "growth_tier": 513,
+    "total_paid": 5513,
+    "addon_users": 1490,
+    "bundle_users": 560,
+    "addon_attach_rate": 27.0,
+    "bundle_rate": 37.6,
+    "featured": 121,
+    "authority": 0
+  },
+  "retention": {
+    "churned": 127,
+    "churn_rate": 2.3,
+    "paused": 0,
+    "downgraded": 0,
+    "saved_50_offer": 30,
+    "total_saved": 30,
+    "annual_converted": 758
+  },
+  "mrr_breakdown": {
+    "pro_monthly": 16352.23,
+    "pro_annual": 6459.81,
+    "growth": 3585.87,
+    "addon_standalone": 9290.7,
+    "bundles": 7274.4,
+    "featured_premium": 363.0,
+    "authority_premium": 0.0
+  },
+  "blog_seo": {
+    "impressions": 500000,
+    "clicks": 17500,
+    "ctr": 3.5,
+    "organic_signups": 8048,
+    "organic_conversion_rate": 17.72
+  },
+  "comparison": {
+    "vs_baseline": {
+      "baseline_mrr": 18252.88,
+      "current_mrr": 43326.01416666667,
+      "mrr_lift": 25073.13,
+      "mrr_lift_pct": 137.4
+    }
+  }
+}

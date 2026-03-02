@@ -1,0 +1,181 @@
+{
+  "pool_version": "0.1.0",
+  "title": "LNCP Phase-6 Next-Step Prompt Pool",
+  "description": "Pool of suggested next steps for Phase-6 summary. Each prompt invites the writer toward a specific kind of exploration based on their analysis results.",
+  
+  "selection_guidance": {
+    "method": "LLM_SELECTED",
+    "fallback": "RULE_BASED",
+    "note": "LLM selects based on full analysis context. Rule-based fallback uses trigger conditions."
+  },
+  
+  "categories": {
+    "VOLUME": {
+      "description": "Prompts for writers with small sample sizes",
+      "trigger_condition": "sentence_count < 6"
+    },
+    "DENSITY": {
+      "description": "Prompts for writers with low structural event density",
+      "trigger_condition": "structural_density.mean_events_per_sentence < 0.5"
+    },
+    "MODAL": {
+      "description": "Prompts related to epistemic/modal marker usage",
+      "trigger_condition": "high_intent_profile.coverage_rate < 0.3 OR dominant_category in specific set"
+    },
+    "VARIETY": {
+      "description": "Prompts for writers with high signature concentration",
+      "trigger_condition": "signature_concentration.top_3_coverage > 0.7"
+    },
+    "DEPTH": {
+      "description": "Prompts for writers who have completed multiple rounds",
+      "trigger_condition": "session.rounds_completed >= 2"
+    },
+    "EXPLORATION": {
+      "description": "General exploratory prompts for any writer",
+      "trigger_condition": "always_available"
+    }
+  },
+  
+  "prompts": [
+    {
+      "prompt_id": "NS_001",
+      "category": "VOLUME",
+      "prompt_text": "Would you like to write something longer to see deeper patterns emerge?",
+      "rationale_template": "With {sentence_count} sentences, we're seeing initial shapes. A longer sample would reveal whether these patterns persist or evolve.",
+      "min_sentences": 0,
+      "max_sentences": 5
+    },
+    {
+      "prompt_id": "NS_002",
+      "category": "VOLUME",
+      "prompt_text": "Would you like to try a focused writing exercise—three paragraphs on a single topic?",
+      "rationale_template": "Sustained writing on one subject often reveals structural habits that shorter samples miss.",
+      "min_sentences": 0,
+      "max_sentences": 8
+    },
+    {
+      "prompt_id": "NS_003",
+      "category": "DENSITY",
+      "prompt_text": "Would you like to experiment with adding structural layers—parentheses, dashes, or asides?",
+      "rationale_template": "Your writing moves cleanly without many structural markers. Adding layers could reveal new textures in your prose.",
+      "density_threshold": 0.5
+    },
+    {
+      "prompt_id": "NS_004",
+      "category": "DENSITY",
+      "prompt_text": "Would you like to try a 'bracketed thoughts' exercise—writing where every sentence contains an aside?",
+      "rationale_template": "This exercise pushes structural density to the extreme, helping you feel what heavy layering does to rhythm and meaning.",
+      "density_threshold": 0.3
+    },
+    {
+      "prompt_id": "NS_005",
+      "category": "MODAL",
+      "prompt_text": "Would you like to explore writing with more certainty—or more tentativeness?",
+      "rationale_template": "Your epistemic stance leans {stance_direction}. Trying the opposite could expand your expressive range.",
+      "applies_to_stance": ["OPEN", "CLOSED"]
+    },
+    {
+      "prompt_id": "NS_006",
+      "category": "MODAL",
+      "prompt_text": "Would you like to practice 'hedged declarations'—statements that are firm but leave room for doubt?",
+      "rationale_template": "Balancing certainty and possibility is a subtle skill. This exercise helps you find the middle ground.",
+      "applies_to_stance": ["OPEN", "CLOSED", "BALANCED"]
+    },
+    {
+      "prompt_id": "NS_007",
+      "category": "MODAL",
+      "prompt_text": "Would you like to try writing without any stance markers—pure description, no opinion?",
+      "rationale_template": "Your writing contains {marker_count} epistemic markers. Removing them entirely reveals what remains.",
+      "applies_to_stance": ["OPEN", "CLOSED", "BALANCED"]
+    },
+    {
+      "prompt_id": "NS_008",
+      "category": "VARIETY",
+      "prompt_text": "Would you like to experiment with different sentence shapes—varying your structural patterns?",
+      "rationale_template": "Your top patterns account for {coverage}% of your sentences. Deliberate variation could add texture.",
+      "concentration_threshold": 0.6
+    },
+    {
+      "prompt_id": "NS_009",
+      "category": "VARIETY",
+      "prompt_text": "Would you like to try a 'constraint' exercise—writing where no two sentences can have the same structure?",
+      "rationale_template": "This exercise forces structural variety, which can feel awkward but reveals new possibilities.",
+      "concentration_threshold": 0.7
+    },
+    {
+      "prompt_id": "NS_010",
+      "category": "DEPTH",
+      "prompt_text": "Would you like to compare this sample to your previous one and see what shifted?",
+      "rationale_template": "You've now completed {rounds} rounds. Comparing them reveals how your structural patterns vary across contexts.",
+      "requires_previous_round": true
+    },
+    {
+      "prompt_id": "NS_011",
+      "category": "DEPTH",
+      "prompt_text": "Would you like to try the same prompts again, writing differently on purpose?",
+      "rationale_template": "Revisiting prompts with deliberate structural choices can deepen your awareness of how you build sentences.",
+      "requires_previous_round": true
+    },
+    {
+      "prompt_id": "NS_012",
+      "category": "EXPLORATION",
+      "prompt_text": "Would you like to try writing in a different register—formal, casual, or poetic?",
+      "rationale_template": "Different registers often produce different structural patterns. This exercise reveals how context shapes form.",
+      "always_available": true
+    },
+    {
+      "prompt_id": "NS_013",
+      "category": "EXPLORATION",
+      "prompt_text": "Would you like to write about the same topic in two different moods?",
+      "rationale_template": "Mood shifts often surface in structural choices. Comparing the two versions can be illuminating.",
+      "always_available": true
+    },
+    {
+      "prompt_id": "NS_014",
+      "category": "EXPLORATION",
+      "prompt_text": "Would you like to try 'structural imitation'—copying the shape of a sentence you admire?",
+      "rationale_template": "Imitation is a powerful learning tool. By copying structure (not content), you internalize new patterns.",
+      "always_available": true
+    },
+    {
+      "prompt_id": "NS_015",
+      "category": "EXPLORATION",
+      "prompt_text": "Would you like to save this analysis and return later to see how your writing evolves?",
+      "rationale_template": "Structural patterns shift over time. Returning later gives you a longitudinal view of your writing.",
+      "always_available": true
+    }
+  ],
+  
+  "forward_pointers": [
+    {
+      "pointer_id": "FP_001",
+      "title": "Extended Analysis",
+      "description": "Write a full page and receive deeper pattern analysis with cross-sentence insights.",
+      "availability": "COMING_SOON"
+    },
+    {
+      "pointer_id": "FP_002",
+      "title": "Structural Exercises",
+      "description": "Guided exercises that help you practice specific structural patterns.",
+      "availability": "COMING_SOON"
+    },
+    {
+      "pointer_id": "FP_003",
+      "title": "Comparison Mode",
+      "description": "Compare two samples side-by-side to see how your patterns vary.",
+      "availability": "COMING_SOON"
+    },
+    {
+      "pointer_id": "FP_004",
+      "title": "Register Exploration",
+      "description": "Explore how your structure changes across formal, casual, and creative registers.",
+      "availability": "COMING_SOON"
+    },
+    {
+      "pointer_id": "FP_005",
+      "title": "Longitudinal Tracking",
+      "description": "Track your structural patterns over weeks or months to see evolution.",
+      "availability": "COMING_SOON"
+    }
+  ]
+}

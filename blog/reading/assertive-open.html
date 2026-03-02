@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+  
+  <title>Why You Love ASSERTIVE + OPEN Writing | Quirrely</title>
+  <meta name="description" content="You want writers who take a stand—then invite you to push back. Discover your reading taste and find more writing you'll love.">
+  <meta name="keywords" content="reading taste, assertive writing, open stance, book recommendations, writing style">
+  <link rel="canonical" href="https://quirrely.com/blog/reading/assertive-open">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://quirrely.com/blog/reading/assertive-open">
+  <meta property="og:title" content="Why You Love ASSERTIVE + OPEN Writing | Quirrely">
+  <meta property="og:description" content="You want writers who take a stand—then invite you to push back.">
+  <meta property="og:image" content="https://quirrely.com/assets/og/reading-assertive-open.png">
+  
+  <!-- Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why You Love ASSERTIVE + OPEN Writing",
+    "description": "You want writers who take a stand—then invite you to push back.",
+    "author": { "@type": "Organization", "name": "Quirrely" },
+    "publisher": { "@type": "Organization", "name": "Quirrely" },
+    "datePublished": "2026-02-12",
+    "dateModified": "2026-02-12"
+  }
+  </script>
+  
+  <style>
+    :root {
+      --bg: #FFFBF5;
+      --ink: #2D3436;
+      --primary: #FF6B6B;
+      --muted: #636E72;
+      --light: #F8F9FA;
+      --border: #E9ECEF;
+      --coral: #FF6B6B;
+      --softGold: #D4A574;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Georgia', serif; background: var(--bg); color: var(--ink); line-height: 1.8; }
+    .container { max-width: 720px; margin: 0 auto; padding: 2rem; }
+    
+    /* Header */
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .logo { font-family: system-ui, sans-serif; font-size: 1.25rem; font-weight: 700; text-decoration: none; color: var(--ink); }
+    .logo span { color: var(--coral); }
+    .nav a { margin-left: 1.5rem; text-decoration: none; color: var(--muted); font-size: 0.9rem; }
+    .nav a:hover { color: var(--ink); }
+    
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #d85a5a 100%);
+      color: white;
+      padding: 3rem 2rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+    }
+    .hero-label { font-family: system-ui, sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; margin-bottom: 0.5rem; }
+    .hero h1 { font-size: 1.75rem; margin-bottom: 0.75rem; font-family: system-ui, sans-serif; }
+    .hero .hook { font-size: 1.1rem; opacity: 0.95; font-style: italic; }
+    .hero .badges { margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .hero .badge { padding: 0.4rem 1rem; background: rgba(255,255,255,0.2); border-radius: 20px; font-size: 0.85rem; font-family: system-ui, sans-serif; }
+    
+    /* Content */
+    article { margin-bottom: 2rem; }
+    article p { margin-bottom: 1.5rem; }
+    
+    /* Writers */
+    .writers { background: var(--light); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; }
+    .writers h3 { font-family: system-ui, sans-serif; font-size: 1.1rem; margin-bottom: 1rem; }
+    .writers-grid { display: grid; gap: 1rem; }
+    .writer-card { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; border: 1px solid var(--border); }
+    .writer-flag { font-size: 1.5rem; }
+    .writer-info { flex: 1; }
+    .writer-name { display: block; font-weight: 600; font-size: 0.95rem; }
+    .writer-book { display: block; font-size: 0.85rem; color: var(--muted); font-style: italic; }
+    .writer-link { padding: 0.4rem 0.75rem; background: var(--coral); color: white; text-decoration: none; border-radius: 6px; font-size: 0.8rem; font-family: system-ui, sans-serif; }
+    .writer-link:hover { filter: brightness(1.1); }
+    .affiliate-note { font-size: 0.75rem; color: var(--muted); margin-top: 1rem; text-align: center; }
+    .writers-note { color: var(--muted); font-size: 0.9rem; }
+    
+    /* Featured Writer (conditional) */
+    .featured-writer { background: linear-gradient(135deg, rgba(212,165,116,0.15) 0%, rgba(212,165,116,0.05) 100%); border: 1px solid rgba(212,165,116,0.3); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; }
+    .featured-writer h3 { font-family: system-ui, sans-serif; font-size: 1rem; color: var(--softGold); margin-bottom: 0.75rem; }
+    .featured-writer .coming-soon { color: var(--muted); font-size: 0.9rem; }
+    
+    /* CTAs */
+    .cta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+    .cta-card { padding: 1.5rem; border-radius: 12px; text-align: center; }
+    .cta-card.taste { background: linear-gradient(135deg, var(--primary) 0%, #d85a5a 100%); color: white; }
+    .cta-card.voice { background: var(--coral); color: white; }
+    .cta-card h4 { font-family: system-ui, sans-serif; font-size: 1rem; margin-bottom: 0.5rem; }
+    .cta-card p { font-size: 0.85rem; opacity: 0.9; margin-bottom: 1rem; }
+    .cta-card .btn { display: inline-block; padding: 0.6rem 1.25rem; background: white; color: var(--ink); text-decoration: none; border-radius: 8px; font-family: system-ui, sans-serif; font-size: 0.9rem; font-weight: 600; }
+    .cta-card .btn:hover { transform: translateY(-1px); }
+    
+    /* Related */
+    .related { margin: 2rem 0; }
+    .related h3 { font-family: system-ui, sans-serif; font-size: 1rem; margin-bottom: 1rem; color: var(--muted); }
+    .related-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .related-links a { padding: 0.4rem 0.75rem; background: var(--light); border: 1px solid var(--border); border-radius: 6px; text-decoration: none; color: var(--ink); font-size: 0.85rem; }
+    .related-links a:hover { background: var(--border); }
+    
+    /* Footer */
+    .footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
+    .footer a { color: var(--coral); text-decoration: none; }
+    
+    @media (max-width: 600px) {
+      .container { padding: 1rem; }
+      .hero { padding: 1.5rem; }
+      .hero h1 { font-size: 1.35rem; }
+      .cta-row { grid-template-columns: 1fr; }
+    }
+  .header-inner{display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:0.75rem 1.5rem;}
+.header .logo{text-decoration:none;}
+.header .nav{display:flex;align-items:center;gap:1.5rem;}
+.header .nav a{color:#2D3436;text-decoration:none;font-size:0.95rem;font-weight:500;}
+.header .nav a:hover{color:#FF6B6B;}
+.header .nav .nav-cta{background:#FF6B6B;color:#fff!important;padding:0.4rem 1rem;border-radius:6px;font-weight:600;}
+.header .nav .nav-cta:hover{background:#e55a5a;}
+</style>
+  
+  <!-- Reader Tracking -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Record page view
+      fetch('/api/v2/reader/event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_type: 'page_view',
+          profile_type: 'ASSERTIVE',
+          profile_stance: 'OPEN',
+          content_type: 'reading_post'
+        })
+      });
+      
+      // Track scroll depth
+      let maxScroll = 0;
+      window.addEventListener('scroll', function() {
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        maxScroll = Math.max(maxScroll, scrollPercent);
+      });
+      
+      // Record read complete on exit
+      window.addEventListener('beforeunload', function() {
+        if (maxScroll > 75) {
+          navigator.sendBeacon('/api/v2/reader/event', JSON.stringify({
+            event_type: 'read_complete',
+            profile_type: 'ASSERTIVE',
+            profile_stance: 'OPEN',
+            content_type: 'reading_post',
+            scroll_depth_percent: maxScroll
+          }));
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365 100" width="140" height="41" style="vertical-align: middle;">
+      <g transform="translate(5, 2) scale(0.7)">
+        <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <path d="M20 68 Q12 72, 14 80 Q16 86, 24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
+        <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <circle cx="33" cy="46.5" r="2" fill="#FFF"/>
+        <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+        <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+      </g>
+      <text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">re</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
+    </svg></a>
+      <nav class="nav" id="main-nav">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/faq">FAQ</a>
+        <a href="/auth/login.html" class="nav-cta" id="nav-cta">Sign In</a>
+      </nav>
+    </div>
+  </header>
+    
+    <div class="hero">
+      <div class="hero-label">Your Reading Taste</div>
+      <h1>Bold Ideas, Open Conversation</h1>
+      <p class="hook">You want writers who take a stand—then invite you to push back.</p>
+      <div class="badges">
+        <span class="badge">ASSERTIVE</span>
+        <span class="badge">OPEN</span>
+        <span class="badge">Reading Profile</span>
+      </div>
+    </div>
+    
+    <article>
+      <p>You want writers who take a stand—then invite you to push back.</p><p>There's a particular kind of satisfaction when you find writing that fits. Assertive + Open prose offers something specific: it's energizing and decisive while inviting you to think alongside the writer.</p><p>What This Voice Feels Like</p><p>When you read assertive writing with a open stance, you experience energizing and decisive. The open orientation means the writer is inviting you to think alongside the writer. This combination creates prose that invites a particular kind of attention.</p><p>You probably find yourself drawn to this style because it matches how you want to engage with ideas. Maybe you read quickly, looking for clarity. Maybe you read slowly, savoring the texture. Either way, this voice meets you where you are.</p><p>Why Some Readers Are Drawn Here</p><p>Not everyone responds to assertive writing. Some find it too aggressive or overconfident. But for readers like you, that's precisely the appeal. You're not looking for writing that holds your hand—you want writing that respects your intelligence with clarity.</p><p>The open stance adds another dimension. Writers in this mode are inviting you to think alongside the writer. For some readers, that feels presumptuous or uncommitted. For you, it resonates.</p><p>Finding More Writing Like This</p><p>Once you recognize what draws you to assertive + open voices, you'll start noticing them everywhere. In journalism. In essays. In the books you keep returning to.</p><p>The writers below exemplify this style. They're not identical—each has their own concerns, their own rhythm—but they share the structural fingerprint that makes this voice distinctive.</p><p>Your Reading Taste</p><p>Understanding what draws you to certain writing styles isn't just interesting—it's useful. It helps you curate your reading list. It helps you understand why some books work for you and others don't. And it might reveal something about how you see the world.</p><p>You're drawn to writing that's energizing and decisive. That says something about you.</p><p>Of course, reading taste isn't fixed. You might be drawn to assertive + open writing now, but find yourself craving something different later. That's the point of exploration.</p><p>Do You Write Like You Read?</p><p>Here's an interesting question: does your writing voice match your reading taste? Some people write exactly how they love to read. Others produce prose that surprises them—different from what they consume.</p><p>If you're curious, you can analyze your own writing and find out. You might discover a perfect match. Or you might discover a fascinating gap.</p>
+    </article>
+    
+    
+    <div class="writers">
+      <h3>📚 Writers in This Style</h3>
+      <div class="writers-grid">
+        
+        <div class="writer-card" data-country="CA">
+          <span class="writer-flag">🇨🇦</span>
+          <div class="writer-info">
+            <span class="writer-name">Michael Ignatieff</span>
+            <span class="writer-book">Fire and Ashes</span>
+          </div>
+          <a href="https://www.chapters.indigo.ca/en-ca/home/search/?keywords=Michael+Ignatieff+Fire+and+Ashes&tag=quirrely" target="_blank" rel="noopener" class="writer-link">Find Book →</a>
+        </div>
+      
+        <div class="writer-card" data-country="UK">
+          <span class="writer-flag">🇬🇧</span>
+          <div class="writer-info">
+            <span class="writer-name">George Orwell</span>
+            <span class="writer-book">Essays</span>
+          </div>
+          <a href="https://uk.bookshop.org/search?keywords=George+Orwell+Essays&tag=quirrely" target="_blank" rel="noopener" class="writer-link">Find Book →</a>
+        </div>
+      
+        <div class="writer-card" data-country="AU">
+          <span class="writer-flag">🇦🇺</span>
+          <div class="writer-info">
+            <span class="writer-name">Clive James</span>
+            <span class="writer-book">Cultural Amnesia</span>
+          </div>
+          <a href="https://www.booktopia.com.au/search.ep?keywords=Clive+James+Cultural+Amnesia&tag=quirrely" target="_blank" rel="noopener" class="writer-link">Find Book →</a>
+        </div>
+      
+        <div class="writer-card" data-country="NZ">
+          <span class="writer-flag">🇳🇿</span>
+          <div class="writer-info">
+            <span class="writer-name">Eleanor Catton</span>
+            <span class="writer-book">The Luminaries</span>
+          </div>
+          <a href="https://www.mightyape.co.nz/search?q=Eleanor+Catton+The+Luminaries&tag=quirrely" target="_blank" rel="noopener" class="writer-link">Find Book →</a>
+        </div>
+      
+      </div>
+      <p class="affiliate-note">Book links support Quirrely at no extra cost to you.</p>
+    </div>
+    
+    
+    <!-- Featured Writer Section (conditional - only shows if exists) -->
+    <div class="featured-writer" id="featured-writer-section" style="display: none;">
+      <h3>⭐ From Our Community</h3>
+      <div id="featured-writer-content">
+        <!-- Populated by JS if Featured Writer exists -->
+      </div>
+    </div>
+    
+    <div class="cta-row">
+      <div class="cta-card taste">
+        <h4>Discover Your Full Reading Taste</h4>
+        <p>See how this voice fits into your broader preferences.</p>
+        <a href="/reading-taste" class="btn">Explore My Taste</a>
+      </div>
+      <div class="cta-card voice">
+        <h4>Do You Write Like You Read?</h4>
+        <p>Find out if your writing voice matches your reading taste.</p>
+        <a href="/analyze" class="btn">Analyze My Writing</a>
+      </div>
+    </div>
+    
+    <div class="related">
+      <h3>Explore Related Voices</h3>
+      <div class="related-links">
+        <a href="/blog/reading/assertive-closed">ASSERTIVE + CLOSED</a>
+        <a href="/blog/reading/assertive-balanced">ASSERTIVE + BALANCED</a>
+        <a href="/blog/reading/assertive-contradictory">ASSERTIVE + CONTRADICTORY</a>
+        <a href="/blog/reading/minimal-open">MINIMAL + OPEN</a>
+        <a href="/blog/reading/poetic-open">POETIC + OPEN</a>
+        <a href="/blog/reading/dense-open">DENSE + OPEN</a>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <p>Quirrely — Discover your reading taste and writing voice</p>
+      <p style="margin-top: 0.5rem;"><a href="/blog/writing/assertive-open">How ASSERTIVE + OPEN writers write →</a></p>
+    </footer>
+  </div>
+  
+  <script>
+    // Check for Featured Writer in this profile
+    fetch('/api/v2/featured/by-profile/ASSERTIVE-OPEN')
+      .then(r => r.json())
+      .then(data => {
+        if (data.exists) {
+          document.getElementById('featured-writer-section').style.display = 'block';
+          document.getElementById('featured-writer-content').innerHTML = `
+            <p><strong>${data.writer_name}</strong></p>
+            <p style="font-style: italic; color: var(--muted);">${data.excerpt}</p>
+            <a href="${data.url}" style="color: var(--coral);">Read the full piece →</a>
+          `;
+        }
+      })
+      .catch(() => {});
+  </script>
+<script>
+(function(){
+  var s=localStorage.getItem('quirrely_session'),u=localStorage.getItem('quirrely_user');
+  if(s&&u){try{var p=JSON.parse(u);var nav=document.getElementById('main-nav');
+  if(nav){nav.innerHTML='<a href="/dashboard">Dashboard</a><a href="/blog">Blog</a><a href="/faq">FAQ</a><a href="/settings">Settings</a>';
+  var av=document.createElement('a');av.href='/dashboard';av.className='nav-avatar';
+  av.style.cssText='display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#FF6B6B;color:#fff;font-size:13px;font-weight:600;text-decoration:none;margin-left:8px;';
+  av.textContent=(p.display_name||p.email||'?')[0].toUpperCase();nav.appendChild(av);
+  }}catch(e){}}
+})();
+</script>
+</body>
+</html>

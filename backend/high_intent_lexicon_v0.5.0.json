@@ -1,0 +1,351 @@
+{
+  "lexicon_version": "0.5.0",
+  "title": "LNCP High-Intent Lexicon",
+  "description": "Modal and epistemic markers for High-Intent word detection. These words signal how a writer positions their statements—their stance toward certainty, possibility, belief, and evidence.",
+  "interpretive_frame": "LNCP_PEIRCEAN",
+  "note": "In Peircean terms, these markers shape how interpretants form. They do not determine content meaning, but they modulate how meaning is held—tentatively, firmly, evidentially, or conditionally.",
+  "changelog": [
+    "v0.5.0: Removed 'were' from CONDITIONALITY (false positive). Added stance detection categories.",
+    "v0.1.0: Initial lexicon"
+  ],
+  
+  "categories": {
+    "CERTAINTY": {
+      "description": "Markers of strong commitment to truth or necessity. These words close down interpretive space.",
+      "semantic_force": "HIGH",
+      "interpretant_effect": "Stabilizes meaning; signals the writer treats the claim as settled.",
+      "stance_direction": "CLOSING",
+      "words": [
+        "must",
+        "always",
+        "never",
+        "certainly",
+        "definitely",
+        "absolutely",
+        "undoubtedly",
+        "surely",
+        "clearly",
+        "obviously",
+        "necessarily",
+        "inevitably",
+        "unquestionably",
+        "without doubt",
+        "of course",
+        "indeed",
+        "truly",
+        "genuinely",
+        "utterly",
+        "completely"
+      ]
+    },
+    
+    "POSSIBILITY": {
+      "description": "Markers of openness, contingency, or uncertainty. These words expand interpretive space.",
+      "semantic_force": "MEDIUM",
+      "interpretant_effect": "Destabilizes meaning; signals the writer holds the claim provisionally.",
+      "stance_direction": "OPENING",
+      "words": [
+        "might",
+        "may",
+        "maybe",
+        "perhaps",
+        "possibly",
+        "could",
+        "potentially",
+        "conceivably",
+        "presumably",
+        "probably",
+        "likely",
+        "unlikely",
+        "occasionally",
+        "sometimes",
+        "often",
+        "rarely",
+        "seldom",
+        "tends to",
+        "in some cases"
+      ]
+    },
+    
+    "BELIEF": {
+      "description": "Markers of subjective stance or cognitive state. These words foreground the writer's perspective.",
+      "semantic_force": "MEDIUM",
+      "interpretant_effect": "Indexes the writer as source; meaning is anchored to a subject.",
+      "stance_direction": "NEUTRAL",
+      "words": [
+        "believe",
+        "think",
+        "feel",
+        "suppose",
+        "assume",
+        "imagine",
+        "suspect",
+        "guess",
+        "reckon",
+        "consider",
+        "regard",
+        "view",
+        "hold",
+        "maintain",
+        "contend",
+        "assert",
+        "claim",
+        "argue",
+        "suggest",
+        "propose"
+      ]
+    },
+    
+    "EVIDENCE": {
+      "description": "Markers of perceptual or inferential grounding. These words signal how the writer knows.",
+      "semantic_force": "MEDIUM",
+      "interpretant_effect": "Grounds meaning in observation or inference; invites verification.",
+      "stance_direction": "NEUTRAL",
+      "words": [
+        "seems",
+        "appears",
+        "looks",
+        "sounds",
+        "feels like",
+        "evidently",
+        "apparently",
+        "reportedly",
+        "allegedly",
+        "supposedly",
+        "ostensibly",
+        "seemingly",
+        "visibly",
+        "noticeably",
+        "observably",
+        "demonstrates",
+        "indicates",
+        "implies",
+        "shows"
+      ]
+    },
+    
+    "HEDGING": {
+      "description": "Markers of degree modulation or qualification. These words soften or temper claims.",
+      "semantic_force": "LOW",
+      "interpretant_effect": "Creates interpretive buffer; signals the writer is not fully committed to extent.",
+      "stance_direction": "OPENING",
+      "words": [
+        "somewhat",
+        "rather",
+        "quite",
+        "fairly",
+        "slightly",
+        "a bit",
+        "a little",
+        "sort of",
+        "kind of",
+        "more or less",
+        "to some extent",
+        "in a way",
+        "in part",
+        "partially",
+        "largely",
+        "mostly",
+        "generally",
+        "typically",
+        "usually",
+        "roughly"
+      ]
+    },
+    
+    "CONDITIONALITY": {
+      "description": "Markers of contingent or hypothetical framing. These words establish dependency relationships.",
+      "semantic_force": "MEDIUM",
+      "interpretant_effect": "Suspends meaning; ties interpretation to unstated conditions.",
+      "stance_direction": "OPENING",
+      "words": [
+        "if",
+        "unless",
+        "whether",
+        "provided",
+        "assuming",
+        "given",
+        "in case",
+        "should",
+        "would",
+        "suppose",
+        "supposing",
+        "granted",
+        "even if",
+        "only if",
+        "as long as",
+        "so long as",
+        "on condition",
+        "contingent on",
+        "depending on"
+      ],
+      "note": "Removed 'were' in v0.5.0 - too many false positives as past tense verb"
+    },
+    
+    "CONTRAST": {
+      "description": "Markers of opposition, exception, or counter-expectation. These words create interpretive tension.",
+      "semantic_force": "MEDIUM",
+      "interpretant_effect": "Introduces polarity; signals the writer is navigating between positions.",
+      "stance_direction": "NEUTRAL",
+      "words": [
+        "but",
+        "however",
+        "although",
+        "though",
+        "yet",
+        "still",
+        "nevertheless",
+        "nonetheless",
+        "despite",
+        "in spite of",
+        "whereas",
+        "while",
+        "even so",
+        "on the other hand",
+        "conversely",
+        "instead",
+        "rather than",
+        "except",
+        "otherwise"
+      ],
+      "note": "Removed 'unless' (now only in CONDITIONALITY)"
+    },
+    
+    "EMPHASIS": {
+      "description": "Markers of intensification or focus. These words direct interpretive attention.",
+      "semantic_force": "HIGH",
+      "interpretant_effect": "Amplifies salience; signals the writer wants this noticed.",
+      "stance_direction": "CLOSING",
+      "words": [
+        "very",
+        "extremely",
+        "highly",
+        "especially",
+        "particularly",
+        "notably",
+        "remarkably",
+        "significantly",
+        "importantly",
+        "crucially",
+        "essentially",
+        "fundamentally",
+        "primarily",
+        "mainly",
+        "chiefly",
+        "above all",
+        "most",
+        "really",
+        "actually",
+        "in fact"
+      ]
+    }
+  },
+  
+  "multi_word_expressions": {
+    "note": "Some High-Intent markers are multi-word. These should be detected as units.",
+    "expressions": [
+      "of course",
+      "without doubt",
+      "in some cases",
+      "feels like",
+      "sort of",
+      "kind of",
+      "a bit",
+      "a little",
+      "more or less",
+      "to some extent",
+      "in a way",
+      "in part",
+      "in case",
+      "even if",
+      "only if",
+      "as long as",
+      "so long as",
+      "on condition",
+      "contingent on",
+      "depending on",
+      "in spite of",
+      "on the other hand",
+      "rather than",
+      "even so",
+      "above all",
+      "in fact",
+      "tends to"
+    ]
+  },
+  
+  "stance_detection": {
+    "note": "v0.5.0: New section for detecting stance patterns",
+    "opening_categories": ["POSSIBILITY", "HEDGING", "CONDITIONALITY"],
+    "closing_categories": ["CERTAINTY", "EMPHASIS"],
+    "neutral_categories": ["BELIEF", "EVIDENCE", "CONTRAST"],
+    "stances": {
+      "OPEN": {
+        "description": "Predominantly opening markers; writer leaves interpretive space",
+        "condition": "opening > closing AND opening >= 2"
+      },
+      "CLOSED": {
+        "description": "Predominantly closing markers; writer asserts with confidence",
+        "condition": "closing > opening AND closing >= 2"
+      },
+      "CONTRADICTORY": {
+        "description": "Both opening AND closing markers present; mixed signals",
+        "condition": "opening >= 2 AND closing >= 2"
+      },
+      "BALANCED": {
+        "description": "Roughly equal opening and closing markers",
+        "condition": "opening > 0 AND closing > 0 AND NOT contradictory"
+      },
+      "MINIMAL": {
+        "description": "Few or no epistemic markers detected",
+        "condition": "total_markers < 2"
+      }
+    }
+  },
+  
+  "false_positive_exclusions": {
+    "note": "Words that appear in categories but should be excluded in certain contexts",
+    "rules": [
+      {
+        "word": "can",
+        "exclude_when": "followed by 'not' or preceded by 'you'",
+        "reason": "Often ability ('you can do this') not possibility"
+      },
+      {
+        "word": "still",
+        "exclude_when": "preceded by 'sit' or 'stand' or 'keep'",
+        "reason": "Often 'remain motionless' not contrast"
+      }
+    ]
+  },
+  
+  "aggregation_rules": {
+    "profile_dimensions": [
+      {
+        "dimension": "EPISTEMIC_OPENNESS",
+        "description": "How much interpretive space the writer leaves",
+        "high_signal": ["POSSIBILITY", "HEDGING", "CONDITIONALITY"],
+        "low_signal": ["CERTAINTY", "EMPHASIS"]
+      },
+      {
+        "dimension": "SUBJECTIVE_ANCHORING",
+        "description": "How much the writer foregrounds their own perspective",
+        "high_signal": ["BELIEF"],
+        "low_signal": ["EVIDENCE"]
+      },
+      {
+        "dimension": "STANCE_INTENSITY",
+        "description": "How strongly the writer commits to their claims",
+        "high_signal": ["CERTAINTY", "EMPHASIS"],
+        "low_signal": ["HEDGING", "POSSIBILITY"]
+      }
+    ]
+  },
+  
+  "usage_guidance": {
+    "detection": "Match words case-insensitively. Check multi-word expressions before single words. Record position and category for each match.",
+    "interpretation": "High-Intent markers do not judge content quality. They reveal how the writer holds their meaning—openly or firmly, personally or evidentially.",
+    "presentation": "When surfacing High-Intent patterns to users, remain non-directive. Describe what is present, not what should be.",
+    "minimal_feedback": "When few markers are detected, note the directness rather than suggesting something is missing."
+  }
+}

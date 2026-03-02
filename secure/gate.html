@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Access Denied</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            padding: 40px;
+        }
+        .logo {
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: #444;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .auth-box {
+            background: #12121a;
+            border: 1px solid #252535;
+            border-radius: 12px;
+            padding: 30px;
+        }
+        .auth-box.hidden { display: none; }
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .field {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0a0a0f;
+            border: 1px solid #252535;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #00aaff;
+        }
+        input::placeholder {
+            color: #444;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #00aaff;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: #0088cc;
+        }
+        .btn:disabled {
+            background: #333;
+            cursor: not-allowed;
+        }
+        .error {
+            background: rgba(255, 68, 102, 0.1);
+            border: 1px solid rgba(255, 68, 102, 0.3);
+            color: #ff4466;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .error.visible { display: block; }
+        .success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .success.visible { display: block; }
+        .factors {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .factor {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+        }
+        .factor-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .factor-label {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .factor.active .factor-icon { color: #00ff88; }
+        .factor.active .factor-label { color: #00ff88; }
+        .timer {
+            text-align: center;
+            font-size: 12px;
+            color: #444;
+            margin-top: 20px;
+        }
+        .hardware-key-prompt {
+            text-align: center;
+            padding: 30px;
+        }
+        .hardware-key-prompt .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .hardware-key-prompt p {
+            color: #888;
+            font-size: 14px;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .loading { animation: pulse 1.5s infinite; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">SECURE ACCESS</div>
+        
+        <!-- Step 1: Password -->
+        <div class="auth-box" id="step-password">
+            <h1>Authentication Required</h1>
+            <p class="subtitle">Multi-factor authentication enabled</p>
+            
+            <div class="factors">
+                <div class="factor active" id="factor-password">
+                    <div class="factor-icon">🔑</div>
+                    <div class="factor-label">Password</div>
+                </div>
+                <div class="factor" id="factor-totp">
+                    <div class="factor-icon">📱</div>
+                    <div class="factor-label">TOTP</div>
+                </div>
+                <div class="factor" id="factor-key">
+                    <div class="factor-icon">🔐</div>
+                    <div class="factor-label">Key</div>
+                </div>
+            </div>
+            
+            <div class="error" id="error-password"></div>
+            
+            <form id="form-password" onsubmit="submitPassword(event)">
+                <div class="field">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn" id="btn-password">Continue</button>
+            </form>
+            
+            <div class="timer" id="session-timer"></div>
+        </div>
+        
+        <!-- Step 2: TOTP -->
+        <div class="auth-box hidden" id="step-totp">
+            <h1>Verification Code</h1>
+            <p class="subtitle">Enter code from authenticator app</p>
+            
+            <div class="factors">
+                <div class="factor active">
+                    <div class="factor-icon">🔑</div>
+                    <div class="factor-label">Password</div>
+                </div>
+                <div class="factor active" id="factor-totp-active">
+                    <div class="factor-icon">📱</div>
+                    <div class="factor-label">TOTP</div>
+                </div>
+                <div class="factor">
+                    <div class="factor-icon">🔐</div>
+                    <div class="factor-label">Key</div>
+                </div>
+            </div>
+            
+            <div class="error" id="error-totp"></div>
+            
+            <form id="form-totp" onsubmit="submitTOTP(event)">
+                <div class="field">
+                    <label>6-Digit Code</label>
+                    <input type="text" id="totp" placeholder="000000" required maxlength="6" pattern="[0-9]{6}" autocomplete="one-time-code" inputmode="numeric">
+                </div>
+                <button type="submit" class="btn" id="btn-totp">Verify</button>
+            </form>
+        </div>
+        
+        <!-- Step 3: Hardware Key -->
+        <div class="auth-box hidden" id="step-hardware">
+            <h1>Hardware Key</h1>
+            <p class="subtitle">Touch your security key to continue</p>
+            
+            <div class="factors">
+                <div class="factor active">
+                    <div class="factor-icon">🔑</div>
+                    <div class="factor-label">Password</div>
+                </div>
+                <div class="factor active">
+                    <div class="factor-icon">📱</div>
+                    <div class="factor-label">TOTP</div>
+                </div>
+                <div class="factor active">
+                    <div class="factor-icon">🔐</div>
+                    <div class="factor-label">Key</div>
+                </div>
+            </div>
+            
+            <div class="hardware-key-prompt">
+                <div class="icon loading">🔐</div>
+                <p>Insert and touch your security key</p>
+            </div>
+            
+            <div class="error" id="error-hardware"></div>
+        </div>
+        
+        <!-- Success -->
+        <div class="auth-box hidden" id="step-success">
+            <div class="success visible">
+                ✓ Authentication successful. Redirecting...
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Get URL token from path
+        const pathParts = window.location.pathname.split('/');
+        const urlToken = pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+        
+        let authState = {
+            password: null,
+            totp: null,
+            hardwareKey: false
+        };
+        
+        function showError(stepId, message) {
+            const errorEl = document.getElementById(`error-${stepId}`);
+            if (errorEl) {
+                errorEl.textContent = message;
+                errorEl.classList.add('visible');
+            }
+        }
+        
+        function hideError(stepId) {
+            const errorEl = document.getElementById(`error-${stepId}`);
+            if (errorEl) {
+                errorEl.classList.remove('visible');
+            }
+        }
+        
+        function showStep(stepId) {
+            document.querySelectorAll('.auth-box').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`step-${stepId}`).classList.remove('hidden');
+        }
+        
+        async function submitPassword(e) {
+            e.preventDefault();
+            hideError('password');
+            
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('btn-password');
+            
+            btn.disabled = true;
+            btn.textContent = 'Verifying...';
+            
+            try {
+                const response = await fetch('/api/auth/password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        url_token: urlToken,
+                        password: password 
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    authState.password = password;
+                    
+                    if (data.require_totp) {
+                        showStep('totp');
+                        document.getElementById('totp').focus();
+                    } else if (data.require_hardware_key) {
+                        showStep('hardware');
+                        initHardwareKey();
+                    } else {
+                        completeAuth(data.session_id);
+                    }
+                } else {
+                    showError('password', data.error || 'Invalid password');
+                }
+            } catch (err) {
+                showError('password', 'Connection error. Please try again.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Continue';
+            }
+        }
+        
+        async function submitTOTP(e) {
+            e.preventDefault();
+            hideError('totp');
+            
+            const totp = document.getElementById('totp').value;
+            const btn = document.getElementById('btn-totp');
+            
+            btn.disabled = true;
+            btn.textContent = 'Verifying...';
+            
+            try {
+                const response = await fetch('/api/auth/totp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        url_token: urlToken,
+                        password: authState.password,
+                        totp_code: totp
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    authState.totp = totp;
+                    
+                    if (data.require_hardware_key) {
+                        showStep('hardware');
+                        initHardwareKey();
+                    } else {
+                        completeAuth(data.session_id);
+                    }
+                } else {
+                    showError('totp', data.error || 'Invalid code');
+                    document.getElementById('totp').value = '';
+                    document.getElementById('totp').focus();
+                }
+            } catch (err) {
+                showError('totp', 'Connection error. Please try again.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Verify';
+            }
+        }
+        
+        async function initHardwareKey() {
+            // WebAuthn hardware key authentication
+            if (!window.PublicKeyCredential) {
+                showError('hardware', 'Hardware keys not supported in this browser');
+                return;
+            }
+            
+            try {
+                // Get challenge from server
+                const challengeResponse = await fetch('/api/auth/hardware-challenge', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url_token: urlToken })
+                });
+                
+                const challengeData = await challengeResponse.json();
+                
+                if (!challengeData.success) {
+                    showError('hardware', challengeData.error || 'Failed to get challenge');
+                    return;
+                }
+                
+                // Request hardware key
+                const credential = await navigator.credentials.get({
+                    publicKey: {
+                        challenge: Uint8Array.from(atob(challengeData.challenge), c => c.charCodeAt(0)),
+                        timeout: 60000,
+                        rpId: window.location.hostname,
+                        allowCredentials: challengeData.allowCredentials.map(cred => ({
+                            id: Uint8Array.from(atob(cred.id), c => c.charCodeAt(0)),
+                            type: 'public-key'
+                        }))
+                    }
+                });
+                
+                // Verify with server
+                const verifyResponse = await fetch('/api/auth/hardware-verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        url_token: urlToken,
+                        password: authState.password,
+                        totp_code: authState.totp,
+                        credential: {
+                            id: btoa(String.fromCharCode(...new Uint8Array(credential.rawId))),
+                            response: {
+                                authenticatorData: btoa(String.fromCharCode(...new Uint8Array(credential.response.authenticatorData))),
+                                clientDataJSON: btoa(String.fromCharCode(...new Uint8Array(credential.response.clientDataJSON))),
+                                signature: btoa(String.fromCharCode(...new Uint8Array(credential.response.signature)))
+                            }
+                        }
+                    })
+                });
+                
+                const verifyData = await verifyResponse.json();
+                
+                if (verifyData.success) {
+                    completeAuth(verifyData.session_id);
+                } else {
+                    showError('hardware', verifyData.error || 'Hardware key verification failed');
+                }
+                
+            } catch (err) {
+                if (err.name === 'NotAllowedError') {
+                    showError('hardware', 'Hardware key authentication cancelled or timed out');
+                } else {
+                    showError('hardware', 'Hardware key error: ' + err.message);
+                }
+            }
+        }
+        
+        function completeAuth(sessionId) {
+            showStep('success');
+            
+            // Store session
+            document.cookie = `lncp_session=${sessionId}; path=/; secure; samesite=strict`;
+            
+            // Redirect to command center
+            setTimeout(() => {
+                window.location.href = '/secure/command-center';
+            }, 1000);
+        }
+        
+        // Session timeout display
+        function updateTimer() {
+            const now = new Date();
+            const expiry = new Date(now.getTime() + 15 * 60 * 1000);
+            document.getElementById('session-timer').textContent = 
+                `Session will timeout after 15 minutes of inactivity`;
+        }
+        
+        updateTimer();
+        
+        // Auto-focus password field
+        document.getElementById('password').focus();
+    </script>
+</body>
+</html>

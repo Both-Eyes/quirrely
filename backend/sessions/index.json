@@ -1,0 +1,1670 @@
+{
+  "version": "0.1.0",
+  "sessions": {
+    "c0d150c5-0313-4a34-805f-239fa5d7044f": {
+      "session_id": "c0d150c5-0313-4a34-805f-239fa5d7044f",
+      "created_at": "2026-02-21T21:18:21.337267Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "636065d4-049b-4117-8641-d5bc7830cf79": {
+      "session_id": "636065d4-049b-4117-8641-d5bc7830cf79",
+      "created_at": "2026-02-21T22:33:10.548436Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8eaa8385-1df7-45d8-93da-fcc01df1487b": {
+      "session_id": "8eaa8385-1df7-45d8-93da-fcc01df1487b",
+      "created_at": "2026-02-22T11:51:45.665525Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "1f7f5493-d424-4ed7-90ed-88dd4b8172f9": {
+      "session_id": "1f7f5493-d424-4ed7-90ed-88dd4b8172f9",
+      "created_at": "2026-02-22T12:49:59.545563Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "7980a372-2bf9-443c-a720-9f6f0d5ff9f3": {
+      "session_id": "7980a372-2bf9-443c-a720-9f6f0d5ff9f3",
+      "created_at": "2026-02-22T13:02:40.844836Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "61c6d066-e579-4fc1-9827-21ebf1bcc5e6": {
+      "session_id": "61c6d066-e579-4fc1-9827-21ebf1bcc5e6",
+      "created_at": "2026-02-22T13:16:39.646222Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "73bc05dc-9347-4321-8034-872ba3f225da": {
+      "session_id": "73bc05dc-9347-4321-8034-872ba3f225da",
+      "created_at": "2026-02-22T13:18:44.924124Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "a330a3ba-a1c4-44e5-a6bf-f12546536946": {
+      "session_id": "a330a3ba-a1c4-44e5-a6bf-f12546536946",
+      "created_at": "2026-02-22T17:31:52.809939Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "e4b2ea85-f68e-4b67-afda-7d20b97b0ca0": {
+      "session_id": "e4b2ea85-f68e-4b67-afda-7d20b97b0ca0",
+      "created_at": "2026-02-22T17:44:14.134031Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "e840093c-96c9-4a08-ad71-fcab8dad1947": {
+      "session_id": "e840093c-96c9-4a08-ad71-fcab8dad1947",
+      "created_at": "2026-02-22T17:46:36.360332Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "fbb0c8c8-53e9-4f1c-8931-0dc8f97dc9fc": {
+      "session_id": "fbb0c8c8-53e9-4f1c-8931-0dc8f97dc9fc",
+      "created_at": "2026-02-22T17:47:27.109102Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "a3280d7f-583a-412f-95c9-d15433e68c95": {
+      "session_id": "a3280d7f-583a-412f-95c9-d15433e68c95",
+      "created_at": "2026-02-22T17:55:12.846046Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "6e46a879-94bd-4aad-8533-417ddcba63c2": {
+      "session_id": "6e46a879-94bd-4aad-8533-417ddcba63c2",
+      "created_at": "2026-02-22T17:57:45.584882Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "75525568-d7e6-4d44-9f9c-a57c92a3e26a": {
+      "session_id": "75525568-d7e6-4d44-9f9c-a57c92a3e26a",
+      "created_at": "2026-02-22T18:04:02.612077Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c656acdb-4fd3-43d0-afc1-7f7c57b4ebb1": {
+      "session_id": "c656acdb-4fd3-43d0-afc1-7f7c57b4ebb1",
+      "created_at": "2026-02-22T18:59:33.833024Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "80c30491-1318-4873-bdda-a9694a1ce04b": {
+      "session_id": "80c30491-1318-4873-bdda-a9694a1ce04b",
+      "created_at": "2026-02-22T19:03:51.693648Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "b30ed181-92d1-4af4-8f07-c153ec2b4fd4": {
+      "session_id": "b30ed181-92d1-4af4-8f07-c153ec2b4fd4",
+      "created_at": "2026-02-22T19:27:17.436074Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8b3afbf8-ed8f-4c02-ad20-a043e01ab61a": {
+      "session_id": "8b3afbf8-ed8f-4c02-ad20-a043e01ab61a",
+      "created_at": "2026-02-22T19:27:53.367499Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4b4554e0-aecc-487f-8f8d-0cfff5f00129": {
+      "session_id": "4b4554e0-aecc-487f-8f8d-0cfff5f00129",
+      "created_at": "2026-02-22T19:46:28.558123Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "71766484-5b68-4a1a-822d-bf951ef6a955": {
+      "session_id": "71766484-5b68-4a1a-822d-bf951ef6a955",
+      "created_at": "2026-02-22T19:47:42.489588Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "fd375cb4-7637-4336-ab88-16877e1456c2": {
+      "session_id": "fd375cb4-7637-4336-ab88-16877e1456c2",
+      "created_at": "2026-02-22T19:47:46.508815Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "36b3e52b-6eab-4e41-9dc5-0712d81853dd": {
+      "session_id": "36b3e52b-6eab-4e41-9dc5-0712d81853dd",
+      "created_at": "2026-02-22T19:48:31.753006Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "7b7d1823-f1d0-454f-a3b8-eada55ca0c0d": {
+      "session_id": "7b7d1823-f1d0-454f-a3b8-eada55ca0c0d",
+      "created_at": "2026-02-22T19:48:36.363746Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4dbd36a3-e3b1-4f43-b575-13b6b3cade61": {
+      "session_id": "4dbd36a3-e3b1-4f43-b575-13b6b3cade61",
+      "created_at": "2026-02-22T19:50:49.904749Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "2ddc1131-baee-473f-9a2f-586ae0cf2b42": {
+      "session_id": "2ddc1131-baee-473f-9a2f-586ae0cf2b42",
+      "created_at": "2026-02-22T20:02:48.758686Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "58644300-5351-4e90-954f-ddd3d59a190c": {
+      "session_id": "58644300-5351-4e90-954f-ddd3d59a190c",
+      "created_at": "2026-02-22T20:03:38.989608Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "43f55de5-118c-4572-81b3-84a09ec95649": {
+      "session_id": "43f55de5-118c-4572-81b3-84a09ec95649",
+      "created_at": "2026-02-22T20:15:15.462144Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "30e6e9aa-a09b-497c-84f6-4e17e441525a": {
+      "session_id": "30e6e9aa-a09b-497c-84f6-4e17e441525a",
+      "created_at": "2026-02-22T20:22:37.971367Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4e52443a-383e-4ca9-9746-b70793e8878a": {
+      "session_id": "4e52443a-383e-4ca9-9746-b70793e8878a",
+      "created_at": "2026-02-22T20:39:53.207770Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "edd9bae2-3184-4af2-ad34-b3ef6d4454e9": {
+      "session_id": "edd9bae2-3184-4af2-ad34-b3ef6d4454e9",
+      "created_at": "2026-02-22T20:44:22.976107Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "9e10d1ef-cf3c-4ffd-abb2-4a26f77d932c": {
+      "session_id": "9e10d1ef-cf3c-4ffd-abb2-4a26f77d932c",
+      "created_at": "2026-02-22T20:47:57.169329Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "5bde4b24-86c0-44cb-a297-d56517eb0d5b": {
+      "session_id": "5bde4b24-86c0-44cb-a297-d56517eb0d5b",
+      "created_at": "2026-02-22T20:53:50.549657Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "81761478-5822-496a-909d-6e08ee9ce26e": {
+      "session_id": "81761478-5822-496a-909d-6e08ee9ce26e",
+      "created_at": "2026-02-22T20:56:23.763087Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "24284fe8-8249-44e8-906c-8d4887d0112e": {
+      "session_id": "24284fe8-8249-44e8-906c-8d4887d0112e",
+      "created_at": "2026-02-22T20:59:06.416922Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "def04b6b-cafc-4f17-82c3-2586960c8109": {
+      "session_id": "def04b6b-cafc-4f17-82c3-2586960c8109",
+      "created_at": "2026-02-22T21:00:17.578603Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "981dd332-e1c5-4c52-b525-1d07a2c1f30c": {
+      "session_id": "981dd332-e1c5-4c52-b525-1d07a2c1f30c",
+      "created_at": "2026-02-22T23:01:05.527501Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "645430c5-a662-40e6-9da2-882e5d38a0ea": {
+      "session_id": "645430c5-a662-40e6-9da2-882e5d38a0ea",
+      "created_at": "2026-02-22T23:06:30.300254Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "21e7d70a-3c46-4e02-9553-2d3972ed7750": {
+      "session_id": "21e7d70a-3c46-4e02-9553-2d3972ed7750",
+      "created_at": "2026-02-22T23:10:37.752097Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8497cf45-2a43-4b6c-a549-a61fcf0753e3": {
+      "session_id": "8497cf45-2a43-4b6c-a549-a61fcf0753e3",
+      "created_at": "2026-02-23T00:00:50.649014Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "98df1fb9-335f-4085-8729-40242da24e01": {
+      "session_id": "98df1fb9-335f-4085-8729-40242da24e01",
+      "created_at": "2026-02-23T00:32:50.429346Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4a731d38-0f6f-41c9-b410-5c20ad855214": {
+      "session_id": "4a731d38-0f6f-41c9-b410-5c20ad855214",
+      "created_at": "2026-02-23T01:09:41.288187Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "016eccbe-0507-49ab-ad26-f1588c1a3670": {
+      "session_id": "016eccbe-0507-49ab-ad26-f1588c1a3670",
+      "created_at": "2026-02-23T08:00:05.193812Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c4c6ae55-3f51-4a4d-bc73-c0ebe5fbb0ab": {
+      "session_id": "c4c6ae55-3f51-4a4d-bc73-c0ebe5fbb0ab",
+      "created_at": "2026-02-23T15:45:56.162914Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "e95503fa-9621-421d-a5d0-aa3ad321c5ab": {
+      "session_id": "e95503fa-9621-421d-a5d0-aa3ad321c5ab",
+      "created_at": "2026-02-23T16:11:45.038143Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "147c3680-8985-4dbd-ba1d-316afab6a670": {
+      "session_id": "147c3680-8985-4dbd-ba1d-316afab6a670",
+      "created_at": "2026-02-23T16:22:26.270464Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "90dd9473-a758-463c-9d14-f7050481e6e7": {
+      "session_id": "90dd9473-a758-463c-9d14-f7050481e6e7",
+      "created_at": "2026-02-23T16:44:18.881813Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "71ced1e1-0d7c-4f3a-b58a-64447c02f6c9": {
+      "session_id": "71ced1e1-0d7c-4f3a-b58a-64447c02f6c9",
+      "created_at": "2026-02-23T18:18:13.232609Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "64d10721-4aab-4c4b-8b55-b4664ee00bd0": {
+      "session_id": "64d10721-4aab-4c4b-8b55-b4664ee00bd0",
+      "created_at": "2026-02-23T18:44:10.437696Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8d36397d-7f7f-4b5b-ac94-cdc2f93a9afb": {
+      "session_id": "8d36397d-7f7f-4b5b-ac94-cdc2f93a9afb",
+      "created_at": "2026-02-23T19:25:32.575890Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "46d74c55-5162-4eda-a408-0b9279b7f026": {
+      "session_id": "46d74c55-5162-4eda-a408-0b9279b7f026",
+      "created_at": "2026-02-23T19:32:32.819536Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "59baf4b0-6f79-4da4-94a2-3868f8bc9fe8": {
+      "session_id": "59baf4b0-6f79-4da4-94a2-3868f8bc9fe8",
+      "created_at": "2026-02-23T21:30:41.907909Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "7e8552cd-7355-416d-af6a-c500e424a3f0": {
+      "session_id": "7e8552cd-7355-416d-af6a-c500e424a3f0",
+      "created_at": "2026-02-23T22:08:40.649530Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "829f577b-5786-401e-803f-fb60a87d00f6": {
+      "session_id": "829f577b-5786-401e-803f-fb60a87d00f6",
+      "created_at": "2026-02-23T22:09:17.890101Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "6ddbcc41-6f67-46a8-a3f5-caf2be2aa08f": {
+      "session_id": "6ddbcc41-6f67-46a8-a3f5-caf2be2aa08f",
+      "created_at": "2026-02-23T22:44:25.747462Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "b1d333c0-c937-4f26-ab15-8a05247e7892": {
+      "session_id": "b1d333c0-c937-4f26-ab15-8a05247e7892",
+      "created_at": "2026-02-24T08:00:13.004646Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "e43dde16-fd83-44f8-b6b4-b84bea7ff56c": {
+      "session_id": "e43dde16-fd83-44f8-b6b4-b84bea7ff56c",
+      "created_at": "2026-02-24T12:24:47.190216Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "563c80c2-3ed5-478e-90e9-1752f178ad52": {
+      "session_id": "563c80c2-3ed5-478e-90e9-1752f178ad52",
+      "created_at": "2026-02-24T12:43:23.145053Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "95654bc3-68e2-47a3-aa03-87f251549d1a": {
+      "session_id": "95654bc3-68e2-47a3-aa03-87f251549d1a",
+      "created_at": "2026-02-24T12:56:20.553551Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4e22aa3f-5ca5-4c78-9152-de556e401222": {
+      "session_id": "4e22aa3f-5ca5-4c78-9152-de556e401222",
+      "created_at": "2026-02-24T13:19:32.098277Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "ff1dca68-9d2f-4679-aad1-6fd5071a015b": {
+      "session_id": "ff1dca68-9d2f-4679-aad1-6fd5071a015b",
+      "created_at": "2026-02-24T13:22:39.930301Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "b709408e-b7f0-4c9d-8238-327746d2a5fc": {
+      "session_id": "b709408e-b7f0-4c9d-8238-327746d2a5fc",
+      "created_at": "2026-02-24T13:23:48.835016Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c3578d6c-621d-42a2-b136-8201112716db": {
+      "session_id": "c3578d6c-621d-42a2-b136-8201112716db",
+      "created_at": "2026-02-24T13:30:28.523152Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "04c8fd63-e3c2-485d-91ef-b0f7a4ea598a": {
+      "session_id": "04c8fd63-e3c2-485d-91ef-b0f7a4ea598a",
+      "created_at": "2026-02-24T13:33:07.659416Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4150aa5c-b48d-4d8a-bdee-a60e16e8edfe": {
+      "session_id": "4150aa5c-b48d-4d8a-bdee-a60e16e8edfe",
+      "created_at": "2026-02-24T13:34:14.139557Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "888a42fe-7382-405f-8e5d-8192255d3f9d": {
+      "session_id": "888a42fe-7382-405f-8e5d-8192255d3f9d",
+      "created_at": "2026-02-24T13:40:13.431787Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "432b086a-484d-4120-ac20-ff111185b395": {
+      "session_id": "432b086a-484d-4120-ac20-ff111185b395",
+      "created_at": "2026-02-24T13:41:35.534044Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "1534af30-7604-46ef-a6fc-342bda82c509": {
+      "session_id": "1534af30-7604-46ef-a6fc-342bda82c509",
+      "created_at": "2026-02-24T13:43:15.757740Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "fae66690-3fda-4ab7-ac30-54323a3310c5": {
+      "session_id": "fae66690-3fda-4ab7-ac30-54323a3310c5",
+      "created_at": "2026-02-24T13:45:29.005562Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "bc95dd80-bb49-4c9d-a0b5-29f5217cf217": {
+      "session_id": "bc95dd80-bb49-4c9d-a0b5-29f5217cf217",
+      "created_at": "2026-02-24T16:10:54.420723Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "f56310c9-7a6e-420f-96aa-5e012da04228": {
+      "session_id": "f56310c9-7a6e-420f-96aa-5e012da04228",
+      "created_at": "2026-02-24T16:23:31.199148Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "9240a6cc-78cd-4818-a3c0-6ea08e0218dd": {
+      "session_id": "9240a6cc-78cd-4818-a3c0-6ea08e0218dd",
+      "created_at": "2026-02-25T08:00:08.519794Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "6ce04bee-4275-45b8-b48d-c7995532d3dc": {
+      "session_id": "6ce04bee-4275-45b8-b48d-c7995532d3dc",
+      "created_at": "2026-02-25T14:48:16.261624Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "27779dec-7907-49d2-b6bc-2869327861b1": {
+      "session_id": "27779dec-7907-49d2-b6bc-2869327861b1",
+      "created_at": "2026-02-25T14:59:09.469334Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "e89ac13b-7c83-4e21-8454-075e429ca0f5": {
+      "session_id": "e89ac13b-7c83-4e21-8454-075e429ca0f5",
+      "created_at": "2026-02-25T15:03:29.297358Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "b07d6c42-0e5f-4fdf-aadc-5235c20eb7a5": {
+      "session_id": "b07d6c42-0e5f-4fdf-aadc-5235c20eb7a5",
+      "created_at": "2026-02-25T15:12:30.157042Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "d99430be-1c21-40bf-8fef-99d6f727f85c": {
+      "session_id": "d99430be-1c21-40bf-8fef-99d6f727f85c",
+      "created_at": "2026-02-25T15:14:41.206348Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c8a64805-bca9-4a4b-b9f3-38c822d90c38": {
+      "session_id": "c8a64805-bca9-4a4b-b9f3-38c822d90c38",
+      "created_at": "2026-02-25T15:21:49.963429Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "94137bba-f7dd-42f1-8840-2dc4bec88ae2": {
+      "session_id": "94137bba-f7dd-42f1-8840-2dc4bec88ae2",
+      "created_at": "2026-02-25T15:37:17.084609Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "7db3039b-cab6-44d8-b2a3-1e2161d9c58a": {
+      "session_id": "7db3039b-cab6-44d8-b2a3-1e2161d9c58a",
+      "created_at": "2026-02-25T15:50:02.180426Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "5337bd7e-5cf9-4a2b-a5cd-5ac410c4e58e": {
+      "session_id": "5337bd7e-5cf9-4a2b-a5cd-5ac410c4e58e",
+      "created_at": "2026-02-25T16:22:09.976561Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "295a9bd3-30ec-4fa9-8a75-524ac2a3053d": {
+      "session_id": "295a9bd3-30ec-4fa9-8a75-524ac2a3053d",
+      "created_at": "2026-02-25T16:40:15.469490Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8ef8bdf8-af7b-4015-9719-f5f4e282442b": {
+      "session_id": "8ef8bdf8-af7b-4015-9719-f5f4e282442b",
+      "created_at": "2026-02-25T16:55:02.935073Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8e1db09b-b4e4-4c7d-bb0c-0d5a9713d353": {
+      "session_id": "8e1db09b-b4e4-4c7d-bb0c-0d5a9713d353",
+      "created_at": "2026-02-25T17:26:17.171170Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8926eb3d-9019-409b-a238-601741cf767b": {
+      "session_id": "8926eb3d-9019-409b-a238-601741cf767b",
+      "created_at": "2026-02-25T17:29:53.981749Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "81fc9202-47b8-4c95-8c7b-a4fafead25ec": {
+      "session_id": "81fc9202-47b8-4c95-8c7b-a4fafead25ec",
+      "created_at": "2026-02-25T17:53:22.586738Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "2baf2f2b-c55e-46c7-852f-baa0a747378f": {
+      "session_id": "2baf2f2b-c55e-46c7-852f-baa0a747378f",
+      "created_at": "2026-02-25T17:54:20.103276Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "86cc84ff-ea00-4a28-a3f1-325c36fa8d8a": {
+      "session_id": "86cc84ff-ea00-4a28-a3f1-325c36fa8d8a",
+      "created_at": "2026-02-25T18:34:10.106594Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "59e75598-e5e6-44eb-8d22-0a4f4fde0f59": {
+      "session_id": "59e75598-e5e6-44eb-8d22-0a4f4fde0f59",
+      "created_at": "2026-02-25T18:51:44.076609Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "965638ea-57f9-4181-b54d-fdb533a51b82": {
+      "session_id": "965638ea-57f9-4181-b54d-fdb533a51b82",
+      "created_at": "2026-02-25T19:34:27.313400Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "d233f1c2-51e4-4714-b241-cbe94d51e83c": {
+      "session_id": "d233f1c2-51e4-4714-b241-cbe94d51e83c",
+      "created_at": "2026-02-26T08:00:04.126353Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4eca3621-5fc3-41c6-9e65-689777718287": {
+      "session_id": "4eca3621-5fc3-41c6-9e65-689777718287",
+      "created_at": "2026-02-27T08:00:05.687743Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "d9a98a30-4e67-488a-b02e-a516ecd5471d": {
+      "session_id": "d9a98a30-4e67-488a-b02e-a516ecd5471d",
+      "created_at": "2026-02-27T16:02:35.602451Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4e3551ee-e508-476d-9705-a30d2ac98ae6": {
+      "session_id": "4e3551ee-e508-476d-9705-a30d2ac98ae6",
+      "created_at": "2026-02-27T16:12:41.699561Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "67b0c4e2-a66b-47eb-898b-ec04b0f3e89f": {
+      "session_id": "67b0c4e2-a66b-47eb-898b-ec04b0f3e89f",
+      "created_at": "2026-02-27T16:12:59.938941Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "142f28f4-ac29-46d5-9614-1bb5d2867738": {
+      "session_id": "142f28f4-ac29-46d5-9614-1bb5d2867738",
+      "created_at": "2026-02-27T16:16:31.397783Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "aa880d84-8122-4ffd-bb4f-819a72a0b2c9": {
+      "session_id": "aa880d84-8122-4ffd-bb4f-819a72a0b2c9",
+      "created_at": "2026-02-27T16:37:25.415763Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "9c5af9b0-ff35-4e46-a439-bf0c1e4b6dfe": {
+      "session_id": "9c5af9b0-ff35-4e46-a439-bf0c1e4b6dfe",
+      "created_at": "2026-02-27T16:49:13.052021Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "2d970f12-7ceb-4f4f-b6ca-0fd3a71466f2": {
+      "session_id": "2d970f12-7ceb-4f4f-b6ca-0fd3a71466f2",
+      "created_at": "2026-02-27T16:58:23.641636Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "71b9e8b5-78e0-4a30-a872-fc8e7280bfa7": {
+      "session_id": "71b9e8b5-78e0-4a30-a872-fc8e7280bfa7",
+      "created_at": "2026-02-27T17:00:38.802806Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c5ca6204-20e3-4b8f-87ad-110604cbe9b1": {
+      "session_id": "c5ca6204-20e3-4b8f-87ad-110604cbe9b1",
+      "created_at": "2026-02-27T17:28:40.182970Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "e455912b-46d9-4757-8b12-3874e5d50418": {
+      "session_id": "e455912b-46d9-4757-8b12-3874e5d50418",
+      "created_at": "2026-02-27T17:29:20.046649Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "cdd2e8c5-1244-4e1d-9539-98673f137a31": {
+      "session_id": "cdd2e8c5-1244-4e1d-9539-98673f137a31",
+      "created_at": "2026-02-27T17:32:43.244304Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "ba841bbe-619e-4196-9f55-a9342ea0963c": {
+      "session_id": "ba841bbe-619e-4196-9f55-a9342ea0963c",
+      "created_at": "2026-02-27T17:33:36.391118Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "d3b1347b-492c-4c44-9d92-d66ac848a292": {
+      "session_id": "d3b1347b-492c-4c44-9d92-d66ac848a292",
+      "created_at": "2026-02-27T17:34:05.375931Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "0ac44e6f-0556-46d1-a347-a4497fce45c5": {
+      "session_id": "0ac44e6f-0556-46d1-a347-a4497fce45c5",
+      "created_at": "2026-02-27T18:25:18.037854Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "b580a8d2-fe10-4a4e-8eb0-e019a3607903": {
+      "session_id": "b580a8d2-fe10-4a4e-8eb0-e019a3607903",
+      "created_at": "2026-02-27T18:34:29.080200Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "90424ea2-d876-496e-abba-0d2674bef8a4": {
+      "session_id": "90424ea2-d876-496e-abba-0d2674bef8a4",
+      "created_at": "2026-02-27T19:03:44.639347Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "d495d1bb-3600-4ed9-ad02-58837df5647d": {
+      "session_id": "d495d1bb-3600-4ed9-ad02-58837df5647d",
+      "created_at": "2026-02-27T19:29:20.827386Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "ff43b466-e5df-4ff4-b800-ffd4738781e8": {
+      "session_id": "ff43b466-e5df-4ff4-b800-ffd4738781e8",
+      "created_at": "2026-02-27T19:44:33.127718Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4dac2fa0-7f67-4c51-888b-43afb7f4764a": {
+      "session_id": "4dac2fa0-7f67-4c51-888b-43afb7f4764a",
+      "created_at": "2026-02-27T20:29:45.740541Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "1c391ab5-c666-4c81-8360-dbf218af3e4b": {
+      "session_id": "1c391ab5-c666-4c81-8360-dbf218af3e4b",
+      "created_at": "2026-02-27T20:35:59.877279Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "bb11940c-eaea-4859-86e3-506178a08119": {
+      "session_id": "bb11940c-eaea-4859-86e3-506178a08119",
+      "created_at": "2026-02-27T21:12:36.468952Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "1096b815-0016-4f95-9345-c6b5389e0553": {
+      "session_id": "1096b815-0016-4f95-9345-c6b5389e0553",
+      "created_at": "2026-02-27T21:17:38.796307Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "6c521c0c-4a7b-4032-af4d-b2c4b52ced3e": {
+      "session_id": "6c521c0c-4a7b-4032-af4d-b2c4b52ced3e",
+      "created_at": "2026-02-27T21:23:44.841875Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "a3a1b440-f88d-47d2-9e04-6725e363f9f2": {
+      "session_id": "a3a1b440-f88d-47d2-9e04-6725e363f9f2",
+      "created_at": "2026-02-27T21:29:07.355362Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "fd12d541-67bd-4e13-a358-ca61efa89e17": {
+      "session_id": "fd12d541-67bd-4e13-a358-ca61efa89e17",
+      "created_at": "2026-02-27T21:52:39.764159Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "3500d5e0-50b8-44ff-befa-74ed2f35396f": {
+      "session_id": "3500d5e0-50b8-44ff-befa-74ed2f35396f",
+      "created_at": "2026-02-27T22:10:24.823618Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "90feffd3-6bdc-40ab-ab76-0ce32226dc10": {
+      "session_id": "90feffd3-6bdc-40ab-ab76-0ce32226dc10",
+      "created_at": "2026-02-27T22:17:54.408101Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "f1fa5ddf-00b5-4014-8692-d4d55ff2d651": {
+      "session_id": "f1fa5ddf-00b5-4014-8692-d4d55ff2d651",
+      "created_at": "2026-02-27T22:29:40.141306Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "41d2ae3e-f198-460f-931e-fd427fb1a885": {
+      "session_id": "41d2ae3e-f198-460f-931e-fd427fb1a885",
+      "created_at": "2026-02-28T08:00:04.363780Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8ca7dabb-cc37-4d88-b61d-28cc15368785": {
+      "session_id": "8ca7dabb-cc37-4d88-b61d-28cc15368785",
+      "created_at": "2026-02-28T13:35:06.226624Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "34546390-198a-473a-a092-584dab36d972": {
+      "session_id": "34546390-198a-473a-a092-584dab36d972",
+      "created_at": "2026-02-28T14:29:56.583005Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c95ca8be-c29c-45c5-9e64-79d524a3bedb": {
+      "session_id": "c95ca8be-c29c-45c5-9e64-79d524a3bedb",
+      "created_at": "2026-02-28T14:49:07.791315Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8d739f80-9f0b-4175-8657-2a81d79bff9f": {
+      "session_id": "8d739f80-9f0b-4175-8657-2a81d79bff9f",
+      "created_at": "2026-02-28T15:06:34.102427Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "6efc402b-5f50-4935-9ef3-5864ebedffd1": {
+      "session_id": "6efc402b-5f50-4935-9ef3-5864ebedffd1",
+      "created_at": "2026-02-28T15:13:39.051862Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "af82a4d7-241e-4140-8805-8ad7461d7d1a": {
+      "session_id": "af82a4d7-241e-4140-8805-8ad7461d7d1a",
+      "created_at": "2026-02-28T15:47:27.809006Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "1cfdb620-2860-4b5a-b17a-99920b357284": {
+      "session_id": "1cfdb620-2860-4b5a-b17a-99920b357284",
+      "created_at": "2026-02-28T15:55:52.797780Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4fc7b038-f9bc-40af-91ce-7d1413138e9e": {
+      "session_id": "4fc7b038-f9bc-40af-91ce-7d1413138e9e",
+      "created_at": "2026-02-28T16:09:46.554648Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4104a1d7-b940-4159-bb20-15c5c2a9b619": {
+      "session_id": "4104a1d7-b940-4159-bb20-15c5c2a9b619",
+      "created_at": "2026-02-28T16:12:13.932439Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "b7d6f138-a263-4bd5-b6af-feed9f1c7aba": {
+      "session_id": "b7d6f138-a263-4bd5-b6af-feed9f1c7aba",
+      "created_at": "2026-02-28T16:12:32.525840Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "81d1d961-b63f-45c2-8648-6a3c65619828": {
+      "session_id": "81d1d961-b63f-45c2-8648-6a3c65619828",
+      "created_at": "2026-02-28T16:14:26.918408Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "0add60a7-8ae6-43d4-9d23-4189bbc39d25": {
+      "session_id": "0add60a7-8ae6-43d4-9d23-4189bbc39d25",
+      "created_at": "2026-02-28T16:45:31.170072Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "a5a3e2c0-1972-4e44-903e-b13fec18fcd2": {
+      "session_id": "a5a3e2c0-1972-4e44-903e-b13fec18fcd2",
+      "created_at": "2026-02-28T16:46:55.075231Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "a68c96fd-e768-4cd8-9575-99317c809422": {
+      "session_id": "a68c96fd-e768-4cd8-9575-99317c809422",
+      "created_at": "2026-02-28T16:49:04.336120Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "eb4e73c5-02a6-49d5-bb82-91b7d2789489": {
+      "session_id": "eb4e73c5-02a6-49d5-bb82-91b7d2789489",
+      "created_at": "2026-02-28T17:13:07.189189Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "8d5f36b1-226d-4fc9-83ed-c5737ef9d60d": {
+      "session_id": "8d5f36b1-226d-4fc9-83ed-c5737ef9d60d",
+      "created_at": "2026-02-28T17:14:06.508703Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "f1df3613-e88c-4070-b949-c980a3283d9d": {
+      "session_id": "f1df3613-e88c-4070-b949-c980a3283d9d",
+      "created_at": "2026-02-28T17:33:15.173769Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "64230bb2-f276-4242-b943-8ed59afb7304": {
+      "session_id": "64230bb2-f276-4242-b943-8ed59afb7304",
+      "created_at": "2026-02-28T17:45:22.489998Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "7faced09-23e6-47e7-9bf5-4e7f9a577fae": {
+      "session_id": "7faced09-23e6-47e7-9bf5-4e7f9a577fae",
+      "created_at": "2026-02-28T18:13:19.129197Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "df1e7b6d-9a5f-4c6d-805d-f005de8e66a5": {
+      "session_id": "df1e7b6d-9a5f-4c6d-805d-f005de8e66a5",
+      "created_at": "2026-02-28T18:16:10.207909Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "69e469ed-5b2f-4d28-875c-78a9058836fb": {
+      "session_id": "69e469ed-5b2f-4d28-875c-78a9058836fb",
+      "created_at": "2026-02-28T18:41:17.782903Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "bbf5ff9c-8fcd-4210-858c-83b1c608c9aa": {
+      "session_id": "bbf5ff9c-8fcd-4210-858c-83b1c608c9aa",
+      "created_at": "2026-02-28T18:44:08.899747Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "b3d6bcb3-918d-4485-9ba4-8961cab85113": {
+      "session_id": "b3d6bcb3-918d-4485-9ba4-8961cab85113",
+      "created_at": "2026-02-28T18:48:06.504573Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "326d7112-fa0b-4cb3-bfc3-2a493279dc17": {
+      "session_id": "326d7112-fa0b-4cb3-bfc3-2a493279dc17",
+      "created_at": "2026-02-28T19:15:41.115972Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "2d6e26b1-293b-4ea8-b44b-0a9121a3e7a9": {
+      "session_id": "2d6e26b1-293b-4ea8-b44b-0a9121a3e7a9",
+      "created_at": "2026-02-28T19:16:18.651533Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "0628bb64-0d0a-4a30-9331-99a2263f7ef3": {
+      "session_id": "0628bb64-0d0a-4a30-9331-99a2263f7ef3",
+      "created_at": "2026-02-28T19:17:10.238294Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "a3025807-c2e3-4748-b100-59d53dfb343b": {
+      "session_id": "a3025807-c2e3-4748-b100-59d53dfb343b",
+      "created_at": "2026-02-28T19:17:45.351026Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "0d5de8a7-834e-4eb2-b8f7-ae45010d3529": {
+      "session_id": "0d5de8a7-834e-4eb2-b8f7-ae45010d3529",
+      "created_at": "2026-02-28T19:18:14.631336Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "850d697e-c942-4dd3-9771-735d9f613ac1": {
+      "session_id": "850d697e-c942-4dd3-9771-735d9f613ac1",
+      "created_at": "2026-02-28T19:30:44.683411Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "584cb5fe-5953-42c1-afca-221cded45b19": {
+      "session_id": "584cb5fe-5953-42c1-afca-221cded45b19",
+      "created_at": "2026-02-28T23:03:05.554355Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "d725281b-c799-4a4f-8ddd-af460ed70768": {
+      "session_id": "d725281b-c799-4a4f-8ddd-af460ed70768",
+      "created_at": "2026-02-28T23:17:56.355373Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c5599fed-be82-4409-ae06-6f7cc2fa2cb3": {
+      "session_id": "c5599fed-be82-4409-ae06-6f7cc2fa2cb3",
+      "created_at": "2026-03-01T08:00:04.603006Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4d7913aa-27cf-4918-b2c5-b06c5290b783": {
+      "session_id": "4d7913aa-27cf-4918-b2c5-b06c5290b783",
+      "created_at": "2026-03-01T14:49:20.504437Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "71ac7cb9-b45a-4f4f-8cf4-4d714eaea55b": {
+      "session_id": "71ac7cb9-b45a-4f4f-8cf4-4d714eaea55b",
+      "created_at": "2026-03-01T14:52:45.869103Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "efb11975-df2f-4a38-b028-91f9543a0ad1": {
+      "session_id": "efb11975-df2f-4a38-b028-91f9543a0ad1",
+      "created_at": "2026-03-01T14:57:37.228837Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "12377122-a411-45bc-a88e-a53ce8a3fe83": {
+      "session_id": "12377122-a411-45bc-a88e-a53ce8a3fe83",
+      "created_at": "2026-03-01T17:17:54.941117Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "9ac4f7a3-0470-48d1-9be5-d1dbc82381fb": {
+      "session_id": "9ac4f7a3-0470-48d1-9be5-d1dbc82381fb",
+      "created_at": "2026-03-01T17:50:02.516044Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c039aa43-11d9-4f5e-a8a7-a83b71c3b515": {
+      "session_id": "c039aa43-11d9-4f5e-a8a7-a83b71c3b515",
+      "created_at": "2026-03-01T17:50:45.721284Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "591ca963-cc04-4678-8680-2e59ff48c68f": {
+      "session_id": "591ca963-cc04-4678-8680-2e59ff48c68f",
+      "created_at": "2026-03-01T17:51:58.389780Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "89732b22-20a6-4389-ba9d-2fd3f803d12a": {
+      "session_id": "89732b22-20a6-4389-ba9d-2fd3f803d12a",
+      "created_at": "2026-03-01T17:53:43.153951Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "2d102bc9-370f-4881-a49d-85324e84b435": {
+      "session_id": "2d102bc9-370f-4881-a49d-85324e84b435",
+      "created_at": "2026-03-01T17:56:53.397438Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "653bfd77-8928-48e4-a364-8d5bfe7783c6": {
+      "session_id": "653bfd77-8928-48e4-a364-8d5bfe7783c6",
+      "created_at": "2026-03-01T18:23:47.331487Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "f67593a4-1aa8-4170-8015-948cf78d0a5f": {
+      "session_id": "f67593a4-1aa8-4170-8015-948cf78d0a5f",
+      "created_at": "2026-03-01T18:34:16.434508Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "e83dfb80-3db6-4269-b90c-71583dde0482": {
+      "session_id": "e83dfb80-3db6-4269-b90c-71583dde0482",
+      "created_at": "2026-03-01T18:55:38.051289Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "52ec6287-a1a2-4f80-8c01-7bfc0e5ac9fe": {
+      "session_id": "52ec6287-a1a2-4f80-8c01-7bfc0e5ac9fe",
+      "created_at": "2026-03-01T18:56:15.386703Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "ba78f7bc-d5f1-48c2-a33f-784c06fb0c19": {
+      "session_id": "ba78f7bc-d5f1-48c2-a33f-784c06fb0c19",
+      "created_at": "2026-03-01T18:59:49.438362Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "01009c89-efd3-43fe-b277-f3d3663522a7": {
+      "session_id": "01009c89-efd3-43fe-b277-f3d3663522a7",
+      "created_at": "2026-03-01T19:05:50.302908Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "cb8a344b-79f3-4e45-b8f1-9b6c06a222b0": {
+      "session_id": "cb8a344b-79f3-4e45-b8f1-9b6c06a222b0",
+      "created_at": "2026-03-01T19:15:21.416611Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "fc457e44-8934-4b85-ad79-e6230f512810": {
+      "session_id": "fc457e44-8934-4b85-ad79-e6230f512810",
+      "created_at": "2026-03-01T19:16:06.243021Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "9a881a48-77c4-46da-a880-a0a3557be8cd": {
+      "session_id": "9a881a48-77c4-46da-a880-a0a3557be8cd",
+      "created_at": "2026-03-01T19:17:57.330587Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "2494bf37-974d-4a1d-8262-9c7bd0078839": {
+      "session_id": "2494bf37-974d-4a1d-8262-9c7bd0078839",
+      "created_at": "2026-03-01T19:25:21.451937Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "5ec2eff7-9c03-41bf-bd37-705860baeb39": {
+      "session_id": "5ec2eff7-9c03-41bf-bd37-705860baeb39",
+      "created_at": "2026-03-01T19:28:11.804822Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "03bee4ce-0df9-4cb7-8b47-2e69841c45bd": {
+      "session_id": "03bee4ce-0df9-4cb7-8b47-2e69841c45bd",
+      "created_at": "2026-03-01T19:29:22.335801Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c5d5b4cc-f2b0-4d5b-8cce-3e6f1cbe2304": {
+      "session_id": "c5d5b4cc-f2b0-4d5b-8cce-3e6f1cbe2304",
+      "created_at": "2026-03-01T19:52:13.108225Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "26f85033-8b3d-4414-a159-5e88b8e8a8a5": {
+      "session_id": "26f85033-8b3d-4414-a159-5e88b8e8a8a5",
+      "created_at": "2026-03-01T20:09:55.280441Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "dd4d6585-1435-46ff-a39e-ae589ffc99be": {
+      "session_id": "dd4d6585-1435-46ff-a39e-ae589ffc99be",
+      "created_at": "2026-03-01T20:13:02.363565Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "74c054cd-cbbd-4a72-9e01-abb905313b0d": {
+      "session_id": "74c054cd-cbbd-4a72-9e01-abb905313b0d",
+      "created_at": "2026-03-01T20:17:34.733782Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "2807f460-ef79-459e-aa7f-a206bbc20639": {
+      "session_id": "2807f460-ef79-459e-aa7f-a206bbc20639",
+      "created_at": "2026-03-01T20:23:43.093615Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "ca330dba-20dc-47cb-b59f-0fc812debb94": {
+      "session_id": "ca330dba-20dc-47cb-b59f-0fc812debb94",
+      "created_at": "2026-03-01T20:25:31.757772Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "4de8e3c5-e0d8-4937-bd39-d2c58acf5009": {
+      "session_id": "4de8e3c5-e0d8-4937-bd39-d2c58acf5009",
+      "created_at": "2026-03-01T20:43:36.847969Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "fd93cd32-7e4b-4942-aca0-469d27ee40d1": {
+      "session_id": "fd93cd32-7e4b-4942-aca0-469d27ee40d1",
+      "created_at": "2026-03-01T20:45:13.652666Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "c3fca6a1-cad2-45e3-8d71-b407557d1a44": {
+      "session_id": "c3fca6a1-cad2-45e3-8d71-b407557d1a44",
+      "created_at": "2026-03-01T20:48:25.926872Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "78b8f94e-1995-465e-908d-a09311cd4be1": {
+      "session_id": "78b8f94e-1995-465e-908d-a09311cd4be1",
+      "created_at": "2026-03-01T20:55:57.045876Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "0afeb85c-497d-419a-8cf4-a49b92ae23c5": {
+      "session_id": "0afeb85c-497d-419a-8cf4-a49b92ae23c5",
+      "created_at": "2026-03-01T20:59:20.352870Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    },
+    "17f78175-7528-4b6b-bcaf-037b241ad41e": {
+      "session_id": "17f78175-7528-4b6b-bcaf-037b241ad41e",
+      "created_at": "2026-03-02T08:00:04.044007Z",
+      "mode": "STORY",
+      "sentence_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "variety_ratio": 0,
+      "title": "A Quiet Collection: Each Finding Its Shape"
+    }
+  }
+}

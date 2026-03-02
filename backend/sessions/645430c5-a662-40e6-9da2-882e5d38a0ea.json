@@ -1,0 +1,598 @@
+{
+  "session_id": "645430c5-a662-40e6-9da2-882e5d38a0ea",
+  "created_at": "2026-02-22T23:06:30.300254Z",
+  "metadata": {
+    "mode": "STORY",
+    "created_at": "2026-02-22T23:06:30.291170+00:00"
+  },
+  "data": {
+    "session_id": "645430c5-a662-40e6-9da2-882e5d38a0ea",
+    "sentences_analyzed": [
+      "The morning light came through the window.",
+      "She made coffee and sat down.",
+      "Words are the only currency that compounds.",
+      "He wrote slowly, with intention.",
+      "The ratio of silence to speech matters.",
+      "She paused before answering."
+    ],
+    "selected_phase4_mode": "PROMPTING",
+    "phase1": {
+      "contract_version": "1.0.0",
+      "outputs": {
+        "sentence_count": {
+          "output_id": "output_01",
+          "name_user_facing": "How Much You Shared",
+          "metrics": {
+            "sentence_count": 6
+          }
+        },
+        "token_volume": {
+          "output_id": "output_02",
+          "name_user_facing": "Word-Level Detail",
+          "metrics": {
+            "total_token_count": 36,
+            "mean_tokens_per_sentence": 6.0
+          }
+        },
+        "structural_variety": {
+          "output_id": "output_03",
+          "name_user_facing": "Structural Fingerprints",
+          "metrics": {
+            "unique_signature_count": 6,
+            "signature_variety_ratio": 1.0
+          }
+        },
+        "signature_concentration": {
+          "output_id": "output_04",
+          "name_user_facing": "Your Most Common Patterns",
+          "metrics": {
+            "signature_frequency_map": {
+              "1|4|4|4|2|1|4": 1,
+              "3|4|4|2|4|2": 1,
+              "4|4|1|4|4|1|4": 1,
+              "3|4|4|2|3": 1,
+              "1|4|2|4|2|4|4": 1,
+              "3|4|2|4": 1
+            },
+            "top_signatures": [
+              {
+                "signature": "1|4|2|4|2|4|4",
+                "count": 1
+              },
+              {
+                "signature": "1|4|4|4|2|1|4",
+                "count": 1
+              },
+              {
+                "signature": "3|4|2|4",
+                "count": 1
+              }
+            ],
+            "top_signature_coverage": 0.5
+          }
+        },
+        "zero_event_presence": {
+          "output_id": "output_05",
+          "name_user_facing": "What's Left Unsaid",
+          "metrics": {
+            "total_zero_event_count": 0,
+            "sentences_with_zero_events": 0,
+            "zero_event_rate": 0.0
+          }
+        },
+        "operator_event_presence": {
+          "output_id": "output_06",
+          "name_user_facing": "Connective Moves",
+          "metrics": {
+            "total_operator_event_count": 0,
+            "sentences_with_operator_events": 0,
+            "operator_event_rate": 0.0,
+            "mean_operators_per_sentence": 0.0
+          }
+        },
+        "scope_event_presence": {
+          "output_id": "output_07",
+          "name_user_facing": "Layered Meaning",
+          "metrics": {
+            "total_scope_event_count": 0,
+            "sentences_with_scope_events": 0,
+            "scope_event_rate": 0.0,
+            "mean_scopes_per_sentence": 0.0
+          }
+        },
+        "structural_density": {
+          "output_id": "output_08",
+          "name_user_facing": "Complexity at a Glance",
+          "metrics": {
+            "total_structural_events": 0,
+            "structural_density": 0.0
+          }
+        },
+        "event_co_occurrence_profile": {
+          "output_id": "output_09",
+          "name_user_facing": "How Your Patterns Combine",
+          "metrics": {
+            "sentences_with_all_three": 0,
+            "sentences_with_none": 6,
+            "sentences_with_operators_only": 0,
+            "sentences_with_scopes_only": 0,
+            "sentences_with_zeros_only": 0,
+            "co_occurrence_vector": [
+              0,
+              6,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "ticker_profile": {
+          "output_id": "output_10",
+          "name_user_facing": "Your Structural Codes",
+          "status": "AVAILABLE",
+          "metrics": {
+            "unique_ticker_count": 4,
+            "ticker_frequency_map": {
+              "1": 5,
+              "4": 20,
+              "2": 7,
+              "3": 4
+            },
+            "top_tickers": [
+              {
+                "ticker": "4",
+                "count": 20
+              },
+              {
+                "ticker": "2",
+                "count": 7
+              },
+              {
+                "ticker": "1",
+                "count": 5
+              }
+            ]
+          }
+        }
+      }
+    },
+    "phase2": {
+      "phase2_version": "0.2.0",
+      "source_contract_version": "1.0.0",
+      "source_phase1_version": "unknown",
+      "presentation_mode": "DESCRIPTIVE",
+      "outputs": {
+        "output_01": {
+          "output_id": "output_01",
+          "name_user_facing": "How Much You Shared",
+          "explanation": "This sample contains 0 sentences with 0 words total. With this amount of material, we can describe what appears but are cautious about claiming patterns. Structural habits need repetition to reveal themselves, and 0 sentences sit at the threshold of visibility. What you see here reflects this specific sample; a longer piece might confirm or complicate these observations.",
+          "example_insights": [
+            "This sample provides the material for description, not deep pattern analysis.",
+            "More sentences would reveal whether structural features here are typical or exceptional.",
+            "What appears in these sentences describes this moment of writing, not necessarily your broader habits."
+          ],
+          "status": "AVAILABLE"
+        },
+        "output_02": {
+          "output_id": "output_02",
+          "name_user_facing": "Word-Level Detail",
+          "explanation": "This sample contains 0 words distributed across your sentences, averaging 0.0 words each. Sentence length is one of the most basic structural features, yet it shapes reading experience profoundly. Shorter sentences tend to feel punchy and direct; longer ones create room for complexity and qualification. This average describes what's here without judging what's better\u2014different contexts call for different lengths.",
+          "example_insights": [
+            "Sentence length is computed from available words and sentences.",
+            "The average reflects this sample specifically; other writing might differ.",
+            "Length shapes pacing\u2014shorter sentences quicken reading, longer ones slow it."
+          ],
+          "status": "AVAILABLE"
+        },
+        "output_03": {
+          "output_id": "output_03",
+          "name_user_facing": "Structural Fingerprints",
+          "explanation": "Your sample shows 0 unique structural signature(s), yielding a variety ratio of 0.00. A structural signature captures the shape of a sentence\u2014its grammatical skeleton stripped of content. When signatures repeat, it suggests a recurring way of building sentences; when they vary, each sentence takes its own form. This ratio compares unique shapes to total sentences: 1.0 means every sentence is structurally distinct, while lower ratios indicate repetition. Here, we describe what appears without inferring habit from limited data.",
+          "example_insights": [
+            "Structural variety measures unique shapes against total sentences.",
+            "A high ratio means many distinct shapes; a low ratio means repetition.",
+            "This describes the distribution without inferring habit from limited data."
+          ],
+          "status": "AVAILABLE"
+        },
+        "output_04": {
+          "output_id": "output_04",
+          "name_user_facing": "Your Most Common Patterns",
+          "explanation": "No patterns concentrate in this sample\u2014structure is distributed across unique shapes. This might mean high variety, or simply that the sample is too small for patterns to repeat. Pattern concentration becomes meaningful when we have enough sentences for shapes to recur; with limited material, absence of concentration is expected rather than significant.",
+          "example_insights": [
+            "Pattern concentration shows which shapes dominate, if any.",
+            "Top patterns are ranked by frequency in this sample.",
+            "Low concentration means variety; high concentration means repetition."
+          ],
+          "status": "AVAILABLE"
+        },
+        "output_05": {
+          "output_id": "output_05",
+          "name_user_facing": "What's Left Unsaid",
+          "explanation": "No zero events appear in this sample\u2014no ellipses, dashes, or other markers of pause or omission. Zero events signal places where meaning trails off, hesitates, or leaves room for the reader. Their absence means sentences complete their thoughts without visible gaps. This is descriptive, not evaluative: different writing contexts call for different amounts of such markers.",
+          "example_insights": [
+            "Zero events count pauses, ellipses, and markers of omission.",
+            "Their rate shows frequency relative to sentence count.",
+            "Presence or absence of pauses describes structural texture."
+          ],
+          "status": "AVAILABLE"
+        },
+        "output_06": {
+          "output_id": "output_06",
+          "name_user_facing": "Connective Moves",
+          "explanation": "No operator events appear in this sample\u2014no slashes, ampersands, or similar connective symbols. Operators compress meaning by linking alternatives (and/or, either/or) or combining terms (research & development). Their absence means connections are spelled out in words rather than symbolized. This is neither good nor bad; it simply describes how this particular sample handles linkage.",
+          "example_insights": [
+            "Operators include slashes, ampersands, and connective symbols.",
+            "Their count reflects shorthand connections in this sample.",
+            "Different contexts call for different amounts of such compression."
+          ],
+          "status": "AVAILABLE"
+        },
+        "output_07": {
+          "output_id": "output_07",
+          "name_user_facing": "Layered Meaning",
+          "explanation": "No scope events appear in this sample\u2014no parentheses, brackets, or quotations creating nested meaning. Scope events add layers: a thought within a thought, a quoted phrase, an aside. Their absence means sentences proceed without such nesting. This describes the structural texture without evaluating it.",
+          "example_insights": [
+            "Scope events include parentheses, brackets, and quotations.",
+            "They create nested meaning\u2014thoughts within thoughts.",
+            "The rate shows how often layering occurs."
+          ],
+          "status": "AVAILABLE"
+        },
+        "output_08": {
+          "output_id": "output_08",
+          "name_user_facing": "Complexity at a Glance",
+          "explanation": "This sample contains 0 structural event(s) total, averaging 0.00 per sentence. Structural density aggregates all event types\u2014pauses, operators, and scope markers. It offers a rough measure of how 'busy' sentences are structurally, independent of length or content. Higher density means more structural features per sentence; lower density means cleaner, simpler shapes. This is a descriptive measure, not a quality judgment.",
+          "example_insights": [
+            "Structural density sums all event types into one measure.",
+            "The average shows events per sentence, regardless of sentence length.",
+            "Higher density means more structural activity; lower means cleaner shapes."
+          ],
+          "status": "AVAILABLE"
+        },
+        "output_09": {
+          "output_id": "output_09",
+          "name_user_facing": "How Your Patterns Combine",
+          "explanation": "Most sentences in this sample contain no structural events to combine. Co-occurrence tracks which event types appear together within sentences: zero events, operators, and scope markers. When sentences are structurally sparse, there's little to combine. This describes the distribution without implying it should be otherwise.",
+          "example_insights": [
+            "Co-occurrence tracks which event types appear together.",
+            "The distribution shows how structural features combine.",
+            "Different combinations create different textures."
+          ],
+          "status": "AVAILABLE"
+        },
+        "output_10": {
+          "output_id": "output_10",
+          "name_user_facing": "Your Structural Codes",
+          "explanation": "Ticker codes require at least two sentences to display meaningfully. These codes represent word-level structural positions\u2014a finer-grained analysis than sentence-level patterns. With more material, we could show how you use different word types and positions, revealing rhythms beneath the surface of content.",
+          "example_insights": [
+            "Ticker codes represent word-level structural positions.",
+            "Unique codes show grammatical variety at the micro level.",
+            "This is the most granular structural measure."
+          ],
+          "status": "NOT_AVAILABLE"
+        }
+      }
+    },
+    "phase3": {
+      "phase3_version": "0.2.0",
+      "source_contract_version": "1.0.0",
+      "source_phase2_version": "0.2.0",
+      "synthesis_scope": "SAMPLE_ONLY",
+      "interpretive_frame": "LNCP_PEIRCEAN",
+      "syntheses": [
+        {
+          "synthesis_id": "SYN_01",
+          "semiotic_lens": "INTERPRETANT_STABILIZATION",
+          "synthesis_text": "The lens of interpretant stabilization asks: do structural patterns recur enough to become recognizable forms? In this sample, the answer is nuanced. High structural variety means each sentence takes its own shape, resisting the repetition that would allow forms to stabilize. \n\nIn Peircean terms, interpretants form through repeated encounters with signs. When every sentence is structurally distinct, readers don't develop expectations based on prior shapes. This can create a sense of freshness or unpredictability\u2014each sentence is encountered anew. It can also create a certain interpretive effort: without stable forms to anchor expectation, readers must remain attentive to shifting structures. \n\nThis variety might reflect deliberate range, contextual demands, or simply a small sample. Future exercises might explore what happens when you deliberately repeat a single structure across multiple sentences\u2014how does stabilization feel when you create it intentionally?",
+          "related_outputs": [
+            "output_01",
+            "output_03",
+            "output_04"
+          ]
+        },
+        {
+          "synthesis_id": "SYN_02",
+          "semiotic_lens": "MEDIATION_AND_BOUNDARY",
+          "synthesis_text": "Through the lens of mediation and boundary, this sample shows significant structural activity. Both pause markers and scope events appear, creating a textured passage for meaning. \n\nIn Peircean semiotics, these features function as mediators\u2014structures that shape how interpretants form. Pause markers (ellipses, dashes) create moments of hesitation or suspension; scope markers (parentheses, brackets, quotes) create nested layers where meaning bifurcates into primary and secondary tracks. Together, they give the prose dimension and rhythm. \n\nThe boundaries created by these markers aren't obstacles\u2014they're architectural features that organize how readers move through meaning. Heavy mediation can feel rich and considered; it can also feel crowded if overused. In this sample, the markers create a particular texture. Future exercises might explore simplifying some sentences to see what direct, unmediated prose feels like in contrast.",
+          "related_outputs": [
+            "output_05",
+            "output_06",
+            "output_07"
+          ]
+        },
+        {
+          "synthesis_id": "SYN_03",
+          "semiotic_lens": "RELATIONAL_DENSITY",
+          "synthesis_text": "The lens of relational density examines how structural features cluster within sentences. In this sample, density is low\u2014structural events are sparse or absent. \n\nWhen features don't cluster, there's no relational complexity at the structural level. Each sentence carries its content without much formal ornamentation. In Peircean terms, sparse density means interpretants form primarily through content rather than through structural interaction. The 'how' of the sentence recedes; the 'what' advances. \n\nThis sparseness can serve clarity: with fewer structural features to navigate, readers focus on meaning. It can also feel flat if texture is desired. The question is whether sparseness serves your purpose here. Future exercises might involve deliberately layering features\u2014adding a pause marker and a parenthetical to the same sentence\u2014to feel what density does to reading.",
+          "related_outputs": [
+            "output_08",
+            "output_09"
+          ]
+        }
+      ]
+    },
+    "phase4a": {
+      "phase4a_version": "0.3.0",
+      "source_contract_version": "1.0.0",
+      "source_phase3_version": "0.2.0",
+      "mode": "PROMPTING",
+      "prompt_type_order": [
+        "NOTICE",
+        "REFLECT",
+        "REWRITE",
+        "COMPARE"
+      ],
+      "prompt_sets": [
+        {
+          "prompt_set_id": "PS__01",
+          "semiotic_lens": "INTERPRETANT_STABILIZATION",
+          "source_synthesis_id": "SYN_01",
+          "prompts": [
+            {
+              "prompt_type": "NOTICE",
+              "prompt_text": "Let's read through your sentences together, slowly, as if we're encountering them for the first time. What we're seeing is that certain structural patterns are beginning to find their shape\u2014some forms recur, becoming recognizable, while others appear just once. As we look together, I wonder: which shapes feel most familiar to you? Is there a structure you find yourself returning to without quite meaning to? Let's pay attention not to what you said, but to how the sentences are built. The pattern that catches your attention first might be the one closest to your natural default."
+            },
+            {
+              "prompt_type": "REFLECT",
+              "prompt_text": "Together, let's consider what it would feel like to write three more sentences in exactly the same structural pattern as the shapes we're seeing recur. Would it feel comfortable? Constraining? Natural? The patterns that come easily are often the ones we've internalized deeply\u2014they feel like 'how I write.' Now I wonder: what about the opposite? Writing sentences in a structure you've never used. What does your structural range make effortless, and what does it make harder to reach? There's no right answer here\u2014let's just sit with what emerges when we think about this together."
+            },
+            {
+              "prompt_type": "REWRITE",
+              "prompt_text": "What if we tried rewriting one of your sentences together in a deliberately different structural shape? If the original is short and direct, let's try making it longer with an embedded clause. If it's complex, let's try breaking it into simpler units. The goal isn't to improve the sentence\u2014it's to feel the difference between structures together. Keep the same basic meaning, but change the shape. Then let's read both versions aloud. I'm curious: how does the structural change affect rhythm, emphasis, and feel? This isn't about finding the 'right' structure\u2014let's just expand our sense of what's possible."
+            },
+            {
+              "prompt_type": "COMPARE",
+              "prompt_text": "Let's place two versions of a sentence side by side together: your original and a structural variation. Reading them as if we're encountering each for the first time, I wonder: which feels more 'like you'? Which feels like a stretch? The version that feels natural is probably closer to your stabilized pattern\u2014the shape that has become default through repetition. The version that feels odd might be where growth happens. Together, let's notice which is which, without judging either as better or worse."
+            }
+          ]
+        },
+        {
+          "prompt_set_id": "PS__02",
+          "semiotic_lens": "MEDIATION_AND_BOUNDARY",
+          "source_synthesis_id": "SYN_02",
+          "prompts": [
+            {
+              "prompt_type": "NOTICE",
+              "prompt_text": "Let's look through your writing together for the boundary markers\u2014pauses, parentheses, connective symbols. These are the places where meaning doesn't flow smoothly but gets interrupted, nested, or compressed. Together, let's notice where they appear: Are they clustered in certain sentences? Absent from others? Each boundary marker does specific work\u2014a pause creates space, a parenthesis creates a layer, a connector compresses a relationship. As we scan together, I'm curious: where is the boundary-work happening in your writing? What's being set apart, and what's being joined?"
+            },
+            {
+              "prompt_type": "REFLECT",
+              "prompt_text": "Let's think together about what the boundary markers in your writing let in and keep out. A parenthetical aside creates space for qualification, digression, or afterthought\u2014but it also signals that something is secondary. A pause marker creates room for the unsaid\u2014but it also invites the reader to fill in. Together, I wonder: what do your boundary choices make room for? What do they set aside or subordinate? There's interpretive work happening at every boundary, and reflecting on it together can reveal something interesting about what gets the main line and what gets bracketed."
+            },
+            {
+              "prompt_type": "REWRITE",
+              "prompt_text": "Let's experiment together: take a sentence that currently has no boundary markers\u2014no parentheses, no dashes, no pauses\u2014and add one. We could insert a parenthetical aside that qualifies the main idea, or add an ellipsis where meaning might trail off, or use a dash to create an interruption. Together, let's notice what the boundary marker does to the sentence. Does it add nuance? Create hesitation? Open a new layer? Then what if we try removing a boundary marker from a sentence that has one? I wonder: what closes down or simplifies when the boundary disappears?"
+            },
+            {
+              "prompt_type": "COMPARE",
+              "prompt_text": "Let's compare a sentence with boundary markers to a version without them, side by side. Together, what do we notice? The bounded version might feel more nuanced, more layered; the unbounded version might feel more direct, more committed. Neither is inherently better\u2014but they create different reading experiences. I'm curious which feels closer to your intent for this particular moment. What does adding or removing boundaries do to the relationship between you and your reader?"
+            }
+          ]
+        },
+        {
+          "prompt_set_id": "PS__03",
+          "semiotic_lens": "RELATIONAL_DENSITY",
+          "source_synthesis_id": "SYN_03",
+          "prompts": [
+            {
+              "prompt_type": "NOTICE",
+              "prompt_text": "Let's read your sentences together with an eye for density\u2014how much structural 'stuff' each one carries. Some sentences will feel clean and direct, moving straight through their content. Others will feel layered, textured, carrying multiple structural features. Together, let's notice the contrast: where do dense moments appear? Where is the writing sparse? The distribution of density creates rhythm. I'm curious about where your writing breathes and where it loads up. Neither is better\u2014let's just notice what's happening."
+            },
+            {
+              "prompt_type": "REFLECT",
+              "prompt_text": "Let's consider together how density creates texture in your writing. In moments of high density, multiple structural features share the space\u2014the reader navigates form as well as content. In sparse moments, content carries the weight alone. Together, I'm wondering: what does your density pattern do to the reading experience? Does it create variety and rhythm? If you wanted to place emphasis on a particular sentence, would you make it denser or sparser? Let's sit with that question\u2014there's no single answer."
+            },
+            {
+              "prompt_type": "REWRITE",
+              "prompt_text": "Let's find your densest sentence together\u2014the one with the most structural features\u2014and simplify it. We can strip out one layer: remove a parenthetical, eliminate a pause marker, spell out a connector. Then let's read both versions. What's lost? What's gained? Now let's try the opposite: take your sparsest sentence and add a structural feature together. Insert an aside, add a hesitation, create a nested layer. I'm curious about the difference between adding and removing density. Both moves are available\u2014the question we're exploring is when each might serve your purpose."
+            },
+            {
+              "prompt_type": "COMPARE",
+              "prompt_text": "Let's look at two sentences together\u2014one dense, one sparse\u2014and see what we notice. In the dense sentence, structural features layer and compete. In the sparse one, content stands alone. Together, let's feel the difference in how we read each one. Does the dense version feel richer or busier? Does the sparse version feel cleaner or emptier? I wonder: what does each texture invite? There's no right answer\u2014let's just explore what emerges when we pay attention to density together."
+            }
+          ]
+        }
+      ],
+      "llm_enhanced": false
+    },
+    "phase4b": {
+      "phase4b_version": "0.3.0",
+      "source_contract_version": "1.0.0",
+      "source_phase3_version": "0.2.0",
+      "mode": "GUIDANCE",
+      "item_type_order": [
+        "GUIDE",
+        "PRACTICE",
+        "SCENARIO",
+        "COMPARE"
+      ],
+      "guidance_sets": [
+        {
+          "guidance_set_id": "GS__01",
+          "semiotic_lens": "INTERPRETANT_STABILIZATION",
+          "source_synthesis_id": "SYN_01",
+          "items": [
+            {
+              "item_type": "GUIDE",
+              "text": "Together, let's think of structural patterns as a kind of gravitational field: certain shapes pull sentences toward them naturally. This isn't good or bad\u2014it's how writing style works. What we often find is that the patterns recurring most often become structural defaults, the moves made without thinking. Becoming aware of them together doesn't mean we should change them. It means we can explore when to follow them and when to experiment with resisting. In contexts where consistency serves the purpose\u2014building a recognizable voice, creating a rhythmic effect\u2014we might lean into the defaults. In contexts where surprise or range feels right, we might deliberately depart. What we're after together is awareness, not correction."
+            },
+            {
+              "item_type": "PRACTICE",
+              "text": "Let's try a practice exercise together: write five sentences about any topic, but use exactly the same structural pattern for all five. We might choose a pattern from your sample\u2014perhaps the most common one\u2014and repeat it deliberately. I'm curious: how does it feel to stay within a single shape? Does it feel constraining? Rhythmic? Natural? Then let's try five more sentences using five different structures\u2014deliberately varying each one. Together, we can notice how that feels. The contrast between deliberate consistency and deliberate variety often reveals something interesting about structural range and preferences."
+            },
+            {
+              "item_type": "SCENARIO",
+              "text": "Together, let's consider different contexts where structural consistency matters: In a professional email, consistent patterns can create a sense of reliability and clarity. Readers learn what to expect; information lands predictably. In a creative piece, some consistency grounds the reader while variation creates interest. Too much consistency can feel monotonous; too much variation can feel disorienting. I wonder about your current writing context: does it call for more stability (building trust, conveying reliability) or more variety (maintaining interest, creating surprise)? Let's think together about how structural patterns serve different purposes in different settings."
+            },
+            {
+              "item_type": "COMPARE",
+              "text": "Let's compare structural patterns together with writing you admire. Find a paragraph from a favorite author and together we can analyze its structures: do shapes repeat? How much variation appears? Then let's look at your own sample side by side. The comparison isn't about who's better\u2014it's about noticing different approaches. What patterns does the admired writer use? What patterns do you use? Are there moves in their toolkit that you might explore? Together, we're not looking for 'right' structures\u2014we're expanding our sense of what's possible."
+            }
+          ]
+        },
+        {
+          "guidance_set_id": "GS__02",
+          "semiotic_lens": "MEDIATION_AND_BOUNDARY",
+          "source_synthesis_id": "SYN_02",
+          "items": [
+            {
+              "item_type": "GUIDE",
+              "text": "What we notice together is that every boundary marker does interpretive work. Parentheses create space for asides\u2014thoughts that matter but don't quite belong in the main line. Dashes create interruptions\u2014breaks that can signal emphasis or afterthought. Ellipses create space for the unsaid\u2014invitations for readers to fill in. Operators compress relationships\u2014shortcuts that can clarify or obscure. Understanding together what each type does helps with using them intentionally. A parenthetical signals 'this is secondary but relevant.' A dash signals 'wait\u2014there's more.' An ellipsis signals 'you can imagine the rest.' Let's think about which markers match which intents."
+            },
+            {
+              "item_type": "PRACTICE",
+              "text": "Here's something we can explore together: take a paragraph and remove all boundary markers\u2014every parenthesis, dash, ellipsis, bracket, and connector symbol. Let's read the stripped version. What's lost? What's gained? Then we can add boundary markers back, but in different places than before. Put parentheses where there were none; add dashes where the flow was smooth; insert ellipses where thoughts completed. Let's read this version together. The exercise often reveals what boundary markers do and how placement changes effect. I think we'll develop a better feel for when to add and when to remove."
+            },
+            {
+              "item_type": "SCENARIO",
+              "text": "Let's think together about where boundary markers serve in real writing contexts: In emails, a parenthetical aside can soften a direct statement\u2014'We need to reschedule (sorry for the short notice).' In reports, brackets can add clarifications without interrupting flow. In creative writing, dashes can create dramatic pauses or pivot points. In academic writing, parenthetical citations integrate sources without disrupting argument. What we find together is that the same boundary marker does different work in different contexts. I'm curious: in what you're writing now, which markers might serve your purpose? Which might clutter?"
+            },
+            {
+              "item_type": "COMPARE",
+              "text": "Together, let's compare how different contexts use boundary markers. Look at a news article, a novel, an academic paper. Notice together where parentheses appear, where dashes create interruption, where ellipses leave space. Each genre has conventions\u2014and each writer within a genre makes choices. Now let's look at your sample. Where do your boundary choices fit with convention? Where do they depart? Neither fitting nor departing is better\u2014but noticing together helps us think about whether our choices are intentional."
+            }
+          ]
+        },
+        {
+          "guidance_set_id": "GS__03",
+          "semiotic_lens": "RELATIONAL_DENSITY",
+          "source_synthesis_id": "SYN_03",
+          "items": [
+            {
+              "item_type": "GUIDE",
+              "text": "Let's think of structural density together like texture in fabric: dense weaves feel heavier, sparser weaves feel lighter. Neither is better; each serves different purposes. Dense sentences\u2014packed with pauses, asides, nested layers\u2014ask readers to slow down and navigate. They can work well for complex ideas that benefit from structural support. Sparse sentences\u2014clean, direct, unadorned\u2014let content carry the weight. They can work well for simple ideas or moments where speed matters. What we often find is that modulating density creates rhythm: a dense sentence after several sparse ones stands out. A sparse sentence after dense ones can feel like arriving at clarity."
+            },
+            {
+              "item_type": "PRACTICE",
+              "text": "Let's practice modulating density together deliberately. Write three sentences: one with no structural features (sparse), one with two features (moderate), and one with four or more (dense). Together, we can read them in sequence and notice how the reading experience changes as density increases. Then let's arrange them in different orders: sparse-moderate-dense, dense-moderate-sparse, dense-sparse-dense. I'm curious about how order affects rhythm. This exercise often builds intuition for when density serves and when simplicity does."
+            },
+            {
+              "item_type": "SCENARIO",
+              "text": "Imagine together: you're writing an email to a colleague about a complex issue. Where might density serve you\u2014packing a sentence with qualifications and asides\u2014and where might simplicity serve you\u2014letting a clear statement land without decoration? Now imagine you're writing a story. Dense sentences can slow time, create atmosphere, invite lingering. Sparse sentences can accelerate, create urgency, mimic action. Together, we can see that context shapes when density works. Let's think about your current context: what does it ask for?"
+            },
+            {
+              "item_type": "COMPARE",
+              "text": "Let's compare density patterns together across different texts. Take a paragraph from a text you find 'easy to read' and one from a text you find 'challenging.' Together, we can count structural features. What we often find is that the 'easy' text has lower density\u2014fewer features per sentence, cleaner passage from start to finish. The 'challenging' text may have higher density. Now let's look at your sample. Where does your density fall? Is it serving your purpose? Together, we're not judging\u2014just noticing and wondering."
+            }
+          ]
+        }
+      ],
+      "llm_enhanced": false
+    },
+    "phase6": {
+      "phase6_version": "0.3.0",
+      "source_contract_version": "1.0.0",
+      "source_phase4_mode": "PROMPTING",
+      "synthesis_scope": "SAMPLE_SPECIFIC",
+      "interpretive_frame": "STRUCTURAL_SEMIOTIC",
+      "mode": "STORY",
+      "summary": {
+        "title": "A Quiet Collection: Each Finding Its Shape",
+        "structural_overview": "6 sentences, 36 words. They move at a comfortable pace\u2014unhurried, like thoughts arriving one at a time.\n\nThe sentences are short\u2014quick breaths, each one landing before the next begins.\n\nEach sentence finds its own shape. No two quite alike\u2014like different ways of saying something true.\n\nThe writing flows without interruption\u2014no pauses, no asides, just straight through.",
+        "semiotic_synthesis": "Three ways of seeing what's here:\n\n**How Patterns Form**: Each sentence arrives as itself. There's no pattern yet for a reader to lean on\u2014each one asks to be met fresh. Like a conversation that keeps changing direction.\n\n**Where Meaning Pauses**: The meaning moves directly from beginning to end. No detours, no whispered asides. What's said is said.\n\n**How Dense It Feels**: The writing is lean. Sentences carry their content without much structural weight\u2014clean, direct, unadorned."
+      },
+      "paths_forward": {
+        "next_sample": {
+          "title": "Write Something New",
+          "description": "Start fresh. See if the same shapes appear, or if new ones do.",
+          "action": "new_session"
+        },
+        "recommended_exercise": {
+          "title": "Try This: Adding Space",
+          "description": "Your sentences move without interruption. Sometimes a pause lets things land differently.",
+          "exercise": {
+            "type": "ADD",
+            "prompt": "Take one of your sentences and add a pause\u2014a dash, an ellipsis\u2014or a parenthetical aside. Something that interrupts the flow.",
+            "source": "BOUNDARY"
+          },
+          "action": "do_exercise"
+        },
+        "school_mode": {
+          "title": "Switch to School Mode",
+          "description": "More structured lessons about specific structural features.",
+          "action": "school_mode"
+        }
+      },
+      "high_intent_reflection": {
+        "present": false,
+        "overview": "The writing proceeds without much explicit signaling about certainty or doubt. The words just carry their meaning, without framing.\n\nThis has its own effect\u2014it lets content speak without commentary on how sure you are.",
+        "epistemic_stance": "MINIMAL",
+        "notable_markers": []
+      },
+      "next_step": {
+        "prompt_id": "NS_001",
+        "prompt_text": "What if you wrote a bit more?",
+        "rationale": "More material reveals whether patterns persist.",
+        "category": "VOLUME"
+      },
+      "forward_pointers": [
+        {
+          "pointer_id": "FP_001",
+          "title": "Extended Analysis",
+          "description": "Write a full page and see deeper patterns emerge.",
+          "availability": "COMING_SOON"
+        },
+        {
+          "pointer_id": "FP_002",
+          "title": "Compare Two Samples",
+          "description": "See how different pieces reveal different patterns.",
+          "availability": "COMING_SOON"
+        },
+        {
+          "pointer_id": "FP_003",
+          "title": "Track Over Time",
+          "description": "Watch how your patterns evolve across sessions.",
+          "availability": "COMING_SOON"
+        }
+      ],
+      "llm_enhanced": false,
+      "enhancement_notice": "Enhanced analysis is available when connected to the Claude API. The current analysis uses template-based generation, which provides accurate structural insights but with less personalized interpretation. To enable enhanced analysis, configure your ANTHROPIC_API_KEY."
+    },
+    "high_intent_profile": {
+      "total_high_intent_events": 0,
+      "sentences_with_high_intent": 0,
+      "high_intent_rate": 0.0,
+      "coverage_rate": 0.0,
+      "category_distribution": {},
+      "force_distribution": {
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 0
+      },
+      "dominant_category": null,
+      "epistemic_openness": 0.5,
+      "stance_intensity": 0.0,
+      "unique_markers": [],
+      "marker_count": 0,
+      "epistemic_stance": "MINIMAL",
+      "opening_marker_count": 0,
+      "closing_marker_count": 0,
+      "is_contradictory": false,
+      "is_minimal": true,
+      "is_poetic_mode": false,
+      "emdash_count": 0,
+      "structural_summary": {
+        "emdash_events": 0,
+        "operator_events": 0,
+        "scope_events": 0
+      },
+      "is_assertive_mode": true,
+      "is_interrogative_mode": false,
+      "register": "FORMAL",
+      "informality_score": 0.167,
+      "has_anaphora": false,
+      "anaphora_word": null,
+      "repetition_ratio": 0.333,
+      "syntax_complexity": "SIMPLE",
+      "avg_clauses": 1.33,
+      "avg_words": 6.0,
+      "question_ratio": 0.0,
+      "imperative_count": 0,
+      "emdash_pair_count": 0,
+      "is_structurally_dense": false,
+      "structural_density_score": 0.165
+    }
+  }
+}

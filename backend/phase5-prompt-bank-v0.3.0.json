@@ -1,0 +1,489 @@
+{
+  "prompt_bank_version": "0.3.0",
+  "phase": "phase5",
+  "name": "LNCP Phase-5 Prompt Bank",
+  "ordering_rule": "Use prompts in ascending prompt_id unless a deterministic selector targets tags.",
+  "prompt_id_format": "PB_###",
+  "modes": [
+    "STORY",
+    "SCHOOL"
+  ],
+  "group_requirement": "Each user response must be exactly 1 group of 2–3 sentences (all-or-nothing validity).",
+  "notes": [
+    "Closed set: do not add/edit prompts without bumping prompt_bank_version.",
+    "STORY mode: narrative prompts that elicit natural writing.",
+    "SCHOOL mode: educational prompts with Collaborative-Curious tone (v0.3.0).",
+    "Prompts elicit structural coverage (zeros/operators/scopes) without revealing validator rules.",
+    "Include de-escalation prompts for detected hostile tone.",
+    "v0.3.0: SCHOOL prompts use 'we/let's' language, partnership framing."
+  ],
+  "tags": {
+    "coverage": [
+      "NONE_EVENTS",
+      "ZERO_ONLY",
+      "OPERATOR_ONLY",
+      "SCOPE_ONLY",
+      "ZERO+OPERATOR",
+      "ZERO+SCOPE",
+      "OPERATOR+SCOPE",
+      "ALL_THREE"
+    ],
+    "mode": [
+      "STORY",
+      "SCHOOL"
+    ],
+    "safety": [
+      "NEUTRAL",
+      "DEESCALATE",
+      "RESET"
+    ],
+    "lesson": [
+      "BASICS",
+      "PAUSES",
+      "BOUNDARIES",
+      "CONNECTORS",
+      "LAYERS",
+      "COMBINATIONS"
+    ]
+  },
+  "prompts": [
+    {
+      "prompt_id": "PB_001",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["NONE_EVENTS"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 simple sentences describing a calm morning routine. Keep it plain and unembellished."
+    },
+    {
+      "prompt_id": "PB_002",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ZERO_ONLY"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that end with strong punctuation. Let the stops do the work."
+    },
+    {
+      "prompt_id": "PB_003",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["SCOPE_ONLY"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include one quick aside in parentheses or quotes."
+    },
+    {
+      "prompt_id": "PB_004",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["OPERATOR_ONLY"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include one symbol like /, %, or + naturally."
+    },
+    {
+      "prompt_id": "PB_005",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ZERO+SCOPE"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with one nested aside, then a clean final stop."
+    },
+    {
+      "prompt_id": "PB_006",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ZERO+OPERATOR"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with a small symbol, and clear sentence endings."
+    },
+    {
+      "prompt_id": "PB_007",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["OPERATOR+SCOPE"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include a contained phrase and a simple symbol."
+    },
+    {
+      "prompt_id": "PB_008",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ALL_THREE"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include an aside, a small symbol, and crisp punctuation."
+    },
+    {
+      "prompt_id": "PB_009",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["NONE_EVENTS"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences about noticing something ordinary on a walk."
+    },
+    {
+      "prompt_id": "PB_010",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ZERO_ONLY"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that lean on questions or exclamations for energy."
+    },
+    {
+      "prompt_id": "PB_011",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["SCOPE_ONLY"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences where one phrase is put in quotes for emphasis."
+    },
+    {
+      "prompt_id": "PB_012",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["OPERATOR_ONLY"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences using a single slash as shorthand (like and/or)."
+    },
+    {
+      "prompt_id": "PB_013",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ZERO+SCOPE"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with a brief quote, then a decisive ending."
+    },
+    {
+      "prompt_id": "PB_014",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ZERO+OPERATOR"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with a percent or plus sign, and clear stops."
+    },
+    {
+      "prompt_id": "PB_015",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["OPERATOR+SCOPE"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include a bracketed detail and one symbol."
+    },
+    {
+      "prompt_id": "PB_016",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ALL_THREE"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that mix a quote, a symbol, and strong punctuation."
+    },
+    {
+      "prompt_id": "PB_017",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["NONE_EVENTS"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences describing a straightforward preference you have."
+    },
+    {
+      "prompt_id": "PB_018",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["SCOPE_ONLY"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that contain one parenthetical clarification."
+    },
+    {
+      "prompt_id": "PB_019",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["OPERATOR_ONLY"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include a simple comparison like 2/3 or 1/2."
+    },
+    {
+      "prompt_id": "PB_020",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ZERO_ONLY"],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences where each sentence ends decisively with punctuation."
+    },
+    {
+      "prompt_id": "PB_021",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["NONE_EVENTS"],
+        "safety": "NEUTRAL",
+        "lesson": "BASICS"
+      },
+      "lesson_context": "Together, let's explore what happens when we write simply. Sometimes the most powerful writing is the most direct.",
+      "prompt_text": "Let's try something together: write 2–3 sentences describing something you can see right now. We're exploring what plain, direct language feels like—no parentheses, no special punctuation. Just clear statements. What do you notice about how it feels to write this way?"
+    },
+    {
+      "prompt_id": "PB_022",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ZERO_ONLY"],
+        "safety": "NEUTRAL",
+        "lesson": "PAUSES"
+      },
+      "lesson_context": "Together, let's explore how punctuation creates rhythm. A question invites. An exclamation emphasizes. A period concludes.",
+      "prompt_text": "Let's see what happens when punctuation does the work: write 2–3 sentences where you use a question mark or exclamation point to shape how the sentence lands. I'm curious—what do you notice about how the punctuation changes the energy?"
+    },
+    {
+      "prompt_id": "PB_023",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["SCOPE_ONLY"],
+        "safety": "NEUTRAL",
+        "lesson": "LAYERS"
+      },
+      "lesson_context": "Together, let's explore creating layers. Parentheses and quotes let us nest one thought inside another—what happens when we try it?",
+      "prompt_text": "Let's experiment with layers together: write 2–3 sentences where one includes a parenthetical aside—a thought tucked inside the main thought. I wonder what you'll notice about how it adds another dimension to the sentence."
+    },
+    {
+      "prompt_id": "PB_024",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["OPERATOR_ONLY"],
+        "safety": "NEUTRAL",
+        "lesson": "CONNECTORS"
+      },
+      "lesson_context": "Together, let's explore symbols that connect and compress. A slash creates alternatives. An ampersand joins. These are structural shortcuts.",
+      "prompt_text": "Let's try using a connective symbol together: write 2–3 sentences that include exactly one symbol like / or &. Use it naturally, don't force it. I'm curious—what do you notice about how it compresses meaning?"
+    },
+    {
+      "prompt_id": "PB_025",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ZERO+SCOPE"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's explore combining features. When we use both layers (parentheses) and punctuation together, the texture changes in interesting ways.",
+      "prompt_text": "Let's combine features together: write 2–3 sentences that include a parenthetical aside and decisive punctuation (like a question or firm period). What do you notice about how they interact?"
+    },
+    {
+      "prompt_id": "PB_026",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ZERO+OPERATOR"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's explore symbols plus punctuation. When we use a connector symbol and strong sentence endings together, something interesting happens.",
+      "prompt_text": "Let's try this combination together: write 2–3 sentences with one connective symbol (like /) and clear, firm endings. I wonder what you'll notice about how the symbol and the stops work together."
+    },
+    {
+      "prompt_id": "PB_027",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["OPERATOR+SCOPE"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's explore nesting plus connecting. When we combine parenthetical layers with connective symbols, the structure gets denser—let's see what that's like.",
+      "prompt_text": "Let's add some density together: write 2–3 sentences that include both a parenthetical phrase and one symbol. I'm curious—what do you notice about how the density changes the reading experience?"
+    },
+    {
+      "prompt_id": "PB_028",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ALL_THREE"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's explore full structural density. Combining layers, connectors, and punctuation creates rich, textured sentences—what does that feel like?",
+      "prompt_text": "Let's try maximum density together: write 2–3 sentences that include a parenthetical aside, a connective symbol, and expressive punctuation (question or exclamation). What do you notice about the richness—or the weight?"
+    },
+    {
+      "prompt_id": "PB_029",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["NONE_EVENTS"],
+        "safety": "NEUTRAL",
+        "lesson": "BASICS"
+      },
+      "lesson_context": "Together, let's explore clarity through simplicity. Complex ideas can often be expressed most powerfully in plain sentences—let's see.",
+      "prompt_text": "Let's keep it simple together: describe a small plan you have for today in 2–3 plain sentences. No special punctuation, no asides—just clear, direct statements. What do you notice about how simplicity feels?"
+    },
+    {
+      "prompt_id": "PB_030",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["SCOPE_ONLY"],
+        "safety": "NEUTRAL",
+        "lesson": "LAYERS"
+      },
+      "lesson_context": "Together, let's explore quotation as emphasis. When we put a word or phrase in quotes, we're saying 'pay attention to this specific word.'",
+      "prompt_text": "Let's try using quotes for emphasis together: write 2–3 sentences where you use quotes around one specific word or phrase. I wonder—what do you notice about how the quotes change how we read that word?"
+    },
+    {
+      "prompt_id": "PB_031",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["OPERATOR_ONLY"],
+        "safety": "NEUTRAL",
+        "lesson": "CONNECTORS"
+      },
+      "lesson_context": "Together, let's explore the ampersand and percent. These symbols carry meaning efficiently—let's see when that works.",
+      "prompt_text": "Let's experiment with compact symbols together: write 2–3 sentences using either % or & once, naturally. I'm curious—when do such symbols clarify, and when might they confuse?"
+    },
+    {
+      "prompt_id": "PB_032",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ZERO_ONLY"],
+        "safety": "NEUTRAL",
+        "lesson": "PAUSES"
+      },
+      "lesson_context": "Together, let's explore the question as structure. A question doesn't just ask—it invites the reader into the sentence differently.",
+      "prompt_text": "Let's try a question together: write 2–3 sentences where at least one is a question. I wonder—what do you notice about how the question changes the relationship between you and the reader?"
+    },
+    {
+      "prompt_id": "PB_033",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ZERO+SCOPE"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's explore questions plus layers. When we nest a thought and then ask a question, the reader navigates both—let's see what that's like.",
+      "prompt_text": "Let's combine layers and questions together: write 2–3 sentences with one parenthetical aside and one question mark somewhere. What do you notice about how the features interact?"
+    },
+    {
+      "prompt_id": "PB_034",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ZERO+OPERATOR"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's explore connectors plus endings. The slash compresses; the punctuation resolves. What happens when we use both?",
+      "prompt_text": "Let's try this together: write 2–3 sentences using a slash once, with at least one strong sentence ending. I'm curious—what do you notice about how they work together?"
+    },
+    {
+      "prompt_id": "PB_035",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["OPERATOR+SCOPE"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's explore quotes plus symbols. Both features add density—one creates layers, the other creates shortcuts.",
+      "prompt_text": "Let's add some texture together: write 2–3 sentences including one quoted phrase and one simple symbol. What do you notice about how the density changes the reading pace?"
+    },
+    {
+      "prompt_id": "PB_036",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ALL_THREE"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's explore maximum richness. Combining all three feature types creates sentences that require careful navigation.",
+      "prompt_text": "Let's try full richness together: write 2–3 sentences that include a quote or parenthetical, a symbol, and a question mark. What do you notice about how structural richness feels to write?"
+    },
+    {
+      "prompt_id": "PB_037",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ALL_THREE"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's practice another combination. The more we experiment, the more natural structural choices become.",
+      "prompt_text": "Let's try another combination together: write 2–3 sentences with parentheses, a plus sign or ampersand, and an exclamation. I'm curious—how do you balance the features?"
+    },
+    {
+      "prompt_id": "PB_038",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["OPERATOR+SCOPE"],
+        "safety": "NEUTRAL",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Together, let's explore brackets plus slashes. Brackets contain; slashes divide. Using both creates a particular information structure.",
+      "prompt_text": "Let's explore this structure together: write 2–3 sentences with a bracketed note and a single slash. What do you notice about what each feature is doing?"
+    },
+    {
+      "prompt_id": "PB_039",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["NONE_EVENTS"],
+        "safety": "DEESCALATE"
+      },
+      "prompt_text": "Write 2–3 sentences naming what's frustrating, in calm plain language."
+    },
+    {
+      "prompt_id": "PB_040",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ZERO_ONLY"],
+        "safety": "DEESCALATE",
+        "lesson": "PAUSES"
+      },
+      "lesson_context": "Let's take a breath together. Simple, grounded writing can be calming.",
+      "prompt_text": "Let's slow down together: write 2–3 simple sentences, ending each one with a clear period. Just straightforward statements. Sometimes simplicity is what we need."
+    },
+    {
+      "prompt_id": "PB_041",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["SCOPE_ONLY"],
+        "safety": "DEESCALATE"
+      },
+      "prompt_text": "Write 2–3 sentences; add one short aside in parentheses if helpful."
+    },
+    {
+      "prompt_id": "PB_042",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["NONE_EVENTS"],
+        "safety": "DEESCALATE",
+        "lesson": "BASICS"
+      },
+      "lesson_context": "Let's reset together with something simple and calm.",
+      "prompt_text": "Let's start fresh together: write 2–3 sentences describing what you'd like to do next, using plain and direct language. No pressure—just clear thoughts."
+    },
+    {
+      "prompt_id": "PB_043",
+      "mode": "STORY",
+      "tags": {
+        "coverage": ["ZERO+SCOPE"],
+        "safety": "RESET"
+      },
+      "prompt_text": "Write 2–3 sentences; include one quick quote, then stop cleanly."
+    },
+    {
+      "prompt_id": "PB_044",
+      "mode": "SCHOOL",
+      "tags": {
+        "coverage": ["ZERO+OPERATOR"],
+        "safety": "RESET",
+        "lesson": "COMBINATIONS"
+      },
+      "lesson_context": "Fresh start. Let's try a simple exercise together.",
+      "prompt_text": "Let's try this together: write 2–3 sentences with one simple symbol and clear endings. Just a simple combination—no pressure."
+    }
+  ]
+}

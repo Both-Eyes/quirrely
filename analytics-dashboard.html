@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quirrely Analytics Dashboard — 100 Day Simulation v2</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root { --bg: #0f1419; --card: #1a1f2e; --text: #e7e9ea; --muted: #71767b; --accent: #FF6B6B; --success: #00B894; --pro: #FF6B6B; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    
+    header { margin-bottom: 2rem; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--muted); }
+    .updated { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+    .version { display: inline-block; background: var(--pro); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; margin-left: 0.5rem; }
+    
+    .grid { display: grid; gap: 1.5rem; }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-5 { grid-template-columns: repeat(5, 1fr); }
+    @media (max-width: 1200px) { .grid-4, .grid-5 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 800px) { .grid-4, .grid-3, .grid-2, .grid-5 { grid-template-columns: 1fr; } }
+    
+    .card { background: var(--card); border-radius: 12px; padding: 1.5rem; }
+    .card-title { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .card-value { font-size: 2rem; font-weight: 700; }
+    .card-value.accent { color: var(--accent); }
+    .card-value.success { color: var(--success); }
+    .card-value.pro { color: var(--pro); }
+    .card-sub { font-size: 0.9rem; color: var(--muted); margin-top: 0.25rem; }
+    
+    .section { margin-top: 2rem; }
+    .section-title { font-size: 1.25rem; margin-bottom: 1rem; }
+    
+    .chart-container { height: 300px; }
+    
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #2a2f3e; }
+    th { color: var(--muted); font-weight: 500; font-size: 0.85rem; text-transform: uppercase; }
+    .flag { margin-right: 0.5rem; }
+    
+    .funnel { display: flex; flex-direction: column; gap: 0.5rem; }
+    .funnel-step { display: flex; align-items: center; gap: 1rem; }
+    .funnel-label { width: 140px; font-size: 0.9rem; }
+    .funnel-bar-container { flex: 1; height: 32px; background: #2a2f3e; border-radius: 6px; overflow: hidden; }
+    .funnel-bar { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.75rem; font-weight: 600; font-size: 0.85rem; }
+    .funnel-bar.visitors { background: linear-gradient(90deg, #4ECDC4, #6EE7DE); width: 100%; }
+    .funnel-bar.starts { background: linear-gradient(90deg, #74B9FF, #a8d4ff); }
+    .funnel-bar.completes { background: linear-gradient(90deg, #A29BFE, #c4bfff); }
+    .funnel-bar.signups { background: linear-gradient(90deg, #FDCB6E, #ffe49a); color: #333; }
+    .funnel-bar.trials { background: linear-gradient(90deg, #FF6B6B, #ff9a9a); }
+    .funnel-bar.paid { background: linear-gradient(90deg, #FF6B6B, #FF8E8E); }
+    .funnel-value { width: 80px; text-align: right; font-size: 0.9rem; color: var(--muted); }
+    
+    .viral-box { background: linear-gradient(135deg, #00B894 0%, #55efc4 100%); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; }
+    .viral-box h3 { margin-bottom: 1rem; color: #1a1f2e; }
+    .viral-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+    .viral-item { text-align: center; background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 8px; }
+    .viral-value { font-size: 1.25rem; font-weight: 700; color: #1a1f2e; }
+    .viral-label { font-size: 0.75rem; color: #1a1f2e; opacity: 0.8; }
+    
+    .highlight-box { background: linear-gradient(135deg, var(--pro) 0%, #8B7CF7 100%); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; }
+    .highlight-box h3 { margin-bottom: 0.5rem; }
+    .highlight-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
+    .highlight-item { text-align: center; }
+    .highlight-value { font-size: 1.5rem; font-weight: 700; }
+    .highlight-label { font-size: 0.8rem; opacity: 0.8; }
+    
+    .revenue-highlight { background: linear-gradient(135deg, var(--success) 0%, #55efc4 100%); color: #1a1f2e; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📊 Quirrely Analytics Dashboard <span class="version">v2</span></h1>
+      <p class="subtitle">100,000 Visitors in 100 Days Simulation</p>
+      <p class="updated">Updated: February 10, 2026 — Fixed viral coefficient, revenue modeling, Pro drivers</p>
+    </header>
+    
+    <!-- Key Metrics -->
+    <div class="grid grid-4">
+      <div class="card">
+        <div class="card-title">Total Visitors</div>
+        <div class="card-value">114,495</div>
+        <div class="card-sub">1,145 avg/day • 11.6% viral</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Free Signups</div>
+        <div class="card-value accent">17,526</div>
+        <div class="card-sub">15.31% conversion</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Pro Subscribers</div>
+        <div class="card-value pro">1,593</div>
+        <div class="card-sub">9.09% of signups</div>
+      </div>
+      <div class="card">
+        <div class="card-title">MRR (Day 100)</div>
+        <div class="card-value success">$16,664</div>
+        <div class="card-sub">ARR: $199,971</div>
+      </div>
+    </div>
+    
+    <!-- Revenue Highlight -->
+    <div class="highlight-box revenue-highlight">
+      <h3>💰 Revenue Summary</h3>
+      <div class="highlight-grid">
+        <div class="highlight-item">
+          <div class="highlight-value">$85,789</div>
+          <div class="highlight-label">Total Revenue (100 days)</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-value">$16,664</div>
+          <div class="highlight-label">MRR (Day 100)</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-value">$97</div>
+          <div class="highlight-label">Est. LTV</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-value">$285,760</div>
+          <div class="highlight-label">Year 1 Projection</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Viral Breakdown -->
+    <div class="viral-box">
+      <h3>🚀 Viral Breakdown — Effective K = 0.76</h3>
+      <div class="viral-grid">
+        <div class="viral-item">
+          <div class="viral-value">3,358</div>
+          <div class="viral-label">User Referrals</div>
+        </div>
+        <div class="viral-item">
+          <div class="viral-value">8,073</div>
+          <div class="viral-label">Newsletter Forwards</div>
+        </div>
+        <div class="viral-item">
+          <div class="viral-value">672</div>
+          <div class="viral-label">Featured Writer Promo</div>
+        </div>
+        <div class="viral-item">
+          <div class="viral-value">980</div>
+          <div class="viral-label">Profile Shares</div>
+        </div>
+        <div class="viral-item">
+          <div class="viral-value">239</div>
+          <div class="viral-label">Blog Shares</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Funnel -->
+    <div class="section">
+      <h2 class="section-title">Conversion Funnel</h2>
+      <div class="card">
+        <div class="funnel">
+          <div class="funnel-step">
+            <div class="funnel-label">Visitors</div>
+            <div class="funnel-bar-container"><div class="funnel-bar visitors">100%</div></div>
+            <div class="funnel-value">114,495</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-label">Test Starts</div>
+            <div class="funnel-bar-container"><div class="funnel-bar starts" style="width: 50.56%;">50.6%</div></div>
+            <div class="funnel-value">57,885</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-label">Test Completes</div>
+            <div class="funnel-bar-container"><div class="funnel-bar completes" style="width: 39.27%;">39.3%</div></div>
+            <div class="funnel-value">44,967</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-label">Free Signups</div>
+            <div class="funnel-bar-container"><div class="funnel-bar signups" style="width: 15.31%;">15.3%</div></div>
+            <div class="funnel-value">17,526</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-label">Pro Trials</div>
+            <div class="funnel-bar-container"><div class="funnel-bar trials" style="width: 3.35%;">3.4%</div></div>
+            <div class="funnel-value">3,833</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-label">Pro Paid</div>
+            <div class="funnel-bar-container"><div class="funnel-bar paid" style="width: 1.39%;">1.4%</div></div>
+            <div class="funnel-value">1,593</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- By Country & Source -->
+    <div class="section">
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title">By Country</div>
+          <table>
+            <thead>
+              <tr><th>Country</th><th>Visitors</th><th>Signups</th><th>Pro</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="flag">🍁</span>Canada</td><td>45,839</td><td>7,140</td><td>627</td></tr>
+              <tr><td><span class="flag">🇬🇧</span>United Kingdom</td><td>28,750</td><td>4,324</td><td>410</td></tr>
+              <tr><td><span class="flag">🇦🇺</span>Australia</td><td>22,735</td><td>3,532</td><td>315</td></tr>
+              <tr><td><span class="flag">🇳🇿</span>New Zealand</td><td>17,171</td><td>2,530</td><td>241</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-title">By Traffic Source</div>
+          <table>
+            <thead>
+              <tr><th>Source</th><th>Visitors</th><th>Signups</th><th>Conv %</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>📧 Email</td><td>20,622</td><td>5,379</td><td style="color: var(--success); font-weight: 600;">26.08%</td></tr>
+              <tr><td>🔗 Referral</td><td>20,237</td><td>3,956</td><td style="color: var(--success);">19.55%</td></tr>
+              <tr><td>🔍 Organic</td><td>30,205</td><td>4,418</td><td>14.63%</td></tr>
+              <tr><td>🏠 Direct</td><td>18,229</td><td>1,810</td><td>9.93%</td></tr>
+              <tr><td>📱 Social</td><td>15,083</td><td>1,227</td><td>8.13%</td></tr>
+              <tr><td>💰 Paid</td><td>10,119</td><td>736</td><td>7.27%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pro Breakdown -->
+    <div class="section">
+      <h2 class="section-title">Pro Subscriber Breakdown</h2>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="card-title">Monthly Pro</div>
+          <div class="card-value">981</div>
+          <div class="card-sub">$2.99/mo × 981 = $2,933/mo</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Annual Pro</div>
+          <div class="card-value pro">593</div>
+          <div class="card-sub">$30/yr × 593 = $17,790</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Public Profiles</div>
+          <div class="card-value">965</div>
+          <div class="card-sub">60% of Pro users</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Trial → Paid</div>
+          <div class="card-value success">41.6%</div>
+          <div class="card-sub">3,833 trials → 1,593 paid</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Featured Writers -->
+    <div class="highlight-box">
+      <h3>📝 Featured Writers Program</h3>
+      <p>Community-driven content powering 50%+ of weekly newsletter</p>
+      <div class="highlight-grid">
+        <div class="highlight-item">
+          <div class="highlight-value">14</div>
+          <div class="highlight-label">Weeks</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-value">56</div>
+          <div class="highlight-label">Writers Featured</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-value">672</div>
+          <div class="highlight-label">Traffic Generated</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-value">8,073</div>
+          <div class="highlight-label">Newsletter Viral</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Blog SEO -->
+    <div class="section">
+      <h2 class="section-title">Blog & SEO Impact</h2>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="card-title">Public Blog Posts</div>
+          <div class="card-value">40</div>
+          <div class="card-sub">Profile+Stance combinations</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Organic Visitors</div>
+          <div class="card-value accent">30,205</div>
+          <div class="card-sub">26.4% of all traffic</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Organic Signups</div>
+          <div class="card-value success">4,418</div>
+          <div class="card-sub">14.6% conversion</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Blog Viral Traffic</div>
+          <div class="card-value">239</div>
+          <div class="card-sub">Shares from blog posts</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Projections -->
+    <div class="section">
+      <h2 class="section-title">Year 1 Projections</h2>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="card-title">Annual Visitors</div>
+          <div class="card-value">417,907</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Annual Signups</div>
+          <div class="card-value accent">63,970</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Annual Pro Users</div>
+          <div class="card-value pro">5,814</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Year 1 Revenue</div>
+          <div class="card-value success">$285,760</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Key Insights -->
+    <div class="section">
+      <h2 class="section-title">Key Insights</h2>
+      <div class="card">
+        <table>
+          <tbody>
+            <tr>
+              <td style="font-weight: 600;">📧 Email is #1 converter</td>
+              <td>26% conversion — Newsletter (50%+ featured writers) drives best ROI</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">🔗 Referral outperforms organic</td>
+              <td>19.5% vs 14.6% — Featured writer external links are warm traffic</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">🚀 Viral K = 0.76</td>
+              <td>Every 100 signups generate 76 new visitors (up from 0.41 baseline)</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">💰 MRR trajectory</td>
+              <td>$16,664 MRR at Day 100 → $199K ARR run rate</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 600;">👤 Pro conversion drivers working</td>
+              <td>21.9% trial rate (featured writer CTA + profile CTA + Pro content)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

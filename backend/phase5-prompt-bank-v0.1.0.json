@@ -1,0 +1,524 @@
+{
+  "prompt_bank_version": "0.1.0",
+  "phase": "phase5",
+  "name": "LNCP Phase-5 Prompt Bank",
+  "ordering_rule": "Use prompts in ascending prompt_id unless a deterministic selector targets tags.",
+  "prompt_id_format": "PB_###",
+  "modes": [
+    "STORY",
+    "LAB"
+  ],
+  "group_requirement": "Each user response must be exactly 1 group of 2–3 sentences (all-or-nothing validity).",
+  "notes": [
+    "Closed set: do not add/edit prompts without bumping prompt_bank_version.",
+    "Prompts are written to elicit structural coverage (zeros/operators/scopes and combinations) without revealing validator rules.",
+    "Include at least one de-escalation prompt for angry/hostile moments; selection is conditional on detected tone."
+  ],
+  "tags": {
+    "coverage": [
+      "NONE_EVENTS",
+      "ZERO_ONLY",
+      "OPERATOR_ONLY",
+      "SCOPE_ONLY",
+      "ZERO+OPERATOR",
+      "ZERO+SCOPE",
+      "OPERATOR+SCOPE",
+      "ALL_THREE"
+    ],
+    "mode": [
+      "STORY",
+      "LAB"
+    ],
+    "safety": [
+      "NEUTRAL",
+      "DEESCALATE",
+      "RESET"
+    ]
+  },
+  "prompts": [
+    {
+      "prompt_id": "PB_001",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "NONE_EVENTS"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 simple sentences describing a calm morning routine. Keep it plain and unembellished."
+    },
+    {
+      "prompt_id": "PB_002",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ZERO_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that end with strong punctuation. Let the stops do the work."
+    },
+    {
+      "prompt_id": "PB_003",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "SCOPE_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include one quick aside in parentheses or quotes."
+    },
+    {
+      "prompt_id": "PB_004",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "OPERATOR_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include one symbol like /, %, or + naturally."
+    },
+    {
+      "prompt_id": "PB_005",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ZERO+SCOPE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with one nested aside, then a clean final stop."
+    },
+    {
+      "prompt_id": "PB_006",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ZERO+OPERATOR"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with a small symbol, and clear sentence endings."
+    },
+    {
+      "prompt_id": "PB_007",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "OPERATOR+SCOPE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include a contained phrase and a simple symbol."
+    },
+    {
+      "prompt_id": "PB_008",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ALL_THREE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include an aside, a small symbol, and crisp punctuation."
+    },
+    {
+      "prompt_id": "PB_009",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "NONE_EVENTS"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences about noticing something ordinary on a walk."
+    },
+    {
+      "prompt_id": "PB_010",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ZERO_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that lean on questions or exclamations for energy."
+    },
+    {
+      "prompt_id": "PB_011",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "SCOPE_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences where one phrase is put in quotes for emphasis."
+    },
+    {
+      "prompt_id": "PB_012",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "OPERATOR_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences using a single slash as shorthand (like and/or)."
+    },
+    {
+      "prompt_id": "PB_013",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ZERO+SCOPE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with a brief quote, then a decisive ending."
+    },
+    {
+      "prompt_id": "PB_014",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ZERO+OPERATOR"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with a percent or plus sign, and clear stops."
+    },
+    {
+      "prompt_id": "PB_015",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "OPERATOR+SCOPE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include a bracketed detail and one symbol."
+    },
+    {
+      "prompt_id": "PB_016",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ALL_THREE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that mix a quote, a symbol, and strong punctuation."
+    },
+    {
+      "prompt_id": "PB_017",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "NONE_EVENTS"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences describing a straightforward preference you have."
+    },
+    {
+      "prompt_id": "PB_018",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "SCOPE_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that contain one parenthetical clarification."
+    },
+    {
+      "prompt_id": "PB_019",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "OPERATOR_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include a simple comparison like 2/3 or 1/2."
+    },
+    {
+      "prompt_id": "PB_020",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ZERO_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences where each sentence ends decisively with punctuation."
+    },
+    {
+      "prompt_id": "PB_021",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "NONE_EVENTS"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences describing a single object, using plain wording only."
+    },
+    {
+      "prompt_id": "PB_022",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ZERO_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences, each ending with visible punctuation. Keep wording simple."
+    },
+    {
+      "prompt_id": "PB_023",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "SCOPE_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with one quoted term or a parenthetical note."
+    },
+    {
+      "prompt_id": "PB_024",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "OPERATOR_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include exactly one symbol like + or /."
+    },
+    {
+      "prompt_id": "PB_025",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ZERO+SCOPE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with one bracketed aside and clear endings."
+    },
+    {
+      "prompt_id": "PB_026",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ZERO+OPERATOR"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with one symbol and firm sentence stops."
+    },
+    {
+      "prompt_id": "PB_027",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "OPERATOR+SCOPE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with one contained phrase and one symbol."
+    },
+    {
+      "prompt_id": "PB_028",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ALL_THREE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences containing an aside, a symbol, and decisive punctuation."
+    },
+    {
+      "prompt_id": "PB_029",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "NONE_EVENTS"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that describe a tiny plan for today, plainly."
+    },
+    {
+      "prompt_id": "PB_030",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "SCOPE_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with a single short quote used once."
+    },
+    {
+      "prompt_id": "PB_031",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "OPERATOR_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences using a single % or & once, naturally."
+    },
+    {
+      "prompt_id": "PB_032",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ZERO_ONLY"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences, making one of them a question."
+    },
+    {
+      "prompt_id": "PB_033",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ZERO+SCOPE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with one parenthetical aside and a question mark somewhere."
+    },
+    {
+      "prompt_id": "PB_034",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ZERO+OPERATOR"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with a slash once, and at least one strong stop."
+    },
+    {
+      "prompt_id": "PB_035",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "OPERATOR+SCOPE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences including one quoted phrase and one simple symbol."
+    },
+    {
+      "prompt_id": "PB_036",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ALL_THREE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include a quote, a symbol, and a question mark."
+    },
+    {
+      "prompt_id": "PB_037",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ALL_THREE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences that include parentheses, a plus sign, and an exclamation."
+    },
+    {
+      "prompt_id": "PB_038",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "OPERATOR+SCOPE"
+        ],
+        "safety": "NEUTRAL"
+      },
+      "prompt_text": "Write 2–3 sentences with a bracketed note and a single slash."
+    },
+    {
+      "prompt_id": "PB_039",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "NONE_EVENTS"
+        ],
+        "safety": "DEESCALATE"
+      },
+      "prompt_text": "Write 2–3 sentences naming what’s frustrating, in calm plain language."
+    },
+    {
+      "prompt_id": "PB_040",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ZERO_ONLY"
+        ],
+        "safety": "DEESCALATE"
+      },
+      "prompt_text": "Write 2–3 sentences, then end with one clear full stop."
+    },
+    {
+      "prompt_id": "PB_041",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "SCOPE_ONLY"
+        ],
+        "safety": "DEESCALATE"
+      },
+      "prompt_text": "Write 2–3 sentences; add one short aside in parentheses if helpful."
+    },
+    {
+      "prompt_id": "PB_042",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "NONE_EVENTS"
+        ],
+        "safety": "DEESCALATE"
+      },
+      "prompt_text": "Write 2–3 sentences describing what you want next, without blame."
+    },
+    {
+      "prompt_id": "PB_043",
+      "mode": "STORY",
+      "tags": {
+        "coverage": [
+          "ZERO+SCOPE"
+        ],
+        "safety": "RESET"
+      },
+      "prompt_text": "Write 2–3 sentences; include one quick quote, then stop cleanly."
+    },
+    {
+      "prompt_id": "PB_044",
+      "mode": "LAB",
+      "tags": {
+        "coverage": [
+          "ZERO+OPERATOR"
+        ],
+        "safety": "RESET"
+      },
+      "prompt_text": "Write 2–3 sentences; use one simple symbol, then finish decisively."
+    }
+  ]
+}

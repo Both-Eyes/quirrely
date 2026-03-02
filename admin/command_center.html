@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+(function(){
+  var k=sessionStorage.getItem('quirrely_admin_key');
+  if(!k){window.location.href='/admin/index.html';return;}
+  fetch('/api/v2/featured/admin/pending',{headers:{'X-Admin-Key':k}})
+    .then(function(r){if(r.status===403)window.location.href='/admin/index.html';})
+    .catch(function(){window.location.href='/admin/index.html';});
+})();
+</script>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/assets/css/compat.css">
+<script src="/assets/js/compat.js" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>LNCP Meta Command Center</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg-dark:#080810;--bg-panel:#0d0d15;--bg-card:#12121c;--bg-card-hover:#1a1a28;--border:#252535;--border-active:#3a3a55;--text-primary:#f0f0ff;--text-secondary:#8888aa;--text-muted:#555570;--accent-green:#00ff88;--accent-blue:#00aaff;--accent-purple:#aa66ff;--accent-orange:#ff9933;--accent-red:#ff4466;--accent-yellow:#ffdd00}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;background:var(--bg-dark);color:var(--text-primary);min-height:100vh;overflow-x:hidden}
+.command-center{display:grid;grid-template-columns:260px 1fr 360px;grid-template-rows:64px 1fr;height:100vh}
+.header{grid-column:1/-1;background:var(--bg-panel);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 25px}
+.header-left{display:flex;align-items:center;gap:20px}
+.logo{font-size:18px;font-weight:700;background:linear-gradient(135deg,#00ff88,#00aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sys-status{display:flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid rgba(0,255,136,.3);border-radius:20px;font-size:11px}
+.sys-status.ok{background:rgba(0,255,136,.1);color:var(--accent-green)}
+.sys-status.stale{background:rgba(255,153,51,.1);color:var(--accent-orange)}
+.pulse-dot{width:8px;height:8px;border-radius:50%;animation:pulse 2s infinite}
+.sys-status.ok .pulse-dot{background:var(--accent-green)}
+.sys-status.stale .pulse-dot{background:var(--accent-orange)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.9)}}
+.header-right{display:flex;align-items:center;gap:12px}
+.hdr-meta{font-size:11px;color:var(--text-muted)}
+.hdr-btn{padding:5px 12px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text-secondary);font-size:11px;cursor:pointer;transition:all .2s}
+.hdr-btn:hover{border-color:var(--accent-blue);color:var(--text-primary)}
+.sidebar{background:var(--bg-panel);border-right:1px solid var(--border);padding:15px 0;overflow-y:auto;display:flex;flex-direction:column}
+.nav-section{margin-bottom:20px}
+.nav-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);padding:0 18px;margin-bottom:8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 18px;cursor:pointer;transition:all .2s;border-left:3px solid transparent;font-size:13px;color:var(--text-secondary)}
+.nav-item:hover{background:rgba(255,255,255,.03)}
+.nav-item.active{background:rgba(255,255,255,.05);color:var(--text-primary)}
+.nav-item.active[data-domain=ux]{border-left-color:var(--accent-green)}
+.nav-item.active[data-domain=health]{border-left-color:var(--accent-purple)}
+.nav-item.active[data-domain=mrr]{border-left-color:var(--accent-orange)}
+.nav-icon{font-size:16px;width:22px;text-align:center}
+.nav-badge{margin-left:auto;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600}
+.badge-red{background:rgba(255,68,102,.2);color:var(--accent-red)}
+.badge-orange{background:rgba(255,153,51,.2);color:var(--accent-orange)}
+.badge-green{background:rgba(0,255,136,.2);color:var(--accent-green)}
+.badge-blue{background:rgba(0,170,255,.2);color:var(--accent-blue)}
+.sidebar-footer{margin-top:auto;padding:12px 18px;border-top:1px solid var(--border);font-size:10px;color:var(--text-muted)}
+.main-content{padding:22px;overflow-y:auto;background:var(--bg-dark)}
+.domain-view{display:none}.domain-view.active{display:block}
+.domain-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.domain-title{display:flex;align-items:center;gap:12px}
+.domain-title h2{font-size:22px;font-weight:600}
+.domain-title.ux h2{color:var(--accent-green)}
+.domain-title.health h2{color:var(--accent-purple)}
+.domain-title.mrr h2{color:var(--accent-orange)}
+.domain-subtitle{font-size:12px;color:var(--text-secondary)}
+.refresh-btn{padding:6px 14px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text-secondary);font-size:11px;cursor:pointer;transition:all .2s}
+.refresh-btn:hover{border-color:var(--accent-blue);color:var(--text-primary)}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.metric-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:16px;transition:all .2s}
+.metric-card:hover{border-color:var(--border-active);transform:translateY(-1px)}
+.metric-label{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:6px}
+.metric-value{font-size:26px;font-weight:700;margin-bottom:4px}
+.metric-sub{font-size:11px;color:var(--text-secondary)}
+.metric-bar{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
+.metric-bar-fill{height:100%;border-radius:2px;transition:width .6s}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;margin-top:8px}
+.section-title{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+.section-count{padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600;background:rgba(255,255,255,.1)}
+.alert-list{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.alert-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;display:flex;align-items:flex-start;gap:12px;transition:all .2s}
+.alert-card:hover{border-color:var(--border-active)}
+.alert-severity{width:10px;height:10px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.severity-risk{background:var(--accent-red);box-shadow:0 0 8px var(--accent-red)}
+.severity-watch{background:var(--accent-orange);box-shadow:0 0 8px var(--accent-orange)}
+.severity-opportunity{background:var(--accent-green);box-shadow:0 0 8px var(--accent-green)}
+.alert-content{flex:1}.alert-title{font-size:13px;font-weight:600;margin-bottom:3px}
+.alert-desc{font-size:11px;color:var(--text-secondary);margin-bottom:6px}
+.alert-meta{display:flex;flex-wrap:wrap;gap:10px;font-size:10px;color:var(--text-muted)}
+.funnel-container{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:22px}
+.funnel-title{font-size:14px;font-weight:600;margin-bottom:14px}
+.funnel-stages{display:flex;align-items:center;gap:0;overflow-x:auto}
+.funnel-stage{flex:1;text-align:center;padding:10px 6px;min-width:90px}
+.funnel-stage-name{font-size:9px;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;letter-spacing:.5px}
+.funnel-stage-value{font-size:18px;font-weight:700;margin-bottom:2px}
+.funnel-stage-rate{font-size:10px;color:var(--text-secondary)}
+.funnel-arrow{color:var(--text-muted);font-size:16px;flex-shrink:0}
+.val-good{color:var(--accent-green)}.val-warn{color:var(--accent-orange)}.val-bad{color:var(--accent-red)}
+.country-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
+.country-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.country-flag{font-size:24px;margin-bottom:6px}
+.country-name{font-size:11px;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+.country-stat{font-size:20px;font-weight:700;margin-bottom:2px}
+.country-sub{font-size:10px;color:var(--text-secondary)}
+.action-panel{background:var(--bg-panel);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.panel-header{padding:16px 18px;border-bottom:1px solid var(--border)}
+.panel-title{font-size:15px;font-weight:600;margin-bottom:3px}
+.panel-subtitle{font-size:11px;color:var(--text-secondary)}
+.action-tabs{display:flex;border-bottom:1px solid var(--border)}
+.action-tab{flex:1;padding:10px;text-align:center;font-size:11px;color:var(--text-secondary);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.action-tab:hover{color:var(--text-primary);background:rgba(255,255,255,.02)}
+.action-tab.active{color:var(--accent-blue);border-bottom-color:var(--accent-blue)}
+.action-list{flex:1;overflow-y:auto;padding:12px}
+.proposal-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;transition:all .2s}
+.proposal-card:hover{border-color:var(--accent-blue)}
+.proposal-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.proposal-priority{font-size:22px;font-weight:700;line-height:1}
+.priority-high{color:var(--accent-red)}.priority-medium{color:var(--accent-orange)}.priority-low{color:var(--accent-green)}
+.proposal-tier{padding:3px 8px;border-radius:10px;font-size:9px;font-weight:600;text-transform:uppercase}
+.tier-risk{background:rgba(255,68,102,.15);color:var(--accent-red)}
+.tier-watch{background:rgba(255,153,51,.15);color:var(--accent-orange)}
+.tier-opportunity{background:rgba(0,255,136,.15);color:var(--accent-green)}
+.proposal-title{font-size:12px;font-weight:600;margin-bottom:6px}
+.proposal-desc{font-size:10px;color:var(--text-secondary);margin-bottom:8px;padding:6px 8px;background:rgba(255,255,255,.02);border-radius:4px}
+.proposal-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;font-size:10px;color:var(--text-muted)}
+.proposal-meta-item{padding:3px 6px;background:rgba(255,255,255,.03);border-radius:4px}
+.proposal-actions{display:flex;gap:6px}
+.proposal-btn{flex:1;padding:7px;border-radius:5px;font-size:10px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-ack{background:var(--accent-blue);color:#fff}.btn-ack:hover{background:#0099ee}
+.btn-dismiss{background:transparent;border:1px solid var(--border);color:var(--text-muted)}.btn-dismiss:hover{border-color:var(--accent-red);color:var(--accent-red)}
+.panel-footer{padding:12px 18px;border-top:1px solid var(--border);font-size:10px;color:var(--text-muted)}
+.loading{color:var(--text-muted);font-size:12px;padding:20px;text-align:center}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:1000}
+.modal-overlay.active{display:flex}
+.modal{background:var(--bg-panel);border:1px solid var(--border);border-radius:12px;width:90%;max-width:900px;max-height:80vh;overflow:hidden;display:flex;flex-direction:column}
+.modal-header{padding:18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-size:16px;font-weight:600}
+.modal-close{width:30px;height:30px;border-radius:6px;border:none;background:transparent;color:var(--text-secondary);font-size:18px;cursor:pointer}
+.modal-close:hover{background:rgba(255,255,255,.1);color:var(--text-primary)}
+.modal-body{padding:18px;overflow-y:auto;flex:1}
+.json-viewer{background:#050508;border:1px solid var(--border);border-radius:6px;padding:14px;font-family:'SF Mono','Fira Code',monospace;font-size:11px;line-height:1.6;overflow-x:auto;white-space:pre-wrap}
+.json-key{color:var(--accent-purple)}.json-string{color:var(--accent-green)}.json-number{color:var(--accent-orange)}.json-boolean{color:var(--accent-blue)}.json-null{color:var(--text-muted)}
+.toast{position:fixed;bottom:20px;right:20px;padding:12px 20px;border-radius:8px;font-size:12px;color:#fff;z-index:999;animation:fadeIn .3s}
+.toast-ok{background:rgba(0,180,100,.9)}.toast-err{background:rgba(255,68,102,.9)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="command-center">
+<header class="header">
+<div class="header-left">
+<div class="logo">META COMMAND CENTER</div>
+<div class="sys-status ok" id="sysStatus"><span class="pulse-dot"></span><span id="statusText">Loading...</span></div>
+</div>
+<div class="header-right">
+<span class="hdr-meta" id="hdrMeta">Last updated: —</span>
+<button class="hdr-btn" onclick="refreshAll()">↻ Refresh</button>
+<button class="hdr-btn" onclick="showJSONModal()">{ } JSON</button>
+<button class="hdr-btn" onclick="window.location.href='/admin/index.html'">← Hub</button>
+</div>
+</header>
+<nav class="sidebar">
+<div class="nav-section">
+<div class="nav-section-title">Domains</div>
+<div class="nav-item active" data-domain="ux" onclick="switchDomain('ux',this)">
+<span class="nav-icon">👤</span><span>User Experience</span>
+<span class="nav-badge badge-green" id="badge-ux">—</span>
+</div>
+<div class="nav-item" data-domain="health" onclick="switchDomain('health',this)">
+<span class="nav-icon">💪</span><span>System Health</span>
+<span class="nav-badge badge-blue" id="badge-health">—</span>
+</div>
+<div class="nav-item" data-domain="mrr" onclick="switchDomain('mrr',this)">
+<span class="nav-icon">💰</span><span>MRR &amp; Revenue</span>
+<span class="nav-badge badge-orange" id="badge-mrr">—</span>
+</div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">By Severity</div>
+<div class="nav-item" data-domain="risks" onclick="switchDomain('risks',this)">
+<span class="nav-icon">🔴</span><span>Risks</span>
+<span class="nav-badge badge-red" id="badge-risks">—</span>
+</div>
+<div class="nav-item" data-domain="watches" onclick="switchDomain('watches',this)">
+<span class="nav-icon">🟡</span><span>Watches</span>
+<span class="nav-badge badge-orange" id="badge-watches">—</span>
+</div>
+<div class="nav-item" data-domain="opps" onclick="switchDomain('opps',this)">
+<span class="nav-icon">🟢</span><span>Opportunities</span>
+<span class="nav-badge badge-green" id="badge-opps">—</span>
+</div>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">Tools</div>
+<div class="nav-item" onclick="runSimulation()">
+<span class="nav-icon">🧪</span><span>Run Simulation</span>
+</div>
+<div class="nav-item" onclick="showJSONModal()">
+<span class="nav-icon">{ }</span><span>Export State</span>
+</div>
+</div>
+<div class="sidebar-footer" id="sidebarMeta">Loading...</div>
+</nav>
+<main class="main-content">
+<div id="domain-ux" class="domain-view active">
+<div class="domain-header">
+<div class="domain-title ux"><h2>👤 User Experience</h2><span class="domain-subtitle">Activation funnel, engagement, friction</span></div>
+<button class="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
+</div>
+<div class="metrics-grid" id="ux-metrics"><div class="loading">Loading...</div></div>
+<div class="section-header"><div class="section-title">Activation Funnel</div></div>
+<div id="ux-funnel" class="funnel-container"><div class="loading">Loading...</div></div>
+<div class="section-header"><div class="section-title"><span>🚨 UX Actions</span><span class="section-count" id="ux-action-count">0</span></div></div>
+<div class="alert-list" id="ux-alerts"><div class="loading">Loading...</div></div>
+</div>
+<div id="domain-health" class="domain-view">
+<div class="domain-header">
+<div class="domain-title health"><h2>💪 System Health</h2><span class="domain-subtitle">Engine metrics, simulation state</span></div>
+<button class="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
+</div>
+<div class="metrics-grid" id="health-metrics"><div class="loading">Loading...</div></div>
+<div class="section-header"><div class="section-title">Health Breakdown</div></div>
+<div id="health-breakdown" class="funnel-container"><div class="loading">Loading...</div></div>
+<div class="section-header"><div class="section-title"><span>🚨 Health Actions</span><span class="section-count" id="health-action-count">0</span></div></div>
+<div class="alert-list" id="health-alerts"><div class="loading">Loading...</div></div>
+</div>
+<div id="domain-mrr" class="domain-view">
+<div class="domain-header">
+<div class="domain-title mrr"><h2>💰 MRR &amp; Revenue</h2><span class="domain-subtitle">Conversion, country performance, value</span></div>
+<button class="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
+</div>
+<div class="metrics-grid" id="mrr-metrics"><div class="loading">Loading...</div></div>
+<div class="section-header"><div class="section-title">Country Performance</div></div>
+<div class="country-grid" id="mrr-countries"><div class="loading">Loading...</div></div>
+<div class="section-header"><div class="section-title"><span>🚨 MRR Actions</span><span class="section-count" id="mrr-action-count">0</span></div></div>
+<div class="alert-list" id="mrr-alerts"><div class="loading">Loading...</div></div>
+</div>
+<div id="domain-risks" class="domain-view">
+<div class="domain-header"><div class="domain-title"><h2 style="color:var(--accent-red)">🔴 Risks</h2><span class="domain-subtitle">Items requiring immediate attention</span></div></div>
+<div class="alert-list" id="risk-alerts"><div class="loading">Loading...</div></div>
+</div>
+<div id="domain-watches" class="domain-view">
+<div class="domain-header"><div class="domain-title"><h2 style="color:var(--accent-orange)">🟡 Watches</h2><span class="domain-subtitle">Items to monitor</span></div></div>
+<div class="alert-list" id="watch-alerts"><div class="loading">Loading...</div></div>
+</div>
+<div id="domain-opps" class="domain-view">
+<div class="domain-header"><div class="domain-title"><h2 style="color:var(--accent-green)">🟢 Opportunities</h2><span class="domain-subtitle">Positive signals to amplify</span></div></div>
+<div class="alert-list" id="opp-alerts"><div class="loading">Loading...</div></div>
+</div>
+</main>
+<aside class="action-panel">
+<div class="panel-header">
+<div class="panel-title">Action Queue</div>
+<div class="panel-subtitle" id="panelSub">Ranked by priority score</div>
+</div>
+<div class="action-tabs">
+<div class="action-tab active" onclick="filterActions('all',this)">All <span id="tab-all">0</span></div>
+<div class="action-tab" onclick="filterActions('risk',this)">Risks <span id="tab-risk">0</span></div>
+<div class="action-tab" onclick="filterActions('watch',this)">Watch <span id="tab-watch">0</span></div>
+<div class="action-tab" onclick="filterActions('opportunity',this)">Opps <span id="tab-opp">0</span></div>
+</div>
+<div class="action-list" id="action-list"><div class="loading">Loading...</div></div>
+<div class="panel-footer" id="panelFooter">—</div>
+</aside>
+</div>
+<div class="modal-overlay" id="json-modal">
+<div class="modal">
+<div class="modal-header">
+<div class="modal-title">System State Export</div>
+<button class="modal-close" onclick="closeJSONModal()">×</button>
+</div>
+<div class="modal-body"><div class="json-viewer" id="json-output"></div></div>
+</div>
+</div>
+<script>
+var S={pulse:null,actions:null,results:null,countries:null,overview:null,real:null};
+var activeFilter='all';
+function ah(){
+  var k=sessionStorage.getItem('quirrely_admin_key')||'admin';
+  return{'Authorization':'Bearer '+k,'X-Admin-Key':sessionStorage.getItem('quirrely_admin_key')||''};
+}
+async function loadLiveData(){
+  var h=ah();
+  try{
+    var[pR,aR,rR,cR,oR,rlR]=await Promise.all([
+      fetch('/api/v2/super-admin/pulse',{headers:h}),
+      fetch('/api/v2/super-admin/actions',{headers:h}),
+      fetch('/api/v2/super-admin/results',{headers:h}),
+      fetch('/api/v2/super-admin/results/countries',{headers:h}),
+      fetch('/api/admin/v2/overview',{headers:{'X-Admin-Key':sessionStorage.getItem('quirrely_admin_key')||''}}),
+      fetch('/api/admin/v2/stats/real',{headers:{'X-Admin-Key':sessionStorage.getItem('quirrely_admin_key')||''}})
+    ]);
+    S.pulse=await pR.json();S.actions=await aR.json();S.results=await rR.json();
+    S.countries=await cR.json();S.overview=await oR.json();S.real=await rlR.json();
+    renderAll();
+  }catch(e){
+    console.error('Load:',e);
+    document.getElementById('statusText').textContent='ERROR: '+e.message;
+  }
+}
+function pct(v,d){d=d||1;return(v*100).toFixed(d)+'%'}
+function money(v){return'$'+v.toFixed(2)}
+function num(v){return typeof v==='number'?v.toLocaleString():v}
+function sevClass(s){return'severity-'+s}
+function tierClass(s){return'tier-'+s}
+function tierLabel(s){return s==='risk'?'🔴 Risk':s==='watch'?'🟡 Watch':'🟢 Opportunity'}
+function effortLabel(e){return e==='low'?'Low':e==='medium'?'Medium':'High'}
+function mCard(label,value,sub,barPct,color){
+  var bar=barPct!=null?'<div class="metric-bar"><div class="metric-bar-fill" style="width:'+Math.min(100,Math.max(0,barPct))+'%;background:'+color+'"></div></div>':'';
+  return'<div class="metric-card"><div class="metric-label">'+label+'</div><div class="metric-value" style="color:'+color+'">'+value+'</div><div class="metric-sub">'+sub+'</div>'+bar+'</div>';
+}
+function aCard(a){
+  return'<div class="alert-card"><div class="alert-severity '+sevClass(a.severity)+'"></div><div class="alert-content"><div class="alert-title">'+a.title+'</div><div class="alert-desc">'+a.description+'</div><div class="alert-meta"><span>'+tierLabel(a.severity)+'</span><span>'+a.category+'</span><span>Priority: '+a.priority_score+'</span>'+(a.country_code?'<span>'+a.country_code.toUpperCase()+'</span>':'')+'<span>'+effortLabel(a.action_effort)+' effort</span></div><div style="margin-top:8px"><button class="proposal-btn btn-ack" onclick="ackAlert(this)" style="width:auto;padding:5px 14px">→ '+a.action_recommended+'</button></div></div></div>';
+}
+function renderAll(){renderHeader();renderBadges();renderUX();renderHealth();renderMRR();renderSevViews();renderProposals(activeFilter);}
+function renderHeader(){
+  var p=S.pulse,r=S.real,st=document.getElementById('sysStatus');
+  st.className='sys-status '+(p.is_stale?'stale':'ok');
+  document.getElementById('statusText').textContent=p.is_stale?'STALE':'OPERATIONAL — Health '+p.overall_health+'/100';
+  document.getElementById('hdrMeta').textContent='Updated: '+new Date(p.last_updated).toLocaleString();
+  document.getElementById('sidebarMeta').innerHTML=r.users+' users · '+r.active_subs+' paid · '+r.newsletter+' newsletter<br>'+r.total_events+' events · '+r.unique_visitors_24h+' unique 24h';
+}
+function renderBadges(){
+  var aa=S.actions.actions||[],bs=S.actions.by_severity||{};
+  document.getElementById('badge-ux').textContent=aa.filter(function(a){return a.category==='funnel'||a.category==='velocity'||a.category==='entry'}).length;
+  document.getElementById('badge-health').textContent=aa.filter(function(a){return a.category==='value'}).length;
+  document.getElementById('badge-mrr').textContent=aa.filter(function(a){return a.category==='country'||a.category==='retention'}).length;
+  document.getElementById('badge-risks').textContent=bs.risk||0;
+  document.getElementById('badge-watches').textContent=bs.watch||0;
+  document.getElementById('badge-opps').textContent=bs.opportunity||0;
+  document.getElementById('tab-all').textContent=S.actions.total||0;
+  document.getElementById('tab-risk').textContent=bs.risk||0;
+  document.getElementById('tab-watch').textContent=bs.watch||0;
+  document.getElementById('tab-opp').textContent=bs.opportunity||0;
+  document.getElementById('panelFooter').textContent=S.actions.total+' actions · '+(bs.risk||0)+' risks · '+(bs.opportunity||0)+' opps';
+}
+function renderUX(){
+  var r=S.real,t=S.real.tiers||{};
+  var convRate=r.users>0?((r.active_subs/r.users)*100).toFixed(1):'0';
+  var analysisRate=r.users>0?((r.analyses/r.users)*100).toFixed(1):'0';
+  document.getElementById('ux-metrics').innerHTML=
+    mCard('Real Users',num(r.users),r.users_24h+' new (24h) · '+r.users_7d+' (7d)',null,'var(--accent-blue)')+
+    mCard('Analyses',num(r.analyses),analysisRate+'% of users analyzed',Math.min(100,parseFloat(analysisRate)),'var(--accent-green)')+
+    mCard('Page Views (24h)',num(r.page_views_24h),r.unique_visitors_24h+' unique visitors',null,'var(--accent-purple)')+
+    mCard('Signups (24h)',num(r.signups_24h),'From '+r.events_24h+' events',null,'var(--accent-orange)');
+  var fh='<div class="funnel-title">Real User Funnel</div><div class="funnel-stages">';
+  var free=t.free||0,pro=t.pro||0,feat=t.featured||0,auth=t.authority||0;
+  var paid=pro+feat+auth;
+  var steps=[{n:'Total Users',v:r.users},{n:'Free',v:free},{n:'Analyzed',v:r.analyses},{n:'Paid',v:paid},{n:'Pro',v:pro},{n:'Featured',v:feat}];
+  steps.forEach(function(s,i){
+    fh+=(i>0?'<div class="funnel-arrow">→</div>':'');
+    fh+='<div class="funnel-stage"><div class="funnel-stage-name">'+s.n+'</div><div class="funnel-stage-value">'+num(s.v)+'</div></div>';
+  });
+  fh+='</div>';
+  document.getElementById('ux-funnel').innerHTML=fh;
+  var ua=(S.actions.actions||[]).filter(function(a){return a.category==='funnel'||a.category==='velocity'||a.category==='entry'});
+  document.getElementById('ux-action-count').textContent=ua.length;
+  document.getElementById('ux-alerts').innerHTML=ua.length?ua.map(aCard).join(''):'<div class="loading">No UX actions</div>';
+}
+function renderHealth(){
+  var p=S.pulse,hb=p.health_breakdown||{},r=S.real;
+  document.getElementById('health-metrics').innerHTML=
+    mCard('Overall Health',p.overall_health+'/100','System score',p.overall_health,p.overall_health>=80?'var(--accent-green)':p.overall_health>=60?'var(--accent-orange)':'var(--accent-red)')+
+    mCard('Conversion',hb.conversion+'/100','Funnel health',hb.conversion,'var(--accent-green)')+
+    mCard('Value Score',hb.value+'/100','User value',hb.value,hb.value>=70?'var(--accent-green)':'var(--accent-orange)')+
+    mCard('Retention',hb.retention+'/100','Score',hb.retention,hb.retention>=80?'var(--accent-green)':'var(--accent-orange)');
+  var bh='<div class="funnel-title">Health Breakdown</div>';
+  ['conversion','value','retention'].forEach(function(k){
+    var v=hb[k]||0,col=v>=80?'var(--accent-green)':v>=60?'var(--accent-orange)':'var(--accent-red)';
+    bh+='<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><div style="width:90px;font-size:12px;color:var(--text-secondary);text-transform:capitalize">'+k+'</div><div style="flex:1"><div class="metric-bar"><div class="metric-bar-fill" style="width:'+v+'%;background:'+col+'"></div></div></div><div style="width:50px;text-align:right;font-size:13px;font-weight:600;color:'+col+'">'+v+'</div></div>';
+  });
+  if(S.results.meta){bh+='<div style="margin-top:14px;font-size:11px;color:var(--text-muted)">Last sim: '+new Date(S.results.meta.run_completed_at).toLocaleString()+'</div>';}
+  bh+='<div style="margin-top:8px;font-size:11px;color:var(--text-muted)">Real: '+r.total_events+' events · '+r.users+' users · '+r.analyses+' analyses</div>';
+  document.getElementById('health-breakdown').innerHTML=bh;
+  var ha=(S.actions.actions||[]).filter(function(a){return a.category==='value'});
+  document.getElementById('health-action-count').textContent=ha.length;
+  document.getElementById('health-alerts').innerHTML=ha.length?ha.map(aCard).join(''):'<div class="loading">No health actions — stable</div>';
+}
+function renderMRR(){
+  var r=S.real,t=r.tiers||{},cs=(S.countries||{}).country_stats||{};
+  var paid=r.active_subs,convRate=r.users>0?((paid/r.users)*100).toFixed(1):'0';
+  document.getElementById('mrr-metrics').innerHTML=
+    mCard('Paid Subscribers',num(paid),convRate+'% conversion',Math.min(100,parseFloat(convRate)),'var(--accent-green)')+
+    mCard('Free Users',num(t.free||0),(t.free||0)+' on free tier',null,'var(--accent-blue)')+
+    mCard('Pro',num(t.pro||0),'Active pro users',null,'var(--accent-purple)')+
+    mCard('Featured',num(t.featured||0),'Active featured',null,'var(--accent-orange)');
+  var flags={ca:'🇨🇦',uk:'🇬🇧',au:'🇦🇺',nz:'🇳🇿'},ch='';
+  ['ca','uk','au','nz'].forEach(function(code){
+    var c=cs[code];if(!c)return;
+    var cr=c.total_users>0?(c.subscribed/c.total_users*100).toFixed(1):'0.0';
+    ch+='<div class="country-card"><div class="country-flag">'+(flags[code]||'')+'</div><div class="country-name">'+code.toUpperCase()+'</div><div class="country-stat">'+num(c.total_users)+'</div><div class="country-sub">sim users</div><div style="margin-top:8px;font-size:14px;font-weight:600;color:var(--accent-green)">'+c.subscribed+'</div><div class="country-sub">subscribed ('+cr+'%)</div><div style="margin-top:4px;font-size:12px;color:var(--accent-orange)">'+c.churned+' churned</div></div>';
+  });
+  document.getElementById('mrr-countries').innerHTML=ch||'<div class="loading">No country data</div>';
+  var ma=(S.actions.actions||[]).filter(function(a){return a.category==='country'||a.category==='retention'});
+  document.getElementById('mrr-action-count').textContent=ma.length;
+  document.getElementById('mrr-alerts').innerHTML=ma.length?ma.map(aCard).join(''):'<div class="loading">No MRR actions</div>';
+}
+function renderSevViews(){
+  var aa=S.actions.actions||[];
+  document.getElementById('risk-alerts').innerHTML=(function(){var r=aa.filter(function(a){return a.severity==='risk'});return r.length?r.map(aCard).join(''):'<div class="loading">No risks</div>'})();
+  document.getElementById('watch-alerts').innerHTML=(function(){var r=aa.filter(function(a){return a.severity==='watch'});return r.length?r.map(aCard).join(''):'<div class="loading">No watches</div>'})();
+  document.getElementById('opp-alerts').innerHTML=(function(){var r=aa.filter(function(a){return a.severity==='opportunity'});return r.length?r.map(aCard).join(''):'<div class="loading">No opps</div>'})();
+}
+function renderProposals(filter){
+  var c=document.getElementById('action-list'),pp=(S.actions.actions||[]).slice();
+  if(filter&&filter!=='all')pp=pp.filter(function(a){return a.severity===filter});
+  pp.sort(function(a,b){return(b.priority_score||0)-(a.priority_score||0)});
+  if(!pp.length){c.innerHTML='<div class="loading">No actions</div>';return;}
+  c.innerHTML=pp.map(function(a,i){
+    var id='prop_'+a.priority_score+'_'+i;
+    return '<div class="proposal-card" id="'+id+'"><div class="proposal-header">'
+    +'<div class="proposal-priority '+(a.priority_score>=150?'priority-high':a.priority_score>=120?'priority-medium':'priority-low')+'">'+a.priority_score+'</div>'
+    +'<div class="proposal-tier '+tierClass(a.severity)+'">'+tierLabel(a.severity)+'</div></div>'
+    +'<div class="proposal-title">'+a.title+'</div>'
+    +'<div class="proposal-desc">'+a.description+'</div>'
+    +'<div style="font-size:11px;color:var(--accent-blue);margin-bottom:8px">→ '+a.action_recommended+'</div>'
+    +'<div class="proposal-actions">'
+    +'<button class="proposal-btn btn-ack" onclick="ackProp(this)">Acknowledge</button>'
+    +'<button class="proposal-btn btn-dismiss" onclick="dismissProp(this)">Dismiss</button>'
+    +'</div></div>';
+  }).join('');
+}
+function ackProp(btn){
+  var card=btn.closest('.proposal-card');
+  btn.textContent='✓ Acknowledged';btn.style.background='var(--accent-green)';btn.disabled=true;
+  card.style.opacity='0.5';card.style.borderColor='var(--accent-green)';
+  showToast('Acknowledged','ok');
+}
+function dismissProp(btn){
+  var card=btn.closest('.proposal-card');
+  card.style.transition='all 0.3s';card.style.opacity='0';card.style.maxHeight='0';card.style.padding='0';card.style.margin='0';card.style.overflow='hidden';
+  setTimeout(function(){card.remove()},300);
+  showToast('Dismissed','ok');
+}
+function ackAlert(btn){
+  var card=btn.closest('.alert-card');
+  btn.textContent='✓ Noted';btn.style.background='var(--accent-green)';btn.disabled=true;
+  card.style.opacity='0.5';
+  showToast('Action noted','ok');
+}
+function switchDomain(d,el){
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active')});
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.domain-view').forEach(function(v){v.classList.remove('active')});
+  var t=document.getElementById('domain-'+d);if(t)t.classList.add('active');
+}
+function filterActions(f,el){
+  activeFilter=f;
+  document.querySelectorAll('.action-tab').forEach(function(t){t.classList.remove('active')});
+  if(el)el.classList.add('active');
+  renderProposals(f);
+}
+async function runSimulation(){
+  showToast('Starting simulation...','ok');
+  try{
+    var r=await fetch('/api/v2/super-admin/run-test',{method:'POST',headers:ah()});
+    await r.json();showToast('Sim started — refreshing in 5s','ok');
+    setTimeout(refreshAll,5000);
+  }catch(e){showToast('Failed: '+e.message,'err');}
+}
+async function refreshAll(){
+  document.getElementById('statusText').textContent='Refreshing...';
+  await loadLiveData();showToast('Refreshed','ok');
+}
+function showJSONModal(){
+  document.getElementById('json-output').innerHTML=synHL(JSON.stringify(S,null,2));
+  document.getElementById('json-modal').classList.add('active');
+}
+function closeJSONModal(){document.getElementById('json-modal').classList.remove('active')}
+function synHL(j){
+  j=j.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return j.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,function(m){
+    var c='json-number';if(/^"/.test(m)){c=/:$/.test(m)?'json-key':'json-string'}
+    else if(/true|false/.test(m)){c='json-boolean'}else if(/null/.test(m)){c='json-null'}
+    return'<span class="'+c+'">'+m+'</span>';
+  });
+}
+function showToast(msg,type){
+  var t=document.createElement('div');t.className='toast toast-'+(type||'ok');
+  t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.remove()},3000);
+}
+document.addEventListener('DOMContentLoaded',function(){loadLiveData()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeJSONModal()});
+document.getElementById('json-modal').addEventListener('click',function(e){if(e.target===this)closeJSONModal()});
+</script>
+</body>
+</html>

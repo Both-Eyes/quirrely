@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Ultra minimal squirrel - perfect for favicon -->
+  
+  <!-- Body circle -->
+  <circle cx="16" cy="18" r="10" fill="#FFFBF5" stroke="#2D3436" stroke-width="1.5"/>
+  
+  <!-- Ears -->
+  <polygon points="10,10 13,4 16,10" fill="#FFFBF5" stroke="#2D3436" stroke-width="1"/>
+  <polygon points="16,10 19,4 22,10" fill="#FFFBF5" stroke="#2D3436" stroke-width="1"/>
+  
+  <!-- Inner ear accent -->
+  <polygon points="11,9 13,5 15,9" fill="#FF6B6B" opacity="0.6"/>
+  <polygon points="17,9 19,5 21,9" fill="#FF6B6B" opacity="0.6"/>
+  
+  <!-- Eye -->
+  <circle cx="18" cy="16" r="2" fill="#2D3436"/>
+  <circle cx="18.5" cy="15.5" r="0.6" fill="#FFFBF5"/>
+  
+  <!-- Tail -->
+  <path d="M6 18 Q2 14, 4 10 Q6 6, 10 10" fill="none" stroke="#2D3436" stroke-width="2" stroke-linecap="round"/>
+</svg>

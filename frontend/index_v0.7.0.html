@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LNCP — Structural Writing Analysis v0.7.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-ink: #1a1a1a; --color-paper: #faf8f5; --color-cream: #f5f0e8; --color-sepia: #d4c4a8;
+      --color-rust: #8b4513; --color-sage: #5d6d5e; --color-muted: #6b6b6b; --color-accent: #2d4a3e;
+      --color-highlight: #e8f0e8; --color-warm: #f9f5f0;
+      --color-amber: #f59e0b; --color-sky: #0ea5e9; --color-violet: #8b5cf6;
+      --font-display: 'Playfair Display', Georgia, serif; --font-body: 'Source Serif Pro', Georgia, serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --shadow-card: 0 4px 20px rgba(0,0,0,0.08); --shadow-hover: 0 6px 24px rgba(0,0,0,0.12);
+      --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 17px; }
+    body { font-family: var(--font-body); background: var(--color-paper); color: var(--color-ink); line-height: 1.7; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--color-sepia); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+    .container { max-width: 960px; margin: 0 auto; padding: 2rem; }
+    header { text-align: center; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-sepia); }
+    h1 { font-family: var(--font-display); font-size: 2.2rem; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 0.25rem; }
+    h2 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; margin-bottom: 0.75rem; }
+    h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .subtitle { font-size: 1rem; color: var(--color-muted); font-style: italic; }
+    .version-badge { font-family: var(--font-mono); font-size: 0.7rem; background: var(--color-cream); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); color: var(--color-muted); margin-left: 0.5rem; }
+    
+    /* Cards */
+    .card { background: white; border-radius: var(--radius-md); padding: 1.75rem; box-shadow: var(--shadow-card); margin-bottom: 1.25rem; }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    
+    /* Buttons */
+    .btn { font-family: var(--font-body); font-size: 0.95rem; padding: 0.75rem 1.5rem; border-radius: var(--radius-sm); border: none; cursor: pointer; transition: all 0.25s ease; font-weight: 500; }
+    .btn-primary { background: var(--color-accent); color: white; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .btn-secondary { background: transparent; color: var(--color-accent); border: 1px solid var(--color-accent); }
+    .btn-secondary:hover { background: var(--color-cream); }
+    .btn-small { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    
+    /* Form elements */
+    textarea { width: 100%; min-height: 140px; padding: 1rem; font-family: var(--font-body); font-size: 1rem; line-height: 1.75; border: 1px solid var(--color-sepia); border-radius: var(--radius-sm); resize: vertical; background: var(--color-paper); transition: border-color 0.2s; }
+    textarea:focus { outline: none; border-color: var(--color-accent); }
+    .label { display: block; font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-muted); margin-bottom: 0.4rem; }
+    
+    /* Progress dots */
+    .progress { display: flex; gap: 0.4rem; align-items: center; margin-bottom: 1.25rem; }
+    .progress-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color-sepia); transition: all 0.25s ease; }
+    .progress-dot.active { background: var(--color-accent); transform: scale(1.3); }
+    .progress-dot.complete { background: var(--color-sage); }
+    
+    /* Tabs */
+    .tabs { display: flex; gap: 0.4rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--color-sepia); padding-bottom: 0.75rem; flex-wrap: wrap; }
+    .tab { padding: 0.5rem 1rem; background: transparent; border: none; font-family: var(--font-body); font-size: 0.85rem; color: var(--color-muted); cursor: pointer; border-radius: var(--radius-sm); transition: all 0.2s ease; }
+    .tab:hover { background: var(--color-cream); }
+    .tab.active { background: var(--color-accent); color: white; }
+    .tab.profile-tab { background: linear-gradient(135deg, var(--color-accent), var(--color-sage)); color: white; }
+    .tab.profile-tab:not(.active) { background: linear-gradient(135deg, var(--color-cream), var(--color-highlight)); color: var(--color-accent); }
+    
+    /* Companion/Context notes */
+    .companion-note { background: var(--color-warm); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; font-size: 1rem; color: var(--color-ink); font-style: italic; line-height: 1.7; text-align: center; }
+    .lesson-context { background: var(--color-highlight); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1rem; font-size: 0.9rem; color: var(--color-sage); border-left: 3px solid var(--color-sage); }
+    
+    /* Mode selector */
+    .mode-selector { display: flex; gap: 1rem; justify-content: center; margin: 2rem 0; }
+    .mode-card { padding: 1.5rem 2rem; border-radius: var(--radius-md); cursor: pointer; transition: all 0.25s; text-align: center; flex: 1; max-width: 280px; }
+    .mode-card.story { background: var(--color-warm); border: 2px solid transparent; }
+    .mode-card.story:hover, .mode-card.story.selected { border-color: var(--color-rust); transform: translateY(-3px); }
+    .mode-card.school { background: var(--color-highlight); border: 2px solid transparent; }
+    .mode-card.school:hover, .mode-card.school.selected { border-color: var(--color-sage); transform: translateY(-3px); }
+    .mode-emoji { font-size: 2rem; margin-bottom: 0.5rem; }
+    .mode-title { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.25rem; }
+    .mode-desc { font-size: 0.85rem; color: var(--color-muted); }
+    
+    /* Summary card */
+    .summary-card { background: linear-gradient(135deg, var(--color-cream) 0%, white 100%); border: 2px solid var(--color-sepia); }
+    .summary-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; text-align: center; margin-bottom: 1.25rem; color: var(--color-accent); }
+    .summary-section { margin-bottom: 1.25rem; }
+    .summary-section-title { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); margin-bottom: 0.5rem; }
+    .summary-text { line-height: 1.75; white-space: pre-line; }
+    
+    /* Stance badges */
+    .stance-badge { display: inline-block; padding: 0.3rem 0.8rem; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; }
+    .stance-badge.open { background: var(--color-sage); color: white; }
+    .stance-badge.closed { background: var(--color-rust); color: white; }
+    .stance-badge.balanced { background: var(--color-accent); color: white; }
+    .stance-badge.minimal { background: var(--color-muted); color: white; }
+    .stance-badge.contradictory { background: linear-gradient(135deg, var(--color-sage) 0%, var(--color-rust) 100%); color: white; }
+    
+    /* Rhetorical mode badges (v0.6.0) */
+    .mode-badge { display: inline-block; padding: 0.25rem 0.6rem; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; margin-right: 0.4rem; margin-bottom: 0.4rem; }
+    .mode-badge.assertive { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+    .mode-badge.interrogative { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+    .mode-badge.informal { background: #fefce8; color: #ca8a04; border: 1px solid #fef08a; }
+    .mode-badge.dense { background: #fdf4ff; color: #a855f7; border: 1px solid #e9d5ff; }
+    .mode-badge.complex { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+    .mode-badge.poetic { background: #faf5ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+    .mode-badge.anaphora { background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; }
+    
+    /* Spectrum bar */
+    .stance-spectrum { display: flex; align-items: center; gap: 0.5rem; margin: 1.25rem 0; padding: 1rem; background: white; border-radius: var(--radius-sm); }
+    .spectrum-label { font-size: 0.75rem; color: var(--color-muted); min-width: 50px; }
+    .spectrum-bar { flex: 1; height: 8px; background: linear-gradient(to right, var(--color-sage), var(--color-cream), var(--color-rust)); border-radius: 4px; position: relative; }
+    .spectrum-marker { position: absolute; top: -4px; width: 16px; height: 16px; background: var(--color-accent); border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transform: translateX(-50%); }
+    
+    /* Marker grid */
+    .marker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; margin-top: 1rem; }
+    .marker-item { background: white; padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--color-sepia); }
+    .marker-word { font-family: var(--font-mono); font-weight: 500; color: var(--color-accent); }
+    .marker-category { font-size: 0.7rem; color: var(--color-muted); text-transform: uppercase; margin-left: 0.4rem; }
+    .marker-context { font-size: 0.8rem; color: var(--color-muted); margin-top: 0.4rem; font-style: italic; }
+    
+    /* Detail cards */
+    .detail-card { background: white; border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-card); margin-bottom: 1rem; border-left: 4px solid var(--color-sage); }
+    .detail-insight { font-family: var(--font-display); font-size: 1.1rem; font-style: italic; color: var(--color-accent); margin-bottom: 0.75rem; line-height: 1.5; }
+    .detail-explanation { line-height: 1.7; color: var(--color-ink); font-size: 0.95rem; }
+    .detail-metric { display: inline-block; background: var(--color-cream); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.75rem; margin-right: 0.4rem; margin-bottom: 0.4rem; }
+    
+    /* Paths forward */
+    .paths-forward-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+    .path-card { padding: 1.25rem; border-radius: var(--radius-md); transition: all 0.25s ease; }
+    .path-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .path-card.recommended { background: var(--color-highlight); border: 2px solid var(--color-accent); }
+    .path-card.standard { background: var(--color-paper); border: 1px solid var(--color-sepia); }
+    .recommended-badge { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.4rem; display: block; }
+    
+    /* Action cards */
+    .action-card { background: white; border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-card); margin-bottom: 1rem; transition: all 0.25s ease; }
+    .action-card:hover { box-shadow: var(--shadow-hover); }
+    .action-type { font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); display: inline-block; margin-bottom: 0.5rem; }
+    .action-type.notice { background: var(--color-highlight); color: var(--color-sage); }
+    .action-type.rewrite { background: #fff3e0; color: var(--color-rust); }
+    .action-type.compare { background: #e3f2fd; color: #1565c0; }
+    .action-prompt { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.5; margin-bottom: 0.75rem; }
+    .action-context { font-size: 0.85rem; color: var(--color-muted); margin-bottom: 0.75rem; padding: 0.6rem; background: var(--color-paper); border-radius: var(--radius-sm); }
+    .action-workspace { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--color-cream); }
+    .action-workspace textarea { min-height: 80px; margin-bottom: 0.5rem; }
+    .action-workspace.collapsed { display: none; }
+    
+    /* ============================================= */
+    /* PROFILE TAB STYLES (v0.7.0)                  */
+    /* ============================================= */
+    .profile-container { max-width: 700px; margin: 0 auto; }
+    
+    .profile-header { margin-bottom: 1.5rem; }
+    .profile-header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+    .profile-title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 500; color: var(--color-ink); }
+    .profile-essence { font-style: italic; color: var(--color-muted); margin-top: 0.25rem; font-size: 1rem; }
+    
+    .maturity-badge { padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-family: var(--font-mono); }
+    .maturity-badge.emerging { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .maturity-badge.developing { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+    .maturity-badge.established { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    .maturity-badge.mature { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
+    
+    .profile-sketch { background: var(--color-cream); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem; }
+    .profile-sketch-title { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); margin-bottom: 0.75rem; }
+    .profile-sketch-text { line-height: 1.8; color: var(--color-ink); }
+    .profile-sketch-text strong { color: var(--color-accent); font-weight: 600; }
+    .profile-sketch-meta { font-size: 0.85rem; color: var(--color-muted); font-style: italic; margin-top: 1rem; }
+    
+    .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .profile-grid { grid-template-columns: 1fr; } }
+    
+    .profile-section { background: white; border-radius: var(--radius-md); padding: 1.25rem; box-shadow: var(--shadow-card); }
+    .profile-section-title { font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-sage); margin-bottom: 0.75rem; }
+    
+    .mode-distribution { margin-top: 0.5rem; }
+    .mode-bar-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
+    .mode-bar-label { font-size: 0.75rem; color: var(--color-muted); width: 90px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+    .mode-bar-track { flex: 1; height: 6px; background: var(--color-cream); border-radius: 3px; overflow: hidden; }
+    .mode-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+    .mode-bar-count { font-size: 0.7rem; color: var(--color-muted); width: 20px; text-align: right; }
+    
+    .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .metric-item { text-align: center; padding: 0.75rem 0.5rem; background: var(--color-paper); border-radius: var(--radius-sm); }
+    .metric-value { font-size: 1.3rem; font-weight: 600; color: var(--color-ink); }
+    .metric-label { font-size: 0.65rem; color: var(--color-muted); text-transform: uppercase; margin-top: 0.2rem; }
+    
+    .evolution-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem; background: var(--color-paper); border-radius: var(--radius-sm); margin-bottom: 0.5rem; }
+    .evolution-icon { font-size: 1.25rem; }
+    .evolution-text { font-size: 0.9rem; color: var(--color-ink); }
+    
+    .insights-list { list-style: none; }
+    .insight-item { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.6rem; font-size: 0.9rem; color: var(--color-ink); }
+    .insight-bullet { color: var(--color-amber); font-weight: bold; }
+    
+    .growth-section { border-top: 1px solid var(--color-sepia); padding-top: 1.5rem; margin-top: 1rem; }
+    .growth-edges-list { list-style: none; margin-bottom: 1.25rem; }
+    .growth-edge-item { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--color-muted); }
+    .growth-arrow { color: var(--color-sage); }
+    .writing-ancestors { font-style: italic; color: var(--color-muted); font-size: 0.9rem; }
+    
+    .profile-footer { text-align: center; font-size: 0.75rem; color: var(--color-muted); margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--color-cream); }
+    
+    .no-profile { text-align: center; padding: 3rem 1.5rem; }
+    .no-profile-emoji { font-size: 4rem; margin-bottom: 1rem; }
+    .no-profile-title { font-family: var(--font-display); font-size: 1.4rem; color: var(--color-ink); margin-bottom: 0.5rem; }
+    .no-profile-text { color: var(--color-muted); margin-bottom: 1rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .no-profile-cta { font-size: 0.85rem; color: var(--color-sage); }
+    
+    /* Utility */
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mb-1 { margin-bottom: 0.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .error { color: var(--color-rust); font-size: 0.85rem; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>LNCP <span class="version-badge">v0.7.0</span></h1>
+      <p class="subtitle">Structural Writing Analysis with Evolving Profiles</p>
+    </header>
+    
+    <main id="app">
+      <!-- Welcome Screen -->
+      <div id="welcome-screen" class="fade-in">
+        <div class="card text-center">
+          <h2>Choose Your Mode</h2>
+          <p class="subtitle mb-2">How would you like to explore your writing?</p>
+          
+          <div class="mode-selector">
+            <div class="mode-card story" onclick="selectMode('STORY')">
+              <div class="mode-emoji">📖</div>
+              <div class="mode-title">Story Mode</div>
+              <div class="mode-desc">Warm, reflective exploration of your writing patterns</div>
+            </div>
+            <div class="mode-card school" onclick="selectMode('SCHOOL')">
+              <div class="mode-emoji">🎓</div>
+              <div class="mode-title">School Mode</div>
+              <div class="mode-desc">Structured lessons on structural awareness</div>
+            </div>
+          </div>
+          
+          <div class="mt-2">
+            <button class="btn btn-secondary btn-small" onclick="showQuickAnalysis()">
+              Quick Analysis →
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quick Analysis Screen -->
+      <div id="quick-analysis-screen" class="hidden fade-in">
+        <div class="card">
+          <h2>Quick Analysis</h2>
+          <p class="subtitle mb-2">Paste or write your text below</p>
+          
+          <label class="label">Your Writing Sample</label>
+          <textarea id="quick-input" placeholder="Write at least 2 sentences to analyze..."></textarea>
+          <p id="quick-error" class="error hidden"></p>
+          
+          <div class="btn-group mt-1">
+            <button class="btn btn-primary" onclick="runQuickAnalysis()">Analyze</button>
+            <button class="btn btn-secondary" onclick="showWelcome()">← Back</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Writing Game Screen -->
+      <div id="writing-screen" class="hidden fade-in">
+        <div class="card">
+          <div class="progress" id="writing-progress"></div>
+          
+          <div id="companion-note" class="companion-note hidden"></div>
+          <div id="lesson-context" class="lesson-context hidden"></div>
+          
+          <h3 id="prompt-label" class="prompt-text mb-1"></h3>
+          
+          <label class="label">Group <span id="group-num">1</span> of 3</label>
+          <textarea id="writing-input" placeholder="Write 2-3 sentences..."></textarea>
+          <p id="writing-error" class="error hidden"></p>
+          
+          <div class="btn-group mt-1">
+            <button class="btn btn-primary" id="submit-btn" onclick="submitGroup()">Continue →</button>
+            <button class="btn btn-secondary" onclick="showWelcome()">← Start Over</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Results Screen -->
+      <div id="results-screen" class="hidden fade-in">
+        <div class="tabs" id="results-tabs">
+          <button class="tab active" onclick="showTab('summary')">Summary</button>
+          <button class="tab" onclick="showTab('details')">Details</button>
+          <button class="tab" onclick="showTab('synthesis')">Synthesis</button>
+          <button class="tab" onclick="showTab('reflect')">Reflect</button>
+          <button class="tab" onclick="showTab('stance')">Your Stance</button>
+          <button class="tab profile-tab" onclick="showTab('profile')">Your Profile</button>
+        </div>
+        
+        <!-- Summary Tab -->
+        <div id="tab-summary" class="tab-content">
+          <div class="card summary-card">
+            <h2 class="summary-title" id="summary-title"></h2>
+            
+            <div class="summary-section">
+              <div class="summary-section-title">Structural Overview</div>
+              <div class="summary-text" id="summary-overview"></div>
+            </div>
+            
+            <div class="summary-section">
+              <div class="summary-section-title">Semiotic Synthesis</div>
+              <div class="summary-text" id="summary-synthesis"></div>
+            </div>
+            
+            <div id="rhetorical-modes" class="summary-section hidden">
+              <div class="summary-section-title">Detected Modes (v0.6.0)</div>
+              <div id="mode-badges"></div>
+            </div>
+            
+            <div class="summary-section">
+              <div class="summary-section-title">Paths Forward</div>
+              <div class="paths-forward-grid" id="paths-forward"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Details Tab -->
+        <div id="tab-details" class="tab-content hidden">
+          <div id="details-content"></div>
+        </div>
+        
+        <!-- Synthesis Tab -->
+        <div id="tab-synthesis" class="tab-content hidden">
+          <div id="synthesis-content"></div>
+        </div>
+        
+        <!-- Reflect Tab -->
+        <div id="tab-reflect" class="tab-content hidden">
+          <div id="reflect-content"></div>
+        </div>
+        
+        <!-- Stance Tab -->
+        <div id="tab-stance" class="tab-content hidden">
+          <div id="stance-content"></div>
+        </div>
+        
+        <!-- Profile Tab (v0.7.0) -->
+        <div id="tab-profile" class="tab-content hidden">
+          <div id="profile-content" class="profile-container"></div>
+        </div>
+        
+        <div class="btn-group mt-2">
+          <button class="btn btn-primary" onclick="showWelcome()">New Analysis</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ===========================================
+    // STATE
+    // ===========================================
+    let state = {
+      mode: 'STORY',
+      currentGroup: 1,
+      groups: { 1: [], 2: [], 3: [] },
+      results: null,
+      userProfile: null,
+    };
+    
+    // Writing prompts by mode
+    const prompts = {
+      STORY: [
+        { prompt: "Begin somewhere familiar...", companion: "Start with something you know well—a place, a moment, a feeling. Let it be simple." },
+        { prompt: "Now something shifts...", companion: "Something changes, however small. A door opens. Light changes. Time passes." },
+        { prompt: "How does it end, for now?", companion: "Not an ending, really—just where we stop watching. What's left when the story pauses?" }
+      ],
+      SCHOOL: [
+        { prompt: "Write 2-3 descriptive sentences", lesson: "Focus: Simple declarative sentences. Try to observe rather than interpret." },
+        { prompt: "Now add complexity", lesson: "Focus: Subordination. Try using 'although', 'because', or 'when' to connect ideas." },
+        { prompt: "Finally, your reflection", lesson: "Focus: Mixed modes. Combine description with reflection or questioning." }
+      ]
+    };
+    
+    // Mode colors for distribution bars
+    const modeColors = {
+      MINIMAL: '#78716c', DENSE: '#f59e0b', POETIC: '#8b5cf6', INTERROGATIVE: '#0ea5e9',
+      ASSERTIVE: '#ef4444', HEDGED: '#22c55e', PARENTHETICAL: '#f97316', PARALLEL: '#ec4899',
+      LONGFORM: '#6366f1', CONVERSATIONAL: '#eab308'
+    };
+    
+    // ===========================================
+    // NAVIGATION
+    // ===========================================
+    function showScreen(screenId) {
+      document.querySelectorAll('#app > div').forEach(el => el.classList.add('hidden'));
+      document.getElementById(screenId).classList.remove('hidden');
+    }
+    
+    function showWelcome() {
+      state = { mode: 'STORY', currentGroup: 1, groups: { 1: [], 2: [], 3: [] }, results: null, userProfile: null };
+      showScreen('welcome-screen');
+    }
+    
+    function selectMode(mode) {
+      state.mode = mode;
+      document.querySelectorAll('.mode-card').forEach(el => el.classList.remove('selected'));
+      document.querySelector(`.mode-card.${mode.toLowerCase()}`).classList.add('selected');
+      setTimeout(() => startWritingGame(), 300);
+    }
+    
+    function showQuickAnalysis() {
+      showScreen('quick-analysis-screen');
+      document.getElementById('quick-input').value = '';
+      document.getElementById('quick-error').classList.add('hidden');
+    }
+    
+    // ===========================================
+    // WRITING GAME
+    // ===========================================
+    function startWritingGame() {
+      state.currentGroup = 1;
+      state.groups = { 1: [], 2: [], 3: [] };
+      showScreen('writing-screen');
+      updateWritingUI();
+    }
+    
+    function updateWritingUI() {
+      const group = state.currentGroup;
+      const promptData = prompts[state.mode][group - 1];
+      
+      // Update progress dots
+      let dotsHTML = '';
+      for (let i = 1; i <= 3; i++) {
+        const cls = i < group ? 'complete' : (i === group ? 'active' : '');
+        dotsHTML += `<div class="progress-dot ${cls}"></div>`;
+      }
+      document.getElementById('writing-progress').innerHTML = dotsHTML;
+      
+      // Update prompt
+      document.getElementById('group-num').textContent = group;
+      document.getElementById('prompt-label').textContent = promptData.prompt;
+      
+      // Update context note
+      const companionEl = document.getElementById('companion-note');
+      const lessonEl = document.getElementById('lesson-context');
+      
+      if (state.mode === 'STORY') {
+        companionEl.textContent = promptData.companion;
+        companionEl.classList.remove('hidden');
+        lessonEl.classList.add('hidden');
+      } else {
+        lessonEl.textContent = promptData.lesson;
+        lessonEl.classList.remove('hidden');
+        companionEl.classList.add('hidden');
+      }
+      
+      // Clear input
+      document.getElementById('writing-input').value = '';
+      document.getElementById('writing-error').classList.add('hidden');
+      
+      // Update button text
+      document.getElementById('submit-btn').textContent = group < 3 ? 'Continue →' : 'See Results →';
+    }
+    
+    function submitGroup() {
+      const input = document.getElementById('writing-input').value.trim();
+      const sentences = parseSentences(input);
+      
+      if (sentences.length < 2) {
+        document.getElementById('writing-error').textContent = 'Please write at least 2 sentences.';
+        document.getElementById('writing-error').classList.remove('hidden');
+        return;
+      }
+      
+      state.groups[state.currentGroup] = sentences;
+      
+      if (state.currentGroup < 3) {
+        state.currentGroup++;
+        updateWritingUI();
+      } else {
+        runAnalysis();
+      }
+    }
+    
+    // ===========================================
+    // QUICK ANALYSIS
+    // ===========================================
+    function runQuickAnalysis() {
+      const input = document.getElementById('quick-input').value.trim();
+      const sentences = parseSentences(input);
+      
+      if (sentences.length < 2) {
+        document.getElementById('quick-error').textContent = 'Please write at least 2 sentences.';
+        document.getElementById('quick-error').classList.remove('hidden');
+        return;
+      }
+      
+      state.mode = 'STORY';
+      state.groups = { 1: sentences, 2: [], 3: [] };
+      runAnalysis();
+    }
+    
+    // ===========================================
+    // ANALYSIS ENGINE
+    // ===========================================
+    function parseSentences(text) {
+      return text.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(s => s.length > 0);
+    }
+    
+    function runAnalysis() {
+      const allSentences = [...state.groups[1], ...state.groups[2], ...state.groups[3]];
+      state.results = analyzeWriting(allSentences, state.mode);
+      
+      // Generate mock user profile for demo
+      state.userProfile = generateMockUserProfile(state.results);
+      
+      renderResults();
+      showScreen('results-screen');
+    }
+    
+    function analyzeWriting(sentences, mode) {
+      const n = sentences.length;
+      const words = sentences.reduce((sum, s) => sum + s.split(/\s+/).length, 0);
+      const avg = (words / n).toFixed(1);
+      const varietyRatio = Math.min(1, n / n);
+      const hasParens = sentences.some(s => s.includes('('));
+      const hasQuestion = sentences.some(s => s.includes('?'));
+      const hasOperators = sentences.some(s => s.includes('/') || s.includes('&'));
+      const hasEmDash = sentences.some(s => s.includes('—') || s.includes('--'));
+      
+      const shortestSentence = sentences.reduce((a, b) => a.split(' ').length < b.split(' ').length ? a : b);
+      const longestSentence = sentences.reduce((a, b) => a.split(' ').length > b.split(' ').length ? a : b);
+      
+      // Detect markers
+      const markerWords = [
+        { word: 'perhaps', category: 'POSSIBILITY' }, { word: 'maybe', category: 'POSSIBILITY' },
+        { word: 'might', category: 'POSSIBILITY' }, { word: 'could', category: 'POSSIBILITY' },
+        { word: 'possibly', category: 'POSSIBILITY' }, { word: 'believe', category: 'BELIEF' },
+        { word: 'think', category: 'BELIEF' }, { word: 'feel', category: 'BELIEF' },
+        { word: 'definitely', category: 'CERTAINTY' }, { word: 'certainly', category: 'CERTAINTY' },
+        { word: 'always', category: 'CERTAINTY' }, { word: 'never', category: 'CERTAINTY' },
+        { word: 'must', category: 'NECESSITY' }, { word: 'should', category: 'CONDITIONALITY' },
+        { word: 'seems', category: 'INFERENCE' }, { word: 'appears', category: 'INFERENCE' },
+      ];
+      
+      const detectedMarkers = [];
+      for (const sentence of sentences) {
+        const lowerSentence = sentence.toLowerCase();
+        for (const marker of markerWords) {
+          if (lowerSentence.includes(marker.word) && !detectedMarkers.find(m => m.word === marker.word)) {
+            detectedMarkers.push({ word: marker.word, category: marker.category, sentence: sentence });
+          }
+        }
+      }
+      
+      // Compute epistemic stance
+      const openingCategories = ['POSSIBILITY', 'HEDGING', 'CONDITIONALITY'];
+      const closingCategories = ['CERTAINTY', 'EMPHASIS'];
+      const openingCount = detectedMarkers.filter(m => openingCategories.includes(m.category)).length;
+      const closingCount = detectedMarkers.filter(m => closingCategories.includes(m.category)).length;
+      const totalMarkers = detectedMarkers.length;
+      
+      let stance = 'MINIMAL';
+      if (totalMarkers >= 2) {
+        if (openingCount >= 2 && closingCount >= 2) stance = 'CONTRADICTORY';
+        else if (openingCount > closingCount && openingCount >= 2) stance = 'OPEN';
+        else if (closingCount > openingCount && closingCount >= 2) stance = 'CLOSED';
+        else if (openingCount > 0 && closingCount > 0) stance = 'BALANCED';
+      }
+      
+      // v0.6.0: Detect rhetorical modes
+      const avgWords = parseFloat(avg);
+      const questionRatio = sentences.filter(s => s.includes('?')).length / n;
+      const fragmentCount = sentences.filter(s => s.split(' ').length <= 4).length;
+      const informalWords = ['yeah', 'nope', 'gonna', 'hey', 'wow', 'okay', 'ok', 'like', 'basically', 'so', 'well', 'anyway'];
+      const hasInformalMarkers = sentences.some(s => informalWords.some(w => s.toLowerCase().includes(w)));
+      const contractionCount = (sentences.join(' ').match(/n't|'s|'re|'ve|'ll|'d|'m/g) || []).length;
+      
+      const isAssertive = avgWords < 12 && totalMarkers < 2 && questionRatio < 0.2;
+      const isInterrogative = questionRatio >= 0.5;
+      const isInformal = hasInformalMarkers || contractionCount > 1 || fragmentCount > n * 0.3;
+      const isPoeticMode = hasOperators && totalMarkers < n && avgWords < 25;
+      const isComplex = avgWords >= 25 || sentences.some(s => s.split(' ').length >= 28);
+      const isDense = hasParens || hasEmDash || totalMarkers > 3;
+      
+      // Detect anaphora
+      const firstWords = sentences.map(s => s.split(' ')[0]?.toLowerCase());
+      const wordCounts = {};
+      firstWords.forEach(w => { wordCounts[w] = (wordCounts[w] || 0) + 1; });
+      const maxCount = Math.max(...Object.values(wordCounts));
+      const hasAnaphora = maxCount >= 2 && maxCount / n >= 0.5;
+      
+      const isStory = mode === 'STORY';
+      
+      // Generate title
+      const title = isStory 
+        ? `A ${n<5?'Small Gathering':'Quiet Collection'}: Each Finding Its Shape`
+        : `A ${n<5?'Glimpse':'Portrait'}: Your Structure in Variety`;
+      
+      // Generate overview
+      const storyOverview = `${n} sentences, ${words} words. ${n < 5 ? 'A small offering—enough to see something, not enough to be sure what it means.' : 'There\'s room here to settle in.'}
+
+${avgWords < 10 ? 'The sentences are short—quick breaths, each one landing before the next begins.' : 'These sentences take their time. There\'s space inside them.'}
+
+Each sentence finds its own shape. No two quite alike—like different ways of saying something true.`;
+
+      const schoolOverview = `Your sample contains ${n} sentences totaling ${words} words, averaging ${avg} words per sentence.
+
+Together, we find high variety—each sentence takes its own shape.
+
+${hasParens ? 'Parenthetical asides add layers to your meaning.' : 'Your sentences flow without parenthetical interruption.'}`;
+
+      // Generate synthesis
+      const storySynthesis = `Three ways of seeing what's here:
+
+**How Patterns Form**: Each sentence arrives as itself. There's no pattern yet for a reader to lean on—each one asks to be met fresh.
+
+**Where Meaning Pauses**: ${hasParens ? 'Parentheses create pockets—spaces where something extra lives.' : 'The meaning moves directly from beginning to end.'}
+
+**How Dense It Feels**: ${avgWords < 12 ? 'The writing is lean. Clean, direct, unadorned.' : 'There\'s moderate density—some sentences carry structural weight.'}`;
+
+      const schoolSynthesis = `Through three semiotic lenses:
+
+**Interpretant Stabilization**: With high variety, interpretants remain fluid.
+
+**Mediation & Boundary**: ${hasParens ? 'Parentheses create nested meaning layers.' : 'Meaning flows without nested layers.'}
+
+**Relational Density**: ${avgWords < 12 ? 'Lean sentences create quick rhythm.' : 'Longer sentences invite slower reading.'}`;
+
+      return {
+        sentences,
+        metrics: { n, words, avg: avgWords, varietyRatio, hasParens, hasQuestion, shortestSentence, longestSentence },
+        high_intent_profile: {
+          total_markers: totalMarkers,
+          epistemic_stance: stance,
+          epistemic_openness: closingCount > 0 ? openingCount / (openingCount + closingCount) : (openingCount > 0 ? 1.0 : 0.5),
+          opening_count: openingCount,
+          closing_count: closingCount,
+          is_minimal: totalMarkers < 2,
+          is_poetic_mode: isPoeticMode,
+          is_contradictory: stance === 'CONTRADICTORY',
+          markers: detectedMarkers,
+          // v0.6.0 fields
+          is_assertive: isAssertive,
+          is_interrogative: isInterrogative,
+          is_informal: isInformal,
+          is_complex: isComplex,
+          is_dense: isDense,
+          has_anaphora: hasAnaphora,
+          question_ratio: questionRatio,
+        },
+        summary: { title, overview: isStory ? storyOverview : schoolOverview, synthesis: isStory ? storySynthesis : schoolSynthesis },
+        phase2: [
+          { insight: `${n} sentences to explore`, explanation: `Your ${n} sentences contain ${words} words total.`, metrics: { sentences: n, words, avg } },
+          { insight: `Averaging ${avg} words per sentence`, explanation: `The rhythm moves ${avgWords < 10 ? 'quickly' : 'at a measured pace'}.`, metrics: { avg, shortest: shortestSentence.split(' ').length, longest: longestSentence.split(' ').length } },
+          { insight: 'Each sentence finds its own shape', explanation: 'No single pattern dominates.', metrics: { ratio: varietyRatio } },
+        ],
+        phase3: [
+          { lens: 'Pattern Formation', text: 'Each sentence arrives as itself—no pattern to lean on.' },
+          { lens: 'Meaning Boundaries', text: hasParens ? 'Parentheses create pockets of subordinate meaning.' : 'Meaning flows directly, without asides.' },
+        ],
+        actions: {
+          notice: { type: 'notice', prompt: `Look at: "${sentences[0]}"`, instruction: 'Read aloud. Where do you pause? What carries weight?', context: `This sentence has ${sentences[0].split(' ').length} words.` },
+          rewrite: { type: 'rewrite', prompt: `Reshape: "${sentences[0]}"`, instruction: 'Same meaning, different structure.', context: `Try ${sentences[0].split(' ').length < 10 ? 'making it longer' : 'compressing it'}.` },
+          compare: { type: 'compare', prompt: 'Compare shortest and longest', instruction: 'Which feels more like you?', context: `Shortest: "${shortestSentence}"\nLongest: "${longestSentence}"` },
+        },
+        mode: mode,
+      };
+    }
+    
+    // ===========================================
+    // MOCK USER PROFILE (v0.7.0)
+    // ===========================================
+    function generateMockUserProfile(results) {
+      // In production, this comes from backend aggregation
+      // Here we generate a plausible profile based on current results
+      
+      const hi = results.high_intent_profile;
+      const metrics = results.metrics;
+      
+      // Detect primary mode
+      let primaryMode = 'MINIMAL';
+      let confidence = 0.65;
+      
+      if (hi.is_interrogative) { primaryMode = 'INTERROGATIVE'; confidence = 0.85; }
+      else if (hi.is_assertive) { primaryMode = 'ASSERTIVE'; confidence = 0.80; }
+      else if (hi.is_poetic_mode) { primaryMode = 'POETIC'; confidence = 0.75; }
+      else if (hi.is_complex) { primaryMode = 'LONGFORM'; confidence = 0.70; }
+      else if (hi.is_dense) { primaryMode = 'DENSE'; confidence = 0.72; }
+      else if (hi.is_informal) { primaryMode = 'CONVERSATIONAL'; confidence = 0.68; }
+      else if (hi.has_anaphora) { primaryMode = 'PARALLEL'; confidence = 0.65; }
+      else if (hi.total_markers > 5) { primaryMode = 'HEDGED'; confidence = 0.70; }
+      
+      const profileTitles = {
+        MINIMAL: 'The Quiet Observer',
+        DENSE: 'The Layered Thinker',
+        POETIC: 'The Fragment Weaver',
+        INTERROGATIVE: 'The Questioner',
+        ASSERTIVE: 'The Direct Voice',
+        HEDGED: 'The Careful Scholar',
+        PARENTHETICAL: 'The Aside Artist',
+        PARALLEL: 'The Pattern Maker',
+        LONGFORM: 'The Sentence Builder',
+        CONVERSATIONAL: 'The Voice in the Room',
+      };
+      
+      const profileEssences = {
+        MINIMAL: 'You write like someone watching rain through a window—present, patient, unhurried.',
+        DENSE: 'You write like someone who sees the asterisks, the footnotes, the "yes, buts" hiding inside every claim.',
+        POETIC: 'You write at the edges of language—where grammar bends and meaning happens in the spaces between.',
+        INTERROGATIVE: 'You write in questions because you\'ve learned that the asking often matters more than the answering.',
+        ASSERTIVE: 'You write like you mean it. No hedging. No hiding. The sentence says what it says.',
+        HEDGED: 'You write with the precision of someone who knows that every claim hides assumptions.',
+        PARENTHETICAL: 'You write in layers—main text and subtext, the said and the whispered, all happening at once.',
+        PARALLEL: 'You write in rhythms—repetition that builds, structure that echoes, meaning that accumulates through form.',
+        LONGFORM: 'You write sentences that unfold like rivers—branching, rejoining, carrying the reader through complexity.',
+        CONVERSATIONAL: 'You write like you talk—or rather, like the best version of how you talk. Warm, immediate, real.',
+      };
+      
+      const ancestors = {
+        MINIMAL: 'Hemingway, Carver, early Didion, Amy Hempel',
+        DENSE: 'David Foster Wallace, Zadie Smith, Maggie Nelson, Geoff Dyer',
+        POETIC: 'Anne Carson, Claudia Rankine, Ocean Vuong, Jenny Offill',
+        INTERROGATIVE: 'James Baldwin, Rebecca Solnit, Ta-Nehisi Coates',
+        ASSERTIVE: 'Joan Didion, James Baldwin, George Orwell, Annie Dillard',
+        HEDGED: 'Susan Sontag, Adam Phillips, academic writing at its best',
+        PARENTHETICAL: 'Nicholson Baker, David Foster Wallace, Lorrie Moore',
+        PARALLEL: 'The King James Bible, Lincoln, MLK, Marilynne Robinson',
+        LONGFORM: 'Henry James, Virginia Woolf, William Faulkner, Toni Morrison',
+        CONVERSATIONAL: 'Nora Ephron, David Sedaris, Samantha Irby, Roxane Gay',
+      };
+      
+      // Simulate session history (in production this comes from backend)
+      const sessionCount = Math.floor(Math.random() * 15) + 3;
+      let maturity = 'EMERGING';
+      if (sessionCount >= 25) maturity = 'MATURE';
+      else if (sessionCount >= 10) maturity = 'ESTABLISHED';
+      else if (sessionCount >= 3) maturity = 'DEVELOPING';
+      
+      const maturityDescs = {
+        EMERGING: 'Your profile is just beginning to take shape. A few more sessions will sharpen the picture.',
+        DEVELOPING: 'Patterns are emerging. Your writing tendencies are becoming clearer with each session.',
+        ESTABLISHED: 'A clear picture of your writing voice has emerged. Your patterns are consistent.',
+        MATURE: 'Your narrator profile is well-established, built from substantial writing history.',
+      };
+      
+      // Generate mode distribution
+      const modeDistribution = { [primaryMode]: Math.floor(sessionCount * 0.4) };
+      const secondaryModes = Object.keys(profileTitles).filter(m => m !== primaryMode).slice(0, 3);
+      let remaining = sessionCount - modeDistribution[primaryMode];
+      secondaryModes.forEach((m, i) => {
+        const count = Math.floor(remaining / (3 - i));
+        if (count > 0) modeDistribution[m] = count;
+        remaining -= count;
+      });
+      
+      // Generate sketch
+      const consistencyPct = Math.floor((modeDistribution[primaryMode] / sessionCount) * 100);
+      let sketch = '';
+      if (consistencyPct > 70) {
+        sketch = `You are, consistently and distinctly, **${profileTitles[primaryMode]}**.`;
+      } else if (consistencyPct > 40) {
+        sketch = `You are primarily **${profileTitles[primaryMode]}**, with occasional ventures into ${secondaryModes[0]} territory.`;
+      } else {
+        sketch = `You're a shape-shifter. Your writing moves through multiple modes, with **${profileTitles[primaryMode]}** as your most frequent home base.`;
+      }
+      
+      // Add observations based on metrics
+      const openness = hi.epistemic_openness;
+      if (openness > 0.7) {
+        sketch += '\n\nYour prose leans toward openness—you\'d rather suggest than assert, wonder than declare.';
+      } else if (openness < 0.4) {
+        sketch += '\n\nYour prose tends toward conviction. When you say something, you mean it.';
+      }
+      
+      if (hi.is_informal) {
+        sketch += ' You write with casual warmth—the reader feels addressed, not lectured.';
+      }
+      
+      sketch += `\n\n*(Based on ${sessionCount} sessions. ${sessionCount < 10 ? 'Your profile will sharpen with more writing.' : 'A solid foundation for understanding your voice.'})*`;
+      
+      // Generate insights
+      const insights = [];
+      if (consistencyPct > 60) {
+        insights.push(`You have a ${consistencyPct > 80 ? 'remarkably' : 'fairly'} consistent voice. ${consistencyPct}% of your sessions show the same dominant mode.`);
+      }
+      if (openness > 0.7) {
+        insights.push('You consistently leave room for uncertainty. Your prose invites rather than declares.');
+      }
+      if (hi.is_informal) {
+        insights.push('Your default register is conversational—you write like you\'re talking to someone.');
+      }
+      if (metrics.avg < 10) {
+        insights.push('Your sentences are clean and direct. One clause, one thought. This is a kind of discipline.');
+      }
+      
+      // Growth edges
+      const growthEdges = {
+        MINIMAL: ['When complexity genuinely requires it, explore longer structures', 'Consider when a moment deserves more explicit excavation', 'Experiment with hedging as intellectual honesty'],
+        DENSE: ['Practice finding the one thing you actually mean', 'Let some sentences be simple—contrast makes density effective', 'Trust that readers can hold uncertainty without reminders'],
+        ASSERTIVE: ['Practice acknowledging complexity without losing directness', 'Explore hedging as precision rather than weakness'],
+        CONVERSATIONAL: ['Practice modulating register—knowing when to shift toward formality', 'Ensure substance matches style'],
+        INTERROGATIVE: ['Practice committing to answers when you have them', 'Balance inquiry with assertion'],
+        POETIC: ['Ensure fragmentation serves meaning, not just aesthetics', 'Practice conventional prose to keep the choice intentional'],
+        HEDGED: ['Practice strategic assertion—sometimes the hedge undermines the point', 'Vary sentence structure'],
+        LONGFORM: ['Practice short sentences as contrast', 'Ensure every clause earns its place', 'Read aloud to find where readers need breath'],
+        PARALLEL: ['Practice strategic pattern-breaking', 'Explore longer, more complex parallel structures'],
+        PARENTHETICAL: ['Practice integrating asides into main sentences when essential', 'Reserve parentheticals for genuine additions'],
+      };
+      
+      return {
+        status: 'ACTIVE',
+        header: {
+          title: profileTitles[primaryMode],
+          essence: profileEssences[primaryMode],
+          maturity,
+          maturity_description: maturityDescs[maturity],
+          session_count: sessionCount,
+        },
+        sketch,
+        modes: {
+          primary: primaryMode,
+          confidence: `${Math.floor(confidence * 100)}%`,
+          consistency: `${consistencyPct}%`,
+          secondary: secondaryModes.slice(0, 2),
+          distribution: modeDistribution,
+        },
+        metrics: {
+          words_per_session: Math.floor(metrics.words * (1 + Math.random() * 0.5)),
+          words_per_sentence: metrics.avg.toFixed(1),
+          markers_per_session: (hi.total_markers * (1 + Math.random() * 0.3)).toFixed(1),
+          epistemic_openness: `${Math.floor(openness * 100)}%`,
+          structural_density: (hi.is_dense ? 1.5 + Math.random() : 0.3 + Math.random() * 0.5).toFixed(2),
+          informality: hi.is_informal ? (1.2 + Math.random() * 0.5).toFixed(2) : (0.2 + Math.random() * 0.3).toFixed(2),
+        },
+        evolution: {
+          openness: { trend: 'STABLE', description: 'Your epistemic openness has remained consistent' },
+          markers: { trend: sessionCount > 5 ? 'SLIGHTLY_INCREASING' : 'INSUFFICIENT_DATA', 
+                     description: sessionCount > 5 ? 'Your marker density has increased slightly' : 'Need more sessions to detect trends' },
+        },
+        insights,
+        growth_edges: growthEdges[primaryMode] || growthEdges.MINIMAL,
+        writing_ancestors: ancestors[primaryMode],
+        meta: {
+          first_session: '2024-01-15',
+          latest_session: new Date().toISOString().slice(0, 10),
+        },
+      };
+    }
+    
+    // ===========================================
+    // RENDER RESULTS
+    // ===========================================
+    function renderResults() {
+      const r = state.results;
+      const hi = r.high_intent_profile;
+      
+      // Summary tab
+      document.getElementById('summary-title').textContent = r.summary.title;
+      document.getElementById('summary-overview').textContent = r.summary.overview;
+      document.getElementById('summary-synthesis').innerHTML = r.summary.synthesis.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      
+      // Rhetorical modes (v0.6.0)
+      const modesSection = document.getElementById('rhetorical-modes');
+      const badgesContainer = document.getElementById('mode-badges');
+      let badges = '';
+      if (hi.is_assertive) badges += '<span class="mode-badge assertive">Assertive</span>';
+      if (hi.is_interrogative) badges += '<span class="mode-badge interrogative">Interrogative</span>';
+      if (hi.is_informal) badges += '<span class="mode-badge informal">Informal</span>';
+      if (hi.is_dense) badges += '<span class="mode-badge dense">Dense</span>';
+      if (hi.is_complex) badges += '<span class="mode-badge complex">Complex</span>';
+      if (hi.is_poetic_mode) badges += '<span class="mode-badge poetic">Poetic</span>';
+      if (hi.has_anaphora) badges += '<span class="mode-badge anaphora">Anaphora</span>';
+      
+      if (badges) {
+        badgesContainer.innerHTML = badges;
+        modesSection.classList.remove('hidden');
+      } else {
+        modesSection.classList.add('hidden');
+      }
+      
+      // Paths forward
+      const pathsHTML = `
+        <div class="path-card recommended">
+          <span class="recommended-badge">✦ Recommended</span>
+          <h3>Try This Exercise</h3>
+          <p>Take one sentence and reshape it completely. Same idea, different structure.</p>
+        </div>
+        <div class="path-card standard">
+          <h3>Write Something New</h3>
+          <p>Start fresh. See if the same shapes appear.</p>
+        </div>
+        <div class="path-card standard">
+          <h3>Switch Modes</h3>
+          <p>Try ${r.mode === 'STORY' ? 'School' : 'Story'} Mode for a different lens.</p>
+        </div>
+      `;
+      document.getElementById('paths-forward').innerHTML = pathsHTML;
+      
+      // Details tab
+      let detailsHTML = '';
+      r.phase2.forEach(item => {
+        detailsHTML += `
+          <div class="detail-card">
+            <p class="detail-insight">${item.insight}</p>
+            <p class="detail-explanation">${item.explanation}</p>
+            ${item.metrics ? `<div class="mt-1">${Object.entries(item.metrics).map(([k,v]) => `<span class="detail-metric">${k}: ${typeof v === 'number' ? v.toFixed ? v.toFixed(1) : v : v}</span>`).join('')}</div>` : ''}
+          </div>
+        `;
+      });
+      document.getElementById('details-content').innerHTML = detailsHTML;
+      
+      // Synthesis tab
+      let synthesisHTML = '';
+      r.phase3.forEach(item => {
+        synthesisHTML += `
+          <div class="card synthesis-card">
+            <div class="synthesis-lens">${item.lens}</div>
+            <p class="synthesis-text">${item.text}</p>
+          </div>
+        `;
+      });
+      document.getElementById('synthesis-content').innerHTML = synthesisHTML;
+      
+      // Reflect tab
+      let reflectHTML = '';
+      Object.values(r.actions).forEach(action => {
+        reflectHTML += `
+          <div class="action-card">
+            <span class="action-type ${action.type}">${action.type}</span>
+            <p class="action-prompt">${action.prompt}</p>
+            <p class="action-context">${action.context}</p>
+            <p style="font-size: 0.9rem; color: var(--color-muted);">${action.instruction}</p>
+          </div>
+        `;
+      });
+      document.getElementById('reflect-content').innerHTML = reflectHTML;
+      
+      // Stance tab
+      renderStanceTab(hi);
+      
+      // Profile tab (v0.7.0)
+      renderProfileTab(state.userProfile);
+    }
+    
+    function renderStanceTab(hi) {
+      const stanceBadgeClass = hi.epistemic_stance.toLowerCase();
+      const openness = hi.epistemic_openness;
+      const markerPosition = (1 - openness) * 100;
+      
+      let stanceHTML = `
+        <div class="card stance-card">
+          <span class="stance-badge ${stanceBadgeClass}">${hi.epistemic_stance}</span>
+          <h3 class="mb-1">Your Epistemic Stance</h3>
+          
+          <p style="margin-bottom: 1rem;">
+            ${hi.is_minimal 
+              ? 'Your writing proceeds directly, without much hedging or signaling about certainty. The words just say what they say.'
+              : hi.is_contradictory 
+                ? 'Your writing holds both certainty and uncertainty—mixed signals that create texture and complexity.'
+                : `Your writing ${hi.epistemic_stance === 'OPEN' ? 'leaves room for possibility' : 'leans toward conviction'}.`
+            }
+          </p>
+      `;
+      
+      if (!hi.is_minimal) {
+        stanceHTML += `
+          <div class="stance-spectrum">
+            <span class="spectrum-label">Open</span>
+            <div class="spectrum-bar">
+              <div class="spectrum-marker" style="left: ${markerPosition}%"></div>
+            </div>
+            <span class="spectrum-label">Closed</span>
+          </div>
+          
+          <div style="display: flex; gap: 1rem; font-size: 0.85rem; color: var(--color-muted);">
+            <div>Opening markers: ${hi.opening_count}</div>
+            <div>Closing markers: ${hi.closing_count}</div>
+          </div>
+        `;
+      }
+      
+      if (hi.markers && hi.markers.length > 0) {
+        stanceHTML += `
+          <div class="summary-section-title mt-2">Detected Markers</div>
+          <div class="marker-grid">
+            ${hi.markers.map(m => `
+              <div class="marker-item">
+                <span class="marker-word">${m.word}</span>
+                <span class="marker-category">${m.category}</span>
+                <p class="marker-context">"...${m.sentence.substring(0, 50)}..."</p>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+      
+      stanceHTML += '</div>';
+      document.getElementById('stance-content').innerHTML = stanceHTML;
+    }
+    
+    function renderProfileTab(profile) {
+      if (!profile || profile.status !== 'ACTIVE') {
+        document.getElementById('profile-content').innerHTML = `
+          <div class="no-profile">
+            <div class="no-profile-emoji">📝</div>
+            <h3 class="no-profile-title">Your Profile Awaits</h3>
+            <p class="no-profile-text">Start writing to build your profile. Each session adds to your narrator portrait.</p>
+            <p class="no-profile-cta">Write your first sample to begin</p>
+          </div>
+        `;
+        return;
+      }
+      
+      const p = profile;
+      const maturityClass = p.header.maturity.toLowerCase();
+      const maturityEmoji = { EMERGING: '🌱', DEVELOPING: '📈', ESTABLISHED: '✨', MATURE: '🎯' };
+      const trendIcons = { INCREASING: '📈', SLIGHTLY_INCREASING: '↗️', STABLE: '➡️', SLIGHTLY_DECREASING: '↘️', DECREASING: '📉', INSUFFICIENT_DATA: '⏳' };
+      
+      // Build mode distribution bars
+      const modeDist = p.modes.distribution;
+      const totalSessions = Object.values(modeDist).reduce((a, b) => a + b, 0);
+      let modeDistHTML = '';
+      Object.entries(modeDist).sort((a, b) => b[1] - a[1]).forEach(([mode, count]) => {
+        const pct = (count / totalSessions) * 100;
+        const color = modeColors[mode] || '#78716c';
+        modeDistHTML += `
+          <div class="mode-bar-row">
+            <span class="mode-bar-label">${mode}</span>
+            <div class="mode-bar-track">
+              <div class="mode-bar-fill" style="width: ${pct}%; background: ${color};"></div>
+            </div>
+            <span class="mode-bar-count">${count}</span>
+          </div>
+        `;
+      });
+      
+      // Format sketch with bold
+      const sketchHTML = p.sketch.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n\n/g, '</p><p class="mt-1">');
+      
+      document.getElementById('profile-content').innerHTML = `
+        <div class="profile-header">
+          <div class="profile-header-top">
+            <div>
+              <h2 class="profile-title">${p.header.title}</h2>
+              <p class="profile-essence">${p.header.essence}</p>
+            </div>
+            <span class="maturity-badge ${maturityClass}">${maturityEmoji[p.header.maturity] || '🌱'} ${p.header.maturity}</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--color-muted);">${p.header.maturity_description}</p>
+          <p style="font-size: 0.75rem; color: var(--color-muted); margin-top: 0.25rem;">Based on ${p.header.session_count} writing sessions</p>
+        </div>
+        
+        <div class="profile-sketch">
+          <div class="profile-sketch-title">Your Writing Portrait</div>
+          <div class="profile-sketch-text"><p>${sketchHTML}</p></div>
+        </div>
+        
+        <div class="profile-grid">
+          <div class="profile-section">
+            <div class="profile-section-title">Mode Distribution</div>
+            <div style="margin-bottom: 0.75rem;">
+              <span class="stance-badge" style="background: ${modeColors[p.modes.primary]}">${p.modes.primary}</span>
+              <span style="font-size: 0.8rem; color: var(--color-muted); margin-left: 0.5rem;">${p.modes.confidence} confidence</span>
+            </div>
+            <div class="mode-distribution">${modeDistHTML}</div>
+            ${p.modes.secondary.length > 0 ? `<p style="font-size: 0.8rem; color: var(--color-muted); margin-top: 0.75rem;">Secondary: ${p.modes.secondary.join(', ')}</p>` : ''}
+          </div>
+          
+          <div class="profile-section">
+            <div class="profile-section-title">Your Numbers</div>
+            <div class="metrics-grid">
+              <div class="metric-item">
+                <div class="metric-value">${p.metrics.words_per_session}</div>
+                <div class="metric-label">Words/Session</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-value">${p.metrics.words_per_sentence}</div>
+                <div class="metric-label">Words/Sent</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-value">${p.metrics.markers_per_session}</div>
+                <div class="metric-label">Markers</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-value">${p.metrics.epistemic_openness}</div>
+                <div class="metric-label">Openness</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-value">${p.metrics.structural_density}</div>
+                <div class="metric-label">Density</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-value">${p.metrics.informality}</div>
+                <div class="metric-label">Informal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="profile-grid">
+          <div class="profile-section">
+            <div class="profile-section-title">How You're Evolving</div>
+            <div class="evolution-item">
+              <span class="evolution-icon">${trendIcons[p.evolution.openness.trend] || '➡️'}</span>
+              <span class="evolution-text">${p.evolution.openness.description}</span>
+            </div>
+            <div class="evolution-item">
+              <span class="evolution-icon">${trendIcons[p.evolution.markers.trend] || '➡️'}</span>
+              <span class="evolution-text">${p.evolution.markers.description}</span>
+            </div>
+          </div>
+          
+          <div class="profile-section">
+            <div class="profile-section-title">Insights</div>
+            <ul class="insights-list">
+              ${p.insights.map(i => `<li class="insight-item"><span class="insight-bullet">◆</span> ${i}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+        
+        <div class="growth-section">
+          <div class="profile-section-title">Growth Edges</div>
+          <ul class="growth-edges-list">
+            ${p.growth_edges.map(e => `<li class="growth-edge-item"><span class="growth-arrow">→</span> ${e}</li>`).join('')}
+          </ul>
+          
+          <div class="profile-section-title">Writing Ancestors</div>
+          <p class="writing-ancestors">${p.writing_ancestors}</p>
+        </div>
+        
+        <div class="profile-footer">
+          First session: ${p.meta.first_session} · Latest: ${p.meta.latest_session}
+        </div>
+      `;
+    }
+    
+    // ===========================================
+    // TAB NAVIGATION
+    // ===========================================
+    function showTab(tabName) {
+      // Update tab buttons
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
+      
+      // Update content
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      showWelcome();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="ear-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#FF8E8E;stop-opacity:0.4" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Squirrel - Minimal line art, listening pose -->
+  <g transform="translate(5, 8)">
+    <!-- Body outline -->
+    <path d="M20 35 Q15 30 18 22 Q20 15 25 12 Q30 10 35 14 Q38 18 36 25 Q35 30 30 35 Z" 
+          fill="#FFFBF5" stroke="#2D3436" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Tail -->
+    <path d="M20 35 Q10 40 8 30 Q6 20 15 15 Q20 12 22 18" 
+          fill="none" stroke="#2D3436" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Ear left -->
+    <path d="M23 14 Q20 8 24 6 Q28 8 26 13" fill="url(#ear-glow)" stroke="#2D3436" stroke-width="1"/>
+    <!-- Ear right (tilted, listening) -->
+    <path d="M32 12 Q35 5 40 7 Q38 12 34 14" fill="url(#ear-glow)" stroke="#2D3436" stroke-width="1"/>
+    <!-- Eye -->
+    <circle cx="29" cy="20" r="2.5" fill="#2D3436"/>
+    <circle cx="30" cy="19" r="0.8" fill="#FFFBF5"/>
+    <!-- Nose -->
+    <ellipse cx="35" cy="24" rx="1.5" ry="1" fill="#FF6B6B"/>
+  </g>
+  
+  <!-- Wordmark -->
+  <text x="55" y="40" font-family="Outfit, system-ui, sans-serif" font-size="28" font-weight="700" fill="#2D3436">
+    Senten<tspan fill="#FF6B6B">se</tspan>
+  </text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 418" width="800" height="418">
+  <!-- Quirrely Twitter Card with Acorn -->
+  <rect width="800" height="418" fill="#FFFBF5"/>
+  
+  <g transform="translate(40, 60) scale(2)">
+    <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="0.7"/>
+    <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="0.7"/>
+    <path d="M20 68 Q12 72, 14 80 Q16 86, 24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="0.9"/>
+    <path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="0.9"/>
+    <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+    <ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+    <!-- ACORN -->
+    <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/>
+    <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
+    <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="0.7"/>
+    <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+    <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+  </g>
+  
+  <text x="320" y="160" font-family="Outfit, system-ui, sans-serif">
+    <tspan font-size="48" font-weight="700" fill="#2D3436">Quir</tspan><tspan font-size="48" font-weight="700" fill="#FF6B6B">rel</tspan><tspan font-size="42" font-weight="500" fill="#2D3436" font-style="italic">ly</tspan>
+  </text>
+  
+  <text x="320" y="220" font-family="Outfit, system-ui, sans-serif" font-size="22" fill="#636E72">
+    The curious way to find your writing voice.
+  </text>
+  
+  <rect x="320" y="260" width="160" height="44" rx="22" fill="#FF6B6B"/>
+  <text x="400" y="290" text-anchor="middle" font-family="Outfit, system-ui, sans-serif" font-size="16" font-weight="600" fill="#FFFFFF">
+    Try Free →
+  </text>
+  
+  <text x="320" y="380" font-family="Outfit, system-ui, sans-serif" font-size="16" fill="#B2BEC3">
+    quirrely.com
+  </text>
+</svg>

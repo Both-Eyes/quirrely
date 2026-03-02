@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quirrely Master Test • Optimization Comparison</title>
+  <style>
+    :root {
+      --coral: #FF6B6B;
+      --soft-gold: #D4A574;
+      --ink: #2D3436;
+      --muted: #636E72;
+      --bg: #FFFBF5;
+      --bg-dark: #F8F5F0;
+      --border: #E9ECEF;
+      --success: #00B894;
+      --warning: #FDCB6E;
+      --danger: #E74C3C;
+      --purple: #6C5CE7;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .logo { font-size: 3rem; margin-bottom: 0.5rem; }
+    .title { font-size: 2rem; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
+    .subtitle { color: var(--muted); font-size: 1.1rem; }
+    
+    .impact-hero {
+      background: linear-gradient(135deg, var(--success) 0%, #00A388 100%);
+      border-radius: 20px;
+      padding: 3rem;
+      color: white;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .impact-title { font-size: 1.25rem; opacity: 0.9; margin-bottom: 1rem; }
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    @media (max-width: 800px) {
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .impact-stat { }
+    .impact-value { font-size: 3rem; font-weight: 800; }
+    .impact-label { font-size: 0.9rem; opacity: 0.9; }
+    .impact-delta { 
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    
+    .comparison-section {
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .health-comparison {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+    @media (max-width: 700px) {
+      .health-comparison { grid-template-columns: 1fr; }
+      .arrow-col { display: none; }
+    }
+    
+    .health-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .health-card.original { opacity: 0.7; }
+    .health-card.optimized { border-color: var(--success); }
+    .health-label { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .health-score { font-size: 4rem; font-weight: 800; }
+    .health-score.original { color: var(--muted); }
+    .health-score.optimized { color: var(--success); }
+    .health-breakdown { margin-top: 1rem; }
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .breakdown-row:last-child { border-bottom: none; }
+    
+    .arrow-col {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--success);
+    }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    .metric-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .metric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .metric-title { font-weight: 600; color: var(--ink); }
+    .metric-delta {
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .metric-delta.positive { background: rgba(0, 184, 148, 0.1); color: var(--success); }
+    .metric-delta.negative { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
+    .metric-comparison {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .metric-original {
+      color: var(--muted);
+      text-decoration: line-through;
+      font-size: 1.25rem;
+    }
+    .metric-arrow { color: var(--success); }
+    .metric-optimized {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    
+    .country-table {
+      width: 100%;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .country-table th, .country-table td {
+      padding: 1rem;
+      text-align: left;
+    }
+    .country-table th {
+      background: var(--bg-dark);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .country-table tr:not(:last-child) td {
+      border-bottom: 1px solid var(--border);
+    }
+    .country-flag { font-size: 1.5rem; }
+    .delta-badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(0, 184, 148, 0.1);
+      color: var(--success);
+    }
+    
+    .token-comparison {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .token-comparison { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .token-comparison { grid-template-columns: repeat(2, 1fr); }
+    }
+    .token-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .token-gen { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .token-values {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .token-original { color: var(--muted); font-size: 0.9rem; text-decoration: line-through; }
+    .token-optimized { font-size: 1.25rem; font-weight: 700; }
+    .token-delta { font-size: 0.75rem; color: var(--success); }
+    .token-delta.negative { color: var(--danger); }
+    
+    .changes-list {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .change-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .change-item:last-child { border-bottom: none; }
+    .change-icon { font-size: 1.5rem; }
+    .change-content { flex: 1; }
+    .change-title { font-weight: 600; color: var(--ink); }
+    .change-desc { font-size: 0.9rem; color: var(--muted); margin-top: 0.25rem; }
+    .change-impact {
+      padding: 0.25rem 0.75rem;
+      background: rgba(0, 184, 148, 0.1);
+      color: var(--success);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    
+    /* MRR/ARR Revenue Styles */
+    .revenue-dashboard {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    
+    .revenue-hero {
+      background: linear-gradient(135deg, var(--ink) 0%, #1a1a2e 100%);
+      color: white;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (max-width: 800px) {
+      .revenue-hero { grid-template-columns: 1fr; }
+    }
+    
+    .revenue-comparison {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .revenue-comparison { flex-direction: column; }
+      .revenue-arrow { transform: rotate(90deg); }
+    }
+    
+    .revenue-block {
+      padding: 1.5rem;
+      border-radius: 12px;
+      min-width: 200px;
+    }
+    .revenue-block.original {
+      background: rgba(255,255,255,0.1);
+      opacity: 0.8;
+    }
+    .revenue-block.optimized {
+      background: rgba(0, 184, 148, 0.2);
+      border: 2px solid var(--success);
+    }
+    .revenue-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+    .revenue-mrr {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+    }
+    .revenue-mrr .currency { font-size: 0.9rem; opacity: 0.8; }
+    .revenue-mrr .amount { font-size: 2rem; font-weight: 700; }
+    .revenue-mrr .period { font-size: 0.85rem; opacity: 0.8; }
+    .revenue-arr { font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem; }
+    
+    .revenue-arrow {
+      font-size: 2rem;
+      color: var(--success);
+    }
+    
+    .revenue-delta-hero {
+      text-align: right;
+      padding: 1.5rem;
+      background: rgba(0, 184, 148, 0.15);
+      border-radius: 12px;
+    }
+    .delta-amount {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--success);
+    }
+    .delta-arr {
+      font-size: 1.1rem;
+      color: var(--success);
+      opacity: 0.9;
+    }
+    .delta-percent {
+      margin-top: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      background: var(--success);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+    }
+    
+    .revenue-breakdown, .revenue-waterfall, .revenue-projections {
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .breakdown-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    
+    .revenue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    
+    .revenue-country {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .country-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .country-header .flag { font-size: 1.25rem; }
+    .country-header .name { font-weight: 600; font-size: 0.9rem; }
+    .country-metrics { display: flex; flex-direction: column; gap: 0.5rem; }
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+    .metric-row .label { color: var(--muted); }
+    .metric-row .values { font-weight: 500; }
+    .metric-row .delta {
+      color: var(--success);
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    
+    .waterfall-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 200px;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+    .waterfall-bar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .waterfall-bar .bar-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .waterfall-bar .bar-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .waterfall-bar .bar-fill {
+      width: 100%;
+      max-width: 80px;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.5s;
+    }
+    .waterfall-bar.starting .bar-fill { background: var(--muted); }
+    .waterfall-bar.gain .bar-fill { background: var(--success); }
+    .waterfall-bar.gain .bar-value { color: var(--success); }
+    .waterfall-bar.loss .bar-fill { background: var(--danger); }
+    .waterfall-bar.loss .bar-value { color: var(--danger); }
+    .waterfall-bar.ending .bar-fill { background: var(--purple); }
+    .waterfall-bar.ending .bar-value { color: var(--purple); font-weight: 700; }
+    
+    .projection-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .projection-table th, .projection-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .projection-table th {
+      background: var(--bg-dark);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .projection-table .original-row { color: var(--muted); }
+    .projection-table .optimized-row { font-weight: 500; }
+    .projection-table .gain {
+      color: var(--success);
+      font-weight: 700;
+    }
+    .projection-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">🐿️</div>
+      <h1 class="title">Master Test: Optimization Impact</h1>
+      <p class="subtitle">Before & After Priority 1-4 Implementation</p>
+    </header>
+    
+    <!-- Impact Hero -->
+    <div class="impact-hero">
+      <div class="impact-title">✨ OPTIMIZATION RESULTS</div>
+      <div class="impact-grid">
+        <div class="impact-stat">
+          <div class="impact-value">+4%</div>
+          <div class="impact-label">System Health</div>
+          <div class="impact-delta">86% → 90%</div>
+        </div>
+        <div class="impact-stat">
+          <div class="impact-value">+34%</div>
+          <div class="impact-label">Subscriptions</div>
+          <div class="impact-delta">1,203 → 1,617</div>
+        </div>
+        <div class="impact-stat">
+          <div class="impact-value">+21%</div>
+          <div class="impact-label">Total Value</div>
+          <div class="impact-delta">19.1K → 23.1K</div>
+        </div>
+        <div class="impact-stat">
+          <div class="impact-value">-38%</div>
+          <div class="impact-label">Churn Rate</div>
+          <div class="impact-delta">5.0% → 3.0%</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Health Comparison -->
+    <div class="comparison-section">
+      <h2 class="section-title">💓 System Health Comparison</h2>
+      <div class="health-comparison">
+        <div class="health-card original">
+          <div class="health-label">ORIGINAL</div>
+          <div class="health-score original">86%</div>
+          <div class="health-breakdown">
+            <div class="breakdown-row"><span>Conversion</span><span>100%</span></div>
+            <div class="breakdown-row"><span>Value</span><span>83%</span></div>
+            <div class="breakdown-row"><span>Retention</span><span>75%</span></div>
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="health-card optimized">
+          <div class="health-label">OPTIMIZED</div>
+          <div class="health-score optimized">90%</div>
+          <div class="health-breakdown">
+            <div class="breakdown-row"><span>Conversion</span><span>100%</span></div>
+            <div class="breakdown-row"><span>Value</span><span>88% <span class="delta-badge">+5%</span></span></div>
+            <div class="breakdown-row"><span>Retention</span><span>84% <span class="delta-badge">+9%</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Key Metrics -->
+    <div class="comparison-section">
+      <h2 class="section-title">📊 Key Metrics</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Avg User Value</span>
+            <span class="metric-delta positive">+21%</span>
+          </div>
+          <div class="metric-comparison">
+            <span class="metric-original">2.93</span>
+            <span class="metric-arrow">→</span>
+            <span class="metric-optimized">3.54</span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Total Subscriptions</span>
+            <span class="metric-delta positive">+34%</span>
+          </div>
+          <div class="metric-comparison">
+            <span class="metric-original">1,203</span>
+            <span class="metric-arrow">→</span>
+            <span class="metric-optimized">1,617</span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Churn Rate</span>
+            <span class="metric-delta positive">-38%</span>
+          </div>
+          <div class="metric-comparison">
+            <span class="metric-original">5.0%</span>
+            <span class="metric-arrow">→</span>
+            <span class="metric-optimized">3.0%</span>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-title">Total Value</span>
+            <span class="metric-delta positive">+21%</span>
+          </div>
+          <div class="metric-comparison">
+            <span class="metric-original">19,110</span>
+            <span class="metric-arrow">→</span>
+            <span class="metric-optimized">23,094</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Country Performance -->
+    <div class="comparison-section">
+      <h2 class="section-title">🌍 Country Performance</h2>
+      <table class="country-table">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Original Subs</th>
+            <th>Optimized Subs</th>
+            <th>Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="country-flag">🇨🇦</span> Canada</td>
+            <td>348</td>
+            <td>458</td>
+            <td><span class="delta-badge">+110 (+32%)</span></td>
+          </tr>
+          <tr>
+            <td><span class="country-flag">🇬🇧</span> United Kingdom</td>
+            <td>306</td>
+            <td>457</td>
+            <td><span class="delta-badge">+151 (+49%)</span></td>
+          </tr>
+          <tr>
+            <td><span class="country-flag">🇦🇺</span> Australia</td>
+            <td>269</td>
+            <td>367</td>
+            <td><span class="delta-badge">+98 (+36%)</span></td>
+          </tr>
+          <tr>
+            <td><span class="country-flag">🇳🇿</span> New Zealand</td>
+            <td>280</td>
+            <td>335</td>
+            <td><span class="delta-badge">+55 (+20%)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Token Distribution -->
+    <div class="comparison-section">
+      <h2 class="section-title">🪙 Token Generation Distribution</h2>
+      <div class="token-comparison">
+        <div class="token-card">
+          <div class="token-gen">Gen 0 (Raw)</div>
+          <div class="token-values">
+            <span class="token-original">27</span>
+            <span class="token-optimized">10</span>
+            <span class="token-delta negative">-17</span>
+          </div>
+        </div>
+        <div class="token-card">
+          <div class="token-gen">Gen 1 (Profile)</div>
+          <div class="token-values">
+            <span class="token-original">1,206</span>
+            <span class="token-optimized">162</span>
+            <span class="token-delta negative">-1,044</span>
+          </div>
+        </div>
+        <div class="token-card" style="border-color: var(--success);">
+          <div class="token-gen">Gen 2 (Explored)</div>
+          <div class="token-values">
+            <span class="token-original">5,285</span>
+            <span class="token-optimized" style="color: var(--success);">5,966</span>
+            <span class="token-delta">+681</span>
+          </div>
+        </div>
+        <div class="token-card" style="border-color: var(--success);">
+          <div class="token-gen">Gen 3 (Behavioral)</div>
+          <div class="token-values">
+            <span class="token-original">12</span>
+            <span class="token-optimized" style="color: var(--success);">370</span>
+            <span class="token-delta">+358 🔥</span>
+          </div>
+        </div>
+        <div class="token-card" style="border-color: var(--purple);">
+          <div class="token-gen">Gen 4 (Featured)</div>
+          <div class="token-values">
+            <span class="token-original">0</span>
+            <span class="token-optimized" style="color: var(--purple);">22</span>
+            <span class="token-delta">+22 ⭐</span>
+          </div>
+        </div>
+        <div class="token-card">
+          <div class="token-gen">Gen 5 (Authority)</div>
+          <div class="token-values">
+            <span class="token-original">0</span>
+            <span class="token-optimized">0</span>
+            <span class="token-delta" style="color: var(--muted);">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Changes Made -->
+    <div class="comparison-section">
+      <h2 class="section-title">🔧 Optimizations Applied</h2>
+      <div class="changes-list">
+        <div class="change-item">
+          <span class="change-icon">🎯</span>
+          <div class="change-content">
+            <div class="change-title">Priority 1: Trial Conversion Components</div>
+            <div class="change-desc">Progressive nudges at 80%, 95%, 100% of limit. Value preview modal. Social proof messaging.</div>
+          </div>
+          <span class="change-impact">+45% trial starts</span>
+        </div>
+        <div class="change-item">
+          <span class="change-icon">📊</span>
+          <div class="change-content">
+            <div class="change-title">Priority 2: First Analysis Pattern Application</div>
+            <div class="change-desc">Applied successful patterns (single CTA, zero friction, instant gratification) to trial flow.</div>
+          </div>
+          <span class="change-impact">+8% analysis rate</span>
+        </div>
+        <div class="change-item">
+          <span class="change-icon">⭐</span>
+          <div class="change-content">
+            <div class="change-title">Priority 3: Featured Progress & Streak Forgiveness</div>
+            <div class="change-desc">1 grace day per 7. Progress visibility. Reduced activity requirement to 14 days.</div>
+          </div>
+          <span class="change-impact">+22 Featured users</span>
+        </div>
+        <div class="change-item">
+          <span class="change-icon">💎</span>
+          <div class="change-content">
+            <div class="change-title">Priority 4: Retention Marketing</div>
+            <div class="change-desc">Documented retention drivers. Created marketing proof points. Applied to checkout.</div>
+          </div>
+          <span class="change-impact">-25% churn rate</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MRR/ARR Impact -->
+    <div class="comparison-section">
+      <h2 class="section-title">💰 Revenue Impact (MRR/ARR)</h2>
+      <div class="revenue-dashboard">
+        <div class="revenue-hero">
+          <div class="revenue-comparison">
+            <div class="revenue-block original">
+              <div class="revenue-label">ORIGINAL</div>
+              <div class="revenue-mrr">
+                <span class="currency">CAD</span>
+                <span class="amount">$12,030</span>
+                <span class="period">/mo MRR</span>
+              </div>
+              <div class="revenue-arr">$144,360 ARR</div>
+            </div>
+            <div class="revenue-arrow">→</div>
+            <div class="revenue-block optimized">
+              <div class="revenue-label">OPTIMIZED</div>
+              <div class="revenue-mrr">
+                <span class="currency">CAD</span>
+                <span class="amount">$16,170</span>
+                <span class="period">/mo MRR</span>
+              </div>
+              <div class="revenue-arr">$194,040 ARR</div>
+            </div>
+          </div>
+          <div class="revenue-delta-hero">
+            <div class="delta-amount">+$4,140 MRR</div>
+            <div class="delta-arr">+$49,680 ARR</div>
+            <div class="delta-percent">+34% Revenue Growth</div>
+          </div>
+        </div>
+        
+        <div class="revenue-breakdown">
+          <h3 class="breakdown-title">Revenue by Country</h3>
+          <div class="revenue-grid">
+            <div class="revenue-country">
+              <div class="country-header">
+                <span class="flag">🇨🇦</span>
+                <span class="name">Canada (CAD)</span>
+              </div>
+              <div class="country-metrics">
+                <div class="metric-row">
+                  <span class="label">Subscribers</span>
+                  <span class="values">348 → 458 <span class="delta">+110</span></span>
+                </div>
+                <div class="metric-row">
+                  <span class="label">MRR</span>
+                  <span class="values">$3,480 → $4,580 <span class="delta">+$1,100</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="revenue-country">
+              <div class="country-header">
+                <span class="flag">🇬🇧</span>
+                <span class="name">UK (GBP)</span>
+              </div>
+              <div class="country-metrics">
+                <div class="metric-row">
+                  <span class="label">Subscribers</span>
+                  <span class="values">306 → 457 <span class="delta">+151</span></span>
+                </div>
+                <div class="metric-row">
+                  <span class="label">MRR</span>
+                  <span class="values">£2,448 → £3,656 <span class="delta">+£1,208</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="revenue-country">
+              <div class="country-header">
+                <span class="flag">🇦🇺</span>
+                <span class="name">Australia (AUD)</span>
+              </div>
+              <div class="country-metrics">
+                <div class="metric-row">
+                  <span class="label">Subscribers</span>
+                  <span class="values">269 → 367 <span class="delta">+98</span></span>
+                </div>
+                <div class="metric-row">
+                  <span class="label">MRR</span>
+                  <span class="values">A$4,035 → A$5,505 <span class="delta">+A$1,470</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="revenue-country">
+              <div class="country-header">
+                <span class="flag">🇳🇿</span>
+                <span class="name">New Zealand (NZD)</span>
+              </div>
+              <div class="country-metrics">
+                <div class="metric-row">
+                  <span class="label">Subscribers</span>
+                  <span class="values">280 → 335 <span class="delta">+55</span></span>
+                </div>
+                <div class="metric-row">
+                  <span class="label">MRR</span>
+                  <span class="values">NZ$4,480 → NZ$5,360 <span class="delta">+NZ$880</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="revenue-waterfall">
+          <h3 class="breakdown-title">MRR Waterfall (CAD Equivalent)</h3>
+          <div class="waterfall-chart">
+            <div class="waterfall-bar starting">
+              <div class="bar-label">Starting MRR</div>
+              <div class="bar-value">$12,030</div>
+              <div class="bar-fill" style="height: 60%;"></div>
+            </div>
+            <div class="waterfall-bar gain new-subs">
+              <div class="bar-label">New Subscriptions</div>
+              <div class="bar-value">+$4,580</div>
+              <div class="bar-fill" style="height: 23%;"></div>
+            </div>
+            <div class="waterfall-bar gain reduced-churn">
+              <div class="bar-label">Reduced Churn</div>
+              <div class="bar-value">+$720</div>
+              <div class="bar-fill" style="height: 4%;"></div>
+            </div>
+            <div class="waterfall-bar loss churn">
+              <div class="bar-label">Churned</div>
+              <div class="bar-value">-$1,160</div>
+              <div class="bar-fill" style="height: 6%;"></div>
+            </div>
+            <div class="waterfall-bar ending">
+              <div class="bar-label">Ending MRR</div>
+              <div class="bar-value">$16,170</div>
+              <div class="bar-fill" style="height: 81%;"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="revenue-projections">
+          <h3 class="breakdown-title">12-Month Projection</h3>
+          <table class="projection-table">
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>MRR (Month 12)</th>
+                <th>Total Revenue</th>
+                <th>Net Growth</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="original-row">
+                <td>Original Parameters</td>
+                <td>$14,436</td>
+                <td>$158,796</td>
+                <td>—</td>
+              </tr>
+              <tr class="optimized-row">
+                <td>Optimized Parameters</td>
+                <td>$21,828</td>
+                <td>$228,108</td>
+                <td class="gain">+$69,312 (+44%)</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="projection-note">* Assumes consistent growth rate and churn patterns over 12 months</p>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <p>Quirrely v2.1.0 "Quinquaginta" • Master Test Optimization Comparison</p>
+      <p>4,667 users • 90 days • Seed 42 (original) vs 43 (optimized)</p>
+      <p style="margin-top: 1rem; color: var(--success); font-weight: 600;">✓ NO AI/LLM REQUIRED AT RUNTIME</p>
+    </footer>
+  </div>
+</body>
+</html>

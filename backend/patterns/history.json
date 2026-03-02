@@ -1,0 +1,141 @@
+{
+  "history": [
+    {
+      "id": "3d868ea79a51a035",
+      "user_id": null,
+      "session_id": "Depends(dependency=<function get_session_id at 0x79af372aa520>, use_cache=True, scope=None)",
+      "profile": "LONGFORM",
+      "stance": "CLOSED",
+      "word_count": 21,
+      "sentence_count": 2,
+      "token_signature": "2-6-7-8-9-7-4-8-5-7",
+      "confidence_score": 0.9253563158202934,
+      "source": "web",
+      "input_preview": "I think the most important thing we can do is write clearly and with intention. Good writing require",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.01990197292968443,
+          "MINIMAL": 0.6841641965948142,
+          "POETIC": 0.4320424742840129,
+          "DENSE": 0.5251024953071148,
+          "CONVERSATIONAL": 0.125780853166918,
+          "FORMAL": 0.3335381144033843,
+          "INTERROGATIVE": 0.0388457453928055,
+          "HEDGED": 0.5478035485656709,
+          "PARALLEL": 0.9671188895455215,
+          "LONGFORM": 0.9036516387891895
+        },
+        "stances": {
+          "OPEN": 0.5821465767797429,
+          "CLOSED": 0.8494229683357656,
+          "BALANCED": 0.3817123024479304,
+          "CONTRADICTORY": 0.4560216561753526
+        }
+      },
+      "analyzed_at": "2026-02-22T23:47:47.876113Z"
+    },
+    {
+      "id": "40c4633fa6d1bbf9",
+      "user_id": null,
+      "session_id": null,
+      "profile": "DENSE",
+      "stance": "OPEN",
+      "word_count": 25,
+      "sentence_count": 3,
+      "token_signature": "3-3-7-8-6-1-3-3-7-0",
+      "confidence_score": 0.8185561619819071,
+      "source": "web",
+      "input_preview": "The quick brown fox jumps over the lazy dog. Writing is a craft that requires patience and dedicatio",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.40392537984927956,
+          "MINIMAL": 0.9467241636880291,
+          "POETIC": 0.490553002711244,
+          "DENSE": 0.9215434138567056,
+          "CONVERSATIONAL": 0.21049681038872226,
+          "FORMAL": 0.44024776524068787,
+          "INTERROGATIVE": 0.261572671212846,
+          "HEDGED": 0.31217061566651594,
+          "PARALLEL": 0.037356976040497925,
+          "LONGFORM": 0.6713827091602779
+        },
+        "stances": {
+          "OPEN": 0.8818338460251958,
+          "CLOSED": 0.9586814411439005,
+          "BALANCED": 0.38530275293696437,
+          "CONTRADICTORY": 0.5507549652472006
+        }
+      },
+      "analyzed_at": "2026-02-27T18:04:40.306009Z"
+    },
+    {
+      "id": "a483e21602475c2e",
+      "user_id": null,
+      "session_id": null,
+      "profile": "DENSE",
+      "stance": "OPEN",
+      "word_count": 25,
+      "sentence_count": 3,
+      "token_signature": "3-3-7-8-6-1-3-3-7-0",
+      "confidence_score": 0.8185561619819071,
+      "source": "web",
+      "input_preview": "The quick brown fox jumps over the lazy dog. Writing is a craft that requires patience and dedicatio",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.40392537984927956,
+          "MINIMAL": 0.9467241636880291,
+          "POETIC": 0.490553002711244,
+          "DENSE": 0.9215434138567056,
+          "CONVERSATIONAL": 0.21049681038872226,
+          "FORMAL": 0.44024776524068787,
+          "INTERROGATIVE": 0.261572671212846,
+          "HEDGED": 0.31217061566651594,
+          "PARALLEL": 0.037356976040497925,
+          "LONGFORM": 0.6713827091602779
+        },
+        "stances": {
+          "OPEN": 0.8818338460251958,
+          "CLOSED": 0.9586814411439005,
+          "BALANCED": 0.38530275293696437,
+          "CONTRADICTORY": 0.5507549652472006
+        }
+      },
+      "analyzed_at": "2026-02-27T18:05:32.245692Z"
+    },
+    {
+      "id": "46ab0c00760fe6b5",
+      "user_id": null,
+      "session_id": null,
+      "profile": "DENSE",
+      "stance": "OPEN",
+      "word_count": 25,
+      "sentence_count": 3,
+      "token_signature": "3-3-7-8-6-1-3-3-7-0",
+      "confidence_score": 0.8185561619819071,
+      "source": "web",
+      "input_preview": "The quick brown fox jumps over the lazy dog. Writing is a craft that requires patience and dedicatio",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.40392537984927956,
+          "MINIMAL": 0.9467241636880291,
+          "POETIC": 0.490553002711244,
+          "DENSE": 0.9215434138567056,
+          "CONVERSATIONAL": 0.21049681038872226,
+          "FORMAL": 0.44024776524068787,
+          "INTERROGATIVE": 0.261572671212846,
+          "HEDGED": 0.31217061566651594,
+          "PARALLEL": 0.037356976040497925,
+          "LONGFORM": 0.6713827091602779
+        },
+        "stances": {
+          "OPEN": 0.8818338460251958,
+          "CLOSED": 0.9586814411439005,
+          "BALANCED": 0.38530275293696437,
+          "CONTRADICTORY": 0.5507549652472006
+        }
+      },
+      "analyzed_at": "2026-02-27T18:24:43.017684Z"
+    }
+  ],
+  "version": "1.0"
+}

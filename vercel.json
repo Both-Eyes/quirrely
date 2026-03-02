@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "name": "quirrely",
+  "alias": ["quirrely.com", "www.quirrely.com"],
+  "regions": ["iad1", "lhr1", "syd1"],
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/blog/how-:profile-:stance-writers-write", "destination": "/blog/blog-post.html" },
+    { "source": "/writer/:username", "destination": "/blog/user-profile-public.html" },
+    { "source": "/blog/featured/:week", "destination": "/blog/featured-writer-system.html" }
+  ],
+  "redirects": [
+    { "source": "/terms", "destination": "/legal/terms.html", "permanent": true },
+    { "source": "/privacy", "destination": "/legal/privacy.html", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ],
+  "trailingSlash": false,
+  "cleanUrls": true
+}

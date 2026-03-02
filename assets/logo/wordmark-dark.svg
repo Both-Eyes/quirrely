@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 50" width="180" height="50">
+  <!-- Quirrely Wordmark Only (Dark) -->
+  <text x="5" y="38" font-family="Outfit, system-ui, sans-serif">
+    <tspan font-size="40" font-weight="700" fill="#FFFFFF">Quir</tspan><tspan font-size="40" font-weight="700" fill="#FF6B6B">rel</tspan><tspan font-style="italic" font-weight="500" font-size="36">y</tspan>
+  </text>
+</svg>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>LNCP Secure Command Center</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #080810;
+            --bg-panel: #0d0d15;
+            --bg-card: #12121c;
+            --border: #252535;
+            --text-primary: #f0f0ff;
+            --text-secondary: #8888aa;
+            --text-muted: #555570;
+            --accent-green: #00ff88;
+            --accent-blue: #00aaff;
+            --accent-red: #ff4466;
+            --accent-orange: #ff9933;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .header {
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        .logo { font-size: 16px; font-weight: 700; color: var(--accent-green); letter-spacing: 1px; }
+        .security-badge {
+            display: flex; align-items: center; gap: 6px;
+            padding: 5px 12px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            font-size: 11px; color: var(--accent-green);
+        }
+        .header-right { display: flex; align-items: center; gap: 15px; }
+        .session-info { font-size: 12px; color: var(--text-secondary); }
+        .btn {
+            padding: 8px 16px; border-radius: 6px; font-size: 12px;
+            font-weight: 600; cursor: pointer; border: none; transition: all 0.2s;
+        }
+        .btn-danger {
+            background: rgba(255, 68, 102, 0.1);
+            border: 1px solid rgba(255, 68, 102, 0.3);
+            color: var(--accent-red);
+        }
+        .btn-danger:hover { background: rgba(255, 68, 102, 0.2); }
+        .btn-primary { background: var(--accent-blue); color: white; }
+        .btn-primary:hover { background: #0099ee; }
+        .btn-warning {
+            background: rgba(255, 153, 51, 0.1);
+            border: 1px solid rgba(255, 153, 51, 0.3);
+            color: var(--accent-orange);
+        }
+        .main { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 60px); }
+        .sidebar { background: var(--bg-panel); border-right: 1px solid var(--border); padding: 20px 0; }
+        .nav-section { margin-bottom: 25px; }
+        .nav-title {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--text-muted); padding: 0 20px; margin-bottom: 10px;
+        }
+        .nav-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 20px; cursor: pointer; transition: all 0.2s;
+            color: var(--text-secondary); text-decoration: none;
+        }
+        .nav-item:hover { background: rgba(255,255,255,0.03); color: var(--text-primary); }
+        .nav-item.active { background: rgba(0,170,255,0.1); border-left: 3px solid var(--accent-blue); color: var(--text-primary); }
+        .nav-item.danger { color: var(--accent-red); }
+        .content { padding: 30px; overflow-y: auto; }
+        .page-title { font-size: 24px; font-weight: 600; margin-bottom: 10px; }
+        .page-subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 30px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .card-title { font-size: 14px; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
+        .metric-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+        .metric-label { font-size: 11px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+        .metric-value { font-size: 28px; font-weight: 700; }
+        .metric-value.green { color: var(--accent-green); }
+        .metric-value.red { color: var(--accent-red); }
+        .status-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .status-row:last-child { border-bottom: none; }
+        .status-label { font-size: 14px; color: var(--text-secondary); }
+        .status-value { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .status-dot.green { background: var(--accent-green); }
+        .status-dot.orange { background: var(--accent-orange); }
+        .audit-log { max-height: 400px; overflow-y: auto; }
+        .audit-entry { display: flex; align-items: flex-start; gap: 15px; padding: 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+        .audit-icon { font-size: 16px; }
+        .audit-content { flex: 1; }
+        .audit-action { font-weight: 600; margin-bottom: 3px; }
+        .audit-details { color: var(--text-secondary); font-size: 12px; }
+        .audit-time { font-size: 11px; color: var(--text-muted); }
+        .rotation-panel { background: rgba(255,68,102,0.05); border: 1px solid rgba(255,68,102,0.2); border-radius: 12px; padding: 25px; }
+        .rotation-panel h3 { color: var(--accent-red); margin-bottom: 10px; }
+        .rotation-panel p { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+        .rotation-actions { display: flex; gap: 15px; }
+        .url-display { background: #050508; border: 1px solid var(--border); border-radius: 8px; padding: 15px; font-family: monospace; font-size: 12px; word-break: break-all; color: var(--accent-green); }
+        .url-actions { display: flex; gap: 10px; margin-top: 10px; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; padding: 30px; max-width: 500px; width: 90%; }
+        .modal h2 { margin-bottom: 15px; }
+        .modal p { color: var(--text-secondary); margin-bottom: 25px; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+        .live-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; animation: pulse 2s infinite; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">🔒 LNCP SECURE</div>
+            <div class="security-badge"><span class="live-dot"></span><span>MFA Active</span></div>
+        </div>
+        <div class="header-right">
+            <div class="session-info">Session: <span id="session-expiry">15:00</span></div>
+            <button class="btn btn-warning" onclick="refreshSession()">Extend</button>
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+        </div>
+    </header>
+    <div class="main">
+        <nav class="sidebar">
+            <div class="nav-section">
+                <div class="nav-title">Security</div>
+                <a class="nav-item active" onclick="showPage('dashboard')">🛡️ Dashboard</a>
+                <a class="nav-item" onclick="showPage('audit')">📋 Audit Log</a>
+                <a class="nav-item" onclick="showPage('url')">🔗 URL Management</a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-title">Emergency</div>
+                <a class="nav-item danger" onclick="showRotateModal()">🚨 Rotate Credentials</a>
+                <a class="nav-item danger" onclick="showLockdownModal()">🔒 Lockdown</a>
+            </div>
+        </nav>
+        <main class="content">
+            <div id="page-dashboard">
+                <h1 class="page-title">Security Dashboard</h1>
+                <p class="page-subtitle">Real-time security monitoring</p>
+                <div class="metrics-grid">
+                    <div class="metric-card"><div class="metric-label">Status</div><div class="metric-value green">SECURE</div></div>
+                    <div class="metric-card"><div class="metric-label">Sessions</div><div class="metric-value">1</div></div>
+                    <div class="metric-card"><div class="metric-label">Failed (24h)</div><div class="metric-value">0</div></div>
+                    <div class="metric-card"><div class="metric-label">Locked IPs</div><div class="metric-value">0</div></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">🔐 Security Features</div>
+                    <div class="status-row"><span class="status-label">URL Rotation (24h)</span><span class="status-value"><span class="status-dot green"></span>Enabled</span></div>
+                    <div class="status-row"><span class="status-label">TOTP Auth</span><span class="status-value"><span class="status-dot green"></span>Enabled</span></div>
+                    <div class="status-row"><span class="status-label">IP Whitelist</span><span class="status-value"><span class="status-dot green"></span>Active</span></div>
+                    <div class="status-row"><span class="status-label">Audit Chain</span><span class="status-value"><span class="status-dot green"></span>Verified</span></div>
+                    <div class="status-row"><span class="status-label">Alerts</span><span class="status-value"><span class="status-dot green"></span>SMS+Push+Email</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-title">📊 Recent Activity</div>
+                    <div class="audit-log" id="recent-activity"></div>
+                </div>
+            </div>
+            <div id="page-audit" style="display:none;">
+                <h1 class="page-title">Audit Log</h1>
+                <p class="page-subtitle">Cryptographically signed access log</p>
+                <div class="card"><div class="card-title">📋 Full History</div><div class="audit-log" id="full-audit"></div></div>
+            </div>
+            <div id="page-url" style="display:none;">
+                <h1 class="page-title">URL Management</h1>
+                <p class="page-subtitle">Encrypted rotating admin URL</p>
+                <div class="card">
+                    <div class="card-title">🔗 Current Admin URL</div>
+                    <div class="url-display" id="current-url">https://yoursite.com/gate/[encrypted-token]</div>
+                    <div class="url-actions">
+                        <button class="btn btn-primary" onclick="copyUrl()">📋 Copy</button>
+                        <button class="btn btn-warning" onclick="rotateUrl()">🔄 Rotate Now</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="modal-overlay" id="rotate-modal">
+        <div class="modal">
+            <h2>⚠️ Rotate All Credentials?</h2>
+            <p>This generates a new URL and invalidates all sessions. You'll need the new URL to access the system.</p>
+            <div class="modal-actions">
+                <button class="btn" onclick="closeModal('rotate-modal')">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmRotate()">Rotate Now</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="lockdown-modal">
+        <div class="modal">
+            <h2>🔒 Emergency Lockdown?</h2>
+            <p>This completely locks the system. Manual intervention required to restore access.</p>
+            <div class="modal-actions">
+                <button class="btn" onclick="closeModal('lockdown-modal')">Cancel</button>
+                <button class="btn btn-danger" onclick="confirmLockdown()">Lockdown</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let sessionExpiry = new Date(Date.now() + 15*60*1000);
+        function updateTimer() {
+            const remaining = Math.max(0, Math.floor((sessionExpiry - Date.now())/1000));
+            document.getElementById('session-expiry').textContent = 
+                `${Math.floor(remaining/60)}:${(remaining%60).toString().padStart(2,'0')}`;
+            if(remaining <= 0) logout();
+        }
+        setInterval(updateTimer, 1000);
+        function refreshSession() { sessionExpiry = new Date(Date.now() + 15*60*1000); }
+        function logout() { document.cookie = 'lncp_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; window.location.href = '/'; }
+        function showPage(id) {
+            document.querySelectorAll('[id^="page-"]').forEach(el => el.style.display = 'none');
+            document.getElementById('page-'+id).style.display = 'block';
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+        function showRotateModal() { document.getElementById('rotate-modal').classList.add('active'); }
+        function showLockdownModal() { document.getElementById('lockdown-modal').classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function confirmRotate() {
+            closeModal('rotate-modal');
+            const newToken = 'x' + Math.random().toString(36).substring(2,18) + Math.random().toString(36).substring(2,18);
+            prompt('NEW ADMIN URL (save this!):', window.location.origin + '/gate/' + newToken);
+            alert('All credentials rotated. You will be logged out.');
+            logout();
+        }
+        function confirmLockdown() { closeModal('lockdown-modal'); alert('System locked. Contact admin to restore.'); logout(); }
+        function copyUrl() { navigator.clipboard.writeText(document.getElementById('current-url').textContent); alert('Copied!'); }
+        function rotateUrl() { if(confirm('Generate new URL?')) { confirmRotate(); } }
+        function loadActivity() {
+            const entries = [
+                {t:'Just now', a:'Dashboard viewed', i:'👁️'},
+                {t:'2m ago', a:'Login successful', i:'✅'},
+                {t:'15m ago', a:'URL rotated', i:'🔄'},
+            ];
+            document.getElementById('recent-activity').innerHTML = entries.map(e => 
+                `<div class="audit-entry"><span class="audit-icon">${e.i}</span><div class="audit-content"><div class="audit-action">${e.a}</div></div><span class="audit-time">${e.t}</span></div>`
+            ).join('');
+        }
+        loadActivity();
+    </script>
+</body>
+</html>

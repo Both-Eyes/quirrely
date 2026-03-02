@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- GA4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-HQ818WM2YB");</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Quirrely</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #FF6B6B;
+  --primary-dark: #E85555;
+  --primary-light: #FF8A8A;
+  --bg: #FFFBF5;
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #FFF8F0;
+  --text: #2D2D2D;
+  --text-muted: #7A7A7A;
+  --text-light: #A0A0A0;
+  --border: #F0EAE0;
+  --border-light: #F5F0E8;
+  --accent-coral: #FF6B6B;
+  --accent-amber: #FFB347;
+  --accent-teal: #4ECDC4;
+  --accent-purple: #9B59B6;
+  --accent-blue: #5B9BD5;
+  --accent-green: #6BCB77;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --sidebar-width: 300px;
+  --header-height: 64px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-dark); }
+button { cursor: pointer; font-family: var(--font-body); }
+img { max-width: 100%; }
+
+/* ===== LOADING SCREEN ===== */
+#loading-screen {
+  position: fixed; inset: 0; background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; transition: opacity 0.4s;
+}
+#loading-screen.fade-out { opacity: 0; pointer-events: none; }
+.loader { text-align: center; }
+.loader-acorn {
+  width: 40px; height: 40px; margin: 0 auto 16px;
+  border: 3px solid var(--border); border-top-color: var(--primary);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loader p { color: var(--text-muted); font-size: 0.9rem; }
+
+/* ===== HEADER ===== */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--header-height);
+  background: var(--bg-card); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 24px;
+  z-index: 100; box-shadow: var(--shadow-sm);
+}
+.header-logo { display: flex; align-items: center; gap: 10px; }
+.header-logo svg { width: 32px; height: 32px; }
+.header-logo span {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.25rem;
+  color: var(--text);
+}
+.header-nav { display: flex; align-items: center; gap: 6px; margin-left: 40px; }
+.header-nav a {
+  padding: 8px 16px; border-radius: var(--radius-sm);
+  font-size: 0.875rem; font-weight: 500; color: var(--text-muted);
+  transition: all 0.2s;
+}
+.header-nav a:hover, .header-nav a.active {
+  background: #FFF0EE; color: var(--primary);
+}
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+.tier-badge {
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.05em; padding: 4px 10px; border-radius: 20px;
+}
+.tier-badge.free { background: #F0F0F0; color: #888; }
+.tier-badge.pro { background: #FFF0EE; color: var(--primary); }
+.tier-badge.featured { background: #FFF3E0; color: #E67E22; }
+.tier-badge.authority { background: #EDE7F6; color: #7C3AED; }
+.user-menu {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  padding: 4px 8px; border-radius: var(--radius-sm); transition: background 0.2s;
+}
+.user-menu:hover { background: var(--bg-sidebar); }
+.user-avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--primary-light);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.85rem; color: white; overflow: hidden;
+}
+.user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.user-menu-name { font-size: 0.875rem; font-weight: 500; }
+.user-dropdown {
+  position: absolute; top: calc(var(--header-height) - 4px); right: 24px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  min-width: 200px; padding: 8px; display: none; z-index: 200;
+}
+.user-dropdown.show { display: block; }
+.user-dropdown a, .user-dropdown button {
+  display: block; width: 100%; text-align: left; padding: 10px 14px;
+  font-size: 0.875rem; color: var(--text); border: none; background: none;
+  border-radius: var(--radius-sm); transition: background 0.15s;
+}
+.user-dropdown a:hover, .user-dropdown button:hover { background: var(--bg-sidebar); }
+.user-dropdown .logout-btn { color: var(--primary); }
+
+/* ===== LAYOUT ===== */
+.layout {
+  display: flex; margin-top: var(--header-height); min-height: calc(100vh - var(--header-height));
+}
+.sidebar {
+  width: var(--sidebar-width); background: var(--bg-sidebar);
+  border-right: 1px solid var(--border); padding: 24px 20px;
+  position: sticky; top: var(--header-height); height: calc(100vh - var(--header-height));
+  overflow-y: auto; flex-shrink: 0;
+}
+.main { flex: 1; padding: 32px 40px; max-width: 960px; }
+
+/* ===== SIDEBAR PROFILE CARD ===== */
+.profile-card {
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 24px 20px; text-align: center; box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light); margin-bottom: 20px;
+}
+.profile-avatar {
+  width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 12px;
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-amber));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: white;
+  overflow: hidden; position: relative;
+}
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.featured-badge, .authority-badge {
+  position: absolute; bottom: -2px; right: -2px;
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; border: 2px solid var(--bg-card);
+}
+.featured-badge { background: #FFB347; }
+.authority-badge { background: #7C3AED; color: white; }
+.profile-name {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+.profile-location { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
+.profile-voice-tag {
+  display: inline-block; padding: 4px 14px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.04em; margin-bottom: 8px;
+}
+.profile-stance { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; }
+.profile-stats {
+  display: flex; justify-content: center; gap: 20px;
+  padding-top: 14px; border-top: 1px solid var(--border-light);
+}
+.profile-stat { text-align: center; }
+.profile-stat-val { font-weight: 700; font-size: 1.1rem; color: var(--text); }
+.profile-stat-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* ===== SIDEBAR QUICK ACTIONS ===== */
+.quick-actions { margin-bottom: 20px; }
+.quick-actions h3 {
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; padding: 0 4px;
+}
+.qa-btn {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 10px 14px; border: none; background: var(--bg-card);
+  border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--text);
+  transition: all 0.2s; margin-bottom: 4px; box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+}
+.qa-btn:hover { background: white; box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.qa-btn .qa-icon { font-size: 1rem; width: 24px; text-align: center; }
+.qa-btn.upgrade-btn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white; font-weight: 600; border: none;
+}
+.qa-btn.upgrade-btn:hover { filter: brightness(1.05); }
+
+/* ===== MAIN CONTENT CARDS ===== */
+.card {
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light); transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: var(--shadow-md); }
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+.card-title {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.15rem;
+}
+.card-action {
+  font-size: 0.8rem; font-weight: 500; color: var(--primary);
+  display: flex; align-items: center; gap: 4px;
+}
+.card-action:hover { color: var(--primary-dark); }
+
+/* ===== WELCOME BANNER ===== */
+.welcome-banner {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FFB347 50%, #4ECDC4 100%);
+  border-radius: var(--radius-lg); padding: 32px; margin-bottom: 24px;
+  color: white; position: relative; overflow: hidden;
+}
+.welcome-banner::before {
+  content: ''; position: absolute; top: -30%; right: -10%;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+.welcome-banner h1 {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.6rem;
+  margin-bottom: 6px; position: relative;
+}
+.welcome-banner p {
+  font-size: 0.95rem; opacity: 0.92; position: relative; max-width: 540px;
+}
+.welcome-new {
+  display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px;
+  border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+  margin-bottom: 10px; backdrop-filter: blur(4px);
+}
+
+/* ===== VOICE BREAKDOWN ===== */
+.voice-bars { display: flex; flex-direction: column; gap: 12px; }
+.voice-bar-row { display: flex; align-items: center; gap: 12px; }
+.voice-bar-label {
+  width: 100px; font-size: 0.8rem; font-weight: 500; color: var(--text);
+  text-align: right; flex-shrink: 0;
+}
+.voice-bar-track {
+  flex: 1; height: 28px; background: var(--bg); border-radius: 14px;
+  overflow: hidden; position: relative;
+}
+.voice-bar-fill {
+  height: 100%; border-radius: 14px; transition: width 1s cubic-bezier(0.22,1,0.36,1);
+  display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;
+  font-size: 0.7rem; font-weight: 700; color: white; min-width: 36px;
+}
+.voice-bar-fill.animate { width: 0 !important; }
+
+/* ===== WRITERS LIKE YOU ===== */
+.writer-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.writer-card {
+  background: var(--bg); border-radius: var(--radius); padding: 16px;
+  border: 1px solid var(--border-light); transition: all 0.2s;
+}
+.writer-card:hover { border-color: var(--primary-light); box-shadow: var(--shadow-sm); }
+.writer-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+.writer-card p { font-size: 0.78rem; color: var(--text-muted); }
+
+/* ===== BOOK RECOMMENDATIONS ===== */
+.book-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.book-card {
+  display: flex; gap: 14px; background: var(--bg); border-radius: var(--radius);
+  padding: 16px; border: 1px solid var(--border-light); transition: all 0.2s;
+}
+.book-card:hover { border-color: var(--accent-amber); box-shadow: var(--shadow-sm); }
+.book-cover {
+  width: 50px; height: 72px; border-radius: 4px; background: var(--border);
+  flex-shrink: 0; overflow: hidden;
+}
+.book-cover img { width: 100%; height: 100%; object-fit: cover; }
+.book-info h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; line-height: 1.3; }
+.book-info .book-author { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
+.book-link {
+  font-size: 0.75rem; font-weight: 600; color: var(--primary);
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.indigo-flag { font-size: 0.85rem; }
+
+/* ===== STRETCH SECTION ===== */
+.stretch-card {
+  background: linear-gradient(135deg, #FAFAF5 0%, #F0F8F0 100%);
+  border: 1px solid #E0EDDA;
+}
+.stretch-exercises { display: flex; flex-direction: column; gap: 10px; }
+.stretch-item {
+  display: flex; align-items: center; gap: 14px; padding: 14px;
+  background: white; border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+}
+.stretch-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent-teal), var(--accent-green));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.stretch-info { flex: 1; }
+.stretch-info h4 { font-size: 0.875rem; font-weight: 600; }
+.stretch-info p { font-size: 0.78rem; color: var(--text-muted); }
+.stretch-start {
+  padding: 6px 16px; border: none; border-radius: 20px;
+  background: var(--accent-teal); color: white; font-size: 0.78rem;
+  font-weight: 600; transition: all 0.2s;
+}
+.stretch-start:hover { filter: brightness(0.95); }
+
+/* ===== ACTIVITY FEED ===== */
+.activity-list { display: flex; flex-direction: column; gap: 10px; }
+.activity-item {
+  display: flex; align-items: center; gap: 14px; padding: 12px 16px;
+  background: var(--bg); border-radius: var(--radius-sm);
+}
+.activity-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.activity-text { font-size: 0.85rem; flex: 1; }
+.activity-time { font-size: 0.75rem; color: var(--text-light); white-space: nowrap; }
+
+/* ===== EVOLUTION CHART ===== */
+.evolution-chart {
+  width: 100%; height: 200px; position: relative;
+}
+.evolution-empty {
+  display: flex; align-items: center; justify-content: center;
+  height: 200px; color: var(--text-muted); font-size: 0.9rem;
+}
+
+/* ===== AUTHORITY SECTION ===== */
+.authority-metrics {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+}
+.auth-metric {
+  text-align: center; padding: 18px; background: var(--bg);
+  border-radius: var(--radius); border: 1px solid var(--border-light);
+}
+.auth-metric-val {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.8rem;
+  background: linear-gradient(135deg, #7C3AED, #9B59B6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.auth-metric-lbl { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+/* ===== UPGRADE CTA (Free tier) ===== */
+.upgrade-card {
+  background: linear-gradient(135deg, #FFF0EE 0%, #FFFBF5 100%);
+  border: 2px dashed var(--primary-light); text-align: center; padding: 36px;
+}
+.upgrade-card h3 {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+.upgrade-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px; max-width: 400px; margin-inline: auto; }
+.upgrade-cta {
+  display: inline-block; padding: 12px 32px; border-radius: 28px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white; font-weight: 700; font-size: 0.95rem;
+  border: none; transition: all 0.2s; box-shadow: 0 4px 16px rgba(255,107,107,0.3);
+}
+.upgrade-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,107,0.4); }
+
+/* ===== SHARE CARD ===== */
+.share-card { text-align: center; }
+.share-card p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 14px; }
+.share-btns { display: flex; justify-content: center; gap: 10px; }
+.share-btn {
+  padding: 8px 20px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+  border: 1px solid var(--border); background: white; color: var(--text);
+  transition: all 0.2s;
+}
+.share-btn:hover { border-color: var(--primary); color: var(--primary); }
+.share-btn.primary-btn {
+  background: var(--primary); color: white; border-color: var(--primary);
+}
+.share-btn.primary-btn:hover { background: var(--primary-dark); }
+.share-btn.linkedin-btn { background: #0A66C2; color: white; border-color: #0A66C2; }
+.share-btn.linkedin-btn:hover { background: #004182; }
+.share-btn.facebook-btn { background: #1877F2; color: white; border-color: #1877F2; }
+.share-btn.facebook-btn:hover { background: #0d5dc7; }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; padding: 14px 24px;
+  background: var(--text); color: white; border-radius: var(--radius);
+  font-size: 0.875rem; box-shadow: var(--shadow-lg); z-index: 1000;
+  transform: translateY(100px); opacity: 0; transition: all 0.3s;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ===== LOCKED OVERLAY ===== */
+.locked-overlay {
+  position: relative;
+}
+.locked-overlay::after {
+  content: '🔒 Upgrade to unlock'; position: absolute; inset: 0;
+  background: rgba(255,251,245,0.85); backdrop-filter: blur(3px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; font-weight: 600; color: var(--text-muted);
+  border-radius: var(--radius-lg); cursor: pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { padding: 20px; }
+  .header-nav { display: none; }
+  .authority-metrics { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .main { padding: 16px; }
+  .card { padding: 20px; }
+  .welcome-banner { padding: 24px; }
+  .welcome-banner h1 { font-size: 1.3rem; }
+  .writer-cards { grid-template-columns: 1fr; }
+  .book-cards { grid-template-columns: 1fr; }
+  .authority-metrics { grid-template-columns: 1fr; }
+}
+
+/* ===== SECTION TRANSITIONS ===== */
+.card { opacity: 0; transform: translateY(12px); animation: fadeUp 0.5s forwards; }
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.15s; }
+.card:nth-child(4) { animation-delay: 0.2s; }
+.card:nth-child(5) { animation-delay: 0.25s; }
+.card:nth-child(6) { animation-delay: 0.3s; }
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hide tier-specific sections by default */
+.tier-pro, .tier-featured, .tier-authority { display: none; }
+body.is-pro .tier-pro,
+body.is-featured .tier-pro, body.is-featured .tier-featured,
+body.is-authority .tier-pro, body.is-authority .tier-featured, body.is-authority .tier-authority {
+  display: block;
+}
+body.is-pro .tier-free-only,
+body.is-featured .tier-free-only,
+body.is-authority .tier-free-only {
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+  <div class="loader">
+    <div class="loader-acorn"></div>
+    <p>Loading your dashboard…</p>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <a href="/frontend/index.html" class="header-logo">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="45" fill="#FF6B6B"/>
+      <ellipse cx="38" cy="42" rx="5" ry="6" fill="#2D2D2D"/>
+      <ellipse cx="62" cy="42" rx="5" ry="6" fill="#2D2D2D"/>
+      <ellipse cx="39" cy="40" rx="2" ry="2.5" fill="white"/>
+      <ellipse cx="63" cy="40" rx="2" ry="2.5" fill="white"/>
+      <path d="M40 58 Q50 66 60 58" stroke="#2D2D2D" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="30" cy="52" rx="8" ry="5" fill="#FFB3B3" opacity="0.6"/>
+      <ellipse cx="70" cy="52" rx="8" ry="5" fill="#FFB3B3" opacity="0.6"/>
+      <path d="M30 20 Q25 5 40 15 Q35 8 45 18" fill="#FFB347"/>
+      <path d="M70 20 Q75 5 60 15 Q65 8 55 18" fill="#FFB347"/>
+      <ellipse cx="50" cy="70" rx="4" ry="3" fill="#FFB347"/>
+    </svg>
+    <span>Quirrely</span>
+  </a>
+  <nav class="header-nav">
+    <a href="/dashboard" class="active">Dashboard</a>
+    <a href="/frontend/index.html">Retake Test</a>
+    <a href="/blog/index.html">Blog</a>
+    <a href="/faq">FAQ</a>
+    <a href="/settings">Settings</a>
+  </nav>
+  <div class="header-right">
+    <span class="tier-badge" id="tierBadge">FREE</span>
+    <div class="user-menu" id="userMenuToggle" onclick="toggleUserMenu()">
+      <div class="user-avatar" id="headerAvatar">?</div>
+      <span class="user-menu-name" id="headerName">Loading...</span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+    <div class="user-dropdown" id="userDropdown">
+      <a href="/settings">⚙️ Settings</a>
+      <a href="#" onclick="viewPublicProfile(); return false;">👤 Public Profile</a>
+      <a href="/frontend/export.html">📦 Export Data</a>
+      <hr style="border:none;border-top:1px solid var(--border);margin:4px 0;">
+      <button class="logout-btn" onclick="doLogout()">Log out</button>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="profile-card">
+      <div class="profile-avatar" id="sidebarAvatar">?</div>
+      <div class="profile-name" id="sidebarName">—</div>
+      <div class="profile-location" id="sidebarLocation"></div>
+      <div class="profile-voice-tag" id="sidebarVoiceTag" style="display:none;"></div>
+      <div class="profile-stance" id="sidebarStance"></div>
+      <div class="profile-stats">
+        <div class="profile-stat">
+          <div class="profile-stat-val" id="statTests">0</div>
+          <div class="profile-stat-lbl">Tests</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-val" id="statWords">0</div>
+          <div class="profile-stat-lbl">Words</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-val" id="statConsistency">—</div>
+          <div class="profile-stat-lbl">Consistency</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <h3>Quick Actions</h3>
+      <a href="/frontend/index.html" class="qa-btn">
+        <span class="qa-icon">✍️</span> Take New Test
+      </a>
+      <button class="qa-btn" onclick="viewPublicProfile()">
+        <span class="qa-icon">👤</span> View Public Profile
+      </button>
+      <button class="qa-btn" onclick="submitForFeatured()">
+        <span class="qa-icon">⭐</span> Submit for Featured
+      </button>
+      <a href="/frontend/export.html" class="qa-btn">
+        <span class="qa-icon">📦</span> Export Data
+      </a>
+      <div class="tier-free-only">
+        <a href="/billing/" class="qa-btn upgrade-btn">
+          <span class="qa-icon">🚀</span> Upgrade Your Plan
+        </a>
+      </div>
+    </div>
+
+    <div style="padding:4px;margin-top:auto;">
+      <div style="font-size:0.7rem;color:var(--text-light);text-align:center;">
+        <a href="/blog/terms.html" style="color:var(--text-light);">Terms</a> ·
+        <a href="/blog/privacy.html" style="color:var(--text-light);">Privacy</a> ·
+        <a href="/blog/affiliates.html" style="color:var(--text-light);">Affiliates</a> ·
+        <a href="mailto:support@quirrely.ca" style="color:var(--text-light);">Support</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main" id="mainContent">
+    <!-- Welcome Banner -->
+    <div class="welcome-banner" id="welcomeBanner">
+      <span class="welcome-new" id="welcomeTag" style="display:none;">🎉 Welcome to Quirrely!</span>
+      <h1 id="welcomeHeading">Welcome back!</h1>
+      <p id="welcomeSubtext">Here's what your writing voice looks like today.</p>
+    </div>
+
+    <!-- Voice Breakdown -->
+    <div class="card" id="voiceCard">
+      <div class="card-header">
+        <span class="card-title">Your Voice Breakdown</span>
+        <a href="/frontend/index.html" class="card-action">Retake Test →</a>
+      </div>
+      <div class="voice-bars" id="voiceBars">
+        <div class="evolution-empty" id="noVoiceData">
+          <div style="text-align:center;">
+            <div style="font-size:2rem;margin-bottom:8px;">✍️</div>
+            <p>No analysis yet. <a href="/frontend/index.html">Take your first test</a> to see your voice breakdown.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voice Evolution (Pro+) -->
+    <div class="card tier-pro" id="evolutionCard">
+      <div class="card-header">
+        <span class="card-title">Voice Evolution</span>
+        <span class="card-action" style="color:var(--text-muted);font-size:0.75rem;" id="evolutionInfo">Tracks changes over multiple tests</span>
+      </div>
+      <div id="evolutionContent">
+        <div class="evolution-empty">Take 2+ tests to see how your voice evolves over time.</div>
+      </div>
+    </div>
+
+    <!-- Writers Like You (Pro+) -->
+    <div class="card tier-pro" id="writersCard">
+      <div class="card-header">
+        <span class="card-title">Writers Like You</span>
+        <a href="/frontend/index.html" class="card-action">Explore all →</a>
+      </div>
+      <div class="writer-cards" id="writerCards">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Book Recommendations (Pro+) -->
+    <div class="card tier-pro" id="booksCard">
+      <div class="card-header">
+        <span class="card-title">📚 Recommended Reading</span>
+        <span style="font-size:0.7rem;color:var(--text-muted);">🍁 Support Canadian bookstores</span>
+      </div>
+      <div class="book-cards" id="bookCards">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- STRETCH Exercises (Pro+) -->
+    <div class="card tier-pro stretch-card" id="stretchCard">
+      <div class="card-header">
+        <span class="card-title">🌱 STRETCH Exercises</span>
+        <a href="#" onclick="showToast('STRETCH library coming soon!');return false;" class="card-action">See all →</a>
+      </div>
+      <div class="stretch-exercises" id="stretchExercises">
+        <div class="evolution-empty">
+          <div style="text-align:center;">
+            <div style="font-size:2rem;margin-bottom:8px;">🌱</div>
+            <p>Checking your STRETCH eligibility...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Section -->
+    <div class="card tier-featured" id="featuredCard">
+      <div class="card-header">
+        <span class="card-title">⭐ Featured Writer</span>
+        <a href="#" onclick="showToast('Featured writers directory coming soon!');return false;" class="card-action">Community →</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;padding:10px 0;">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FFB347,#FF6B6B);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">⭐</div>
+        <div>
+          <div style="font-weight:600;margin-bottom:2px;">You're a Featured Writer!</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);">Your profile is visible in the Quirrely community. Other writers can discover your voice and connect with you.</div>
+        </div>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:10px;">
+        <button class="share-btn primary-btn" onclick="viewPublicProfile()">View Your Public Profile</button>
+        <button class="share-btn" onclick="showToast('Curator tools coming soon!')">Curator Tools Preview</button>
+      </div>
+    </div>
+
+    <!-- Authority Section -->
+    <div class="card tier-authority" id="authorityCard">
+      <div class="card-header">
+        <span class="card-title">👑 Authority Dashboard</span>
+        <a href="#" onclick="showToast('Advanced analytics coming soon!');return false;" class="card-action">Full analytics →</a>
+      </div>
+      <div class="authority-metrics" id="authorityMetrics">
+        <div class="auth-metric">
+          <div class="auth-metric-val" id="authReach">—</div>
+          <div class="auth-metric-lbl">Profile Views</div>
+        </div>
+        <div class="auth-metric">
+          <div class="auth-metric-val" id="authInfluence">—</div>
+          <div class="auth-metric-lbl">Influence Score</div>
+        </div>
+        <div class="auth-metric">
+          <div class="auth-metric-val" id="authCurated">—</div>
+          <div class="auth-metric-lbl">Curated Works</div>
+        </div>
+      </div>
+      <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="share-btn" onclick="showToast('Meta-analysis tools coming soon!')">🔬 Meta-Analysis</button>
+        <button class="share-btn" onclick="showToast('Curator management coming soon!')">📋 Manage Curations</button>
+        <button class="share-btn" onclick="showToast('Advanced analytics coming soon!')">📊 Deep Analytics</button>
+      </div>
+    </div>
+
+    <!-- Upgrade CTA (Free only) -->
+    <div class="card upgrade-card tier-free-only" id="upgradeCard">
+      <h3>Unlock Your Full Voice Profile</h3>
+      <p>Get matched with writers like you, personalized book recommendations, STRETCH exercises, and so much more.</p>
+      <a href="/billing/" class="upgrade-cta">Upgrade to Pro — $9/mo</a>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card" id="activityCard">
+      <div class="card-header">
+        <span class="card-title">Recent Activity</span>
+      </div>
+      <div class="activity-list" id="activityList">
+        <div class="evolution-empty" id="noActivity">
+          <div style="text-align:center;">
+            <div style="font-size:1.5rem;margin-bottom:8px;">📝</div>
+            <p>No activity yet. <a href="/frontend/index.html">Take a test</a> to get started.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Share Profile -->
+    <div class="card share-card">
+      <div class="card-title" style="margin-bottom:8px;">Share Your Voice Profile</div>
+      <p>Let the world know your writing voice type.</p>
+      <div class="share-btns">
+        <button class="share-btn" onclick="copyProfileLink()">📋 Copy Link</button>
+        <button class="share-btn linkedin-btn" onclick="shareLinkedIn()">in LinkedIn</button>
+        <button class="share-btn facebook-btn" onclick="shareFacebook()">f Facebook</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   QUIRRELY SMART DASHBOARD
+   Tier-adaptive: free / pro / featured / authority
+   ============================================================ */
+
+// ===== STYLE DATA =====
+const STYLE_COLORS = {
+  assertive: ['#FF6B6B', '#E85555'],
+  minimal: ['#5B9BD5', '#4A8BC4'],
+  poetic: ['#9B59B6', '#8844A0'],
+  analytical: ['#4ECDC4', '#3DBCB3'],
+  conversational: ['#FFB347', '#E8A030'],
+  provocative: ['#E74C3C', '#CF3A2E'],
+  reflective: ['#6BCB77', '#5AB866'],
+  technical: ['#3498DB', '#2980B9'],
+  narrative: ['#F39C12', '#D68910'],
+  persuasive: ['#E67E22', '#CF6D17']
+};
+
+const STYLE_LABELS = {
+  score_assertive: 'Assertive',
+  score_minimal: 'Minimal',
+  score_poetic: 'Poetic',
+  score_analytical: 'Analytical',
+  score_conversational: 'Conversational',
+  score_provocative: 'Provocative',
+  score_reflective: 'Reflective',
+  score_technical: 'Technical',
+  score_narrative: 'Narrative',
+  score_persuasive: 'Persuasive'
+};
+
+const WRITERS_BY_STYLE = {
+  conversational: [
+    { name: 'Nora Ephron', note: 'Warm, witty, effortlessly personal' },
+    { name: 'David Sedaris', note: 'Dry humor meets everyday storytelling' },
+    { name: 'Roxane Gay', note: 'Candid cultural commentary' }
+  ],
+  assertive: [
+    { name: 'Christopher Hitchens', note: 'Fearless intellectual provocation' },
+    { name: 'Ta-Nehisi Coates', note: 'Uncompromising moral clarity' },
+    { name: 'Joan Didion', note: 'Precise, unflinching observation' }
+  ],
+  poetic: [
+    { name: 'Ocean Vuong', note: 'Lyrical, deeply felt prose' },
+    { name: 'Maggie Nelson', note: 'Blurs poetry and philosophy' },
+    { name: 'Mary Oliver', note: 'Nature as spiritual practice' }
+  ],
+  analytical: [
+    { name: 'Malcolm Gladwell', note: 'Makes complexity accessible' },
+    { name: 'Atul Gawande', note: 'Medical precision meets humanity' },
+    { name: 'Nate Silver', note: 'Data-driven storytelling' }
+  ],
+  minimal: [
+    { name: 'Raymond Carver', note: 'Says everything with nothing' },
+    { name: 'Ernest Hemingway', note: 'The iceberg theory master' },
+    { name: 'Amy Hempel', note: 'Brevity as emotional force' }
+  ],
+  provocative: [
+    { name: 'Hunter S. Thompson', note: 'Gonzo journalism pioneer' },
+    { name: 'Chuck Palahniuk', note: 'Transgressive, visceral, unforgettable' },
+    { name: 'Bret Easton Ellis', note: 'Detached cultural critique' }
+  ],
+  reflective: [
+    { name: 'Marilynne Robinson', note: 'Deep spiritual contemplation' },
+    { name: 'Pico Iyer', note: 'Stillness in a moving world' },
+    { name: 'Annie Dillard', note: 'Mystical nature observation' }
+  ],
+  technical: [
+    { name: 'Paul Graham', note: 'Startup wisdom, clear thinking' },
+    { name: 'Cal Newport', note: 'Deep work philosophy' },
+    { name: 'James Clear', note: 'Systems over goals' }
+  ],
+  narrative: [
+    { name: 'Chimamanda Ngozi Adichie', note: 'Vivid, sweeping storytelling' },
+    { name: 'Anthony Bourdain', note: 'Food as cultural journey' },
+    { name: 'Jon Krakauer', note: 'Adventure as human drama' }
+  ],
+  persuasive: [
+    { name: 'Brené Brown', note: 'Vulnerability as strength' },
+    { name: 'Simon Sinek', note: 'Start with Why framework' },
+    { name: 'Seth Godin', note: 'Marketing as art form' }
+  ]
+};
+
+const BOOKS_BY_STYLE = {
+  conversational: [
+    { title: 'I Feel Bad About My Neck', author: 'Nora Ephron', isbn: '9780307276827' },
+    { title: 'Me Talk Pretty One Day', author: 'David Sedaris', isbn: '9780316776967' }
+  ],
+  assertive: [
+    { title: 'Between the World and Me', author: 'Ta-Nehisi Coates', isbn: '9780451482211' },
+    { title: 'The Year of Magical Thinking', author: 'Joan Didion', isbn: '9781400078431' }
+  ],
+  poetic: [
+    { title: 'On Earth We\'re Briefly Gorgeous', author: 'Ocean Vuong', isbn: '9780525562023' },
+    { title: 'Bluets', author: 'Maggie Nelson', isbn: '9781933517407' }
+  ],
+  analytical: [
+    { title: 'Outliers', author: 'Malcolm Gladwell', isbn: '9780316017930' },
+    { title: 'Being Mortal', author: 'Atul Gawande', isbn: '9780805095159' }
+  ],
+  minimal: [
+    { title: 'What We Talk About When We Talk About Love', author: 'Raymond Carver', isbn: '9780679723059' },
+    { title: 'The Old Man and the Sea', author: 'Ernest Hemingway', isbn: '9780684801223' }
+  ],
+  provocative: [
+    { title: 'Fear and Loathing in Las Vegas', author: 'Hunter S. Thompson', isbn: '9780679785897' },
+    { title: 'Fight Club', author: 'Chuck Palahniuk', isbn: '9780393327342' }
+  ],
+  reflective: [
+    { title: 'Gilead', author: 'Marilynne Robinson', isbn: '9780312424404' },
+    { title: 'The Art of Stillness', author: 'Pico Iyer', isbn: '9781476784724' }
+  ],
+  technical: [
+    { title: 'Hackers & Painters', author: 'Paul Graham', isbn: '9781449389550' },
+    { title: 'Deep Work', author: 'Cal Newport', isbn: '9781455586691' }
+  ],
+  narrative: [
+    { title: 'Americanah', author: 'Chimamanda Ngozi Adichie', isbn: '9780307455925' },
+    { title: 'Kitchen Confidential', author: 'Anthony Bourdain', isbn: '9780060899226' }
+  ],
+  persuasive: [
+    { title: 'Daring Greatly', author: 'Brené Brown', isbn: '9781592408412' },
+    { title: 'Start with Why', author: 'Simon Sinek', isbn: '9781591846444' }
+  ]
+};
+
+const BOOKSTORE_BY_COUNTRY = {
+  CA: { name: 'Indigo', template: 'https://www.indigo.ca/en-ca/search/?keywords={isbn}', cta: 'View at Indigo', flag: '🍁', color: '#006848' },
+  GB: { name: 'Waterstones', template: 'https://www.waterstones.com/search?term={isbn}', cta: 'View at Waterstones', flag: '🇬🇧', color: '#1B4D3E' },
+  UK: { name: 'Waterstones', template: 'https://www.waterstones.com/search?term={isbn}', cta: 'View at Waterstones', flag: '🇬🇧', color: '#1B4D3E' },
+  AU: { name: 'Booktopia', template: 'https://www.booktopia.com.au/search.ep?keywords={isbn}', cta: 'View at Booktopia', flag: '🇦🇺', color: '#E31837' },
+  NZ: { name: 'Mighty Ape', template: 'https://www.mightyape.co.nz/books?q={isbn}', cta: 'View at Mighty Ape', flag: '🇳🇿', color: '#FF6600' },
+};
+function getBookstore(country) {
+  return BOOKSTORE_BY_COUNTRY[(country||'CA').toUpperCase()] || BOOKSTORE_BY_COUNTRY.CA;
+}
+const COUNTRY_FLAGS = {
+  'CA': '🇨🇦', 'US': '🇺🇸', 'GB': '🇬🇧', 'AU': '🇦🇺', 'FR': '🇫🇷',
+  'DE': '🇩🇪', 'JP': '🇯🇵', 'IN': '🇮🇳', 'BR': '🇧🇷', 'MX': '🇲🇽',
+  'IT': '🇮🇹', 'ES': '🇪🇸', 'NL': '🇳🇱', 'SE': '🇸🇪', 'NZ': '🇳🇿'
+};
+
+// ===== AUTH =====
+function getSession() {
+  try {
+    const s = JSON.parse(localStorage.getItem('quirrely_session') || 'null');
+    const u = JSON.parse(localStorage.getItem('quirrely_user') || 'null');
+    if (s && s.token && u && u.id) return { token: s.token, user: u };
+    return null;
+  } catch { return null; }
+}
+
+function requireAuth() {
+  const session = getSession();
+  if (!session) {
+    window.location.href = '/auth/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
+    return null;
+  }
+  return session;
+}
+
+function doLogout() {
+  const session = getSession();
+  if (session) {
+    fetch('/api/v2/auth/logout', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + session.token }
+    }).catch(() => {});
+  }
+  localStorage.removeItem('quirrely_session');
+  localStorage.removeItem('quirrely_user');
+  window.location.href = '/auth/login.html';
+}
+
+// ===== API HELPERS =====
+async function apiGet(path, token) {
+  const res = await fetch(path, {
+    headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' }
+  });
+  if (!res.ok) throw new Error(`API ${res.status}`);
+  return res.json();
+}
+
+// ===== TOAST =====
+function showToast(msg, duration = 3000) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+// ===== USER MENU =====
+function toggleUserMenu() {
+  document.getElementById('userDropdown').classList.toggle('show');
+}
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.user-menu') && !e.target.closest('.user-dropdown')) {
+    document.getElementById('userDropdown').classList.remove('show');
+  }
+});
+
+// ===== PROFILE HELPERS =====
+function getInitial(name) {
+  return (name || '?').charAt(0).toUpperCase();
+}
+
+function formatLocation(user) {
+  const parts = [];
+  if (user.city) parts.push(user.city);
+  if (user.country) {
+    const flag = COUNTRY_FLAGS[user.country.toUpperCase()] || '';
+    parts.push(flag + ' ' + user.country);
+  }
+  return parts.join(', ');
+}
+
+function timeAgo(dateStr) {
+  if (!dateStr) return '';
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + 'h ago';
+  const days = Math.floor(hrs / 24);
+  if (days < 30) return days + 'd ago';
+  return Math.floor(days / 30) + 'mo ago';
+}
+
+function formatNumber(n) {
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+  return String(n || 0);
+}
+
+// ===== VIEW PUBLIC PROFILE =====
+function viewPublicProfile() {
+  const session = getSession();
+  if (!session) return;
+  const name = session.user.name || session.user.display_name;
+  if (name && name !== session.user.email?.split('@')[0]) {
+    window.open('/profile/' + encodeURIComponent(name), '_blank');
+  } else {
+    showToast('Set a username in Settings first');
+    setTimeout(() => window.location.href = '/settings', 1500);
+  }
+}
+
+// ===== SUBMIT FOR FEATURED =====
+function submitForFeatured() {
+  const session = getSession();
+  if (!session) return;
+  const tier = (session.user.subscription_tier || 'free').toLowerCase();
+  if (tier === 'free') {
+    showToast('Upgrade to Pro to submit for Featured status');
+    return;
+  }
+  showToast('Featured submissions opening soon! We\'ll notify you.');
+}
+
+// ===== SHARE =====
+function copyProfileLink() {
+  const session = getSession();
+  const name = session?.user?.name || session?.user?.display_name || '';
+  const url = name ? (window.location.origin + '/profile/' + encodeURIComponent(name)) : window.location.origin;
+  navigator.clipboard.writeText(url).then(() => showToast('Profile link copied!')).catch(() => showToast('Could not copy link'));
+}
+function shareFacebook() {
+  const url = encodeURIComponent(window.location.origin);
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+function shareLinkedIn() {
+  const url = encodeURIComponent(window.location.origin);
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+}
+
+// ===== RENDER VOICE BARS =====
+function renderVoiceBars(scores) {
+  if (!scores || Object.keys(scores).length === 0) return;
+  const container = document.getElementById('voiceBars');
+  const noData = document.getElementById('noVoiceData');
+  if (noData) noData.style.display = 'none';
+  container.innerHTML = '';
+
+  const sorted = Object.entries(scores)
+    .filter(([k]) => k.startsWith('score_'))
+    .sort((a, b) => b[1] - a[1]);
+
+  sorted.forEach(([key, val], i) => {
+    const styleName = key.replace('score_', '');
+    const colors = STYLE_COLORS[styleName] || ['#ccc', '#aaa'];
+    const label = STYLE_LABELS[key] || styleName;
+    const row = document.createElement('div');
+    row.className = 'voice-bar-row';
+    row.innerHTML = `
+      <span class="voice-bar-label">${label}</span>
+      <div class="voice-bar-track">
+        <div class="voice-bar-fill animate" style="background:linear-gradient(90deg,${colors[0]},${colors[1]});width:${val}%;" data-width="${val}%">
+          ${val}
+        </div>
+      </div>
+    `;
+    container.appendChild(row);
+    // Animate in
+    setTimeout(() => {
+      row.querySelector('.voice-bar-fill').classList.remove('animate');
+      row.querySelector('.voice-bar-fill').style.width = val + '%';
+    }, 100 + i * 80);
+  });
+}
+
+// ===== RENDER WRITERS =====
+function renderWriters(voiceType, stance) {
+  const writers = WRITERS_BY_STYLE[voiceType] || WRITERS_BY_STYLE.conversational;
+  const st = (stance || 'open').toLowerCase();
+  const blogSlug = '/blog/how-' + voiceType + '-' + st + '-writers-write.html';
+  const container = document.getElementById('writerCards');
+  container.innerHTML = `
+    <div style="margin-bottom:12px;">
+      <a href="${blogSlug}" style="font-size:0.85rem;color:var(--primary);text-decoration:none;font-weight:500;">📖 Read: How ${voiceType} + ${st} writers write →</a>
+    </div>
+  ` + writers.map(w => `
+    <div class="writer-card">
+      <h4>${w.name}</h4>
+      <p>${w.note}</p>
+      <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(w.name.replace(/ /g,'_'))}" target="_blank" rel="noopener" style="font-size:0.78rem;color:var(--text-muted);text-decoration:none;">About this writer →</a>
+    </div>
+  `).join('');
+}
+
+// ===== RENDER BOOKS =====
+function renderBooks(voiceType, country) {
+  const books = BOOKS_BY_STYLE[voiceType] || BOOKS_BY_STYLE.conversational;
+  const store = getBookstore(country);
+  const container = document.getElementById('bookCards');
+  container.innerHTML = books.map(b => `
+    <div class="book-card">
+      <div class="book-cover">
+        <img src="https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg" alt="${b.title}" onerror="this.parentElement.innerHTML='📖'">
+      </div>
+      <div class="book-info">
+        <h4>${b.title}</h4>
+        <div class="book-author">${b.author}</div>
+        <a href="${store.template.replace('{isbn}',b.isbn)}" target="_blank" rel="noopener" class="book-link" style="color:${store.color}">
+          ${store.flag} ${store.cta}
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== RENDER ACTIVITY =====
+function renderActivity(profiles) {
+  if (!profiles || profiles.length === 0) return;
+  const container = document.getElementById('activityList');
+  const noAct = document.getElementById('noActivity');
+  if (noAct) noAct.style.display = 'none';
+
+  const colors = ['var(--accent-coral)', 'var(--accent-teal)', 'var(--accent-amber)', 'var(--accent-purple)', 'var(--accent-blue)'];
+  container.innerHTML = profiles.slice(0, 8).map((p, i) => `
+    <div class="activity-item">
+      <div class="activity-dot" style="background:${colors[i % colors.length]};"></div>
+      <div class="activity-text">
+        Analyzed <strong>${p.word_count || '—'} words</strong> — voice: <em>${p.profile || 'unknown'}</em>
+      </div>
+      <div class="activity-time">${timeAgo(p.created_at)}</div>
+    </div>
+  `).join('');
+}
+
+// ===== RENDER STRETCH =====
+async function renderStretch(userId, token) {
+  const container = document.getElementById('stretchExercises');
+  try {
+    const elig = await apiGet(`/api/stretch/eligibility/${userId}`, token);
+    if (!elig.eligible) {
+      container.innerHTML = `<div class="evolution-empty"><div style="text-align:center;"><p>Complete at least one writing test to unlock STRETCH exercises.</p></div></div>`;
+      return;
+    }
+    const rec = await apiGet(`/api/stretch/recommend/${userId}`, token);
+    if (!rec.exercises || rec.exercises.length === 0) {
+      container.innerHTML = `<div class="evolution-empty"><div style="text-align:center;"><p>No exercises available right now. Check back soon!</p></div></div>`;
+      return;
+    }
+    container.innerHTML = rec.exercises.slice(0, 3).map(ex => `
+      <div class="stretch-item">
+        <div class="stretch-icon">🌱</div>
+        <div class="stretch-info">
+          <h4>${ex.title || ex.name || 'Exercise'}</h4>
+          <p>${ex.description || 'Expand your writing range'}</p>
+        </div>
+        <button class="stretch-start" onclick="startStretch('${ex.id || ''}')">Start</button>
+      </div>
+    `).join('');
+  } catch (err) {
+    container.innerHTML = `<div class="evolution-empty"><div style="text-align:center;"><p>STRETCH exercises loading... <a href="#" onclick="renderStretch('${userId}','${token}');return false;">Retry</a></p></div></div>`;
+  }
+}
+
+async function startStretch(exerciseId) {
+  const session = getSession();
+  if (!session || !exerciseId) { showToast('Coming soon!'); return; }
+  try {
+    const res = await fetch('/api/stretch/start', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + session.token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ exercise_id: exerciseId })
+    });
+    if (res.ok) {
+      showToast('STRETCH exercise started! 🌱');
+    } else {
+      showToast('Could not start exercise. Try again.');
+    }
+  } catch { showToast('Connection error. Try again.'); }
+}
+
+// ===== RENDER EVOLUTION =====
+function renderEvolution(profiles) {
+  const container = document.getElementById('evolutionContent');
+  if (!profiles || profiles.length < 2) return;
+
+  // Simple text-based evolution for now
+  const latest = profiles[0];
+  const earliest = profiles[profiles.length - 1];
+  container.innerHTML = `
+    <div style="display:flex;align-items:center;gap:20px;padding:10px 0;">
+      <div style="flex:1;text-align:center;padding:16px;background:var(--bg);border-radius:var(--radius);border:1px solid var(--border-light);">
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">First Test</div>
+        <div style="font-weight:600;text-transform:capitalize;">${earliest.profile || '—'}</div>
+        <div style="font-size:0.75rem;color:var(--text-light);">${timeAgo(earliest.created_at)}</div>
+      </div>
+      <div style="font-size:1.5rem;">→</div>
+      <div style="flex:1;text-align:center;padding:16px;background:var(--bg);border-radius:var(--radius);border:2px solid var(--primary-light);">
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">Latest</div>
+        <div style="font-weight:600;text-transform:capitalize;">${latest.profile || '—'}</div>
+        <div style="font-size:0.75rem;color:var(--text-light);">${timeAgo(latest.created_at)}</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:10px;font-size:0.85rem;color:var(--text-muted);">
+      ${profiles.length} tests analyzed · Voice consistency tracked over time
+    </div>
+  `;
+}
+
+// ===== RENDER AUTHORITY METRICS =====
+async function renderAuthorityMetrics(token) {
+  try {
+    const data = await apiGet('/api/v2/analytics/me/summary', token);
+    document.getElementById('authReach').textContent = formatNumber(data.profile_views || 0);
+    document.getElementById('authInfluence').textContent = data.influence_score || '—';
+    document.getElementById('authCurated').textContent = data.curated_count || 0;
+  } catch {
+    // Use placeholders
+    document.getElementById('authReach').textContent = '—';
+    document.getElementById('authInfluence').textContent = '—';
+    document.getElementById('authCurated').textContent = '—';
+  }
+}
+
+// ===== SET TIER =====
+function setTier(tier) {
+  const t = (tier || 'free').toLowerCase();
+  document.body.className = 'is-' + t;
+
+  const badge = document.getElementById('tierBadge');
+  badge.textContent = t.toUpperCase();
+  badge.className = 'tier-badge ' + t;
+}
+
+// ===== MAIN INIT =====
+async function init() {
+  const session = requireAuth();
+  if (!session) return;
+
+  const { token, user } = session;
+  const tier = (user.subscription_tier || 'free').toLowerCase();
+  setTier(tier);
+
+  // Check for welcome param
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('welcome') === 'true') {
+    document.getElementById('welcomeTag').style.display = 'inline-block';
+    document.getElementById('welcomeHeading').textContent = 'Welcome to Quirrely! 🎉';
+    document.getElementById('welcomeSubtext').textContent = 'Your account is all set. Take your first writing test to discover your voice.';
+  }
+
+  // Set header info immediately from localStorage
+  const displayName = user.name || user.display_name || user.email?.split('@')[0] || 'Writer';
+  document.getElementById('headerName').textContent = displayName;
+  document.getElementById('headerAvatar').textContent = getInitial(displayName);
+  document.getElementById('sidebarName').textContent = displayName;
+  document.getElementById('sidebarAvatar').textContent = getInitial(displayName);
+
+  // Store voiceType for share
+  session.user._voiceType = 'unique';
+
+  // Fetch full dashboard data
+  try {
+    const data = await apiGet('/api/v2/me/dashboard', token);
+
+    // Update user info
+    const u = data.user || {};
+    const name = u.display_name || displayName;
+    document.getElementById('headerName').textContent = name;
+    document.getElementById('headerAvatar').textContent = getInitial(name);
+    document.getElementById('sidebarName').textContent = name;
+    document.getElementById('sidebarAvatar').textContent = getInitial(name);
+
+    if (u.avatar_url) {
+      document.getElementById('headerAvatar').innerHTML = `<img src="${u.avatar_url}" alt="">`;
+      document.getElementById('sidebarAvatar').innerHTML = `<img src="${u.avatar_url}" alt="">`;
+    }
+
+    // Update tier from server (authoritative)
+    const serverTier = (u.subscription_tier || tier).toLowerCase();
+    if (serverTier !== tier) {
+      setTier(serverTier);
+      // Update localStorage
+      user.subscription_tier = serverTier;
+      localStorage.setItem('quirrely_user', JSON.stringify(user));
+    }
+
+    // Location
+    const loc = formatLocation(u);
+    document.getElementById('sidebarLocation').textContent = loc;
+
+    // Profile/voice
+    const lp = data.latest_profile;
+    if (lp) {
+      // Derive dominant voice from cumulative avg_scores (not just latest test)
+      const avgS = data.avg_scores || {};
+      const avgEntries = Object.entries(avgS)
+        .map(([k,v]) => [k.replace('score_',''), v || 0])
+        .filter(([k]) => !['open','closed','stance_balanced','contradictory'].includes(k))
+        .sort((a,b) => b[1] - a[1]);
+      const voiceType = (avgEntries.length > 0 && avgEntries[0][1] > 0)
+        ? avgEntries[0][0]
+        : (lp.profile || 'conversational').toLowerCase();
+      session.user._voiceType = voiceType;
+
+      const voiceTag = document.getElementById('sidebarVoiceTag');
+      voiceTag.textContent = voiceType;
+      voiceTag.style.display = 'inline-block';
+      const vc = STYLE_COLORS[voiceType] || ['#ccc', '#aaa'];
+      voiceTag.style.background = vc[0] + '20';
+      voiceTag.style.color = vc[0];
+
+      document.getElementById('sidebarStance').textContent = lp.stance ? ('Stance: ' + lp.stance) : '';
+
+      // Voice bars
+      const scores = data.avg_scores || {};
+      renderVoiceBars(scores);
+
+      // Welcome text update
+      if (!params.get('welcome')) {
+        document.getElementById('welcomeHeading').textContent = `Welcome back, ${name}!`;
+        document.getElementById('welcomeSubtext').textContent = `Your dominant voice is ${voiceType}. Here's your full breakdown.`;
+      }
+
+      // Writers & Books (Pro+)
+      if (['pro', 'featured', 'authority'].includes(serverTier)) {
+        renderWriters(voiceType, lp.stance);
+        renderBooks(voiceType, (u.country||'CA'));
+      }
+    }
+
+    // Stats
+    const stats = data.stats || {};
+    document.getElementById('statTests').textContent = stats.test_count || 0;
+    document.getElementById('statWords').textContent = formatNumber(stats.total_words || 0);
+    document.getElementById('statConsistency').textContent = stats.consistency ? (stats.consistency + '%') : '—';
+
+    // Activity
+    renderActivity(data.profiles || []);
+
+    // Evolution (Pro+)
+    if (['pro', 'featured', 'authority'].includes(serverTier) && data.profiles?.length >= 2) {
+      renderEvolution(data.profiles);
+    }
+
+    // STRETCH (Pro+)
+    if (['pro', 'featured', 'authority'].includes(serverTier) && u.id) {
+      renderStretch(u.id, token);
+    }
+
+    // Authority metrics
+    if (serverTier === 'authority') {
+      renderAuthorityMetrics(token);
+    }
+
+    // Featured badge in sidebar
+    if (serverTier === 'featured' || serverTier === 'authority') {
+      const avatarEl = document.getElementById('sidebarAvatar');
+      const badgeClass = serverTier === 'authority' ? 'authority-badge' : 'featured-badge';
+      const badgeIcon = serverTier === 'authority' ? '👑' : '⭐';
+      avatarEl.style.position = 'relative';
+      const badge = document.createElement('div');
+      badge.className = badgeClass;
+      badge.textContent = badgeIcon;
+      avatarEl.appendChild(badge);
+    }
+
+  } catch (err) {
+    console.error('Dashboard API error:', err);
+    // Still show basic UI from localStorage
+    document.getElementById('welcomeHeading').textContent = `Welcome back, ${displayName}!`;
+    document.getElementById('welcomeSubtext').textContent = 'Having trouble loading your data. Some features may be limited.';
+    showToast('Could not load full dashboard data. Please refresh.');
+  }
+
+  // Hide loading screen
+  const ls = document.getElementById('loading-screen');
+  ls.classList.add('fade-out');
+  setTimeout(() => ls.remove(), 500);
+}
+
+// ===== GO =====
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

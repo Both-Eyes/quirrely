@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Quirrely Admin Hub</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+  <style>
+    :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#e6edf3; --muted:#8b949e; --primary:#FF6B6B; --success:#00B894; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:system-ui,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+    .container { max-width:900px; margin:0 auto; padding:2rem; }
+    h1 { font-size:1.75rem; margin-bottom:0.25rem; }
+    .subtitle { color:var(--muted); margin-bottom:2rem; }
+    #gate { text-align:center; padding:6rem 2rem; }
+    #gate input { padding:0.75rem 1rem; border:1px solid var(--border); border-radius:8px; font-size:1rem; width:380px; background:var(--card); color:var(--text); margin-right:0.5rem; }
+    #gate button { padding:0.75rem 1.5rem; background:var(--primary); color:white; border:none; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; }
+    #gate-err { color:#E74C3C; margin-top:0.5rem; display:none; }
+    #hub { display:none; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; margin-bottom:2rem; }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.5rem; text-decoration:none; color:var(--text); transition:border-color 0.2s; }
+    .card:hover { border-color:var(--primary); }
+    .card h3 { font-size:1rem; margin-bottom:0.5rem; }
+    .card p { font-size:0.85rem; color:var(--muted); }
+    .card .icon { font-size:1.5rem; margin-bottom:0.75rem; }
+    .section-title { font-size:0.85rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:0.75rem; }
+    .status { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--success); margin-right:0.5rem; }
+    .header-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; }
+    .logout { color:var(--muted); cursor:pointer; font-size:0.85rem; text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="gate">
+      <h1>Quirrely Admin</h1>
+      <p class="subtitle">Enter your admin key to continue</p>
+      <input type="password" id="ak" placeholder="Admin API Key" autocomplete="off">
+      <button onclick="unlock()">Unlock</button>
+      <p id="gate-err">Invalid key</p>
+    </div>
+    <div id="hub">
+      <div class="header-bar">
+        <div><h1><span class="status"></span>Quirrely Admin Hub</h1><p class="subtitle">System management and review tools</p></div>
+        <span class="logout" onclick="lockout()">Lock</span>
+      </div>
+      <p class="section-title">System</p>
+      <div class="grid">
+        <a href="/super-admin-dashboard.html" class="card"><div class="icon">📡</div><h3>System Pulse</h3><p>Real-time system health, observers, and metrics</p></a>
+        <a href="/admin/super-admin.html" class="card"><div class="icon">🧠</div><h3>LNCP Dashboard</h3><p>Full super admin with actions, opportunities, risks</p></a>
+        <a href="/admin/command_center.html" class="card"><div class="icon">🎛️</div><h3>Command Center</h3><p>Operational controls and system commands</p></a>
+      </div>
+      <p class="section-title">Content &amp; Users</p>
+      <div class="grid">
+        <a href="/admin/master_dashboard.html" class="card"><div class="icon">📊</div><h3>Master Dashboard</h3><p>User stats, signups, and engagement overview</p></a>
+        <a href="/admin/review-queue.html" class="card"><div class="icon">📋</div><h3>Review Queue</h3><p>Content review and moderation queue</p></a>
+        <a href="/blog/admin-featured.html" class="card"><div class="icon">✨</div><h3>Featured Writers</h3><p>Review and approve featured writer submissions</p></a>
+      </div>
+      <p class="section-title">Quick Stats</p>
+      <div class="grid">
+        <div class="card" id="stats-card"><div class="icon">⏳</div><h3>Loading...</h3><p>Fetching system stats</p></div>
+      </div>
+    </div>
+  </div>
+<script>
+async function unlock(){
+  var key=document.getElementById('ak').value.trim();
+  if(!key){document.getElementById('gate-err').style.display='block';return;}
+  try{
+    var r=await fetch('/api/v2/featured/admin/pending',{headers:{'X-Admin-Key':key}});
+    if(r.status===403){document.getElementById('gate-err').style.display='block';return;}
+    sessionStorage.setItem('quirrely_admin_key',key);
+    showHub();
+  }catch(e){document.getElementById('gate-err').style.display='block';}
+}
+function showHub(){
+  document.getElementById('gate').style.display='none';
+  document.getElementById('hub').style.display='block';
+  loadStats();
+}
+function lockout(){
+  sessionStorage.removeItem('quirrely_admin_key');
+  document.getElementById('hub').style.display='none';
+  document.getElementById('gate').style.display='block';
+  document.getElementById('ak').value='';
+}
+async function loadStats(){
+  var sc=document.getElementById('stats-card');
+  try{
+    var key=sessionStorage.getItem('quirrely_admin_key');
+    var r=await fetch('/api/admin/v2/overview',{headers:{'X-Admin-Key':key}});
+    var d=await r.json();
+    sc.innerHTML='<div class="icon">📈</div><h3>System Overview</h3>'
+      +'<p>Users: '+(d.users||0)+' | Waitlist: '+(d.waitlist||0)+'</p>';
+  }catch(e){sc.innerHTML='<div class="icon">📈</div><h3>Stats</h3><p>Could not load</p>';}
+}
+(function(){
+  var k=sessionStorage.getItem('quirrely_admin_key');
+  if(k) showHub();
+  document.getElementById('ak').addEventListener('keypress',function(e){if(e.key==='Enter')unlock();});
+})();
+</script>
+</body>
+</html>

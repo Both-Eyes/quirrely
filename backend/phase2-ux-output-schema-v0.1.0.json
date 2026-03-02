@@ -1,0 +1,325 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase2-ux-output-schema-v0.1.0",
+  "title": "Phase-2 UX Output Schema",
+  "description": "Schema for Phase-2 user-facing presentation layer consuming Phase-1 output",
+  "type": "object",
+  "required": ["phase2_version", "source_contract_version", "presentation_mode", "outputs"],
+  "additionalProperties": false,
+  "properties": {
+    "phase2_version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "source_contract_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "presentation_mode": {
+      "type": "string",
+      "enum": ["DESCRIPTIVE", "REFLECTIVE"]
+    },
+    "outputs": {
+      "type": "object",
+      "required": [
+        "output_01",
+        "output_02",
+        "output_03",
+        "output_04",
+        "output_05",
+        "output_06",
+        "output_07",
+        "output_08",
+        "output_09",
+        "output_10"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "output_01": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_01"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "How Much You Shared"
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "output_02": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_02"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "Word-Level Detail"
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "output_03": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_03"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "Structural Fingerprints"
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "output_04": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_04"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "Your Most Common Patterns"
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "output_05": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_05"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "What's Left Unsaid"
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "output_06": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_06"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "Connective Moves"
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "output_07": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_07"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "Layered Meaning"
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "output_08": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_08"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "Complexity at a Glance"
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "output_09": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_09"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "How Your Patterns Combine"
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "output_10": {
+          "type": "object",
+          "required": ["output_id", "name_user_facing", "status", "explanation", "example_insights"],
+          "additionalProperties": false,
+          "properties": {
+            "output_id": {
+              "type": "string",
+              "const": "output_10"
+            },
+            "name_user_facing": {
+              "type": "string",
+              "const": "Your Structural Codes"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["AVAILABLE", "NOT_AVAILABLE"]
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "example_insights": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(\\S+\\s){7,13}\\S+$"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        }
+      }
+    }
+  }
+}

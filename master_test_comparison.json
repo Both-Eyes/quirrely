@@ -1,0 +1,754 @@
+{
+  "original": {
+    "meta": {
+      "run_started_at": "2026-02-14T17:49:14.481806",
+      "run_completed_at": "2026-02-14T17:49:15.502279",
+      "duration_seconds": 1.020473
+    },
+    "config": {
+      "total_users": 4667,
+      "simulation_days": 90,
+      "seed": 42,
+      "direct_traffic_pct": 0.6,
+      "com_traffic_pct": 0.4,
+      "com_to_ca_pct": 0.35,
+      "com_to_uk_pct": 0.3,
+      "com_to_au_pct": 0.2,
+      "com_to_nz_pct": 0.1,
+      "com_to_other_pct": 0.05,
+      "signup_rate": 0.3,
+      "first_analysis_rate": 0.6,
+      "hit_limit_rate": 0.4,
+      "trial_start_rate": 0.7,
+      "trial_convert_rate": 0.25,
+      "featured_eligible_rate": 0.15,
+      "featured_submit_rate": 0.6,
+      "featured_approve_rate": 0.7,
+      "authority_rate": 0.1,
+      "daily_active_rate": 0.3,
+      "streak_continue_rate": 0.7,
+      "exploration_rate": 0.2,
+      "base_churn_rate": 0.02,
+      "inactive_churn_multiplier": 3.0,
+      "avg_days_to_signup": 2,
+      "avg_days_to_first_analysis": 3,
+      "avg_days_to_hit_limit": 14,
+      "trial_duration_days": 7,
+      "avg_days_to_featured_eligible": 45,
+      "avg_days_to_authority": 120
+    },
+    "baseline": {
+      "signup_rate": 0.3,
+      "first_analysis_rate": 0.6,
+      "trial_start_rate": 0.7,
+      "trial_convert_rate": 0.25,
+      "featured_approve_rate": 0.7,
+      "avg_user_value": 3.5,
+      "value_per_subscriber": 8.0,
+      "avg_streak_length": 5.0,
+      "exploration_rate": 0.2,
+      "monthly_churn_rate": 0.05,
+      "token_velocity": 0.5,
+      "country_deviation_tolerance": 0.15,
+      "entry_type_deviation_tolerance": 0.1
+    },
+    "simulation_results": {
+      "config": {
+        "total_users": 4667,
+        "simulation_days": 90,
+        "seed": 42,
+        "direct_traffic_pct": 0.6,
+        "com_traffic_pct": 0.4,
+        "com_to_ca_pct": 0.35,
+        "com_to_uk_pct": 0.3,
+        "com_to_au_pct": 0.2,
+        "com_to_nz_pct": 0.1,
+        "com_to_other_pct": 0.05,
+        "signup_rate": 0.3,
+        "first_analysis_rate": 0.6,
+        "hit_limit_rate": 0.4,
+        "trial_start_rate": 0.7,
+        "trial_convert_rate": 0.25,
+        "featured_eligible_rate": 0.15,
+        "featured_submit_rate": 0.6,
+        "featured_approve_rate": 0.7,
+        "authority_rate": 0.1,
+        "daily_active_rate": 0.3,
+        "streak_continue_rate": 0.7,
+        "exploration_rate": 0.2,
+        "base_churn_rate": 0.02,
+        "inactive_churn_multiplier": 3.0,
+        "avg_days_to_signup": 2,
+        "avg_days_to_first_analysis": 3,
+        "avg_days_to_hit_limit": 14,
+        "trial_duration_days": 7,
+        "avg_days_to_featured_eligible": 45,
+        "avg_days_to_authority": 120
+      },
+      "summary": {
+        "total_users": 6530,
+        "simulation_days": 90,
+        "total_events": 46378
+      },
+      "stage_distribution": {
+        "visitor": 0,
+        "signed_up": 27,
+        "first_analysis": 1144,
+        "hit_limit": 61,
+        "trial_started": 258,
+        "trial_converted": 3837,
+        "subscribed": 1203,
+        "featured_eligible": 0,
+        "featured_submitted": 0,
+        "featured_approved": 0,
+        "authority": 0,
+        "churned": 0
+      },
+      "country_stats": {
+        "ca": {
+          "total_users": 1914,
+          "signed_up": 1572,
+          "subscribed": 348,
+          "featured": 0,
+          "authority": 0,
+          "churned": 100,
+          "total_value": 5641.003,
+          "avg_value": 2.94723249738767
+        },
+        "uk": {
+          "total_users": 1725,
+          "signed_up": 1407,
+          "subscribed": 306,
+          "featured": 0,
+          "authority": 0,
+          "churned": 80,
+          "total_value": 4999.046,
+          "avg_value": 2.8979976811594206
+        },
+        "au": {
+          "total_users": 1539,
+          "signed_up": 1224,
+          "subscribed": 269,
+          "featured": 0,
+          "authority": 0,
+          "churned": 80,
+          "total_value": 4499.4245,
+          "avg_value": 2.9236026640675763
+        },
+        "nz": {
+          "total_users": 1352,
+          "signed_up": 1122,
+          "subscribed": 280,
+          "featured": 0,
+          "authority": 0,
+          "churned": 64,
+          "total_value": 3970.466,
+          "avg_value": 2.9367352071005914
+        }
+      },
+      "entry_stats": {
+        "direct": {
+          "total_users": 4664,
+          "conversion_rate": 0.18181818181818182,
+          "avg_value": 2.9274888507718697
+        },
+        "via_com": {
+          "total_users": 1866,
+          "conversion_rate": 0.1902465166130761,
+          "avg_value": 2.9239718649517688
+        }
+      },
+      "generation_distribution": {
+        "0": {
+          "count": 27,
+          "total_value": 25.683
+        },
+        "1": {
+          "count": 1206,
+          "total_value": 2551.848
+        },
+        "2": {
+          "count": 5285,
+          "total_value": 16476.895
+        },
+        "3": {
+          "count": 12,
+          "total_value": 55.5135
+        },
+        "4": {
+          "count": 0,
+          "total_value": 0
+        },
+        "5": {
+          "count": 0,
+          "total_value": 0
+        }
+      },
+      "value_metrics": {
+        "total_value": 19109.9395,
+        "mean_value": 2.926483843797856,
+        "max_value": 5.355,
+        "min_value": 0.0
+      },
+      "funnel_rates": {
+        "visitor_to_signed_up": 0,
+        "signed_up_to_first_analysis": 1.2262910798122066,
+        "first_analysis_to_hit_limit": 0.8248085758039816,
+        "hit_limit_to_trial_started": 0.04790196806535462,
+        "trial_started_to_subscribed": 20.53488372093023,
+        "subscribed_to_featured_eligible": 1.2325405813514534,
+        "featured_eligible_to_featured_submitted": 1.0,
+        "featured_submitted_to_featured_approved": 1.0,
+        "featured_approved_to_authority": 1.0
+      },
+      "churn_stats": {
+        "total_churned": 324,
+        "churn_rate": 0.04961715160796325
+      }
+    },
+    "prescriptive_actions": {
+      "total": 7,
+      "by_severity": {
+        "opportunity": 4,
+        "watch": 1,
+        "risk": 2
+      },
+      "actions": [
+        {
+          "severity": "risk",
+          "category": "funnel",
+          "title": "Signup conversion below baseline",
+          "description": "Signup converting at 0.0% vs 30.0% baseline (-100.0%)",
+          "current_value": 0,
+          "baseline_value": 0.3,
+          "delta_percent": -100.0,
+          "country_code": null,
+          "funnel_stage": "visitor_to_signed_up",
+          "token_generation": null,
+          "action_recommended": "Audit signup flow for friction points",
+          "action_impact": "Blocking user progression",
+          "action_effort": "medium",
+          "priority_score": 160
+        },
+        {
+          "severity": "risk",
+          "category": "funnel",
+          "title": "Trial Start conversion below baseline",
+          "description": "Trial Start converting at 4.8% vs 70.0% baseline (-93.2%)",
+          "current_value": 0.04790196806535462,
+          "baseline_value": 0.7,
+          "delta_percent": -93.15686170494934,
+          "country_code": null,
+          "funnel_stage": "hit_limit_to_trial_started",
+          "token_generation": null,
+          "action_recommended": "Audit trial start flow for friction points",
+          "action_impact": "Blocking user progression",
+          "action_effort": "medium",
+          "priority_score": 160
+        },
+        {
+          "severity": "watch",
+          "category": "funnel",
+          "title": "Gen 3\u21924 progression low (Featured)",
+          "description": "Only 0.0% of behavioral users becoming Featured",
+          "current_value": 0.0,
+          "baseline_value": 0.15,
+          "delta_percent": -30,
+          "country_code": null,
+          "funnel_stage": null,
+          "token_generation": 3,
+          "action_recommended": "Review Featured eligibility criteria, submission friction, review queue speed",
+          "action_impact": "Limiting recognition program effectiveness",
+          "action_effort": "medium",
+          "priority_score": 110
+        },
+        {
+          "severity": "opportunity",
+          "category": "funnel",
+          "title": "First Analysis conversion exceeds baseline",
+          "description": "First Analysis converting at 122.6% vs 60.0% baseline (+104.4%)",
+          "current_value": 1.2262910798122066,
+          "baseline_value": 0.6,
+          "delta_percent": 104.38184663536778,
+          "country_code": null,
+          "funnel_stage": "signed_up_to_first_analysis",
+          "token_generation": null,
+          "action_recommended": "Investigate what's driving first analysis success and amplify",
+          "action_impact": "Could increase downstream conversions",
+          "action_effort": "low",
+          "priority_score": 145
+        },
+        {
+          "severity": "opportunity",
+          "category": "funnel",
+          "title": "Trial Conversion conversion exceeds baseline",
+          "description": "Trial Conversion converting at 2053.5% vs 25.0% baseline (+8114.0%)",
+          "current_value": 20.53488372093023,
+          "baseline_value": 0.25,
+          "delta_percent": 8113.953488372093,
+          "country_code": null,
+          "funnel_stage": "trial_started_to_subscribed",
+          "token_generation": null,
+          "action_recommended": "Investigate what's driving trial conversion success and amplify",
+          "action_impact": "Could increase downstream conversions",
+          "action_effort": "low",
+          "priority_score": 145
+        },
+        {
+          "severity": "opportunity",
+          "category": "funnel",
+          "title": "Featured Approval conversion exceeds baseline",
+          "description": "Featured Approval converting at 100.0% vs 70.0% baseline (+42.9%)",
+          "current_value": 1.0,
+          "baseline_value": 0.7,
+          "delta_percent": 42.85714285714287,
+          "country_code": null,
+          "funnel_stage": "featured_submitted_to_featured_approved",
+          "token_generation": null,
+          "action_recommended": "Investigate what's driving featured approval success and amplify",
+          "action_impact": "Could increase downstream conversions",
+          "action_effort": "low",
+          "priority_score": 145
+        },
+        {
+          "severity": "opportunity",
+          "category": "retention",
+          "title": "Churn rate better than expected",
+          "description": "Churn at 5.0% vs 15.0% expected (-66.9%)",
+          "current_value": 0.04961715160796325,
+          "baseline_value": 0.15000000000000002,
+          "delta_percent": -66.9218989280245,
+          "country_code": null,
+          "funnel_stage": null,
+          "token_generation": null,
+          "action_recommended": "Document retention drivers, consider sharing as marketing proof point",
+          "action_impact": "Strong foundation for growth",
+          "action_effort": "low",
+          "priority_score": 145
+        }
+      ]
+    },
+    "system_pulse": {
+      "overall_health": 86,
+      "health_breakdown": {
+        "conversion": 100,
+        "value": 83,
+        "retention": 75
+      },
+      "key_metrics": {
+        "total_users": 6530,
+        "total_value": 19109.9395,
+        "avg_value": 2.926483843797856,
+        "trial_conversion": 20.53488372093023,
+        "churn_rate": 0.04961715160796325
+      },
+      "top_actions": [
+        {
+          "severity": "risk",
+          "title": "Signup conversion below baseline",
+          "action": "Audit signup flow for friction points"
+        },
+        {
+          "severity": "risk",
+          "title": "Trial Start conversion below baseline",
+          "action": "Audit trial start flow for friction points"
+        },
+        {
+          "severity": "watch",
+          "title": "Gen 3\u21924 progression low (Featured)",
+          "action": "Review Featured eligibility criteria, submission friction, review queue speed"
+        },
+        {
+          "severity": "opportunity",
+          "title": "First Analysis conversion exceeds baseline",
+          "action": "Investigate what's driving first analysis success and amplify"
+        },
+        {
+          "severity": "opportunity",
+          "title": "Trial Conversion conversion exceeds baseline",
+          "action": "Investigate what's driving trial conversion success and amplify"
+        }
+      ]
+    }
+  },
+  "optimized": {
+    "meta": {
+      "run_started_at": "2026-02-14T17:49:15.502553",
+      "run_completed_at": "2026-02-14T17:49:16.731827",
+      "duration_seconds": 1.229274
+    },
+    "config": {
+      "total_users": 4667,
+      "simulation_days": 90,
+      "seed": 43,
+      "direct_traffic_pct": 0.6,
+      "com_traffic_pct": 0.4,
+      "com_to_ca_pct": 0.35,
+      "com_to_uk_pct": 0.3,
+      "com_to_au_pct": 0.2,
+      "com_to_nz_pct": 0.1,
+      "com_to_other_pct": 0.05,
+      "signup_rate": 0.35,
+      "first_analysis_rate": 0.65,
+      "hit_limit_rate": 0.45,
+      "trial_start_rate": 0.45,
+      "trial_convert_rate": 0.28,
+      "featured_eligible_rate": 0.25,
+      "featured_submit_rate": 0.7,
+      "featured_approve_rate": 0.75,
+      "authority_rate": 0.12,
+      "daily_active_rate": 0.4,
+      "streak_continue_rate": 0.85,
+      "exploration_rate": 0.25,
+      "base_churn_rate": 0.015,
+      "inactive_churn_multiplier": 2.5,
+      "avg_days_to_signup": 2,
+      "avg_days_to_first_analysis": 2,
+      "avg_days_to_hit_limit": 12,
+      "trial_duration_days": 7,
+      "avg_days_to_featured_eligible": 35,
+      "avg_days_to_authority": 100
+    },
+    "baseline": {
+      "signup_rate": 0.35,
+      "first_analysis_rate": 0.65,
+      "trial_start_rate": 0.45,
+      "trial_convert_rate": 0.28,
+      "featured_approve_rate": 0.75,
+      "avg_user_value": 4.0,
+      "value_per_subscriber": 9.0,
+      "avg_streak_length": 7.0,
+      "exploration_rate": 0.25,
+      "monthly_churn_rate": 0.04,
+      "token_velocity": 0.6,
+      "country_deviation_tolerance": 0.15,
+      "entry_type_deviation_tolerance": 0.1
+    },
+    "simulation_results": {
+      "config": {
+        "total_users": 4667,
+        "simulation_days": 90,
+        "seed": 43,
+        "direct_traffic_pct": 0.6,
+        "com_traffic_pct": 0.4,
+        "com_to_ca_pct": 0.35,
+        "com_to_uk_pct": 0.3,
+        "com_to_au_pct": 0.2,
+        "com_to_nz_pct": 0.1,
+        "com_to_other_pct": 0.05,
+        "signup_rate": 0.35,
+        "first_analysis_rate": 0.65,
+        "hit_limit_rate": 0.45,
+        "trial_start_rate": 0.45,
+        "trial_convert_rate": 0.28,
+        "featured_eligible_rate": 0.25,
+        "featured_submit_rate": 0.7,
+        "featured_approve_rate": 0.75,
+        "authority_rate": 0.12,
+        "daily_active_rate": 0.4,
+        "streak_continue_rate": 0.85,
+        "exploration_rate": 0.25,
+        "base_churn_rate": 0.015,
+        "inactive_churn_multiplier": 2.5,
+        "avg_days_to_signup": 2,
+        "avg_days_to_first_analysis": 2,
+        "avg_days_to_hit_limit": 12,
+        "trial_duration_days": 7,
+        "avg_days_to_featured_eligible": 35,
+        "avg_days_to_authority": 100
+      },
+      "summary": {
+        "total_users": 6530,
+        "simulation_days": 90,
+        "total_events": 60567
+      },
+      "stage_distribution": {
+        "visitor": 0,
+        "signed_up": 10,
+        "first_analysis": 549,
+        "hit_limit": 50,
+        "trial_started": 188,
+        "trial_converted": 4116,
+        "subscribed": 1586,
+        "featured_eligible": 8,
+        "featured_submitted": 1,
+        "featured_approved": 22,
+        "authority": 0,
+        "churned": 0
+      },
+      "country_stats": {
+        "ca": {
+          "total_users": 1914,
+          "signed_up": 1729,
+          "subscribed": 458,
+          "featured": 9,
+          "authority": 0,
+          "churned": 64,
+          "total_value": 6791.575,
+          "avg_value": 3.548367293625914
+        },
+        "uk": {
+          "total_users": 1725,
+          "signed_up": 1562,
+          "subscribed": 457,
+          "featured": 6,
+          "authority": 0,
+          "churned": 53,
+          "total_value": 6112.1075,
+          "avg_value": 3.543250724637681
+        },
+        "au": {
+          "total_users": 1539,
+          "signed_up": 1388,
+          "subscribed": 367,
+          "featured": 4,
+          "authority": 0,
+          "churned": 46,
+          "total_value": 5415.939,
+          "avg_value": 3.5191286549707606
+        },
+        "nz": {
+          "total_users": 1352,
+          "signed_up": 1221,
+          "subscribed": 335,
+          "featured": 3,
+          "authority": 0,
+          "churned": 35,
+          "total_value": 4774.201,
+          "avg_value": 3.5312137573964497
+        }
+      },
+      "entry_stats": {
+        "direct": {
+          "total_users": 4664,
+          "conversion_rate": 0.24571183533447685,
+          "avg_value": 3.538155445969125
+        },
+        "via_com": {
+          "total_users": 1866,
+          "conversion_rate": 0.25241157556270094,
+          "avg_value": 3.5326181672025725
+        }
+      },
+      "generation_distribution": {
+        "0": {
+          "count": 10,
+          "total_value": 10.34
+        },
+        "1": {
+          "count": 162,
+          "total_value": 344.142
+        },
+        "2": {
+          "count": 5966,
+          "total_value": 20523.7775
+        },
+        "3": {
+          "count": 370,
+          "total_value": 1886.8605
+        },
+        "4": {
+          "count": 22,
+          "total_value": 328.7025
+        },
+        "5": {
+          "count": 0,
+          "total_value": 0
+        }
+      },
+      "value_metrics": {
+        "total_value": 23093.8225,
+        "mean_value": 3.536573124042879,
+        "max_value": 18.27,
+        "min_value": 1.02
+      },
+      "funnel_rates": {
+        "visitor_to_signed_up": 0,
+        "signed_up_to_first_analysis": 1.1015254237288135,
+        "first_analysis_to_hit_limit": 0.915525465456224,
+        "hit_limit_to_trial_started": 0.03159663865546219,
+        "trial_started_to_subscribed": 31.329787234042552,
+        "subscribed_to_featured_eligible": 1.1049235993208828,
+        "featured_eligible_to_featured_submitted": 0.9987707437000615,
+        "featured_submitted_to_featured_approved": 1.0046153846153847,
+        "featured_approved_to_authority": 1.0
+      },
+      "churn_stats": {
+        "total_churned": 198,
+        "churn_rate": 0.030321592649310874
+      }
+    },
+    "prescriptive_actions": {
+      "total": 7,
+      "by_severity": {
+        "opportunity": 4,
+        "watch": 1,
+        "risk": 2
+      },
+      "actions": [
+        {
+          "severity": "risk",
+          "category": "funnel",
+          "title": "Signup conversion below baseline",
+          "description": "Signup converting at 0.0% vs 35.0% baseline (-100.0%)",
+          "current_value": 0,
+          "baseline_value": 0.35,
+          "delta_percent": -100.0,
+          "country_code": null,
+          "funnel_stage": "visitor_to_signed_up",
+          "token_generation": null,
+          "action_recommended": "Audit signup flow for friction points",
+          "action_impact": "Blocking user progression",
+          "action_effort": "medium",
+          "priority_score": 160
+        },
+        {
+          "severity": "risk",
+          "category": "funnel",
+          "title": "Trial Start conversion below baseline",
+          "description": "Trial Start converting at 3.2% vs 45.0% baseline (-93.0%)",
+          "current_value": 0.03159663865546219,
+          "baseline_value": 0.45,
+          "delta_percent": -92.97852474323062,
+          "country_code": null,
+          "funnel_stage": "hit_limit_to_trial_started",
+          "token_generation": null,
+          "action_recommended": "Audit trial start flow for friction points",
+          "action_impact": "Blocking user progression",
+          "action_effort": "medium",
+          "priority_score": 160
+        },
+        {
+          "severity": "watch",
+          "category": "funnel",
+          "title": "Gen 3\u21924 progression low (Featured)",
+          "description": "Only 5.9% of behavioral users becoming Featured",
+          "current_value": 0.05945945945945946,
+          "baseline_value": 0.15,
+          "delta_percent": -30,
+          "country_code": null,
+          "funnel_stage": null,
+          "token_generation": 3,
+          "action_recommended": "Review Featured eligibility criteria, submission friction, review queue speed",
+          "action_impact": "Limiting recognition program effectiveness",
+          "action_effort": "medium",
+          "priority_score": 110
+        },
+        {
+          "severity": "opportunity",
+          "category": "funnel",
+          "title": "First Analysis conversion exceeds baseline",
+          "description": "First Analysis converting at 110.2% vs 65.0% baseline (+69.5%)",
+          "current_value": 1.1015254237288135,
+          "baseline_value": 0.65,
+          "delta_percent": 69.46544980443284,
+          "country_code": null,
+          "funnel_stage": "signed_up_to_first_analysis",
+          "token_generation": null,
+          "action_recommended": "Investigate what's driving first analysis success and amplify",
+          "action_impact": "Could increase downstream conversions",
+          "action_effort": "low",
+          "priority_score": 145
+        },
+        {
+          "severity": "opportunity",
+          "category": "funnel",
+          "title": "Trial Conversion conversion exceeds baseline",
+          "description": "Trial Conversion converting at 3133.0% vs 28.0% baseline (+11089.2%)",
+          "current_value": 31.329787234042552,
+          "baseline_value": 0.28,
+          "delta_percent": 11089.209726443767,
+          "country_code": null,
+          "funnel_stage": "trial_started_to_subscribed",
+          "token_generation": null,
+          "action_recommended": "Investigate what's driving trial conversion success and amplify",
+          "action_impact": "Could increase downstream conversions",
+          "action_effort": "low",
+          "priority_score": 145
+        },
+        {
+          "severity": "opportunity",
+          "category": "funnel",
+          "title": "Featured Approval conversion exceeds baseline",
+          "description": "Featured Approval converting at 100.5% vs 75.0% baseline (+33.9%)",
+          "current_value": 1.0046153846153847,
+          "baseline_value": 0.75,
+          "delta_percent": 33.94871794871796,
+          "country_code": null,
+          "funnel_stage": "featured_submitted_to_featured_approved",
+          "token_generation": null,
+          "action_recommended": "Investigate what's driving featured approval success and amplify",
+          "action_impact": "Could increase downstream conversions",
+          "action_effort": "low",
+          "priority_score": 145
+        },
+        {
+          "severity": "opportunity",
+          "category": "retention",
+          "title": "Churn rate better than expected",
+          "description": "Churn at 3.0% vs 12.0% expected (-74.7%)",
+          "current_value": 0.030321592649310874,
+          "baseline_value": 0.12,
+          "delta_percent": -74.73200612557427,
+          "country_code": null,
+          "funnel_stage": null,
+          "token_generation": null,
+          "action_recommended": "Document retention drivers, consider sharing as marketing proof point",
+          "action_impact": "Strong foundation for growth",
+          "action_effort": "low",
+          "priority_score": 145
+        }
+      ]
+    },
+    "system_pulse": {
+      "overall_health": 90,
+      "health_breakdown": {
+        "conversion": 100,
+        "value": 88,
+        "retention": 84
+      },
+      "key_metrics": {
+        "total_users": 6530,
+        "total_value": 23093.8225,
+        "avg_value": 3.536573124042879,
+        "trial_conversion": 31.329787234042552,
+        "churn_rate": 0.030321592649310874
+      },
+      "top_actions": [
+        {
+          "severity": "risk",
+          "title": "Signup conversion below baseline",
+          "action": "Audit signup flow for friction points"
+        },
+        {
+          "severity": "risk",
+          "title": "Trial Start conversion below baseline",
+          "action": "Audit trial start flow for friction points"
+        },
+        {
+          "severity": "watch",
+          "title": "Gen 3\u21924 progression low (Featured)",
+          "action": "Review Featured eligibility criteria, submission friction, review queue speed"
+        },
+        {
+          "severity": "opportunity",
+          "title": "First Analysis conversion exceeds baseline",
+          "action": "Investigate what's driving first analysis success and amplify"
+        },
+        {
+          "severity": "opportunity",
+          "title": "Trial Conversion conversion exceeds baseline",
+          "action": "Investigate what's driving trial conversion success and amplify"
+        }
+      ]
+    }
+  },
+  "improvement": {
+    "health_delta": 4,
+    "value_delta": 3983.882999999998,
+    "subscription_delta": 414,
+    "subscription_delta_pct": 34.413965087281795,
+    "churn_delta": -1.9295558958652372,
+    "risks_delta": 0
+  }
+}

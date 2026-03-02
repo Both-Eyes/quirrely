@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HQ818WM2YB');</script>
+
+  <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Your Writing | Quirrely Featured Writers</title>
+  <meta name="description" content="Submit your writing to be featured on Quirrely. Pro members can showcase their unique voice to our community of writers.">
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    /* === Quirrely Blog Nav (injected by fix_blog.py) === */
+    .header { background: #FFFFFF; border-bottom: 1px solid #E9ECEF; padding: 1rem 2rem; margin: -2rem -2rem 2rem -2rem; }
+    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .header .logo { font-size: 1.25rem; font-weight: 700; text-decoration: none; color: #2D3436; }
+    .header .logo span { color: #FF6B6B; }
+    .nav { display: flex; gap: 1.5rem; align-items: center; }
+    .nav a { text-decoration: none; color: #636E72; font-size: 0.9rem; font-weight: 500; }
+    .nav a:hover, .nav a.active { color: #2D3436; }
+    .nav .cta { background: #FF6B6B; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; }
+    .nav .cta:hover { opacity: 0.9; color: white; }
+    /* === End Blog Nav CSS === */
+    :root { --bg: #FFFBF5; --ink: #2D3436; --primary: #FF6B6B; --muted: #636E72; --border: #E9ECEF; --pro: #FF6B6B; --success: #00B894; --warning: #FDCB6E; --danger: #E74C3C; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+    .container { max-width: 700px; margin: 0 auto; padding: 2rem; }
+    .logo { font-size: 1.25rem; font-weight: 700; margin-bottom: 2rem; }
+    .logo a { text-decoration: none; color: inherit; }
+    .logo span { color: var(--primary); }
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--muted); margin-bottom: 2rem; }
+    
+    .pro-badge { display: inline-block; background: var(--pro); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem; }
+    
+    .form-section { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+    .form-section h2 { font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    
+    .form-group { margin-bottom: 1.25rem; }
+    label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .label-hint { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
+    
+    input, textarea { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 16px; font-family: inherit; }
+    input:focus, textarea:focus { outline: none; border-color: var(--pro); }
+    textarea { min-height: 150px; resize: vertical; }
+    
+    .char-count { text-align: right; font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+    .char-count.warning { color: var(--warning); }
+    .char-count.error { color: var(--danger); }
+    
+    .word-count { display: flex; justify-content: space-between; font-size: 0.85rem; margin-top: 0.5rem; }
+    .word-count .count { font-weight: 600; }
+    .word-count.valid .count { color: var(--success); }
+    .word-count.invalid .count { color: var(--danger); }
+    
+    .checkbox-group { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .checkbox-group input { width: auto; margin-top: 0.25rem; }
+    .checkbox-group label { font-weight: 400; }
+    
+    .external-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .link-input { display: flex; flex-direction: column; }
+    .link-input label { font-size: 0.85rem; margin-bottom: 0.25rem; }
+    .link-input input { font-size: 14px; padding: 0.6rem 0.75rem; }
+    
+    .btn { display: block; width: 100%; padding: 1rem; border: none; border-radius: 30px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+    .btn-primary { background: var(--pro); color: white; }
+    .btn-primary:hover { background: #5b4cdb; }
+    .btn-primary:disabled { background: #B8B8B8; cursor: not-allowed; }
+    
+    .guidelines { background: #F8F9FA; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .guidelines h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+    .guidelines ul { margin: 0; padding-left: 1.5rem; }
+    .guidelines li { margin-bottom: 0.25rem; color: var(--muted); }
+    
+    /* HALO Warning Styles */
+    .halo-warning { background: #FFF3CD; border: 1px solid #FFECB5; color: #856404; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; display: none; }
+    .halo-warning.t2 { background: #F8D7DA; border-color: #F5C6CB; color: #721C24; }
+    .halo-warning.t3 { background: #721C24; border-color: #721C24; color: white; }
+    .halo-warning h4 { margin-bottom: 0.5rem; }
+    
+    .field-error { border-color: var(--danger) !important; }
+    .field-warning { border-color: var(--warning) !important; }
+    
+    footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
+    
+    @media (max-width: 600px) { 
+      .container { padding: 1rem; } 
+      h1 { font-size: 1.5rem; } 
+      .external-links { grid-template-columns: 1fr; }
+      .form-section { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <script>
+  (function(){
+    var s = localStorage.getItem('quirrely_session');
+    if (!s) { window.location.href = '/auth/login.html?redirect=/blog/submit-writing'; return; }
+    try {
+      var u = JSON.parse(localStorage.getItem('quirrely_user') || '{}');
+      var tier = (u.subscription_tier || 'free').toLowerCase();
+      if (tier !== 'pro' && tier !== 'featured' && tier !== 'authority') {
+        window.location.href = '/billing/';
+        return;
+      }
+    } catch(e) { window.location.href = '/auth/login.html'; }
+  })();
+  </script>
+  <div class="container">
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365 100" width="140" height="41" style="vertical-align: middle;">
+      <g transform="translate(5, 2) scale(0.7)">
+        <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <path d="M20 68 Q12 72, 14 80 Q16 86, 24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
+        <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <circle cx="33" cy="46.5" r="2" fill="#FFF"/>
+        <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+        <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+      </g>
+      <text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">re</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
+    </svg></a>
+      <nav class="nav" id="main-nav">
+        <a href="/">Home</a>
+        <a href="/blog" class="active">Blog</a>
+        <a href="/faq">FAQ</a>
+        <a href="/auth/login.html" class="cta" id="nav-cta">Sign In</a>
+      </nav>
+    </div>
+  </header>
+<h1>Submit Your Writing <span class="pro-badge">PRO</span></h1>
+    <p class="subtitle">Share your unique voice with the Quirrely community</p>
+    
+    <!-- HALO Warning Area -->
+    <div id="halo-warning" class="halo-warning">
+      <h4>⚠️ Content Notice</h4>
+      <p id="halo-message"></p>
+    </div>
+    
+    <div class="guidelines">
+      <h3>📝 Submission Guidelines</h3>
+      <ul>
+        <li>Write 50-150 words that showcase your natural voice</li>
+        <li>Original content only — no quotes or copied text</li>
+        <li>Keep it appropriate for all audiences</li>
+        <li>Selected writers are featured in our weekly newsletter</li>
+      </ul>
+    </div>
+    
+    <form id="submission-form">
+      <!-- Writing Sample -->
+      <div class="form-section">
+        <h2>✍️ Your Writing Sample</h2>
+        <div class="form-group">
+          <label for="sample">
+            Writing Sample 
+            <span class="label-hint">(50-150 words)</span>
+          </label>
+          <textarea 
+            id="sample" 
+            name="sample" 
+            placeholder="Write something that represents your natural voice. It could be an observation, a short story opener, a reflection — anything that feels authentically you."
+            required
+            minlength="50"
+            maxlength="1500"
+          ></textarea>
+          <div class="word-count" id="word-count">
+            <span>Target: 50-150 words</span>
+            <span class="count">0 words</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- About You -->
+      <div class="form-section">
+        <h2>👤 About You</h2>
+        <div class="form-group">
+          <label for="display-name">Display Name</label>
+          <input type="text" id="display-name" name="displayName" required maxlength="50" placeholder="How you'd like to be credited">
+          <div class="char-count"><span id="name-count">0</span>/50</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="bio">
+            Short Bio 
+            <span class="label-hint">(optional, max 150 chars)</span>
+          </label>
+          <input type="text" id="bio" name="bio" maxlength="150" placeholder="e.g., Fiction writer from Toronto. Coffee enthusiast.">
+          <div class="char-count"><span id="bio-count">0</span>/150</div>
+        </div>
+      </div>
+      
+      <!-- External Links -->
+      <div class="form-section">
+        <h2>🔗 Your Links <span class="label-hint">(optional)</span></h2>
+        <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem;">Share where people can find more of your work</p>
+        <div class="external-links">
+          <div class="link-input">
+            <label for="link-linkedin">LinkedIn</label>
+            <input type="url" id="link-linkedin" name="linkLinkedin" placeholder="https://linkedin.com/in/...">
+          </div>
+          <div class="link-input">
+            <label for="link-newsletter">Newsletter</label>
+            <input type="url" id="link-newsletter" name="linkNewsletter" placeholder="https://substack.com/...">
+          </div>
+          <div class="link-input">
+            <label for="link-facebook">Facebook</label>
+            <input type="url" id="link-facebook" name="linkFacebook" placeholder="https://facebook.com/...">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Permissions -->
+      <div class="form-section">
+        <h2>✅ Permissions</h2>
+        <div class="checkbox-group">
+          <input type="checkbox" id="perm-feature" name="permFeature" required checked>
+          <label for="perm-feature">I grant permission for my writing to be featured on Quirrely and in the newsletter</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="perm-profile" name="permProfile" checked>
+          <label for="perm-profile">I want a public writer profile if selected</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="perm-country" name="permCountry" checked>
+          <label for="perm-country">Display my country with my featured writing</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="perm-original" name="permOriginal" required>
+          <label for="perm-original">This is my original work and I have the right to share it</label>
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary" id="submit-btn">Submit for Review</button>
+    </form>
+    
+    <footer>
+      <p>Selected writers are notified by email within 7 days.</p>
+      <p><a href="/legal/terms" style="color: var(--muted);">Terms</a> · <a href="/legal/privacy" style="color: var(--muted);">Privacy</a><span class="social-links" style="display: inline-flex; gap: 0.75rem; margin-left: 0.75rem;">
+        <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="Follow Quirrely on LinkedIn" style="color: inherit; opacity: 0.6; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="https://www.facebook.com/profile.php?id=61575643048349" target="_blank" rel="noopener noreferrer" aria-label="Follow Quirrely on Facebook" style="color: inherit; opacity: 0.6; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      </span></p>
+    </footer>
+  </div>
+  
+  <!-- HALO Integration -->
+  <script src="/halo-wrapper.js"></script>
+  <script>
+    (function() {
+      const form = document.getElementById('submission-form');
+      const sampleField = document.getElementById('sample');
+      const nameField = document.getElementById('display-name');
+      const bioField = document.getElementById('bio');
+      const submitBtn = document.getElementById('submit-btn');
+      const wordCountEl = document.getElementById('word-count');
+      const haloWarning = document.getElementById('halo-warning');
+      const haloMessage = document.getElementById('halo-message');
+      
+      // Start HALO typing timer
+      sampleField.addEventListener('focus', function() {
+        HALO.startTyping();
+      });
+      
+      // Word count
+      sampleField.addEventListener('input', function() {
+        const words = this.value.trim().split(/\s+/).filter(w => w.length > 0);
+        const count = words.length;
+        
+        wordCountEl.querySelector('.count').textContent = count + ' words';
+        
+        if (count >= 50 && count <= 150) {
+          wordCountEl.classList.add('valid');
+          wordCountEl.classList.remove('invalid');
+        } else {
+          wordCountEl.classList.add('invalid');
+          wordCountEl.classList.remove('valid');
+        }
+        
+        // Real-time HALO check (debounced)
+        clearTimeout(window.haloDebounce);
+        window.haloDebounce = setTimeout(function() {
+          checkHALO(sampleField.value, 'sample');
+        }, 500);
+      });
+      
+      // Character counts
+      nameField.addEventListener('input', function() {
+        document.getElementById('name-count').textContent = this.value.length;
+        checkHALO(this.value, 'name');
+      });
+      
+      bioField.addEventListener('input', function() {
+        document.getElementById('bio-count').textContent = this.value.length;
+        checkHALO(this.value, 'bio');
+      });
+      
+      // HALO check function
+      function checkHALO(text, fieldName) {
+        if (!text || text.length < 5) {
+          hideHALOWarning();
+          return true;
+        }
+        
+        const result = HALO.analyze(text, {
+          typingDuration: HALO.getTypingDuration()
+        });
+        
+        const field = fieldName === 'sample' ? sampleField : 
+                      fieldName === 'name' ? nameField : bioField;
+        
+        if (!result.pass && result.tier === 'T3') {
+          showHALOWarning(result, 't3');
+          field.classList.add('field-error');
+          submitBtn.disabled = true;
+          HALO.showBlockModal();
+          return false;
+        }
+        
+        if (!result.pass && result.tier === 'T2') {
+          showHALOWarning(result, 't2');
+          field.classList.add('field-error');
+          submitBtn.disabled = true;
+          return false;
+        }
+        
+        if (result.tier === 'T1') {
+          showHALOWarning(result, 't1');
+          field.classList.add('field-warning');
+          field.classList.remove('field-error');
+          submitBtn.disabled = false;
+          return true; // Allow with warning
+        }
+        
+        hideHALOWarning();
+        field.classList.remove('field-error', 'field-warning');
+        submitBtn.disabled = false;
+        return true;
+      }
+      
+      function showHALOWarning(result, tier) {
+        haloWarning.style.display = 'block';
+        haloWarning.className = 'halo-warning ' + tier;
+        
+        const icon = tier === 't3' ? '⛔' : tier === 't2' ? '⚠️' : '💡';
+        const title = tier === 't3' ? 'Content Blocked' : tier === 't2' ? 'Content Warning' : 'Notice';
+        
+        haloWarning.innerHTML = '<h4>' + icon + ' ' + title + '</h4><p>' + result.message + '</p>';
+      }
+      
+      function hideHALOWarning() {
+        haloWarning.style.display = 'none';
+      }
+      
+      // Form submission
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Check cooldown
+        const cooldown = HALO.isInCooldown();
+        if (cooldown.inCooldown) {
+          const mins = Math.ceil(cooldown.remainingMs / 60000);
+          showHALOWarning({ message: 'Please wait ' + mins + ' minutes before submitting.' }, 't2');
+          return;
+        }
+        
+        // Final HALO check on all fields
+        const sampleOk = checkHALO(sampleField.value, 'sample');
+        const nameOk = checkHALO(nameField.value, 'name');
+        const bioOk = checkHALO(bioField.value, 'bio');
+        
+        if (!sampleOk || !nameOk || !bioOk) {
+          return;
+        }
+        
+        // Word count validation
+        const words = sampleField.value.trim().split(/\s+/).filter(w => w.length > 0);
+        if (words.length < 50 || words.length > 150) {
+          alert('Please write between 50-150 words.');
+          return;
+        }
+        
+        // Build submission object
+        const submission = {
+          sample: sampleField.value,
+          displayName: nameField.value,
+          bio: bioField.value,
+          links: {
+            linkedin: document.getElementById('link-linkedin').value,
+            newsletter: document.getElementById('link-newsletter').value,
+            facebook: document.getElementById('link-facebook').value
+          },
+          permissions: {
+            feature: document.getElementById('perm-feature').checked,
+            profile: document.getElementById('perm-profile').checked,
+            country: document.getElementById('perm-country').checked,
+            original: document.getElementById('perm-original').checked
+          },
+          timestamp: new Date().toISOString(),
+          haloStats: HALO.getStats()
+        };
+        
+        // Record submission for rate limiting
+        HALO.recordSubmission(sampleField.value);
+        
+        // Send to backend
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+        try {
+          var token = localStorage.getItem('quirrely_session');
+          var resp = await fetch('/api/v2/featured/submit', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+              sample: submission.sample,
+              display_name: submission.displayName,
+              bio: submission.bio,
+              link_linkedin: submission.links.linkedin,
+              link_newsletter: submission.links.newsletter,
+              link_facebook: submission.links.facebook,
+              permission_feature: submission.permissions.feature,
+              permission_profile: submission.permissions.profile,
+              permission_country: submission.permissions.country
+            })
+          });
+          var data = await resp.json();
+          if (resp.ok && data.success) {
+            submitBtn.textContent = 'Submitted for Review!';
+            submitBtn.style.background = '#00B894';
+            setTimeout(function() { window.location.href = '/blog/featured'; }, 2500);
+          } else if (resp.status === 409) {
+            submitBtn.textContent = 'Already Submitted';
+            submitBtn.style.background = '#FDCB6E';
+            submitBtn.style.color = '#2D3436';
+          } else if (resp.status === 403) {
+            submitBtn.textContent = 'Pro Required';
+            submitBtn.style.background = '#E74C3C';
+            setTimeout(function() { window.location.href = '/billing/'; }, 2000);
+          } else {
+            submitBtn.textContent = data.detail || 'Error';
+            submitBtn.style.background = '#E74C3C';
+            submitBtn.disabled = false;
+            setTimeout(function() { submitBtn.textContent = 'Submit for Review'; submitBtn.style.background = ''; }, 3000);
+          }
+        } catch(err) {
+          submitBtn.textContent = 'Connection error';
+          submitBtn.style.background = '#E74C3C';
+          submitBtn.disabled = false;
+          setTimeout(function() { submitBtn.textContent = 'Submit for Review'; submitBtn.style.background = ''; }, 3000);
+        }
+      });
+    })();
+  </script>
+<script>
+(function(){
+  var s=localStorage.getItem('quirrely_session');
+  if(!s)return;
+  var nav=document.getElementById('main-nav')||document.querySelector('.nav');
+  if(nav){
+    var u=localStorage.getItem('quirrely_user');
+    var p;try{p=JSON.parse(u);}catch(e){p={};}
+    nav.innerHTML='<a href="/dashboard">Dashboard</a><a href="/blog" class="active">Blog</a><a href="/faq">FAQ</a><a href="/settings">Settings</a>';
+    var av=document.createElement('a');
+    av.href='/dashboard';
+    av.style.cssText='width:28px;height:28px;border-radius:50%;background:#FF6B6B;display:inline-flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;font-weight:600;text-decoration:none;margin-left:0.5rem;';
+    try{var ud=JSON.parse(u);av.textContent=(ud.display_name||ud.email||'?')[0].toUpperCase();}catch(e){av.textContent='?';}
+    nav.appendChild(av);
+  }
+})();
+</script>
+</body>
+</html>

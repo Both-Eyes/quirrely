@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" width="280" height="100" opacity="0.7">
+  <!-- Quirrely Footer Logo (Muted) with Acorn -->
+  <g transform="translate(5, 2) scale(0.7)">
+    <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+    <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+    <!-- Simplified acorn for footer -->
+    <ellipse cx="40" cy="78" rx="8" ry="3.5" fill="#E85A5A"/>
+    <path d="M32 78 Q31 92, 40 96 Q49 92, 48 78 Z" fill="#FF6B6B"/>
+    <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+    <ellipse cx="32" cy="48" rx="5" ry="5.5" fill="#1a1a1a"/>
+    <ellipse cx="48" cy="48" rx="5" ry="5.5" fill="#1a1a1a"/>
+  </g>
+  <text x="95" y="60" font-family="Outfit, system-ui, sans-serif">
+    <tspan font-size="38" font-weight="700" fill="#636E72">Quir</tspan><tspan font-size="38" font-weight="700" fill="#FF6B6B">rel</tspan><tspan font-style="italic">y</tspan>
+  </text>
+</svg>

@@ -1,0 +1,44 @@
+[Unit]
+Description=LNCP Optimization Scheduler
+Documentation=https://github.com/quirrely/lncp
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/lncp-web-app
+
+# Environment
+Environment="PYTHONUNBUFFERED=1"
+Environment="GSC_CREDENTIALS_PATH=/opt/lncp-web-app/credentials/gsc-service-account.json"
+Environment="GSC_SITE_URL=https://quirrely.io"
+Environment="LNCP_LOG_LEVEL=INFO"
+Environment="LNCP_CYCLE_INTERVAL=60"
+Environment="LNCP_DOMAINS=all"
+Environment="LNCP_MODE=auto_safe"
+
+# Command
+ExecStart=/usr/bin/python3 /opt/lncp-web-app/backend/scheduler.py --daemon --interval 60
+
+# Restart policy
+Restart=always
+RestartSec=10
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/lncp-web-app
+ReadWritePaths=/var/log/lncp
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=lncp-scheduler
+
+[Install]
+WantedBy=multi-user.target

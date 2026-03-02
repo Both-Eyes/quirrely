@@ -1,0 +1,865 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * QUIRRELY UPGRADE COMPONENTS v2.0
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * Conversion UI components:
+ * - Trial banner
+ * - Upgrade modal
+ * - Feature lock overlay
+ * - Daily limit warning
+ * 
+ * Aligned with pricing: FREE → Pro ($2.99) / Featured ($4.99) / Authority ($7.99)
+ */
+
+// ═══════════════════════════════════════════════════════════════════════════
+// TRIAL BANNER COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════
+
+class TrialBanner extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  
+  static get observedAttributes() {
+    return ['days-remaining', 'dismissible'];
+  }
+  
+  connectedCallback() {
+    this.render();
+  }
+  
+  attributeChangedCallback() {
+    this.render();
+  }
+  
+  get daysRemaining() {
+    return parseInt(this.getAttribute('days-remaining') || '7');
+  }
+  
+  get isDismissible() {
+    return this.hasAttribute('dismissible');
+  }
+  
+  render() {
+    const days = this.daysRemaining;
+    const urgency = days <= 2 ? 'urgent' : days <= 4 ? 'warning' : 'normal';
+    
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: block;
+        }
+        
+        .banner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.75rem 1.5rem;
+          border-radius: 12px;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          color: white;
+          gap: 1rem;
+        }
+        
+        .banner.normal {
+          background: linear-gradient(135deg, #0984E3 0%, #0770C4 100%);
+        }
+        
+        .banner.warning {
+          background: linear-gradient(135deg, #FDCB6E 0%, #F0B93D 100%);
+          color: #2D3436;
+        }
+        
+        .banner.urgent {
+          background: linear-gradient(135deg, #FF6B6B 0%, #E55A4A 100%);
+        }
+        
+        .banner-content {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex: 1;
+        }
+        
+        .icon {
+          font-size: 1.5rem;
+        }
+        
+        .text h4 {
+          font-size: 0.95rem;
+          font-weight: 600;
+          margin: 0 0 0.1rem 0;
+        }
+        
+        .text p {
+          font-size: 0.8rem;
+          margin: 0;
+          opacity: 0.9;
+        }
+        
+        .countdown {
+          text-align: center;
+          padding: 0 1rem;
+        }
+        
+        .countdown-value {
+          font-size: 1.75rem;
+          font-weight: 700;
+          line-height: 1;
+        }
+        
+        .countdown-label {
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          opacity: 0.8;
+        }
+        
+        .actions {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+        }
+        
+        .btn {
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          cursor: pointer;
+          border: none;
+          transition: all 0.2s;
+        }
+        
+        .btn-primary {
+          background: white;
+          color: #0984E3;
+        }
+        
+        .banner.warning .btn-primary {
+          color: #2D3436;
+        }
+        
+        .banner.urgent .btn-primary {
+          color: #FF6B6B;
+        }
+        
+        .btn-primary:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .btn-dismiss {
+          background: transparent;
+          color: inherit;
+          opacity: 0.7;
+          padding: 0.5rem;
+        }
+        
+        .btn-dismiss:hover {
+          opacity: 1;
+        }
+        
+        @media (max-width: 600px) {
+          .banner {
+            flex-wrap: wrap;
+            text-align: center;
+            justify-content: center;
+          }
+          
+          .banner-content {
+            flex-direction: column;
+            text-align: center;
+          }
+          
+          .countdown {
+            display: none;
+          }
+        }
+      </style>
+      
+      <div class="banner ${urgency}">
+        <div class="banner-content">
+          <span class="icon">${urgency === 'urgent' ? '⚠️' : '⏳'}</span>
+          <div class="text">
+            <h4>${this.getMessage(days, urgency)}</h4>
+            <p>${this.getSubtext(days, urgency)}</p>
+          </div>
+        </div>
+        
+        <div class="countdown">
+          <div class="countdown-value">${days}</div>
+          <div class="countdown-label">days left</div>
+        </div>
+        
+        <div class="actions">
+          <button class="btn btn-primary" onclick="this.getRootNode().host.dispatchEvent(new CustomEvent('upgrade-click'))">
+            Upgrade Now
+          </button>
+          ${this.isDismissible ? `
+            <button class="btn btn-dismiss" onclick="this.getRootNode().host.dismiss()">✕</button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }
+  
+  getMessage(days, urgency) {
+    if (urgency === 'urgent') {
+      return days === 1 ? 'Last day of your trial!' : `Only ${days} days left!`;
+    }
+    if (urgency === 'warning') {
+      return 'Your trial is ending soon';
+    }
+    return 'Your 7-Day Trial is Active';
+  }
+  
+  getSubtext(days, urgency) {
+    if (urgency === 'urgent') {
+      return 'Don\'t lose your Pro features — upgrade now to keep them forever.';
+    }
+    if (urgency === 'warning') {
+      return 'Enjoying the Pro features? Keep them after your trial ends.';
+    }
+    return 'Explore all Pro features. Upgrade anytime to keep them.';
+  }
+  
+  dismiss() {
+    this.style.display = 'none';
+    this.dispatchEvent(new CustomEvent('dismissed'));
+  }
+}
+
+customElements.define('trial-banner', TrialBanner);
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// UPGRADE MODAL COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════
+
+class UpgradeModal extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.selectedTier = 'featured';
+    this.billingCycle = 'monthly';
+  }
+  
+  static get observedAttributes() {
+    return ['open', 'feature'];
+  }
+  
+  connectedCallback() {
+    this.render();
+  }
+  
+  attributeChangedCallback() {
+    this.render();
+  }
+  
+  get isOpen() {
+    return this.hasAttribute('open');
+  }
+  
+  get featureName() {
+    return this.getAttribute('feature') || '';
+  }
+  
+  render() {
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: ${this.isOpen ? 'block' : 'none'};
+        }
+        
+        .overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1rem;
+          animation: fadeIn 0.2s ease;
+        }
+        
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        .modal {
+          background: white;
+          border-radius: 20px;
+          max-width: 720px;
+          width: 100%;
+          padding: 2rem;
+          animation: slideUp 0.3s ease;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        @keyframes slideUp {
+          from { transform: translateY(20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .header {
+          text-align: center;
+          margin-bottom: 1.5rem;
+        }
+        
+        .header .icon {
+          font-size: 3rem;
+          margin-bottom: 0.75rem;
+        }
+        
+        .header h2 {
+          font-size: 1.5rem;
+          margin: 0 0 0.5rem 0;
+          color: #2D3436;
+        }
+        
+        .header p {
+          color: #636E72;
+          margin: 0;
+        }
+        
+        .feature-highlight {
+          background: #FFF9F0;
+          border: 1px solid #FDCB6E;
+          border-radius: 12px;
+          padding: 1rem;
+          margin-bottom: 1.5rem;
+          text-align: center;
+        }
+        
+        .feature-highlight p {
+          margin: 0;
+          color: #2D3436;
+        }
+        
+        .feature-highlight strong {
+          color: #FF6B6B;
+        }
+        
+        .plans {
+          display: flex;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+        }
+        
+        .plan {
+          flex: 1;
+          padding: 1.25rem;
+          border: 2px solid #E9ECEF;
+          border-radius: 12px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.2s;
+          position: relative;
+        }
+        
+        .plan:hover {
+          border-color: #B2BEC3;
+        }
+        
+        .plan.selected {
+          border-color: #FF6B6B;
+          background: rgba(255, 107, 107, 0.05);
+        }
+        
+        .plan-badge {
+          position: absolute;
+          top: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #00B894;
+          color: white;
+          font-size: 0.65rem;
+          font-weight: 700;
+          padding: 0.2rem 0.5rem;
+          border-radius: 10px;
+          text-transform: uppercase;
+        }
+        
+        .plan-name {
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+          color: #2D3436;
+        }
+        
+        .plan-price {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: #FF6B6B;
+        }
+        
+        .plan-period {
+          font-size: 0.8rem;
+          color: #636E72;
+        }
+        
+        .features {
+          margin-bottom: 1.5rem;
+        }
+        
+        .feature {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.5rem 0;
+          font-size: 0.9rem;
+          color: #2D3436;
+        }
+        
+        .feature .check {
+          color: #00B894;
+          font-weight: bold;
+        }
+        
+        .btn {
+          width: 100%;
+          padding: 1rem;
+          border: none;
+          border-radius: 12px;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        
+        .btn-primary {
+          background: linear-gradient(135deg, #FF6B6B 0%, #E55A4A 100%);
+          color: white;
+        }
+        
+        .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-secondary {
+          background: transparent;
+          color: #636E72;
+          margin-top: 0.75rem;
+        }
+        
+        .btn-secondary:hover {
+          color: #2D3436;
+        }
+        
+        .guarantee {
+          text-align: center;
+          margin-top: 1rem;
+          font-size: 0.8rem;
+          color: #636E72;
+        }
+        
+        .guarantee .icon {
+          margin-right: 0.25rem;
+        }
+      </style>
+      
+      <div class="overlay" onclick="if(event.target === this) this.getRootNode().host.close()">
+        <div class="modal">
+          <div class="header">
+            <div class="icon">🚀</div>
+            <h2>Choose Your Plan</h2>
+            <p>Unlock the full power of Quirrely</p>
+          </div>
+          
+          ${this.featureName ? `
+            <div class="feature-highlight">
+              <p>You're trying to access <strong>${this.featureName}</strong>, a Pro feature.</p>
+            </div>
+          ` : ''}
+          
+          <div class="billing-toggle" style="text-align:center;margin-bottom:1.25rem">
+            <span style="font-size:0.85rem;color:${this.billingCycle==='monthly'?'#FF6B6B':'#636E72'};font-weight:${this.billingCycle==='monthly'?'700':'400'};cursor:pointer" onclick="this.getRootNode().host.setBilling('monthly')">Monthly</span>
+            <span style="display:inline-block;width:44px;height:24px;background:${this.billingCycle==='annual'?'#FF6B6B':'#B2BEC3'};border-radius:12px;margin:0 0.75rem;position:relative;vertical-align:middle;cursor:pointer" onclick="this.getRootNode().host.toggleBilling()"><span style="display:block;width:20px;height:20px;background:white;border-radius:50%;position:absolute;top:2px;${this.billingCycle==='annual'?'left:22px':'left:2px'};transition:left 0.2s"></span></span>
+            <span style="font-size:0.85rem;color:${this.billingCycle==='annual'?'#FF6B6B':'#636E72'};font-weight:${this.billingCycle==='annual'?'700':'400'};cursor:pointer" onclick="this.getRootNode().host.setBilling('annual')">Annual <span style="background:#00B894;color:white;font-size:0.6rem;padding:0.15rem 0.4rem;border-radius:8px;font-weight:700">SAVE 17%</span></span>
+          </div>
+          <div class="plans">
+            <div class="plan ${this.selectedTier==='pro'?'selected':''}" onclick="this.getRootNode().host.selectTier('pro')">
+              <div class="plan-name">Pro</div>
+              <div class="plan-price">${this.billingCycle==='monthly'?'$2.99':'$29.99'}</div>
+              <div class="plan-period">/${this.billingCycle==='monthly'?'mo':'yr'}</div>
+              <div style="margin-top:0.75rem;font-size:0.72rem;color:#636E72;text-align:left"><div>✓ Full writing analysis</div><div>✓ Profile + stance</div><div>✓ 100 analyses/mo</div><div>✓ STRETCH access</div></div>
+            </div>
+            <div class="plan ${this.selectedTier==='featured'?'selected':''}" onclick="this.getRootNode().host.selectTier('featured')" style="border-color:${this.selectedTier==='featured'?'#FF6B6B':'#4ECDC4'}">
+              <div class="plan-badge" style="background:#4ECDC4">Popular</div>
+              <div class="plan-name">Featured</div>
+              <div class="plan-price">${this.billingCycle==='monthly'?'$4.99':'$49.99'}</div>
+              <div class="plan-period">/${this.billingCycle==='monthly'?'mo':'yr'}</div>
+              <div style="margin-top:0.75rem;font-size:0.72rem;color:#636E72;text-align:left"><div>✓ Everything in Pro</div><div>✓ Unlimited analyses</div><div>✓ Full STRETCH library</div><div>✓ Featured profile</div><div>✓ Blog submission</div></div>
+            </div>
+            <div class="plan ${this.selectedTier==='authority'?'selected':''}" onclick="this.getRootNode().host.selectTier('authority')">
+              <div class="plan-name">Authority</div>
+              <div class="plan-price">${this.billingCycle==='monthly'?'$7.99':'$79.99'}</div>
+              <div class="plan-period">/${this.billingCycle==='monthly'?'mo':'yr'}</div>
+              <div style="margin-top:0.75rem;font-size:0.72rem;color:#636E72;text-align:left"><div>✓ Everything in Featured</div><div>✓ Story Mode</div><div>✓ Leaderboard priority</div><div>✓ Achievement badges</div><div>✓ Advanced analytics</div></div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="this.getRootNode().host.checkout()">
+            Continue to Payment
+          </button>
+          <button class="btn btn-secondary" onclick="this.getRootNode().host.close()">
+            Maybe later
+          </button>
+          <button class="btn btn-secondary" onclick="this.getRootNode().host.close()">
+            Maybe later
+          </button>
+          
+          <div class="guarantee">
+            <span class="icon">🔒</span>
+            Secure payment · Cancel anytime · 30-day money-back guarantee
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  selectTier(tier) {
+    this.selectedTier = tier;
+    this.render();
+  }
+  setBilling(cycle) {
+    this.billingCycle = cycle;
+    this.render();
+  }
+  toggleBilling() {
+    this.billingCycle = this.billingCycle === 'monthly' ? 'annual' : 'monthly';
+    this.render();
+  }
+  async checkout() {
+    const tier = this.selectedTier;
+    const annual = this.billingCycle === 'annual';
+    const btn = this.shadowRoot.querySelector('.btn-primary');
+    btn.textContent = 'Redirecting...';
+    btn.disabled = true;
+    try {
+      const resp = await fetch('https://api.quirrely.com/api/v2/payments/checkout', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({tier: tier, annual: annual})
+      });
+      const data = await resp.json();
+      if (data.checkout_url) {
+        window.location.href = data.checkout_url;
+      } else {
+        btn.textContent = 'Try Again';
+        btn.disabled = false;
+      }
+    } catch (e) {
+      btn.textContent = 'Try Again';
+      btn.disabled = false;
+    }
+  }
+  
+  close() {
+    this.removeAttribute('open');
+    this.dispatchEvent(new CustomEvent('closed'));
+  }
+  
+  open() {
+    this.setAttribute('open', '');
+  }
+}
+
+customElements.define('upgrade-modal', UpgradeModal);
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FEATURE LOCK OVERLAY COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════
+
+class FeatureLock extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  
+  static get observedAttributes() {
+    return ['feature', 'tier-required', 'current-tier'];
+  }
+  
+  connectedCallback() {
+    this.render();
+  }
+  
+  attributeChangedCallback() {
+    this.render();
+  }
+  
+  get featureName() {
+    return this.getAttribute('feature') || 'This feature';
+  }
+  
+  get tierRequired() {
+    return this.getAttribute('tier-required') || 'pro';
+  }
+  
+  get currentTier() {
+    return this.getAttribute('current-tier') || 'free';
+  }
+  
+  get isLocked() {
+    const tiers = { free: 0, trial: 1, pro: 2 };
+    return tiers[this.currentTier] < tiers[this.tierRequired];
+  }
+  
+  render() {
+    if (!this.isLocked) {
+      this.shadowRoot.innerHTML = '<slot></slot>';
+      return;
+    }
+    
+    const canTrial = this.currentTier === 'free' && this.tierRequired === 'trial';
+    
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: block;
+          position: relative;
+        }
+        
+        .content {
+          filter: blur(3px);
+          opacity: 0.5;
+          pointer-events: none;
+          user-select: none;
+        }
+        
+        .overlay {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 2rem;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .icon {
+          font-size: 2.5rem;
+          margin-bottom: 0.75rem;
+        }
+        
+        .title {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #2D3436;
+          margin-bottom: 0.5rem;
+        }
+        
+        .description {
+          font-size: 0.9rem;
+          color: #636E72;
+          margin-bottom: 1rem;
+          max-width: 280px;
+        }
+        
+        .btn {
+          padding: 0.6rem 1.25rem;
+          border: none;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        
+        .btn-primary {
+          background: linear-gradient(135deg, #FF6B6B 0%, #E55A4A 100%);
+          color: white;
+        }
+        
+        .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-trial {
+          background: linear-gradient(135deg, #0984E3 0%, #0770C4 100%);
+        }
+      </style>
+      
+      <div class="content">
+        <slot></slot>
+      </div>
+      
+      <div class="overlay">
+        <div class="icon">🔒</div>
+        <div class="title">${this.featureName}</div>
+        <div class="description">
+          ${canTrial 
+            ? 'Start your free 7-day trial to unlock this feature.'
+            : 'Upgrade to Pro to unlock this feature.'}
+        </div>
+        <button class="btn btn-primary ${canTrial ? 'btn-trial' : ''}"
+                onclick="this.getRootNode().host.dispatchEvent(new CustomEvent('unlock-click', { detail: { feature: '${this.featureName}' }}))">
+          ${canTrial ? 'Start Free Trial' : 'Upgrade to Pro'}
+        </button>
+      </div>
+    `;
+  }
+}
+
+customElements.define('feature-lock', FeatureLock);
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DAILY LIMIT WARNING COMPONENT
+// ═══════════════════════════════════════════════════════════════════════════
+
+class DailyLimitWarning extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+  
+  static get observedAttributes() {
+    return ['used', 'limit', 'tier'];
+  }
+  
+  connectedCallback() {
+    this.render();
+  }
+  
+  attributeChangedCallback() {
+    this.render();
+  }
+  
+  get used() {
+    return parseInt(this.getAttribute('used') || '0');
+  }
+  
+  get limit() {
+    return parseInt(this.getAttribute('limit') || '5');
+  }
+  
+  get tier() {
+    return this.getAttribute('tier') || 'free';
+  }
+  
+  get remaining() {
+    return Math.max(0, this.limit - this.used);
+  }
+  
+  get percentage() {
+    return Math.min(100, (this.used / this.limit) * 100);
+  }
+  
+  render() {
+    const isLow = this.remaining <= 2;
+    const isExhausted = this.remaining === 0;
+    
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: block;
+        }
+        
+        .container {
+          padding: 1rem;
+          border-radius: 12px;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          background: ${isExhausted ? '#FFF0F0' : isLow ? '#FFF9F0' : '#F0F9FF'};
+          border: 1px solid ${isExhausted ? '#FFB8B8' : isLow ? '#FFE0A0' : '#B8DFFF'};
+        }
+        
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.75rem;
+        }
+        
+        .title {
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: ${isExhausted ? '#E55A4A' : isLow ? '#E17055' : '#0984E3'};
+        }
+        
+        .count {
+          font-size: 0.8rem;
+          color: #636E72;
+        }
+        
+        .progress-bar {
+          height: 6px;
+          background: rgba(0,0,0,0.1);
+          border-radius: 3px;
+          overflow: hidden;
+          margin-bottom: 0.75rem;
+        }
+        
+        .progress-fill {
+          height: 100%;
+          background: ${isExhausted ? '#FF6B6B' : isLow ? '#FDCB6E' : '#0984E3'};
+          border-radius: 3px;
+          transition: width 0.3s ease;
+          width: ${this.percentage}%;
+        }
+        
+        .message {
+          font-size: 0.8rem;
+          color: #636E72;
+        }
+        
+        .message a {
+          color: #FF6B6B;
+          text-decoration: none;
+          font-weight: 600;
+        }
+        
+        .message a:hover {
+          text-decoration: underline;
+        }
+      </style>
+      
+      <div class="container">
+        <div class="header">
+          <span class="title">
+            ${isExhausted ? '⚠️ Daily Limit Reached' : isLow ? '⏳ Running Low' : '📊 Daily Usage'}
+          </span>
+          <span class="count">${this.used}/${this.limit}</span>
+        </div>
+        
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        
+        <div class="message">
+          ${isExhausted 
+            ? `You've used all ${this.limit} analyses for today. <a href="#" onclick="this.getRootNode().host.dispatchEvent(new CustomEvent('upgrade-click')); return false;">Upgrade to Pro</a> for unlimited.`
+            : isLow
+              ? `Only ${this.remaining} ${this.remaining === 1 ? 'analysis' : 'analyses'} remaining today. <a href="#" onclick="this.getRootNode().host.dispatchEvent(new CustomEvent('upgrade-click')); return false;">Need more?</a>`
+              : `${this.remaining} ${this.remaining === 1 ? 'analysis' : 'analyses'} remaining today. Resets at midnight.`
+          }
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('daily-limit-warning', DailyLimitWarning);
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// EXPORTS
+// ═══════════════════════════════════════════════════════════════════════════
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    TrialBanner,
+    UpgradeModal,
+    FeatureLock,
+    DailyLimitWarning
+  };
+}

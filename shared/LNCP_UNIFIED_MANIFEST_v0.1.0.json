@@ -1,0 +1,152 @@
+{
+  "manifest_version": "1.0.0",
+  "title": "LNCP Unified Artifact Manifest",
+  "description": "Complete frozen artifact list for LNCP v0.1.0 - ready for web application development",
+  "freeze_date": "2025-02-06",
+  "status": "LOCKED",
+  
+  "pipeline_flow": "Phase-5 (gate) → Phase-1 → Phase-2 → Phase-3 → Phase-4a/4b",
+  
+  "phases": {
+    "phase1": {
+      "name": "Measurement Layer",
+      "version": "1.0.0",
+      "purpose": "Compute structural metrics from input sentences",
+      "artifacts": {
+        "compute_engine": "phase1_compute_v1_0_0.py",
+        "runner": "run_phase1_self_assessment.py",
+        "sample_output": "phase1_last_response.json"
+      },
+      "input": "Array of sentences (strings)",
+      "output": "10 structural metrics with counts and derived values"
+    },
+    
+    "phase2": {
+      "name": "UX Presentation Layer",
+      "version": "0.1.0",
+      "purpose": "Transform Phase-1 metrics into user-facing explanations",
+      "artifacts": {
+        "schema": "phase2-ux-output-schema-v0.1.0.json",
+        "validator": "validate_phase2_schema.py",
+        "sample_output": "phase2_ux_output.json"
+      },
+      "modes": ["DESCRIPTIVE (<4 sentences)", "REFLECTIVE (≥4 sentences)"],
+      "output": "10 outputs with explanations and example insights"
+    },
+    
+    "phase3": {
+      "name": "Semiotic Synthesis Layer",
+      "version": "0.1.0",
+      "purpose": "Bring Phase-2 outputs into semiotic relation using Peircean lenses",
+      "artifacts": {
+        "schema": "phase3-synthesis-output-schema-v0.1.0.json",
+        "validator": "validate_phase3_schema.py",
+        "generator": "generate_phase3_v0_1_0.py",
+        "sample_output": "phase3_synthesis_output.json"
+      },
+      "semiotic_lenses": [
+        "INTERPRETANT_STABILIZATION",
+        "MEDIATION_AND_BOUNDARY",
+        "RELATIONAL_DENSITY"
+      ],
+      "constraints": {
+        "synthesis_scope": "SAMPLE_ONLY",
+        "interpretive_frame": "LNCP_PEIRCEAN"
+      }
+    },
+    
+    "phase4a": {
+      "name": "Prompting Mode",
+      "version": "0.1.0",
+      "purpose": "Generate reflection prompts from Phase-3 syntheses",
+      "artifacts": {
+        "schema": "phase4a-prompting-output-schema-v0.1.0.json",
+        "validator": "validate_phase4a_schema.py",
+        "generator": "generate_phase4a_v0_1_0.py",
+        "runner": "render_validate_phase4a_v0_1_0.py",
+        "sample_output": "phase4a_prompting_output.json"
+      },
+      "prompt_types": ["NOTICE", "REFLECT", "REWRITE", "COMPARE"],
+      "determinism": "SHA-256 template selection"
+    },
+    
+    "phase4b": {
+      "name": "Guidance Mode",
+      "version": "0.1.0",
+      "purpose": "Generate application-oriented guidance from Phase-3 syntheses",
+      "artifacts": {
+        "schema": "phase4b-guidance-output-schema-v0.1.0.json",
+        "validator": "validate_phase4b_schema.py",
+        "generator": "generate_phase4b_v0_1_0.py",
+        "runner": "render_validate_phase4b_v0_1_0.py",
+        "sample_output": "phase4b_guidance_output.json"
+      },
+      "item_types": ["GUIDE", "PRACTICE", "SCENARIO", "COMPARE"],
+      "determinism": "SHA-256 template selection"
+    },
+    
+    "phase5": {
+      "name": "Gamification Mode",
+      "version": "0.1.0",
+      "purpose": "Sample collection game with strict gate and coverage tracking",
+      "artifacts": {
+        "schema": "phase5-game-output-schema-v0.1.0.json",
+        "validator": "validate_phase5_schema.py",
+        "prompt_bank": "phase5-prompt-bank-v0.1.0.json",
+        "selector": "phase5_select_cover_v0_1_0.py",
+        "state_machine": "phase5_state_machine_v0_1_0.py",
+        "e2e_harness": "run_phase5_e2e_v0_1_0.py",
+        "routing_verifier": "verify_routing_lock_v0_1_0.py",
+        "sample_output": "phase5_e2e_output.json"
+      },
+      "gate": {
+        "required_valid_groups": 3,
+        "coverage_system": "H2 (zero/operator/scope)"
+      },
+      "routing_rule": "Phase-4a/4b blocked until gate completion"
+    }
+  },
+  
+  "cross_phase": {
+    "pipeline_e2e": "run_pipeline_e2e_v0_1_0.py",
+    "routing_lock": "verify_routing_lock_v0_1_0.py"
+  },
+  
+  "version_alignment": {
+    "source_contract_version": "1.0.0",
+    "phase2_version": "0.1.0",
+    "phase3_version": "0.1.0",
+    "phase4a_version": "0.1.0",
+    "phase4b_version": "0.1.0",
+    "phase5_version": "0.1.0"
+  },
+  
+  "web_app_integration": {
+    "entry_point": "Phase-5 state machine for gamified collection, OR direct Phase-1 for analysis-only mode",
+    "api_surface": {
+      "phase5_init": "Phase5StateMachine.initialize(mode='STORY'|'LAB')",
+      "phase5_submit": "Phase5StateMachine.submit_group(sentences)",
+      "phase5_output": "Phase5StateMachine.get_output()",
+      "phase1_compute": "phase1_compute_v1_0_0.compute(sentences)",
+      "phase3_generate": "generate_phase3_v0_1_0.generate_phase3(phase2)",
+      "phase4a_generate": "generate_phase4a_v0_1_0.generate_phase4a_prompting_output(phase3)",
+      "phase4b_generate": "generate_phase4b_v0_1_0.generate_phase4b(phase3)"
+    },
+    "recommended_flow": [
+      "1. User enters Phase-5 game mode",
+      "2. Collect 3 valid sentence groups (2-3 sentences each)",
+      "3. Gate completion unlocks downstream phases",
+      "4. Run Phase-1 compute on collected sentences",
+      "5. Generate Phase-2 UX presentation",
+      "6. Generate Phase-3 syntheses",
+      "7. User chooses Phase-4a (prompting) or Phase-4b (guidance)",
+      "8. Display results"
+    ]
+  },
+  
+  "validation_commands": {
+    "phase5_e2e": "python run_phase5_e2e_v0_1_0.py --bank phase5-prompt-bank-v0.1.0.json --schema phase5-game-output-schema-v0.1.0.json",
+    "pipeline_e2e": "python run_pipeline_e2e_v0_1_0.py",
+    "routing_lock": "python verify_routing_lock_v0_1_0.py"
+  }
+}

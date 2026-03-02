@@ -1,0 +1,206 @@
+{
+  "name": "Quirrely",
+  "version": "3.0.0",
+  "codename": "LNCP",
+  "sprint": "Kim→Aso→Mars",
+  "date": "2026-02-15",
+  "status": "PRODUCTION_READY",
+  
+  "team": {
+    "kim": {
+      "role": "QA Lead & User Advocate",
+      "deliverables": ["QA Report", "Brand Audit", "Current State Report"],
+      "grade": "B+ / A-"
+    },
+    "aso": {
+      "role": "Lead Architect & Meta Guardian",
+      "deliverables": ["Phase 2 Security", "Meta Integration", "Architecture"],
+      "files_created": 9,
+      "lines_added": 3060
+    },
+    "mars": {
+      "role": "Marketing & Revenue Systems Lead",
+      "deliverables": ["Phase 3 Revenue", "Conversion Tracking", "Triggers"],
+      "files_created": 6,
+      "lines_added": 1880
+    }
+  },
+  
+  "markets": {
+    "allowed": ["CA", "GB", "AU", "NZ"],
+    "blocked": ["US"],
+    "enforcement": "backend_geoip"
+  },
+  
+  "tiers": {
+    "free": { "level": 0, "price": 0 },
+    "trial": { "level": 0, "price": 0, "duration_days": 14 },
+    "pro": { "level": 1, "price_monthly": 2.99, "price_annual": 30 },
+    "curator": { "level": 1, "price_monthly": 2.99, "price_annual": 30 },
+    "featured_writer": { "level": 2, "price_monthly": 2.99, "price_annual": 30 },
+    "featured_curator": { "level": 2, "price_monthly": 2.99, "price_annual": 30 },
+    "authority_writer": { "level": 3, "price_monthly": 2.99, "price_annual": 30 },
+    "authority_curator": { "level": 3, "price_monthly": 2.99, "price_annual": 30 }
+  },
+  
+  "addons": {
+    "voice_style": {
+      "price_monthly": 4.99,
+      "price_annual": 49.99,
+      "trial_days": 7,
+      "trial_enabled": true
+    }
+  },
+  
+  "ltv_constants": {
+    "monthly": 27.61,
+    "annual": 85.71,
+    "blended": 58.29,
+    "addon": 44.91,
+    "locked": true
+  },
+  
+  "architecture": {
+    "frontend": {
+      "framework": "React 18 + TypeScript + Vite",
+      "state": "Zustand + TanStack Query",
+      "styling": "Tailwind CSS (coral palette)",
+      "routing": "React Router v6"
+    },
+    "backend": {
+      "framework": "FastAPI",
+      "auth": "httpOnly cookies (JWT)",
+      "database": "PostgreSQL + Supabase",
+      "meta": "LNCP Meta Orchestration"
+    }
+  },
+  
+  "security": {
+    "country_gate": {
+      "file": "backend/middleware/country_gate.py",
+      "method": "GeoIP + IP-API fallback",
+      "enforcement": "middleware"
+    },
+    "auth_cookies": {
+      "file": "backend/auth_middleware.py",
+      "access_token": "quirrely_auth",
+      "refresh_token": "quirrely_refresh",
+      "httponly": true,
+      "secure": true,
+      "samesite": "lax"
+    },
+    "api_audit": {
+      "files_audited": 14,
+      "endpoints_reviewed": 85,
+      "issues_found": 3,
+      "status": "PASS"
+    }
+  },
+  
+  "meta_integration": {
+    "events": {
+      "frontend": "sentense-app/src/lib/meta-events.ts",
+      "backend": "backend/meta_events_api.py",
+      "status": "active"
+    },
+    "halo": {
+      "file": "backend/halo_bridge.py",
+      "events_tracked": 15,
+      "status": "active"
+    },
+    "authority": {
+      "file": "backend/authority_meta_api.py",
+      "scoring": "real-time with fallback",
+      "status": "active"
+    }
+  },
+  
+  "revenue_systems": {
+    "conversion_tracking": {
+      "backend": "backend/conversion_events.py",
+      "frontend": "sentense-app/src/lib/conversion-tracker.ts",
+      "events": 25,
+      "status": "active"
+    },
+    "upgrade_ui": {
+      "file": "sentense-app/src/components/upgrade/UpgradeComponents.tsx",
+      "components": ["UpgradeBanner", "UpgradeModal", "UsageLimitWarning", "AddonPrompt"],
+      "status": "active"
+    },
+    "addon_trial": {
+      "file": "backend/addon_trials.py",
+      "duration_days": 7,
+      "conversion_target": 0.50,
+      "status": "active"
+    },
+    "triggers": {
+      "file": "backend/triggers/trigger_engine.py",
+      "trigger_count": 8,
+      "actions": ["email", "in_app", "push", "log", "webhook"],
+      "status": "active"
+    }
+  },
+  
+  "feature_gate": {
+    "file": "backend/feature_gate.py",
+    "api": "backend/features_api.py",
+    "frontend_hook": "sentense-app/src/hooks/useFeatures.ts",
+    "features_defined": 40,
+    "status": "single_source_of_truth"
+  },
+  
+  "simulation": {
+    "engine": "master-simulation-v3.js",
+    "params": "phase2-simulation-params.js",
+    "baseline_mrr": 11336,
+    "post_sprint_mrr": 15809,
+    "lift_percent": 39.5
+  },
+  
+  "files": {
+    "phase2": [
+      "backend/middleware/country_gate.py",
+      "backend/middleware/__init__.py",
+      "backend/auth_middleware.py",
+      "backend/meta_events_api.py",
+      "backend/features_api.py",
+      "backend/authority_meta_api.py",
+      "backend/halo_bridge.py",
+      "backend/dependencies.py",
+      "backend/tests/integration/test_phase2.py",
+      "sentense-app/src/lib/meta-events.ts",
+      "sentense-app/src/hooks/useFeatures.ts",
+      "sentense-app/src/__tests__/contracts/api.contract.test.ts"
+    ],
+    "phase3": [
+      "backend/conversion_events.py",
+      "backend/addon_trials.py",
+      "backend/triggers/trigger_engine.py",
+      "backend/triggers/__init__.py",
+      "sentense-app/src/lib/conversion-tracker.ts",
+      "sentense-app/src/components/upgrade/UpgradeComponents.tsx"
+    ]
+  },
+  
+  "compliance": {
+    "no_us_users": true,
+    "httponly_cookies": true,
+    "feature_gate_enforced": true,
+    "meta_events_active": true,
+    "halo_connected": true,
+    "conversion_tracking": true,
+    "addon_trial_enabled": true,
+    "triggers_configured": true
+  },
+  
+  "validation_rules": [
+    "All API endpoints must use dependencies.py guards",
+    "All protected routes must check httpOnly cookies",
+    "All tier checks must use feature_gate.py",
+    "All conversion events must go through conversion_events.py",
+    "All Meta events must use meta-events.ts",
+    "All upgrade prompts must track via ConversionTracker",
+    "Country must be CA/GB/AU/NZ for all users",
+    "No US IPs allowed past country gate"
+  ]
+}

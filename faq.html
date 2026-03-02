@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-HQ818WM2YB");</script>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/assets/css/compat.css">
+<script src="/assets/js/compat.js" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ | Quirrely</title>
+<meta name="description" content="Common questions about Quirrely writing voice analysis, plans, privacy, and features.">
+<link rel="canonical" href="https://quirrely.ca/faq">
+<link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#FFFBF5;--bg-dark:#F8F5F0;--card:#FFFFFF;--ink:#2D3436;--muted:#636E72;--light:#B2BEC3;--border:#E9ECEF;--coral:#FF6B6B;--coral-dark:#E55A4A;--teal:#4ECDC4;--purple:#A29BFE;--green:#00B894;--blue:#0984E3;--shadow-sm:0 2px 8px rgba(45,52,54,0.06);--shadow-md:0 4px 16px rgba(45,52,54,0.08);--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.6;min-height:100vh}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:0.75rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.header-left{display:flex;align-items:center;gap:2rem}
+.logo{font-size:1.25rem;font-weight:700;text-decoration:none;color:var(--ink)}.logo span{color:var(--coral)}.logo em{font-style:normal;color:var(--teal)}
+.header-nav{display:flex;gap:1.5rem;align-items:center}
+.header-nav a{text-decoration:none;color:var(--muted);font-size:0.9rem;font-weight:500;transition:color 0.2s}
+.header-nav a:hover{color:var(--ink)}.header-nav a.active{color:var(--ink);font-weight:600}
+.nav-btn{background:var(--coral);color:#fff!important;padding:0.4rem 1rem;border-radius:var(--radius-sm);font-weight:600;transition:background 0.2s}.nav-btn:hover{background:var(--coral-dark)}
+.social-link{color:var(--muted);transition:color 0.2s}.social-link:hover{color:var(--blue)}
+.main{max-width:800px;margin:0 auto;padding:2rem}
+.page-title{font-size:2rem;font-weight:700;margin-bottom:0.5rem}
+.page-subtitle{font-size:1.05rem;color:var(--muted);margin-bottom:2rem}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:0.75rem;overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow 0.2s}
+.faq-item:hover{box-shadow:var(--shadow-md)}
+.faq-q{padding:1.25rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:1rem;user-select:none}
+.faq-q:hover{color:var(--coral)}
+.faq-arrow{font-size:1.2rem;transition:transform 0.3s;color:var(--light)}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--coral)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease;padding:0 1.5rem}
+.faq-item.open .faq-a{max-height:500px;padding:0 1.5rem 1.25rem}
+.faq-a p{color:var(--muted);font-size:0.95rem;line-height:1.7;margin-bottom:0.5rem}
+.faq-a a{color:var(--blue);text-decoration:none;font-weight:500}.faq-a a:hover{text-decoration:underline}
+.faq-a ul{margin:0.5rem 0 0.5rem 1.5rem;color:var(--muted);font-size:0.95rem}.faq-a li{margin-bottom:0.3rem}
+.cta-box{background:linear-gradient(135deg,var(--coral),var(--purple));border-radius:var(--radius-lg);padding:2.5rem;text-align:center;margin-top:2.5rem;color:#fff}
+.cta-box h3{font-size:1.3rem;margin-bottom:0.5rem}.cta-box p{opacity:0.9;margin-bottom:1.25rem}
+.cta-btn{display:inline-block;background:#fff;color:var(--coral);padding:0.7rem 2rem;border-radius:var(--radius-sm);font-weight:700;text-decoration:none;transition:transform 0.2s}.cta-btn:hover{transform:translateY(-2px)}
+.footer{text-align:center;padding:2rem;font-size:0.85rem;color:var(--light)}.footer a{color:var(--muted);text-decoration:none}
+@media(max-width:600px){.main{padding:1rem}.header{padding:0.75rem 1rem}.header-nav{gap:0.75rem}.page-title{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<header class="header">
+<div class="header-left">
+<a href="/" class="logo">Quir<span>rel</span><em>y</em></a>
+<nav class="header-nav" id="main-nav">
+<a href="/blog/index.html">Blog</a>
+<a href="/billing/upgrade.html">Pricing</a>
+<a href="/faq" class="active">FAQ</a>
+<a href="/auth/login.html" class="nav-btn" id="nav-cta">Sign In</a>
+</nav>
+</div>
+</header>
+<main class="main">
+<h1 class="page-title">Frequently Asked Questions</h1>
+<p class="page-subtitle">Everything you need to know about Quirrely and your writing voice.</p>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is Quirrely and how does it work?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Quirrely is a writing voice analysis tool. Paste a sample of your writing, and our LNCP engine analyzes it across 50 linguistic tokens to reveal your unique voice profile. You get a voice type (like Assertive or Conversational) and a stance (Open, Closed, Balanced, or Contradictory) that together describe how you write.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What are voice types and stances?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Quirrely identifies 10 voice types: Conversational, Assertive, Poetic, Analytical, Minimal, Provocative, Reflective, Technical, Narrative, and Persuasive. Each is paired with one of 4 stances &mdash; Open, Closed, Balanced, or Contradictory &mdash; describing how your writing engages with its audience.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I take a writing voice test?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>From the <a href="/">home page</a>, paste any sample of your writing into the text area and click Analyze. For best results, use 200+ words of natural writing &mdash; an email, blog post, or journal entry works great. You can save your results and retake the test anytime.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What do I get with the free plan vs Pro?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p><strong>Free</strong> includes basic voice analysis, your public profile, and share cards.</p><p><strong>Pro ($2.99/mo CAD)</strong> unlocks everything:</p><ul><li>Voice Evolution tracking over time</li><li>STRETCH exercises to strengthen your voice</li><li>Writers Like You &mdash; famous authors with similar voices</li><li>Recommended Reading from your country's bookstores</li><li>Full data export tools</li></ul><p><a href="/billing/upgrade.html">Compare plans &rarr;</a></p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my writing data private?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Yes. Your writing samples and results are private by default. You can optionally enable a public profile in <a href="/settings">Settings</a> to share your voice type, but your actual text is never shown publicly. You can clear your history or delete your account at any time.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I improve my writing voice?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Pro subscribers get access to STRETCH &mdash; targeted writing exercises designed around your specific voice profile. You can also retake the analysis with different writing samples to see how your voice shifts across contexts. Your dashboard tracks your voice evolution over time so you can see growth.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What countries is Quirrely available in?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Quirrely is currently available in Canada, the United Kingdom, Australia, and New Zealand. USA coming soon! Our recommended reading feature links to local bookstores in each supported country.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I share my voice profile?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>From your <a href="/dashboard">dashboard</a>, click the share button on your voice card. You can copy a direct link, share to LinkedIn, or post to Facebook. Your public profile shows your voice type and stance &mdash; never your raw text.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I delete my data?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Yes. Go to <a href="/settings">Settings</a> where you can clear your analysis history or delete your entire account. Deletion is permanent and removes all your data from our servers.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I get featured as a writer?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Pro and Featured tier subscribers can submit writing samples for review. If selected, your work appears on our <a href="/blog/featured">Featured Writers</a> page and you earn a Featured badge on your public profile. Submit from your dashboard once you have an active Pro subscription.</p></div></div>
+
+<div class="cta-box">
+<h3>Ready to discover your writing voice?</h3>
+<p>It takes less than a minute. Paste your writing and see what makes your voice unique.</p>
+<a href="/" class="cta-btn">Take the Test Free &rarr;</a>
+</div>
+</main>
+<footer class="footer">
+<p>Quirrely &middot; <a href="/blog/terms.html">Terms</a> &middot; <a href="/blog/privacy.html">Privacy</a> &middot; <a href="mailto:hello@quirrely.com">Support</a></p>
+</footer>
+<script>
+function toggleFaq(el){el.parentElement.classList.toggle('open')}
+(function(){
+  var t=localStorage.getItem('quirrely_token');
+  if(t){
+    var n=document.getElementById('main-nav');
+    n.innerHTML='<a href="/dashboard">Dashboard</a><a href="/frontend/index.html">Analyze</a><a href="/faq" class="active">FAQ</a><a href="/settings">Settings</a>';
+  }
+})();
+</script>
+</body>
+</html>

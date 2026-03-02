@@ -1,0 +1,25 @@
+{
+  "daily": {
+    "2026-02-22": {
+      "total_analyses": 1,
+      "profile_distribution": {
+        "LONGFORM": 1
+      },
+      "stance_distribution": {
+        "CLOSED": 1
+      },
+      "new_patterns": 0
+    },
+    "2026-02-27": {
+      "total_analyses": 3,
+      "profile_distribution": {
+        "DENSE": 3
+      },
+      "stance_distribution": {
+        "OPEN": 3
+      },
+      "new_patterns": 0
+    }
+  },
+  "version": "1.0"
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HQ818WM2YB');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin: Featured Writer Review | Quirrely</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+  <style>
+    :root { --bg:#F8F9FA; --ink:#2D3436; --primary:#FF6B6B; --success:#00B894; --danger:#E74C3C; --muted:#636E72; --border:#E9ECEF; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
+    .container { max-width:900px; margin:0 auto; padding:2rem; }
+    h1 { font-size:1.75rem; margin-bottom:0.5rem; }
+    .subtitle { color:var(--muted); margin-bottom:2rem; }
+    #auth-gate { text-align:center; padding:4rem 2rem; }
+    #auth-gate input { padding:0.75rem 1rem; border:1px solid var(--border); border-radius:8px; font-size:1rem; width:350px; margin-right:0.5rem; }
+    #auth-gate button { padding:0.75rem 1.5rem; background:var(--primary); color:white; border:none; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; }
+    #review-panel { display:none; }
+    .stats { display:flex; gap:1rem; margin-bottom:2rem; }
+    .stat-card { background:white; border:1px solid var(--border); border-radius:8px; padding:1rem 1.5rem; flex:1; text-align:center; }
+    .stat-card .num { font-size:2rem; font-weight:700; }
+    .stat-card .label { font-size:0.85rem; color:var(--muted); }
+    .empty { text-align:center; padding:3rem; color:var(--muted); }
+    .sub-card { background:white; border:1px solid var(--border); border-radius:12px; padding:1.5rem; margin-bottom:1.5rem; }
+    .sub-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem; }
+    .sub-meta { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
+    .badge { display:inline-block; padding:0.2rem 0.6rem; border-radius:4px; font-size:0.75rem; font-weight:600; }
+    .badge-profile { background:#EDE7F6; color:#7C3AED; }
+    .badge-country { background:#E3F2FD; color:#1565C0; }
+    .sub-sample { font-style:italic; border-left:3px solid var(--primary); padding-left:1rem; margin:1rem 0; }
+    .sub-bio { color:var(--muted); font-size:0.9rem; margin-bottom:0.5rem; }
+    .sub-links a { color:var(--primary); margin-right:1rem; font-size:0.85rem; }
+    .sub-footer { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; }
+    .sub-footer input { flex:1; min-width:200px; padding:0.5rem 0.75rem; border:1px solid var(--border); border-radius:6px; font-size:0.85rem; }
+    .btn { padding:0.5rem 1.25rem; border:none; border-radius:6px; font-weight:600; font-size:0.85rem; cursor:pointer; }
+    .btn-approve { background:var(--success); color:white; }
+    .btn-reject { background:var(--danger); color:white; }
+    .btn:disabled { opacity:0.5; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Featured Writer Review</h1>
+    <p class="subtitle">Review and approve pending submissions</p>
+    <div id="auth-gate">
+      <p style="margin-bottom:1rem;">Enter admin key to continue</p>
+      <input type="password" id="admin-key" placeholder="Admin API Key">
+      <button onclick="authenticate()">Unlock</button>
+      <p id="auth-error" style="color:var(--danger);margin-top:0.5rem;display:none;">Invalid key</p>
+    </div>
+    <div id="review-panel">
+      <div class="stats">
+        <div class="stat-card"><div class="num" id="pending-count">0</div><div class="label">Pending</div></div>
+        <div class="stat-card"><div class="num" id="approved-count">0</div><div class="label">Approved</div></div>
+      </div>
+      <div id="submissions-list"></div>
+    </div>
+  </div>
+<script>
+var AK='';
+async function authenticate(){
+  AK=document.getElementById('admin-key').value.trim();
+  var r=await fetch('/api/v2/featured/admin/pending',{headers:{'X-Admin-Key':AK}});
+  if(r.status===403){document.getElementById('auth-error').style.display='block';return;}
+  document.getElementById('auth-gate').style.display='none';
+  document.getElementById('review-panel').style.display='block';
+  loadSubs();
+}
+async function loadSubs(){
+  var r=await fetch('/api/v2/featured/admin/pending',{headers:{'X-Admin-Key':AK}});
+  var d=await r.json(); var subs=d.submissions||[];
+  document.getElementById('pending-count').textContent=subs.length;
+  var ar=await fetch('/api/v2/featured/approved');
+  var ad=await ar.json();
+  document.getElementById('approved-count').textContent=(ad.writers||[]).length;
+  var list=document.getElementById('submissions-list');
+  if(!subs.length){list.innerHTML='<div class="empty"><p>No pending submissions</p></div>';return;}
+  list.innerHTML='';
+  var fl={CA:'\ud83c\udde8\ud83c\udde6',GB:'\ud83c\uddec\ud83c\udde7',AU:'\ud83c\udde6\ud83c\uddfa',NZ:'\ud83c\uddf3\ud83c\uddff',US:'\ud83c\uddfa\ud83c\uddf8'};
+  subs.forEach(function(s){
+    var flag=fl[s.country]||'\ud83c\udf0d';
+    var lk='';
+    if(s.link_linkedin)lk+='<a href="'+s.link_linkedin+'" target="_blank">LinkedIn</a> ';
+    if(s.link_newsletter)lk+='<a href="'+s.link_newsletter+'" target="_blank">Newsletter</a> ';
+    if(s.link_facebook)lk+='<a href="'+s.link_facebook+'" target="_blank">Facebook</a>';
+    var c=document.createElement('div');c.className='sub-card';c.id='sub-'+s.id;
+    c.innerHTML='<div class="sub-header"><div class="sub-meta"><span>'+flag+'</span> <strong>'+s.display_name+'</strong> <span class="badge badge-profile">'+s.profile.toUpperCase()+' \u00b7 '+s.stance.toUpperCase()+'</span> <span class="badge badge-country">'+s.country+'</span></div><div style="font-size:0.8rem;color:#636E72;">'+s.word_count+' words \u00b7 '+new Date(s.created_at).toLocaleDateString()+'</div></div><div class="sub-sample">'+s.sample+'</div>'+(s.bio?'<div class="sub-bio">'+s.bio+'</div>':'')+(lk?'<div class="sub-links">'+lk+'</div>':'')+'<div class="sub-footer"><input type="text" id="reason-'+s.id+'" placeholder="Rejection reason (optional)"><button class="btn btn-approve" onclick="doApprove(\''+s.id+'\')">Approve</button><button class="btn btn-reject" onclick="doReject(\''+s.id+'\')">Reject</button></div>';
+    list.appendChild(c);
+  });
+}
+async function doApprove(id){
+  var cd=document.getElementById('sub-'+id);cd.querySelectorAll('.btn').forEach(function(b){b.disabled=true;});
+  var r=await fetch('/api/v2/featured/admin/approve/'+id,{method:'POST',headers:{'X-Admin-Key':AK,'Content-Type':'application/json'}});
+  var d=await r.json();
+  if(d.success){cd.innerHTML='<p style="color:var(--success);font-weight:600;">Approved</p>';setTimeout(loadSubs,1500);}
+  else{cd.querySelectorAll('.btn').forEach(function(b){b.disabled=false;});alert(d.detail||'Error');}
+}
+async function doReject(id){
+  var reason=document.getElementById('reason-'+id).value;
+  var cd=document.getElementById('sub-'+id);cd.querySelectorAll('.btn').forEach(function(b){b.disabled=true;});
+  var r=await fetch('/api/v2/featured/admin/reject/'+id,{method:'POST',headers:{'X-Admin-Key':AK,'Content-Type':'application/json'},body:JSON.stringify({reason:reason})});
+  var d=await r.json();
+  if(d.success){cd.innerHTML='<p style="color:var(--danger);font-weight:600;">Rejected</p>';setTimeout(loadSubs,1500);}
+  else{cd.querySelectorAll('.btn').forEach(function(b){b.disabled=false;});alert(d.detail||'Error');}
+}
+document.getElementById('admin-key').addEventListener('keypress',function(e){if(e.key==='Enter')authenticate();});
+</script>
+</body>
+</html>

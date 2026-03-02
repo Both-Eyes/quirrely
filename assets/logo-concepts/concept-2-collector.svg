@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B" />
+      <stop offset="100%" style="stop-color:#FFE66D" />
+    </linearGradient>
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Geometric Squirrel -->
+  <g transform="translate(8, 8)">
+    <!-- Body (circle) -->
+    <circle cx="22" cy="28" r="14" fill="#FFFBF5" stroke="#2D3436" stroke-width="1.5"/>
+    <!-- Head (circle) -->
+    <circle cx="30" cy="18" r="10" fill="#FFFBF5" stroke="#2D3436" stroke-width="1.5"/>
+    <!-- Ears (triangles) -->
+    <polygon points="24,10 28,4 32,10" fill="#FFFBF5" stroke="#2D3436" stroke-width="1"/>
+    <polygon points="32,8 38,3 38,10" fill="#FFFBF5" stroke="#2D3436" stroke-width="1"/>
+    <!-- Tail (S-curve) -->
+    <path d="M10 28 Q2 20 8 12 Q14 6 12 14 Q10 20 8 28" fill="#FFFBF5" stroke="#2D3436" stroke-width="1.5"/>
+    <!-- Eye -->
+    <circle cx="33" cy="17" r="2" fill="#2D3436"/>
+    <!-- Glowing "sentence" acorn -->
+    <ellipse cx="38" cy="30" rx="6" ry="4" fill="url(#glow)" filter="url(#soft-glow)"/>
+    <text x="35" y="32" font-size="5" fill="#2D3436" font-weight="bold">""</text>
+  </g>
+  
+  <!-- Wordmark -->
+  <text x="55" y="40" font-family="Outfit, system-ui, sans-serif" font-size="28" font-weight="700" fill="#2D3436">
+    Senten<tspan fill="#FF6B6B">se</tspan>
+  </text>
+</svg>

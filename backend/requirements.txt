@@ -1,0 +1,29 @@
+# LNCP Web App Backend Dependencies
+# Version: 0.1.0
+
+# Web framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Data validation
+pydantic>=2.0.0
+
+# Optional: JSON Schema validation
+jsonschema>=4.20.0
+
+# Optional: Development
+python-multipart>=0.0.6
+httpx>=0.25.0  # For testing
+
+# WebSocket support (added v3.1.3)
+websockets>=11.0
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.6
+httpx>=0.25.0
+
+# Database (added v3.1.3 fix)
+psycopg2-binary>=2.9.9
+
+# Payments (added v3.1.3 fix)
+stripe>=7.0.0

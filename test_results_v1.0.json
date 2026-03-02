@@ -1,0 +1,657 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2026-02-09T18:39:03.065Z",
+  "summary": {
+    "total": 128,
+    "passed": 128,
+    "failed": 0,
+    "passRate": "100.0%"
+  },
+  "fileStats": {
+    "lines": 7827,
+    "jsLines": 4838,
+    "sizeKB": "319.1"
+  },
+  "tests": [
+    {
+      "name": "HTML5 doctype present",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Lang attribute set",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Viewport meta present",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Title contains Quirrely",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Screen 1 (input-screen) exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Screen 2 (stretch-screen) exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Screen 3 (results-screen) exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Screen 4 (deep-screen) exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Main textarea exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Stretch textarea exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Progress container exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Skip link present",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Skip link targets main content",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Main landmark role",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "ARIA live region exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "ARIA live is polite",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Screen reader only class defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Focus-visible styles defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Input has label association",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Error has role=\"alert\"",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Progress has aria-label",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "CSP meta tag present",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "CSP blocks frames",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "CSP blocks objects",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Sanitize function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Sanitize removes HTML tags",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Sanitize escapes ampersand",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Sanitize escapes less-than",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "SanitizeForJs function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Input sanitized in runAnalysis",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Input sanitized in submitStretch",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Analytics object defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Analytics has track method",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Analytics has save method",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Analytics has getStats method",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Analytics exposed globally",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Tracks page_view",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Tracks input_submit",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Tracks challenge_selected",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Tracks stretch_complete",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Tracks profile_revealed",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Tracks share_click",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Tracks save_click",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Tracks deep_view",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "PROFILES object defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile MINIMAL defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile DENSE defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile POETIC defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile INTERROGATIVE defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile ASSERTIVE defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile HEDGED defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile CONVERSATIONAL defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile LONGFORM defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile PARALLEL defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Profile PARENTHETICAL defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "PROFILE_ICONS defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "STANCE_ICONS defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #1: showPostShareSavePrompt defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #1: Triggers after share",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #2: Card animation CSS exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #3: CONTRADICTORY stance pill",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #4: getSocialProofCount defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #4: Applied to HEDGED/LONGFORM",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #5: CONVERSATIONAL-specific save",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #6: Input method detection",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #6: Pasted validation message",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #7: shareAnonymous function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Edge #7: Anonymous button for MINIMAL",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Hook copy uses Variant B",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Hook promise uses Variant B",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "abVariant set to B_control",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "View time tracking object",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "getViewTimeBucket function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "View time in share tracking",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "generateCompareCode function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "showCompareModal function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "decodeCompareCode function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Compare modal CSS",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "generateProfileBadge function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Badge uses canvas",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "showEmailCapture function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "submitEmail function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Email modal CSS",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Extra actions section in results",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Privacy modal exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Privacy notice mentions no PII",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Footer link to privacy",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "showPrivacyNotice function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "hidePrivacyNotice function",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Contact email in privacy",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "analyzeWriting function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "parseSentences function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "runAnalysis function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "submitStretch function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "renderResults function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "showStretchScreen function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "showDeepAnalysis function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "selectChallenge function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "getBestChallenges function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "primaryShare function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "shareNow function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "shareAnonymous function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "showShareConfirm function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "quickSave function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "connectToSave function defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "CSS variables defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Primary color defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Secondary color defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Font display defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Responsive meta tag",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Card styles defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Button styles defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Fade-in animation defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Hidden class defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Stagger animations defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Input error element exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Stretch error element exists",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Error class defined",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Validation in runAnalysis",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Validation in submitStretch",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Error tracking",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Screen 1 → Screen 2 transition",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Screen 2 → Screen 3 transition",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Screen 3 → Screen 4 transition",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Share flow complete",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Save flow complete",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Announce function for accessibility",
+      "passed": true,
+      "details": ""
+    },
+    {
+      "name": "Focus management function",
+      "passed": true,
+      "details": ""
+    }
+  ]
+}

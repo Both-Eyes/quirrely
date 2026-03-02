@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+(function(){
+  var k=sessionStorage.getItem('quirrely_admin_key');
+  if(!k){window.location.href='/admin/index.html';return;}
+  fetch('/api/v2/featured/admin/pending',{headers:{'X-Admin-Key':k}})
+    .then(function(r){if(r.status===403)window.location.href='/admin/index.html';})
+    .catch(function(){window.location.href='/admin/index.html';});
+})();
+</script>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quirrely — Super Admin Dashboard v1.3.1</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+      background: #0d1117;
+      color: #e6edf3;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .dashboard { max-width: 1400px; margin: 0 auto; }
+    .dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #30363d;
+    }
+    .dashboard-title { font-size: 1.75rem; font-weight: 600; color: #58a6ff; }
+    .dashboard-title span { color: #f85149; margin-right: 0.5rem; }
+    .version-badge {
+      display: inline-block;
+      background: #238636;
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+    }
+    .dashboard-meta { text-align: right; }
+    .dashboard-timestamp { font-size: 0.85rem; color: #8b949e; }
+    .dashboard-version { font-size: 0.75rem; color: #484f58; margin-top: 0.25rem; }
+    
+    /* Version Compare Banner */
+    .version-compare {
+      background: linear-gradient(135deg, #0d1a0f 0%, #161b22 100%);
+      border: 1px solid #238636;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .version-compare-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      color: #3fb950;
+      font-weight: 600;
+    }
+    .version-compare-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+    .version-compare-item { text-align: center; }
+    .version-compare-label { font-size: 0.7rem; color: #8b949e; text-transform: uppercase; }
+    .version-compare-value { font-size: 1.1rem; font-weight: 600; color: #3fb950; margin-top: 0.25rem; }
+    
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .metric-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .metric-card.highlight {
+      border-color: #238636;
+      background: linear-gradient(135deg, #161b22 0%, #0d1a0f 100%);
+    }
+    .metric-card.blue { border-color: #1f6feb; background: linear-gradient(135deg, #161b22 0%, #0d1520 100%); }
+    .metric-card.purple { border-color: #8957e5; background: linear-gradient(135deg, #161b22 0%, #150d1a 100%); }
+    .metric-label { font-size: 0.7rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+    .metric-value { font-size: 2rem; font-weight: 700; color: #e6edf3; }
+    .metric-value.green { color: #3fb950; }
+    .metric-value.blue { color: #58a6ff; }
+    .metric-value.purple { color: #a371f7; }
+    .metric-change { font-size: 0.8rem; margin-top: 0.35rem; }
+    .metric-change.up { color: #3fb950; }
+    .metric-change.neutral { color: #8b949e; }
+    
+    /* Section */
+    .section { margin-bottom: 2rem; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .section-title { font-size: 1rem; font-weight: 600; color: #e6edf3; }
+    
+    /* Tables */
+    .table-container { background: #161b22; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { text-align: left; padding: 0.85rem 1rem; background: #21262d; border-bottom: 1px solid #30363d; color: #8b949e; font-weight: 500; text-transform: uppercase; font-size: 0.7rem; }
+    th.right { text-align: right; }
+    td { padding: 0.85rem 1rem; border-bottom: 1px solid #21262d; color: #e6edf3; }
+    td.right { text-align: right; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #1c2128; }
+    tr.highlight td { background: #0d1a0f; font-weight: 600; }
+    .positive { color: #3fb950; }
+    .muted { color: #8b949e; }
+    
+    /* Two Column */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    
+    /* Funnel */
+    .funnel { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 1.25rem; }
+    .funnel-step { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+    .funnel-step:last-child { margin-bottom: 0; }
+    .funnel-label { min-width: 140px; font-size: 0.8rem; color: #8b949e; }
+    .funnel-bar-container { flex: 1; height: 24px; background: #21262d; border-radius: 4px; overflow: hidden; }
+    .funnel-bar { height: 100%; background: linear-gradient(90deg, #238636 0%, #2ea043 100%); border-radius: 4px; }
+    .funnel-value { min-width: 60px; font-size: 0.85rem; color: #e6edf3; text-align: right; font-weight: 500; }
+    
+    /* Feature List */
+    .feature-list { background: #161b22; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; }
+    .feature-item { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; border-bottom: 1px solid #21262d; }
+    .feature-item:last-child { border-bottom: none; }
+    .feature-item.new { background: rgba(35, 134, 54, 0.1); }
+    .feature-name { color: #e6edf3; }
+    .feature-impact { font-weight: 600; color: #3fb950; }
+    .new-badge { background: #238636; color: white; font-size: 0.6rem; padding: 0.15rem 0.4rem; border-radius: 3px; margin-left: 0.5rem; }
+    .cumulative-box { margin-top: 1rem; padding: 1rem; background: #0d1a0f; border: 1px solid #238636; border-radius: 8px; }
+    .cumulative-title { font-weight: 600; color: #3fb950; margin-bottom: 0.25rem; }
+    .cumulative-detail { font-size: 0.85rem; color: #8b949e; }
+    
+    /* Locale */
+    .locale-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+    .locale-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 1rem; text-align: center; }
+    .locale-flag { font-size: 2rem; margin-bottom: 0.5rem; }
+    .locale-name { font-size: 0.8rem; color: #8b949e; margin-bottom: 0.25rem; }
+    .locale-value { font-size: 1.25rem; font-weight: 600; color: #e6edf3; }
+    .locale-percent { font-size: 0.75rem; color: #8b949e; }
+    
+    /* Constants */
+    .constants-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .constant-item { display: flex; justify-content: space-between; padding: 0.6rem 0.85rem; background: #161b22; border: 1px solid #30363d; border-radius: 6px; font-size: 0.8rem; }
+    .constant-label { color: #8b949e; }
+    .constant-value { color: #e6edf3; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    
+    <!-- Header -->
+    <div class="dashboard-header">
+      <div>
+        <div class="dashboard-title"><span>🔐</span> Super Admin Dashboard <span class="version-badge">v1.3.1</span></div>
+      </div>
+      <div class="dashboard-meta">
+        <div class="dashboard-timestamp">Last updated: February 10, 2026 • 17:15 UTC</div>
+        <div class="dashboard-version">Quirrely</div>
+      </div>
+    </div>
+    
+    <!-- Version Comparison Banner -->
+    <div class="version-compare">
+      <div class="version-compare-header">📈 v1.3.0 → v1.3.1 Performance Change</div>
+      <div class="version-compare-grid">
+        <div class="version-compare-item">
+          <div class="version-compare-label">Conversion</div>
+          <div class="version-compare-value">+1.2%</div>
+        </div>
+        <div class="version-compare-item">
+          <div class="version-compare-label">Revenue/100K</div>
+          <div class="version-compare-value">+4.5%</div>
+        </div>
+        <div class="version-compare-item">
+          <div class="version-compare-label">Viral K</div>
+          <div class="version-compare-value">+15%</div>
+        </div>
+        <div class="version-compare-item">
+          <div class="version-compare-label">MRR @365</div>
+          <div class="version-compare-value">+106%</div>
+        </div>
+        <div class="version-compare-item">
+          <div class="version-compare-label">LTV @365</div>
+          <div class="version-compare-value">+107%</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Key Metrics Row 1 -->
+    <div class="metrics-grid">
+      <div class="metric-card highlight">
+        <div class="metric-label">MRR</div>
+        <div class="metric-value green">$877.3K</div>
+        <div class="metric-change up">↑ 106% vs v1.3.0</div>
+      </div>
+      <div class="metric-card highlight">
+        <div class="metric-label">ARR</div>
+        <div class="metric-value green">$10.5M</div>
+        <div class="metric-change up">↑ Projected Year 1</div>
+      </div>
+      <div class="metric-card blue">
+        <div class="metric-label">Active Subscribers</div>
+        <div class="metric-value blue">322,232</div>
+        <div class="metric-change neutral">146K mo / 176K yr</div>
+      </div>
+      <div class="metric-card purple">
+        <div class="metric-label">Total LTV Value</div>
+        <div class="metric-value purple">$19.1M</div>
+        <div class="metric-change up">↑ 107% vs v1.3.0</div>
+      </div>
+    </div>
+    
+    <!-- Key Metrics Row 2 -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Conversion Rate</div>
+        <div class="metric-value">9.29%</div>
+        <div class="metric-change up">↑ from 9.18%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Total Visitors</div>
+        <div class="metric-value">3.47M</div>
+        <div class="metric-change neutral">+71% viral (k=0.41)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Total Shares</div>
+        <div class="metric-value">1.69M</div>
+        <div class="metric-change up">↑ Compare Friend</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Immediate Revenue</div>
+        <div class="metric-value">$5.72M</div>
+        <div class="metric-change neutral">First payments</div>
+      </div>
+    </div>
+    
+    <!-- MRR/ARR Trailing -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">📈 MRR/ARR Performance — Trailing Periods</div>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Period</th>
+              <th class="right">Visitors</th>
+              <th class="right">Subs</th>
+              <th class="right">MRR</th>
+              <th class="right">ARR</th>
+              <th class="right">LTV</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>30 Days</td><td class="right">285K</td><td class="right">26.5K</td><td class="right">$72K</td><td class="right">$865K</td><td class="right">$1.6M</td></tr>
+            <tr><td>60 Days</td><td class="right">570K</td><td class="right">53K</td><td class="right">$144K</td><td class="right">$1.7M</td><td class="right">$3.1M</td></tr>
+            <tr><td>90 Days</td><td class="right">855K</td><td class="right">79K</td><td class="right">$216K</td><td class="right">$2.6M</td><td class="right">$4.7M</td></tr>
+            <tr><td>180 Days</td><td class="right">1.71M</td><td class="right">159K</td><td class="right">$432K</td><td class="right">$5.2M</td><td class="right">$9.4M</td></tr>
+            <tr class="highlight"><td><strong>365 Days</strong></td><td class="right"><strong>3.47M</strong></td><td class="right"><strong>322K</strong></td><td class="right positive"><strong>$877K</strong></td><td class="right positive"><strong>$10.5M</strong></td><td class="right positive"><strong>$19.1M</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Two Column -->
+    <div class="two-col">
+      <!-- Funnel -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">🔄 Funnel Conversion Rates</div>
+        </div>
+        <div class="funnel">
+          <div class="funnel-step"><div class="funnel-label">Landing → Input</div><div class="funnel-bar-container"><div class="funnel-bar" style="width: 84.5%;"></div></div><div class="funnel-value">84.5%</div></div>
+          <div class="funnel-step"><div class="funnel-label">Input → A1</div><div class="funnel-bar-container"><div class="funnel-bar" style="width: 91%;"></div></div><div class="funnel-value">91.0%</div></div>
+          <div class="funnel-step"><div class="funnel-label">A1 → A2</div><div class="funnel-bar-container"><div class="funnel-bar" style="width: 76.8%;"></div></div><div class="funnel-value">76.8%</div></div>
+          <div class="funnel-step"><div class="funnel-label">A2 → Paywall</div><div class="funnel-bar-container"><div class="funnel-bar" style="width: 76.9%;"></div></div><div class="funnel-value">76.9%</div></div>
+          <div class="funnel-step"><div class="funnel-label">Paywall → Auth</div><div class="funnel-bar-container"><div class="funnel-bar" style="width: 45.5%;"></div></div><div class="funnel-value">45.5%</div></div>
+          <div class="funnel-step"><div class="funnel-label">Auth Complete</div><div class="funnel-bar-container"><div class="funnel-bar" style="width: 76.5%;"></div></div><div class="funnel-value">76.5%</div></div>
+          <div class="funnel-step"><div class="funnel-label">Auth → Subscribe</div><div class="funnel-bar-container"><div class="funnel-bar" style="width: 58.8%;"></div></div><div class="funnel-value">58.8%</div></div>
+        </div>
+      </div>
+      
+      <!-- Feature Impact -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">⚡ Feature Impact Stack</div>
+        </div>
+        <div class="feature-list">
+          <div class="feature-item"><span class="feature-name">Quick Wins (v1.1.0)</span><span class="feature-impact">+216%</span></div>
+          <div class="feature-item"><span class="feature-name">Adaptive Funnel (v1.2.0)</span><span class="feature-impact">+45%</span></div>
+          <div class="feature-item"><span class="feature-name">Voice Notes + Viral (v1.3.0)</span><span class="feature-impact">+34%</span></div>
+          <div class="feature-item new"><span class="feature-name">Quick Wins II (v1.3.1) <span class="new-badge">NEW</span></span><span class="feature-impact">+15%</span></div>
+        </div>
+        <div class="cumulative-box">
+          <div class="cumulative-title">Cumulative: +407% vs baseline</div>
+          <div class="cumulative-detail">$32.5K → $164.8K per 100K visitors</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- v1.3.1 Features -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🆕 v1.3.1 Feature Breakdown</div>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead><tr><th>Feature</th><th>Step</th><th class="right">Before</th><th class="right">After</th><th class="right">Lift</th></tr></thead>
+          <tbody>
+            <tr><td>Smart Placeholder</td><td>Landing→Input</td><td class="right">82.0%</td><td class="right">84.5%</td><td class="right positive">+3%</td></tr>
+            <tr><td>Testimonials + Exit Intent</td><td>Paywall→Auth</td><td class="right">42.5%</td><td class="right">45.5%</td><td class="right positive">+7%</td></tr>
+            <tr><td>Countdown + Try One More</td><td>Auth→Subscribe</td><td class="right">53.0%</td><td class="right">58.8%</td><td class="right positive">+11%</td></tr>
+            <tr><td>Payment Anchoring</td><td>Annual Ratio</td><td class="right">52.5%</td><td class="right">54.6%</td><td class="right positive">+4%</td></tr>
+            <tr><td>Compare with Friend</td><td>Viral K</td><td class="right">0.36</td><td class="right">0.41</td><td class="right positive">+15%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Locale -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🌍 Market Distribution (365-day)</div>
+      </div>
+      <div class="locale-grid">
+        <div class="locale-card"><div class="locale-flag">🇬🇧</div><div class="locale-name">UK</div><div class="locale-value">135K</div><div class="locale-percent">42%</div></div>
+        <div class="locale-card"><div class="locale-flag">🍁</div><div class="locale-name">Canada</div><div class="locale-value">90K</div><div class="locale-percent">28%</div></div>
+        <div class="locale-card"><div class="locale-flag">🇦🇺</div><div class="locale-name">Australia</div><div class="locale-value">71K</div><div class="locale-percent">22%</div></div>
+        <div class="locale-card"><div class="locale-flag">🇳🇿</div><div class="locale-name">New Zealand</div><div class="locale-value">26K</div><div class="locale-percent">8%</div></div>
+      </div>
+    </div>
+    
+    <!-- Constants -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">🔒 Locked Constants</div>
+      </div>
+      <div class="constants-grid">
+        <div class="constant-item"><span class="constant-label">Pricing</span><span class="constant-value">$2.99/mo, $30/yr</span></div>
+        <div class="constant-item"><span class="constant-label">Monthly Churn</span><span class="constant-value">10%/mo</span></div>
+        <div class="constant-item"><span class="constant-label">Annual Churn</span><span class="constant-value">25%/yr</span></div>
+        <div class="constant-item"><span class="constant-label">Discount Rate</span><span class="constant-value">10%</span></div>
+        <div class="constant-item"><span class="constant-label">Monthly LTV</span><span class="constant-value">$27.61</span></div>
+        <div class="constant-item"><span class="constant-label">Annual LTV</span><span class="constant-value">$85.71</span></div>
+        <div class="constant-item"><span class="constant-label">Blended LTV</span><span class="constant-value positive">$58.29</span></div>
+        <div class="constant-item"><span class="constant-label">Viral K</span><span class="constant-value positive">0.41</span></div>
+        <div class="constant-item"><span class="constant-label">Share Rate</span><span class="constant-value">60.9%</span></div>
+      </div>
+    </div>
+    
+  </div>
+</body>
+</html>
