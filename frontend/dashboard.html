@@ -1758,7 +1758,55 @@ async function init() {
 
 
 
-    // Featured badge in sidebar
+    // Referral comparison
+    (async function(){
+      var ref=localStorage.getItem('quirrely_ref');
+      if(!ref || !data.profiles || !data.profiles.length) return;
+      try {
+        var d=await apiGet('/api/v2/share/public/'+encodeURIComponent(ref), token);
+        if(!d||!d.profile) return;
+        var latest=data.profiles[0];
+        var myP=(latest.profile||'').toUpperCase();
+        var theirP=(d.profile||'').toUpperCase();
+        var myS=(latest.stance||'').toLowerCase();
+        var theirS=(d.stance||'').toLowerCase();
+        var name=d.display_name||ref;
+        var myC={'ASSERTIVE':'#E74C3C','MINIMAL':'#3498DB','POETIC':'#9B59B6','DENSE':'#2C3E50','CONVERSATIONAL':'#E67E22','FORMAL':'#1ABC9C','INTERROGATIVE':'#F39C12','HEDGED':'#7F8C8D','PARALLEL':'#2ECC71','LONGFORM':'#8E44AD'}[myP]||'#666';
+        var theirC={'ASSERTIVE':'#E74C3C','MINIMAL':'#3498DB','POETIC':'#9B59B6','DENSE':'#2C3E50','CONVERSATIONAL':'#E67E22','FORMAL':'#1ABC9C','INTERROGATIVE':'#F39C12','HEDGED':'#7F8C8D','PARALLEL':'#2ECC71','LONGFORM':'#8E44AD'}[theirP]||'#666';
+        var same=myP===theirP;
+        // Build my scores from latest profile
+        var myScores={};
+        Object.keys(latest).forEach(function(k){if(k.startsWith('score_')&&latest[k])myScores[k.replace('score_','')]=latest[k];});
+        var theirScores=d.scores||{};
+        var allKeys={};
+        Object.keys(myScores).forEach(function(k){allKeys[k]=1;});
+        Object.keys(theirScores).forEach(function(k){allKeys[k]=1;});
+        var top=Object.keys(allKeys).sort(function(a,b){return Math.max(theirScores[b]||0,myScores[b]||0)-Math.max(theirScores[a]||0,myScores[a]||0);}).slice(0,4);
+        var bars=top.map(function(k){
+          var mv=Math.min(myScores[k]||0,100); var tv=Math.min(theirScores[k]||0,100);
+          return '<div style="display:flex;align-items:center;gap:6px;margin:5px 0">'
+            +'<span style="width:28px;font-size:.75rem;color:'+myC+';text-align:right;font-weight:600">'+mv+'</span>'
+            +'<div style="flex:1;height:8px;background:#f0eeeb;border-radius:4px;overflow:hidden"><div style="width:'+mv+'%;height:100%;background:'+myC+';border-radius:4px"></div></div>'
+            +'<span style="font-size:.72rem;color:#aaa;width:80px;text-align:center;text-transform:capitalize">'+k+'</span>'
+            +'<div style="flex:1;height:8px;background:#f0eeeb;border-radius:4px;overflow:hidden"><div style="width:'+tv+'%;height:100%;background:'+theirC+';border-radius:4px"></div></div>'
+            +'<span style="width:28px;font-size:.75rem;color:'+theirC+';font-weight:600">'+tv+'</span></div>';
+        }).join('');
+        var card=document.createElement('div');
+        card.className='card';
+        card.style.cssText='background:linear-gradient(135deg,#FFFBF5,#fff);border:2px solid #FF6B6B;margin-bottom:16px;';
+        card.innerHTML='<div class="card-title">Voice Comparison</div>'
+          +'<div style="display:flex;justify-content:center;align-items:center;gap:20px;margin:12px 0">'
+          +'<div style="text-align:center"><div style="font-size:.8rem;color:#888">You</div><div style="font-size:1.2rem;font-weight:700;color:'+myC+'">'+myP+'</div><div style="font-size:.72rem;color:#aaa">'+myS+'</div></div>'
+          +'<div style="font-size:1.5rem;color:#ddd">'+(same?'=':'vs')+'</div>'
+          +'<div style="text-align:center"><div style="font-size:.8rem;color:#888">'+name+'</div><div style="font-size:1.2rem;font-weight:700;color:'+theirC+'">'+theirP+'</div><div style="font-size:.72rem;color:#aaa">'+theirS+'</div></div></div>'
+          +bars
+          +'<div style="text-align:center;margin-top:12px;font-size:.85rem;color:#555">'+(same?'You share the same voice!':'Different voices, different strengths.')+'</div>'
+          +'<div style="text-align:center;margin-top:8px"><button class="btn btn-secondary" onclick="localStorage.removeItem(\'quirrely_ref\');this.closest(\'.card\').remove();" style="font-size:.8rem;padding:6px 14px;">Dismiss</button></div>';
+        var main=document.querySelector('main');
+        if(main&&main.firstChild) main.insertBefore(card,main.firstChild);
+      }catch(re){}
+    })();
+        // Featured badge in sidebar
     if (serverTier === 'featured' || serverTier === 'authority') {
       const avatarEl = document.getElementById('sidebarAvatar');
       const badgeClass = serverTier === 'authority' ? 'authority-badge' : 'featured-badge';

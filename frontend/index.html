@@ -6476,33 +6476,7 @@
       // Auto-compare if referred
       (function(){
         var ref=localStorage.getItem('quirrely_ref');
-        if(!ref||!analysis) return;
-        fetch('/api/v2/share/public/'+encodeURIComponent(ref))
-          .then(function(r){return r.ok?r.json():null})
-          .then(function(d){
-            if(!d||!d.profile) return;
-            var myP=analysis.primaryMode;
-            var theirP=d.profile;
-            var myS=analysis.stance;
-            var theirS=d.stance||'';
-            var name=d.display_name||ref;
-            var same=myP===theirP;
-            var el=document.createElement('div');
-            el.className='ref-compare';
-            el.style.cssText='background:linear-gradient(135deg,#faf9f6,#fff);border:2px solid #E8735A;border-radius:16px;padding:24px;margin:20px auto;max-width:500px;text-align:center;';
-            el.innerHTML='<div style="font-size:.9em;color:#888;margin-bottom:8px">Referred by '+name+'</div>'
-              +'<div style="display:flex;justify-content:center;align-items:center;gap:16px;margin:12px 0">'
-              +'<div><div style="font-size:.85em;color:#666">You</div><div style="font-size:1.3em;font-weight:700;color:'+(PROFILES[myP]?PROFILES[myP].color:'#333')+'">'+myP+'</div><div style="font-size:.8em;color:#999">'+myS+'</div></div>'
-              +'<div style="font-size:1.5em;color:#ccc">'+(same?'=':'vs')+'</div>'
-              +'<div><div style="font-size:.85em;color:#666">'+name+'</div><div style="font-size:1.3em;font-weight:700;color:'+(PROFILES[theirP]?PROFILES[theirP].color:'#333')+'">'+theirP+'</div><div style="font-size:.8em;color:#999">'+theirS+'</div></div>'
-              +'</div>'
-              +'<div style="margin-top:12px;font-size:.95em;color:#555">'+(same?'You share the same voice!':'Different voices, different strengths.')+'</div>'
-              +'<a href="/signup.html" style="display:inline-block;margin-top:12px;padding:10px 24px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Share your voice too &rarr;</a>';
-            var rs=document.getElementById('results-screen');
-            if(rs) rs.insertBefore(el,rs.firstChild);
-            fetch('/api/v2/share/referral/track',{method:'POST',headers:{'Content-Type':'application/json'},
-              body:JSON.stringify({ref:ref,action:'analyze',visitor_id:localStorage.getItem('quirrely_vid')||''})}).catch(function(){});
-          }).catch(function(){});
+        if(ref&&analysis) showRefComparison(ref, analysis);
       })();
       // Share prompt for all users after analysis
       (function(){
@@ -6515,7 +6489,7 @@
         var isAuth=!!(localStorage.getItem('quirrely_session'));
         var cta=isAuth
           ?'<a href="/frontend/dashboard.html#share" style="display:inline-block;padding:10px 24px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Claim your voice URL &rarr;</a>'
-          :'<a href="/signup.html" style="display:inline-block;padding:10px 24px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Sign up to share your voice &rarr;</a>';
+          :'<a href="/auth/signup.html" style="display:inline-block;padding:10px 24px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Sign up to share your voice &rarr;</a>';
         sp.innerHTML='<div style="font-size:1.1em;font-weight:700;color:#333;margin-bottom:6px">Your voice is '+profile+'</div>'
           +'<div style="font-size:.9em;color:#666;margin-bottom:14px">Claim your personal voice URL and share it with the world.</div>'
           +cta;
@@ -6633,6 +6607,11 @@
       
       document.getElementById('story-screen').classList.add('hidden');
       document.getElementById('results-screen').classList.remove('hidden');
+      // Auto-compare if referred
+      (function(){
+        var ref=localStorage.getItem('quirrely_ref');
+        if(ref&&analysis) showRefComparison(ref, analysis);
+      })();
     }
     
     // ===========================================
@@ -9643,6 +9622,67 @@ Analyze more writing: ${window.location.origin}
     }
   </script>
 <script>
+function showRefComparison(ref, analysis) {
+  if(!ref||!analysis) return;
+  fetch('/api/v2/share/public/'+encodeURIComponent(ref))
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(d){
+      if(!d||!d.profile) return;
+      var myP=analysis.primaryMode;
+      var theirP=d.profile.toUpperCase();
+      var myS=analysis.stance;
+      var theirS=(d.stance||'').toLowerCase();
+      var name=d.display_name||ref;
+      var myC=(PROFILES[myP]||{}).color||'#333';
+      var theirC=(PROFILES[theirP]||{}).color||'#333';
+      var same=myP===theirP;
+      var theirScores=d.scores||{};
+      var top=Object.keys(theirScores).sort(function(a,b){
+        return (theirScores[b]||0)-(theirScores[a]||0);
+      }).slice(0,3);
+      var bars='<div style="margin:12px 0 4px;font-size:.72rem;color:#aaa;text-align:left">'+name+"\'s voice breakdown</div>";
+      bars+=top.map(function(k){
+        var tv=Math.min(theirScores[k]||0,100);
+        return '<div style="display:flex;align-items:center;gap:8px;margin:4px 0">'
+          +'<span style="width:90px;font-size:.75rem;color:#888;text-align:right;text-transform:capitalize">'+k+'</span>'
+          +'<div style="flex:1;height:8px;background:#f0eeeb;border-radius:4px;overflow:hidden"><div style="width:'+tv+'%;height:100%;background:'+theirC+';border-radius:4px"></div></div>'
+          +'<span style="width:28px;font-size:.75rem;color:#666">'+tv+'</span></div>';
+      }).join('');
+      bars+='<div style="font-size:.72rem;color:var(--primary,#FF6B6B);margin-top:8px">Sign up to see your full breakdown</div>';
+      _refCompareData={myP:myP,theirP:theirP,myC:myC,theirC:theirC,myS:myS,theirS:theirS,name:name,same:same,bars:bars,ref:ref};
+      _buildRefCard();
+    }).catch(function(){});
+}
+var _refCompareData=null;
+function _buildRefCard(){
+  var d=_refCompareData; if(!d) return;
+  var shareUrl=encodeURIComponent('https://quirrely.ca/?ref='+d.ref);
+  var shareText=encodeURIComponent('My writing voice is '+d.myP+' — compare yours!');
+  var old=document.querySelector('.ref-compare');
+  if(old) old.remove();
+  var el=document.createElement('div');
+  el.className='ref-compare';
+  el.style.cssText='background:linear-gradient(135deg,#FFFBF5,#fff);border:2px solid #FF6B6B;border-radius:20px;padding:28px;margin:20px auto;max-width:520px;text-align:center;box-shadow:0 4px 20px rgba(255,107,107,.1);';
+  el.innerHTML='<div style="font-size:.85rem;color:#999;margin-bottom:12px">Voice Comparison</div>'
+    +'<div style="display:flex;justify-content:center;align-items:center;gap:24px;margin:16px 0">'
+    +'<div><div style="font-size:.8rem;color:#888">You</div><div style="font-size:1.4rem;font-weight:700;color:'+d.myC+'">'+d.myP+'</div><div style="font-size:.75rem;color:#aaa">'+d.myS+'</div></div>'
+    +'<div style="font-size:1.8rem;color:#ddd">'+(d.same?'=':'vs')+'</div>'
+    +'<div><div style="font-size:.8rem;color:#888">'+d.name+'</div><div style="font-size:1.4rem;font-weight:700;color:'+d.theirC+'">'+d.theirP+'</div><div style="font-size:.75rem;color:#aaa">'+d.theirS+'</div></div>'
+    +'</div>'
+    +d.bars
+    +'<div style="margin-top:14px;font-size:.95rem;color:#555">'+(d.same?'You share the same voice!':'Different voices, different strengths.')+'</div>'
+    +'<div style="display:flex;gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap">'
+    +'<a href="https://www.linkedin.com/sharing/share-offsite/?url='+shareUrl+'" target="_blank" rel="noopener" style="padding:8px 18px;background:#0A66C2;color:#fff;border-radius:20px;text-decoration:none;font-size:.85rem;font-weight:600">Share on LinkedIn</a>'
+    +'<a href="https://www.facebook.com/sharer/sharer.php?u='+shareUrl+'&quote='+shareText+'" target="_blank" rel="noopener" style="padding:8px 18px;background:#1877F2;color:#fff;border-radius:20px;text-decoration:none;font-size:.85rem;font-weight:600">Share on Facebook</a>'
+    +'</div>'
+    +'<a href="/auth/signup.html" style="display:inline-block;margin-top:14px;padding:12px 28px;background:linear-gradient(135deg,#FF6B6B,#E55A5A);color:#fff;border-radius:24px;text-decoration:none;font-weight:600;box-shadow:0 4px 14px rgba(255,107,107,.3)">Discover your full voice &rarr;</a>';
+  var rs=document.getElementById('results-screen');
+  if(rs) rs.insertBefore(el,rs.firstChild);
+  fetch('/api/v2/share/referral/track',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ref:d.ref,action:'analyze',visitor_id:localStorage.getItem('quirrely_vid')||''})}).catch(function(){});
+}
+
+
 (function(){
   var p=new URLSearchParams(window.location.search);
   var ref=p.get('ref');
