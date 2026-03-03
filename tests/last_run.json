@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-03T15:25:49.763463+00:00",
+  "run_at": "2026-03-03T16:05:28.559530+00:00",
   "part_a": {
     "pass": 25,
     "fail": 0,
@@ -13,13 +13,13 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=4",
+        "detail": "restarts=6",
         "owner": "ASO"
       },
       {
         "name": "PM2 memory < 512MB",
         "status": "PASS",
-        "detail": "28.5MB",
+        "detail": "29.0MB",
         "owner": "ASO"
       },
       {
@@ -55,13 +55,13 @@
       {
         "name": "Public schema 15+ tables",
         "status": "PASS",
-        "detail": "106 tables",
+        "detail": "107 tables",
         "owner": "ASO"
       },
       {
         "name": "Table 'users' accessible",
         "status": "PASS",
-        "detail": "rows=198",
+        "detail": "rows=208",
         "owner": "ASO"
       },
       {
@@ -181,7 +181,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=9e2d2b8e...",
+        "detail": "session=cdb38af5...",
         "owner": "KIM"
       },
       {
@@ -463,7 +463,7 @@
     ]
   },
   "part_c": {
-    "pass": 443,
+    "pass": 460,
     "fail": 0,
     "tests": [
       {
@@ -481,7 +481,7 @@
       {
         "name": "API response < 500ms",
         "status": "PASS",
-        "detail": "5ms",
+        "detail": "6ms",
         "owner": "ASO"
       },
       {
@@ -1409,13 +1409,19 @@
         "owner": "KIM"
       },
       {
-        "name": "JS fn shareLinkedIn()",
+        "name": "JS fn claimSlug()",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "JS fn shareFacebook()",
+        "name": "JS fn initShare()",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "JS fn refreshShare()",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
@@ -1961,13 +1967,13 @@
         "owner": "KIM"
       },
       {
-        "name": "Facebook share present",
+        "name": "Share claim present",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "LinkedIn share present",
+        "name": "Share refresh present",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
@@ -2153,13 +2159,19 @@
         "owner": "KIM"
       },
       {
-        "name": "Master JS fn shareLinkedIn()",
+        "name": "Master JS fn claimSlug()",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Master JS fn shareFacebook()",
+        "name": "Master JS fn initShare()",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Master JS fn refreshShare()",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
@@ -2315,13 +2327,13 @@
         "owner": "KIM"
       },
       {
-        "name": "Share LinkedIn styled",
+        "name": "Share slug input styled",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Share Facebook styled",
+        "name": "Share ready section",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
@@ -2520,6 +2532,96 @@
       },
       {
         "name": "Index signup CTA on limit",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "share_api.py exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share generate endpoint",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share slug validation",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share refresh endpoint",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share get_public_profile",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "app.py mounts share router",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "app.py has /voice/ route",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "app.py voice OG tags",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "nginx proxies /voice/",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share card in dashboard",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share slug input",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "claimSlug function",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "initShare function",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "refreshShare function",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "initShare called in init",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"

@@ -283,6 +283,8 @@ try:
     app.include_router(analytics_router, tags=["Analytics"])
     from newsletter_api import router as newsletter_router
     app.include_router(newsletter_router, tags=["Newsletter"])
+    from share_api import router as share_router, get_public_profile
+    app.include_router(share_router, tags=["Share"])
     from featured_api import router as featured_router
     app.include_router(featured_router, tags=["Featured"])
     from super_admin_api import router as super_admin_router
@@ -292,6 +294,74 @@ try:
     logger.info("✅ Payments API loaded")
 except Exception as e:
     logger.warning(f"Payments API not loaded: {e}")
+
+
+# ── Public voice profile page (server-rendered for OG tags) ──
+from fastapi.responses import HTMLResponse
+PROFILE_COLORS={"ASSERTIVE":"#E74C3C","MINIMAL":"#3498DB","POETIC":"#9B59B6","DENSE":"#2C3E50","CONVERSATIONAL":"#E67E22","FORMAL":"#1ABC9C","INTERROGATIVE":"#F39C12","HEDGED":"#7F8C8D","PARALLEL":"#2ECC71","LONGFORM":"#8E44AD"}
+
+def _build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta):
+    return f"""<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{title} — Quirrely</title>
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}. {stance} stance. Discover your writing voice.">
+<meta property="og:image" content="{og_img}">
+<meta property="og:url" content="https://quirrely.ca/voice/{slug}">
+<meta property="og:type" content="profile">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{desc}">
+<meta name="twitter:image" content="{og_img}">
+<style>
+*{{margin:0;padding:0;box-sizing:border-box}}
+body{{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;background:#faf9f6;color:#333;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}}
+.card{{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);max-width:520px;width:100%;padding:40px;text-align:center}}
+.badge{{display:inline-block;padding:8px 24px;border-radius:24px;color:#fff;font-size:1.4em;font-weight:700;letter-spacing:1px;background:{color}}}
+.nm{{font-size:1.1em;color:#666;margin:16px 0 4px}}
+.st{{font-size:.95em;color:#999;margin-bottom:20px}}
+.ds{{font-size:1em;color:#555;line-height:1.5;margin-bottom:24px}}
+.sc{{text-align:left;margin:0 auto;max-width:380px}}
+.stats{{display:flex;justify-content:center;gap:32px;margin:20px 0;color:#888;font-size:.9em}}
+.cta{{display:inline-block;margin-top:24px;padding:14px 32px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:1.05em}}
+.cta:hover{{background:#d4604a}}
+.logo{{margin-bottom:24px;font-size:1.3em;font-weight:700;color:#E8735A}}
+</style></head><body>
+<div class="card">
+<div class="logo">Quir<span style="color:#333">re</span>ly</div>
+<div class="nm">{name}</div>
+<div class="badge">{profile}</div>
+<div class="st">{stance} stance</div>
+<div class="ds">{desc}</div>
+<div class="sc">{bars}</div>
+<div class="stats"><div>{tw:,} words</div><div>{ta} analyses</div></div>
+<a class="cta" href="https://quirrely.ca/">Discover your writing voice &rarr;</a>
+</div></body></html>"""
+
+PROFILE_DESC={"ASSERTIVE":"Bold, direct, and confident","MINIMAL":"Clean, precise, and economical","POETIC":"Lyrical, imagery-rich, and evocative","DENSE":"Complex, layered, and information-rich","CONVERSATIONAL":"Warm, natural, and approachable","FORMAL":"Structured, polished, and authoritative","INTERROGATIVE":"Curious, questioning, and exploratory","HEDGED":"Nuanced, cautious, and qualifying","PARALLEL":"Rhythmic, balanced, and patterned","LONGFORM":"Expansive, detailed, and immersive"}
+
+@app.get("/voice/{slug}", response_class=HTMLResponse)
+async def public_voice_page(slug: str):
+    p=get_public_profile(slug)
+    if not p:
+        return HTMLResponse("<html><body><h1>Not found</h1><a href='/'>Try Quirrely</a></body></html>",status_code=404)
+    profile=p.get("profile") or "UNKNOWN"
+    stance=p.get("stance") or ""
+    name=p.get("display_name") or slug
+    color=PROFILE_COLORS.get(profile,"#666")
+    desc=PROFILE_DESC.get(profile,"A unique writing voice")
+    scores=p.get("scores") or {}
+    tw=p.get("total_words") or 0
+    ta=p.get("total_analyses") or 0
+    top3=sorted(scores.items(),key=lambda x:x[1] if x[1] else 0,reverse=True)[:3] if scores else []
+    bars=""
+    for sn,sv in top3:
+        pct=int(float(sv)*100) if sv else 0
+        bars+=f'<div style="margin:8px 0"><span style="display:inline-block;width:120px;text-transform:capitalize">{sn}</span><div style="display:inline-block;width:200px;height:18px;background:#eee;border-radius:9px;vertical-align:middle"><div style="width:{pct}%;height:100%;background:{color};border-radius:9px"></div></div> {pct}%</div>'
+    og_img=f"https://quirrely.ca/og/{profile.lower()}.png"
+    title=f"{name} writes with a {profile} voice"
+    html=_build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta)
+    return HTMLResponse(html)
 
 # ── Analyze endpoint (with auth + word tracking) ──────────────────────
 if API_V2_AVAILABLE:

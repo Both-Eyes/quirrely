@@ -737,13 +737,22 @@ body.is-pro .tier-free-only {
     </div>
 
     <!-- Share Profile -->
-    <div class="card share-card">
+    <div class="card share-card" id="shareCard">
       <div class="card-title" style="margin-bottom:8px;">Share Your Voice Profile</div>
-      <p>Let the world know your writing voice type.</p>
-      <div class="share-btns">
-        <button class="share-btn" onclick="copyProfileLink()">📋 Copy Link</button>
-        <button class="share-btn linkedin-btn" onclick="shareLinkedIn()">in LinkedIn</button>
-        <button class="share-btn facebook-btn" onclick="shareFacebook()">f Facebook</button>
+      <p>Claim your vanity URL and share your writing voice.</p>
+      <div id="shareSetup" style="margin-bottom:12px;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:10px;">
+          <span style="color:var(--text-muted);font-size:.9rem;">quirrely.ca/voice/</span>
+          <input type="text" id="shareSlugInput" placeholder="your-name" maxlength="30" style="padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:.95rem;width:140px;">
+        </div>
+        <button class="share-btn primary-btn" onclick="claimSlug()">Claim URL</button>
+      </div>
+      <div id="shareReady" style="display:none;">
+        <div style="margin-bottom:12px;font-size:.95rem;color:var(--text-muted);" id="shareUrlDisplay"></div>
+        <div class="share-btns">
+          <button class="share-btn" onclick="copyProfileLink()">Copy Link</button>
+          <button class="share-btn primary-btn" onclick="refreshShare()">Update Profile</button>
+        </div>
       </div>
     </div>
   </main>
@@ -1016,19 +1025,48 @@ function submitForFeatured() {
 }
 
 // ===== SHARE =====
+let _shareUrl = null;
+async function initShare() {
+  const s = getSession(); if (!s?.token) return;
+  try {
+    const r = await fetch('/api/v2/share/me', {headers:{'Authorization':'Bearer '+s.token}});
+    const d = await r.json();
+    if (d.has_share) {
+      _shareUrl = d.url;
+      document.getElementById('shareSetup').style.display='none';
+      document.getElementById('shareReady').style.display='block';
+      document.getElementById('shareUrlDisplay').innerHTML='<a href="'+d.url+'" target="_blank">'+d.url+'</a>';
+    }
+  } catch(ex) { console.error('initShare',ex); }
+}
+async function claimSlug() {
+  const s = getSession(); if (!s?.token) return;
+  const slug = document.getElementById('shareSlugInput').value.trim().toLowerCase();
+  if (!slug || slug.length < 3) { showToast('Slug must be at least 3 characters'); return; }
+  try {
+    const r = await fetch('/api/v2/share/generate', {
+      method:'POST', headers:{'Authorization':'Bearer '+s.token,'Content-Type':'application/json'},
+      body: JSON.stringify({slug:slug})
+    });
+    const d = await r.json();
+    if (!r.ok) { showToast(d.detail || 'Could not claim slug'); return; }
+    _shareUrl = d.url;
+    document.getElementById('shareSetup').style.display='none';
+    document.getElementById('shareReady').style.display='block';
+    document.getElementById('shareUrlDisplay').innerHTML='<a href="'+d.url+'" target="_blank">'+d.url+'</a>';
+    showToast('Your voice profile is live!');
+  } catch(ex) { showToast('Error claiming slug'); }
+}
 function copyProfileLink() {
-  const session = getSession();
-  const name = session?.user?.name || session?.user?.display_name || '';
-  const url = name ? (window.location.origin + '/profile/' + encodeURIComponent(name)) : window.location.origin;
-  navigator.clipboard.writeText(url).then(() => showToast('Profile link copied!')).catch(() => showToast('Could not copy link'));
+  if (!_shareUrl) { showToast('Claim your URL first'); return; }
+  navigator.clipboard.writeText(_shareUrl).then(()=>showToast('Link copied!')).catch(()=>showToast('Could not copy'));
 }
-function shareFacebook() {
-  const url = encodeURIComponent(window.location.origin);
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-}
-function shareLinkedIn() {
-  const url = encodeURIComponent(window.location.origin);
-  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+async function refreshShare() {
+  const s = getSession(); if (!s?.token) return;
+  try {
+    const r = await fetch('/api/v2/share/refresh',{method:'POST',headers:{'Authorization':'Bearer '+s.token}});
+    if (r.ok) showToast('Profile updated!'); else showToast('Could not refresh');
+  } catch(ex) { showToast('Error refreshing'); }
 }
 
 // ===== RENDER VOICE BARS =====
@@ -1506,6 +1544,8 @@ async function init() {
     showToast('Could not load full dashboard data. Please refresh.');
   }
 
+  // Init share profile
+  initShare();
   // Hide loading screen
   const ls = document.getElementById('loading-screen');
   ls.classList.add('fade-out');

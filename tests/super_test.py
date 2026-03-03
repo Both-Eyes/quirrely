@@ -586,7 +586,7 @@ def run_part_c():
     for _fl in ["blog/terms.html","blog/privacy.html","blog/affiliates.html","mailto:support@quirrely.ca"]:
         record("C",f"Footer {_fl}",_fl in _dash_html,"found" if _fl in _dash_html else "MISSING","KIM")
     print("\n  [KIM] Dashboard JS Functions")
-    _required_fns=["function toggleUserMenu","function doLogout","function viewPublicProfile","function submitForFeatured","function copyProfileLink","function shareLinkedIn","function shareFacebook","function showToast","function formatLocation","function getInitial","function formatNumber","function timeAgo","function renderVoiceBars","function renderActivity","function renderWriters","function renderBooks","function renderStretch","function startStretch","function renderEvolution","function setTier","async function init"]
+    _required_fns=["function toggleUserMenu","function doLogout","function viewPublicProfile","function submitForFeatured","function copyProfileLink","function claimSlug","function initShare","function refreshShare","function showToast","function formatLocation","function getInitial","function formatNumber","function timeAgo","function renderVoiceBars","function renderActivity","function renderWriters","function renderBooks","function renderStretch","function startStretch","function renderEvolution","function setTier","async function init"]
     for _fn in _required_fns:
         _fname=_fn.replace("async ","").replace("function ","")
         record("C",f"JS fn {_fname}()",_fn in _dash_html,"found" if _fn in _dash_html else "MISSING","KIM")
@@ -667,8 +667,8 @@ def run_part_c():
     for _bk in ["Indigo","Waterstones","Booktopia","Mighty Ape","Bookshop.org"]:
         record("C",f"Bookstore {_bk} configured",_bk in _dash_html,"found" if _bk in _dash_html else "MISSING","KIM")
     record("C","No Twitter/X share","shareTwitter" not in _dash_html and "twitter.com/intent" not in _dash_html,"clean" if "shareTwitter" not in _dash_html else "FOUND","KIM")
-    record("C","Facebook share present","shareFacebook" in _dash_html and "facebook.com/sharer" in _dash_html,"found" if "shareFacebook" in _dash_html else "MISSING","KIM")
-    record("C","LinkedIn share present","shareLinkedIn" in _dash_html and "linkedin.com/sharing" in _dash_html,"found" if "shareLinkedIn" in _dash_html else "MISSING","KIM")
+    record("C","Share claim present","claimSlug" in _dash_html,"found" if "claimSlug" in _dash_html else "MISSING","KIM")
+    record("C","Share refresh present","refreshShare" in _dash_html,"found" if "refreshShare" in _dash_html else "MISSING","KIM")
     record("C","No hardcoded Indigo-only links","chapters.indigo.ca" not in _dash_html,"clean" if "chapters.indigo.ca" not in _dash_html else "HARDCODED","KIM")
     record("C","Voice no lp.scores fallback","lp.scores ||" not in _dash_html,"clean" if "lp.scores ||" not in _dash_html else "STALE","KIM")
     record("C","Dominant voice from avgEntries","avgEntries" in _dash_html,"found" if "avgEntries" in _dash_html else "MISSING","KIM")
@@ -700,7 +700,7 @@ def run_part_c():
 
     print("\n  [KIM] Dashboard JS Functions (master)")
     _mfns = ["function doLogout","function viewPublicProfile","function submitForFeatured",
-        "function copyProfileLink","function shareLinkedIn","function shareFacebook",
+        "function copyProfileLink","function claimSlug","function initShare","function refreshShare",
         "function showToast","function getBookstore","function renderVoiceBars",
         "function renderWriters","function renderBooks","function renderActivity",
         "function renderStretch","function startStretch","function renderEvolution",
@@ -719,8 +719,8 @@ def run_part_c():
 
     print("\n  [KIM] Dashboard Share Buttons")
     record("C","Share Copy Link",'copyProfileLink' in _dash_html,"found" if "copyProfileLink" in _dash_html else "MISSING","KIM")
-    record("C","Share LinkedIn styled","linkedin-btn" in _dash_html and "shareLinkedIn" in _dash_html,"found","KIM")
-    record("C","Share Facebook styled","facebook-btn" in _dash_html and "shareFacebook" in _dash_html,"found","KIM")
+    record("C","Share slug input styled","shareSlugInput" in _dash_html,"found" if "shareSlugInput" in _dash_html else "MISSING","KIM")
+    record("C","Share ready section","shareReady" in _dash_html,"found" if "shareReady" in _dash_html else "MISSING","KIM")
     record("C","No Twitter/X in dashboard","shareTwitter" not in _dash_html and "twitter.com" not in _dash_html,"clean","KIM")
 
     print("\n  [MARS] Sentense Cleanup")
@@ -776,7 +776,32 @@ def run_part_c():
     record("C","Index 150 word cap","150" in _idx and "word limit" in _idx.lower(),"found" if "150" in _idx else "MISSING","MARS")
     record("C","Index signup CTA on limit","signup.html" in _idx,"found" if "signup.html" in _idx else "MISSING","MARS")
 
-    # --- Session 12: Word Tracking Auth Fix ---
+    # --- Session 12: Share / Public Voice Profile ---
+    print("\n  [MARS] Session 12 Share Feature")
+    _apy=open(os.path.join(APP_DIR,"app.py")).read()
+    _share_exists=os.path.isfile(os.path.join(APP_DIR,"share_api.py"))
+    record("C","share_api.py exists",_share_exists,"found" if _share_exists else "MISSING","MARS")
+    _sh=open(os.path.join(APP_DIR,"share_api.py")).read() if _share_exists else ""
+    record("C","Share generate endpoint","generate" in _sh and "require_auth" in _sh,"found" if "generate" in _sh else "MISSING","MARS")
+    record("C","Share slug validation","SLUG_RE" in _sh and "RESERVED" in _sh,"found" if "SLUG_RE" in _sh else "MISSING","MARS")
+    record("C","Share refresh endpoint","def refresh_share" in _sh,"found" if "def refresh_share" in _sh else "MISSING","MARS")
+    record("C","Share get_public_profile","def get_public_profile" in _sh,"found" if "def get_public_profile" in _sh else "MISSING","MARS")
+    record("C","app.py mounts share router","share_router" in _apy,"found" if "share_router" in _apy else "MISSING","MARS")
+    record("C","app.py has /voice/ route","/voice/{slug}" in _apy,"found" if "/voice/{slug}" in _apy else "MISSING","MARS")
+    record("C","app.py voice OG tags","og:title" in _apy and "og:image" in _apy,"found" if "og:title" in _apy else "MISSING","MARS")
+    _nx=open("/etc/nginx/conf.d/quirrely.conf").read()
+    record("C","nginx proxies /voice/","location /voice/" in _nx,"found" if "location /voice/" in _nx else "MISSING","MARS")
+
+        # --- Session 12: Dashboard Share UI ---
+    print("\n  [MARS] Session 12 Dashboard Share")
+    record("C","Share card in dashboard","shareCard" in _dh,"found" if "shareCard" in _dh else "MISSING","MARS")
+    record("C","Share slug input","shareSlugInput" in _dh,"found" if "shareSlugInput" in _dh else "MISSING","MARS")
+    record("C","claimSlug function","function claimSlug" in _dh,"found" if "function claimSlug" in _dh else "MISSING","MARS")
+    record("C","initShare function","function initShare" in _dh,"found" if "function initShare" in _dh else "MISSING","MARS")
+    record("C","refreshShare function","function refreshShare" in _dh,"found" if "function refreshShare" in _dh else "MISSING","MARS")
+    record("C","initShare called in init","initShare()" in _dh,"found" if "initShare()" in _dh else "MISSING","MARS")
+
+        # --- Session 12: Word Tracking Auth Fix ---
     print("\n  [MARS] Session 12 Word Tracking")
     _apy=open(os.path.join(APP_DIR,"app.py")).read()
     record("C","app.py analyze imports get_current_user","get_current_user" in _apy and "from auth_api import get_current_user" in _apy,"found" if "from auth_api import get_current_user" in _apy else "MISSING","MARS")
