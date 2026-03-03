@@ -386,19 +386,50 @@ if API_V2_AVAILABLE:
         classifier = get_classifier()
         result = classifier.classify(request.text)
 
-        # Record word usage
+        # Record patterns + word usage + writing_profiles
+        collector = get_pattern_collector()
+        pid, hid = collector.record_analysis(
+            tokens=result["tokens"], profile=result["profile"], stance=result["stance"],
+            word_count=result["word_count"], sentence_count=result["sentence_count"],
+            user_id=user_id, session_id=None, source=request.source,
+            input_preview=request.text[:100], scores=result["scores"],
+            confidence_score=result["confidence"],
+        )
         if user_id:
             gate.record_analysis(user_id, None, result["word_count"])
+            # Write to writing_profiles for share/history
+            try:
+                import psycopg2 as _pg
+                _dburl = os.environ.get("DATABASE_URL","postgresql://quirrely:Quirr2026db@127.0.0.1:5432/quirrely_prod")
+                _cn = _pg.connect(_dburl)
+                _cr = _cn.cursor()
+                ps = result["scores"].get("profiles",{})
+                sts = result["scores"].get("stances",{})
+                _cr.execute("""INSERT INTO writing_profiles
+                    (user_id, profile, stance, score_assertive, score_minimal,
+                     score_poetic, score_dense, score_conversational, score_formal,
+                     score_balanced, score_longform, score_interrogative, score_hedged,
+                     score_open, score_closed, score_stance_balanced, score_contradictory,
+                     input_text, input_word_count)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+                    (user_id, result["profile"], result["stance"],
+                     round(ps.get("ASSERTIVE",0)*100), round(ps.get("MINIMAL",0)*100),
+                     round(ps.get("POETIC",0)*100), round(ps.get("DENSE",0)*100),
+                     round(ps.get("CONVERSATIONAL",0)*100), round(ps.get("FORMAL",0)*100),
+                     0, round(ps.get("LONGFORM",0)*100),
+                     round(ps.get("INTERROGATIVE",0)*100), round(ps.get("HEDGED",0)*100),
+                     round(sts.get("OPEN",0)*100), round(sts.get("CLOSED",0)*100),
+                     round(sts.get("BALANCED",0)*100), round(sts.get("CONTRADICTORY",0)*100),
+                     request.text[:500], result["word_count"]))
+                _cn.commit(); _cn.close()
+            except Exception as _wpe:
+                logger.warning(f"writing_profiles insert failed: {_wpe}")
 
         return AnalyzeResponse(
-            profile=result["profile"],
-            stance=result["stance"],
-            word_count=result["word_count"],
-            sentence_count=result["sentence_count"],
-            confidence=result["confidence"],
-            scores=result["scores"],
-            pattern_id="",
-            history_id="",
+            profile=result["profile"], stance=result["stance"],
+            word_count=result["word_count"], sentence_count=result["sentence_count"],
+            confidence=result["confidence"], scores=result["scores"],
+            pattern_id=pid or "", history_id=hid or "",
             features_used=["basic_analysis"],
         )
     logger.info("\u2705 API v2 analyze endpoint loaded (with word tracking)")

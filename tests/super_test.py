@@ -792,6 +792,15 @@ def run_part_c():
     _nx=open("/etc/nginx/conf.d/quirrely.conf").read()
     record("C","nginx proxies /voice/","location /voice/" in _nx,"found" if "location /voice/" in _nx else "MISSING","MARS")
 
+        # --- Session 12: Pattern Recording in Proxy ---
+    print("\n  [MARS] Session 12 Pattern Recording")
+    record("C","app.py proxy calls collector.record_analysis","collector.record_analysis" in _apy,"found" if "collector.record_analysis" in _apy else "MISSING","MARS")
+    record("C","app.py proxy returns pattern_id",'pattern_id=pid' in _apy,"found" if "pattern_id=pid" in _apy else "MISSING","MARS")
+
+        # --- Session 12: Writing Profiles Recording ---
+    print("\n  [MARS] Session 12 Writing Profiles")
+    record("C","app.py writes to writing_profiles","writing_profiles" in _apy and "INSERT INTO writing_profiles" in _apy,"found" if "INSERT INTO writing_profiles" in _apy else "MISSING","MARS")
+
         # --- Session 12: OG Share Images ---
     print("\n  [MARS] Session 12 OG Images")
     _og_dir="/home/quirrely/quirrely.ca/og"

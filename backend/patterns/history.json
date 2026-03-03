@@ -135,6 +135,108 @@
         }
       },
       "analyzed_at": "2026-02-27T18:24:43.017684Z"
+    },
+    {
+      "id": "5ebad1f754cf431c",
+      "user_id": "5180daef-f1e5-459f-84f8-85e388e64a55",
+      "session_id": null,
+      "profile": "INTERROGATIVE",
+      "stance": "CLOSED",
+      "word_count": 29,
+      "sentence_count": 2,
+      "token_signature": "2-2-7-3-7-1-6-6-1-6",
+      "confidence_score": 0.9292636730654557,
+      "source": "web",
+      "input_preview": "The morning light filtered through the curtains casting long shadows across the wooden floor. She pi",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8461336444199016,
+          "MINIMAL": 0.9088908361419775,
+          "POETIC": 0.2802588229881011,
+          "DENSE": 0.4851113742062263,
+          "CONVERSATIONAL": 0.3056216515292428,
+          "FORMAL": 0.6765513043125424,
+          "INTERROGATIVE": 0.8437249219090511,
+          "HEDGED": 0.10571644419450354,
+          "PARALLEL": 0.6616085277021049,
+          "LONGFORM": 0.9596682596800583
+        },
+        "stances": {
+          "OPEN": 0.4740205350968253,
+          "CLOSED": 0.8681907833214247,
+          "BALANCED": 0.23936931565084651,
+          "CONTRADICTORY": 0.7437268428329058
+        }
+      },
+      "analyzed_at": "2026-03-03T16:41:33.358338Z"
+    },
+    {
+      "id": "7ad81593198eec58",
+      "user_id": "5180daef-f1e5-459f-84f8-85e388e64a55",
+      "session_id": null,
+      "profile": "INTERROGATIVE",
+      "stance": "CLOSED",
+      "word_count": 29,
+      "sentence_count": 2,
+      "token_signature": "2-2-7-3-7-1-6-6-1-6",
+      "confidence_score": 0.9292636730654557,
+      "source": "web",
+      "input_preview": "The morning light filtered through the curtains casting long shadows across the wooden floor. She pi",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8461336444199016,
+          "MINIMAL": 0.9088908361419775,
+          "POETIC": 0.2802588229881011,
+          "DENSE": 0.4851113742062263,
+          "CONVERSATIONAL": 0.3056216515292428,
+          "FORMAL": 0.6765513043125424,
+          "INTERROGATIVE": 0.8437249219090511,
+          "HEDGED": 0.10571644419450354,
+          "PARALLEL": 0.6616085277021049,
+          "LONGFORM": 0.9596682596800583
+        },
+        "stances": {
+          "OPEN": 0.4740205350968253,
+          "CLOSED": 0.8681907833214247,
+          "BALANCED": 0.23936931565084651,
+          "CONTRADICTORY": 0.7437268428329058
+        }
+      },
+      "analyzed_at": "2026-03-03T16:46:19.725209Z"
+    },
+    {
+      "id": "e2b0bb93d99a926a",
+      "user_id": null,
+      "session_id": null,
+      "profile": "DENSE",
+      "stance": "OPEN",
+      "word_count": 21,
+      "sentence_count": 3,
+      "token_signature": "6-8-4-6-5-6-6-3-3-1",
+      "confidence_score": 0.8646281446979349,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.6134509362849347,
+          "MINIMAL": 0.05397712213270389,
+          "POETIC": 0.6670504330024216,
+          "DENSE": 0.7388009726394447,
+          "CONVERSATIONAL": 0.9546671665618327,
+          "FORMAL": 0.4611055746239716,
+          "INTERROGATIVE": 0.8863179838758942,
+          "HEDGED": 0.047148621182924066,
+          "PARALLEL": 0.3091997867079239,
+          "LONGFORM": 0.48198706492017673
+        },
+        "stances": {
+          "OPEN": 0.779051549307817,
+          "CLOSED": 0.5587733144301305,
+          "BALANCED": 0.6328779552975904,
+          "CONTRADICTORY": 0.3249109690701577
+        }
+      },
+      "analyzed_at": "2026-03-03T16:48:10.368143Z"
     }
   ],
   "version": "1.0"

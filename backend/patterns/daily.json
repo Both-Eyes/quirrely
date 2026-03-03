@@ -19,6 +19,18 @@
         "OPEN": 3
       },
       "new_patterns": 0
+    },
+    "2026-03-03": {
+      "total_analyses": 3,
+      "profile_distribution": {
+        "INTERROGATIVE": 2,
+        "DENSE": 1
+      },
+      "stance_distribution": {
+        "CLOSED": 2,
+        "OPEN": 1
+      },
+      "new_patterns": 0
     }
   },
   "version": "1.0"

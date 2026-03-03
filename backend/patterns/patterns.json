@@ -29,6 +29,36 @@
       "avg_sentence_count": 3.0,
       "first_seen_at": "2026-02-27T18:04:40.305021Z",
       "last_seen_at": "2026-02-27T18:24:43.016986Z"
+    },
+    "2-2-7-3-7-1-6-6-1-6": {
+      "token_signature": "2-2-7-3-7-1-6-6-1-6",
+      "token_count": 29,
+      "profile_counts": {
+        "INTERROGATIVE": 2
+      },
+      "stance_counts": {
+        "CLOSED": 2
+      },
+      "total_observations": 2,
+      "avg_word_count": 29.0,
+      "avg_sentence_count": 2.0,
+      "first_seen_at": "2026-03-03T16:41:33.356241Z",
+      "last_seen_at": "2026-03-03T16:46:19.724441Z"
+    },
+    "6-8-4-6-5-6-6-3-3-1": {
+      "token_signature": "6-8-4-6-5-6-6-3-3-1",
+      "token_count": 21,
+      "profile_counts": {
+        "DENSE": 1
+      },
+      "stance_counts": {
+        "OPEN": 1
+      },
+      "total_observations": 1,
+      "avg_word_count": 21,
+      "avg_sentence_count": 3,
+      "first_seen_at": "2026-03-03T16:48:10.367408Z",
+      "last_seen_at": "2026-03-03T16:48:10.367408Z"
     }
   },
   "version": "1.0"
