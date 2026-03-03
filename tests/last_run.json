@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-03T16:48:08.124485+00:00",
+  "run_at": "2026-03-03T17:05:58.829633+00:00",
   "part_a": {
     "pass": 25,
     "fail": 0,
@@ -13,7 +13,7 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=11",
+        "detail": "restarts=13",
         "owner": "ASO"
       },
       {
@@ -55,13 +55,13 @@
       {
         "name": "Public schema 15+ tables",
         "status": "PASS",
-        "detail": "107 tables",
+        "detail": "108 tables",
         "owner": "ASO"
       },
       {
         "name": "Table 'users' accessible",
         "status": "PASS",
-        "detail": "rows=214",
+        "detail": "rows=220",
         "owner": "ASO"
       },
       {
@@ -121,13 +121,13 @@
       {
         "name": "SSL valid: quirrely.com",
         "status": "PASS",
-        "detail": "78 days",
+        "detail": "77 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: api.quirrely.com",
         "status": "PASS",
-        "detail": "78 days",
+        "detail": "77 days",
         "owner": "ASO"
       },
       {
@@ -181,7 +181,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=b4a8861e...",
+        "detail": "session=32a04016...",
         "owner": "KIM"
       },
       {
@@ -463,7 +463,7 @@
     ]
   },
   "part_c": {
-    "pass": 465,
+    "pass": 470,
     "fail": 0,
     "tests": [
       {
@@ -481,7 +481,7 @@
       {
         "name": "API response < 500ms",
         "status": "PASS",
-        "detail": "7ms",
+        "detail": "4ms",
         "owner": "ASO"
       },
       {
@@ -2598,6 +2598,36 @@
       },
       {
         "name": "app.py proxy returns pattern_id",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Referral track endpoint",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Referral stats endpoint",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Voice page CTA has ref param",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Index captures ref param",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Index tracks ref visit",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"

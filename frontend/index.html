@@ -37,6 +37,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-HQ818WM2YB");</script>
+
   <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
   <link rel="apple-touch-icon" href="/assets/logo/apple-touch-icon.svg">
   <meta charset="UTF-8">
@@ -9589,5 +9592,18 @@ Analyze more writing: ${window.location.origin}
       window.location.href = '/frontend/pro-dashboard.html';
     }
   </script>
+<script>
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  var ref=p.get('ref');
+  if(ref){
+    localStorage.setItem('quirrely_ref',ref);
+    var vid=localStorage.getItem('quirrely_vid');
+    if(!vid){vid=Math.random().toString(36).substr(2,12);localStorage.setItem('quirrely_vid',vid);}
+    fetch('/api/v2/share/referral/track',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ref:ref,action:'visit',visitor_id:vid})}).catch(function(){});
+  }
+})();
+</script>
 </body>
 </html>

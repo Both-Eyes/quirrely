@@ -49,16 +49,16 @@
       "token_signature": "6-8-4-6-5-6-6-3-3-1",
       "token_count": 21,
       "profile_counts": {
-        "DENSE": 1
+        "DENSE": 4
       },
       "stance_counts": {
-        "OPEN": 1
+        "OPEN": 4
       },
-      "total_observations": 1,
-      "avg_word_count": 21,
-      "avg_sentence_count": 3,
+      "total_observations": 4,
+      "avg_word_count": 21.0,
+      "avg_sentence_count": 3.0,
       "first_seen_at": "2026-03-03T16:48:10.367408Z",
-      "last_seen_at": "2026-03-03T16:48:10.367408Z"
+      "last_seen_at": "2026-03-03T17:06:00.942889Z"
     }
   },
   "version": "1.0"

@@ -144,5 +144,43 @@ async def refresh_share(user: dict = Depends(require_auth)):
           totals["tw"] if totals else 0, totals["ta"] if totals else 0, uid))
     return {"refreshed": True, "slug": mine["slug"]}
 
+
+class TrackRequest(BaseModel):
+    ref: str = Field(..., min_length=1, max_length=30)
+    action: str = Field(..., pattern="^(visit|analyze|signup)$")
+    visitor_id: Optional[str] = Field(None, max_length=64)
+
+@router.post("/referral/track")
+async def track_referral(req: TrackRequest):
+    """Track a referral event (public, no auth needed)."""
+    ref_profile = _q("SELECT user_id FROM share_profiles WHERE slug=%s", (req.ref,))
+    _e("""INSERT INTO referrals (referrer_slug, referrer_user_id, visitor_id, action)
+          VALUES (%s, %s, %s, %s)""",
+       (req.ref, ref_profile["user_id"] if ref_profile else None,
+        req.visitor_id, req.action))
+    return {"tracked": True}
+
+@router.get("/referral/stats")
+async def referral_stats(user: dict = Depends(require_auth)):
+    """Get referral stats for the authenticated user's share profile."""
+    uid = str(user["id"])
+    mine = _q("SELECT slug FROM share_profiles WHERE user_id=%s", (uid,))
+    if not mine:
+        return {"has_share": False, "stats": {}}
+    slug = mine["slug"]
+    conn = _db()
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur.execute("""SELECT action, COUNT(*) as cnt FROM referrals
+                       WHERE referrer_slug=%s GROUP BY action""", (slug,))
+        rows = cur.fetchall()
+        stats = {r["action"]: r["cnt"] for r in rows}
+        cur.execute("SELECT COUNT(*) as total FROM referrals WHERE referrer_slug=%s", (slug,))
+        total = cur.fetchone()["total"]
+        conn.commit()
+        return {"has_share": True, "slug": slug, "total": total, "stats": stats}
+    finally:
+        conn.close()
+
 def get_public_profile(slug: str):
     return _q("SELECT * FROM share_profiles WHERE slug=%s", (slug,))

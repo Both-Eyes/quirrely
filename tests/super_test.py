@@ -797,6 +797,16 @@ def run_part_c():
     record("C","app.py proxy calls collector.record_analysis","collector.record_analysis" in _apy,"found" if "collector.record_analysis" in _apy else "MISSING","MARS")
     record("C","app.py proxy returns pattern_id",'pattern_id=pid' in _apy,"found" if "pattern_id=pid" in _apy else "MISSING","MARS")
 
+        # --- Session 12: Referral Tracking ---
+    print("\n  [MARS] Session 12 Referral Tracking")
+    _sh=open(os.path.join(APP_DIR,"share_api.py")).read()
+    record("C","Referral track endpoint","def track_referral" in _sh,"found" if "def track_referral" in _sh else "MISSING","MARS")
+    record("C","Referral stats endpoint","def referral_stats" in _sh,"found" if "def referral_stats" in _sh else "MISSING","MARS")
+    record("C","Voice page CTA has ref param","?ref={slug}" in _apy,"found" if "?ref={slug}" in _apy else "MISSING","MARS")
+    _idx=open("/opt/quirrely/quirrely_v313_integrated/frontend/index.html").read()
+    record("C","Index captures ref param","quirrely_ref" in _idx,"found" if "quirrely_ref" in _idx else "MISSING","MARS")
+    record("C","Index tracks ref visit","referral/track" in _idx,"found" if "referral/track" in _idx else "MISSING","MARS")
+
         # --- Session 12: Writing Profiles Recording ---
     print("\n  [MARS] Session 12 Writing Profiles")
     record("C","app.py writes to writing_profiles","writing_profiles" in _apy and "INSERT INTO writing_profiles" in _apy,"found" if "INSERT INTO writing_profiles" in _apy else "MISSING","MARS")
