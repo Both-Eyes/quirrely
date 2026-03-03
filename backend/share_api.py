@@ -1,7 +1,7 @@
 """
 Share API — vanity slug profiles with OG meta for social sharing.
 """
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Request, HTTPException, Depends
 from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any
 from datetime import datetime
@@ -182,7 +182,7 @@ class TrackRequest(BaseModel):
     visitor_id: Optional[str] = Field(None, max_length=64)
 
 @router.post("/referral/track")
-async def track_referral(req: TrackRequest):
+async def track_referral(request: Request, req: TrackRequest):
     """Track a referral event (public, no auth needed)."""
     ref_profile = _q("SELECT user_id FROM share_profiles WHERE slug=%s", (req.ref,))
     _e("""INSERT INTO referrals (referrer_slug, referrer_user_id, visitor_id, action)
@@ -214,8 +214,11 @@ async def referral_stats(user: dict = Depends(require_auth)):
         conn.close()
 
 @router.get("/public/{slug}")
-async def get_public_share(slug: str):
+async def get_public_share(slug: str, request: Request):
     """Public endpoint to get a share profile by slug (no auth)."""
+    import re as _re
+    if not _re.match(r'^[a-z0-9][a-z0-9\-]{1,28}[a-z0-9]$', slug):
+        raise HTTPException(400, "Invalid slug")
     p = get_public_profile(slug)
     if not p:
         raise HTTPException(404, "Profile not found")

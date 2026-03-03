@@ -13,6 +13,7 @@ Run with: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 """
 
 import os
+import html as _html
 import sys
 from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'))
@@ -101,19 +102,18 @@ app.add_middleware(
     allow_origins=[
         # Production
         "https://quirrely.com",
+        "https://quirrely.ca",
+        "https://www.quirrely.ca",
         "https://www.quirrely.com",
         "https://api.quirrely.com",
         "https://admin.quirrely.com",
-        # Chrome extension
-        "chrome-extension://*",
+        # Chrome extension (disabled - add specific ID when needed)
         # Development
         "http://localhost:3000",
         "http://localhost:8000",
         "http://localhost:8001",
         "http://127.0.0.1:3000",
         "http://127.0.0.1:8000",
-        # Allow null origin for file:// access (dev)
-        "null"
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
@@ -301,6 +301,13 @@ from fastapi.responses import HTMLResponse
 PROFILE_COLORS={"ASSERTIVE":"#E74C3C","MINIMAL":"#3498DB","POETIC":"#9B59B6","DENSE":"#2C3E50","CONVERSATIONAL":"#E67E22","FORMAL":"#1ABC9C","INTERROGATIVE":"#F39C12","HEDGED":"#7F8C8D","PARALLEL":"#2ECC71","LONGFORM":"#8E44AD"}
 
 def _build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta):
+    title=_html.escape(str(title))
+    name=_html.escape(str(name))
+    profile=_html.escape(str(profile))
+    stance=_html.escape(str(stance))
+    desc=_html.escape(str(desc))
+    slug=_html.escape(str(slug))
+    # bars already built by us, og_img is internal URL
     return f"""<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title} — Quirrely</title>

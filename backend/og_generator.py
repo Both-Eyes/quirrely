@@ -1,6 +1,6 @@
 """Generate personalized OG share images for user profiles."""
 from PIL import Image, ImageDraw, ImageFont
-import os
+import os, re
 
 OG_DIR = "/home/quirrely/quirrely.ca/og/users"
 os.makedirs(OG_DIR, exist_ok=True)
@@ -49,6 +49,10 @@ def draw_squirrel(draw, cx, cy, s=1.0):
 
 
 def generate_og_image(slug, name, profile, scores, total_words=0, total_analyses=0):
+    # Sanitize slug to prevent path traversal
+    slug = re.sub(r'[^a-z0-9\-]', '', slug.lower())[:30]
+    if not slug:
+        raise ValueError("Invalid slug")
     W, H = 1200, 630
     profile = (profile or "UNKNOWN").upper()
     color = hex_rgb(PROFILE_COLORS.get(profile, "#666666"))
