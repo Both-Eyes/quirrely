@@ -797,6 +797,11 @@ def run_part_c():
     record("C","app.py proxy calls collector.record_analysis","collector.record_analysis" in _apy,"found" if "collector.record_analysis" in _apy else "MISSING","MARS")
     record("C","app.py proxy returns pattern_id",'pattern_id=pid' in _apy,"found" if "pattern_id=pid" in _apy else "MISSING","MARS")
 
+        # --- Session 12: Auto Share Prompt ---
+    print("\n  [MARS] Session 12 Share Prompt")
+    record("C","Share prompt after analysis","share-prompt" in _idx,"found" if "share-prompt" in _idx else "MISSING","MARS")
+    record("C","Share prompt has voice URL CTA","Claim your voice URL" in _idx or "Claim your personal voice URL" in _idx,"found" if "voice URL" in _idx else "MISSING","MARS")
+
         # --- Session 12: Voice Comparison + Personalized CTA ---
     print("\n  [MARS] Session 12 Voice Comparison")
     _sh=open(os.path.join(APP_DIR,"share_api.py")).read()

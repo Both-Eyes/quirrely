@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-03T17:14:18.186195+00:00",
+  "run_at": "2026-03-03T17:18:00.940497+00:00",
   "part_a": {
     "pass": 25,
     "fail": 0,
@@ -13,7 +13,7 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=16",
+        "detail": "restarts=17",
         "owner": "ASO"
       },
       {
@@ -61,7 +61,7 @@
       {
         "name": "Table 'users' accessible",
         "status": "PASS",
-        "detail": "rows=222",
+        "detail": "rows=224",
         "owner": "ASO"
       },
       {
@@ -133,7 +133,7 @@
       {
         "name": "SSL valid: quirrely.ca",
         "status": "PASS",
-        "detail": "78 days",
+        "detail": "77 days",
         "owner": "ASO"
       },
       {
@@ -181,7 +181,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=ee18d3f0...",
+        "detail": "session=892f2bfc...",
         "owner": "KIM"
       },
       {
@@ -463,7 +463,7 @@
     ]
   },
   "part_c": {
-    "pass": 474,
+    "pass": 476,
     "fail": 0,
     "tests": [
       {
@@ -481,7 +481,7 @@
       {
         "name": "API response < 500ms",
         "status": "PASS",
-        "detail": "6ms",
+        "detail": "4ms",
         "owner": "ASO"
       },
       {
@@ -2598,6 +2598,18 @@
       },
       {
         "name": "app.py proxy returns pattern_id",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share prompt after analysis",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share prompt has voice URL CTA",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
