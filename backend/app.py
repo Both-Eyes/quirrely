@@ -361,7 +361,12 @@ async def public_voice_page(slug: str):
     for sn,sv in top3:
         pct=min(int(float(sv)),100) if sv else 0
         bars+=f'<div style="display:flex;align-items:center;gap:12px;margin:10px 0"><span style="width:110px;text-align:right;font-size:.9em;text-transform:capitalize;color:#555">{sn}</span><div style="flex:1;height:10px;background:#f0eeeb;border-radius:5px;overflow:hidden"><div style="width:{pct}%;height:100%;background:{color};border-radius:5px;transition:width .3s"></div></div><span style="width:40px;font-size:.85em;font-weight:600;color:#444">{pct}</span></div>'
-    og_img=f"https://quirrely.ca/og/{profile.lower()}.png"
+    # Use personalized OG image if exists, else generic
+    import os
+    if os.path.exists(f"/home/quirrely/quirrely.ca/og/users/{slug}.png"):
+        og_img=f"https://quirrely.ca/og/users/{slug}.png"
+    else:
+        og_img=f"https://quirrely.ca/og/{profile.lower()}.png"
     title=f"{name} writes with a {profile} voice"
     html=_build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta)
     return HTMLResponse(html)

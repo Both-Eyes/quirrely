@@ -43,6 +43,7 @@ SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9\-]{1,28}[a-z0-9]$")
 RESERVED = {"admin","api","voice","user","blog","faq","settings","dashboard","signup","login","stretch","about","help","support","pro","free"}
 
 from auth_api import require_auth
+from og_generator import generate_og_image
 
 class GenerateRequest(BaseModel):
     slug: str = Field(..., min_length=3, max_length=30)
@@ -108,6 +109,12 @@ async def generate_share(req: GenerateRequest, user: dict = Depends(require_auth
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
         """, (uid, slug, display_name, profile, stance, confidence,
               psycopg2.extras.Json(scores) if scores else None, tw, ta))
+    # Generate personalized OG image on claim
+    try:
+        generate_og_image(slug=slug, name=display_name, profile=profile or "UNKNOWN",
+                         scores=scores or {}, total_words=tw, total_analyses=ta)
+    except Exception as oge:
+        import logging; logging.warning(f"OG image gen failed: {oge}")
     return ShareProfileResponse(
         slug=slug, url=f"https://quirrely.ca/user/{slug}",
         profile=profile, stance=stance, confidence=confidence,
@@ -126,7 +133,7 @@ async def get_my_share(user: dict = Depends(require_auth)):
 @router.post("/refresh")
 async def refresh_share(user: dict = Depends(require_auth)):
     uid = str(user["id"])
-    mine = _q("SELECT slug FROM share_profiles WHERE user_id=%s", (uid,))
+    mine = _q("SELECT slug, display_name FROM share_profiles WHERE user_id=%s", (uid,))
     if not mine:
         raise HTTPException(404, "No share profile found. Generate one first.")
     latest = _q("""
@@ -154,6 +161,18 @@ async def refresh_share(user: dict = Depends(require_auth)):
     """, (latest["profile"] if latest else None, latest["stance"] if latest else None,
           None, psycopg2.extras.Json(scores) if scores else None,
           totals["tw"] if totals else 0, totals["ta"] if totals else 0, uid))
+    # Generate personalized OG image
+    try:
+        generate_og_image(
+            slug=mine["slug"],
+            name=mine.get("display_name") or mine["slug"],
+            profile=latest["profile"] if latest else "UNKNOWN",
+            scores=scores or {},
+            total_words=totals["tw"] if totals else 0,
+            total_analyses=totals["ta"] if totals else 0
+        )
+    except Exception as oge:
+        import logging; logging.warning(f"OG image gen failed: {oge}")
     return {"refreshed": True, "slug": mine["slug"]}
 
 
@@ -176,7 +195,7 @@ async def track_referral(req: TrackRequest):
 async def referral_stats(user: dict = Depends(require_auth)):
     """Get referral stats for the authenticated user's share profile."""
     uid = str(user["id"])
-    mine = _q("SELECT slug FROM share_profiles WHERE user_id=%s", (uid,))
+    mine = _q("SELECT slug, display_name FROM share_profiles WHERE user_id=%s", (uid,))
     if not mine:
         return {"has_share": False, "stats": {}}
     slug = mine["slug"]
