@@ -207,9 +207,11 @@ app.add_middleware(
 # Dependencies
 # ═══════════════════════════════════════════════════════════════════════════
 
-async def get_user_id(x_user_id: Optional[str] = Header(None)) -> Optional[str]:
-    """Extract user ID from header."""
-    return x_user_id
+async def get_user_id(authorization: Optional[str] = Header(None)) -> Optional[str]:
+    """Extract user ID from Bearer token via DB session lookup."""
+    from auth_api import get_current_user
+    user = get_current_user(authorization)
+    return str(user["id"]) if user else None
 
 
 async def get_session_id(x_session_id: Optional[str] = Header(None)) -> Optional[str]:

@@ -18,9 +18,9 @@ from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'))
 import asyncio
 from datetime import datetime
-from typing import Set
+from typing import Set, Optional
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
@@ -293,13 +293,33 @@ try:
 except Exception as e:
     logger.warning(f"Payments API not loaded: {e}")
 
-# ── Analyze endpoint (delegates to LNCP classifier) ──────────────────────
+# ── Analyze endpoint (with auth + word tracking) ──────────────────────
 if API_V2_AVAILABLE:
-    from api_v2 import get_classifier, AnalyzeRequest, AnalyzeResponse
+    from api_v2 import get_classifier, get_pattern_collector, AnalyzeRequest, AnalyzeResponse
+    from feature_gate import get_feature_gate
+    from auth_api import get_current_user
+
     @app.post("/api/v2/analyze", response_model=AnalyzeResponse, tags=["Analysis"])
-    async def analyze_text_proxy(request: AnalyzeRequest):
+    async def analyze_text_proxy(request: AnalyzeRequest, authorization: Optional[str] = Header(None)):
+        # Resolve user from Bearer token
+        user = get_current_user(authorization) if authorization else None
+        user_id = str(user["id"]) if user else None
+
+        gate = get_feature_gate()
+        # Check daily limit if authenticated
+        if user_id:
+            est_words = len(request.text.split())
+            lc = gate.check_daily_limit(user_id, None, est_words)
+            if not lc["allowed"]:
+                raise HTTPException(status_code=429, detail=f"Word limit reached ({lc['used']}/{lc['limit']} words).")
+
         classifier = get_classifier()
         result = classifier.classify(request.text)
+
+        # Record word usage
+        if user_id:
+            gate.record_analysis(user_id, None, result["word_count"])
+
         return AnalyzeResponse(
             profile=result["profile"],
             stance=result["stance"],
@@ -311,7 +331,7 @@ if API_V2_AVAILABLE:
             history_id="",
             features_used=["basic_analysis"],
         )
-    logger.info("✅ API v2 analyze endpoint loaded")
+    logger.info("\u2705 API v2 analyze endpoint loaded (with word tracking)")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # GEO-BLOCK MIDDLEWARE (France + Russia bot protection)

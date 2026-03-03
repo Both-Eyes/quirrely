@@ -776,7 +776,14 @@ def run_part_c():
     record("C","Index 150 word cap","150" in _idx and "word limit" in _idx.lower(),"found" if "150" in _idx else "MISSING","MARS")
     record("C","Index signup CTA on limit","signup.html" in _idx,"found" if "signup.html" in _idx else "MISSING","MARS")
 
-    # --- Session 11: Tier Simplification ---
+    # --- Session 12: Word Tracking Auth Fix ---
+    print("\n  [MARS] Session 12 Word Tracking")
+    _apy=open(os.path.join(APP_DIR,"app.py")).read()
+    record("C","app.py analyze imports get_current_user","get_current_user" in _apy and "from auth_api import get_current_user" in _apy,"found" if "from auth_api import get_current_user" in _apy else "MISSING","MARS")
+    record("C","app.py analyze calls record_analysis","gate.record_analysis" in _apy,"found" if "gate.record_analysis" in _apy else "MISSING","MARS")
+    _av2=open(os.path.join(APP_DIR,"api_v2.py")).read()
+    record("C","api_v2 get_user_id uses auth not header","from auth_api import get_current_user" in _av2 or "auth_api" in _av2.split("get_user_id")[1][:200],"auth-based" if "x_user_id" not in _av2 else "HEADER-BASED","MARS")
+        # --- Session 11: Tier Simplification ---
     print("\n  [MARS] Tier Simplification")
     record("C","No featuredCard in dashboard","featuredCard" not in _dh,"clean" if "featuredCard" not in _dh else "STILL PRESENT","MARS")
     record("C","No authorityCard in dashboard","authorityCard" not in _dh,"clean" if "authorityCard" not in _dh else "STILL PRESENT","MARS")

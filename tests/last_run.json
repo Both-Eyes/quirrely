@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-03T14:35:06.141359+00:00",
+  "run_at": "2026-03-03T15:25:49.763463+00:00",
   "part_a": {
     "pass": 25,
     "fail": 0,
@@ -13,13 +13,13 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=1",
+        "detail": "restarts=4",
         "owner": "ASO"
       },
       {
         "name": "PM2 memory < 512MB",
         "status": "PASS",
-        "detail": "29.0MB",
+        "detail": "28.5MB",
         "owner": "ASO"
       },
       {
@@ -61,7 +61,7 @@
       {
         "name": "Table 'users' accessible",
         "status": "PASS",
-        "detail": "rows=194",
+        "detail": "rows=198",
         "owner": "ASO"
       },
       {
@@ -181,7 +181,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=11357b15...",
+        "detail": "session=9e2d2b8e...",
         "owner": "KIM"
       },
       {
@@ -463,7 +463,7 @@
     ]
   },
   "part_c": {
-    "pass": 440,
+    "pass": 443,
     "fail": 0,
     "tests": [
       {
@@ -481,7 +481,7 @@
       {
         "name": "API response < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "5ms",
         "owner": "ASO"
       },
       {
@@ -2522,6 +2522,24 @@
         "name": "Index signup CTA on limit",
         "status": "PASS",
         "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "app.py analyze imports get_current_user",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "app.py analyze calls record_analysis",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "api_v2 get_user_id uses auth not header",
+        "status": "PASS",
+        "detail": "auth-based",
         "owner": "MARS"
       },
       {
