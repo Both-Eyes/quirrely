@@ -792,6 +792,15 @@ def run_part_c():
     _nx=open("/etc/nginx/conf.d/quirrely.conf").read()
     record("C","nginx proxies /voice/","location /voice/" in _nx,"found" if "location /voice/" in _nx else "MISSING","MARS")
 
+        # --- Session 12: OG Share Images ---
+    print("\n  [MARS] Session 12 OG Images")
+    _og_dir="/home/quirrely/quirrely.ca/og"
+    _og_profiles=["assertive","minimal","poetic","dense","conversational","formal","interrogative","hedged","parallel","longform"]
+    _og_all=all(os.path.isfile(f"{_og_dir}/{p}.png") for p in _og_profiles)
+    record("C","All 10 OG profile images exist",_og_all,"all found" if _og_all else "MISSING","MARS")
+    _og_size=all(os.path.getsize(f"{_og_dir}/{p}.png")>10000 for p in _og_profiles) if _og_all else False
+    record("C","OG images non-trivial size",_og_size,"valid" if _og_size else "TOO SMALL","MARS")
+
         # --- Session 12: Dashboard Share UI ---
     print("\n  [MARS] Session 12 Dashboard Share")
     record("C","Share card in dashboard","shareCard" in _dh,"found" if "shareCard" in _dh else "MISSING","MARS")
