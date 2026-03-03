@@ -307,7 +307,7 @@ def _build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,t
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}. {stance} stance. Discover your writing voice.">
 <meta property="og:image" content="{og_img}">
-<meta property="og:url" content="https://quirrely.ca/voice/{slug}">
+<meta property="og:url" content="https://quirrely.ca/user/{slug}">
 <meta property="og:type" content="profile">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
@@ -315,20 +315,22 @@ def _build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,t
 <meta name="twitter:image" content="{og_img}">
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
-body{{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;background:#faf9f6;color:#333;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}}
-.card{{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.08);max-width:520px;width:100%;padding:40px;text-align:center}}
-.badge{{display:inline-block;padding:8px 24px;border-radius:24px;color:#fff;font-size:1.4em;font-weight:700;letter-spacing:1px;background:{color}}}
-.nm{{font-size:1.1em;color:#666;margin:16px 0 4px}}
-.st{{font-size:.95em;color:#999;margin-bottom:20px}}
-.ds{{font-size:1em;color:#555;line-height:1.5;margin-bottom:24px}}
-.sc{{text-align:left;margin:0 auto;max-width:380px}}
-.stats{{display:flex;justify-content:center;gap:32px;margin:20px 0;color:#888;font-size:.9em}}
-.cta{{display:inline-block;margin-top:24px;padding:14px 32px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:1.05em}}
-.cta:hover{{background:#d4604a}}
-.logo{{margin-bottom:24px;font-size:1.3em;font-weight:700;color:#E8735A}}
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Nunito+Sans:wght@400;600&display=swap');
+body{{font-family:Nunito Sans,-apple-system,sans-serif;background:#FFFBF5;color:#2D3436;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:48px 20px}}
+.card{{background:#fff;border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,.06);max-width:480px;width:100%;padding:48px 40px;text-align:center}}
+.badge{{display:inline-block;padding:10px 28px;border-radius:24px;color:#fff;font-family:Outfit,sans-serif;font-size:1.2em;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:{color}}}
+.nm{{font-family:Outfit,sans-serif;font-size:1.3em;font-weight:600;color:#2D3436;margin:20px 0 6px}}
+.st{{font-size:.9em;color:#999;margin-bottom:16px;text-transform:lowercase}}
+.ds{{font-size:.95em;color:#666;line-height:1.6;margin-bottom:28px}}
+.sc{{text-align:left;margin:0 auto 24px;max-width:360px}}
+.stats{{display:flex;justify-content:center;gap:32px;margin:16px 0;color:#999;font-size:.85em}}
+.stats div span{{font-weight:700;color:#2D3436;font-size:1.1em;display:block}}
+.cta{{display:inline-block;margin-top:20px;padding:14px 36px;background:linear-gradient(135deg,#FF6B6B,#E55A5A);color:#fff;border-radius:24px;text-decoration:none;font-weight:600;font-size:1em;box-shadow:0 4px 14px rgba(255,107,107,.3);transition:all .2s}}
+.cta:hover{{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,107,.4)}}
+.logo{{margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:8px}}
 </style></head><body>
 <div class="card">
-<div class="logo">Quir<span style="color:#333">re</span>ly</div>
+<div class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="40" height="60" style="vertical-align:middle"><path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF6B6B"/><ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/><ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/></svg> <span style="font-family:Outfit,system-ui,sans-serif;font-size:1.4em;font-weight:700;color:#2D3436">Quir<span style="color:#FF6B6B">re</span><span style="font-style:italic;font-weight:500">ly</span></span></div>
 <div class="nm">{name}</div>
 <div class="badge">{profile}</div>
 <div class="st">{stance} stance</div>
@@ -340,7 +342,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;backgroun
 
 PROFILE_DESC={"ASSERTIVE":"Bold, direct, and confident","MINIMAL":"Clean, precise, and economical","POETIC":"Lyrical, imagery-rich, and evocative","DENSE":"Complex, layered, and information-rich","CONVERSATIONAL":"Warm, natural, and approachable","FORMAL":"Structured, polished, and authoritative","INTERROGATIVE":"Curious, questioning, and exploratory","HEDGED":"Nuanced, cautious, and qualifying","PARALLEL":"Rhythmic, balanced, and patterned","LONGFORM":"Expansive, detailed, and immersive"}
 
-@app.get("/voice/{slug}", response_class=HTMLResponse)
+@app.get("/user/{slug}", response_class=HTMLResponse)
 async def public_voice_page(slug: str):
     p=get_public_profile(slug)
     if not p:
@@ -348,6 +350,7 @@ async def public_voice_page(slug: str):
     profile=p.get("profile") or "UNKNOWN"
     stance=p.get("stance") or ""
     name=p.get("display_name") or slug
+    profile=profile.upper()
     color=PROFILE_COLORS.get(profile,"#666")
     desc=PROFILE_DESC.get(profile,"A unique writing voice")
     scores=p.get("scores") or {}
@@ -356,12 +359,18 @@ async def public_voice_page(slug: str):
     top3=sorted(scores.items(),key=lambda x:x[1] if x[1] else 0,reverse=True)[:3] if scores else []
     bars=""
     for sn,sv in top3:
-        pct=int(float(sv)*100) if sv else 0
-        bars+=f'<div style="margin:8px 0"><span style="display:inline-block;width:120px;text-transform:capitalize">{sn}</span><div style="display:inline-block;width:200px;height:18px;background:#eee;border-radius:9px;vertical-align:middle"><div style="width:{pct}%;height:100%;background:{color};border-radius:9px"></div></div> {pct}%</div>'
+        pct=min(int(float(sv)),100) if sv else 0
+        bars+=f'<div style="display:flex;align-items:center;gap:12px;margin:10px 0"><span style="width:110px;text-align:right;font-size:.9em;text-transform:capitalize;color:#555">{sn}</span><div style="flex:1;height:10px;background:#f0eeeb;border-radius:5px;overflow:hidden"><div style="width:{pct}%;height:100%;background:{color};border-radius:5px;transition:width .3s"></div></div><span style="width:40px;font-size:.85em;font-weight:600;color:#444">{pct}</span></div>'
     og_img=f"https://quirrely.ca/og/{profile.lower()}.png"
     title=f"{name} writes with a {profile} voice"
     html=_build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta)
     return HTMLResponse(html)
+
+from starlette.responses import RedirectResponse
+@app.get("/voice/{slug}")
+async def voice_redirect(slug: str):
+    return RedirectResponse(url=f"/user/{slug}", status_code=301)
+
 
 # ── Analyze endpoint (with auth + word tracking) ──────────────────────
 if API_V2_AVAILABLE:

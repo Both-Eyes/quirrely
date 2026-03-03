@@ -40,7 +40,7 @@ def _e(sql, params=None):
         conn.close()
 
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9\-]{1,28}[a-z0-9]$")
-RESERVED = {"admin","api","voice","blog","faq","settings","dashboard","signup","login","stretch","about","help","support","pro","free"}
+RESERVED = {"admin","api","voice","user","blog","faq","settings","dashboard","signup","login","stretch","about","help","support","pro","free"}
 
 from auth_api import require_auth
 
@@ -83,6 +83,12 @@ async def generate_share(req: GenerateRequest, user: dict = Depends(require_auth
         SELECT COALESCE(SUM(keystroke_words),0) as tw, COALESCE(SUM(analyses_count),0) as ta
         FROM daily_keystroke_totals WHERE user_id=%s
     """, (uid,))
+    # Fallback to writing_profiles if daily totals are empty
+    if not totals or (totals["tw"]==0 and totals["ta"]==0):
+        totals = _q("""
+            SELECT COALESCE(SUM(input_word_count),0) as tw, COUNT(*) as ta
+            FROM writing_profiles WHERE user_id=%s
+        """, (uid,))
     tw = totals["tw"] if totals else 0
     ta = totals["ta"] if totals else 0
     display_name = req.display_name or user.get("display_name") or slug
@@ -103,7 +109,7 @@ async def generate_share(req: GenerateRequest, user: dict = Depends(require_auth
         """, (uid, slug, display_name, profile, stance, confidence,
               psycopg2.extras.Json(scores) if scores else None, tw, ta))
     return ShareProfileResponse(
-        slug=slug, url=f"https://quirrely.ca/voice/{slug}",
+        slug=slug, url=f"https://quirrely.ca/user/{slug}",
         profile=profile, stance=stance, confidence=confidence,
         display_name=display_name
     )
@@ -114,7 +120,7 @@ async def get_my_share(user: dict = Depends(require_auth)):
     row = _q("SELECT slug, display_name, profile, stance, confidence FROM share_profiles WHERE user_id=%s", (uid,))
     if not row:
         return {"has_share": False}
-    return {"has_share": True, "slug": row["slug"], "url": f"https://quirrely.ca/voice/{row['slug']}",
+    return {"has_share": True, "slug": row["slug"], "url": f"https://quirrely.ca/user/{row['slug']}",
             "profile": row["profile"], "display_name": row["display_name"]}
 
 @router.post("/refresh")
@@ -133,6 +139,12 @@ async def refresh_share(user: dict = Depends(require_auth)):
         SELECT COALESCE(SUM(keystroke_words),0) as tw, COALESCE(SUM(analyses_count),0) as ta
         FROM daily_keystroke_totals WHERE user_id=%s
     """, (uid,))
+    # Fallback to writing_profiles if daily totals are empty
+    if not totals or (totals["tw"]==0 and totals["ta"]==0):
+        totals = _q("""
+            SELECT COALESCE(SUM(input_word_count),0) as tw, COUNT(*) as ta
+            FROM writing_profiles WHERE user_id=%s
+        """, (uid,))
     scores = None
     if latest:
         scores = {k.replace("score_",""):v for k,v in latest.items() if k.startswith("score_") and v is not None}

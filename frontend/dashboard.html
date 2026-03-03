@@ -317,6 +317,21 @@ img { max-width: 100%; }
   font-weight: 600; transition: all 0.2s;
 }
 .stretch-start:hover { filter: brightness(0.95); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 24px; border: none; border-radius: 20px; font-size: 0.9rem;
+  font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: var(--font-body);
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark, #E55A5A));
+  color: white; box-shadow: 0 2px 8px rgba(255,107,107,0.3);
+}
+.btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,107,107,0.4); }
+.btn-secondary {
+  background: var(--bg-card, #fff); color: var(--text); border: 1px solid var(--border-light, #e0e0e0);
+}
+.btn-secondary:hover { background: #f8f8f8; transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+
 
 /* ===== ACTIVITY FEED ===== */
 .activity-list { display: flex; flex-direction: column; gap: 10px; }
@@ -443,6 +458,7 @@ img { max-width: 100%; }
 
 /* Hide tier-specific sections by default */
 .tier-pro { display: none; }
+body.is-free .tier-pro { display: block; }
 body.is-pro .tier-pro {
   display: block;
 }
@@ -479,26 +495,27 @@ body.is-pro .tier-free-only {
 <!-- HEADER -->
 <header class="header">
   <a href="/frontend/index.html" class="header-logo">
-    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="45" fill="#FF6B6B"/>
-      <ellipse cx="38" cy="42" rx="5" ry="6" fill="#2D2D2D"/>
-      <ellipse cx="62" cy="42" rx="5" ry="6" fill="#2D2D2D"/>
-      <ellipse cx="39" cy="40" rx="2" ry="2.5" fill="white"/>
-      <ellipse cx="63" cy="40" rx="2" ry="2.5" fill="white"/>
-      <path d="M40 58 Q50 66 60 58" stroke="#2D2D2D" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <ellipse cx="30" cy="52" rx="8" ry="5" fill="#FFB3B3" opacity="0.6"/>
-      <ellipse cx="70" cy="52" rx="8" ry="5" fill="#FFB3B3" opacity="0.6"/>
-      <path d="M30 20 Q25 5 40 15 Q35 8 45 18" fill="#FFB347"/>
-      <path d="M70 20 Q75 5 60 15 Q65 8 55 18" fill="#FFB347"/>
-      <ellipse cx="50" cy="70" rx="4" ry="3" fill="#FFB347"/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="32" height="48" style="vertical-align:middle;">
+      <path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+      <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+      <path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+      <path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+      <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+      <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/>
+      <path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF6B6B"/>
+      <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+      <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+      <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+      <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+      <circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+      <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
     </svg>
-    <span>Quirrely</span>
+    <span>Quir<span style="color:#FF6B6B">re</span><span style="font-style:italic;font-weight:500">ly</span></span>
   </a>
   <nav class="header-nav">
     <a href="/dashboard" class="active">Dashboard</a>
     <a href="/blog">Blog</a>
     <a href="/frontend/index.html">Retake Test</a>
-    <a href="/blog/index.html">Blog</a>
     <a href="/faq">FAQ</a>
     <a href="/settings">Settings</a>
   </nav>
@@ -637,7 +654,7 @@ body.is-pro .tier-free-only {
     <div class="card tier-pro" id="booksCard">
       <div class="card-header">
         <span class="card-title">📚 Recommended Reading</span>
-        <span style="font-size:0.7rem;color:var(--text-muted);">🍁 Support Canadian bookstores</span>
+        <span id="bookstoreSubtitle" style="font-size:0.7rem;color:var(--text-muted);"></span>
       </div>
       <div class="book-cards" id="bookCards">
         <!-- Populated by JS -->
@@ -689,8 +706,8 @@ body.is-pro .tier-free-only {
           <h3>STRETCH Complete!</h3>
           <p>Congratulations on finishing your exercise.</p>
           <div style="margin:16px 0;">
-            <button onclick="shareStretch('linkedin')">Share on LinkedIn</button>
-            <button onclick="shareStretch('facebook')">Share on Facebook</button>
+            <button class="btn btn-secondary" onclick="shareStretch('linkedin')">Share on LinkedIn</button>
+            <button class="btn btn-secondary" onclick="shareStretch('facebook')">Share on Facebook</button>
           </div>
           <button class="btn btn-primary" onclick="closeStretchOverlay()">Close</button>
         </div>
@@ -701,7 +718,7 @@ body.is-pro .tier-free-only {
 
 <div class="card-header">
         <span class="card-title">🌱 STRETCH Exercises</span>
-        <a href="#" onclick="showToast('STRETCH library coming soon!');return false;" class="card-action">See all →</a>
+        <a href="#" onclick="showStretchLibrary();return false;" class="card-action">See all →</a>
       </div>
       <div class="stretch-exercises" id="stretchExercises">
         <div class="evolution-empty">
@@ -742,7 +759,7 @@ body.is-pro .tier-free-only {
       <p>Claim your vanity URL and share your writing voice.</p>
       <div id="shareSetup" style="margin-bottom:12px;">
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:10px;">
-          <span style="color:var(--text-muted);font-size:.9rem;">quirrely.ca/voice/</span>
+          <span style="color:var(--text-muted);font-size:.9rem;">quirrely.ca/user/</span>
           <input type="text" id="shareSlugInput" placeholder="your-name" maxlength="30" style="padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:.95rem;width:140px;">
         </div>
         <button class="share-btn primary-btn" onclick="claimSlug()">Claim URL</button>
@@ -798,100 +815,130 @@ const WRITERS_BY_STYLE = {
   conversational: [
     { name: 'Nora Ephron', note: 'Warm, witty, effortlessly personal' },
     { name: 'David Sedaris', note: 'Dry humor meets everyday storytelling' },
-    { name: 'Roxane Gay', note: 'Candid cultural commentary' }
+    { name: 'Roxane Gay', note: 'Candid cultural commentary' },
+    { name: 'Samantha Irby', note: 'Unfiltered, hilarious honesty' },
+    { name: 'Sloane Crosley', note: 'Sharp wit meets self-deprecation' }
   ],
   assertive: [
     { name: 'Christopher Hitchens', note: 'Fearless intellectual provocation' },
     { name: 'Ta-Nehisi Coates', note: 'Uncompromising moral clarity' },
-    { name: 'Joan Didion', note: 'Precise, unflinching observation' }
+    { name: 'Joan Didion', note: 'Precise, unflinching observation' },
+    { name: 'Rebecca Solnit', note: 'Fierce clarity on power and place' },
+    { name: 'Roxane Gay', note: 'Bold, unapologetic cultural voice' }
   ],
   poetic: [
     { name: 'Ocean Vuong', note: 'Lyrical, deeply felt prose' },
     { name: 'Maggie Nelson', note: 'Blurs poetry and philosophy' },
-    { name: 'Mary Oliver', note: 'Nature as spiritual practice' }
+    { name: 'Mary Oliver', note: 'Nature as spiritual practice' },
+    { name: 'Claudia Rankine', note: 'Poetic excavation of race and self' },
+    { name: 'Anne Carson', note: 'Fragments that fracture meaning' }
   ],
   analytical: [
     { name: 'Malcolm Gladwell', note: 'Makes complexity accessible' },
     { name: 'Atul Gawande', note: 'Medical precision meets humanity' },
-    { name: 'Nate Silver', note: 'Data-driven storytelling' }
+    { name: 'Nate Silver', note: 'Data-driven storytelling' },
+    { name: 'Steven Pinker', note: 'Rigorous optimism, wide-lens thinking' },
+    { name: 'Mary Roach', note: 'Curious science with deadpan wit' }
   ],
   minimal: [
     { name: 'Raymond Carver', note: 'Says everything with nothing' },
     { name: 'Ernest Hemingway', note: 'The iceberg theory master' },
-    { name: 'Amy Hempel', note: 'Brevity as emotional force' }
+    { name: 'Amy Hempel', note: 'Brevity as emotional force' },
+    { name: 'Lydia Davis', note: 'Entire worlds in a single sentence' },
+    { name: 'Denis Johnson', note: 'Spare, hallucinatory precision' }
   ],
   provocative: [
     { name: 'Hunter S. Thompson', note: 'Gonzo journalism pioneer' },
     { name: 'Chuck Palahniuk', note: 'Transgressive, visceral, unforgettable' },
-    { name: 'Bret Easton Ellis', note: 'Detached cultural critique' }
+    { name: 'Bret Easton Ellis', note: 'Detached cultural critique' },
+    { name: 'Ottessa Moshfegh', note: 'Discomfort as dark comedy' },
+    { name: 'Dennis Cooper', note: 'Transgressive minimalist intensity' }
   ],
   reflective: [
     { name: 'Marilynne Robinson', note: 'Deep spiritual contemplation' },
     { name: 'Pico Iyer', note: 'Stillness in a moving world' },
-    { name: 'Annie Dillard', note: 'Mystical nature observation' }
+    { name: 'Annie Dillard', note: 'Mystical nature observation' },
+    { name: 'Wendell Berry', note: 'Rooted, unhurried contemplation' },
+    { name: 'Tara Westover', note: 'Memory as self-discovery' }
   ],
   technical: [
     { name: 'Paul Graham', note: 'Startup wisdom, clear thinking' },
     { name: 'Cal Newport', note: 'Deep work philosophy' },
-    { name: 'James Clear', note: 'Systems over goals' }
+    { name: 'James Clear', note: 'Systems over goals' },
+    { name: 'Kathy Sierra', note: 'User-first technical clarity' },
+    { name: 'Julia Evans', note: 'Joyful, visual systems thinking' }
   ],
   narrative: [
     { name: 'Chimamanda Ngozi Adichie', note: 'Vivid, sweeping storytelling' },
     { name: 'Anthony Bourdain', note: 'Food as cultural journey' },
-    { name: 'Jon Krakauer', note: 'Adventure as human drama' }
+    { name: 'Jon Krakauer', note: 'Adventure as human drama' },
+    { name: 'Isabel Wilkerson', note: 'History told through human lives' },
+    { name: 'Patrick Radden Keefe', note: 'Obsessive investigative storytelling' }
   ],
   persuasive: [
     { name: 'Brené Brown', note: 'Vulnerability as strength' },
     { name: 'Simon Sinek', note: 'Start with Why framework' },
-    { name: 'Seth Godin', note: 'Marketing as art form' }
+    { name: 'Seth Godin', note: 'Marketing as art form' },
+    { name: 'Chimamanda Ngozi Adichie', note: 'Passionate feminist conviction' },
+    { name: 'Ta-Nehisi Coates', note: 'Moral urgency in every sentence' }
   ]
 };
 
 const BOOKS_BY_STYLE = {
   conversational: [
     { title: 'I Feel Bad About My Neck', author: 'Nora Ephron', isbn: '9780307276827' },
-    { title: 'Me Talk Pretty One Day', author: 'David Sedaris', isbn: '9780316776967' }
+    { title: 'Me Talk Pretty One Day', author: 'David Sedaris', isbn: '9780316776967' },
+    { title: 'Wow, No Thank You', author: 'Samantha Irby', isbn: '9780525563488' }
   ],
   assertive: [
     { title: 'Between the World and Me', author: 'Ta-Nehisi Coates', isbn: '9780451482211' },
-    { title: 'The Year of Magical Thinking', author: 'Joan Didion', isbn: '9781400078431' }
+    { title: 'The Year of Magical Thinking', author: 'Joan Didion', isbn: '9781400078431' },
+    { title: 'Men We Reaped', author: 'Jesmyn Ward', isbn: '9781608195213' }
   ],
   poetic: [
     { title: 'On Earth We\'re Briefly Gorgeous', author: 'Ocean Vuong', isbn: '9780525562023' },
-    { title: 'Bluets', author: 'Maggie Nelson', isbn: '9781933517407' }
+    { title: 'Bluets', author: 'Maggie Nelson', isbn: '9781933517407' },
+    { title: 'Citizen', author: 'Claudia Rankine', isbn: '9781555976903' }
   ],
   analytical: [
     { title: 'Outliers', author: 'Malcolm Gladwell', isbn: '9780316017930' },
-    { title: 'Being Mortal', author: 'Atul Gawande', isbn: '9780805095159' }
+    { title: 'Being Mortal', author: 'Atul Gawande', isbn: '9780805095159' },
+    { title: 'Stiff', author: 'Mary Roach', isbn: '9780393324822' }
   ],
   minimal: [
     { title: 'What We Talk About When We Talk About Love', author: 'Raymond Carver', isbn: '9780679723059' },
-    { title: 'The Old Man and the Sea', author: 'Ernest Hemingway', isbn: '9780684801223' }
+    { title: 'The Old Man and the Sea', author: 'Ernest Hemingway', isbn: '9780684801223' },
+    { title: 'The Collected Stories of Lydia Davis', author: 'Lydia Davis', isbn: '9780312655396' }
   ],
   provocative: [
     { title: 'Fear and Loathing in Las Vegas', author: 'Hunter S. Thompson', isbn: '9780679785897' },
-    { title: 'Fight Club', author: 'Chuck Palahniuk', isbn: '9780393327342' }
+    { title: 'Fight Club', author: 'Chuck Palahniuk', isbn: '9780393327342' },
+    { title: 'My Year of Rest and Relaxation', author: 'Ottessa Moshfegh', isbn: '9780525522133' }
   ],
   reflective: [
     { title: 'Gilead', author: 'Marilynne Robinson', isbn: '9780312424404' },
-    { title: 'The Art of Stillness', author: 'Pico Iyer', isbn: '9781476784724' }
+    { title: 'The Art of Stillness', author: 'Pico Iyer', isbn: '9781476784724' },
+    { title: 'Pilgrim at Tinker Creek', author: 'Annie Dillard', isbn: '9780061233326' }
   ],
   technical: [
     { title: 'Hackers & Painters', author: 'Paul Graham', isbn: '9781449389550' },
-    { title: 'Deep Work', author: 'Cal Newport', isbn: '9781455586691' }
+    { title: 'Deep Work', author: 'Cal Newport', isbn: '9781455586691' },
+    { title: 'Atomic Habits', author: 'James Clear', isbn: '9780735211292' }
   ],
   narrative: [
     { title: 'Americanah', author: 'Chimamanda Ngozi Adichie', isbn: '9780307455925' },
-    { title: 'Kitchen Confidential', author: 'Anthony Bourdain', isbn: '9780060899226' }
+    { title: 'Kitchen Confidential', author: 'Anthony Bourdain', isbn: '9780060899226' },
+    { title: 'The Warmth of Other Suns', author: 'Isabel Wilkerson', isbn: '9780679763888' }
   ],
   persuasive: [
     { title: 'Daring Greatly', author: 'Brené Brown', isbn: '9781592408412' },
-    { title: 'Start with Why', author: 'Simon Sinek', isbn: '9781591846444' }
+    { title: 'Start with Why', author: 'Simon Sinek', isbn: '9781591846444' },
+    { title: 'Daring Greatly', author: 'Brené Brown', isbn: '9781592408412' }
   ]
 };
 
 const BOOKSTORE_BY_COUNTRY = {
-  CA: { name: 'Indigo', template: 'https://www.indigo.ca/en-ca/search/?keywords={isbn}', cta: 'View at Indigo', flag: '🍁', color: '#006848' },
+  CA: { name: 'Indigo', template: 'https://www.indigo.ca/en-ca/search/?keywords={isbn}', cta: 'View at Indigo', flag: '🇨🇦', color: '#006848' },
   GB: { name: 'Waterstones', template: 'https://www.waterstones.com/search?term={isbn}', cta: 'View at Waterstones', flag: '🇬🇧', color: '#1B4D3E' },
   UK: { name: 'Waterstones', template: 'https://www.waterstones.com/search?term={isbn}', cta: 'View at Waterstones', flag: '🇬🇧', color: '#1B4D3E' },
   AU: { name: 'Booktopia', template: 'https://www.booktopia.com.au/search.ep?keywords={isbn}', cta: 'View at Booktopia', flag: '🇦🇺', color: '#E31837' },
@@ -1003,13 +1050,16 @@ function formatNumber(n) {
 function viewPublicProfile() {
   const session = getSession();
   if (!session) return;
-  const name = session.user.name || session.user.display_name;
-  if (name && name !== session.user.email?.split('@')[0]) {
-    window.open('/profile/' + encodeURIComponent(name), '_blank');
-  } else {
-    showToast('Set a username in Settings first');
-    setTimeout(() => window.location.href = '/settings', 1500);
-  }
+  fetch('/api/v2/share/me', {headers:{'Authorization':'Bearer '+session.token}})
+    .then(r=>r.json()).then(d=>{
+      if(d.has_share && d.slug) {
+        window.open('/user/'+d.slug, '_blank');
+      } else {
+        showToast('Claim your vanity URL first — scroll to Share below.');
+        const sc=document.getElementById('shareCard');
+        if(sc) sc.scrollIntoView({behavior:'smooth'});
+      }
+    }).catch(()=>showToast('Could not load profile. Try again.'));
 }
 
 // ===== SUBMIT FOR FEATURED =====
@@ -1021,7 +1071,53 @@ function submitForFeatured() {
     showToast('Upgrade to Pro to submit for Featured status');
     return;
   }
-  showToast('Featured submissions opening soon! We\'ll notify you.');
+  fetch('/api/v2/featured/my-submission', {headers:{'Authorization':'Bearer '+session.token}})
+    .then(r=>r.json()).then(d=>{
+      if(d.status==='pending'){showToast('You already have a pending submission!');return;}
+      if(d.status==='approved'){showToast('You are already Featured! 🎉');return;}
+      showFeaturedModal();
+    }).catch(()=>showFeaturedModal());
+}
+function showFeaturedModal(){
+  const session=getSession();if(!session)return;
+  const ov=document.createElement('div');ov.id='featuredModal';
+  ov.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:99999;display:flex;align-items:center;justify-content:center;';
+  ov.innerHTML=`<div style="background:#fff;border-radius:16px;padding:32px;max-width:500px;width:90%;max-height:80vh;overflow-y:auto;">
+    <h3 style="margin:0 0 8px;">Submit for Featured</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin:0 0 16px;">Share a writing sample (50–150 words) for review.</p>
+    <label style="font-size:0.85rem;font-weight:600;">Display Name</label>
+    <input id="feat_name" maxlength="50" placeholder="Your public name" style="width:100%;padding:10px;border:1px solid #e0e0e0;border-radius:8px;margin:4px 0 12px;font-size:0.9rem;">
+    <label style="font-size:0.85rem;font-weight:600;">Writing Sample</label>
+    <textarea id="feat_sample" rows="6" maxlength="1500" placeholder="Your best writing (50–150 words)..." style="width:100%;padding:10px;border:1px solid #e0e0e0;border-radius:8px;margin:4px 0 4px;font-size:0.9rem;resize:vertical;"></textarea>
+    <div id="feat_wc" style="font-size:0.78rem;color:#999;margin:0 0 12px;">0 words</div>
+    <label style="font-size:0.85rem;font-weight:600;">Bio (optional)</label>
+    <input id="feat_bio" maxlength="150" placeholder="Brief bio" style="width:100%;padding:10px;border:1px solid #e0e0e0;border-radius:8px;margin:4px 0 12px;font-size:0.9rem;">
+    <label style="font-size:0.85rem;font-weight:600;">Newsletter link (optional)</label>
+    <input id="feat_link" maxlength="255" placeholder="https://..." style="width:100%;padding:10px;border:1px solid #e0e0e0;border-radius:8px;margin:4px 0 16px;font-size:0.9rem;">
+    <div style="display:flex;gap:8px;">
+      <button onclick="doFeaturedSubmit()" class="btn btn-primary" style="flex:1;">Submit</button>
+      <button onclick="document.getElementById('featuredModal').remove()" class="btn btn-secondary" style="flex:1;">Cancel</button>
+    </div></div>`;
+  document.body.appendChild(ov);
+  document.getElementById('feat_sample').addEventListener('input',function(){
+    const wc=this.value.trim().split(/\s+/).filter(w=>w).length;
+    document.getElementById('feat_wc').textContent=wc+' words';});
+}
+async function doFeaturedSubmit(){
+  const s=getSession();if(!s)return;
+  const sample=document.getElementById('feat_sample').value.trim();
+  const nm=document.getElementById('feat_name').value.trim();
+  const bio=document.getElementById('feat_bio').value.trim();
+  const lnk=document.getElementById('feat_link').value.trim();
+  const wc=sample.split(/\s+/).filter(w=>w).length;
+  if(!nm){showToast('Display name required');return;}
+  if(wc<50||wc>150){showToast('Sample must be 50–150 words (currently '+wc+')');return;}
+  try{const r=await fetch('/api/v2/featured/submit',{method:'POST',
+    headers:{'Authorization':'Bearer '+s.token,'Content-Type':'application/json'},
+    body:JSON.stringify({sample:sample,display_name:nm,bio:bio,link_newsletter:lnk})});
+    if(r.ok){document.getElementById('featuredModal').remove();showToast('Submitted for review! 🎉');}
+    else{const d=await r.json().catch(()=>({}));showToast(d.detail||'Submission failed.');}
+  }catch(er){showToast('Connection error.');}
 }
 
 // ===== SHARE =====
@@ -1127,6 +1223,8 @@ function renderWriters(voiceType, stance) {
 function renderBooks(voiceType, country) {
   const books = BOOKS_BY_STYLE[voiceType] || BOOKS_BY_STYLE.conversational;
   const store = getBookstore(country);
+  const sub = document.getElementById('bookstoreSubtitle');
+  if(sub) sub.textContent = store.flag + ' Support ' + store.name + ' bookstores';
   const container = document.getElementById('bookCards');
   container.innerHTML = books.map(b => `
     <div class="book-card">
@@ -1194,19 +1292,42 @@ async function submitStretchInput() {
 }
 
 async function resumeStretchExercise(exerciseId, cycle, prompt) {
-  _ss.exerciseId=exerciseId; _ss.cycleNumber=cycle; _ss.promptNumber=prompt;
-  document.getElementById('stretchOverlay').style.display='block';
-  document.body.style.overflow='hidden';
-  document.getElementById('stretchLanding').style.display='none';
-  document.getElementById('stretchWriting').style.display='block';
-  document.getElementById('stretchCycleDone').style.display='none';
-  document.getElementById('stretchComplete').style.display='none';
-  initKeystrokeTracker();
+  _ss.exerciseId=exerciseId; _ss.cycleNumber=cycle; _ss.promptNumber=prompt||1;
+  const session=getSession(); if(!session) return;
+  // Fetch current exercise details to build landing
+  try {
+    const uid=session.user.id||session.user.user_id;
+    const cur=await apiGet('/api/stretch/current/'+uid, session.token);
+    // Build a fake exercise object from current data
+    const ex={
+      title: cur.author_name ? ('Write like '+cur.author_name) : ('Stretch to '+cur.profile_to),
+      description: cur.author_note||('Explore the '+(cur.profile_to||'').toLowerCase()+' voice'),
+      authors: cur.author_name ? [{name:cur.author_name, note:cur.author_note, books:[]}] : []
+    };
+    // Also try to find matching exercise in loaded list for book data
+    const loaded=_stretchExercises.find(e=>String(e.mapping_id)===String(cur.mapping_id));
+    if(loaded&&loaded.authors) ex.authors=loaded.authors;
+    await showStretchLanding(ex);
+  } catch(re) {
+    // Fallback: show landing with minimal info
+    _ss.exerciseId=exerciseId;
+    await showStretchLanding({title:'Resume Exercise', description:'Continue where you left off'});
+  }
 }
 
 function beginStretchWriting() {
   document.getElementById('stretchLanding').style.display='none';
   document.getElementById('stretchWriting').style.display='block';
+  // Show story starter + instruction in writing view
+  if(_ss._prompt) {
+    const p=_ss._prompt;
+    let label=p.story_starter||'Write freely in this style.';
+    if(p.instruction) label+='\n\n'+p.instruction;
+    document.getElementById('stretchPromptTitle').textContent=label;
+  }
+  document.getElementById('stretchTextarea').value='';
+  document.getElementById('stretchWordCount').textContent='0 words';
+  document.getElementById('stretchProgressFill').style.width='0%';
   initKeystrokeTracker();
 }
 
@@ -1276,6 +1397,28 @@ function onAuthorChange(sel) {
 async function renderStretch(userId, token) {
   const container = document.getElementById('stretchExercises');
   try {
+    // Check for active exercise to resume
+    try {
+      const cur = await apiGet('/api/stretch/current/'+userId, token);
+      if(cur && cur.id && cur.status==='active') {
+        const cNum = (cur.cycles_completed||0)+1;
+        const title = cur.author_name ? ('Write like '+cur.author_name) : ('STRETCH: '+cur.profile_to);
+        container.innerHTML = `
+          <div class="stretch-item" style="background:#FFF8F0;border:1px solid #FFD9B3;border-radius:10px;">
+            <div class="stretch-icon">📝</div>
+            <div class="stretch-info">
+              <h4>${title}</h4>
+              <p>In progress — Cycle ${cNum}, ${cur.total_words||0} words written</p>
+            </div>
+            <button class="stretch-start" style="background:#E67E22;" onclick="resumeStretchExercise('${cur.id}',${cNum},1)">Resume</button>
+          </div>`;
+        // Still load recommendations below
+        const sep = document.createElement('div');
+        sep.style.cssText='font-size:0.78rem;color:#999;margin:8px 0 4px;';
+        sep.textContent='Or start a new exercise:';
+        container.appendChild(sep);
+      }
+    } catch(rc) { /* no active exercise, continue normally */ }
     const elig = await apiGet(`/api/stretch/eligibility/${userId}`, token);
     if (!elig.eligible) {
       container.innerHTML = `<div class="evolution-empty"><div style="text-align:center;"><p>Complete at least one writing test to unlock STRETCH exercises.</p></div></div>`;
@@ -1302,29 +1445,111 @@ async function renderStretch(userId, token) {
   }
 }
 
+function showStretchLibrary() {
+  const session = getSession();
+  if (!session) { showToast('Sign in to view exercises'); return; }
+  const tier = (session.user.subscription_tier || 'free').toLowerCase();
+  const isPro = (tier === 'pro' || tier === 'featured' || tier === 'authority');
+  if (!_stretchExercises || _stretchExercises.length === 0) {
+    showToast('Complete a writing test first to unlock STRETCH exercises.');
+    return;
+  }
+  const ov = document.createElement('div'); ov.id = 'stretchLibModal';
+  ov.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:99999;display:flex;align-items:center;justify-content:center;';
+  const exList = _stretchExercises.map(ex => {
+    const badge = ex.completed ? '<span style="color:#2ECC71;font-size:0.78rem;">✓ Done</span>' : '';
+    const authors = (ex.authors||[]).map(a => 
+      '<span style="font-size:0.78rem;color:#666;">'+a.name+'</span>'
+    ).join(', ');
+    return '<div style="padding:12px;border:1px solid #eee;border-radius:10px;margin-bottom:8px;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+        '<h4 style="margin:0;font-size:0.9rem;">'+( ex.title||ex.name||'Exercise')+'</h4>'+badge+'</div>' +
+      '<p style="font-size:0.82rem;color:#888;margin:4px 0;">'+(ex.description||'')+'</p>' +
+      '<div style="margin:4px 0;">'+authors+'</div>' +
+      '<div style="display:flex;gap:6px;align-items:center;margin-top:6px;">' +
+        '<span style="font-size:0.72rem;background:#f0f0f0;padding:2px 8px;border-radius:12px;">'+( ex.growth_type||'')+' · difficulty '+(ex.difficulty||'?')+'</span>' +
+        (ex.completed?'':'<button onclick="document.getElementById(\'stretchLibModal\').remove();startStretch(\''+ex.id+'\');" style="font-size:0.78rem;padding:4px 12px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;">Start</button>') +
+      '</div></div>';
+  }).join('');
+  const upgradeHint = isPro ? '' : '<p style="font-size:0.82rem;color:var(--primary);margin:12px 0 0;">Upgrade to Pro to unlock all 60 authors across 10 voice types.</p>';
+  ov.innerHTML = '<div style="background:#fff;border-radius:16px;padding:32px;max-width:560px;width:90%;max-height:80vh;overflow-y:auto;">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">' +
+      '<h3 style="margin:0;">STRETCH Library</h3>' +
+      '<button onclick="document.getElementById(\'stretchLibModal\').remove()" style="background:none;border:none;font-size:1.3rem;cursor:pointer;">&times;</button>' +
+    '</div>' +
+    '<p style="font-size:0.85rem;color:#888;margin:0 0 16px;">'+_stretchExercises.length+' exercises available for your voice profile.</p>' +
+    exList + upgradeHint + '</div>';
+  document.body.appendChild(ov);
+}
+
 async function startStretch(exerciseId) {
   const session = getSession();
-  if (!session || !exerciseId) { showToast('Coming soon!'); return; }
+  if (!session || !exerciseId) { showToast('Sign in to start exercises.'); return; }
   const ex = _stretchExercises.find(e=>e.id===exerciseId);
   try {
     const res = await fetch('/api/stretch/start', {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + session.token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ exercise_id: exerciseId, mapping_id: ex?.mapping_id, author_id: ex?.author_id })
+      method:'POST', headers:{'Authorization':'Bearer '+session.token,'Content-Type':'application/json'},
+      body:JSON.stringify({exercise_id:exerciseId,mapping_id:ex?.mapping_id,author_id:(ex?.authors&&ex.authors[0])?ex.authors[0].id:null})
     });
     if (res.ok) {
       const data = await res.json();
-      _ss.exerciseId = data.id || exerciseId;
-      _ss.cycleNumber = 1; _ss.promptNumber = 1;
-      document.getElementById('stretchOverlay').style.display='block';
-      document.body.style.overflow='hidden';
-      document.getElementById('stretchLanding').style.display='block';
-      document.getElementById('stretchWriting').style.display='none';
-      document.getElementById('stretchCycleDone').style.display='none';
-      document.getElementById('stretchComplete').style.display='none';
-      if(ex) document.getElementById('stretchAuthorName').textContent=ex.title||'';
-    } else { showToast('Could not start exercise.'); }
-  } catch(e) { showToast('Connection error. Try again.'); }
+      _ss.exerciseId=data.id||exerciseId;
+      _ss.cycleNumber=data.current_cycle||1;
+      _ss.promptNumber=data.current_prompt||1;
+      await showStretchLanding(ex);
+    } else if (res.status===409) {
+      // Abandon old exercise, start the new one
+      const uid=session.user.id||session.user.user_id;
+      try {
+        const cur=await apiGet('/api/stretch/current/'+uid,session.token);
+        if(cur&&cur.id) {
+          await fetch('/api/stretch/abandon/'+cur.id,{method:'POST',headers:{'Authorization':'Bearer '+session.token}});
+        }
+        // Retry start
+        const res2=await fetch('/api/stretch/start',{method:'POST',
+          headers:{'Authorization':'Bearer '+session.token,'Content-Type':'application/json'},
+          body:JSON.stringify({exercise_id:exerciseId,mapping_id:ex?.mapping_id,author_id:(ex?.authors&&ex.authors[0])?ex.authors[0].id:null})});
+        if(res2.ok){
+          const data2=await res2.json();
+          _ss.exerciseId=data2.id||exerciseId;
+          _ss.cycleNumber=data2.current_cycle||1;
+          _ss.promptNumber=data2.current_prompt||1;
+          await showStretchLanding(ex);
+        } else { showToast('Could not start exercise.'); }
+      } catch(ae) { showToast('Could not switch exercises.'); }
+    } else { const d=await res.json().catch(()=>({}));showToast(d.detail||'Could not start.'); }
+  } catch(er) { showToast('Connection error.'); }
+}
+async function showStretchLanding(ex) {
+  const session=getSession(); if(!session) return;
+  const ov=document.getElementById('stretchOverlay');
+  ov.style.display='block'; document.body.style.overflow='hidden';
+  document.getElementById('stretchLanding').style.display='block';
+  document.getElementById('stretchWriting').style.display='none';
+  document.getElementById('stretchCycleDone').style.display='none';
+  document.getElementById('stretchComplete').style.display='none';
+  if(ex) {
+    document.getElementById('stretchFlowTitle').textContent=ex.title||'Write Like a Master';
+    document.getElementById('stretchAuthorName').textContent=ex.description||'';
+  }
+  try {
+    const p=await apiGet('/api/stretch/prompt/'+_ss.exerciseId+'/'+_ss.cycleNumber+'/'+_ss.promptNumber, session.token);
+    _ss._prompt=p;
+    if(p.technique_name) document.getElementById('stretchTechniqueName').textContent=p.technique_name;
+    if(p.technique_tip) document.getElementById('stretchTechniqueTip').textContent=p.technique_tip;
+    if(p.learning_goal) document.getElementById('stretchLearningGoal').textContent=p.learning_goal;
+    if(p.style_example) document.getElementById('stretchStyleExample').textContent=p.style_example;
+    if(p.story_starter) document.getElementById('stretchPromptTitle').textContent=p.story_starter;
+  } catch(pe) {}
+  const bk=document.getElementById('stretchBookCards');
+  if(ex&&ex.authors&&ex.authors[0]&&ex.authors[0].books) {
+    const st=getBookstore((session.user.country||'CA'));
+    bk.innerHTML=ex.authors[0].books.map(b=>
+      '<div style="display:inline-block;margin:4px 8px 4px 0;"><a href="'+st.template.replace('{isbn}',b.isbn)+'" target="_blank" rel="noopener" style="font-size:0.82rem;color:'+st.color+';text-decoration:none;">'+st.flag+' '+b.title+'</a></div>'
+    ).join('');
+  }
+  var selP=document.getElementById('authorSelect');
+  if(selP&&selP.parentElement) selP.parentElement.style.display='none';
 }
 
 // ===== RENDER EVOLUTION =====
@@ -1492,10 +1717,8 @@ async function init() {
       }
 
       // Writers & Books (Pro+)
-      if (serverTier === 'pro') {
-        renderWriters(voiceType, lp.stance);
-        renderBooks(voiceType, (u.country||'CA'));
-      }
+      renderWriters(voiceType, lp.stance);
+      renderBooks(voiceType, (u.country||'CA'));
     }
 
     // Stats
@@ -1513,12 +1736,12 @@ async function init() {
     renderActivity(data.profiles || []);
 
     // Evolution (Pro+)
-    if (serverTier === 'pro' && data.profiles?.length >= 2) {
+    if (data.profiles?.length >= 2) {
       renderEvolution(data.profiles);
     }
 
     // STRETCH (Pro+)
-    if (serverTier === 'pro' && u.id) {
+    if (u.id) {
       renderStretch(u.id, token);
     }
 
