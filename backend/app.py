@@ -80,7 +80,7 @@ except ImportError as e:
 
 app = FastAPI(
     title="Quirrely API",
-    version="3.1.3",
+    version="3.2.0",
     description="Quirrely Writing Voice Analysis API - Complete Platform",
     docs_url=None,
     redoc_url=None

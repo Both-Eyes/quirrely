@@ -564,8 +564,8 @@ def run_part_c():
     _sm_pages_st,_sm_pages=http_get("https://quirrely.ca/sitemap-pages.xml")
     record("C","Sitemap pages sub-sitemap 200",_sm_pages_st==200,f"status={_sm_pages_st}","MARS")
     record("C","Sitemap pages has FAQ","/faq" in str(_sm_pages),"found" if "/faq" in str(_sm_pages) else "MISSING","MARS")
-    record("C","Sitemap pages has dashboard","/frontend/dashboard.html" in str(_sm_pages),"found","MARS")
-    record("C","Sitemap index updated 2026-02-28","2026-02-28" in str(_sm_ca),"updated","MARS")
+    record("C","Sitemap pages no dashboard","/frontend/dashboard.html" not in str(_sm_pages),"removed","MARS")
+    record("C","Sitemap index updated 2026-03-03","2026-03-03" in str(_sm_ca),"updated","MARS")
     _robots=open(ar+"/robots.txt").read() if os.path.isfile(ar+"/robots.txt") else ""
     record("C","Robots.txt has sitemap","sitemap.xml" in _robots.lower(),f"found" if "sitemap.xml" in _robots.lower() else "MISSING","MARS")
     # ===== DASHBOARD WIRING TESTS =====
