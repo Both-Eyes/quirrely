@@ -9,7 +9,7 @@
  * - Feature lock overlay
  * - Daily limit warning
  * 
- * Aligned with pricing: FREE → Pro ($2.99) / Featured ($4.99) / Authority ($7.99)
+ * Aligned with pricing: FREE → Pro ($2.99)
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -489,19 +489,8 @@ class UpgradeModal extends HTMLElement {
               <div class="plan-period">/${this.billingCycle==='monthly'?'mo':'yr'}</div>
               <div style="margin-top:0.75rem;font-size:0.72rem;color:#636E72;text-align:left"><div>✓ Full writing analysis</div><div>✓ Profile + stance</div><div>✓ 100 analyses/mo</div><div>✓ STRETCH access</div></div>
             </div>
-            <div class="plan ${this.selectedTier==='featured'?'selected':''}" onclick="this.getRootNode().host.selectTier('featured')" style="border-color:${this.selectedTier==='featured'?'#FF6B6B':'#4ECDC4'}">
-              <div class="plan-badge" style="background:#4ECDC4">Popular</div>
-              <div class="plan-name">Featured</div>
-              <div class="plan-price">${this.billingCycle==='monthly'?'$4.99':'$49.99'}</div>
-              <div class="plan-period">/${this.billingCycle==='monthly'?'mo':'yr'}</div>
-              <div style="margin-top:0.75rem;font-size:0.72rem;color:#636E72;text-align:left"><div>✓ Everything in Pro</div><div>✓ Unlimited analyses</div><div>✓ Full STRETCH library</div><div>✓ Featured profile</div><div>✓ Blog submission</div></div>
-            </div>
-            <div class="plan ${this.selectedTier==='authority'?'selected':''}" onclick="this.getRootNode().host.selectTier('authority')">
-              <div class="plan-name">Authority</div>
-              <div class="plan-price">${this.billingCycle==='monthly'?'$7.99':'$79.99'}</div>
-              <div class="plan-period">/${this.billingCycle==='monthly'?'mo':'yr'}</div>
-              <div style="margin-top:0.75rem;font-size:0.72rem;color:#636E72;text-align:left"><div>✓ Everything in Featured</div><div>✓ Story Mode</div><div>✓ Leaderboard priority</div><div>✓ Achievement badges</div><div>✓ Advanced analytics</div></div>
-            </div>
+
+
           </div>
           <button class="btn btn-primary" onclick="this.getRootNode().host.checkout()">
             Continue to Payment

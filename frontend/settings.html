@@ -62,8 +62,6 @@
     .subscription-card { padding:1.25rem; border-radius:var(--radius-md); margin-bottom:1rem; }
     .subscription-card.free { background:var(--bg-dark); border:1px solid var(--border); }
     .subscription-card.pro { background:linear-gradient(135deg,rgba(255,107,107,0.1) 0%,rgba(255,107,107,0.05) 100%); border:1px solid rgba(255,107,107,0.3); }
-    .subscription-card.featured { background:linear-gradient(135deg,rgba(162,155,254,0.1) 0%,rgba(162,155,254,0.05) 100%); border:1px solid rgba(162,155,254,0.3); }
-    .subscription-card.authority { background:linear-gradient(135deg,rgba(9,132,227,0.1) 0%,rgba(9,132,227,0.05) 100%); border:1px solid rgba(9,132,227,0.3); }
     .subscription-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; }
     .subscription-tier { font-weight:700; font-size:1.1rem; }
     .subscription-price { font-size:0.9rem; color:var(--muted); }
@@ -261,8 +259,6 @@
       var tierInfo = {
         free:      { name:'Free Plan', price:'', features:'Basic voice analysis and public profile', actions:'<a href="/billing/upgrade.html" class="btn btn-primary">Upgrade to Pro</a>' },
         pro:       { name:'Pro Plan', price:'$2.99/month', features:'Voice Evolution, STRETCH exercises, Writers Like You, Recommended Reading, Export tools', actions:'<button class="btn btn-secondary" onclick="manageBilling()">Manage Billing</button> <button class="btn btn-secondary" onclick="cancelSubscription()">Cancel</button>' },
-        featured:  { name:'Featured Plan', price:'$7.99/month', features:'Everything in Pro + community spotlight, curator tools', actions:'<button class="btn btn-secondary" onclick="manageBilling()">Manage Billing</button>' },
-        authority: { name:'Authority Plan', price:'$14.99/month', features:'Everything in Featured + advanced analytics, influence metrics', actions:'<button class="btn btn-secondary" onclick="manageBilling()">Manage Billing</button>' }
       };
       var info = tierInfo[tier] || tierInfo.free;
       document.getElementById('subTierName').textContent = info.name;

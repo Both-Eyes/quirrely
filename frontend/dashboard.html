@@ -442,17 +442,28 @@ img { max-width: 100%; }
 }
 
 /* Hide tier-specific sections by default */
-.tier-pro, .tier-featured, .tier-authority { display: none; }
-body.is-pro .tier-pro,
-body.is-featured .tier-pro, body.is-featured .tier-featured,
-body.is-authority .tier-pro, body.is-authority .tier-featured, body.is-authority .tier-authority {
+.tier-pro { display: none; }
+body.is-pro .tier-pro {
   display: block;
 }
-body.is-pro .tier-free-only,
-body.is-featured .tier-free-only,
-body.is-authority .tier-free-only {
+body.is-pro .tier-free-only {
   display: none;
 }
+
+/* Word Usage Bar */
+.word-usage-bar { padding:14px 20px; border-radius:12px; background:var(--card); border:1px solid rgba(0,0,0,0.06); margin-bottom:16px; }
+.word-usage-bar .wu-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.word-usage-bar .wu-label { font-size:0.85rem; font-weight:600; color:var(--ink); }
+.word-usage-bar .wu-count { font-size:0.8rem; color:var(--text-muted); }
+.word-usage-bar .wu-track { height:6px; background:rgba(0,0,0,0.06); border-radius:3px; overflow:hidden; }
+.word-usage-bar .wu-fill { height:100%; border-radius:3px; background:var(--coral); transition:width 0.3s; }
+.word-usage-bar .wu-fill.warn { background:#FF9F43; }
+.word-usage-bar .wu-fill.full { background:#EE5A24; }
+.word-usage-bar .wu-hint { font-size:0.75rem; color:var(--text-muted); margin-top:6px; }
+
+.toast-msg { z-index: 99999; }
+
+.stretch-technique-card { border-left:3px solid var(--coral); }
 </style>
 </head>
 <body>
@@ -485,6 +496,7 @@ body.is-authority .tier-free-only {
   </a>
   <nav class="header-nav">
     <a href="/dashboard" class="active">Dashboard</a>
+    <a href="/blog">Blog</a>
     <a href="/frontend/index.html">Retake Test</a>
     <a href="/blog/index.html">Blog</a>
     <a href="/faq">FAQ</a>
@@ -573,6 +585,16 @@ body.is-authority .tier-free-only {
       <p id="welcomeSubtext">Here's what your writing voice looks like today.</p>
     </div>
 
+    <!-- Word Usage Bar -->
+    <div class="word-usage-bar" id="wordUsageBar" style="display:none;">
+      <div class="wu-header">
+        <span class="wu-label" id="wuLabel">Words Used</span>
+        <span class="wu-count" id="wuCount">0 / 750</span>
+      </div>
+      <div class="wu-track"><div class="wu-fill" id="wuFill" style="width:0%"></div></div>
+      <div class="wu-hint" id="wuHint"></div>
+    </div>
+
     <!-- Voice Breakdown -->
     <div class="card" id="voiceCard">
       <div class="card-header">
@@ -624,7 +646,60 @@ body.is-authority .tier-free-only {
 
     <!-- STRETCH Exercises (Pro+) -->
     <div class="card tier-pro stretch-card" id="stretchCard">
-      <div class="card-header">
+      
+    <!-- STRETCH Overlay -->
+    <div id="stretchOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.98);z-index:9999;overflow-y:auto;padding:40px 20px;">
+      <div style="max-width:700px;margin:0 auto;">
+        <button onclick="abandonStretchFlow()" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button>
+        <div id="stretchLanding">
+          <h2 id="stretchFlowTitle">Write Like a Master</h2>
+          <p id="stretchAuthorName"></p>
+          <div id="stretchTechnique" class="stretch-technique-card" style="margin:16px 0;padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border-light);">
+            <div style="font-weight:600;margin-bottom:4px;" id="stretchTechniqueName"></div>
+            <div style="font-size:0.85rem;color:var(--text-muted);" id="stretchTechniqueTip"></div>
+            <div style="font-size:0.85rem;color:var(--text-light);margin-top:8px;" id="stretchLearningGoal"></div>
+            <div style="font-size:0.85rem;font-style:italic;margin-top:8px;" id="stretchStyleExample"></div>
+          </div>
+          <div style="margin:16px 0;"><label>Choose author:</label>
+            <select id="authorSelect" onchange="onAuthorChange(this)"></select></div>
+          <div class="stretch-book-card" id="stretchBookCards"></div>
+          <button class="btn btn-primary" id="stretchBtn_start" onclick="beginStretchWriting()">Start Writing</button>
+        </div>
+        <div id="stretchWriting" style="display:none;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h3 id="stretchPromptTitle">Prompt</h3>
+            <span id="stretchWordCount" style="font-size:0.85rem;color:var(--text-muted);">0 words</span>
+          </div>
+          <div id="stretchPasteWarn" style="display:none;color:#EE5A24;font-size:0.85rem;margin-bottom:8px;">Paste detected. <a href="#" onclick="clearStretchTextarea();return false;">Clear &amp; retry</a></div>
+          <div class="stretch-progress"><div style="height:6px;background:rgba(0,0,0,0.06);border-radius:3px;"><div id="stretchProgressFill" style="height:100%;width:0%;background:var(--coral);border-radius:3px;transition:width 0.3s;"></div></div></div>
+          <textarea id="stretchTextarea" rows="10" style="width:100%;padding:12px;border:1px solid var(--border-light);border-radius:8px;font-size:1rem;resize:vertical;" placeholder="Start writing..."></textarea>
+          <div style="display:flex;gap:8px;margin-top:12px;">
+            <button class="btn btn-primary" onclick="submitStretchInput()">Submit</button>
+            <button class="btn btn-secondary" onclick="abandonStretchFlow()">Exit</button>
+          </div>
+          <div class="stretch-stat-box" style="margin-top:12px;font-size:0.85rem;color:var(--text-muted);"></div>
+        </div>
+        <div id="stretchCycleDone" style="display:none;text-align:center;">
+          <h3>Cycle Complete!</h3>
+          <div class="stretch-stat-box" id="stretchCycleStats"></div>
+          <span class="stretch-resume-badge">In Progress</span>
+          <button class="btn btn-primary" onclick="nextStretchCycle()">Next Cycle</button>
+        </div>
+        <div id="stretchComplete" style="display:none;text-align:center;">
+          <h3>STRETCH Complete!</h3>
+          <p>Congratulations on finishing your exercise.</p>
+          <div style="margin:16px 0;">
+            <button onclick="shareStretch('linkedin')">Share on LinkedIn</button>
+            <button onclick="shareStretch('facebook')">Share on Facebook</button>
+          </div>
+          <button class="btn btn-primary" onclick="closeStretchOverlay()">Close</button>
+        </div>
+      </div>
+    </div>
+    <!-- End STRETCH Overlay -->
+
+
+<div class="card-header">
         <span class="card-title">🌱 STRETCH Exercises</span>
         <a href="#" onclick="showToast('STRETCH library coming soon!');return false;" class="card-action">See all →</a>
       </div>
@@ -638,57 +713,12 @@ body.is-authority .tier-free-only {
       </div>
     </div>
 
-    <!-- Featured Section -->
-    <div class="card tier-featured" id="featuredCard">
-      <div class="card-header">
-        <span class="card-title">⭐ Featured Writer</span>
-        <a href="#" onclick="showToast('Featured writers directory coming soon!');return false;" class="card-action">Community →</a>
-      </div>
-      <div style="display:flex;align-items:center;gap:16px;padding:10px 0;">
-        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FFB347,#FF6B6B);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">⭐</div>
-        <div>
-          <div style="font-weight:600;margin-bottom:2px;">You're a Featured Writer!</div>
-          <div style="font-size:0.85rem;color:var(--text-muted);">Your profile is visible in the Quirrely community. Other writers can discover your voice and connect with you.</div>
-        </div>
-      </div>
-      <div style="margin-top:14px;display:flex;gap:10px;">
-        <button class="share-btn primary-btn" onclick="viewPublicProfile()">View Your Public Profile</button>
-        <button class="share-btn" onclick="showToast('Curator tools coming soon!')">Curator Tools Preview</button>
-      </div>
-    </div>
-
-    <!-- Authority Section -->
-    <div class="card tier-authority" id="authorityCard">
-      <div class="card-header">
-        <span class="card-title">👑 Authority Dashboard</span>
-        <a href="#" onclick="showToast('Advanced analytics coming soon!');return false;" class="card-action">Full analytics →</a>
-      </div>
-      <div class="authority-metrics" id="authorityMetrics">
-        <div class="auth-metric">
-          <div class="auth-metric-val" id="authReach">—</div>
-          <div class="auth-metric-lbl">Profile Views</div>
-        </div>
-        <div class="auth-metric">
-          <div class="auth-metric-val" id="authInfluence">—</div>
-          <div class="auth-metric-lbl">Influence Score</div>
-        </div>
-        <div class="auth-metric">
-          <div class="auth-metric-val" id="authCurated">—</div>
-          <div class="auth-metric-lbl">Curated Works</div>
-        </div>
-      </div>
-      <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="share-btn" onclick="showToast('Meta-analysis tools coming soon!')">🔬 Meta-Analysis</button>
-        <button class="share-btn" onclick="showToast('Curator management coming soon!')">📋 Manage Curations</button>
-        <button class="share-btn" onclick="showToast('Advanced analytics coming soon!')">📊 Deep Analytics</button>
-      </div>
-    </div>
 
     <!-- Upgrade CTA (Free only) -->
     <div class="card upgrade-card tier-free-only" id="upgradeCard">
       <h3>Unlock Your Full Voice Profile</h3>
       <p>Get matched with writers like you, personalized book recommendations, STRETCH exercises, and so much more.</p>
-      <a href="/billing/" class="upgrade-cta">Upgrade to Pro — $9/mo</a>
+      <a href="/billing/" class="upgrade-cta" id="upgradeCtaLink">Go Pro</a>
     </div>
 
     <!-- Recent Activity -->
@@ -725,7 +755,7 @@ body.is-authority .tier-free-only {
 <script>
 /* ============================================================
    QUIRRELY SMART DASHBOARD
-   Tier-adaptive: free / pro / featured / authority
+   Tier-adaptive: free / pro
    ============================================================ */
 
 // ===== STYLE DATA =====
@@ -857,6 +887,7 @@ const BOOKSTORE_BY_COUNTRY = {
   UK: { name: 'Waterstones', template: 'https://www.waterstones.com/search?term={isbn}', cta: 'View at Waterstones', flag: '🇬🇧', color: '#1B4D3E' },
   AU: { name: 'Booktopia', template: 'https://www.booktopia.com.au/search.ep?keywords={isbn}', cta: 'View at Booktopia', flag: '🇦🇺', color: '#E31837' },
   NZ: { name: 'Mighty Ape', template: 'https://www.mightyape.co.nz/books?q={isbn}', cta: 'View at Mighty Ape', flag: '🇳🇿', color: '#FF6600' },
+  US: { name: 'Bookshop.org', template: 'https://bookshop.org/search?keywords={isbn}', cta: 'View at Bookshop.org', flag: '🇺🇸', color: '#3A539B' },
 };
 function getBookstore(country) {
   return BOOKSTORE_BY_COUNTRY[(country||'CA').toUpperCase()] || BOOKSTORE_BY_COUNTRY.CA;
@@ -1095,6 +1126,115 @@ function renderActivity(profiles) {
 }
 
 // ===== RENDER STRETCH =====
+// ===== STRETCH FLOW FUNCTIONS =====
+async function submitStretchInput() {
+  const ta = document.getElementById('stretchTextarea');
+  if(!ta||!_ss.exerciseId) return;
+  const content = ta.value.trim();
+  const wc = content.split(/\s+/).filter(w=>w).length;
+  if(wc<50){showToast('Minimum 50 words required.');return;}
+  const session = getSession();
+  if(!session) return;
+  try {
+    const res = await fetch(`/api/stretch/input/${_ss.exerciseId}/${_ss.cycleNumber}/${_ss.promptNumber}`,{
+      method:'POST', headers:{'Authorization':'Bearer '+session.token,'Content-Type':'application/json'},
+      body:JSON.stringify({content, keystroke_data:{keystrokes:_ss.keystrokes.slice(-2000),
+        clipboard_events:[], duration_ms:Date.now()-_ss.startTime, word_count:wc,
+        chars_per_second: content.length/((Date.now()-_ss.startTime)/1000)}})
+    });
+    const data = await res.json();
+    if(data.accepted){
+      if(_ss.promptNumber>=3){
+        document.getElementById('stretchWriting').style.display='none';
+        document.getElementById('stretchCycleDone').style.display='block';
+      } else { _ss.promptNumber++; ta.value=''; initKeystrokeTracker();
+        document.getElementById('stretchWordCount').textContent='0 words';
+        document.getElementById('stretchProgressFill').style.width='0%';
+      }
+    } else { showToast(data.validation?.message||'Submission rejected.'); }
+  } catch(eb){ var eb=eb||{}; showToast('Error submitting. Try again.'); }
+}
+
+async function resumeStretchExercise(exerciseId, cycle, prompt) {
+  _ss.exerciseId=exerciseId; _ss.cycleNumber=cycle; _ss.promptNumber=prompt;
+  document.getElementById('stretchOverlay').style.display='block';
+  document.body.style.overflow='hidden';
+  document.getElementById('stretchLanding').style.display='none';
+  document.getElementById('stretchWriting').style.display='block';
+  document.getElementById('stretchCycleDone').style.display='none';
+  document.getElementById('stretchComplete').style.display='none';
+  initKeystrokeTracker();
+}
+
+function beginStretchWriting() {
+  document.getElementById('stretchLanding').style.display='none';
+  document.getElementById('stretchWriting').style.display='block';
+  initKeystrokeTracker();
+}
+
+function nextStretchCycle() {
+  _ss.cycleNumber++; _ss.promptNumber=1;
+  if(_ss.cycleNumber>4){
+    document.getElementById('stretchCycleDone').style.display='none';
+    document.getElementById('stretchComplete').style.display='block';
+  } else {
+    document.getElementById('stretchCycleDone').style.display='none';
+    document.getElementById('stretchWriting').style.display='block';
+    document.getElementById('stretchTextarea').value='';
+    initKeystrokeTracker();
+  }
+}
+
+// ===== STRETCH FLOW STATE =====
+let _ss = { exerciseId:null, cycleNumber:1, promptNumber:1, pasteDetected:false, keystrokes:[], startTime:0 };
+let _stretchExercises = [];
+
+function initKeystrokeTracker() {
+  _ss.keystrokes = []; _ss.pasteDetected = false; _ss.startTime = Date.now();
+  const ta = document.getElementById('stretchTextarea');
+  if (!ta) return;
+  ta.addEventListener('keydown', function(e) {
+    _ss.keystrokes.push({t:Date.now()-_ss.startTime, k:e.key.length===1?e.key:'_'});
+    if (_ss.keystrokes.length > 2000) _ss.keystrokes = _ss.keystrokes.slice(-2000);
+  });
+  ta.addEventListener('paste', function() { _ss.pasteDetected = true;
+    document.getElementById('stretchPasteWarn').style.display='block'; });
+  ta.addEventListener('input', function() {
+    const wc = ta.value.trim().split(/\s+/).filter(w=>w).length;
+    document.getElementById('stretchWordCount').textContent = wc + ' words';
+    const pct = Math.min(100, Math.round((wc/50)*100));
+    document.getElementById('stretchProgressFill').style.width = pct+'%';
+  });
+}
+
+function clearStretchTextarea() {
+  const ta = document.getElementById('stretchTextarea');
+  if(ta) ta.value='';
+  _ss.pasteDetected = false;
+  document.getElementById('stretchPasteWarn').style.display='none';
+  document.getElementById('stretchWordCount').textContent='0 words';
+  document.getElementById('stretchProgressFill').style.width='0%';
+}
+
+function abandonStretchFlow() {
+  document.getElementById('stretchOverlay').style.display='none';
+  document.body.style.overflow='';
+}
+
+function closeStretchOverlay() { abandonStretchFlow(); }
+
+function shareStretch(platform) {
+  const url = encodeURIComponent(window.location.origin);
+  const text = encodeURIComponent('I completed a STRETCH exercise on Quirrely!');
+  if(platform==='linkedin') window.open('https://linkedin.com/sharing/share-offsite/?url='+url);
+  if(platform==='facebook') window.open('https://facebook.com/sharer/sharer.php?u='+url+'&quote='+text);
+}
+
+function onAuthorChange(sel) {
+  const ex = _stretchExercises.find(e=>e.id===sel.value);
+  if(ex) { document.getElementById('stretchAuthorName').textContent=ex.title||''; }
+}
+
 async function renderStretch(userId, token) {
   const container = document.getElementById('stretchExercises');
   try {
@@ -1108,6 +1248,7 @@ async function renderStretch(userId, token) {
       container.innerHTML = `<div class="evolution-empty"><div style="text-align:center;"><p>No exercises available right now. Check back soon!</p></div></div>`;
       return;
     }
+    _stretchExercises = rec.exercises;
     container.innerHTML = rec.exercises.slice(0, 3).map(ex => `
       <div class="stretch-item">
         <div class="stretch-icon">🌱</div>
@@ -1126,18 +1267,26 @@ async function renderStretch(userId, token) {
 async function startStretch(exerciseId) {
   const session = getSession();
   if (!session || !exerciseId) { showToast('Coming soon!'); return; }
+  const ex = _stretchExercises.find(e=>e.id===exerciseId);
   try {
     const res = await fetch('/api/stretch/start', {
       method: 'POST',
       headers: { 'Authorization': 'Bearer ' + session.token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ exercise_id: exerciseId })
+      body: JSON.stringify({ exercise_id: exerciseId, mapping_id: ex?.mapping_id, author_id: ex?.author_id })
     });
     if (res.ok) {
-      showToast('STRETCH exercise started! 🌱');
-    } else {
-      showToast('Could not start exercise. Try again.');
-    }
-  } catch { showToast('Connection error. Try again.'); }
+      const data = await res.json();
+      _ss.exerciseId = data.id || exerciseId;
+      _ss.cycleNumber = 1; _ss.promptNumber = 1;
+      document.getElementById('stretchOverlay').style.display='block';
+      document.body.style.overflow='hidden';
+      document.getElementById('stretchLanding').style.display='block';
+      document.getElementById('stretchWriting').style.display='none';
+      document.getElementById('stretchCycleDone').style.display='none';
+      document.getElementById('stretchComplete').style.display='none';
+      if(ex) document.getElementById('stretchAuthorName').textContent=ex.title||'';
+    } else { showToast('Could not start exercise.'); }
+  } catch(e) { showToast('Connection error. Try again.'); }
 }
 
 // ===== RENDER EVOLUTION =====
@@ -1168,29 +1317,50 @@ function renderEvolution(profiles) {
   `;
 }
 
-// ===== RENDER AUTHORITY METRICS =====
-async function renderAuthorityMetrics(token) {
+
+
+// ===== WORD USAGE BAR =====
+async function renderWordUsage(token) {
   try {
-    const data = await apiGet('/api/v2/analytics/me/summary', token);
-    document.getElementById('authReach').textContent = formatNumber(data.profile_views || 0);
-    document.getElementById('authInfluence').textContent = data.influence_score || '—';
-    document.getElementById('authCurated').textContent = data.curated_count || 0;
-  } catch {
-    // Use placeholders
-    document.getElementById('authReach').textContent = '—';
-    document.getElementById('authInfluence').textContent = '—';
-    document.getElementById('authCurated').textContent = '—';
-  }
+    const r = await apiGet('/api/v2/features/limits', token);
+    const bar = document.getElementById('wordUsageBar');
+    if (!bar) return;
+    bar.style.display = 'block';
+    const used = r.daily_analyses_used || 0;
+    const limit = r.daily_analyses || 750;
+    const remaining = r.daily_analyses_remaining || 0;
+    const pct = Math.min(100, Math.round((used / limit) * 100));
+    const isMonthly = r.limit_type === 'monthly';
+    const fill = document.getElementById('wuFill');
+    fill.style.width = pct + '%';
+    fill.className = 'wu-fill' + (pct >= 90 ? ' full' : pct >= 70 ? ' warn' : '');
+    document.getElementById('wuLabel').textContent =
+      isMonthly ? 'Words This Month' : 'Words Today';
+    document.getElementById('wuCount').textContent =
+      formatNumber(used) + ' / ' + formatNumber(limit);
+    const hint = document.getElementById('wuHint');
+    if (pct >= 100) {
+      hint.innerHTML = isMonthly
+        ? 'Monthly limit reached. Resets next month.'
+        : 'Daily limit reached. <a href="/billing/">Go Pro</a> for 50,000 words/month.';
+    } else if (pct >= 80) {
+      hint.textContent = formatNumber(remaining) + ' words remaining.';
+    } else {
+      hint.textContent = '';
+    }
+  } catch(e) { console.warn('Word usage fetch failed:', e); }
 }
 
 // ===== SET TIER =====
 function setTier(tier) {
   const t = (tier || 'free').toLowerCase();
-  document.body.className = 'is-' + t;
+  // Collapse old tiers to pro
+  const mapped = (t === 'featured' || t === 'authority') ? 'pro' : t;
+  document.body.className = 'is-' + mapped;
 
   const badge = document.getElementById('tierBadge');
-  badge.textContent = t.toUpperCase();
-  badge.className = 'tier-badge ' + t;
+  badge.textContent = mapped.toUpperCase();
+  badge.className = 'tier-badge ' + mapped;
 }
 
 // ===== MAIN INIT =====
@@ -1284,7 +1454,7 @@ async function init() {
       }
 
       // Writers & Books (Pro+)
-      if (['pro', 'featured', 'authority'].includes(serverTier)) {
+      if (serverTier === 'pro') {
         renderWriters(voiceType, lp.stance);
         renderBooks(voiceType, (u.country||'CA'));
       }
@@ -1296,23 +1466,25 @@ async function init() {
     document.getElementById('statWords').textContent = formatNumber(stats.total_words || 0);
     document.getElementById('statConsistency').textContent = stats.consistency ? (stats.consistency + '%') : '—';
 
+    // Analytics summary
+    try { await apiGet('/api/v2/analytics/me/summary', token); } catch(e){}
+    // Word usage
+    renderWordUsage(token);
+
     // Activity
     renderActivity(data.profiles || []);
 
     // Evolution (Pro+)
-    if (['pro', 'featured', 'authority'].includes(serverTier) && data.profiles?.length >= 2) {
+    if (serverTier === 'pro' && data.profiles?.length >= 2) {
       renderEvolution(data.profiles);
     }
 
     // STRETCH (Pro+)
-    if (['pro', 'featured', 'authority'].includes(serverTier) && u.id) {
+    if (serverTier === 'pro' && u.id) {
       renderStretch(u.id, token);
     }
 
-    // Authority metrics
-    if (serverTier === 'authority') {
-      renderAuthorityMetrics(token);
-    }
+
 
     // Featured badge in sidebar
     if (serverTier === 'featured' || serverTier === 'authority') {

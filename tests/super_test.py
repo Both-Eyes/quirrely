@@ -204,7 +204,7 @@ def run_part_b():
     _popup_html=open(_ext+"/pages/popup.html").read() if os.path.isfile(_ext+"/pages/popup.html") else ""
     _popup_js=open(_ext+"/pages/popup.js").read() if os.path.isfile(_ext+"/pages/popup.js") else ""
     record("B","Extension wordmark correct",'coral">rel</span>' in _popup_html and 'italic">y</span>' in _popup_html and 'italic">ly</span>' not in _popup_html,"correct" if 'italic">y</span>' in _popup_html else "WRONG","KIM")
-    record("B","Extension has Featured tier","featuredAnalysesPerDay" in _popup_js,"found" if "featuredAnalysesPerDay" in _popup_js else "MISSING","KIM")
+    record("B","Extension no Featured tier","featuredAnalysesPerDay" not in _popup_js,"clean" if "featuredAnalysesPerDay" not in _popup_js else "STILL PRESENT","KIM")
     record("B","Extension upgrade URL correct","/billing/upgrade.html" in _popup_js,"found" if "/billing/upgrade.html" in _popup_js else "MISSING","KIM")
     record("B","Extension login URL correct","/auth/login.html" in _popup_js,"found" if "/auth/login.html" in _popup_js else "MISSING","KIM")
     record("B","Extension dashboard URL correct","/frontend/pro-dashboard.html" in _popup_js,"found" if "/frontend/pro-dashboard.html" in _popup_js else "MISSING","KIM")
@@ -362,7 +362,7 @@ def run_part_c():
             record("C", _sn+" file exists", False, "MISSING", "KIM")
     print("\n  [MARS] Stripe + Keys")
     env=read_env()
-    for k in ["STRIPE_PRICE_PRO_MONTHLY","STRIPE_PRICE_PRO_ANNUAL","STRIPE_PRICE_FEATURED_MONTHLY","STRIPE_PRICE_FEATURED_ANNUAL","STRIPE_PRICE_AUTHORITY_MONTHLY","STRIPE_PRICE_AUTHORITY_ANNUAL"]:
+    for k in ["STRIPE_PRICE_PRO_MONTHLY","STRIPE_PRICE_PRO_ANNUAL"]:
         val=env.get(k,"")
         record("C",k,bool(val) and val.startswith("price_"),val if val else "missing","MARS")
     st,_=http_get(BASE_URL+"/api/v2/payments/pricing")
@@ -576,7 +576,7 @@ def run_part_c():
 
     print("\n  [KIM] Dashboard HTML Elements")
     _dash_html=open(ar+"/frontend/dashboard.html").read()
-    for _eid in ["tierBadge","headerName","headerAvatar","sidebarName","sidebarAvatar","sidebarLocation","sidebarVoiceTag","sidebarStance","statTests","statWords","statConsistency","voiceBars","voiceCard","evolutionCard","writersCard","booksCard","stretchCard","featuredCard","authorityCard","upgradeCard","activityCard","welcomeBanner","welcomeHeading","userMenuToggle","userDropdown"]:
+    for _eid in ["tierBadge","headerName","headerAvatar","sidebarName","sidebarAvatar","sidebarLocation","sidebarVoiceTag","sidebarStance","statTests","statWords","statConsistency","voiceBars","voiceCard","evolutionCard","writersCard","booksCard","stretchCard","upgradeCard","activityCard","welcomeBanner","welcomeHeading","userMenuToggle","userDropdown"]:
         record("C",f"Dashboard ID #{_eid}",'id="'+_eid+'"' in _dash_html,"found" if 'id="'+_eid+'"' in _dash_html else "MISSING","KIM")
     for _nl,_nn in [('/dashboard','Dashboard nav'),('/blog','Blog nav'),('/faq','FAQ nav'),('/settings','Settings nav')]:
         record("C",f"Dashboard {_nn} link",'href="'+_nl+'"' in _dash_html,"found" if 'href="'+_nl+'"' in _dash_html else "MISSING","KIM")
@@ -586,7 +586,7 @@ def run_part_c():
     for _fl in ["blog/terms.html","blog/privacy.html","blog/affiliates.html","mailto:support@quirrely.ca"]:
         record("C",f"Footer {_fl}",_fl in _dash_html,"found" if _fl in _dash_html else "MISSING","KIM")
     print("\n  [KIM] Dashboard JS Functions")
-    _required_fns=["function toggleUserMenu","function doLogout","function viewPublicProfile","function submitForFeatured","function copyProfileLink","function shareLinkedIn","function shareFacebook","function showToast","function formatLocation","function getInitial","function formatNumber","function timeAgo","function renderVoiceBars","function renderActivity","function renderWriters","function renderBooks","function renderStretch","function startStretch","function renderEvolution","function renderAuthorityMetrics","function setTier","async function init"]
+    _required_fns=["function toggleUserMenu","function doLogout","function viewPublicProfile","function submitForFeatured","function copyProfileLink","function shareLinkedIn","function shareFacebook","function showToast","function formatLocation","function getInitial","function formatNumber","function timeAgo","function renderVoiceBars","function renderActivity","function renderWriters","function renderBooks","function renderStretch","function startStretch","function renderEvolution","function setTier","async function init"]
     for _fn in _required_fns:
         _fname=_fn.replace("async ","").replace("function ","")
         record("C",f"JS fn {_fname}()",_fn in _dash_html,"found" if _fn in _dash_html else "MISSING","KIM")
@@ -626,7 +626,7 @@ def run_part_c():
     record("C","Settings GA4","G-HQ818WM2YB" in _settings,"found" if "G-HQ818WM2YB" in _settings else "MISSING","MARS")
     record("C","Settings title","Settings | Quirrely" in _settings,"found" if "Settings | Quirrely" in _settings else "WRONG","MARS")
     record("C","Settings no hardcoded Jane","Jane Doe" not in _settings,"clean" if "Jane Doe" not in _settings else "HARDCODED","KIM")
-    record("C","Settings no hardcoded $4.99","$4.99" not in _settings,"clean" if "$4.99" not in _settings else "WRONG PRICE","KIM")
+    record("C","Settings no hardcoded $4.99","$4.99" not in _settings and "$7.99" not in _settings,"clean" if ("$4.99" not in _settings and "$7.99" not in _settings) else "FOUND","KIM")
     record("C","Settings tierBadge",'id="tierBadge"' in _settings,"found" if 'id="tierBadge"' in _settings else "MISSING","KIM")
     record("C","Settings subscriptionCard",'id="subscriptionCard"' in _settings,"found" if 'id="subscriptionCard"' in _settings else "MISSING","KIM")
     for _sid in ["totalAnalyses","totalWords","memberSince"]:
@@ -683,12 +683,12 @@ def run_part_c():
         record("C","Pro no Twitter/X","shareTwitter" not in _pd and "twitter.com" not in _pd,"clean","KIM")
 
     print("\n  [KIM] Dashboard Tier Variants")
-    for _tc,_tv in [("tier-free-only","Free-only card"),("tier-pro","Pro-gated card"),("tier-featured","Featured-gated card"),("tier-authority","Authority-gated card")]:
+    for _tc,_tv in [("tier-free-only","Free-only card"),("tier-pro","Pro-gated card")]:
         record("C",f"CSS class {_tv}",_tc in _dash_html,"found" if _tc in _dash_html else "MISSING","KIM")
-    for _tid,_tn in [("upgradeCard","Upgrade card"),("evolutionCard","Evolution card"),("writersCard","Writers card"),("booksCard","Books card"),("stretchCard","STRETCH card"),("featuredCard","Featured card"),("authorityCard","Authority card")]:
+    for _tid,_tn in [("upgradeCard","Upgrade card"),("evolutionCard","Evolution card"),("writersCard","Writers card"),("booksCard","Books card"),("stretchCard","STRETCH card")]:
         record("C",f"Tier element #{_tid}",'id="'+_tid+'"' in _dash_html,"found" if 'id="'+_tid+'"' in _dash_html else "MISSING","KIM")
     record("C","setTier() function","function setTier" in _dash_html,"found" if "function setTier" in _dash_html else "MISSING","KIM")
-    record("C","Body class tier switching","is-pro" in _dash_html and "is-featured" in _dash_html and "is-authority" in _dash_html,"found","KIM")
+    record("C","Body class tier switching","is-pro" in _dash_html,"found","KIM")
 
     print("\n  [KIM] Dashboard Country Variants")
     record("C","BOOKSTORE_BY_COUNTRY defined","BOOKSTORE_BY_COUNTRY" in _dash_html,"found" if "BOOKSTORE_BY_COUNTRY" in _dash_html else "MISSING","KIM")
@@ -704,7 +704,7 @@ def run_part_c():
         "function showToast","function getBookstore","function renderVoiceBars",
         "function renderWriters","function renderBooks","function renderActivity",
         "function renderStretch","function startStretch","function renderEvolution",
-        "function renderAuthorityMetrics","function setTier","async function init",
+        "function setTier","async function init",
         "function toggleUserMenu","function getInitial","function formatNumber","function timeAgo"]
     for _fn in _mfns:
         _fname=_fn.replace("async ","").replace("function ","")
@@ -725,8 +725,6 @@ def run_part_c():
 
     print("\n  [MARS] Sentense Cleanup")
     record("C","Affiliate no sentense","sentense" not in open(os.path.join(APP_DIR,"affiliate_service.py")).read(),"clean" if "sentense" not in open(os.path.join(APP_DIR,"affiliate_service.py")).read() else "FOUND","MARS")
-    _auth_dash=open(ar+"/authority-dashboard.html").read() if os.path.isfile(ar+"/authority-dashboard.html") else ""
-    record("C","Authority dashboard no Sentense","Sentense" not in _auth_dash,"clean" if "Sentense" not in _auth_dash else "FOUND","MARS")
     _logo_readme=open(ar+"/assets/logo/README.md").read() if os.path.isfile(ar+"/assets/logo/README.md") else ""
     record("C","Logo README no Sentense","Sentense" not in _logo_readme,"clean" if "Sentense" not in _logo_readme else "FOUND","MARS")
 
@@ -758,6 +756,33 @@ def run_part_c():
     print("\n  [KIM+MARS] STRETCH Technique & Style")
     record("C","STRETCH technique card","stretchTechnique" in _dh and "stretchTechniqueName" in _dh,"found","MARS")
     record("C","STRETCH technique tip","stretchTechniqueTip" in _dh,"found" if "stretchTechniqueTip" in _dh else "MISSING","MARS")
+
+    # --- Session 11: Word Usage Bar ---
+    print("\n  [MARS] Word Usage Bar")
+    record("C","Word usage bar exists","wordUsageBar" in _dh,"found" if "wordUsageBar" in _dh else "MISSING","MARS")
+    record("C","Word usage fill bar","wuFill" in _dh,"found" if "wuFill" in _dh else "MISSING","MARS")
+    record("C","Word usage label","wuLabel" in _dh,"found" if "wuLabel" in _dh else "MISSING","MARS")
+    record("C","Word usage count","wuCount" in _dh,"found" if "wuCount" in _dh else "MISSING","MARS")
+    record("C","Word usage hint","wuHint" in _dh,"found" if "wuHint" in _dh else "MISSING","MARS")
+    record("C","renderWordUsage function","function renderWordUsage" in _dh,"found" if "function renderWordUsage" in _dh else "MISSING","MARS")
+    record("C","Word usage calls limits API","api/v2/features/limits" in _dh,"found" if "api/v2/features/limits" in _dh else "MISSING","MARS")
+
+    # --- Session 11: Unauth Word Limit ---
+    print("\n  [MARS] Unauth Word Limit")
+    _idx=open(ar.replace("quirrely.ca","quirrely.ca/frontend")+"/index.html").read() if os.path.isfile(ar.replace("quirrely.ca","quirrely.ca/frontend")+"/index.html") else ""
+    if not _idx:
+        _idx=open("/opt/quirrely/quirrely_v313_integrated/frontend/index.html").read()
+    record("C","Index has daily word limit","quirrely_daily_words" in _idx,"found" if "quirrely_daily_words" in _idx else "MISSING","MARS")
+    record("C","Index 150 word cap","150" in _idx and "word limit" in _idx.lower(),"found" if "150" in _idx else "MISSING","MARS")
+    record("C","Index signup CTA on limit","signup.html" in _idx,"found" if "signup.html" in _idx else "MISSING","MARS")
+
+    # --- Session 11: Tier Simplification ---
+    print("\n  [MARS] Tier Simplification")
+    record("C","No featuredCard in dashboard","featuredCard" not in _dh,"clean" if "featuredCard" not in _dh else "STILL PRESENT","MARS")
+    record("C","No authorityCard in dashboard","authorityCard" not in _dh,"clean" if "authorityCard" not in _dh else "STILL PRESENT","MARS")
+    record("C","No tier-featured CSS","tier-featured" not in _dh,"clean" if "tier-featured" not in _dh else "STILL PRESENT","MARS")
+    record("C","No tier-authority CSS","tier-authority" not in _dh,"clean" if "tier-authority" not in _dh else "STILL PRESENT","MARS")
+    record("C","setTier maps featured to pro","featured" in _dh and "mapped" in _dh,"found","MARS")
     record("C","STRETCH learning goal","stretchLearningGoal" in _dh,"found" if "stretchLearningGoal" in _dh else "MISSING","MARS")
     record("C","STRETCH style example","stretchStyleExample" in _dh,"found" if "stretchStyleExample" in _dh else "MISSING","MARS")
     record("C","STRETCH clear paste","clearStretchTextarea" in _dh,"found" if "clearStretchTextarea" in _dh else "MISSING","MARS")

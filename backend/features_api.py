@@ -59,6 +59,7 @@ class UsageLimits(BaseModel):
     daily_analyses_used: int
     daily_analyses_remaining: int
     resets_at: str
+    limit_type: str = "daily"
 
 
 class FeaturesResponse(BaseModel):
@@ -242,6 +243,7 @@ async def get_all_features(
         daily_analyses_used=limits_data['used'],
         daily_analyses_remaining=limits_data['remaining'],
         resets_at=limits_data['resets_at'],
+        limit_type=limits_data.get('limit_type', 'daily'),
     )
     
     return FeaturesResponse(
@@ -310,6 +312,7 @@ async def get_usage_limits(
         daily_analyses_used=limits_data['used'],
         daily_analyses_remaining=limits_data['remaining'],
         resets_at=limits_data['resets_at'],
+        limit_type=limits_data.get('limit_type', 'daily'),
     )
 
 

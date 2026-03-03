@@ -3902,7 +3902,7 @@
         <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
         <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
       </g>
-      <text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">rel</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
+      <text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">re</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
     </svg>
           <span class="version-badge">beta</span>
         </a>
@@ -4062,7 +4062,7 @@
         <ellipse cx="32" cy="48" rx="5" ry="5.5" fill="#1a1a1a"/>
         <ellipse cx="48" cy="48" rx="5" ry="5.5" fill="#1a1a1a"/>
       </g>
-      <text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#636E72">Quir<tspan fill="#FF6B6B">rel</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
+      <text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#636E72">Quir<tspan fill="#FF6B6B">re</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
     </svg></a>
         <button class="footer-link" onclick="showPrivacyNotice()" aria-label="View privacy notice">Privacy</button><span class="social-links" style="display: inline-flex; gap: 0.75rem; margin-left: 0.75rem;">
         <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="Follow Quirrely on LinkedIn" style="color: inherit; opacity: 0.6; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
@@ -6418,6 +6418,26 @@
     function submitStretch() {
       const rawInput = document.getElementById('stretch-input').value.trim();
       const input = sanitize(rawInput);
+
+      // Unauth free: 150 words/day limit (client-side)
+      const _wc = input.split(/\s+/).filter(w => w).length;
+      const _isAuthed = !!(localStorage.getItem('quirrely_session'));
+      if (!_isAuthed) {
+        const _today = new Date().toISOString().slice(0,10);
+        const _wuKey = 'quirrely_daily_words';
+        let _wu = JSON.parse(localStorage.getItem(_wuKey) || '{}');
+        if (_wu.date !== _today) _wu = {date: _today, used: 0};
+        if (_wu.used + _wc > 150) {
+          const _err = document.getElementById('input-error');
+          _err.innerHTML = 'Daily word limit reached (150 words for free users). ' +
+            '<a href="/auth/signup.html">Sign up free</a> for 750 words/day.';
+          _err.classList.remove('hidden');
+          return;
+        }
+        _wu.used += _wc;
+        localStorage.setItem(_wuKey, JSON.stringify(_wu));
+      }
+
       const sentences = parseSentences(input);
       
       if (sentences.length < 1) {

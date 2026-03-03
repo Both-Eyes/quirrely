@@ -1,13 +1,25 @@
 {
-  "run_at": "2026-03-02T08:00:02.156343+00:00",
+  "run_at": "2026-03-03T14:35:06.141359+00:00",
   "part_a": {
-    "pass": 22,
-    "fail": 1,
+    "pass": 25,
+    "fail": 0,
     "tests": [
       {
-        "name": "PM2 quirrely found",
-        "status": "FAIL",
-        "detail": "not found",
+        "name": "PM2 quirrely online",
+        "status": "PASS",
+        "detail": "status=online",
+        "owner": "ASO"
+      },
+      {
+        "name": "PM2 restarts < 25",
+        "status": "PASS",
+        "detail": "restarts=1",
+        "owner": "ASO"
+      },
+      {
+        "name": "PM2 memory < 512MB",
+        "status": "PASS",
+        "detail": "29.0MB",
         "owner": "ASO"
       },
       {
@@ -49,7 +61,7 @@
       {
         "name": "Table 'users' accessible",
         "status": "PASS",
-        "detail": "rows=160",
+        "detail": "rows=194",
         "owner": "ASO"
       },
       {
@@ -109,19 +121,19 @@
       {
         "name": "SSL valid: quirrely.com",
         "status": "PASS",
-        "detail": "79 days",
+        "detail": "78 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: api.quirrely.com",
         "status": "PASS",
-        "detail": "79 days",
+        "detail": "78 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: quirrely.ca",
         "status": "PASS",
-        "detail": "79 days",
+        "detail": "78 days",
         "owner": "ASO"
       },
       {
@@ -169,7 +181,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=17f78175...",
+        "detail": "session=11357b15...",
         "owner": "KIM"
       },
       {
@@ -317,9 +329,9 @@
         "owner": "KIM"
       },
       {
-        "name": "Extension has Featured tier",
+        "name": "Extension no Featured tier",
         "status": "PASS",
-        "detail": "found",
+        "detail": "clean",
         "owner": "KIM"
       },
       {
@@ -451,13 +463,13 @@
     ]
   },
   "part_c": {
-    "pass": 438,
+    "pass": 440,
     "fail": 0,
     "tests": [
       {
         "name": "Disk usage < 80%",
         "status": "PASS",
-        "detail": "10% (9.3G/100G)",
+        "detail": "10% (9.5G/100G)",
         "owner": "ASO"
       },
       {
@@ -674,30 +686,6 @@
         "name": "STRIPE_PRICE_PRO_ANNUAL",
         "status": "PASS",
         "detail": "price_1T45tiEKkxcRaOdrCtMarhTP",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRIPE_PRICE_FEATURED_MONTHLY",
-        "status": "PASS",
-        "detail": "price_1T45UmEKkxcRaOdr0DUo636h",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRIPE_PRICE_FEATURED_ANNUAL",
-        "status": "PASS",
-        "detail": "price_1T45MSEKkxcRaOdrpeNC07kr",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRIPE_PRICE_AUTHORITY_MONTHLY",
-        "status": "PASS",
-        "detail": "price_1T45fiEKkxcRaOdr6UbeE6AN",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRIPE_PRICE_AUTHORITY_ANNUAL",
-        "status": "PASS",
-        "detail": "price_1T45hOEKkxcRaOdr5Iz6EsuW",
         "owner": "MARS"
       },
       {
@@ -1289,18 +1277,6 @@
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #featuredCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard ID #authorityCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
         "name": "Dashboard ID #upgradeCard",
         "status": "PASS",
         "detail": "found",
@@ -1512,12 +1488,6 @@
       },
       {
         "name": "JS fn renderEvolution()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "JS fn renderAuthorityMetrics()",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
@@ -2063,18 +2033,6 @@
         "owner": "KIM"
       },
       {
-        "name": "CSS class Featured-gated card",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "CSS class Authority-gated card",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
         "name": "Tier element #upgradeCard",
         "status": "PASS",
         "detail": "found",
@@ -2100,18 +2058,6 @@
       },
       {
         "name": "Tier element #stretchCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Tier element #featuredCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Tier element #authorityCard",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
@@ -2273,12 +2219,6 @@
         "owner": "KIM"
       },
       {
-        "name": "Master JS fn renderAuthorityMetrics()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
         "name": "Master JS fn setTier()",
         "status": "PASS",
         "detail": "found",
@@ -2394,12 +2334,6 @@
       },
       {
         "name": "Affiliate no sentense",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Authority dashboard no Sentense",
         "status": "PASS",
         "detail": "clean",
         "owner": "MARS"
@@ -2526,6 +2460,96 @@
       },
       {
         "name": "STRETCH technique tip",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Word usage bar exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Word usage fill bar",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Word usage label",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Word usage count",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Word usage hint",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "renderWordUsage function",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Word usage calls limits API",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Index has daily word limit",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Index 150 word cap",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Index signup CTA on limit",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "No featuredCard in dashboard",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "No authorityCard in dashboard",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "No tier-featured CSS",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "No tier-authority CSS",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "setTier maps featured to pro",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"

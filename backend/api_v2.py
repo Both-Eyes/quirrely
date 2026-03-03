@@ -258,11 +258,12 @@ async def analyze_text(
     classifier = get_classifier()
     
     # Check daily limit
-    limit_check = gate.check_daily_limit(user_id, session_id)
+    _est_words = len(request.text.split())
+    limit_check = gate.check_daily_limit(user_id, session_id, _est_words)
     if not limit_check["allowed"]:
         raise HTTPException(
             status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail=f"Daily limit reached ({limit_check['limit']} analyses). Upgrade to Pro for unlimited.",
+            detail=f"Word limit reached ({limit_check['used']}/{limit_check['limit']} words). Upgrade to Pro for more.",
         )
     
     # Check basic analysis feature (should always pass)
@@ -298,7 +299,7 @@ async def analyze_text(
     )
     
     # Record usage for daily limit
-    gate.record_analysis(user_id, session_id)
+    gate.record_analysis(user_id, session_id, result["word_count"])
     
     # Track features used
     features_used = ["basic_analysis"]

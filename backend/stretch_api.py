@@ -86,10 +86,10 @@ class KeystrokeValidator:
             return {"valid": False, "reason": "BURST_DETECTED",
                     "word_count": wc, "paste_detected": True,
                     "message": "Unusual input pattern detected."}
-        if wc < 100:
+        if wc < 50:
             return {"valid": False, "reason": "MINIMUM_NOT_MET",
                     "word_count": wc, "paste_detected": False,
-                    "message": f"Minimum 100 words required. Current: {wc}"}
+                    "message": f"Minimum 50 words required. Current: {wc}"}
         return {"valid": True, "reason": "VALID",
                 "word_count": wc, "paste_detected": False,
                 "message": "Input validated."}
@@ -391,15 +391,15 @@ async def get_prompt(exercise_id: UUID, cycle_number: int,
         "technique_tip": prompt.get('technique_tip') or '',
         "learning_goal": prompt.get('learning_goal') or '',
         "style_example": prompt.get('style_example') or '',
-        "word_minimum": 100,
-        "cycle_word_target": 500
+        "word_minimum": 50,
+        "cycle_word_target": 150
     }
 
 @router.post("/input/{exercise_id}/{cycle_number}/{prompt_number}")
 async def submit_input(exercise_id: UUID, cycle_number: int,
                        prompt_number: int, body: dict = Body(...),
                        user: dict = Depends(require_auth)):
-    if not (1 <= cycle_number <= 5 and 1 <= prompt_number <= 3):
+    if not (1 <= cycle_number <= 4 and 1 <= prompt_number <= 3):
         raise HTTPException(400, "Invalid cycle/prompt number")
     content = body.get('content', '')
     ks = body.get('keystroke_data', {})
@@ -454,16 +454,28 @@ async def submit_input(exercise_id: UUID, cycle_number: int,
         """, (str(cycle['id']), str(exercise_id)))
         ex = db_query_one("SELECT cycles_completed FROM stretch_exercises WHERE id=%s",
                           (str(exercise_id),))
-        if ex and ex['cycles_completed'] >= 5:
+        if ex and ex['cycles_completed'] >= 4:
             db_execute("""
                 UPDATE stretch_exercises SET status='completed', completed_at=NOW()
                 WHERE id=%s
             """, (str(exercise_id),))
-        elif ex and ex['cycles_completed'] < 5:
+        elif ex and ex['cycles_completed'] < 4:
             db_execute("""
                 INSERT INTO stretch_cycles (exercise_id, cycle_number)
                 VALUES (%s, %s)
             """, (str(exercise_id), ex['cycles_completed'] + 1))
+    # Record STRETCH words against user's word limit
+    uid = str(user['id'])
+    from datetime import datetime as _dt
+    _today = _dt.utcnow().strftime("%Y-%m-%d")
+    db_execute("""
+        INSERT INTO daily_keystroke_totals (user_id, date, keystroke_words)
+        VALUES (%s, %s, %s)
+        ON CONFLICT (user_id, date) DO UPDATE SET
+            keystroke_words = daily_keystroke_totals.keystroke_words + EXCLUDED.keystroke_words,
+            updated_at = NOW()
+    """, (uid, _today, v['word_count']))
+
     return {
         "accepted": True, "validation": v,
         "word_count": v['word_count'],

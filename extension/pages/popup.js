@@ -24,8 +24,6 @@
     minChars: 50,
     freeAnalysesPerDay: 5,
     proAnalysesPerDay: 100,
-    featuredAnalysesPerDay: Infinity,
-    authorityAnalysesPerDay: Infinity,
   };
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -284,8 +282,6 @@
 
   function getTierLimit() {
     switch (userState.tier) {
-      case 'authority': return CONFIG.authorityAnalysesPerDay;
-      case 'featured': return CONFIG.featuredAnalysesPerDay;
       case 'pro': return CONFIG.proAnalysesPerDay;
       default: return CONFIG.freeAnalysesPerDay;
     }
@@ -475,7 +471,7 @@
   }
 
   function updateStretchCtaVisibility() {
-    const showCta = userState.stretchEligible && userState.tier !== 'authority';
+    const showCta = userState.stretchEligible;
     
     if (elements.stretchCta) {
       elements.stretchCta.style.display = showCta ? 'flex' : 'none';
@@ -533,8 +529,7 @@
       free: { icon: '⭐', text: 'Free', class: 'free' },
       trial: { icon: '🎁', text: 'Trial', class: 'trial' },
       pro: { icon: '💎', text: 'Pro', class: 'pro' },
-      featured: { icon: '🌟', text: 'Featured', class: 'featured' },
-      authority: { icon: '👑', text: 'Authority', class: 'authority' },
+
     };
     
     const config = tierConfig[userState.tier] || tierConfig.free;

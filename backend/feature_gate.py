@@ -31,6 +31,30 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Set
 from dataclasses import dataclass
 from enum import Enum
+import psycopg2, psycopg2.extras
+_DB_URL = os.environ.get("DATABASE_URL",
+    "postgresql://quirrely:Quirr2026db@127.0.0.1:5432/quirrely_prod")
+
+def _wq(sql, params=None):
+    conn = psycopg2.connect(_DB_URL)
+    try:
+        cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur.execute(sql, params)
+        r = cur.fetchone()
+        conn.commit()
+        return r
+    finally:
+        conn.close()
+
+def _we(sql, params=None):
+    conn = psycopg2.connect(_DB_URL)
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, params)
+        conn.commit()
+    finally:
+        conn.close()
+
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -400,17 +424,20 @@ DEFAULT_FEATURES: List[FeatureFlag] = [
     ),
 ]
 
-# Daily analysis limits by tier
-DAILY_LIMITS = {
-    Tier.FREE: 5,
-    Tier.TRIAL: 100,
-    Tier.PRO: 1000,
-    Tier.CURATOR: 1000,
-    Tier.FEATURED_WRITER: 1000,
-    Tier.FEATURED_CURATOR: 1000,
-    Tier.AUTHORITY_WRITER: 10000,
-    Tier.AUTHORITY_CURATOR: 10000,
+# Word limits by tier
+DAILY_WORD_LIMITS = {
+    Tier.FREE: 750, Tier.TRIAL: 750,
+    Tier.PRO: 0, Tier.CURATOR: 0,
+    Tier.FEATURED_WRITER: 0, Tier.FEATURED_CURATOR: 0,
+    Tier.AUTHORITY_WRITER: 0, Tier.AUTHORITY_CURATOR: 0,
 }
+MONTHLY_WORD_LIMITS = {
+    Tier.FREE: 0, Tier.TRIAL: 0,
+    Tier.PRO: 50000, Tier.CURATOR: 50000,
+    Tier.FEATURED_WRITER: 50000, Tier.FEATURED_CURATOR: 50000,
+    Tier.AUTHORITY_WRITER: 100000, Tier.AUTHORITY_CURATOR: 100000,
+}
+DAILY_LIMITS = DAILY_WORD_LIMITS
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -713,66 +740,59 @@ class FeatureGate:
         self,
         user_id: Optional[str] = None,
         session_id: Optional[str] = None,
+        word_count: int = 0,
     ) -> Dict[str, Any]:
-        """
-        Check if user/session has reached daily analysis limit.
-        
-        Returns:
-            Dict with allowed, used, limit, remaining
-        """
-        identifier = user_id or session_id or "anonymous"
-        
-        # Get tier
-        if user_id:
-            tier = self.get_user_tier(user_id).effective_tier
-        else:
-            tier = Tier.FREE
-        
-        limit = DAILY_LIMITS.get(tier, 5)
-        
-        # Get today's usage
-        usage = self._read_json(self.usage_file).get("usage", {})
+        """Check if user has reached word limit (daily or monthly)."""
+        if not user_id:
+            return {"allowed": True, "used": 0, "limit": 150,
+                    "remaining": 150, "tier": "free",
+                    "resets_at": "", "limit_type": "daily"}
+        tier = self.get_user_tier(user_id).effective_tier
         today = datetime.utcnow().strftime("%Y-%m-%d")
-        
-        user_usage = usage.get(identifier, {})
-        today_count = user_usage.get(today, 0)
-        
-        return {
-            "allowed": today_count < limit,
-            "used": today_count,
-            "limit": limit,
-            "remaining": max(0, limit - today_count),
-            "tier": tier.value,
-            "resets_at": f"{today}T23:59:59Z",
-        }
-    
+        ml = MONTHLY_WORD_LIMITS.get(tier, 0)
+        dl = DAILY_WORD_LIMITS.get(tier, 750)
+        if ml > 0:
+            fom = datetime.utcnow().strftime("%Y-%m-01")
+            r = _wq("SELECT COALESCE(SUM(keystroke_words),0) as used "
+                "FROM daily_keystroke_totals WHERE user_id=%s AND date>=%s",
+                (user_id, fom))
+            used = r['used'] if r else 0
+            return {"allowed": (used + word_count) <= ml,
+                    "used": used, "limit": ml,
+                    "remaining": max(0, ml - used),
+                    "tier": tier.value,
+                    "resets_at": fom + "T00:00:00Z",
+                    "limit_type": "monthly"}
+        else:
+            r = _wq("SELECT COALESCE(keystroke_words,0) as used "
+                "FROM daily_keystroke_totals WHERE user_id=%s AND date=%s",
+                (user_id, today))
+            used = r['used'] if r else 0
+            return {"allowed": (used + word_count) <= dl,
+                    "used": used, "limit": dl,
+                    "remaining": max(0, dl - used),
+                    "tier": tier.value,
+                    "resets_at": today + "T23:59:59Z",
+                    "limit_type": "daily"}
+
     def record_analysis(
         self,
         user_id: Optional[str] = None,
         session_id: Optional[str] = None,
+        word_count: int = 0,
     ):
-        """Record an analysis for usage tracking."""
-        identifier = user_id or session_id or "anonymous"
+        """Record word usage in daily_keystroke_totals."""
+        if not user_id:
+            return
         today = datetime.utcnow().strftime("%Y-%m-%d")
-        
-        data = self._read_json(self.usage_file)
-        usage = data.get("usage", {})
-        
-        if identifier not in usage:
-            usage[identifier] = {}
-        
-        usage[identifier][today] = usage[identifier].get(today, 0) + 1
-        
-        # Clean up old entries (keep last 7 days)
-        cutoff = (datetime.utcnow() - timedelta(days=7)).strftime("%Y-%m-%d")
-        usage[identifier] = {
-            k: v for k, v in usage[identifier].items()
-            if k >= cutoff
-        }
-        
-        data["usage"] = usage
-        self._write_json(self.usage_file, data)
-
+        _we("""
+            INSERT INTO daily_keystroke_totals (user_id, date, keystroke_words, analyses_count)
+            VALUES (%s, %s, %s, 1)
+            ON CONFLICT (user_id, date) DO UPDATE SET
+                keystroke_words = daily_keystroke_totals.keystroke_words + EXCLUDED.keystroke_words,
+                analyses_count = daily_keystroke_totals.analyses_count + 1,
+                updated_at = NOW()
+        """, (user_id, today, word_count))
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Decorator
