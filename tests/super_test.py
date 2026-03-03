@@ -797,6 +797,15 @@ def run_part_c():
     record("C","app.py proxy calls collector.record_analysis","collector.record_analysis" in _apy,"found" if "collector.record_analysis" in _apy else "MISSING","MARS")
     record("C","app.py proxy returns pattern_id",'pattern_id=pid' in _apy,"found" if "pattern_id=pid" in _apy else "MISSING","MARS")
 
+        # --- Session 12: Voice Comparison + Personalized CTA ---
+    print("\n  [MARS] Session 12 Voice Comparison")
+    _sh=open(os.path.join(APP_DIR,"share_api.py")).read()
+    record("C","Public profile JSON endpoint","def get_public_share" in _sh,"found" if "def get_public_share" in _sh else "MISSING","MARS")
+    _idx=open("/opt/quirrely/quirrely_v313_integrated/frontend/index.html").read()
+    record("C","Auto-compare on ref visit","ref-compare" in _idx and "quirrely_ref" in _idx,"found" if "ref-compare" in _idx else "MISSING","MARS")
+    record("C","Tracks analyze referral","action:'analyze'" in _idx or 'action:"analyze"' in _idx or "action:'analyze'" in _idx,"found" if "analyze" in _idx else "MISSING","MARS")
+    record("C","Personalized CTA on voice page","compares to" in _apy,"found" if "compares to" in _apy else "MISSING","MARS")
+
         # --- Session 12: Referral Tracking ---
     print("\n  [MARS] Session 12 Referral Tracking")
     _sh=open(os.path.join(APP_DIR,"share_api.py")).read()

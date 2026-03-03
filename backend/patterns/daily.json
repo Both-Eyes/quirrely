@@ -21,14 +21,14 @@
       "new_patterns": 0
     },
     "2026-03-03": {
-      "total_analyses": 6,
+      "total_analyses": 7,
       "profile_distribution": {
         "INTERROGATIVE": 2,
-        "DENSE": 4
+        "DENSE": 5
       },
       "stance_distribution": {
         "CLOSED": 2,
-        "OPEN": 4
+        "OPEN": 5
       },
       "new_patterns": 0
     }

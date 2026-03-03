@@ -335,7 +335,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;backgroun
 <div class="ds">{desc}</div>
 <div class="sc">{bars}</div>
 <div class="stats"><div>{tw:,} words</div><div>{ta} analyses</div></div>
-<a class="cta" href="https://quirrely.ca/?ref={slug}">Discover your writing voice &rarr;</a>
+<a class="cta" href="https://quirrely.ca/?ref={slug}">See how your voice compares to {name} &rarr;</a>
 </div></body></html>"""
 
 PROFILE_DESC={"ASSERTIVE":"Bold, direct, and confident","MINIMAL":"Clean, precise, and economical","POETIC":"Lyrical, imagery-rich, and evocative","DENSE":"Complex, layered, and information-rich","CONVERSATIONAL":"Warm, natural, and approachable","FORMAL":"Structured, polished, and authoritative","INTERROGATIVE":"Curious, questioning, and exploratory","HEDGED":"Nuanced, cautious, and qualifying","PARALLEL":"Rhythmic, balanced, and patterned","LONGFORM":"Expansive, detailed, and immersive"}

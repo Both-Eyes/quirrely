@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-03T17:05:58.829633+00:00",
+  "run_at": "2026-03-03T17:14:18.186195+00:00",
   "part_a": {
     "pass": 25,
     "fail": 0,
@@ -13,7 +13,7 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=13",
+        "detail": "restarts=16",
         "owner": "ASO"
       },
       {
@@ -61,7 +61,7 @@
       {
         "name": "Table 'users' accessible",
         "status": "PASS",
-        "detail": "rows=220",
+        "detail": "rows=222",
         "owner": "ASO"
       },
       {
@@ -181,7 +181,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=32a04016...",
+        "detail": "session=ee18d3f0...",
         "owner": "KIM"
       },
       {
@@ -463,7 +463,7 @@
     ]
   },
   "part_c": {
-    "pass": 470,
+    "pass": 474,
     "fail": 0,
     "tests": [
       {
@@ -481,7 +481,7 @@
       {
         "name": "API response < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "6ms",
         "owner": "ASO"
       },
       {
@@ -2598,6 +2598,30 @@
       },
       {
         "name": "app.py proxy returns pattern_id",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Public profile JSON endpoint",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Auto-compare on ref visit",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Tracks analyze referral",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Personalized CTA on voice page",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"

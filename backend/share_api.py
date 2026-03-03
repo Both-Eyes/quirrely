@@ -182,5 +182,18 @@ async def referral_stats(user: dict = Depends(require_auth)):
     finally:
         conn.close()
 
+@router.get("/public/{slug}")
+async def get_public_share(slug: str):
+    """Public endpoint to get a share profile by slug (no auth)."""
+    p = get_public_profile(slug)
+    if not p:
+        raise HTTPException(404, "Profile not found")
+    return {
+        "slug": p["slug"], "display_name": p.get("display_name"),
+        "profile": p.get("profile"), "stance": p.get("stance"),
+        "scores": p.get("scores"), "total_words": p.get("total_words"),
+        "total_analyses": p.get("total_analyses")
+    }
+
 def get_public_profile(slug: str):
     return _q("SELECT * FROM share_profiles WHERE slug=%s", (slug,))

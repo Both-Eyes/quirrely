@@ -339,6 +339,40 @@
         }
       },
       "analyzed_at": "2026-03-03T17:06:00.945440Z"
+    },
+    {
+      "id": "d3d322ec9de10d47",
+      "user_id": null,
+      "session_id": null,
+      "profile": "DENSE",
+      "stance": "OPEN",
+      "word_count": 21,
+      "sentence_count": 3,
+      "token_signature": "6-8-4-6-5-6-6-3-3-1",
+      "confidence_score": 0.8646281446979349,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.6134509362849347,
+          "MINIMAL": 0.05397712213270389,
+          "POETIC": 0.6670504330024216,
+          "DENSE": 0.7388009726394447,
+          "CONVERSATIONAL": 0.9546671665618327,
+          "FORMAL": 0.4611055746239716,
+          "INTERROGATIVE": 0.8863179838758942,
+          "HEDGED": 0.047148621182924066,
+          "PARALLEL": 0.3091997867079239,
+          "LONGFORM": 0.48198706492017673
+        },
+        "stances": {
+          "OPEN": 0.779051549307817,
+          "CLOSED": 0.5587733144301305,
+          "BALANCED": 0.6328779552975904,
+          "CONTRADICTORY": 0.3249109690701577
+        }
+      },
+      "analyzed_at": "2026-03-03T17:14:20.382079Z"
     }
   ],
   "version": "1.0"

@@ -6473,6 +6473,38 @@
       
       document.getElementById('stretch-screen').classList.add('hidden');
       document.getElementById('results-screen').classList.remove('hidden');
+      // Auto-compare if referred
+      (function(){
+        var ref=localStorage.getItem('quirrely_ref');
+        if(!ref||!analysis) return;
+        fetch('/api/v2/share/public/'+encodeURIComponent(ref))
+          .then(function(r){return r.ok?r.json():null})
+          .then(function(d){
+            if(!d||!d.profile) return;
+            var myP=analysis.primaryMode;
+            var theirP=d.profile;
+            var myS=analysis.stance;
+            var theirS=d.stance||'';
+            var name=d.display_name||ref;
+            var same=myP===theirP;
+            var el=document.createElement('div');
+            el.className='ref-compare';
+            el.style.cssText='background:linear-gradient(135deg,#faf9f6,#fff);border:2px solid #E8735A;border-radius:16px;padding:24px;margin:20px auto;max-width:500px;text-align:center;';
+            el.innerHTML='<div style="font-size:.9em;color:#888;margin-bottom:8px">Referred by '+name+'</div>'
+              +'<div style="display:flex;justify-content:center;align-items:center;gap:16px;margin:12px 0">'
+              +'<div><div style="font-size:.85em;color:#666">You</div><div style="font-size:1.3em;font-weight:700;color:'+(PROFILES[myP]?PROFILES[myP].color:'#333')+'">'+myP+'</div><div style="font-size:.8em;color:#999">'+myS+'</div></div>'
+              +'<div style="font-size:1.5em;color:#ccc">'+(same?'=':'vs')+'</div>'
+              +'<div><div style="font-size:.85em;color:#666">'+name+'</div><div style="font-size:1.3em;font-weight:700;color:'+(PROFILES[theirP]?PROFILES[theirP].color:'#333')+'">'+theirP+'</div><div style="font-size:.8em;color:#999">'+theirS+'</div></div>'
+              +'</div>'
+              +'<div style="margin-top:12px;font-size:.95em;color:#555">'+(same?'You share the same voice!':'Different voices, different strengths.')+'</div>'
+              +'<a href="/signup.html" style="display:inline-block;margin-top:12px;padding:10px 24px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Share your voice too &rarr;</a>';
+            var rs=document.getElementById('results-screen');
+            if(rs) rs.insertBefore(el,rs.firstChild);
+            fetch('/api/v2/share/referral/track',{method:'POST',headers:{'Content-Type':'application/json'},
+              body:JSON.stringify({ref:ref,action:'analyze',visitor_id:localStorage.getItem('quirrely_vid')||''})}).catch(function(){});
+          }).catch(function(){});
+      })();
+
       
       // Accessibility: announce profile reveal
       const profile = PROFILES[fullAnalysis.primaryMode];
