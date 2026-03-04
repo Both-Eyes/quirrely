@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Redirect old /frontend/ page URLs to clean URLs (before internal rewrites)
+RewriteRule ^frontend/dashboard\.html$ /dashboard [R=301,L]
+RewriteRule ^frontend/pro-dashboard\.html$ /dashboard [R=301,L]
+RewriteRule ^frontend/index\.html$ / [R=301,L]
+
+# Clean URLs: internal rewrite (not redirect)
+RewriteRule ^dashboard$ /frontend/dashboard.html [L,END]
+RewriteRule ^export$ /frontend/export.html [L,END]
