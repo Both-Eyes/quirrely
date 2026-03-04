@@ -770,6 +770,39 @@ class Part3_BackendAPI(TestHarness):
             st, _ = self.auth_post(f"{self.api_url}/api/v2/auth/me/update", {"display_name": "ST Test"}, token)
             self.record("POST /auth/me/update", st in [200, 204, 401], f"status={st}", "KIM")
 
+        # OAuth / Social Login
+        self.section("KIM — OAuth Social Login")
+        for provider in ["google", "facebook", "linkedin"]:
+            st, body = self.http_get(f"{self.api_url}/api/v2/auth/login/{provider}")
+            has_url = "redirect_url" in (body if isinstance(body, str) else "")
+            self.record(f"OAuth {provider} redirect URL", st == 200 and has_url,
+                        f"status={st}, has_url={has_url}", "KIM")
+
+        st, _ = self.http_get(f"{self.api_url}/api/v2/auth/login/apple")
+        self.record("OAuth unsupported provider rejected", st == 400, f"status={st}", "KIM")
+
+        st, _ = self.http_get(f"{self.api_url}/api/v2/auth/callback/google")
+        self.record("OAuth callback rejects missing params", st in [200, 400, 422],
+                     f"status={st} (missing code/state)", "KIM")
+
+        # Connected providers (requires auth)
+        st, _ = self.http_get(f"{self.api_url}/api/v2/auth/providers")
+        self.record("GET /auth/providers requires auth", st == 401, f"status={st}", "KIM")
+
+        if token:
+            st, body = self.auth_get(f"{self.api_url}/api/v2/auth/providers", token)
+            has_providers = "providers" in (body if isinstance(body, str) else "")
+            self.record("GET /auth/providers returns list", st == 200 and has_providers,
+                        f"status={st}", "KIM")
+
+        # Link provider (requires auth)
+        st, _ = self.http_get(f"{self.api_url}/api/v2/auth/link/google")
+        self.record("GET /auth/link requires auth", st == 401, f"status={st}", "KIM")
+
+        # Unlink provider (requires auth)
+        st, _ = self.http_get(f"{self.api_url}/api/v2/auth/link/apple")
+        self.record("Link unsupported provider rejected", st in [400, 401], f"status={st}", "KIM")
+
         # Dashboard API
         self.section("KIM — Dashboard API (/api/v2/me/)")
         st, _ = self.http_get(f"{self.api_url}/api/v2/me/dashboard")
@@ -1022,7 +1055,8 @@ class Part4_FrontendIntegrity(TestHarness):
             "function timeAgo", "function renderVoiceBars", "function renderActivity",
             "function renderWriters", "function renderBooks", "function renderStretch",
             "function startStretch", "function renderEvolution", "function setTier",
-            "async function init"
+            "async function renderConnectedAccounts", "async function linkProvider",
+            "async function unlinkProvider", "async function init"
         ]
         for fn in required_fns:
             fname = fn.replace("async ", "").replace("function ", "")
@@ -1092,6 +1126,47 @@ class Part4_FrontendIntegrity(TestHarness):
             if not content:
                 content = self.read_file(path.replace(DEPLOY_DIR, PROJECT_ROOT))
             self.record(f"GA4 on {name}", GA4_TAG in content, "found" if GA4_TAG in content else "MISSING", "MARS")
+
+        # Social Login Buttons
+        self.section("KIM — Social Login & Account Linking")
+        login_html = self.read_file(f"{DEPLOY_DIR}/auth/login.html")
+        signup_html = self.read_file(f"{DEPLOY_DIR}/auth/signup.html")
+        for provider in ["google", "facebook", "linkedin"]:
+            self.record(f"Login has {provider} button",
+                        f"socialLogin('{provider}')" in login_html,
+                        "found" if f"socialLogin('{provider}')" in login_html else "MISSING", "KIM")
+            self.record(f"Signup has {provider} button",
+                        f"socialLogin('{provider}')" in signup_html,
+                        "found" if f"socialLogin('{provider}')" in signup_html else "MISSING", "KIM")
+        self.record("Login has socialLogin() function", "function socialLogin" in login_html or "socialLogin" in login_html,
+                     "found", "KIM")
+        self.record("Login social-btn CSS", ".social-btn" in login_html,
+                     "found" if ".social-btn" in login_html else "MISSING", "KIM")
+        # Dashboard connected accounts
+        self.record("Dashboard connected-accounts section", "connected-accounts" in dash,
+                     "found" if "connected-accounts" in dash else "MISSING", "KIM")
+        self.record("Dashboard providerList element", "providerList" in dash,
+                     "found" if "providerList" in dash else "MISSING", "KIM")
+        self.record("Dashboard PROVIDER_ICONS defined", "PROVIDER_ICONS" in dash,
+                     "found" if "PROVIDER_ICONS" in dash else "MISSING", "KIM")
+
+        # Pro-dashboard redirect
+        self.section("KIM — Legacy Redirects")
+        prodash = self.read_file(f"{FRONTEND_DIR}/pro-dashboard.html")
+        self.record("pro-dashboard.html redirects to dashboard",
+                     "dashboard.html" in prodash and ("redirect" in prodash.lower() or "location" in prodash.lower()),
+                     "redirect found" if prodash else "MISSING", "KIM")
+
+        # Font unification
+        self.section("MARS — Font Unification")
+        idx = self.read_file(f"{FRONTEND_DIR}/index.html")
+        self.record("index.html uses Outfit font", "Outfit" in idx, "found" if "Outfit" in idx else "MISSING", "MARS")
+        self.record("dashboard.html uses Outfit font", "Outfit" in dash, "found" if "Outfit" in dash else "MISSING", "MARS")
+        for path, name in [(f"{DEPLOY_DIR}/auth/login.html", "login"),
+                           (f"{DEPLOY_DIR}/auth/signup.html", "signup")]:
+            content = self.read_file(path)
+            self.record(f"{name}.html uses Outfit font", "Outfit" in content,
+                        "found" if "Outfit" in content else "MISSING", "MARS")
 
         # Sitemaps
         self.section("MARS — Sitemaps")

@@ -1795,9 +1795,9 @@ async function linkProvider(provider) {
       headers: { 'Authorization': 'Bearer ' + session.token }
     });
     const data = await res.json();
-    if (!res.ok) { alert(data.detail || 'Failed to connect'); return; }
+    if (!res.ok) { showToast(data.detail || 'Failed to connect'); return; }
     if (data.redirect_url) window.location.href = data.redirect_url;
-  } catch(e) { alert('Failed to connect: ' + e.message); }
+  } catch(e) { showToast('Failed to connect: ' + e.message); }
 }
 
 async function unlinkProvider(provider) {
@@ -1809,9 +1809,9 @@ async function unlinkProvider(provider) {
       headers: { 'Authorization': 'Bearer ' + session.token }
     });
     const data = await res.json();
-    if (!res.ok) { alert(data.detail || 'Failed to disconnect'); return; }
+    if (!res.ok) { showToast(data.detail || 'Failed to disconnect'); return; }
     renderConnectedAccounts(session.token);
-  } catch(e) { alert('Failed to disconnect: ' + e.message); }
+  } catch(e) { showToast('Failed to disconnect: ' + e.message); }
 }
 
 // ===== SET TIER =====
