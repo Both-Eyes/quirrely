@@ -697,14 +697,24 @@ def _link_provider(user_id: str, provider: str, oauth_user: Dict):
 
 
 def _oauth_success_page(session: Dict, user: Dict) -> str:
-    """HTML page that stores session in localStorage and redirects to dashboard."""
+    """HTML page that stores session in localStorage and redirects to user profile."""
     import json
+    user_id = str(user["id"])
+
+    # Look up user's share slug for /user/{slug} redirect
+    share = db_query_one(
+        "SELECT slug FROM share_profiles WHERE user_id = %s", (user_id,)
+    )
+    slug = share["slug"] if share else None
+    redirect_url = f"/user/{slug}" if slug else "/dashboard"
+
     user_obj = {
-        "id": str(user["id"]),
+        "id": user_id,
         "email": user["email"],
         "display_name": user.get("display_name", ""),
         "email_verified": user.get("email_verified", True),
         "subscription_tier": user.get("subscription_tier", "free"),
+        "share_slug": slug or "",
     }
     session_obj = {
         "token": session["access_token"],
@@ -721,7 +731,7 @@ sess.createdAt = new Date().toISOString();
 sess.expiresAt = new Date(Date.now() + 7*24*60*60*1000).toISOString();
 localStorage.setItem('quirrely_session', JSON.stringify(sess));
 localStorage.setItem('quirrely_user', {json.dumps(json.dumps(user_obj))});
-window.location.href = '/dashboard';
+window.location.href = '{redirect_url}';
 </script>
 </body></html>"""
 
@@ -735,7 +745,7 @@ def _oauth_link_success_page(provider: str) -> str:
 <body style="font-family:system-ui;text-align:center;padding:3rem;">
 <h2 style="color:#4ECDC4;">&#10003; {safe_provider} Connected</h2>
 <p>Your {safe_provider} account has been linked. You can now sign in with it.</p>
-<script>setTimeout(function(){{ window.location.href = '/dashboard'; }}, 2000);</script>
+<script>setTimeout(function(){{ try{{var u=JSON.parse(localStorage.getItem('quirrely_user'));if(u&&u.share_slug){{window.location.href='/user/'+u.share_slug;}}else{{window.location.href='/dashboard';}}}}catch(e){{window.location.href='/dashboard';}} }}, 2000);</script>
 </body></html>"""
 
 

@@ -151,7 +151,9 @@
 
     // Redirect if already logged in
     if (AuthState.isLoggedIn()) {
-      window.location.href = checkout_tier ? '/billing/upgrade.html?tier=' + checkout_tier : '/dashboard';
+      var _u = AuthState.getUser();
+      var _dest = (_u && _u.share_slug) ? '/user/' + _u.share_slug : '/dashboard';
+      window.location.href = checkout_tier ? '/billing/upgrade.html?tier=' + checkout_tier : _dest;
     }
 
     async function socialLogin(provider) {

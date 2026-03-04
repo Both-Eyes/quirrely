@@ -355,9 +355,9 @@
   if(nav){
     var u=localStorage.getItem('quirrely_user');
     var p;try{p=JSON.parse(u);}catch(e){p={};}
-    nav.innerHTML='<a href="/dashboard">Dashboard</a><a href="/blog" class="active">Blog</a><a href="/faq">FAQ</a><a href="/settings">Settings</a>';
+    var _d=(p&&p.share_slug)?'/user/'+p.share_slug:'/dashboard';nav.innerHTML='<a href="'+_d+'">Dashboard</a><a href="/blog" class="active">Blog</a><a href="/faq">FAQ</a><a href="/settings">Settings</a>';
     var av=document.createElement('a');
-    av.href='/dashboard';
+    av.href=_d;
     av.style.cssText='width:28px;height:28px;border-radius:50%;background:#FF6B6B;display:inline-flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;font-weight:600;text-decoration:none;margin-left:0.5rem;';
     try{var ud=JSON.parse(u);av.textContent=(ud.display_name||ud.email||'?')[0].toUpperCase();}catch(e){av.textContent='?';}
     nav.appendChild(av);

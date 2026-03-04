@@ -656,11 +656,19 @@
         elements.accountSection.innerHTML = `
           <div class="account-info">
             <span class="account-status">✅ Connected</span>
-            <a href="${CONFIG.webAppUrl}/dashboard" target="_blank" class="account-link">
+            <a href="${CONFIG.webAppUrl}/dashboard" target="_blank" class="account-link" id="dashboardLink">
               Open Dashboard →
             </a>
           </div>
         `;
+        // Update dashboard link with user's slug if available
+        try {
+          const slugResp = await sendMessage({ type: 'GET_SHARE_SLUG' });
+          if (slugResp && slugResp.slug) {
+            const dl = document.getElementById('dashboardLink');
+            if (dl) dl.href = `${CONFIG.webAppUrl}/user/${slugResp.slug}`;
+          }
+        } catch (e) {}
       } else {
         elements.accountSection.innerHTML = `
           <div class="account-prompt">

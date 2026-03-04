@@ -83,8 +83,12 @@ const AuthState = (function() {
    * Redirect to dashboard if user is logged in
    * Use on: Landing page, login, signup
    */
-  function redirectIfLoggedIn(destination = '/dashboard') {
+  function redirectIfLoggedIn(destination) {
     if (isLoggedIn()) {
+      if (!destination) {
+        const user = getUser();
+        destination = (user && user.share_slug) ? '/user/' + user.share_slug : '/dashboard';
+      }
       window.location.href = destination;
       return true;
     }
@@ -160,7 +164,10 @@ const AuthState = (function() {
    * Get redirect URL after login
    */
   function getPostLoginRedirect() {
-    return sessionStorage.getItem('quirrely_redirect') || '/dashboard';
+    const saved = sessionStorage.getItem('quirrely_redirect');
+    if (saved) return saved;
+    const user = getUser();
+    return (user && user.share_slug) ? '/user/' + user.share_slug : '/dashboard';
   }
   
   function clearPostLoginRedirect() {
@@ -171,12 +178,27 @@ const AuthState = (function() {
   // INIT
   // ═══════════════════════════════════════════════════════════════
   
+  function getDashboardUrl() {
+    const user = getUser();
+    return (user && user.share_slug) ? '/user/' + user.share_slug : '/dashboard';
+  }
+
+  function rewriteDashboardLinks() {
+    if (!isLoggedIn()) return;
+    const url = getDashboardUrl();
+    if (url === '/dashboard') return;
+    document.querySelectorAll('a[href="/dashboard"]').forEach(function(a) {
+      a.href = url;
+    });
+  }
+
   function init() {
     // Update nav on every page
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', updateNav);
+      document.addEventListener('DOMContentLoaded', function() { updateNav(); rewriteDashboardLinks(); });
     } else {
       updateNav();
+      rewriteDashboardLinks();
     }
   }
   
@@ -261,6 +283,8 @@ const AuthState = (function() {
     updateNav,
     getPostLoginRedirect,
     clearPostLoginRedirect,
+    getDashboardUrl,
+    rewriteDashboardLinks,
     login,
     signup,
     logout

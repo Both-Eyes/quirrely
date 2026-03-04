@@ -460,6 +460,8 @@
 
     // Boot
     init();
+    // Rewrite /dashboard link to /user/{slug}
+    try{var _u=JSON.parse(localStorage.getItem('quirrely_user'));if(_u&&_u.share_slug){document.querySelector('a[href="/dashboard"]').href='/user/'+_u.share_slug}}catch(e){}
   </script>
 </body>
 </html>

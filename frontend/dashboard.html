@@ -1847,6 +1847,15 @@ async function init() {
   const displayName = user.name || user.display_name || user.email?.split('@')[0] || 'Writer';
   document.getElementById('headerName').textContent = displayName;
   document.getElementById('headerAvatar').textContent = getInitial(displayName);
+  // Show /user/{slug} in URL bar instead of /dashboard
+  if (user.share_slug) {
+    const slugUrl = '/user/' + user.share_slug;
+    if (window.location.pathname === '/dashboard') {
+      history.replaceState(null, '', slugUrl);
+    }
+    const dashLink = document.querySelector('.header-nav a[href="/dashboard"]');
+    if (dashLink) dashLink.href = slugUrl;
+  }
   document.getElementById('sidebarName').textContent = displayName;
   document.getElementById('sidebarAvatar').textContent = getInitial(displayName);
 

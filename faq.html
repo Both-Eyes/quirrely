@@ -137,8 +137,11 @@ function toggleFaq(el){el.parentElement.classList.toggle('open')}
 (function(){
   var t=localStorage.getItem('quirrely_token');
   if(t){
+    var _u=null;try{_u=JSON.parse(localStorage.getItem('quirrely_user'))}catch(e){}
+    var _d=(_u&&_u.share_slug)?'/user/'+_u.share_slug:'/dashboard';
     var n=document.getElementById('main-nav');
-    n.innerHTML='<a href="/dashboard">Dashboard</a><a href="/frontend/index.html">Analyze</a><a href="/faq" class="active">FAQ</a><a href="/settings">Settings</a>';
+    n.innerHTML='<a href="'+_d+'">Dashboard</a><a href="/">Analyze</a><a href="/faq" class="active">FAQ</a><a href="/settings">Settings</a>';
+    document.querySelectorAll('a[href="/dashboard"]').forEach(function(a){a.href=_d});
   }
 })();
 document.getElementById('faq-nl-form').addEventListener('submit',async function(e){
