@@ -1484,7 +1484,21 @@
       color: var(--color-muted);
       margin-top: 0.5rem;
     }
-    
+
+    /* Results Group Hierarchy */
+    .results-group { margin-bottom: 1.75rem; }
+    .results-group + .results-group {
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--color-border);
+    }
+    .results-group-label {
+      font-size: 0.65rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--color-muted);
+      margin-bottom: 0.75rem;
+    }
+    .share-section-primary { margin-bottom: 1rem; }
+    .save-section-elevated { margin-bottom: 0; }
+
     /* Share Toast Notification */
     .share-toast {
       position: fixed;
@@ -1874,9 +1888,8 @@
       color: var(--color-muted);
       line-height: 1.6;
     }
-    
-    }
-    .btn-primary { 
+
+    .btn-primary {
       background: var(--color-accent); 
       color: white; 
       box-shadow: 0 2px 8px rgba(196, 120, 90, 0.3);
@@ -7836,7 +7849,8 @@
           </div>
         </div>
         
-        <!-- SHARE - Primary CTA with hierarchy -->
+        <!-- GROUP: Share + Save -->
+        <div class="results-group">
         <div class="share-section-primary fade-in">
           ${analysis.primaryMode === 'MINIMAL' ? `
             <!-- Edge #7: Enhanced anonymous option for MINIMAL users -->
@@ -7867,7 +7881,7 @@
             <button class="share-btn-sm" onclick="downloadProfileCard()" title="Download">↓</button>
           </div>
         </div>
-        
+
         <!-- SAVE - Email-based (real functionality) -->
         <div class="save-section-elevated fade-in" id="save-section">
           <div class="save-section-content">
@@ -7885,7 +7899,11 @@
             <span class="save-success-text">Check your inbox!</span>
           </div>
         </div>
-        
+        </div>
+
+        <!-- GROUP: Dive Deeper -->
+        <div class="results-group">
+        <div class="results-group-label">Dive deeper</div>
         <!-- Reading List -->
         ${(() => {
           const books = getBooksForProfile(analysis.primaryMode, analysis.stance);
@@ -7913,7 +7931,7 @@
             </div>
           `;
         })()}
-        
+
         <!-- Growth Edges -->
         <div class="card fade-in stagger-2">
           <div class="growth-section" style="border-top: none; padding-top: 0; margin-top: 0;">
@@ -7928,11 +7946,13 @@
             </ul>
           </div>
         </div>
-        
+        </div>
+
         <!-- Profile History Section -->
         ${renderHistorySection(analysis)}
-        
-        <!-- Extra Actions -->
+
+        <!-- GROUP: Extra Actions -->
+        <div class="results-group">
         <div class="extra-actions fade-in stagger-2">
           <button class="action-btn" onclick="showCompareModal()">
             <span class="action-icon">👥</span> Compare with friend
@@ -7941,13 +7961,14 @@
             <span class="action-icon">✉️</span> Get writing tips
           </button>
         </div>
-        
+
         <!-- See Full Breakdown - at bottom, optional -->
         <div class="deep-dive-section fade-in stagger-3">
           <button class="btn btn-secondary btn-small" onclick="showDeepAnalysis()">
             See full breakdown →
           </button>
           <p class="deep-dive-hint">Metrics, traits, stance patterns, notable sentences</p>
+        </div>
         </div>
       `;
       
@@ -9624,8 +9645,10 @@ Analyze more writing: ${window.location.origin}
 <script>
 function showRefComparison(ref, analysis) {
   if(!ref||!analysis) return;
-  fetch('/api/v2/share/public/'+encodeURIComponent(ref))
-    .then(function(r){return r.ok?r.json():null})
+  var ac=new AbortController();
+  var tid=setTimeout(function(){ac.abort();},8000);
+  fetch('/api/v2/share/public/'+encodeURIComponent(ref),{signal:ac.signal})
+    .then(function(r){clearTimeout(tid);return r.ok?r.json():null})
     .then(function(d){
       if(!d||!d.profile) return;
       var myP=analysis.primaryMode;
