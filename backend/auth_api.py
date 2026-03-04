@@ -412,17 +412,56 @@ async def sign_up(request: SignUpRequest):
 # ═══════════════════════════════════════════════════════════════════════════
 
 import httpx
+import hmac
+import hashlib
+import time
 from urllib.parse import urlencode, quote
 
-# In-memory OAuth state store (short-lived, <10 min)
-_oauth_states: Dict[str, Dict] = {}
+_STATE_SECRET = os.environ.get("JWT_SECRET", "fallback-state-secret")
 
-def _cleanup_oauth_states():
-    """Remove expired OAuth states (older than 10 minutes)."""
-    cutoff = datetime.utcnow() - timedelta(minutes=10)
-    expired = [k for k, v in _oauth_states.items() if v.get("created_at", cutoff) < cutoff]
-    for k in expired:
-        del _oauth_states[k]
+def _make_oauth_state(provider: str, link_user_id: str = None) -> str:
+    """Create a signed, time-limited OAuth state token.
+    If link_user_id is provided, this is a 'link' flow (connect provider to existing account).
+    Format: provider:timestamp[:link:user_id]:signature
+    """
+    ts = str(int(time.time()))
+    if link_user_id:
+        payload = f"{provider}:{ts}:link:{link_user_id}"
+    else:
+        payload = f"{provider}:{ts}"
+    sig = hmac.new(_STATE_SECRET.encode(), payload.encode(), hashlib.sha256).hexdigest()[:32]
+    return f"{payload}:{sig}"
+
+def _verify_oauth_state(state: str, expected_provider: str) -> tuple:
+    """Verify OAuth state token is valid and not expired (10 min).
+    Returns (is_valid, link_user_id_or_None).
+    """
+    try:
+        parts = state.split(":")
+        # Login flow: provider:ts:sig (3 parts)
+        # Link flow: provider:ts:link:user_id:sig (5 parts)
+        if len(parts) == 3:
+            provider, ts, sig = parts
+            link_user_id = None
+            payload = f"{provider}:{ts}"
+        elif len(parts) == 5:
+            provider, ts, mode, link_user_id, sig = parts
+            if mode != "link":
+                return False, None
+            payload = f"{provider}:{ts}:link:{link_user_id}"
+        else:
+            return False, None
+
+        if provider != expected_provider:
+            return False, None
+        if abs(time.time() - int(ts)) > 600:
+            return False, None
+        expected_sig = hmac.new(_STATE_SECRET.encode(), payload.encode(), hashlib.sha256).hexdigest()[:32]
+        if not hmac.compare_digest(sig, expected_sig):
+            return False, None
+        return True, link_user_id
+    except Exception:
+        return False, None
 
 
 @router.get("/login/{provider}")
@@ -438,11 +477,8 @@ async def oauth_login(provider: str):
     if not cfg["client_id"]:
         raise HTTPException(status_code=503, detail=f"{provider} login not configured")
 
-    _cleanup_oauth_states()
-
-    # Generate CSRF state
-    state = secrets.token_urlsafe(32)
-    _oauth_states[state] = {"provider": provider, "created_at": datetime.utcnow()}
+    # Generate signed CSRF state (works across multiple workers)
+    state = _make_oauth_state(provider)
 
     redirect_uri = f"{OAUTH_REDIRECT_BASE}/api/v2/auth/callback/{provider}"
 
@@ -477,13 +513,10 @@ async def oauth_callback(provider: str, code: str = None, state: str = None, err
     if not code or not state:
         return HTMLResponse(_oauth_error_page("Missing code or state"))
 
-    # Validate CSRF state
-    if state not in _oauth_states:
+    # Validate signed CSRF state
+    valid, link_user_id = _verify_oauth_state(state, provider)
+    if not valid:
         return HTMLResponse(_oauth_error_page("Invalid or expired state"))
-
-    state_data = _oauth_states.pop(state)
-    if state_data["provider"] != provider:
-        return HTMLResponse(_oauth_error_page("State mismatch"))
 
     if provider not in OAUTH_PROVIDERS:
         return HTMLResponse(_oauth_error_page(f"Unknown provider: {provider}"))
@@ -524,7 +557,25 @@ async def oauth_callback(provider: str, code: str = None, state: str = None, err
         if not oauth_user.get("email"):
             return HTMLResponse(_oauth_error_page("Email not provided by provider"))
 
-        # Resolve user: find or create
+        # --- LINK MODE: connect provider to existing logged-in user ---
+        if link_user_id:
+            user = get_user_by_id(link_user_id)
+            if not user:
+                return HTMLResponse(_oauth_error_page("Account not found"))
+            # Check if this provider account is already linked to a DIFFERENT user
+            existing_link = db_query_one(
+                "SELECT user_id FROM user_auth_providers WHERE provider = %s AND provider_user_id = %s",
+                (provider, oauth_user["provider_id"])
+            )
+            if existing_link and str(existing_link["user_id"]) != link_user_id:
+                return HTMLResponse(_oauth_error_page(
+                    f"This {provider.title()} account is already linked to a different Quirrely account"
+                ))
+            _link_provider(link_user_id, provider, oauth_user)
+            logger.info(f"OAuth link ({provider}): {oauth_user['email']} linked to user {link_user_id}")
+            return HTMLResponse(_oauth_link_success_page(provider))
+
+        # --- LOGIN MODE: find or create user ---
         user, is_new = _resolve_oauth_user(provider, oauth_user)
         user_id = str(user["id"])
 
@@ -608,7 +659,9 @@ def _resolve_oauth_user(provider: str, oauth_user: Dict) -> tuple:
         _link_provider(str(user["id"]), provider, oauth_user)
         return user, False
 
-    # 3. Create new user
+    # 3. No existing account found — create new user
+    #    But first, check if there are ANY users with similar provider links
+    #    that might indicate this person already has an account with a different email
     user_id = str(uuid.uuid4())
     display_name = oauth_user.get("name", email.split("@")[0])
 
@@ -673,6 +726,19 @@ window.location.href = '/frontend/dashboard.html';
 </body></html>"""
 
 
+def _oauth_link_success_page(provider: str) -> str:
+    """HTML page shown after successfully linking a social account."""
+    import html
+    safe_provider = html.escape(provider.title())
+    return f"""<!DOCTYPE html>
+<html><head><title>Account Linked</title></head>
+<body style="font-family:system-ui;text-align:center;padding:3rem;">
+<h2 style="color:#4ECDC4;">&#10003; {safe_provider} Connected</h2>
+<p>Your {safe_provider} account has been linked. You can now sign in with it.</p>
+<script>setTimeout(function(){{ window.location.href = '/frontend/dashboard.html'; }}, 2000);</script>
+</body></html>"""
+
+
 def _oauth_error_page(message: str) -> str:
     """HTML error page for OAuth failures."""
     import html
@@ -684,6 +750,98 @@ def _oauth_error_page(message: str) -> str:
 <p>{safe_msg}</p>
 <a href="/auth/login.html" style="color:#FF6B6B;">Try again</a>
 </body></html>"""
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CONNECTED ACCOUNTS (link/unlink social providers)
+# ═══════════════════════════════════════════════════════════════════════════
+
+@router.get("/providers")
+async def get_connected_providers(user: Dict = Depends(require_auth)):
+    """Get list of social providers linked to the current user."""
+    rows = db_query_all(
+        """SELECT provider, provider_email, provider_name, connected_at, last_used_at
+           FROM user_auth_providers WHERE user_id = %s ORDER BY connected_at""",
+        (str(user["id"]),)
+    )
+    return {
+        "providers": [
+            {
+                "provider": r["provider"],
+                "email": r.get("provider_email", ""),
+                "name": r.get("provider_name", ""),
+                "connected_at": str(r["connected_at"]) if r.get("connected_at") else None,
+            }
+            for r in rows
+        ]
+    }
+
+
+@router.get("/link/{provider}")
+async def oauth_link_start(provider: str, authorization: Optional[str] = Header(None)):
+    """
+    Start OAuth flow to LINK a provider to an existing logged-in account.
+    Returns redirect_url to provider's consent screen.
+    """
+    user = get_current_user(authorization)
+    if not user:
+        raise HTTPException(status_code=401, detail="Login required to link accounts")
+
+    if provider not in OAUTH_PROVIDERS:
+        raise HTTPException(status_code=400, detail=f"Unsupported provider: {provider}")
+
+    cfg = OAUTH_PROVIDERS[provider]
+    if not cfg["client_id"]:
+        raise HTTPException(status_code=503, detail=f"{provider} not configured")
+
+    # Check if already linked
+    existing = db_query_one(
+        "SELECT id FROM user_auth_providers WHERE user_id = %s AND provider = %s",
+        (str(user["id"]), provider)
+    )
+    if existing:
+        raise HTTPException(status_code=400, detail=f"{provider.title()} is already connected")
+
+    # Generate state with link_user_id embedded
+    state = _make_oauth_state(provider, link_user_id=str(user["id"]))
+    redirect_uri = f"{OAUTH_REDIRECT_BASE}/api/v2/auth/callback/{provider}"
+
+    params = {
+        "client_id": cfg["client_id"],
+        "redirect_uri": redirect_uri,
+        "state": state,
+        "response_type": "code",
+        "scope": cfg["scopes"],
+    }
+
+    authorize_url = f"{cfg['authorize_url']}?{urlencode(params)}"
+    return {"redirect_url": authorize_url}
+
+
+@router.delete("/link/{provider}")
+async def oauth_unlink(provider: str, user: Dict = Depends(require_auth)):
+    """Disconnect a social provider from the current account."""
+    user_id = str(user["id"])
+
+    # Don't allow unlinking if it's the only auth method and no password
+    has_password = user.get("password_hash") is not None
+    provider_count = db_query_one(
+        "SELECT COUNT(*) as cnt FROM user_auth_providers WHERE user_id = %s",
+        (user_id,)
+    )
+    total_methods = (provider_count["cnt"] if provider_count else 0) + (1 if has_password else 0)
+
+    if total_methods <= 1:
+        raise HTTPException(
+            status_code=400,
+            detail="Cannot disconnect your only sign-in method. Add a password or connect another provider first."
+        )
+
+    result = db_execute(
+        "DELETE FROM user_auth_providers WHERE user_id = %s AND provider = %s",
+        (user_id, provider)
+    )
+    return {"message": f"{provider.title()} disconnected"}
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -828,7 +986,7 @@ async def confirm_verification(token: str):
         raise HTTPException(status_code=400, detail="Invalid or expired token")
     db_execute("UPDATE users SET email_verified = true WHERE id = %s", (row["user_id"],))
     db_execute("UPDATE email_verification_requests SET verified = true, verified_at = NOW() WHERE id = %s", (row["id"],))
-    logger.info(f"Email verified: {row["email"]}")
+    logger.info(f"Email verified: {row['email']}")
     return {"message": "Email verified successfully"}
 
 
