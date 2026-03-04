@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-04T17:24:46.465053+00:00",
+  "run_at": "2026-03-04T19:36:42.109506+00:00",
   "version": "2.0",
   "mode": "production",
   "duration_seconds": 16,
@@ -17,13 +17,13 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=8",
+        "detail": "restarts=16",
         "owner": "ASO"
       },
       {
         "name": "PM2 memory < 512MB",
         "status": "PASS",
-        "detail": "28.5MB",
+        "detail": "29.0MB",
         "owner": "ASO"
       },
       {
@@ -71,7 +71,7 @@
       {
         "name": "Table 'users' accessible",
         "status": "PASS",
-        "detail": "rows=133",
+        "detail": "rows=132",
         "owner": "ASO"
       },
       {
@@ -95,7 +95,7 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=138",
+        "detail": "rows=136",
         "owner": "ASO"
       },
       {
@@ -107,7 +107,7 @@
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=353",
+        "detail": "rows=363",
         "owner": "ASO"
       },
       {
@@ -203,19 +203,19 @@
       {
         "name": "Health < 200ms",
         "status": "PASS",
-        "detail": "5ms",
+        "detail": "3ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "152ms",
+        "detail": "186ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "5ms",
+        "detail": "4ms",
         "owner": "ASO"
       },
       {
@@ -227,7 +227,7 @@
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "6ms (401 expected)",
+        "detail": "5ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -258,7 +258,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=674d4c9f...",
+        "detail": "session=36688375...",
         "owner": "KIM"
       },
       {
@@ -469,7 +469,7 @@
   },
   "part_3": {
     "name": "Backend API Coverage",
-    "pass": 64,
+    "pass": 73,
     "fail": 0,
     "tests": [
       {
@@ -548,6 +548,60 @@
         "name": "POST /auth/me/update",
         "status": "PASS",
         "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth google redirect URL",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth facebook redirect URL",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth linkedin redirect URL",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth unsupported provider rejected",
+        "status": "PASS",
+        "detail": "status=400",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth callback rejects missing params",
+        "status": "PASS",
+        "detail": "status=200 (missing code/state)",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/providers requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/providers returns list",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/link requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Link unsupported provider rejected",
+        "status": "PASS",
+        "detail": "status=401",
         "owner": "KIM"
       },
       {
@@ -860,7 +914,7 @@
   },
   "part_4": {
     "name": "Frontend Integrity",
-    "pass": 81,
+    "pass": 100,
     "fail": 0,
     "tests": [
       {
@@ -1128,6 +1182,24 @@
         "owner": "KIM"
       },
       {
+        "name": "JS fn renderConnectedAccounts()",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "JS fn linkProvider()",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "JS fn unlinkProvider()",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
         "name": "JS fn init()",
         "status": "PASS",
         "detail": "found",
@@ -1225,6 +1297,102 @@
       },
       {
         "name": "GA4 on settings",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Login has google button",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Signup has google button",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Login has facebook button",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Signup has facebook button",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Login has linkedin button",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Signup has linkedin button",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Login has socialLogin() function",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Login social-btn CSS",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard connected-accounts section",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard providerList element",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard PROVIDER_ICONS defined",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "pro-dashboard.html redirects to dashboard",
+        "status": "PASS",
+        "detail": "redirect found",
+        "owner": "KIM"
+      },
+      {
+        "name": "index.html uses Outfit font",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "dashboard.html uses Outfit font",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "login.html uses Outfit font",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "signup.html uses Outfit font",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
@@ -2016,61 +2184,61 @@
       {
         "name": "Health p50 < 200ms",
         "status": "PASS",
-        "detail": "p50=3ms p95=5ms",
+        "detail": "p50=3ms p95=3ms",
         "owner": "ASO"
       },
       {
         "name": "Health p95 < 400ms",
         "status": "PASS",
-        "detail": "p95=5ms",
+        "detail": "p95=3ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=2ms p95=3ms",
+        "detail": "p50=2ms p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=3ms",
+        "detail": "p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Featured p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=3ms p95=5ms",
+        "detail": "p50=4ms p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Featured p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=5ms",
+        "detail": "p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Newsletter count p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=6ms p95=12ms",
+        "detail": "p50=3ms p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Newsletter count p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=12ms",
+        "detail": "p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p50 < 3s",
         "status": "PASS",
-        "detail": "p50=148ms",
+        "detail": "p50=176ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p95 < 5s",
         "status": "PASS",
-        "detail": "p95=162ms",
+        "detail": "p95=179ms",
         "owner": "ASO"
       },
       {
@@ -2082,7 +2250,7 @@
       {
         "name": "Concurrent: none > 10s",
         "status": "PASS",
-        "detail": "max=711ms",
+        "detail": "max=837ms",
         "owner": "ASO"
       },
       {
@@ -2100,37 +2268,37 @@
       {
         "name": "5000-word text < 15s",
         "status": "PASS",
-        "detail": "146ms",
+        "detail": "180ms",
         "owner": "ASO"
       },
       {
         "name": "Memory increase < 100MB",
         "status": "PASS",
-        "detail": "before=28.5MB after=28.5MB delta=0.0MB",
+        "detail": "before=29.0MB after=29.0MB delta=0.0MB",
         "owner": "ASO"
       },
       {
         "name": "Memory still < 512MB",
         "status": "PASS",
-        "detail": "28.5MB",
+        "detail": "29.0MB",
         "owner": "ASO"
       },
       {
         "name": "DB User count < 1s",
         "status": "PASS",
-        "detail": "35ms, 138",
+        "detail": "35ms, 137",
         "owner": "ASO"
       },
       {
         "name": "DB Profile count < 1s",
         "status": "PASS",
-        "detail": "40ms, 9",
+        "detail": "30ms, 9",
         "owner": "ASO"
       },
       {
         "name": "DB Events count < 1s",
         "status": "PASS",
-        "detail": "35ms, 353",
+        "detail": "34ms, 363",
         "owner": "ASO"
       },
       {
@@ -2142,7 +2310,7 @@
     ]
   },
   "summary": {
-    "total_pass": 346,
+    "total_pass": 374,
     "total_fail": 1,
     "pct": 99
   },
@@ -2150,20 +2318,20 @@
     "GA4 missing from 2 files: pro-dashboard.html, index.html"
   ],
   "benchmarks": {
-    "pm2_memory_mb": 28.5,
-    "health_ms": 5,
-    "analyze_ms": 152,
-    "pricing_ms": 5,
+    "pm2_memory_mb": 29.0,
+    "health_ms": 3,
+    "analyze_ms": 186,
+    "pricing_ms": 4,
     "health_p50_ms": 3,
-    "health_p95_ms": 5,
+    "health_p95_ms": 3,
     "pricing_p50_ms": 2,
-    "pricing_p95_ms": 3,
-    "featured_p50_ms": 3,
-    "featured_p95_ms": 5,
-    "newsletter_count_p50_ms": 6,
-    "newsletter_count_p95_ms": 12,
-    "analyze_p50_ms": 148,
-    "analyze_p95_ms": 162
+    "pricing_p95_ms": 2,
+    "featured_p50_ms": 4,
+    "featured_p95_ms": 4,
+    "newsletter_count_p50_ms": 3,
+    "newsletter_count_p95_ms": 4,
+    "analyze_p50_ms": 176,
+    "analyze_p95_ms": 179
   },
   "part_a": {
     "name": "Infrastructure & Environment",
@@ -2179,13 +2347,13 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=8",
+        "detail": "restarts=16",
         "owner": "ASO"
       },
       {
         "name": "PM2 memory < 512MB",
         "status": "PASS",
-        "detail": "28.5MB",
+        "detail": "29.0MB",
         "owner": "ASO"
       },
       {
@@ -2233,7 +2401,7 @@
       {
         "name": "Table 'users' accessible",
         "status": "PASS",
-        "detail": "rows=133",
+        "detail": "rows=132",
         "owner": "ASO"
       },
       {
@@ -2257,7 +2425,7 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=138",
+        "detail": "rows=136",
         "owner": "ASO"
       },
       {
@@ -2269,7 +2437,7 @@
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=353",
+        "detail": "rows=363",
         "owner": "ASO"
       },
       {
@@ -2365,19 +2533,19 @@
       {
         "name": "Health < 200ms",
         "status": "PASS",
-        "detail": "5ms",
+        "detail": "3ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "152ms",
+        "detail": "186ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "5ms",
+        "detail": "4ms",
         "owner": "ASO"
       },
       {
@@ -2389,7 +2557,7 @@
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "6ms (401 expected)",
+        "detail": "5ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -2420,7 +2588,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=674d4c9f...",
+        "detail": "session=36688375...",
         "owner": "KIM"
       },
       {
@@ -2631,7 +2799,7 @@
   },
   "part_c": {
     "name": "Backend API Coverage",
-    "pass": 64,
+    "pass": 73,
     "fail": 0,
     "tests": [
       {
@@ -2710,6 +2878,60 @@
         "name": "POST /auth/me/update",
         "status": "PASS",
         "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth google redirect URL",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth facebook redirect URL",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth linkedin redirect URL",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth unsupported provider rejected",
+        "status": "PASS",
+        "detail": "status=400",
+        "owner": "KIM"
+      },
+      {
+        "name": "OAuth callback rejects missing params",
+        "status": "PASS",
+        "detail": "status=200 (missing code/state)",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/providers requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/providers returns list",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/link requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Link unsupported provider rejected",
+        "status": "PASS",
+        "detail": "status=401",
         "owner": "KIM"
       },
       {
