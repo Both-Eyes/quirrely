@@ -1168,6 +1168,78 @@ class Part4_FrontendIntegrity(TestHarness):
             self.record(f"{name}.html uses Fraunces font", "Fraunces" in content,
                         "found" if "Fraunces" in content else "MISSING", "MARS")
 
+        # Literary Edition Makeover (Session 14q)
+        self.section("MARS — Literary Edition Makeover")
+        # Dashboard checks
+        self.record("Dashboard dark welcome banner", "background: #2D2D2D" in dash,
+                     "found" if "background: #2D2D2D" in dash else "MISSING", "MARS")
+        self.record("Dashboard rainbow stripe", "linear-gradient(90deg, #FF5252, #C8962E, #5B9E8C" in dash,
+                     "found" if "linear-gradient(90deg, #FF5252" in dash else "MISSING", "MARS")
+        self.record("Dashboard vivid accent vars", "--accent-coral-vivid: #FF5252" in dash,
+                     "found" if "--accent-coral-vivid" in dash else "MISSING", "MARS")
+        self.record("Dashboard paper-cream var", "--paper-cream: #FFFDF9" in dash,
+                     "found" if "--paper-cream" in dash else "MISSING", "MARS")
+        self.record("Dashboard SVG icons (no emoji in sidebar)", "viewBox" in dash and '<span class="qa-icon"><svg' in dash,
+                     "SVG icons" if '<span class="qa-icon"><svg' in dash else "still emoji", "MARS")
+        self.record("Dashboard card top borders", "border-top: 3px solid" in dash,
+                     "found" if "border-top: 3px solid" in dash else "MISSING", "MARS")
+        self.record("Dashboard gradient buttons", "linear-gradient(135deg, #FF6B6B, #E85858)" in dash,
+                     "found" if "linear-gradient(135deg, #FF6B6B, #E85858)" in dash else "MISSING", "MARS")
+        self.record("Dashboard nav underline (scaleX)", "scaleX(0)" in dash and "scaleX(1)" in dash,
+                     "found" if "scaleX(0)" in dash else "MISSING", "MARS")
+        self.record("Dashboard welcome h1 2rem", ".welcome-banner h1" in dash and "font-size: 2rem" in dash,
+                     "found" if ".welcome-banner h1" in dash and "font-size: 2rem" in dash else "MISSING", "MARS")
+        self.record("Dashboard button shimmer", "btn-primary::before" in dash,
+                     "found" if "btn-primary::before" in dash else "MISSING", "MARS")
+        self.record("Dashboard micro-interactions", "scale(0.98)" in dash,
+                     "found" if "scale(0.98)" in dash else "MISSING", "MARS")
+        self.record("Dashboard sidebar notebook lines", "repeating-linear-gradient" in dash,
+                     "found" if "repeating-linear-gradient" in dash else "MISSING", "MARS")
+        # Index checks
+        self.record("Index vivid accent vars", "--accent-coral-vivid: #FF5252" in idx,
+                     "found" if "--accent-coral-vivid" in idx else "MISSING", "MARS")
+        self.record("Index h1 size 2.4rem", "font-size: 2.4rem" in idx,
+                     "found" if "font-size: 2.4rem" in idx else "MISSING", "MARS")
+        self.record("Index h2 size 1.75rem", "font-size: 1.75rem" in idx,
+                     "found" if "font-size: 1.75rem" in idx else "MISSING", "MARS")
+        self.record("Index drop cap", "first-letter" in idx,
+                     "found" if "first-letter" in idx else "MISSING", "MARS")
+        self.record("Index card top borders", "border-top: 3px solid" in idx,
+                     "found" if "border-top: 3px solid" in idx else "MISSING", "MARS")
+        self.record("Index gradient buttons", "linear-gradient(135deg, #FF6B6B, #E85858)" in idx,
+                     "found" if "linear-gradient(135deg, #FF6B6B, #E85858)" in idx else "MISSING", "MARS")
+        self.record("Index nav underline", "scaleX(0)" in idx,
+                     "found" if "scaleX(0)" in idx else "MISSING", "MARS")
+        self.record("Index pull-quote essence", "border-left: 3px solid var(--accent-coral-vivid)" in idx,
+                     "found" if "border-left: 3px solid var(--accent-coral-vivid)" in idx else "MISSING", "MARS")
+        # Secondary pages
+        for path, name in [(f"{DEPLOY_DIR}/auth/login.html", "login"),
+                           (f"{DEPLOY_DIR}/auth/signup.html", "signup"),
+                           (f"{PROJECT_ROOT}/faq.html", "faq")]:
+            content = self.read_file(path)
+            if content:
+                self.record(f"{name} has nav underline", "scaleX" in content,
+                            "found" if "scaleX" in content else "MISSING", "MARS")
+                self.record(f"{name} has gradient button", "linear-gradient(135deg" in content,
+                            "found" if "linear-gradient(135deg" in content else "MISSING", "MARS")
+        # FAQ accordion coral border
+        faq_content = self.read_file(f"{PROJECT_ROOT}/faq.html")
+        if faq_content:
+            self.record("FAQ accordion coral border on open", "border-left-color" in faq_content and "coral" in faq_content,
+                         "found" if "border-left-color" in faq_content else "MISSING", "MARS")
+        # Blog nav underline
+        blog_idx = self.read_file(f"{BLOG_DIR}/index.html")
+        if blog_idx:
+            self.record("Blog nav underline", "scaleX" in blog_idx,
+                         "found" if "scaleX" in blog_idx else "MISSING", "MARS")
+        # Deploy sync check
+        deploy_dash = self.read_file(f"{DEPLOY_DIR}/frontend/dashboard.html")
+        if deploy_dash:
+            self.record("Deploy dir has dark banner", "background: #2D2D2D" in deploy_dash,
+                         "synced" if "background: #2D2D2D" in deploy_dash else "STALE", "MARS")
+            self.record("Deploy dir has vivid vars", "--accent-coral-vivid" in deploy_dash,
+                         "synced" if "--accent-coral-vivid" in deploy_dash else "STALE", "MARS")
+
         # Sitemaps
         self.section("MARS — Sitemaps")
         sitemap = self.read_file(f"{PROJECT_ROOT}/sitemap.xml")
