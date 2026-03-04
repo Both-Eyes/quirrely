@@ -12,22 +12,22 @@
   
   <!-- Profile badge -->
   <rect x="30" y="30" width="120" height="32" rx="16" fill="#FF6B6B"/>
-  <text x="90" y="52" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">WRITING VOICE</text>
+  <text x="90" y="52" text-anchor="middle" font-family="'Outfit', sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">WRITING VOICE</text>
   
   <!-- Profile icon -->
-  <text x="30" y="115" font-family="system-ui, sans-serif" font-size="36" fill="#FF6B6B">▸</text>
+  <text x="30" y="115" font-family="'Outfit', sans-serif" font-size="36" fill="#FF6B6B">▸</text>
   
   <!-- Profile name -->
-  <text x="70" y="115" font-family="system-ui, sans-serif" font-size="42" font-weight="700" fill="#2D3436">ASSERTIVE</text>
+  <text x="70" y="115" font-family="'Outfit', sans-serif" font-size="42" font-weight="700" fill="#2D3436">ASSERTIVE</text>
   
   <!-- Description -->
-  <text x="30" y="150" font-family="system-ui, sans-serif" font-size="18" fill="#636E72">Bold, confident voice</text>
+  <text x="30" y="150" font-family="'Outfit', sans-serif" font-size="18" fill="#636E72">Bold, confident voice</text>
   
   <!-- Stance indicator -->
   <rect x="30" y="160" width="540" height="40" rx="8" fill="#FF6B6B20"/>
   <circle cx="50" cy="180" r="6" fill="#FF6B6B"/>
-  <text x="65" y="185" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="#FF6B6B">Closed Stance</text>
-  <text x="200" y="185" font-family="system-ui, sans-serif" font-size="14" fill="#636E72">— Decisive and definitive</text>
+  <text x="65" y="185" font-family="'Outfit', sans-serif" font-size="16" font-weight="600" fill="#FF6B6B">Closed Stance</text>
+  <text x="200" y="185" font-family="'Outfit', sans-serif" font-size="14" fill="#636E72">— Decisive and definitive</text>
   <!-- Divider -->
   <rect x="30" y="220" width="540" height="1" fill="#E9ECEF"/>
   
@@ -51,6 +51,6 @@
       <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
     </g>
   </g>
-  <text x="72" y="293" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">rel</tspan><tspan font-style="italic">y</tspan></text>
-  <text x="72" y="315" font-family="system-ui, sans-serif" font-size="13" fill="#636E72">Discover yours → quirrely.app</text>
+  <text x="72" y="293" font-family="'Outfit', sans-serif" font-size="20" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">rel</tspan><tspan font-style="italic">y</tspan></text>
+  <text x="72" y="315" font-family="'Outfit', sans-serif" font-size="13" fill="#636E72">Discover yours → quirrely.app</text>
 </svg>

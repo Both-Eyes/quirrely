@@ -15,7 +15,7 @@
     <circle cx="48" cy="48" r="6" fill="#1a1a1a"/>
     <ellipse cx="40" cy="60" rx="4" ry="3" fill="#4A4A4A"/>
   </g>
-  <text x="44" y="26" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#2D3436">
+  <text x="44" y="26" font-family="'Outfit', sans-serif" font-size="14" font-weight="700" fill="#2D3436">
     Senten<tspan fill="#FF6B6B">se</tspan>
   </text>
 </svg>
