@@ -356,7 +356,9 @@ body{{font-family:Nunito Sans,-apple-system,sans-serif;background:#FFFBF5;color:
 <div class="sc">{bars}</div>
 <div class="stats"><div>{tw:,} words</div><div>{ta} analyses</div></div>
 <a class="cta" href="https://quirrely.ca/?ref={slug}">See how your voice compares to {name} &rarr;</a>
-</div></body></html>"""
+</div>
+<script>try{{var u=JSON.parse(localStorage.getItem('quirrely_user'));if(u){{var s=JSON.parse(localStorage.getItem('quirrely_session'));if(s&&s.token){{var slug='{slug}';var shareSlug=(u.share_slug||'').toLowerCase();var displayName=(u.display_name||'').toLowerCase();if(slug.toLowerCase()===shareSlug||slug.toLowerCase()===displayName){{window.location.replace('/dashboard');}}}}}}}}catch(e){{}}</script>
+</body></html>"""
 
 PROFILE_DESC={"ASSERTIVE":"Bold, direct, and confident","MINIMAL":"Clean, precise, and economical","POETIC":"Lyrical, imagery-rich, and evocative","DENSE":"Complex, layered, and information-rich","CONVERSATIONAL":"Warm, natural, and approachable","FORMAL":"Structured, polished, and authoritative","INTERROGATIVE":"Curious, questioning, and exploratory","HEDGED":"Nuanced, cautious, and qualifying","PARALLEL":"Rhythmic, balanced, and patterned","LONGFORM":"Expansive, detailed, and immersive"}
 

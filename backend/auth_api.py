@@ -721,7 +721,7 @@ sess.createdAt = new Date().toISOString();
 sess.expiresAt = new Date(Date.now() + 7*24*60*60*1000).toISOString();
 localStorage.setItem('quirrely_session', JSON.stringify(sess));
 localStorage.setItem('quirrely_user', {json.dumps(json.dumps(user_obj))});
-window.location.href = '/frontend/dashboard.html';
+window.location.href = '/dashboard';
 </script>
 </body></html>"""
 
@@ -735,7 +735,7 @@ def _oauth_link_success_page(provider: str) -> str:
 <body style="font-family:system-ui;text-align:center;padding:3rem;">
 <h2 style="color:#4ECDC4;">&#10003; {safe_provider} Connected</h2>
 <p>Your {safe_provider} account has been linked. You can now sign in with it.</p>
-<script>setTimeout(function(){{ window.location.href = '/frontend/dashboard.html'; }}, 2000);</script>
+<script>setTimeout(function(){{ window.location.href = '/dashboard'; }}, 2000);</script>
 </body></html>"""
 
 

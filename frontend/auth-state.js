@@ -83,7 +83,7 @@ const AuthState = (function() {
    * Redirect to dashboard if user is logged in
    * Use on: Landing page, login, signup
    */
-  function redirectIfLoggedIn(destination = '/frontend/pro-dashboard.html') {
+  function redirectIfLoggedIn(destination = '/dashboard') {
     if (isLoggedIn()) {
       window.location.href = destination;
       return true;
@@ -160,7 +160,7 @@ const AuthState = (function() {
    * Get redirect URL after login
    */
   function getPostLoginRedirect() {
-    return sessionStorage.getItem('quirrely_redirect') || '/frontend/pro-dashboard.html';
+    return sessionStorage.getItem('quirrely_redirect') || '/dashboard';
   }
   
   function clearPostLoginRedirect() {

@@ -1154,7 +1154,7 @@ class Part4_FrontendIntegrity(TestHarness):
         self.section("KIM — Legacy Redirects")
         prodash = self.read_file(f"{FRONTEND_DIR}/pro-dashboard.html")
         self.record("pro-dashboard.html redirects to dashboard",
-                     "dashboard.html" in prodash and ("redirect" in prodash.lower() or "location" in prodash.lower()),
+                     "/dashboard" in prodash and ("redirect" in prodash.lower() or "location" in prodash.lower()),
                      "redirect found" if prodash else "MISSING", "KIM")
 
         # Font unification

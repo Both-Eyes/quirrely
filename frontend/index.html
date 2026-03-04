@@ -3323,7 +3323,7 @@
         
         <!-- User Nav: Show when logged IN -->
         <div class="user-nav" id="user-nav" style="display: none;">
-          <a href="/frontend/pro-dashboard.html" class="nav-link">Dashboard</a>
+          <a href="/dashboard" class="nav-link">Dashboard</a>
           <div class="user-menu-trigger" onclick="toggleUserMenu()">
             <div class="user-avatar" id="user-avatar">SM</div>
             <span class="user-name" id="user-name">Sarah</span>
@@ -5888,7 +5888,7 @@
         sp.style.cssText='background:#fff;border:1px solid #eee;border-radius:12px;padding:20px;margin:20px auto;max-width:480px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.05);';
         var isAuth=!!(localStorage.getItem('quirrely_session'));
         var cta=isAuth
-          ?'<a href="/frontend/dashboard.html#share" style="display:inline-block;padding:10px 24px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Claim your voice URL &rarr;</a>'
+          ?'<a href="/dashboard#share" style="display:inline-block;padding:10px 24px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Claim your voice URL &rarr;</a>'
           :'<a href="/auth/signup.html" style="display:inline-block;padding:10px 24px;background:#E8735A;color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Sign up to share your voice &rarr;</a>';
         sp.innerHTML='<div style="font-size:1.1em;font-weight:700;color:#333;margin-bottom:6px">Your voice is '+profile+'</div>'
           +'<div style="font-size:.9em;color:#666;margin-bottom:14px">Claim your personal voice URL and share it with the world.</div>'
@@ -9018,7 +9018,7 @@ Analyze more writing: ${window.location.origin}
           // Check URL params - if ?welcome=1 or ?retake=1, stay on page
           const params = new URLSearchParams(window.location.search);
           if (!params.has('welcome') && !params.has('retake')) {
-            window.location.href = '/frontend/pro-dashboard.html';
+            window.location.href = '/dashboard';
           }
         }
       }
@@ -9026,7 +9026,7 @@ Analyze more writing: ${window.location.origin}
     
     function toggleUserMenu() {
       // Could add dropdown here
-      window.location.href = '/frontend/pro-dashboard.html';
+      window.location.href = '/dashboard';
     }
   </script>
 <script>

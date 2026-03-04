@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-03-04T19:36:42.109506+00:00",
+  "run_at": "2026-03-04T19:55:50.217243+00:00",
   "version": "2.0",
   "mode": "production",
   "duration_seconds": 16,
@@ -17,13 +17,13 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=16",
+        "detail": "restarts=18",
         "owner": "ASO"
       },
       {
         "name": "PM2 memory < 512MB",
         "status": "PASS",
-        "detail": "29.0MB",
+        "detail": "27.5MB",
         "owner": "ASO"
       },
       {
@@ -95,7 +95,7 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=136",
+        "detail": "rows=137",
         "owner": "ASO"
       },
       {
@@ -107,7 +107,7 @@
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=363",
+        "detail": "rows=364",
         "owner": "ASO"
       },
       {
@@ -119,7 +119,7 @@
       {
         "name": "DB connection pool < 80%",
         "status": "PASS",
-        "detail": "13/100 (13%)",
+        "detail": "12/100 (12%)",
         "owner": "ASO"
       },
       {
@@ -209,25 +209,25 @@
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "186ms",
+        "detail": "224ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "2ms",
         "owner": "ASO"
       },
       {
         "name": "Admin health < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "2ms",
         "owner": "ASO"
       },
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "5ms (401 expected)",
+        "detail": "2ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -258,7 +258,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=36688375...",
+        "detail": "session=ca7e551a...",
         "owner": "KIM"
       },
       {
@@ -2184,13 +2184,13 @@
       {
         "name": "Health p50 < 200ms",
         "status": "PASS",
-        "detail": "p50=3ms p95=3ms",
+        "detail": "p50=2ms p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Health p95 < 400ms",
         "status": "PASS",
-        "detail": "p95=3ms",
+        "detail": "p95=2ms",
         "owner": "ASO"
       },
       {
@@ -2208,37 +2208,37 @@
       {
         "name": "Featured p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=4ms p95=4ms",
+        "detail": "p50=3ms p95=3ms",
         "owner": "ASO"
       },
       {
         "name": "Featured p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=4ms",
+        "detail": "p95=3ms",
         "owner": "ASO"
       },
       {
         "name": "Newsletter count p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=3ms p95=4ms",
+        "detail": "p50=2ms p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Newsletter count p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=4ms",
+        "detail": "p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p50 < 3s",
         "status": "PASS",
-        "detail": "p50=176ms",
+        "detail": "p50=202ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p95 < 5s",
         "status": "PASS",
-        "detail": "p95=179ms",
+        "detail": "p95=222ms",
         "owner": "ASO"
       },
       {
@@ -2250,7 +2250,7 @@
       {
         "name": "Concurrent: none > 10s",
         "status": "PASS",
-        "detail": "max=837ms",
+        "detail": "max=899ms",
         "owner": "ASO"
       },
       {
@@ -2268,43 +2268,43 @@
       {
         "name": "5000-word text < 15s",
         "status": "PASS",
-        "detail": "180ms",
+        "detail": "171ms",
         "owner": "ASO"
       },
       {
         "name": "Memory increase < 100MB",
         "status": "PASS",
-        "detail": "before=29.0MB after=29.0MB delta=0.0MB",
+        "detail": "before=27.5MB after=27.5MB delta=0.0MB",
         "owner": "ASO"
       },
       {
         "name": "Memory still < 512MB",
         "status": "PASS",
-        "detail": "29.0MB",
+        "detail": "27.5MB",
         "owner": "ASO"
       },
       {
         "name": "DB User count < 1s",
         "status": "PASS",
-        "detail": "35ms, 137",
+        "detail": "34ms, 137",
         "owner": "ASO"
       },
       {
         "name": "DB Profile count < 1s",
         "status": "PASS",
-        "detail": "30ms, 9",
+        "detail": "28ms, 9",
         "owner": "ASO"
       },
       {
         "name": "DB Events count < 1s",
         "status": "PASS",
-        "detail": "34ms, 363",
+        "detail": "30ms, 364",
         "owner": "ASO"
       },
       {
         "name": "DB connections < 80%",
         "status": "PASS",
-        "detail": "14/100 (14%)",
+        "detail": "13/100 (13%)",
         "owner": "ASO"
       }
     ]
@@ -2318,20 +2318,20 @@
     "GA4 missing from 2 files: pro-dashboard.html, index.html"
   ],
   "benchmarks": {
-    "pm2_memory_mb": 29.0,
+    "pm2_memory_mb": 27.5,
     "health_ms": 3,
-    "analyze_ms": 186,
-    "pricing_ms": 4,
-    "health_p50_ms": 3,
-    "health_p95_ms": 3,
+    "analyze_ms": 224,
+    "pricing_ms": 2,
+    "health_p50_ms": 2,
+    "health_p95_ms": 2,
     "pricing_p50_ms": 2,
     "pricing_p95_ms": 2,
-    "featured_p50_ms": 4,
-    "featured_p95_ms": 4,
-    "newsletter_count_p50_ms": 3,
-    "newsletter_count_p95_ms": 4,
-    "analyze_p50_ms": 176,
-    "analyze_p95_ms": 179
+    "featured_p50_ms": 3,
+    "featured_p95_ms": 3,
+    "newsletter_count_p50_ms": 2,
+    "newsletter_count_p95_ms": 2,
+    "analyze_p50_ms": 202,
+    "analyze_p95_ms": 222
   },
   "part_a": {
     "name": "Infrastructure & Environment",
@@ -2347,13 +2347,13 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=16",
+        "detail": "restarts=18",
         "owner": "ASO"
       },
       {
         "name": "PM2 memory < 512MB",
         "status": "PASS",
-        "detail": "29.0MB",
+        "detail": "27.5MB",
         "owner": "ASO"
       },
       {
@@ -2425,7 +2425,7 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=136",
+        "detail": "rows=137",
         "owner": "ASO"
       },
       {
@@ -2437,7 +2437,7 @@
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=363",
+        "detail": "rows=364",
         "owner": "ASO"
       },
       {
@@ -2449,7 +2449,7 @@
       {
         "name": "DB connection pool < 80%",
         "status": "PASS",
-        "detail": "13/100 (13%)",
+        "detail": "12/100 (12%)",
         "owner": "ASO"
       },
       {
@@ -2539,25 +2539,25 @@
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "186ms",
+        "detail": "224ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "2ms",
         "owner": "ASO"
       },
       {
         "name": "Admin health < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "2ms",
         "owner": "ASO"
       },
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "5ms (401 expected)",
+        "detail": "2ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -2588,7 +2588,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=36688375...",
+        "detail": "session=ca7e551a...",
         "owner": "KIM"
       },
       {

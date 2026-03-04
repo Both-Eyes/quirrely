@@ -656,7 +656,7 @@
         elements.accountSection.innerHTML = `
           <div class="account-info">
             <span class="account-status">✅ Connected</span>
-            <a href="${CONFIG.webAppUrl}/frontend/pro-dashboard.html" target="_blank" class="account-link">
+            <a href="${CONFIG.webAppUrl}/dashboard" target="_blank" class="account-link">
               Open Dashboard →
             </a>
           </div>
