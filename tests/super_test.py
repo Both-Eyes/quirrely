@@ -973,7 +973,6 @@ class Part4_FrontendIntegrity(TestHarness):
             (f"{FRONTEND_DIR}/settings.html", "settings.html"),
             (f"{FRONTEND_DIR}/export.html", "export.html"),
             (f"{FRONTEND_DIR}/pro-dashboard.html", "pro-dashboard.html"),
-            (f"{FRONTEND_DIR}/authority-dashboard.html", "authority-dashboard.html"),
             (f"{DEPLOY_DIR}/auth/signup.html", "auth/signup.html"),
             (f"{DEPLOY_DIR}/auth/login.html", "auth/login.html"),
             (f"{DEPLOY_DIR}/billing/upgrade.html", "billing/upgrade.html"),

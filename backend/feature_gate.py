@@ -82,12 +82,7 @@ def _we(sql, params=None):
 class Tier(str, Enum):
     FREE = "free"
     TRIAL = "trial"
-    PRO = "pro"                       # Writer track - Paid Tier 1
-    CURATOR = "curator"               # Reader track - Paid Tier 1
-    FEATURED_WRITER = "featured_writer"   # Writer track - Paid Tier 2
-    FEATURED_CURATOR = "featured_curator" # Reader track - Paid Tier 2
-    AUTHORITY_WRITER = "authority_writer" # Writer track - Paid Tier 3
-    AUTHORITY_CURATOR = "authority_curator" # Reader track - Paid Tier 3
+    PRO = "pro"
 
 
 # Tier hierarchy levels
@@ -95,11 +90,6 @@ TIER_LEVELS = {
     Tier.FREE: 0,
     Tier.TRIAL: 0,
     Tier.PRO: 1,
-    Tier.CURATOR: 1,
-    Tier.FEATURED_WRITER: 2,
-    Tier.FEATURED_CURATOR: 2,
-    Tier.AUTHORITY_WRITER: 3,
-    Tier.AUTHORITY_CURATOR: 3,
 }
 
 
@@ -118,11 +108,6 @@ class FeatureFlag:
     tier_free: bool
     tier_trial: bool
     tier_pro: bool
-    tier_curator: bool = False
-    tier_featured_writer: bool = False
-    tier_featured_curator: bool = False
-    tier_authority_writer: bool = False
-    tier_authority_curator: bool = False
     # Addon access (if True, having this addon grants access regardless of tier)
     addon_voice_style: bool = False
     # Tier OR addon mode (if True, user needs tier OR addon, not both)
@@ -132,17 +117,12 @@ class FeatureFlag:
     def check_access(self, tier: Tier, addons: List[str] = None) -> bool:
         """Check if a tier/addon combination grants access."""
         addons = addons or []
-        
+
         # Check tier access
         tier_access = {
             Tier.FREE: self.tier_free,
             Tier.TRIAL: self.tier_trial,
             Tier.PRO: self.tier_pro,
-            Tier.CURATOR: self.tier_curator,
-            Tier.FEATURED_WRITER: self.tier_featured_writer,
-            Tier.FEATURED_CURATOR: self.tier_featured_curator,
-            Tier.AUTHORITY_WRITER: self.tier_authority_writer,
-            Tier.AUTHORITY_CURATOR: self.tier_authority_curator,
         }
         has_tier = tier_access.get(tier, False)
         
@@ -200,260 +180,42 @@ class FeatureAccessResult:
 
 DEFAULT_FEATURES: List[FeatureFlag] = [
     # === UNIVERSAL FEATURES (all tiers) ===
-    FeatureFlag(
-        key="basic_analysis",
-        name="Basic Analysis",
-        description="Run LNCP analysis and see profile",
-        tier_free=True, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="writer_matches",
-        name="Writer Matches",
-        description="See famous writer recommendations",
-        tier_free=True, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    
-    # === PAID TIER FEATURES (Pro/Curator+) ===
-    FeatureFlag(
-        key="save_results",
-        name="Save Results",
-        description="Save analysis results to account",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="profile_history",
-        name="Profile History",
-        description="View past analyses and compare",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="evolution_tracking",
-        name="Evolution Tracking",
-        description="See how voice changes over time",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="analytics",
-        name="Analytics",
-        description="View writing and reading analytics",
-        tier_free=False, tier_trial=False, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="unlimited_analyses",
-        name="Unlimited Analyses",
-        description="No daily analysis limit",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="extension_sync",
-        name="Extension Sync",
-        description="Sync with browser extension",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="compare_profiles",
-        name="Compare Profiles",
-        description="Compare multiple analyses side by side",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    
+    FeatureFlag(key="basic_analysis", name="Basic Analysis", description="Run LNCP analysis and see profile", tier_free=True, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="writer_matches", name="Writer Matches", description="See famous writer recommendations", tier_free=True, tier_trial=True, tier_pro=True),
+
+    # === PAID TIER FEATURES (Pro) ===
+    FeatureFlag(key="save_results", name="Save Results", description="Save analysis results to account", tier_free=False, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="profile_history", name="Profile History", description="View past analyses and compare", tier_free=False, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="evolution_tracking", name="Evolution Tracking", description="See how voice changes over time", tier_free=False, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="analytics", name="Analytics", description="View writing analytics", tier_free=False, tier_trial=False, tier_pro=True),
+    FeatureFlag(key="unlimited_analyses", name="Unlimited Analyses", description="No daily analysis limit", tier_free=False, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="compare_profiles", name="Compare Profiles", description="Compare multiple analyses side by side", tier_free=False, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="featured_submission", name="Featured Submission", description="Submit writing for featured section", tier_free=False, tier_trial=False, tier_pro=True),
+    FeatureFlag(key="detailed_insights", name="Detailed Insights", description="Deep dive into profile characteristics", tier_free=False, tier_trial=False, tier_pro=True),
+    FeatureFlag(key="export_results", name="Export Results", description="Download results as PDF/JSON", tier_free=False, tier_trial=False, tier_pro=True),
+    FeatureFlag(key="api_access", name="API Access", description="Access LNCP via API", tier_free=False, tier_trial=False, tier_pro=True),
+
     # === VOICE + STYLE ADDON FEATURES ===
-    FeatureFlag(
-        key="voice_profile",
-        name="Voice Profile",
-        description="Deep voice analysis and insights",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=False, tier_featured_writer=False, tier_featured_curator=False,
-        tier_authority_writer=False, tier_authority_curator=False,
-        addon_voice_style=True,
-    ),
-    FeatureFlag(
-        key="voice_evolution",
-        name="Voice Evolution",
-        description="Track how your voice changes over time",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=False, tier_featured_writer=False, tier_featured_curator=False,
-        tier_authority_writer=False, tier_authority_curator=False,
-        addon_voice_style=True,
-    ),
-    
-    # === CURATOR TRACK FEATURES ===
-    FeatureFlag(
-        key="create_paths",
-        name="Create Reading Paths",
-        description="Create and manage reading paths",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=True, tier_featured_writer=False, tier_featured_curator=True,
-        tier_authority_writer=False, tier_authority_curator=True,
-        addon_voice_style=True, tier_or_addon=True,
-    ),
-    FeatureFlag(
-        key="path_followers",
-        name="Path Followers",
-        description="View and manage path followers",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=True, tier_featured_writer=False, tier_featured_curator=True,
-        tier_authority_writer=False, tier_authority_curator=True,
-        addon_voice_style=True, tier_or_addon=True,
-    ),
-    
-    # === FEATURED TIER FEATURES ===
-    FeatureFlag(
-        key="featured_submission",
-        name="Featured Submission",
-        description="Submit writing for featured section",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=False, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-        addon_voice_style=True, tier_or_addon=True,
-    ),
-    FeatureFlag(
-        key="featured_page",
-        name="Featured Page",
-        description="Access to featured content curation",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=False, tier_featured_writer=False, tier_featured_curator=True,
-        tier_authority_writer=False, tier_authority_curator=True,
-        addon_voice_style=True, tier_or_addon=True,
-    ),
-    
-    # === AUTHORITY TIER FEATURES ===
-    FeatureFlag(
-        key="authority_hub",
-        name="Authority Hub",
-        description="Access to authority dashboard and metrics",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=False, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-        addon_voice_style=True, tier_or_addon=True,
-    ),
-    FeatureFlag(
-        key="leaderboard",
-        name="Leaderboard",
-        description="View global and regional leaderboards",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=False, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-        addon_voice_style=True, tier_or_addon=True,
-    ),
-    FeatureFlag(
-        key="impact_stats",
-        name="Impact Stats",
-        description="View your community impact metrics",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=False, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-        addon_voice_style=True, tier_or_addon=True,
-    ),
-    
-    # === PRO FEATURES ===
-    FeatureFlag(
-        key="detailed_insights",
-        name="Detailed Insights",
-        description="Deep dive into profile characteristics",
-        tier_free=False, tier_trial=False, tier_pro=True,
-        tier_curator=False, tier_featured_writer=True, tier_featured_curator=False,
-        tier_authority_writer=True, tier_authority_curator=False,
-    ),
-    FeatureFlag(
-        key="export_results",
-        name="Export Results",
-        description="Download results as PDF/JSON",
-        tier_free=False, tier_trial=False, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="api_access",
-        name="API Access",
-        description="Access LNCP via API",
-        tier_free=False, tier_trial=False, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    
+    FeatureFlag(key="voice_profile", name="Voice Profile", description="Deep voice analysis and insights", tier_free=False, tier_trial=False, tier_pro=False, addon_voice_style=True),
+    FeatureFlag(key="voice_evolution", name="Voice Evolution", description="Track how your voice changes over time", tier_free=False, tier_trial=False, tier_pro=False, addon_voice_style=True),
+
     # === BROWSER EXTENSION FEATURES ===
-    FeatureFlag(
-        key="extension_sync",
-        name="Extension Sync",
-        description="Sync browser extension with web app",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="extension_save",
-        name="Extension Save",
-        description="Save analysis results from extension",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="extension_history",
-        name="Extension History",
-        description="View analysis history in extension",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="extension_voice_insights",
-        name="Extension Voice Insights",
-        description="View voice insights in extension popup",
-        tier_free=False, tier_trial=False, tier_pro=False,
-        tier_curator=False, tier_featured_writer=False, tier_featured_curator=False,
-        tier_authority_writer=False, tier_authority_curator=False,
-        addon_voice_style=True,
-    ),
-    FeatureFlag(
-        key="extension_compare",
-        name="Extension Compare",
-        description="Compare profiles from extension",
-        tier_free=False, tier_trial=True, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
-    FeatureFlag(
-        key="extension_export",
-        name="Extension Export",
-        description="Export results from extension",
-        tier_free=False, tier_trial=False, tier_pro=True,
-        tier_curator=True, tier_featured_writer=True, tier_featured_curator=True,
-        tier_authority_writer=True, tier_authority_curator=True,
-    ),
+    FeatureFlag(key="extension_sync", name="Extension Sync", description="Sync browser extension with web app", tier_free=False, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="extension_save", name="Extension Save", description="Save analysis results from extension", tier_free=False, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="extension_history", name="Extension History", description="View analysis history in extension", tier_free=False, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="extension_voice_insights", name="Extension Voice Insights", description="View voice insights in extension popup", tier_free=False, tier_trial=False, tier_pro=False, addon_voice_style=True),
+    FeatureFlag(key="extension_compare", name="Extension Compare", description="Compare profiles from extension", tier_free=False, tier_trial=True, tier_pro=True),
+    FeatureFlag(key="extension_export", name="Extension Export", description="Export results from extension", tier_free=False, tier_trial=False, tier_pro=True),
 ]
 
 # Word limits by tier
 DAILY_WORD_LIMITS = {
     Tier.FREE: 750, Tier.TRIAL: 750,
-    Tier.PRO: 0, Tier.CURATOR: 0,
-    Tier.FEATURED_WRITER: 0, Tier.FEATURED_CURATOR: 0,
-    Tier.AUTHORITY_WRITER: 0, Tier.AUTHORITY_CURATOR: 0,
+    Tier.PRO: 0,
 }
 MONTHLY_WORD_LIMITS = {
     Tier.FREE: 0, Tier.TRIAL: 0,
-    Tier.PRO: 50000, Tier.CURATOR: 50000,
-    Tier.FEATURED_WRITER: 50000, Tier.FEATURED_CURATOR: 50000,
-    Tier.AUTHORITY_WRITER: 100000, Tier.AUTHORITY_CURATOR: 100000,
+    Tier.PRO: 50000,
 }
 DAILY_LIMITS = DAILY_WORD_LIMITS
 

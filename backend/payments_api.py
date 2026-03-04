@@ -53,7 +53,7 @@ router = APIRouter(prefix="/api/v2/payments", tags=["payments"])
 # ═══════════════════════════════════════════════════════════════════════════
 
 class CreateCheckoutRequest(BaseModel):
-    tier: str  # "pro", "featured", "authority"
+    tier: str  # "pro"
     annual: bool = False
     currency: Optional[str] = None  # If not provided, detect from geo
 
@@ -78,8 +78,6 @@ class PricingResponse(BaseModel):
     currency_symbol: str
     currency_flag: str
     pro: Dict[str, Any]
-    featured: Dict[str, Any]
-    authority: Dict[str, Any]
 
 
 class TrialStatusResponse(BaseModel):
@@ -151,8 +149,6 @@ async def get_pricing(
         currency_symbol=symbol,
         currency_flag=flag,
         pro=get_pricing_display(ProductTier.PRO, curr),
-        featured=get_pricing_display(ProductTier.FEATURED, curr),
-        authority=get_pricing_display(ProductTier.AUTHORITY, curr),
     )
 
 
@@ -160,7 +156,7 @@ async def get_pricing(
 async def get_all_pricing():
     """Get pricing in all currencies (for currency selector)."""
     return {
-        currency.value: {"currency": currency.value, "currency_symbol": CURRENCY_SYMBOLS.get(currency, "$"), "currency_flag": CURRENCY_FLAGS.get(currency, ""), "pro": get_pricing_display(ProductTier.PRO, curr), "featured": get_pricing_display(ProductTier.FEATURED, curr), "authority": get_pricing_display(ProductTier.AUTHORITY, currency)}
+        currency.value: {"currency": currency.value, "currency_symbol": CURRENCY_SYMBOLS.get(currency, "$"), "currency_flag": CURRENCY_FLAGS.get(currency, ""), "pro": get_pricing_display(ProductTier.PRO, currency)}
         for currency in Currency
     }
 
@@ -198,8 +194,8 @@ async def create_checkout_session(
     except ValueError:
         raise HTTPException(status_code=400, detail=f"Invalid tier: {request_body.tier}")
     
-    if tier not in [ProductTier.PRO, ProductTier.FEATURED, ProductTier.AUTHORITY]:
-        raise HTTPException(status_code=400, detail="Only Pro, Featured, or Authority can be purchased")
+    if tier not in [ProductTier.PRO]:
+        raise HTTPException(status_code=400, detail="Only Pro can be purchased")
     
     # Get Stripe price ID
     price_id = get_stripe_price_id(tier, currency, request_body.annual)

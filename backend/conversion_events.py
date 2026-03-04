@@ -73,8 +73,6 @@ class ConversionEvent(str, Enum):
     # Tier progression
     TIER_UPGRADED = "tier.upgraded"
     TIER_DOWNGRADED = "tier.downgraded"
-    FEATURED_ACHIEVED = "tier.featured.achieved"
-    AUTHORITY_ACHIEVED = "tier.authority.achieved"
     
     # Engagement
     ANALYSIS_COMPLETED = "engagement.analysis.completed"

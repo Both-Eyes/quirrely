@@ -22,7 +22,7 @@ class SubmitRequest(BaseModel):
 async def submit_featured(req: SubmitRequest, user: dict = Depends(require_auth)):
     user_id = str(user.get("id") or user.get("user_id"))
     tier = (user.get("subscription_tier") or "free").lower()
-    if tier not in ("pro","featured","authority"):
+    if tier not in ("pro",):
         raise HTTPException(status_code=403, detail="Pro subscription required")
     words = req.sample.strip().split()
     if len(words) < 50 or len(words) > 150:

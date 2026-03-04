@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 QUIRRELY STRIPE CONFIGURATION v2.0
-TIERS: Free > Pro ($2.99) > Featured ($4.99) > Authority ($7.99)
+TIERS: Free > Pro ($2.99)
 CURRENCIES: CAD, USD, GBP, AUD, NZD
 """
 import os
@@ -32,16 +32,10 @@ class ProductTier(str, Enum):
     FREE = "free"
     TRIAL = "trial"
     PRO = "pro"
-    FEATURED = "featured"
-    AUTHORITY = "authority"
 
 STRIPE_PRICE_IDS = {
     "pro_monthly": os.environ.get("STRIPE_PRICE_PRO_MONTHLY", ""),
     "pro_annual": os.environ.get("STRIPE_PRICE_PRO_ANNUAL", ""),
-    "featured_monthly": os.environ.get("STRIPE_PRICE_FEATURED_MONTHLY", ""),
-    "featured_annual": os.environ.get("STRIPE_PRICE_FEATURED_ANNUAL", ""),
-    "authority_monthly": os.environ.get("STRIPE_PRICE_AUTHORITY_MONTHLY", ""),
-    "authority_annual": os.environ.get("STRIPE_PRICE_AUTHORITY_ANNUAL", ""),
 }
 
 def get_stripe_price_id(tier, currency=None, annual=False):
@@ -53,28 +47,18 @@ def get_stripe_price_id(tier, currency=None, annual=False):
 PRICING = {
     Currency.CAD: {
         ProductTier.PRO: {"monthly": 2.99, "annual": 29.99},
-        ProductTier.FEATURED: {"monthly": 4.99, "annual": 49.99},
-        ProductTier.AUTHORITY: {"monthly": 7.99, "annual": 79.99},
     },
     Currency.GBP: {
         ProductTier.PRO: {"monthly": 1.99, "annual": 20.99},
-        ProductTier.FEATURED: {"monthly": 2.99, "annual": 26.99},
-        ProductTier.AUTHORITY: {"monthly": 3.99, "annual": 42.99},
     },
     Currency.AUD: {
         ProductTier.PRO: {"monthly": 4.99, "annual": 29.99},
-        ProductTier.FEATURED: {"monthly": 4.99, "annual": 49.99},
-        ProductTier.AUTHORITY: {"monthly": 7.99, "annual": 79.99},
     },
     Currency.NZD: {
         ProductTier.PRO: {"monthly": 3.99, "annual": 39.99},
-        ProductTier.FEATURED: {"monthly": 5.99, "annual": 59.99},
-        ProductTier.AUTHORITY: {"monthly": 8.99, "annual": 89.99},
     },
     Currency.USD: {
         ProductTier.PRO: {"monthly": 2.99, "annual": 29.99},
-        ProductTier.FEATURED: {"monthly": 4.99, "annual": 49.99},
-        ProductTier.AUTHORITY: {"monthly": 7.99, "annual": 79.99},
     },
 }
 
@@ -93,9 +77,7 @@ def get_pricing_display(tier, currency=Currency.CAD):
 TIER_FEATURES = {
     ProductTier.FREE: {"analyses_per_month": 3, "phases": [1,2,3], "stretch_access": False, "featured_profile": False, "blog_submission": False, "story_mode": False, "leaderboard": False, "achievements": False, "advanced_analytics": False},
     ProductTier.TRIAL: {"analyses_per_month": 100, "phases": [1,2,3], "stretch_access": True, "featured_profile": False, "blog_submission": False, "story_mode": False, "leaderboard": False, "achievements": False, "advanced_analytics": False},
-    ProductTier.PRO: {"analyses_per_month": 100, "phases": [1,2,3], "stretch_access": True, "featured_profile": False, "blog_submission": False, "story_mode": False, "leaderboard": False, "achievements": False, "advanced_analytics": False},
-    ProductTier.FEATURED: {"analyses_per_month": -1, "phases": [1,2,3,"4a","4b"], "stretch_access": True, "featured_profile": True, "blog_submission": True, "story_mode": False, "leaderboard": False, "achievements": False, "advanced_analytics": False},
-    ProductTier.AUTHORITY: {"analyses_per_month": -1, "phases": [1,2,3,"4a","4b",5,6], "stretch_access": True, "featured_profile": True, "blog_submission": True, "story_mode": True, "leaderboard": True, "achievements": True, "advanced_analytics": True},
+    ProductTier.PRO: {"analyses_per_month": 100, "phases": [1,2,3], "stretch_access": True, "featured_profile": True, "blog_submission": True, "story_mode": False, "leaderboard": False, "achievements": False, "advanced_analytics": False},
 }
 
 def get_tier_features(tier):
