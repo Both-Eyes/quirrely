@@ -15,27 +15,27 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     /* === Quirrely Blog Nav (injected by fix_blog.py) === */
-    .header { background: #FFFFFF; border-bottom: 1px solid #E9ECEF; padding: 1rem 2rem; margin: -2rem -2rem 2rem -2rem; }
+    .header { background: #FFFFFF; border-bottom: 1px solid #E8E2DA; padding: 1rem 2rem; margin: -2rem -2rem 2rem -2rem; }
     .header-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .header .logo { font-size: 1.25rem; font-weight: 700; text-decoration: none; color: #2D3436; }
     .header .logo span { color: #FF6B6B; }
     .nav { display: flex; gap: 1.5rem; align-items: center; }
-    .nav a { text-decoration: none; color: #636E72; font-size: 0.9rem; font-weight: 500; }
+    .nav a { text-decoration: none; color: #6B6560; font-size: 0.9rem; font-weight: 500; }
     .nav a:hover, .nav a.active { color: #2D3436; }
     .nav .cta { background: #FF6B6B; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; }
     .nav .cta:hover { opacity: 0.9; color: white; }
     /* === End Blog Nav CSS === */
-    :root { --bg: #FFFBF5; --ink: #2D3436; --primary: #FF6B6B; --muted: #636E72; --border: #E9ECEF; --pro: #FF6B6B; --success: #00B894; --warning: #FDCB6E; --danger: #E74C3C; }
+    :root { --bg: #FFFBF5; --ink: #2D3436; --primary: #FF6B6B; --muted: #6B6560; --border: #E8E2DA; --pro: #FF6B6B; --success: #7CAE82; --warning: #E8C875; --danger: #E74C3C; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Nunito Sans', -apple-system, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
     .container { max-width: 700px; margin: 0 auto; padding: 2rem; }
     .logo { font-size: 1.25rem; font-weight: 700; margin-bottom: 2rem; }
     .logo a { text-decoration: none; color: inherit; }
     .logo span { color: var(--primary); }
-    h1 { font-family: 'Outfit', -apple-system, sans-serif; font-size: 2rem; margin-bottom: 0.5rem; }
+    h1 { font-family: 'Fraunces', -apple-system, sans-serif; font-size: 2rem; margin-bottom: 0.5rem; }
     .subtitle { color: var(--muted); margin-bottom: 2rem; }
     
     .pro-badge { display: inline-block; background: var(--pro); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem; }
@@ -74,7 +74,7 @@
     .btn-primary:hover { background: #5b4cdb; }
     .btn-primary:disabled { background: #B8B8B8; cursor: not-allowed; }
     
-    .guidelines { background: #F8F9FA; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .guidelines { background: #F7F3EE; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; }
     .guidelines h3 { font-size: 0.95rem; margin-bottom: 0.5rem; }
     .guidelines ul { margin: 0; padding-left: 1.5rem; }
     .guidelines li { margin-bottom: 0.25rem; color: var(--muted); }
@@ -134,7 +134,7 @@
         <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
         <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
       </g>
-      <text x="105" y="62" font-family="'Outfit', sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">re</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
+      <text x="105" y="62" font-family="'Fraunces', sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">re</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
     </svg></a>
       <nav class="nav" id="main-nav">
         <a href="/">Home</a>
@@ -444,11 +444,11 @@
           var data = await resp.json();
           if (resp.ok && data.success) {
             submitBtn.textContent = 'Submitted for Review!';
-            submitBtn.style.background = '#00B894';
+            submitBtn.style.background = '#7CAE82';
             setTimeout(function() { window.location.href = '/blog/featured'; }, 2500);
           } else if (resp.status === 409) {
             submitBtn.textContent = 'Already Submitted';
-            submitBtn.style.background = '#FDCB6E';
+            submitBtn.style.background = '#E8C875';
             submitBtn.style.color = '#2D3436';
           } else if (resp.status === 403) {
             submitBtn.textContent = 'Pro Required';

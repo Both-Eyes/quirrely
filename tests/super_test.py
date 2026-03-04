@@ -1165,8 +1165,8 @@ class Part4_FrontendIntegrity(TestHarness):
         for path, name in [(f"{DEPLOY_DIR}/auth/login.html", "login"),
                            (f"{DEPLOY_DIR}/auth/signup.html", "signup")]:
             content = self.read_file(path)
-            self.record(f"{name}.html uses Outfit font", "Outfit" in content,
-                        "found" if "Outfit" in content else "MISSING", "MARS")
+            self.record(f"{name}.html uses Fraunces font", "Fraunces" in content,
+                        "found" if "Fraunces" in content else "MISSING", "MARS")
 
         # Sitemaps
         self.section("MARS — Sitemaps")
