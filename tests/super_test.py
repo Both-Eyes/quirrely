@@ -1157,11 +1157,11 @@ class Part4_FrontendIntegrity(TestHarness):
                      "/dashboard" in prodash and ("redirect" in prodash.lower() or "location" in prodash.lower()),
                      "redirect found" if prodash else "MISSING", "KIM")
 
-        # Font unification
+        # Font unification — Fraunces (serif display) replaced Outfit (sans)
         self.section("MARS — Font Unification")
         idx = self.read_file(f"{FRONTEND_DIR}/index.html")
-        self.record("index.html uses Outfit font", "Outfit" in idx, "found" if "Outfit" in idx else "MISSING", "MARS")
-        self.record("dashboard.html uses Outfit font", "Outfit" in dash, "found" if "Outfit" in dash else "MISSING", "MARS")
+        self.record("index.html uses Fraunces font", "Fraunces" in idx, "found" if "Fraunces" in idx else "MISSING", "MARS")
+        self.record("dashboard.html uses Fraunces font", "Fraunces" in dash, "found" if "Fraunces" in dash else "MISSING", "MARS")
         for path, name in [(f"{DEPLOY_DIR}/auth/login.html", "login"),
                            (f"{DEPLOY_DIR}/auth/signup.html", "signup")]:
             content = self.read_file(path)

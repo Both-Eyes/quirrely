@@ -13,23 +13,23 @@
   <link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #FFFBF5; --bg-dark: #F8F5F0; --card: #FFFFFF;
-      --ink: #2D3436; --muted: #636E72; --light: #B2BEC3;
-      --border: #E9ECEF; --coral: #FF6B6B; --coral-dark: #E55A4A;
-      --teal: #4ECDC4; --purple: #A29BFE; --green: #00B894;
-      --blue: #0984E3; --yellow: #FDCB6E;
-      --shadow-sm: 0 2px 8px rgba(45,52,54,0.06);
-      --shadow-md: 0 4px 16px rgba(45,52,54,0.08);
-      --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
-      --font-display: 'Outfit', -apple-system, sans-serif;
+      --bg: #FFFBF5; --bg-dark: #F7F3EE; --card: #FFFFFF;
+      --ink: #2D3436; --muted: #6B6560; --light: #9A9590;
+      --border: #E8E2DA; --coral: #FF6B6B; --coral-dark: #E55A4A;
+      --teal: #7CAE9E; --purple: #9A8EC2; --green: #7CAE82;
+      --blue: #6B8EAE; --yellow: #F2E6C9;
+      --shadow-sm: 0 2px 8px rgba(120,100,80,0.06);
+      --shadow-md: 0 4px 16px rgba(120,100,80,0.08);
+      --radius-sm: 10px; --radius-md: 14px; --radius-lg: 20px;
+      --font-display: 'Fraunces', Georgia, serif;
       --font-body: 'Nunito Sans', -apple-system, sans-serif;
       --font-mono: 'IBM Plex Mono', monospace;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:var(--font-body); background:var(--bg); color:var(--ink); line-height:1.6; min-height:100vh; }
+    body { font-family:var(--font-body); background:var(--bg); color:var(--ink); line-height:1.7; min-height:100vh; }
     .header { background:var(--card); border-bottom:1px solid var(--border); padding:0.75rem 2rem; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
     .header-left { display:flex; align-items:center; gap:2rem; }
     .logo { font-size:1.25rem; font-weight:700; text-decoration:none; color:var(--ink); }
@@ -61,7 +61,7 @@
     .toggle input:checked + .toggle-slider { background:var(--coral); }
     .toggle input:checked + .toggle-slider:before { transform:translateX(22px); }
     .account-info { display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg-dark); border-radius:var(--radius-md); margin-bottom:1rem; }
-    .account-avatar { width:56px; height:56px; border-radius:50%; background:var(--teal); color:white; display:flex; align-items:center; justify-content:center; font-size:1.25rem; font-weight:600; }
+    .account-avatar { width:56px; height:56px; border-radius:50%; background:#7CAE9E; color:white; display:flex; align-items:center; justify-content:center; font-size:1.25rem; font-weight:600; }
     .account-details h4 { font-size:1rem; margin-bottom:0.1rem; }
     .account-details p { font-size:0.85rem; color:var(--muted); }
     .subscription-card { padding:1.25rem; border-radius:var(--radius-md); margin-bottom:1rem; }
@@ -71,7 +71,7 @@
     .subscription-tier { font-weight:700; font-size:1.1rem; }
     .subscription-price { font-size:0.9rem; color:var(--muted); }
     .subscription-features { font-size:0.85rem; color:var(--muted); margin-bottom:1rem; }
-    .btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; padding:0.6rem 1.2rem; border-radius:var(--radius-sm); font-size:0.9rem; font-weight:600; text-decoration:none; cursor:pointer; border:none; transition:all 0.2s; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; padding:0.6rem 1.2rem; border-radius:10px; font-family:var(--font-display); font-size:0.9rem; font-weight:600; text-decoration:none; cursor:pointer; border:none; transition:all 0.25s cubic-bezier(0.25,0.46,0.45,0.94); }
     .btn-primary { background:var(--coral); color:white; }
     .btn-primary:hover { background:var(--coral-dark); }
     .btn-secondary { background:var(--card); color:var(--ink); border:1px solid var(--border); }
@@ -120,7 +120,7 @@
         <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
         <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
       </g>
-      <text x="105" y="62" font-family="'Outfit', sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">rel</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
+      <text x="105" y="62" font-family="'Fraunces', Georgia, serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">rel</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
     </svg></a>
       <nav class="header-nav">
         <a href="/dashboard">Dashboard</a>
