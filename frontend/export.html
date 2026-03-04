@@ -7,10 +7,13 @@
   <script src="/assets/js/compat.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Export Your Data | Quirrely Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root { --bg: #FFFBF5; --card: #FFFFFF; --ink: #2D3436; --muted: #636E72; --primary: #FF6B6B; --pro: #FF6B6B; --border: #E9ECEF; --error: #C62828; --success: #00B894; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+    body { font-family: 'Nunito Sans', -apple-system, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
     
     .header { background: var(--card); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
     .logo { font-size: 1.25rem; font-weight: 700; text-decoration: none; color: var(--ink); }
@@ -20,7 +23,7 @@
     
     .container { max-width: 700px; margin: 0 auto; padding: 2rem; }
     
-    h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    h1 { font-family: 'Outfit', -apple-system, sans-serif; font-size: 1.75rem; margin-bottom: 0.5rem; }
     .subtitle { color: var(--muted); margin-bottom: 2rem; }
     
     .export-card { background: var(--card); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid var(--border); }
@@ -33,7 +36,7 @@
     
     .export-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
     
-    .data-preview { background: var(--bg); border-radius: 8px; padding: 1rem; margin-top: 1rem; font-family: monospace; font-size: 0.8rem; max-height: 200px; overflow: auto; white-space: pre; }
+    .data-preview { background: var(--bg); border-radius: 8px; padding: 1rem; margin-top: 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; max-height: 200px; overflow: auto; white-space: pre; }
     
     .gdpr-note { background: #E8F5E9; border-radius: 8px; padding: 1rem; margin-top: 2rem; font-size: 0.85rem; }
     .gdpr-note strong { color: var(--success); }
