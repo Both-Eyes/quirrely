@@ -269,38 +269,61 @@ img { max-width: 100%; }
   margin-bottom: 10px; backdrop-filter: blur(4px);
 }
 
-/* ===== VOICE BREAKDOWN ===== */
-.voice-bars { display: flex; flex-direction: column; gap: 12px; }
-.voice-bar-row { display: flex; align-items: center; gap: 12px; }
-.voice-bar-label {
-  width: 100px; font-size: 0.8rem; font-weight: 500; color: var(--text);
-  text-align: right; flex-shrink: 0;
-}
-.voice-bar-track {
-  flex: 1; height: 28px; background: var(--bg); border-radius: 14px;
-  overflow: hidden; position: relative;
-}
-.voice-bar-fill {
-  height: 100%; border-radius: 14px; transition: width 1s cubic-bezier(0.22,1,0.36,1);
-  display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;
-  font-size: 0.7rem; font-weight: 700; color: white; min-width: 36px;
-}
-.voice-bar-fill.animate { width: 0 !important; }
-
-/* ===== VOICE IDENTITY CARD ===== */
-.voice-identity {
+/* ===== VOICE ACORN METERS ===== */
+.voice-acorn-header {
   text-align: center; padding-bottom: 20px; margin-bottom: 20px;
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light, #f0eeeb);
 }
-.voice-identity-icon { font-size: 2.5rem; margin-bottom: 6px; }
-.voice-identity-title {
-  font-family: var(--font-display); font-size: 1.3rem; font-weight: 700;
-  color: var(--text); margin-bottom: 8px;
+.voice-acorn-name {
+  font-family: var(--font-display, 'Fraunces', serif); font-size: 1.65rem; font-weight: 700;
+  color: var(--text); margin-bottom: 2px; letter-spacing: -0.01em;
 }
-.voice-identity-stance {
-  display: inline-block; padding: 3px 12px; border-radius: 20px;
-  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.04em;
+.voice-acorn-icon { margin-bottom: 6px; line-height: 0; }
+.voice-acorn-title {
+  font-family: var(--font-display, 'Fraunces', serif); font-size: 1.1rem; font-weight: 600;
+  color: var(--text-light, #777); margin-bottom: 8px; font-style: italic;
+}
+.voice-acorn-stance {
+  display: inline-block; padding: 4px 14px; border-radius: 20px;
+  font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.voice-acorn-grid {
+  display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; padding: 12px 0;
+}
+.voice-acorn-meter {
+  display: flex; flex-direction: column; align-items: center; width: 72px;
+}
+.voice-acorn-meter.dominant { width: 80px; }
+.voice-acorn-meter.dominant .acorn-meter-svg { filter: drop-shadow(0 2px 8px rgba(0,0,0,0.12)); }
+.acorn-meter-svg { width: 52px; height: 72px; }
+.voice-acorn-meter.dominant .acorn-meter-svg { width: 60px; height: 83px; }
+.voice-acorn-meter .meter-score {
+  font-size: 0.95rem; font-weight: 700; margin-top: 4px;
+}
+.voice-acorn-meter .meter-label {
+  font-size: 0.8rem; font-weight: 500; color: var(--text-light, #777);
+  margin-top: 2px; text-align: center; line-height: 1.2;
+}
+.voice-acorn-meter.dominant .meter-label { font-weight: 700; color: var(--text, #333); }
+.voice-acorn-small {
+  display: flex; justify-content: center; gap: 18px; flex-wrap: wrap;
+  padding: 10px 0 0; margin-top: 12px; border-top: 1px solid var(--border-light, #f0eeeb);
+}
+.voice-acorn-small .voice-acorn-meter { width: 56px; }
+.voice-acorn-small .acorn-meter-svg { width: 36px; height: 50px; }
+.voice-acorn-small .meter-label { font-size: 0.7rem; }
+.voice-acorn-small .meter-score { font-size: 0.8rem; }
+.voice-bars { display: flex; flex-direction: column; gap: 12px; }
+@media (max-width: 480px) {
+  .voice-acorn-grid { gap: 10px; }
+  .voice-acorn-meter { width: 62px; }
+  .voice-acorn-meter.dominant { width: 70px; }
+  .acorn-meter-svg { width: 44px; height: 61px; }
+  .voice-acorn-meter.dominant .acorn-meter-svg { width: 52px; height: 72px; }
+  .voice-acorn-small .voice-acorn-meter { width: 50px; }
+  .voice-acorn-small .acorn-meter-svg { width: 30px; height: 42px; }
+  .voice-acorn-small .meter-score { font-size: 0.75rem; }
+  .voice-acorn-small .meter-label { font-size: 0.65rem; }
 }
 
 /* ===== COMPARISON CARD ===== */
@@ -612,7 +635,6 @@ body.is-pro .tier-free-only {
   <nav class="header-nav">
     <a href="/dashboard" class="active">Dashboard</a>
     <a href="/blog">Blog</a>
-    <a href="/">Retake Test</a>
     <a href="/faq">FAQ</a>
     <a href="/settings">Settings</a>
   </nav>
@@ -720,7 +742,7 @@ body.is-pro .tier-free-only {
     <div class="card" id="voiceCard">
       <div class="card-header">
         <span class="card-title">Your Voice Breakdown</span>
-        <a href="/" class="card-action">Retake Test →</a>
+        <a href="/" class="card-action tier-free-only">Retake Test →</a>
       </div>
       <div class="voice-bars" id="voiceBars">
         <div class="evolution-empty" id="noVoiceData">
@@ -1251,15 +1273,36 @@ async function initShare() {
       document.getElementById('shareSetup').style.display='none';
       document.getElementById('shareReady').style.display='block';
       document.getElementById('shareUrlDisplay').innerHTML='<a href="'+d.url+'" target="_blank">'+d.url+'</a>';
+    } else {
+      // Auto-create share profile for auth'd users
+      const u = JSON.parse(localStorage.getItem('quirrely_user') || '{}');
+      const autoSlug = (u.share_slug || u.display_name || u.name || '').toLowerCase().replace(/[^a-z0-9]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'').slice(0,30);
+      if (autoSlug && autoSlug.length >= 3) {
+        try {
+          const gr = await fetch('/api/v2/share/generate', {
+            method:'POST', headers:{'Authorization':'Bearer '+s.token,'Content-Type':'application/json'},
+            body: JSON.stringify({slug:autoSlug, display_name: u.display_name || u.name || autoSlug})
+          });
+          if (gr.ok) {
+            const gd = await gr.json();
+            _shareUrl = gd.url;
+            document.getElementById('shareSetup').style.display='none';
+            document.getElementById('shareReady').style.display='block';
+            document.getElementById('shareUrlDisplay').innerHTML='<a href="'+gd.url+'" target="_blank">'+gd.url+'</a>';
+          }
+        } catch(ae) { console.error('auto-share',ae); }
+      }
     }
   } catch(ex) { console.error('initShare',ex); }
 }
-function shareToLinkedIn() {
+async function shareToLinkedIn() {
   if(!_shareUrl) return;
+  await refreshShare(true);
   window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(_shareUrl), '_blank');
 }
-function shareToFacebook() {
+async function shareToFacebook() {
   if(!_shareUrl) return;
+  await refreshShare(true);
   window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(_shareUrl), '_blank');
 }
 
@@ -1285,47 +1328,118 @@ function copyProfileLink() {
   if (!_shareUrl) { showToast('Claim your URL first'); return; }
   navigator.clipboard.writeText(_shareUrl).then(()=>showToast('Link copied!')).catch(()=>showToast('Could not copy'));
 }
-async function refreshShare() {
+async function refreshShare(silent) {
   const s = getSession(); if (!s?.token) return;
   try {
     const r = await fetch('/api/v2/share/refresh',{method:'POST',headers:{'Authorization':'Bearer '+s.token}});
-    if (r.ok) showToast('Profile updated!'); else showToast('Could not refresh');
-  } catch(ex) { showToast('Error refreshing'); }
+    if (!silent) { if (r.ok) showToast('Profile updated!'); else showToast('Could not refresh'); }
+  } catch(ex) { if (!silent) showToast('Error refreshing'); }
 }
 
-// ===== RENDER VOICE BARS =====
-function renderVoiceBars(scores) {
+// ===== RENDER VOICE ACORN METERS =====
+function acornMeterSVG(id, color, pct) {
+  // Acorn body: teardrop from y=14 to y=48, cap at y=12
+  const bodyPath = 'M6 14 Q5 35, 20 48 Q35 35, 34 14 Z';
+  const fillTop = 48 - Math.round(34 * Math.min(pct, 100) / 100);
+  const fillH = 48 - fillTop;
+  return '<svg class="acorn-meter-svg" viewBox="0 0 40 55" xmlns="http://www.w3.org/2000/svg">'
+    + '<defs><clipPath id="af'+id+'"><rect x="0" y="'+fillTop+'" width="40" height="'+fillH+'" class="acorn-fill-rect" data-y="'+fillTop+'" data-h="'+fillH+'"/></clipPath></defs>'
+    + '<rect x="18" y="3" width="4" height="6" rx="2" fill="#D4CCC4"/>'
+    + '<ellipse cx="20" cy="12" rx="14" ry="5" fill="#E8E4DF" stroke="#E0DBD5" stroke-width="0.8"/>'
+    + '<path d="'+bodyPath+'" fill="#f0eeeb" stroke="#E0DBD5" stroke-width="0.8"/>'
+    + '<path d="'+bodyPath+'" fill="'+color+'" clip-path="url(#af'+id+')" opacity="0.85"/>'
+    + '<path d="'+bodyPath+'" fill="none" stroke="#E0DBD5" stroke-width="0.8"/>'
+    + '</svg>';
+}
+
+function renderVoiceBars(scores, voiceType, stance, displayName) {
   if (!scores || Object.keys(scores).length === 0) return;
   const container = document.getElementById('voiceBars');
   const noData = document.getElementById('noVoiceData');
   if (noData) noData.style.display = 'none';
   container.innerHTML = '';
 
-  const sorted = Object.entries(scores)
+  const entries = Object.entries(scores)
     .filter(([k]) => k.startsWith('score_'))
     .sort((a, b) => b[1] - a[1]);
 
-  sorted.forEach(([key, val], i) => {
+  if (entries.length === 0) return;
+
+  const pd = PROFILE_DISPLAY[voiceType] || {};
+  const dominantColor = (STYLE_COLORS[entries[0][0].replace('score_', '')] || ['#FF6B6B'])[0];
+
+  // Identity header
+  let html = '<div class="voice-acorn-header">';
+  if (displayName) html += '<div class="voice-acorn-name">'+displayName+'</div>';
+  html += '<div class="voice-acorn-icon"><svg viewBox="0 0 40 55" width="28" height="38"><rect x="18" y="3" width="4" height="6" rx="2" fill="#D4CCC4"/><ellipse cx="20" cy="12" rx="14" ry="5" fill="#E8E4DF" stroke="#E0DBD5" stroke-width="0.8"/><path d="M6 14 Q5 35,20 48 Q35 35,34 14 Z" fill="'+dominantColor+'" opacity="0.85"/><path d="M6 14 Q5 35,20 48 Q35 35,34 14 Z" fill="none" stroke="#E0DBD5" stroke-width="0.8"/></svg></div>';
+  if (pd.title) html += '<div class="voice-acorn-title">'+pd.title+'</div>';
+  if (stance) html += '<span class="voice-acorn-stance" style="background:'+dominantColor+'18;color:'+dominantColor+'">'+stance+'</span>';
+  html += '</div>';
+
+  // Top 5 acorn meters
+  const top5 = entries.slice(0, 5);
+  const rest = entries.slice(5);
+
+  html += '<div class="voice-acorn-grid">';
+  top5.forEach(([key, val], i) => {
     const styleName = key.replace('score_', '');
-    const colors = STYLE_COLORS[styleName] || ['#ccc', '#aaa'];
     const label = STYLE_LABELS[key] || styleName;
-    const row = document.createElement('div');
-    row.className = 'voice-bar-row';
-    row.innerHTML = `
-      <span class="voice-bar-label">${label}</span>
-      <div class="voice-bar-track">
-        <div class="voice-bar-fill animate" style="background:linear-gradient(90deg,${colors[0]},${colors[1]});width:${val}%;" data-width="${val}%">
-          ${val}
-        </div>
-      </div>
-    `;
-    container.appendChild(row);
-    // Animate in
-    setTimeout(() => {
-      row.querySelector('.voice-bar-fill').classList.remove('animate');
-      row.querySelector('.voice-bar-fill').style.width = val + '%';
-    }, 100 + i * 80);
+    const colors = STYLE_COLORS[styleName] || ['#ccc', '#aaa'];
+    const isDom = i === 0;
+    html += '<div class="voice-acorn-meter'+(isDom?' dominant':'')+'">'
+      + acornMeterSVG('t'+i, colors[0], val)
+      + '<span class="meter-score" style="color:'+colors[0]+'">'+Math.round(val)+'</span>'
+      + '<span class="meter-label">'+label+'</span>'
+      + '</div>';
   });
+  html += '</div>';
+
+  // Bottom 5 smaller
+  if (rest.length > 0) {
+    html += '<div class="voice-acorn-small">';
+    rest.forEach(([key, val], i) => {
+      const styleName = key.replace('score_', '');
+      const label = STYLE_LABELS[key] || styleName;
+      const colors = STYLE_COLORS[styleName] || ['#ccc', '#aaa'];
+      html += '<div class="voice-acorn-meter">'
+        + acornMeterSVG('b'+i, colors[0], val)
+        + '<span class="meter-score" style="color:'+colors[0]+'">'+Math.round(val)+'</span>'
+        + '<span class="meter-label">'+label+'</span>'
+        + '</div>';
+    });
+    html += '</div>';
+  }
+
+  container.innerHTML = html;
+
+  // Animate fill: clip rects rise from bottom
+  requestAnimationFrame(() => {
+    const rects = container.querySelectorAll('.acorn-fill-rect');
+    rects.forEach((rect, i) => {
+      const targetY = parseFloat(rect.dataset.y);
+      const targetH = parseFloat(rect.dataset.h);
+      // Start empty (y=48, h=0)
+      rect.setAttribute('y', '48');
+      rect.setAttribute('height', '0');
+      setTimeout(() => {
+        const dur = 700;
+        const startTime = performance.now();
+        function tick(now) {
+          const t = Math.min((now - startTime) / dur, 1);
+          const e = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+          const curY = 48 - (48 - targetY) * e;
+          const curH = targetH * e;
+          rect.setAttribute('y', curY.toFixed(1));
+          rect.setAttribute('height', curH.toFixed(1));
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }, 80 + i * 100);
+    });
+  });
+
+  // Screen reader fallback
+  container.setAttribute('aria-label', 'Voice breakdown: ' + entries.map(([k,v]) => (STYLE_LABELS[k]||k.replace('score_',''))+' '+Math.round(v)+'%').join(', '));
 }
 
 // ===== RENDER WRITERS =====
@@ -1858,6 +1972,12 @@ async function init() {
   }
   document.getElementById('sidebarName').textContent = displayName;
   document.getElementById('sidebarAvatar').textContent = getInitial(displayName);
+  // Show avatar from localStorage immediately (before API call)
+  if (user.avatar_url) {
+    var _ai = '<img src="'+user.avatar_url+'" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover">';
+    document.getElementById('headerAvatar').innerHTML = _ai;
+    document.getElementById('sidebarAvatar').innerHTML = _ai;
+  }
 
   // Store voiceType for share
   session.user._voiceType = 'unique';
@@ -1915,26 +2035,9 @@ async function init() {
 
       document.getElementById('sidebarStance').textContent = lp.stance ? ('Stance: ' + lp.stance) : '';
 
-      // Voice bars
+      // Voice Acorn
       const scores = data.avg_scores || {};
-      renderVoiceBars(scores);
-
-      // Voice identity card
-      const pd = PROFILE_DISPLAY[voiceType];
-      if (pd) {
-        const stanceColor = (STYLE_COLORS[voiceType] || ['#ccc'])[0];
-        const stanceText = lp.stance || '';
-        const barsEl = document.getElementById('voiceBars');
-        if (barsEl) {
-          barsEl.insertAdjacentHTML('beforebegin',
-            '<div class="voice-identity">'
-            + '<div class="voice-identity-icon">' + pd.icon + '</div>'
-            + '<div class="voice-identity-title">' + pd.title + '</div>'
-            + (stanceText ? '<span class="voice-identity-stance" style="background:' + stanceColor + '18;color:' + stanceColor + '">' + stanceText + '</span>' : '')
-            + '</div>'
-          );
-        }
-      }
+      renderVoiceBars(scores, voiceType, lp.stance || '', name);
 
       // Welcome text update
       if (!params.get('welcome')) {

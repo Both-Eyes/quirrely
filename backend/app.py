@@ -327,6 +327,7 @@ def _build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,t
 <meta property="og:image" content="{og_img}">
 <meta property="og:url" content="https://quirrely.ca/user/{slug}">
 <meta property="og:type" content="profile">
+<meta property="fb:app_id" content="4334298873522506">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
@@ -361,6 +362,7 @@ body{{font-family:Nunito Sans,-apple-system,sans-serif;background:#FFFBF5;color:
 </body></html>"""
 
 PROFILE_DESC={"ASSERTIVE":"Bold, direct, and confident","MINIMAL":"Clean, precise, and economical","POETIC":"Lyrical, imagery-rich, and evocative","DENSE":"Complex, layered, and information-rich","CONVERSATIONAL":"Warm, natural, and approachable","FORMAL":"Structured, polished, and authoritative","INTERROGATIVE":"Curious, questioning, and exploratory","HEDGED":"Nuanced, cautious, and qualifying","PARALLEL":"Rhythmic, balanced, and patterned","LONGFORM":"Expansive, detailed, and immersive"}
+PROFILE_TITLES={"ASSERTIVE":"The Direct Voice","MINIMAL":"The Quiet Observer","POETIC":"The Fragment Weaver","DENSE":"The Layered Thinker","CONVERSATIONAL":"The Voice in the Room","FORMAL":"The Polished Pen","INTERROGATIVE":"The Questioner","HEDGED":"The Careful Scholar","PARALLEL":"The Pattern Maker","LONGFORM":"The Sentence Builder"}
 
 @app.get("/user/{slug}", response_class=HTMLResponse)
 async def public_voice_page(slug: str):
@@ -376,18 +378,39 @@ async def public_voice_page(slug: str):
     scores=p.get("scores") or {}
     tw=p.get("total_words") or 0
     ta=p.get("total_analyses") or 0
-    top3=sorted(scores.items(),key=lambda x:x[1] if x[1] else 0,reverse=True)[:3] if scores else []
-    bars=""
-    for sn,sv in top3:
+    sorted_scores=sorted(scores.items(),key=lambda x:x[1] if x[1] else 0,reverse=True) if scores else []
+    top5=sorted_scores[:5]
+    rest=sorted_scores[5:]
+    def _acorn_svg(idx,clr,pct,w=44,h=60):
+        bp='M6 14 Q5 35,20 48 Q35 35,34 14 Z'
+        ft=48-int(34*min(pct,100)/100)
+        fh=48-ft
+        return f'<svg viewBox="0 0 40 55" width="{w}" height="{h}" style="display:block;margin:0 auto"><rect x="18" y="3" width="4" height="6" rx="2" fill="#D4CCC4"/><ellipse cx="20" cy="12" rx="14" ry="5" fill="#E8E4DF" stroke="#E0DBD5" stroke-width="0.8"/><path d="{bp}" fill="#f0eeeb" stroke="#E0DBD5" stroke-width="0.8"/><defs><clipPath id="pf{idx}"><rect x="0" y="{ft}" width="40" height="{fh}"/></clipPath></defs><path d="{bp}" fill="{clr}" clip-path="url(#pf{idx})" opacity="0.85"/><path d="{bp}" fill="none" stroke="#E0DBD5" stroke-width="0.8"/></svg>'
+    SCORE_COLORS={"assertive":"#FF6B6B","minimal":"#5B9BD5","poetic":"#9B59B6","analytical":"#4ECDC4","conversational":"#FFB347","provocative":"#E74C3C","reflective":"#6BCB77","technical":"#3498DB","narrative":"#F39C12","persuasive":"#E67E22","dense":"#4ECDC4","formal":"#1ABC9C","interrogative":"#F39C12","hedged":"#7F8C8D","parallel":"#2ECC71","longform":"#8E44AD","parenthetical":"#E67E22"}
+    bars='<div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:12px 0">'
+    for i,(sn,sv) in enumerate(top5):
         pct=min(int(float(sv)),100) if sv else 0
-        bars+=f'<div style="display:flex;align-items:center;gap:12px;margin:10px 0"><span style="width:110px;text-align:right;font-size:.9em;text-transform:capitalize;color:#555">{sn}</span><div style="flex:1;height:10px;background:#f0eeeb;border-radius:5px;overflow:hidden"><div style="width:{pct}%;height:100%;background:{color};border-radius:5px;transition:width .3s"></div></div><span style="width:40px;font-size:.85em;font-weight:600;color:#444">{pct}</span></div>'
+        sc=SCORE_COLORS.get(sn.lower(),color)
+        bw=80 if i==0 else 72
+        sw=52 if i==0 else 48
+        sh=72 if i==0 else 66
+        bars+=f'<div style="text-align:center;width:{bw}px">{_acorn_svg(i,sc,pct,sw,sh)}<div style="font-size:.95em;font-weight:700;color:{sc};margin-top:4px">{pct}</div><div style="font-size:.8em;color:#777;text-transform:capitalize;margin-top:2px">{sn}</div></div>'
+    bars+='</div>'
+    if rest:
+        bars+='<div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid #f0eeeb">'
+        for i,(sn,sv) in enumerate(rest):
+            pct=min(int(float(sv)),100) if sv else 0
+            sc=SCORE_COLORS.get(sn.lower(),color)
+            bars+=f'<div style="text-align:center;width:56px">{_acorn_svg(5+i,sc,pct,36,50)}<div style="font-size:.8em;font-weight:700;color:{sc};margin-top:2px">{pct}</div><div style="font-size:.7em;color:#777;text-transform:capitalize;margin-top:1px">{sn}</div></div>'
+        bars+='</div>'
     # Use personalized OG image if exists, else generic
     import os
     if os.path.exists(f"/home/quirrely/quirrely.ca/og/users/{slug}.png"):
         og_img=f"https://quirrely.ca/og/users/{slug}.png"
     else:
         og_img=f"https://quirrely.ca/og/{profile.lower()}.png"
-    title=f"{name} writes with a {profile} voice"
+    vtitle=PROFILE_TITLES.get(profile,"")
+    title=f"{name} — {vtitle}" if vtitle else f"{name} writes with a {profile} voice"
     html=_build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta)
     return HTMLResponse(html)
 

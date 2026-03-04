@@ -651,12 +651,19 @@ def _resolve_oauth_user(provider: str, oauth_user: Dict) -> tuple:
                 "UPDATE user_auth_providers SET last_used_at = now() WHERE provider = %s AND provider_user_id = %s",
                 (provider, oauth_user["provider_id"])
             )
+            # Sync avatar from provider if user has none
+            if oauth_user.get("picture") and not user.get("avatar_url"):
+                db_execute("UPDATE users SET avatar_url = %s WHERE id = %s", (oauth_user["picture"], str(user["id"])))
+                user = get_user_by_id(str(user["id"]))
             return user, False
 
     # 2. Check for existing user by email
     user = get_user_by_email(email)
     if user:
         _link_provider(str(user["id"]), provider, oauth_user)
+        if oauth_user.get("picture") and not user.get("avatar_url"):
+            db_execute("UPDATE users SET avatar_url = %s WHERE id = %s", (oauth_user["picture"], str(user["id"])))
+            user = get_user_by_email(email)
         return user, False
 
     # 3. No existing account found — create new user
@@ -665,10 +672,11 @@ def _resolve_oauth_user(provider: str, oauth_user: Dict) -> tuple:
     user_id = str(uuid.uuid4())
     display_name = oauth_user.get("name", email.split("@")[0])
 
+    avatar_url = oauth_user.get("picture", "")
     db_execute(
-        """INSERT INTO users (id, email, display_name, email_verified, subscription_tier)
-           VALUES (%s, %s, %s, true, 'free')""",
-        (user_id, email, display_name)
+        """INSERT INTO users (id, email, display_name, email_verified, subscription_tier, avatar_url)
+           VALUES (%s, %s, %s, true, 'free', %s)""",
+        (user_id, email, display_name, avatar_url or None)
     )
 
     _link_provider(user_id, provider, oauth_user)
@@ -715,6 +723,7 @@ def _oauth_success_page(session: Dict, user: Dict) -> str:
         "email_verified": user.get("email_verified", True),
         "subscription_tier": user.get("subscription_tier", "free"),
         "share_slug": slug or "",
+        "avatar_url": user.get("avatar_url") or "",
     }
     session_obj = {
         "token": session["access_token"],

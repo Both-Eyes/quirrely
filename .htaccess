@@ -8,3 +8,5 @@ RewriteRule ^frontend/index\.html$ / [R=301,L]
 # Clean URLs: internal rewrite (not redirect)
 RewriteRule ^dashboard$ /frontend/dashboard.html [L,END]
 RewriteRule ^export$ /frontend/export.html [L,END]
+RewriteRule ^faq$ /faq.html [L,END]
+RewriteRule ^settings$ /settings.html [L,END]
