@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reset Password | Quirrely</title>
   <style>
-    :root { --bg: #FFFBF5; --ink: #2D3436; --primary: #FF6B6B; --muted: #6B6560; --border: #E8E2DA; --success: #7CAE82; }
+    :root { --bg: #FFFBF5; --ink: #2D3436; --primary: #FF6B6B; --muted: #6B6560; --border: #E8E2DA; --success: #7CAE82; --accent-coral-vivid: #FF5252; --accent-amber-vivid: #C8962E; --accent-teal-vivid: #5B9E8C; --paper-cream: #FFFDF9; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
-    .card { background: white; border-radius: 16px; padding: 2.5rem; width: 100%; max-width: 400px; box-shadow: 0 4px 20px rgba(120,100,80,0.08); }
+    .card { background: var(--paper-cream, #FFFDF9); border-top: 3px solid var(--primary, #FF6B6B); border-radius: 3px 3px 14px 14px; padding: 2.5rem; width: 100%; max-width: 400px; box-shadow: 0 4px 20px rgba(120,100,80,0.08); }
     .logo { text-align: center; font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; }
     .logo span { color: var(--primary); }
     h1 { font-size: 1.5rem; text-align: center; margin-bottom: 0.5rem; }
@@ -20,11 +20,14 @@
     label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
     input { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 16px; }
     input:focus { outline: none; border-color: var(--primary); }
-    .btn { width: 100%; padding: 1rem; border: none; border-radius: 30px; font-size: 1rem; font-weight: 600; cursor: pointer; }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: #ff5252; }
+    .btn { width: 100%; padding: 1rem; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .btn:active, button[type=submit]:active { transform: scale(0.98); }
+    .btn-primary { background: linear-gradient(135deg, #FF6B6B, #E85858); color: white; }
+    .btn-primary:hover { background: linear-gradient(135deg, #FF5252, #D94E4E); }
     .links { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; }
-    .links a { color: var(--primary); text-decoration: none; }
+    .links a { color: var(--primary); text-decoration: none; position: relative; }
+    .links a::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 100%; height: 2px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
+    .links a:hover::after { transform: scaleX(1); }
     .success { background: #F0FFF4; border: 1px solid #9AE6B4; color: #276749; padding: 1rem; border-radius: 8px; text-align: center; display: none; }
   </style>
 </head>

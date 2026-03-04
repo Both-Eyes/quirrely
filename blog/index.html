@@ -45,7 +45,7 @@
     
     /* Header */
     .header {
-      background: var(--card);
+      background: linear-gradient(180deg, #FFFDF9, #FFFBF5);
       border-bottom: 1px solid var(--border);
       padding: 1rem 2rem;
       position: sticky;
@@ -82,9 +82,10 @@
       font-size: 0.9rem;
       font-weight: 500;
       transition: color 0.2s;
+      position: relative;
     }
     
-    .nav a:hover, .nav a.active { color: var(--ink); }
+    .nav a:hover, .nav a.active { color: var(--primary, #FF6B6B); } .nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: #FF6B6B; border-radius: 1px; transform: scaleX(0); transition: transform 0.25s; } .nav a:hover::after, .nav a.active::after { transform: scaleX(1); } .nav .cta::after { display: none; }
     
     .nav .cta {
       background: var(--primary);

@@ -11,28 +11,35 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root { --bg: #FFFBF5; --card: #FFFFFF; --ink: #2D3436; --muted: #6B6560; --primary: #FF6B6B; --pro: #FF6B6B; --border: #E8E2DA; --error: #C62828; --success: #7CAE82; }
+    :root { --bg: #FFFBF5; --card: #FFFFFF; --ink: #2D3436; --muted: #6B6560; --primary: #FF6B6B; --pro: #FF6B6B; --border: #E8E2DA; --error: #C62828; --success: #7CAE82; --accent-coral-vivid: #FF5252; --accent-amber-vivid: #C8962E; --accent-teal-vivid: #5B9E8C; --accent-purple-vivid: #7B5E8E; --paper-cream: #FFFDF9; --paper-warm: #FBF6EE; --ink-deep: #1E1E1E; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Nunito Sans', -apple-system, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
     
-    .header { background: var(--card); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .header { background: linear-gradient(180deg, #FFFDF9, #FFFBF5); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
     .logo { font-size: 1.25rem; font-weight: 700; text-decoration: none; color: var(--ink); }
     .logo span { color: var(--primary); }
-    .back-link { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
-    .back-link:hover { color: var(--ink); }
+    .back-link { color: var(--muted); text-decoration: none; font-size: 0.9rem; position: relative; }
+    .back-link::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 100%; height: 2px; background: var(--primary, #FF6B6B); border-radius: 1px; transform: scaleX(0); transform-origin: left; transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .back-link:hover { color: var(--primary, #FF6B6B); }
+    .back-link:hover::after { transform: scaleX(1); }
     
     .container { max-width: 700px; margin: 0 auto; padding: 2rem; }
     
     h1 { font-family: 'Fraunces', Georgia, serif; font-size: 1.75rem; margin-bottom: 0.5rem; }
     .subtitle { color: var(--muted); margin-bottom: 2rem; }
     
-    .export-card { background: var(--card); border-radius: 14px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(120,100,80,0.05); }
+    .export-card { background: var(--paper-cream, #FFFDF9); border-radius: 3px 3px 14px 14px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid var(--border); border-top: 3px solid var(--primary, #FF6B6B); box-shadow: 0 2px 8px rgba(120,100,80,0.05); }
     .export-card h2 { font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
     .export-card p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
     
-    .export-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--pro); color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 10px; font-family: 'Fraunces', Georgia, serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.25s cubic-bezier(0.25,0.46,0.45,0.94); }
-    .export-btn:hover { opacity: 0.9; }
-    .export-btn.secondary { background: var(--bg); color: var(--ink); border: 1px solid var(--border); }
+    .export-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #FF6B6B, #E85858); color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 6px; font-family: 'Fraunces', Georgia, serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.25s cubic-bezier(0.25,0.46,0.45,0.94); box-shadow: inset 0 1px 0 rgba(255,255,255,0.18); position: relative; overflow: hidden; }
+    .export-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
+    .export-btn:hover::before { left: 100%; }
+    .export-btn:hover { opacity: 0.95; }
+    .export-btn:active { transform: scale(0.98); }
+    .export-btn.secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--border); box-shadow: none; }
+    .export-btn.secondary::before { display: none; }
+    .export-btn.secondary:hover { border-color: var(--primary, #FF6B6B); color: var(--primary, #FF6B6B); }
     
     .export-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
     
@@ -41,10 +48,11 @@
     .gdpr-note { background: #EFF5F0; border-radius: 10px; padding: 1rem; margin-top: 2rem; font-size: 0.85rem; }
     .gdpr-note strong { color: var(--success); }
     
-    .danger-zone { background: #FFEBEE; border-radius: 14px; padding: 1.5rem; margin-top: 2rem; }
+    .danger-zone { background: #FFEBEE; border-radius: 3px 3px 14px 14px; padding: 1.5rem; margin-top: 2rem; border-top: 3px solid var(--error); }
     .danger-zone h2 { color: var(--error); font-size: 1rem; margin-bottom: 0.5rem; }
     .danger-zone p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
-    .danger-btn { background: var(--error); color: white; border: none; padding: 0.5rem 1rem; border-radius: 10px; font-family: 'Fraunces', Georgia, serif; font-size: 0.85rem; cursor: pointer; }
+    .danger-btn { background: var(--error); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-family: 'Fraunces', Georgia, serif; font-size: 0.85rem; cursor: pointer; transition: all 0.25s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .danger-btn:active { transform: scale(0.98); }
     
     .success-toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; display: none; }
     .success-toast.visible { display: block; animation: slideUp 0.3s ease; }
