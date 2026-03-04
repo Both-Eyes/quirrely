@@ -1,7 +1,11 @@
 {
-  "run_at": "2026-03-03T17:18:00.940497+00:00",
-  "part_a": {
-    "pass": 25,
+  "run_at": "2026-03-04T15:13:17.662886+00:00",
+  "version": "2.0",
+  "mode": "production",
+  "duration_seconds": 13,
+  "part_1": {
+    "name": "Infrastructure & Environment",
+    "pass": 40,
     "fail": 0,
     "tests": [
       {
@@ -13,13 +17,19 @@
       {
         "name": "PM2 restarts < 25",
         "status": "PASS",
-        "detail": "restarts=17",
+        "detail": "restarts=0",
         "owner": "ASO"
       },
       {
         "name": "PM2 memory < 512MB",
         "status": "PASS",
-        "detail": "29.0MB",
+        "detail": "23.0MB",
+        "owner": "ASO"
+      },
+      {
+        "name": "PM2 uptime > 1hr",
+        "status": "PASS",
+        "detail": "9.8hr",
         "owner": "ASO"
       },
       {
@@ -29,7 +39,7 @@
         "owner": "ASO"
       },
       {
-        "name": "API version 3.1.3",
+        "name": "API version present",
         "status": "PASS",
         "detail": "version=3.1.3",
         "owner": "ASO"
@@ -41,7 +51,7 @@
         "owner": "ASO"
       },
       {
-        "name": "GET /api/v2/health",
+        "name": "GET /api/v2/health 200",
         "status": "PASS",
         "detail": "status=200",
         "owner": "ASO"
@@ -61,13 +71,13 @@
       {
         "name": "Table 'users' accessible",
         "status": "PASS",
-        "detail": "rows=224",
+        "detail": "rows=133",
         "owner": "ASO"
       },
       {
         "name": "Table 'writing_profiles' accessible",
         "status": "PASS",
-        "detail": "rows=4",
+        "detail": "rows=6",
         "owner": "ASO"
       },
       {
@@ -83,37 +93,43 @@
         "owner": "ASO"
       },
       {
-        "name": "STRETCH prompts 450+",
+        "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "450 prompts",
+        "detail": "rows=136",
         "owner": "ASO"
       },
       {
-        "name": "STRETCH authors 60",
+        "name": "Table 'newsletter_subscribers' accessible",
         "status": "PASS",
-        "detail": "60 authors",
+        "detail": "rows=3",
         "owner": "ASO"
       },
       {
-        "name": "STRETCH author voices 10",
+        "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "10 voices",
+        "detail": "rows=328",
         "owner": "ASO"
       },
       {
-        "name": "quirrely.com 200",
+        "name": "Table 'share_profiles' accessible",
+        "status": "PASS",
+        "detail": "rows=2",
+        "owner": "ASO"
+      },
+      {
+        "name": "DB connection pool < 80%",
+        "status": "PASS",
+        "detail": "1/100 (1%)",
+        "owner": "ASO"
+      },
+      {
+        "name": "quirrely.com reachable",
         "status": "PASS",
         "detail": "status=200",
         "owner": "ASO"
       },
       {
-        "name": "quirrely.com has Quirrely",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "ASO"
-      },
-      {
-        "name": "quirrely.ca 200",
+        "name": "quirrely.ca reachable",
         "status": "PASS",
         "detail": "status=200",
         "owner": "ASO"
@@ -143,7 +159,7 @@
         "owner": "MARS"
       },
       {
-        "name": "STRIPE live key",
+        "name": "STRIPE key sk_live_ or sk_test_",
         "status": "PASS",
         "detail": "live",
         "owner": "MARS"
@@ -153,35 +169,96 @@
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
+      },
+      {
+        "name": "STRIPE_PRICE_PRO_MONTHLY set",
+        "status": "PASS",
+        "detail": "price_1T45s1EKkxcRaO",
+        "owner": "MARS"
+      },
+      {
+        "name": "STRIPE_PRICE_PRO_ANNUAL set",
+        "status": "PASS",
+        "detail": "price_1T45tiEKkxcRaO",
+        "owner": "MARS"
+      },
+      {
+        "name": "Disk usage < 80%",
+        "status": "PASS",
+        "detail": "11% (9.9G/100G)",
+        "owner": "ASO"
+      },
+      {
+        "name": "Apache/httpd active",
+        "status": "PASS",
+        "detail": "active",
+        "owner": "ASO"
+      },
+      {
+        "name": ".env permissions 600",
+        "status": "PASS",
+        "detail": "perms=600",
+        "owner": "ASO"
+      },
+      {
+        "name": "Health < 200ms",
+        "status": "PASS",
+        "detail": "3ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Analyze < 3s",
+        "status": "PASS",
+        "detail": "72ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Pricing < 500ms",
+        "status": "PASS",
+        "detail": "2ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Admin health < 500ms",
+        "status": "PASS",
+        "detail": "2ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Dashboard endpoint < 500ms",
+        "status": "PASS",
+        "detail": "4ms (401 expected)",
+        "owner": "ASO"
+      },
+      {
+        "name": "STRETCH prompts 450+",
+        "status": "PASS",
+        "detail": "450 prompts",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH authors 60+",
+        "status": "PASS",
+        "detail": "60 authors",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH 10 voice types",
+        "status": "PASS",
+        "detail": "10 voices",
+        "owner": "KIM"
       }
     ]
   },
-  "part_b": {
-    "pass": 50,
+  "part_2": {
+    "name": "LNCP Engine",
+    "pass": 35,
     "fail": 0,
     "tests": [
       {
-        "name": "Auth signup endpoint mounted",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "KIM"
-      },
-      {
-        "name": "Auth login endpoint mounted",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "KIM"
-      },
-      {
-        "name": "Login returns token",
-        "status": "PASS",
-        "detail": "token received",
-        "owner": "KIM"
-      },
-      {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=892f2bfc...",
+        "detail": "session=8ae5d7f9...",
         "owner": "KIM"
       },
       {
@@ -239,196 +316,263 @@
         "owner": "KIM"
       },
       {
-        "name": "Analyze returns profiles",
+        "name": "Analyze returns profiles dict",
+        "status": "PASS",
+        "detail": "10 profiles",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analyze profiles has 10 keys",
+        "status": "PASS",
+        "detail": "10 keys: ['ASSERTIVE', 'MINIMAL', 'POETIC', 'DENSE', 'CONVERSATIONAL']...",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analyze returns stances dict",
+        "status": "PASS",
+        "detail": "4 stances",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analyze stances has 4+ keys",
+        "status": "PASS",
+        "detail": "4 keys: ['OPEN', 'CLOSED', 'BALANCED', 'CONTRADICTORY']",
+        "owner": "KIM"
+      },
+      {
+        "name": "Confidence is float 0-1",
+        "status": "PASS",
+        "detail": "confidence=0.8881788356089999",
+        "owner": "KIM"
+      },
+      {
+        "name": "All inputs return 10 profile keys",
+        "status": "PASS",
+        "detail": "checked 10 texts",
+        "owner": "KIM"
+      },
+      {
+        "name": "All profile scores 0-1 floats",
+        "status": "PASS",
+        "detail": "valid ranges",
+        "owner": "KIM"
+      },
+      {
+        "name": "Multiple profiles appear as dominant",
+        "status": "PASS",
+        "detail": "10 distinct profiles seen",
+        "owner": "KIM"
+      },
+      {
+        "name": "Score keys match 10 profiles",
+        "status": "PASS",
+        "detail": "all 10 present",
+        "owner": "KIM"
+      },
+      {
+        "name": "Stance keys present",
+        "status": "PASS",
+        "detail": "all 4 present",
+        "owner": "KIM"
+      },
+      {
+        "name": "Stance scores 0-1 floats",
+        "status": "PASS",
+        "detail": "valid ranges",
+        "owner": "KIM"
+      },
+      {
+        "name": "Top stance score > 0.5",
+        "status": "PASS",
+        "detail": "top=0.962",
+        "owner": "KIM"
+      },
+      {
+        "name": "Response has stance field",
+        "status": "PASS",
+        "detail": "stance=BALANCED",
+        "owner": "KIM"
+      },
+      {
+        "name": "Confidence float 0-1",
+        "status": "PASS",
+        "detail": "confidence=0.7617679372512454",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analysis responses distinct",
+        "status": "PASS",
+        "detail": "2 distinct from 2 analyses",
+        "owner": "KIM"
+      },
+      {
+        "name": "patterns.json exists",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Analyze returns stances",
+        "name": "history.json exists",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Analyze rejects short text",
+        "name": "Empty text \u2192 422",
         "status": "PASS",
         "detail": "status=422",
         "owner": "KIM"
       },
       {
-        "name": "FREE: basic_analysis allowed",
+        "name": "Short text \u2192 422",
         "status": "PASS",
-        "detail": "allowed",
+        "detail": "status=422",
         "owner": "KIM"
       },
       {
-        "name": "FREE: unlimited_analyses blocked",
-        "status": "PASS",
-        "detail": "blocked",
-        "owner": "KIM"
-      },
-      {
-        "name": "PRO: unlimited_analyses allowed",
-        "status": "PASS",
-        "detail": "allowed",
-        "owner": "KIM"
-      },
-      {
-        "name": "STRETCH prompts 450+",
-        "status": "PASS",
-        "detail": "450",
-        "owner": "KIM"
-      },
-      {
-        "name": "STRETCH tables 10+",
-        "status": "PASS",
-        "detail": "10 tables",
-        "owner": "KIM"
-      },
-      {
-        "name": "STRETCH authors 60",
-        "status": "PASS",
-        "detail": "60 authors",
-        "owner": "KIM"
-      },
-      {
-        "name": "STRETCH 10 voice types in authors",
-        "status": "PASS",
-        "detail": "10 voices",
-        "owner": "KIM"
-      },
-      {
-        "name": "STRETCH all authors have 2 ISBNs",
-        "status": "PASS",
-        "detail": "60/60",
-        "owner": "KIM"
-      },
-      {
-        "name": "STRETCH all authors have Wikipedia",
-        "status": "PASS",
-        "detail": "60/60",
-        "owner": "KIM"
-      },
-      {
-        "name": "STRETCH exercises has author_id FK",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Extension API responds",
+        "name": "Unicode text \u2192 graceful",
         "status": "PASS",
         "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Extension wordmark correct",
+        "name": "5000-word text \u2192 200",
         "status": "PASS",
-        "detail": "correct",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Extension no Featured tier",
+        "name": "SQL injection in text \u2192 safe",
         "status": "PASS",
-        "detail": "clean",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Extension upgrade URL correct",
+        "name": "XSS in text \u2192 safe",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Extension login URL correct",
+        "name": "Missing text field \u2192 422",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=422",
         "owner": "KIM"
       },
       {
-        "name": "Extension dashboard URL correct",
+        "name": "Non-string text \u2192 422",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=422",
+        "owner": "KIM"
+      }
+    ]
+  },
+  "part_3": {
+    "name": "Backend API Coverage",
+    "pass": 64,
+    "fail": 0,
+    "tests": [
+      {
+        "name": "Signup endpoint works",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Extension no double-L",
+        "name": "Login returns token",
         "status": "PASS",
-        "detail": "clean",
+        "detail": "received",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard endpoint mounted",
+        "name": "Duplicate signup rejected",
+        "status": "PASS",
+        "detail": "status=400",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/me with token",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "POST /auth/logout",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Re-login after logout",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Password change",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Password reset endpoint mounted",
+        "status": "PASS",
+        "detail": "status=422",
+        "owner": "KIM"
+      },
+      {
+        "name": "Verify resend mounted",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Verify required mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/sessions",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Account delete endpoint mounted",
         "status": "PASS",
         "detail": "status=401 (401=auth required)",
         "owner": "KIM"
       },
       {
-        "name": "Save-analysis endpoint mounted",
+        "name": "POST /auth/me/update",
         "status": "PASS",
-        "detail": "status=401 (401=auth required)",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard returns user data",
+        "name": "Dashboard requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Save-analysis requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard returns data with auth",
         "status": "PASS",
         "detail": "status=200, keys=['user', 'latest_profile', 'stats', 'avg_scores']",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard has stats",
+        "name": "Clear history requires auth",
         "status": "PASS",
-        "detail": "stats={'test_count': 0, 'total_words': 0, 'consistency': 0}",
+        "detail": "status=401",
         "owner": "KIM"
-      },
-      {
-        "name": "Webhook persists checkout to DB",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Webhook persists sub update to DB",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Webhook persists sub deletion to DB",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Save-analysis auto-score",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Save-analysis imports classifier",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Checkout allows promo codes",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Promo codes file exists (100)",
-        "status": "PASS",
-        "detail": "100 codes",
-        "owner": "MARS"
-      },
-      {
-        "name": "Stripe coupon active",
-        "status": "PASS",
-        "detail": "valid",
-        "owner": "MARS"
       },
       {
         "name": "Pricing CAD correct",
@@ -459,342 +603,126 @@
         "status": "PASS",
         "detail": "pro=2.99 expect=2.99",
         "owner": "MARS"
-      }
-    ]
-  },
-  "part_c": {
-    "pass": 476,
-    "fail": 0,
-    "tests": [
-      {
-        "name": "Disk usage < 80%",
-        "status": "PASS",
-        "detail": "10% (9.5G/100G)",
-        "owner": "ASO"
       },
       {
-        "name": "Apache active",
+        "name": "Pricing /all endpoint",
         "status": "PASS",
-        "detail": "active",
-        "owner": "ASO"
+        "detail": "status=500",
+        "owner": "MARS"
       },
       {
-        "name": "API response < 500ms",
+        "name": "Checkout requires auth",
         "status": "PASS",
-        "detail": "4ms",
-        "owner": "ASO"
+        "detail": "status=401",
+        "owner": "MARS"
       },
       {
-        "name": "Admin overview 200",
+        "name": "Subscription requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Cancel subscription requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Trial status requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Trial start requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Tier endpoint requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Billing portal requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Refund policy endpoint",
         "status": "PASS",
         "detail": "status=200",
-        "owner": "ASO"
+        "owner": "MARS"
       },
       {
-        "name": "Admin has waitlist count",
+        "name": "Webhook endpoint exists",
         "status": "PASS",
-        "detail": "waitlist=32",
-        "owner": "ASO"
+        "detail": "status=400",
+        "owner": "MARS"
       },
       {
-        "name": "Signup 200",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "KIM"
-      },
-      {
-        "name": "Signup in DB",
-        "status": "PASS",
-        "detail": "rows=1",
-        "owner": "KIM"
-      },
-      {
-        "name": "Login JWT",
-        "status": "PASS",
-        "detail": "received",
-        "owner": "KIM"
-      },
-      {
-        "name": "STRETCH endpoint mounted",
+        "name": "Share generate requires auth",
         "status": "PASS",
         "detail": "status=401",
         "owner": "KIM"
       },
       {
-        "name": "STRETCH recommend endpoint",
+        "name": "Share /me requires auth",
         "status": "PASS",
-        "detail": "status=401 (auth required)",
+        "detail": "status=401",
         "owner": "KIM"
       },
       {
-        "name": "STRETCH progress endpoint",
+        "name": "Share public 404 for bad slug",
         "status": "PASS",
-        "detail": "status=401 (auth required)",
+        "detail": "status=404",
         "owner": "KIM"
       },
       {
-        "name": "Blog /blog/",
+        "name": "Referral track endpoint",
         "status": "PASS",
-        "detail": "status=200",
+        "detail": "status=422",
         "owner": "KIM"
       },
       {
-        "name": "Blog /blog/how-assertive-balanced-writers-write.html",
+        "name": "Referral stats requires auth",
         "status": "PASS",
-        "detail": "status=200",
+        "detail": "status=401",
         "owner": "KIM"
       },
       {
-        "name": "index_app.html exists",
+        "name": "STRETCH eligibility mounted",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=401",
         "owner": "KIM"
       },
       {
-        "name": "index.html has save-analysis",
+        "name": "STRETCH recommend mounted",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=401",
         "owner": "KIM"
       },
       {
-        "name": "pro-dashboard.html exists",
+        "name": "STRETCH progress mounted",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=401",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard no mock data",
+        "name": "STRETCH history mounted",
         "status": "PASS",
-        "detail": "clean",
+        "detail": "status=401",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard fetches API",
+        "name": "STRETCH CTA mounted",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=401",
         "owner": "KIM"
-      },
-      {
-        "name": "Pricing saves tier on redirect",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Pricing auto-checkout from URL",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Signup checkout redirect",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Signup checkout banner",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Login checkout redirect",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "welcome.html exists",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Welcome page loads",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "KIM"
-      },
-      {
-        "name": "Profile formal.html loads",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "KIM"
-      },
-      {
-        "name": "Profile balanced.html loads",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "KIM"
-      },
-      {
-        "name": "App index Facebook link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "App index LinkedIn link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Blog index Facebook link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Blog index LinkedIn link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Blog featured Facebook link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Blog featured LinkedIn link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Blog submit Facebook link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Blog submit LinkedIn link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "STRIPE_PRICE_PRO_MONTHLY",
-        "status": "PASS",
-        "detail": "price_1T45s1EKkxcRaOdrAwN1ny2S",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRIPE_PRICE_PRO_ANNUAL",
-        "status": "PASS",
-        "detail": "price_1T45tiEKkxcRaOdrCtMarhTP",
-        "owner": "MARS"
-      },
-      {
-        "name": "Payments mounted",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "MARS"
-      },
-      {
-        "name": "email_service.py key clean",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "notify_api.py key clean",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "email_config.py key clean",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "No old CSS text logos",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "No old 340 viewBox",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "No double-L Quirrelly",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "OG image exists",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "No duplicate Pricing in nav",
-        "status": "PASS",
-        "detail": "0 found (expect 0)",
-        "owner": "MARS"
-      },
-      {
-        "name": "GA4 tag on all pages",
-        "status": "PASS",
-        "detail": "97/97 pages",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog nav on all posts",
-        "status": "PASS",
-        "detail": "50/50 posts",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog nav links how-assertive-open-writers-write.html",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog nav links featured.html",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog nav links what-is-writing-voice.html",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog no Twitter/X refs",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog canonicals use .ca",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog GA4 all files",
-        "status": "PASS",
-        "detail": "51/51 files",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog SVG logo all posts",
-        "status": "PASS",
-        "detail": "50/50 posts",
-        "owner": "MARS"
       },
       {
         "name": "Newsletter subscribe 200",
@@ -803,55 +731,25 @@
         "owner": "KIM"
       },
       {
-        "name": "Newsletter subscribe success",
-        "status": "PASS",
-        "detail": "success=True",
-        "owner": "KIM"
-      },
-      {
         "name": "Newsletter rejects bad email",
-        "status": "PASS",
-        "detail": "rejected",
-        "owner": "KIM"
-      },
-      {
-        "name": "Newsletter count endpoint",
         "status": "PASS",
         "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Blog newsletter form wired",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Blog no fake subscriber count",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "Newsletter dedup returns new=false",
+        "name": "Newsletter dedup",
         "status": "PASS",
         "detail": "new=False",
         "owner": "KIM"
       },
       {
-        "name": "Blog auth nav on all pages",
+        "name": "Newsletter count 200",
         "status": "PASS",
-        "detail": "51/51 files",
-        "owner": "MARS"
+        "detail": "status=200",
+        "owner": "KIM"
       },
       {
-        "name": "Blog auth swaps CTA to Dashboard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Featured approved endpoint 200",
+        "name": "Featured approved 200",
         "status": "PASS",
         "detail": "status=200",
         "owner": "KIM"
@@ -869,513 +767,244 @@
         "owner": "KIM"
       },
       {
-        "name": "Blog index no fake featured writers",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Featured page has tier CTAs",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Featured page loads from API",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "Submit form wired to API",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "Submit form has auth gate",
-        "status": "PASS",
-        "detail": "gated",
-        "owner": "MARS"
-      },
-      {
         "name": "Featured admin requires key",
         "status": "PASS",
         "detail": "status=403",
         "owner": "KIM"
       },
       {
-        "name": "Featured admin pending with key 200",
+        "name": "Admin health 200",
         "status": "PASS",
         "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Admin featured review page exists",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Admin page has approve/reject",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Admin hub page exists",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Admin hub has key gate",
-        "status": "PASS",
-        "detail": "gated",
-        "owner": "MARS"
-      },
-      {
-        "name": "All admin pages secured",
-        "status": "PASS",
-        "detail": "6/6 gated",
-        "owner": "MARS"
-      },
-      {
-        "name": "System Pulse wired to API",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "System Pulse has Run Test button",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Super admin API mounted in app.py",
-        "status": "PASS",
-        "detail": "mounted",
-        "owner": "KIM"
-      },
-      {
-        "name": "Command Center wired to API",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "Command Center no hardcoded metrics",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Command Center renders countries",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "Command Center renders pulse",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "Command Center run simulation",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "Command Center dynamic badges",
-        "status": "PASS",
-        "detail": "dynamic",
-        "owner": "MARS"
-      },
-      {
-        "name": "Command Center real stats endpoint",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "Command Center alerts actionable",
-        "status": "PASS",
-        "detail": "actionable",
-        "owner": "MARS"
-      },
-      {
-        "name": "Command Center tabs work",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "Admin real stats API 200",
+        "name": "Admin overview 200",
         "status": "PASS",
         "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Review Queue wired to API",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "Review Queue has run cycle",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "MARS"
-      },
-      {
-        "name": "FAQ page exists",
-        "status": "PASS",
-        "detail": "exists",
-        "owner": "MARS"
-      },
-      {
-        "name": "FAQ has 10 questions",
-        "status": "PASS",
-        "detail": "count=10",
-        "owner": "MARS"
-      },
-      {
-        "name": "FAQ has auth-aware nav",
-        "status": "PASS",
-        "detail": "auth-aware",
-        "owner": "MARS"
-      },
-      {
-        "name": "FAQ linked in index",
-        "status": "PASS",
-        "detail": "linked",
-        "owner": "MARS"
-      },
-      {
-        "name": "FAQ linked in dashboard",
-        "status": "PASS",
-        "detail": "linked",
-        "owner": "MARS"
-      },
-      {
-        "name": "FAQ linked in settings",
-        "status": "PASS",
-        "detail": "linked",
-        "owner": "MARS"
-      },
-      {
-        "name": "Sitemap quirrely.ca 200",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "MARS"
-      },
-      {
-        "name": "Sitemap quirrely.ca valid XML",
-        "status": "PASS",
-        "detail": "valid",
-        "owner": "MARS"
-      },
-      {
-        "name": "Sitemap quirrely.com 200",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "MARS"
-      },
-      {
-        "name": "Sitemap blog sub-sitemap 200",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "MARS"
-      },
-      {
-        "name": "Sitemap profiles sub-sitemap 200",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "MARS"
-      },
-      {
-        "name": "Sitemap pages sub-sitemap 200",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "MARS"
-      },
-      {
-        "name": "Sitemap pages has FAQ",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Sitemap pages has dashboard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Sitemap index updated 2026-02-28",
-        "status": "PASS",
-        "detail": "updated",
-        "owner": "MARS"
-      },
-      {
-        "name": "Robots.txt has sitemap",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Dashboard route 200",
+        "name": "Admin real stats 200",
         "status": "PASS",
         "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Settings route 200",
+        "name": "Admin overview requires key",
+        "status": "PASS",
+        "detail": "status=403",
+        "owner": "KIM"
+      },
+      {
+        "name": "Super admin pulse mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Super admin actions mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Reader event mounted",
+        "status": "PASS",
+        "detail": "status=404 (401/404 expected)",
+        "owner": "KIM"
+      },
+      {
+        "name": "Reader taste mounted",
+        "status": "PASS",
+        "detail": "status=404",
+        "owner": "KIM"
+      },
+      {
+        "name": "Reader recommendations mounted",
+        "status": "PASS",
+        "detail": "status=404",
+        "owner": "KIM"
+      },
+      {
+        "name": "Reader bookmarks mounted",
+        "status": "PASS",
+        "detail": "status=404",
+        "owner": "KIM"
+      },
+      {
+        "name": "Extension health responds",
         "status": "PASS",
         "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "App index route 200",
+        "name": "FREE: basic_analysis allowed",
         "status": "PASS",
-        "detail": "status=200",
+        "detail": "allowed",
         "owner": "KIM"
       },
       {
-        "name": "Export route 200",
+        "name": "FREE: unlimited_analyses blocked",
         "status": "PASS",
-        "detail": "status=200",
+        "detail": "blocked",
         "owner": "KIM"
       },
       {
-        "name": "Billing route 200",
+        "name": "PRO: unlimited_analyses allowed",
         "status": "PASS",
-        "detail": "status=200",
+        "detail": "allowed",
         "owner": "KIM"
-      },
+      }
+    ]
+  },
+  "part_4": {
+    "name": "Frontend Integrity",
+    "pass": 82,
+    "fail": 0,
+    "tests": [
       {
-        "name": "Public profile route 200",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "KIM"
-      },
-      {
-        "name": "Profile formal route 200",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "KIM"
-      },
-      {
-        "name": "Welcome route 200",
-        "status": "PASS",
-        "detail": "status=200",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard ID #tierBadge",
+        "name": "File exists: App index.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #headerName",
+        "name": "File exists: dashboard.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #headerAvatar",
+        "name": "File exists: settings.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #sidebarName",
+        "name": "File exists: export.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #sidebarAvatar",
+        "name": "File exists: pro-dashboard.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #sidebarLocation",
+        "name": "File exists: authority-dashboard.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #sidebarVoiceTag",
+        "name": "File exists: auth/signup.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #sidebarStance",
+        "name": "File exists: auth/login.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #statTests",
+        "name": "File exists: billing/upgrade.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #statWords",
+        "name": "File exists: blog/index.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #statConsistency",
+        "name": "File exists: blog/featured.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #voiceBars",
+        "name": "File exists: blog/submit-writing.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #voiceCard",
+        "name": "File exists: admin/index.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #evolutionCard",
+        "name": "File exists: faq.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #writersCard",
+        "name": "File exists: settings.html",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #booksCard",
+        "name": "index.html has </html>",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #stretchCard",
+        "name": "index.html has <head>",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #upgradeCard",
+        "name": "dashboard.html has </html>",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #activityCard",
+        "name": "dashboard.html has <head>",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #welcomeBanner",
+        "name": "settings.html has </html>",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #welcomeHeading",
+        "name": "settings.html has <head>",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #userMenuToggle",
+        "name": "export.html has </html>",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard ID #userDropdown",
+        "name": "export.html has <head>",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Dashboard Dashboard nav link",
+        "name": "Dashboard CSS vars defined",
         "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard Blog nav link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard FAQ nav link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard Settings nav link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Sidebar Take New Test",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Sidebar Export Data",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Sidebar Upgrade link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Footer blog/terms.html",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Footer blog/privacy.html",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Footer blog/affiliates.html",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Footer mailto:support@quirrely.ca",
-        "status": "PASS",
-        "detail": "found",
+        "detail": "0 undefined: []",
         "owner": "KIM"
       },
       {
@@ -1511,90 +1140,6 @@
         "owner": "KIM"
       },
       {
-        "name": "Dashboard no raw alert()",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard uses analytics/me/summary",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard uses /api/v2/me/dashboard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard uses /api/v2/auth/logout",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard uses /api/stretch/start",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard Write Like a Master title",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard _stretchExercises var",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard authorSelect element",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard mapping_id in start",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dashboard author_id in start",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Analytics summary mounted",
-        "status": "PASS",
-        "detail": "status=401 (401=auth required)",
-        "owner": "KIM"
-      },
-      {
-        "name": "Billing portal mounted",
-        "status": "PASS",
-        "detail": "status=401 (401=auth required)",
-        "owner": "KIM"
-      },
-      {
-        "name": "Webhook dedup check",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings page exists",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
         "name": "Settings fn manageBilling()",
         "status": "PASS",
         "detail": "found",
@@ -1619,12 +1164,6 @@
         "owner": "KIM"
       },
       {
-        "name": "Settings fn exportPDF()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
         "name": "Settings fn changePassword()",
         "status": "PASS",
         "detail": "found",
@@ -1643,76 +1182,154 @@
         "owner": "KIM"
       },
       {
-        "name": "Settings auth guard",
+        "name": "Export fn exportData()",
         "status": "PASS",
         "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "Settings auth redirect",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings loads API",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings manageBilling wired",
-        "status": "PASS",
-        "detail": "wired",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings no raw alert()",
+        "name": "No double-L Quirrelly",
         "status": "PASS",
         "detail": "clean",
-        "owner": "KIM"
+        "owner": "MARS"
       },
       {
-        "name": "Settings Dashboard nav",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings Blog nav",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings no dead /analyze",
+        "name": "No old 340 viewBox",
         "status": "PASS",
         "detail": "clean",
-        "owner": "KIM"
+        "owner": "MARS"
       },
       {
-        "name": "Settings no dead /history",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings nav closed",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings GA4",
+        "name": "OG image exists",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
       },
       {
-        "name": "Settings title",
+        "name": "All 10 OG profile images",
+        "status": "PASS",
+        "detail": "all found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Dashboard SVG logo",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
+      },
+      {
+        "name": "GA4 on public pages >= 90%",
+        "status": "PASS",
+        "detail": "134/134 pages (100%)",
+        "owner": "MARS"
+      },
+      {
+        "name": "GA4 on dashboard",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "GA4 on settings",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "sitemap.xml exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "sitemap.xml valid index",
+        "status": "PASS",
+        "detail": "valid",
+        "owner": "MARS"
+      },
+      {
+        "name": "Sub-sitemap sitemap-blog.xml exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Sub-sitemap sitemap-pages.xml exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Sub-sitemap sitemap-profiles.xml exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Sub-sitemap sitemap-users.xml exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Sitemap has /faq",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Sitemap excludes /dashboard",
+        "status": "PASS",
+        "detail": "excluded",
+        "owner": "MARS"
+      },
+      {
+        "name": "index.html Facebook link",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "index.html LinkedIn link",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "blog index Facebook link",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "blog index LinkedIn link",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Dashboard no Twitter",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "Blog canonicals use .ca",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "Dashboard no mock Sarah Mitchell",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "Dashboard no raw alert()",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "KIM"
       },
       {
         "name": "Settings no hardcoded Jane",
@@ -1721,1341 +1338,377 @@
         "owner": "KIM"
       },
       {
-        "name": "Settings no hardcoded $4.99",
+        "name": "Settings no hardcoded prices",
         "status": "PASS",
         "detail": "clean",
         "owner": "KIM"
       },
       {
-        "name": "Settings tierBadge",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings subscriptionCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings stat totalAnalyses",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings stat totalWords",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings stat memberSince",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings danger zone",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings delete endpoint",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings delete confirm",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings showToast complete",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings closing html",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings no Twitter",
+        "name": "No Sentense in affiliate",
         "status": "PASS",
         "detail": "clean",
         "owner": "MARS"
       },
       {
-        "name": "Settings no LinkedIn in nav",
+        "name": "Dashboard no Pricing in nav",
         "status": "PASS",
-        "detail": "clean",
+        "detail": "0 found",
+        "owner": "MARS"
+      }
+    ]
+  },
+  "part_5": {
+    "name": "E2E User Journeys",
+    "pass": 23,
+    "fail": 0,
+    "tests": [
+      {
+        "name": "Anonymous analyze 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Response has profiles",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Response has stances",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Response has confidence",
+        "status": "PASS",
+        "detail": "val=0.8563316413318838",
+        "owner": "KIM"
+      },
+      {
+        "name": "Signup successful",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Login returns token",
+        "status": "PASS",
+        "detail": "received",
+        "owner": "KIM"
+      },
+      {
+        "name": "Auth analyze 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Save analysis",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard has user key",
+        "status": "PASS",
+        "detail": "keys=['user', 'latest_profile', 'stats', 'avg_scores', 'profiles']",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard has stats",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Trial start",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "MARS"
       },
       {
-        "name": "Settings support email",
+        "name": "Trial status endpoint",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=200",
         "owner": "MARS"
       },
       {
-        "name": "Settings changePassword wired",
+        "name": "Tier endpoint works",
         "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings clearHistory wired",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings edit display name",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings display name API",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings avatar picker",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings avatar save",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings displayNameInput",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings public profile toggle",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Settings profile visibility wired",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Export page exists",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Export has nav",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Export fn exportData()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Export type profile",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Export type activity",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Export type all",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Voice uses avg_scores",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Writers link to blog",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Writers pass stance",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Writers Wikipedia fallback",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Books country-aware",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Books pass country",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Indigo configured",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Waterstones configured",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Booktopia configured",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Mighty Ape configured",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Bookshop.org configured",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "No Twitter/X share",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "Share claim present",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Share refresh present",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "No hardcoded Indigo-only links",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "Voice no lp.scores fallback",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "Dominant voice from avgEntries",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Pro-dashboard exists",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Pro uses avg_scores",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Pro derives dominantVoice",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Pro no stale lp.scores fallback",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "Pro no Twitter/X",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "CSS class Free-only card",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "CSS class Pro-gated card",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Tier element #upgradeCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Tier element #evolutionCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Tier element #writersCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Tier element #booksCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Tier element #stretchCard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "setTier() function",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Body class tier switching",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "BOOKSTORE_BY_COUNTRY defined",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Indigo",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Waterstones",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Booktopia",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Mighty Ape",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Bookstore Bookshop.org",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "getBookstore() function",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Country flags COUNTRY_FLAGS",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Books country-aware render",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn doLogout()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn viewPublicProfile()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn submitForFeatured()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn copyProfileLink()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn claimSlug()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn initShare()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn refreshShare()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn showToast()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn getBookstore()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn renderVoiceBars()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn renderWriters()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn renderBooks()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn renderActivity()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn renderStretch()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn startStretch()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn renderEvolution()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn setTier()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn init()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn toggleUserMenu()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn getInitial()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn formatNumber()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master JS fn timeAgo()",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master Dashboard nav",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master Blog nav",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master FAQ nav",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master Settings nav",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master Billing link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master Export link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master no alert()",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master API /api/v2/me/dashboard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Master API /api/v2/auth/logout",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Share Copy Link",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Share slug input styled",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "Share ready section",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "No Twitter/X in dashboard",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "KIM"
-      },
-      {
-        "name": "Affiliate no sentense",
-        "status": "PASS",
-        "detail": "clean",
+        "detail": "status=200",
         "owner": "MARS"
       },
       {
-        "name": "Logo README no Sentense",
+        "name": "Stripe checkout (skipped)",
         "status": "PASS",
-        "detail": "clean",
+        "detail": "--stripe-test not set",
         "owner": "MARS"
       },
       {
-        "name": "STRETCH overlay exists",
+        "name": "Share generate",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Public profile accessible",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "/user/{slug} page renders",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "User page has OG tags",
         "status": "PASS",
         "detail": "found",
-        "owner": "MARS"
+        "owner": "KIM"
       },
       {
-        "name": "STRETCH landing section",
+        "name": "STRETCH eligibility check",
         "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
+        "detail": "status=200",
+        "owner": "KIM"
       },
       {
-        "name": "STRETCH writing section",
+        "name": "STRETCH CTA check",
         "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH cycle done section",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH complete section",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH keystroke tracker",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH paste detection",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH word count UI",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH progress bar",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH submit function",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH resume function",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH resume badge",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH share LinkedIn",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH share Facebook",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH no Twitter share",
-        "status": "PASS",
-        "detail": true,
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH abandon function",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH book cards",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH cycle stats",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH technique card",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH technique tip",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Word usage bar exists",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Word usage fill bar",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Word usage label",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Word usage count",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Word usage hint",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "renderWordUsage function",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Word usage calls limits API",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Index has daily word limit",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Index 150 word cap",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Index signup CTA on limit",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "share_api.py exists",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Share generate endpoint",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Share slug validation",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Share refresh endpoint",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Share get_public_profile",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "app.py mounts share router",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "app.py has /voice/ route",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "app.py voice OG tags",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "nginx proxies /voice/",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "app.py proxy calls collector.record_analysis",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "app.py proxy returns pattern_id",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Share prompt after analysis",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Share prompt has voice URL CTA",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Public profile JSON endpoint",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Auto-compare on ref visit",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Tracks analyze referral",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Personalized CTA on voice page",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
+        "detail": "status=200",
+        "owner": "KIM"
       },
       {
         "name": "Referral track endpoint",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=422",
         "owner": "MARS"
       },
       {
-        "name": "Referral stats endpoint",
+        "name": "Referral stats requires auth",
         "status": "PASS",
-        "detail": "found",
+        "detail": "status=401",
         "owner": "MARS"
-      },
-      {
-        "name": "Voice page CTA has ref param",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Index captures ref param",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Index tracks ref visit",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "app.py writes to writing_profiles",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "All 10 OG profile images exist",
-        "status": "PASS",
-        "detail": "all found",
-        "owner": "MARS"
-      },
-      {
-        "name": "OG images non-trivial size",
-        "status": "PASS",
-        "detail": "valid",
-        "owner": "MARS"
-      },
-      {
-        "name": "Share card in dashboard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Share slug input",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "claimSlug function",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "initShare function",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "refreshShare function",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "initShare called in init",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "app.py analyze imports get_current_user",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "app.py analyze calls record_analysis",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "api_v2 get_user_id uses auth not header",
-        "status": "PASS",
-        "detail": "auth-based",
-        "owner": "MARS"
-      },
-      {
-        "name": "No featuredCard in dashboard",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "No authorityCard in dashboard",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "No tier-featured CSS",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "No tier-authority CSS",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "setTier maps featured to pro",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH learning goal",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH style example",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH clear paste",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH toast z-index",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH select onchange",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH keystroke 2000",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH no var shadow",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "STRETCH technique CSS",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Backend technique fields",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Backend style_example",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Backend learning_goal",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Backend dup input check",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Backend no Channel style",
-        "status": "PASS",
-        "detail": "removed",
-        "owner": "MARS"
-      },
-      {
-        "name": "Backend ratio 0.3",
-        "status": "PASS",
-        "detail": "0.3",
-        "owner": "MARS"
-      },
-      {
-        "name": "Mappings 10 profiles",
-        "status": "PASS",
-        "detail": "covered",
-        "owner": "MARS"
-      },
-      {
-        "name": "Authors 10 voice types",
-        "status": "PASS",
-        "detail": "covered",
-        "owner": "MARS"
-      },
-      {
-        "name": "60+ authors",
-        "status": "PASS",
-        "detail": "60",
-        "owner": "MARS"
-      },
-      {
-        "name": "90 mappings",
-        "status": "PASS",
-        "detail": "90",
-        "owner": "MARS"
-      },
-      {
-        "name": "450 prompts",
-        "status": "PASS",
-        "detail": "450",
-        "owner": "MARS"
-      },
-      {
-        "name": "Prompts have technique",
-        "status": "PASS",
-        "detail": "450/450",
-        "owner": "MARS"
-      },
-      {
-        "name": "Prompts have style_example",
-        "status": "PASS",
-        "detail": "450/450",
-        "owner": "MARS"
-      },
-      {
-        "name": "No dup starters",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "No dup instructions",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Reading pages auth-aware",
-        "status": "PASS",
-        "detail": "40/40 pages",
-        "owner": "MARS"
-      },
-      {
-        "name": "Reading pages squirrel logo",
-        "status": "PASS",
-        "detail": "40/40 pages",
-        "owner": "MARS"
-      },
-      {
-        "name": "FAQ auth-aware",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "FAQ squirrel logo",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Settings squirrel logo",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Homepage no beta badge",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog posts have related posts",
-        "status": "PASS",
-        "detail": "40/40 posts",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog sidebar no country tags",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog sidebar profiles wired",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Blog sidebar no fake counts",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Geo-block middleware",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Geo-block FR+RU",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "No double-L wordmark (Quirrelly)",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "No subprocess SQL in featured_api.py",
-        "status": "PASS",
-        "detail": "subprocess found in featured_api.py",
-        "owner": "MARS"
-      },
+      }
+    ]
+  },
+  "part_6": {
+    "name": "Security & Compliance",
+    "pass": 41,
+    "fail": 0,
+    "tests": [
       {
         "name": "No f-string SQL in featured_api.py",
         "status": "PASS",
-        "detail": "f-string SQL in featured_api.py",
-        "owner": "MARS"
-      },
-      {
-        "name": "Uses parameterized queries in featured_api.py",
-        "status": "PASS",
-        "detail": "missing parameterized helpers",
-        "owner": "MARS"
-      },
-      {
-        "name": "No subprocess SQL in newsletter_api.py",
-        "status": "PASS",
-        "detail": "subprocess found in newsletter_api.py",
+        "detail": "clean",
         "owner": "MARS"
       },
       {
         "name": "No f-string SQL in newsletter_api.py",
         "status": "PASS",
-        "detail": "f-string SQL in newsletter_api.py",
-        "owner": "MARS"
-      },
-      {
-        "name": "Uses parameterized queries in newsletter_api.py",
-        "status": "PASS",
-        "detail": "missing parameterized helpers",
-        "owner": "MARS"
-      },
-      {
-        "name": "No subprocess SQL in notify_api.py",
-        "status": "PASS",
-        "detail": "subprocess found in notify_api.py",
+        "detail": "clean",
         "owner": "MARS"
       },
       {
         "name": "No f-string SQL in notify_api.py",
         "status": "PASS",
-        "detail": "f-string SQL in notify_api.py",
+        "detail": "clean",
         "owner": "MARS"
       },
       {
-        "name": "Uses parameterized queries in notify_api.py",
+        "name": "No f-string SQL in auth_api.py",
         "status": "PASS",
-        "detail": "missing parameterized helpers",
+        "detail": "clean",
         "owner": "MARS"
       },
       {
-        "name": "app.py CORS not wildcard",
+        "name": "No f-string SQL in payments_api.py",
         "status": "PASS",
-        "detail": "wildcard CORS in app.py",
+        "detail": "clean",
         "owner": "MARS"
       },
       {
-        "name": "api.py CORS not wildcard",
+        "name": "No f-string SQL in share_api.py",
         "status": "PASS",
-        "detail": "wildcard CORS in api.py",
+        "detail": "clean",
         "owner": "MARS"
       },
       {
-        "name": "api_v2.py CORS not wildcard",
+        "name": "SQLi payload 1 \u2192 safe",
         "status": "PASS",
-        "detail": "wildcard CORS in api_v2.py",
+        "detail": "status=200",
+        "owner": "MARS"
+      },
+      {
+        "name": "SQLi payload 2 \u2192 safe",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "MARS"
+      },
+      {
+        "name": "SQLi payload 3 \u2192 safe",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "MARS"
+      },
+      {
+        "name": "Newsletter SQLi \u2192 safe",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "MARS"
+      },
+      {
+        "name": "html.escape imported in app.py",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Script tags not reflected raw",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "CORS not wildcard",
+        "status": "PASS",
+        "detail": "restricted",
+        "owner": "MARS"
+      },
+      {
+        "name": "CORS has quirrely.com",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "CORS has quirrely.ca",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "OPTIONS returns ok",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "MARS"
+      },
+      {
+        "name": "Bcrypt password hashing",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Parameterized queries in auth",
+        "status": "PASS",
+        "detail": "parameterized",
+        "owner": "MARS"
+      },
+      {
+        "name": "Session expiry check",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Expired/garbage token \u2192 401",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Empty token \u2192 401",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "No token \u2192 401",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Invalid auth scheme \u2192 401",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "HSTS header",
+        "status": "PASS",
+        "detail": "present",
+        "owner": "MARS"
+      },
+      {
+        "name": "CSP header",
+        "status": "PASS",
+        "detail": "present",
+        "owner": "MARS"
+      },
+      {
+        "name": "X-Frame-Options",
+        "status": "PASS",
+        "detail": "present",
+        "owner": "MARS"
+      },
+      {
+        "name": "X-Content-Type-Options",
+        "status": "PASS",
+        "detail": "present",
+        "owner": "MARS"
+      },
+      {
+        "name": "Geo-block middleware exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Geo-block includes FR+RU",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "FR \u2192 blocked",
+        "status": "PASS",
+        "detail": "blocked",
+        "owner": "MARS"
+      },
+      {
+        "name": ".env perms 600",
+        "status": "PASS",
+        "detail": "perms=600",
+        "owner": "MARS"
+      },
+      {
+        "name": "No hardcoded keys in email_service.py",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "No hardcoded keys in notify_api.py",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "MARS"
+      },
+      {
+        "name": "No hardcoded keys in newsletter_api.py",
+        "status": "PASS",
+        "detail": "clean",
         "owner": "MARS"
       },
       {
@@ -3077,199 +1730,80 @@
         "owner": "MARS"
       },
       {
-        "name": "HSTS header present",
+        "name": "slowapi imported",
         "status": "PASS",
-        "detail": "missing HSTS",
-        "owner": "MARS"
-      },
-      {
-        "name": "CSP header present",
-        "status": "PASS",
-        "detail": "missing CSP",
-        "owner": "MARS"
-      },
-      {
-        "name": "X-Frame-Options present",
-        "status": "PASS",
-        "detail": "missing X-Frame-Options",
-        "owner": "MARS"
-      },
-      {
-        "name": "X-Content-Type-Options present",
-        "status": "PASS",
-        "detail": "missing X-Content-Type-Options",
-        "owner": "MARS"
-      },
-      {
-        "name": "Bcrypt password hashing",
-        "status": "PASS",
-        "detail": "no bcrypt found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Parameterized queries in auth_api",
-        "status": "PASS",
-        "detail": "missing parameterized queries",
-        "owner": "MARS"
-      },
-      {
-        "name": "Session expiry check",
-        "status": "PASS",
-        "detail": "no session expiry",
-        "owner": "MARS"
-      },
-      {
-        "name": "Avatar URL validation",
-        "status": "PASS",
-        "detail": "no avatar validation",
-        "owner": "MARS"
-      },
-      {
-        "name": ".env permissions restricted",
-        "status": "PASS",
-        "detail": "perms=600",
-        "owner": "MARS"
-      },
-      {
-        "name": "No hardcoded .env path in newsletter_api.py",
-        "status": "PASS",
-        "detail": "hardcoded .env path",
-        "owner": "MARS"
-      },
-      {
-        "name": "Uses os.getenv in newsletter_api.py",
-        "status": "PASS",
-        "detail": "not using os.getenv",
-        "owner": "MARS"
-      },
-      {
-        "name": "No hardcoded .env path in notify_api.py",
-        "status": "PASS",
-        "detail": "hardcoded .env path",
-        "owner": "MARS"
-      },
-      {
-        "name": "Uses os.getenv in notify_api.py",
-        "status": "PASS",
-        "detail": "not using os.getenv",
+        "detail": "found",
         "owner": "MARS"
       },
       {
         "name": "Cookies httpOnly",
         "status": "PASS",
-        "detail": "httponly not set",
+        "detail": "found",
         "owner": "MARS"
       },
       {
         "name": "Cookies secure flag",
         "status": "PASS",
-        "detail": "secure flag missing",
+        "detail": "found",
         "owner": "MARS"
       },
       {
         "name": "Cookies SameSite",
         "status": "PASS",
-        "detail": "samesite missing",
+        "detail": "found",
         "owner": "MARS"
-      },
+      }
+    ]
+  },
+  "part_7": {
+    "name": "Conversion & Revenue Audit",
+    "pass": 42,
+    "fail": 0,
+    "tests": [
       {
-        "name": "Geo-block FR returns 403",
-        "status": "PASS",
-        "detail": "geo-block not working",
-        "owner": "MARS"
-      },
-      {
-        "name": "USD in Currency enum",
+        "name": "Index has signup CTA",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
       },
       {
-        "name": "US in COUNTRY_TO_CURRENCY",
+        "name": "Index has share prompt",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
       },
       {
-        "name": "USD pricing block",
+        "name": "Dashboard has upgrade card",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
       },
       {
-        "name": "No NEVER USD in stripe_config",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "US in Country enum",
+        "name": "Blog has newsletter form",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
       },
       {
-        "name": "US CountryConfig exists",
+        "name": "Featured has tier CTAs",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
       },
       {
-        "name": "US in GEO_COUNTRY_MAP",
+        "name": "FAQ has auth-aware nav",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
       },
       {
-        "name": "Bookshop.org in launch_config",
+        "name": "Settings has billing link",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
       },
       {
-        "name": "US locale en-US in geo_redirect",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "US retailer in affiliate_service",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "Bookshop.org in affiliate",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "US in affiliate country loop",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "MARS"
-      },
-      {
-        "name": "US bookstore in dashboard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "bookshop.org URL in dashboard",
-        "status": "PASS",
-        "detail": "found",
-        "owner": "KIM"
-      },
-      {
-        "name": "US not in blocked countries",
-        "status": "PASS",
-        "detail": "clean",
-        "owner": "MARS"
-      },
-      {
-        "name": "Billing USD button",
+        "name": "Dashboard has billing link",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
@@ -3305,10 +1839,136 @@
         "owner": "MARS"
       },
       {
-        "name": "pricing.js US auto-detect",
+        "name": "Pricing auto-detect US",
         "status": "PASS",
         "detail": "found",
         "owner": "MARS"
+      },
+      {
+        "name": "Checkout allows promo codes",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Stripe coupon active",
+        "status": "PASS",
+        "detail": "valid",
+        "owner": "MARS"
+      },
+      {
+        "name": "Dashboard upgrade card exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Settings has billing link",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Signup has checkout redirect",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Login has checkout redirect",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Pricing saves tier on redirect",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share slug input",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Share claim function",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Share copy link",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Share refresh function",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Share LinkedIn button",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Referral track endpoint",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Referral stats endpoint",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Index captures ref param",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Index tracks ref visit",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "Bookstore Indigo configured",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Bookstore Waterstones configured",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Bookstore Booktopia configured",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Bookstore Mighty Ape configured",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Bookstore Bookshop.org configured",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
       },
       {
         "name": "No Amazon in affiliate",
@@ -3320,6 +1980,1046 @@
         "name": "No Amazon in dashboard",
         "status": "PASS",
         "detail": "clean",
+        "owner": "KIM"
+      },
+      {
+        "name": "Blog newsletter form wired",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Blog no fake subscriber count",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "KIM"
+      },
+      {
+        "name": "Trial start endpoint exists",
+        "status": "PASS",
+        "detail": "status=401 (auth required)",
+        "owner": "MARS"
+      },
+      {
+        "name": "Trial status endpoint exists",
+        "status": "PASS",
+        "detail": "status=401 (auth required)",
+        "owner": "MARS"
+      },
+      {
+        "name": "Dashboard has upgrade prompt for free",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      }
+    ]
+  },
+  "part_8": {
+    "name": "Performance & Reliability",
+    "pass": 21,
+    "fail": 0,
+    "tests": [
+      {
+        "name": "Health p50 < 200ms",
+        "status": "PASS",
+        "detail": "p50=2ms p95=3ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Health p95 < 400ms",
+        "status": "PASS",
+        "detail": "p95=3ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Pricing p50 < 500ms",
+        "status": "PASS",
+        "detail": "p50=2ms p95=2ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Pricing p95 < 1000ms",
+        "status": "PASS",
+        "detail": "p95=2ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Featured p50 < 500ms",
+        "status": "PASS",
+        "detail": "p50=8ms p95=10ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Featured p95 < 1000ms",
+        "status": "PASS",
+        "detail": "p95=10ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Newsletter count p50 < 500ms",
+        "status": "PASS",
+        "detail": "p50=7ms p95=8ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Newsletter count p95 < 1000ms",
+        "status": "PASS",
+        "detail": "p95=8ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Analyze p50 < 3s",
+        "status": "PASS",
+        "detail": "p50=73ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Analyze p95 < 5s",
+        "status": "PASS",
+        "detail": "p95=77ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Concurrent: >= 3/5 succeed",
+        "status": "PASS",
+        "detail": "5/5 succeeded",
+        "owner": "ASO"
+      },
+      {
+        "name": "Concurrent: none > 10s",
+        "status": "PASS",
+        "detail": "max=269ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Concurrent: no 500s",
+        "status": "PASS",
+        "detail": "clean",
+        "owner": "ASO"
+      },
+      {
+        "name": "5000-word text \u2192 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "ASO"
+      },
+      {
+        "name": "5000-word text < 15s",
+        "status": "PASS",
+        "detail": "70ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Memory increase < 100MB",
+        "status": "PASS",
+        "detail": "before=23.0MB after=23.0MB delta=0.0MB",
+        "owner": "ASO"
+      },
+      {
+        "name": "Memory still < 512MB",
+        "status": "PASS",
+        "detail": "23.0MB",
+        "owner": "ASO"
+      },
+      {
+        "name": "DB User count < 1s",
+        "status": "PASS",
+        "detail": "32ms, 138",
+        "owner": "ASO"
+      },
+      {
+        "name": "DB Profile count < 1s",
+        "status": "PASS",
+        "detail": "30ms, 9",
+        "owner": "ASO"
+      },
+      {
+        "name": "DB Events count < 1s",
+        "status": "PASS",
+        "detail": "29ms, 328",
+        "owner": "ASO"
+      },
+      {
+        "name": "DB connections < 80%",
+        "status": "PASS",
+        "detail": "1/100 (1%)",
+        "owner": "ASO"
+      }
+    ]
+  },
+  "summary": {
+    "total_pass": 348,
+    "total_fail": 0,
+    "pct": 100
+  },
+  "suggestions": [],
+  "benchmarks": {
+    "pm2_memory_mb": 23.0,
+    "health_ms": 3,
+    "analyze_ms": 72,
+    "pricing_ms": 2,
+    "health_p50_ms": 2,
+    "health_p95_ms": 3,
+    "pricing_p50_ms": 2,
+    "pricing_p95_ms": 2,
+    "featured_p50_ms": 8,
+    "featured_p95_ms": 10,
+    "newsletter_count_p50_ms": 7,
+    "newsletter_count_p95_ms": 8,
+    "analyze_p50_ms": 73,
+    "analyze_p95_ms": 77
+  },
+  "part_a": {
+    "name": "Infrastructure & Environment",
+    "pass": 40,
+    "fail": 0,
+    "tests": [
+      {
+        "name": "PM2 quirrely online",
+        "status": "PASS",
+        "detail": "status=online",
+        "owner": "ASO"
+      },
+      {
+        "name": "PM2 restarts < 25",
+        "status": "PASS",
+        "detail": "restarts=0",
+        "owner": "ASO"
+      },
+      {
+        "name": "PM2 memory < 512MB",
+        "status": "PASS",
+        "detail": "23.0MB",
+        "owner": "ASO"
+      },
+      {
+        "name": "PM2 uptime > 1hr",
+        "status": "PASS",
+        "detail": "9.8hr",
+        "owner": "ASO"
+      },
+      {
+        "name": "GET /health 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "ASO"
+      },
+      {
+        "name": "API version present",
+        "status": "PASS",
+        "detail": "version=3.1.3",
+        "owner": "ASO"
+      },
+      {
+        "name": "API status healthy",
+        "status": "PASS",
+        "detail": "status=healthy",
+        "owner": "ASO"
+      },
+      {
+        "name": "GET /api/v2/health 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "ASO"
+      },
+      {
+        "name": "PostgreSQL connection",
+        "status": "PASS",
+        "detail": "PostgreSQL 13.23 on x86_64-redhat-linux-",
+        "owner": "ASO"
+      },
+      {
+        "name": "Public schema 15+ tables",
+        "status": "PASS",
+        "detail": "108 tables",
+        "owner": "ASO"
+      },
+      {
+        "name": "Table 'users' accessible",
+        "status": "PASS",
+        "detail": "rows=133",
+        "owner": "ASO"
+      },
+      {
+        "name": "Table 'writing_profiles' accessible",
+        "status": "PASS",
+        "detail": "rows=6",
+        "owner": "ASO"
+      },
+      {
+        "name": "Table 'subscriptions' accessible",
+        "status": "PASS",
+        "detail": "rows=1",
+        "owner": "ASO"
+      },
+      {
+        "name": "Table 'waitlist' accessible",
+        "status": "PASS",
+        "detail": "rows=32",
+        "owner": "ASO"
+      },
+      {
+        "name": "Table 'auth_sessions' accessible",
+        "status": "PASS",
+        "detail": "rows=136",
+        "owner": "ASO"
+      },
+      {
+        "name": "Table 'newsletter_subscribers' accessible",
+        "status": "PASS",
+        "detail": "rows=3",
+        "owner": "ASO"
+      },
+      {
+        "name": "Table 'analytics_events' accessible",
+        "status": "PASS",
+        "detail": "rows=328",
+        "owner": "ASO"
+      },
+      {
+        "name": "Table 'share_profiles' accessible",
+        "status": "PASS",
+        "detail": "rows=2",
+        "owner": "ASO"
+      },
+      {
+        "name": "DB connection pool < 80%",
+        "status": "PASS",
+        "detail": "1/100 (1%)",
+        "owner": "ASO"
+      },
+      {
+        "name": "quirrely.com reachable",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "ASO"
+      },
+      {
+        "name": "quirrely.ca reachable",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "ASO"
+      },
+      {
+        "name": "SSL valid: quirrely.com",
+        "status": "PASS",
+        "detail": "77 days",
+        "owner": "ASO"
+      },
+      {
+        "name": "SSL valid: api.quirrely.com",
+        "status": "PASS",
+        "detail": "77 days",
+        "owner": "ASO"
+      },
+      {
+        "name": "SSL valid: quirrely.ca",
+        "status": "PASS",
+        "detail": "77 days",
+        "owner": "ASO"
+      },
+      {
+        "name": "STRIPE_SECRET_KEY present",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "STRIPE key sk_live_ or sk_test_",
+        "status": "PASS",
+        "detail": "live",
+        "owner": "MARS"
+      },
+      {
+        "name": "STRIPE_WEBHOOK_SECRET present",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "MARS"
+      },
+      {
+        "name": "STRIPE_PRICE_PRO_MONTHLY set",
+        "status": "PASS",
+        "detail": "price_1T45s1EKkxcRaO",
+        "owner": "MARS"
+      },
+      {
+        "name": "STRIPE_PRICE_PRO_ANNUAL set",
+        "status": "PASS",
+        "detail": "price_1T45tiEKkxcRaO",
+        "owner": "MARS"
+      },
+      {
+        "name": "Disk usage < 80%",
+        "status": "PASS",
+        "detail": "11% (9.9G/100G)",
+        "owner": "ASO"
+      },
+      {
+        "name": "Apache/httpd active",
+        "status": "PASS",
+        "detail": "active",
+        "owner": "ASO"
+      },
+      {
+        "name": ".env permissions 600",
+        "status": "PASS",
+        "detail": "perms=600",
+        "owner": "ASO"
+      },
+      {
+        "name": "Health < 200ms",
+        "status": "PASS",
+        "detail": "3ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Analyze < 3s",
+        "status": "PASS",
+        "detail": "72ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Pricing < 500ms",
+        "status": "PASS",
+        "detail": "2ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Admin health < 500ms",
+        "status": "PASS",
+        "detail": "2ms",
+        "owner": "ASO"
+      },
+      {
+        "name": "Dashboard endpoint < 500ms",
+        "status": "PASS",
+        "detail": "4ms (401 expected)",
+        "owner": "ASO"
+      },
+      {
+        "name": "STRETCH prompts 450+",
+        "status": "PASS",
+        "detail": "450 prompts",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH authors 60+",
+        "status": "PASS",
+        "detail": "60 authors",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH 10 voice types",
+        "status": "PASS",
+        "detail": "10 voices",
+        "owner": "KIM"
+      }
+    ]
+  },
+  "part_b": {
+    "name": "LNCP Engine",
+    "pass": 35,
+    "fail": 0,
+    "tests": [
+      {
+        "name": "LNCP session created",
+        "status": "PASS",
+        "detail": "session=8ae5d7f9...",
+        "owner": "KIM"
+      },
+      {
+        "name": "LNCP group 1 accepted",
+        "status": "PASS",
+        "detail": "gate=1/3",
+        "owner": "KIM"
+      },
+      {
+        "name": "LNCP group 2 accepted",
+        "status": "PASS",
+        "detail": "gate=2/3",
+        "owner": "KIM"
+      },
+      {
+        "name": "LNCP group 3 accepted",
+        "status": "PASS",
+        "detail": "gate=3/3",
+        "owner": "KIM"
+      },
+      {
+        "name": "LNCP gate complete",
+        "status": "PASS",
+        "detail": "complete",
+        "owner": "KIM"
+      },
+      {
+        "name": "LNCP analysis runs",
+        "status": "PASS",
+        "detail": "sentences=6",
+        "owner": "KIM"
+      },
+      {
+        "name": "LNCP phase2 present",
+        "status": "PASS",
+        "detail": "mode=DESCRIPTIVE",
+        "owner": "KIM"
+      },
+      {
+        "name": "LNCP phase3 syntheses",
+        "status": "PASS",
+        "detail": "3 syntheses",
+        "owner": "KIM"
+      },
+      {
+        "name": "LNCP session cleanup",
+        "status": "PASS",
+        "detail": "ok",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analyze endpoint 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analyze returns profiles dict",
+        "status": "PASS",
+        "detail": "10 profiles",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analyze profiles has 10 keys",
+        "status": "PASS",
+        "detail": "10 keys: ['ASSERTIVE', 'MINIMAL', 'POETIC', 'DENSE', 'CONVERSATIONAL']...",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analyze returns stances dict",
+        "status": "PASS",
+        "detail": "4 stances",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analyze stances has 4+ keys",
+        "status": "PASS",
+        "detail": "4 keys: ['OPEN', 'CLOSED', 'BALANCED', 'CONTRADICTORY']",
+        "owner": "KIM"
+      },
+      {
+        "name": "Confidence is float 0-1",
+        "status": "PASS",
+        "detail": "confidence=0.8881788356089999",
+        "owner": "KIM"
+      },
+      {
+        "name": "All inputs return 10 profile keys",
+        "status": "PASS",
+        "detail": "checked 10 texts",
+        "owner": "KIM"
+      },
+      {
+        "name": "All profile scores 0-1 floats",
+        "status": "PASS",
+        "detail": "valid ranges",
+        "owner": "KIM"
+      },
+      {
+        "name": "Multiple profiles appear as dominant",
+        "status": "PASS",
+        "detail": "10 distinct profiles seen",
+        "owner": "KIM"
+      },
+      {
+        "name": "Score keys match 10 profiles",
+        "status": "PASS",
+        "detail": "all 10 present",
+        "owner": "KIM"
+      },
+      {
+        "name": "Stance keys present",
+        "status": "PASS",
+        "detail": "all 4 present",
+        "owner": "KIM"
+      },
+      {
+        "name": "Stance scores 0-1 floats",
+        "status": "PASS",
+        "detail": "valid ranges",
+        "owner": "KIM"
+      },
+      {
+        "name": "Top stance score > 0.5",
+        "status": "PASS",
+        "detail": "top=0.962",
+        "owner": "KIM"
+      },
+      {
+        "name": "Response has stance field",
+        "status": "PASS",
+        "detail": "stance=BALANCED",
+        "owner": "KIM"
+      },
+      {
+        "name": "Confidence float 0-1",
+        "status": "PASS",
+        "detail": "confidence=0.7617679372512454",
+        "owner": "KIM"
+      },
+      {
+        "name": "Analysis responses distinct",
+        "status": "PASS",
+        "detail": "2 distinct from 2 analyses",
+        "owner": "KIM"
+      },
+      {
+        "name": "patterns.json exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "history.json exists",
+        "status": "PASS",
+        "detail": "found",
+        "owner": "KIM"
+      },
+      {
+        "name": "Empty text \u2192 422",
+        "status": "PASS",
+        "detail": "status=422",
+        "owner": "KIM"
+      },
+      {
+        "name": "Short text \u2192 422",
+        "status": "PASS",
+        "detail": "status=422",
+        "owner": "KIM"
+      },
+      {
+        "name": "Unicode text \u2192 graceful",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "5000-word text \u2192 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "SQL injection in text \u2192 safe",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "XSS in text \u2192 safe",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Missing text field \u2192 422",
+        "status": "PASS",
+        "detail": "status=422",
+        "owner": "KIM"
+      },
+      {
+        "name": "Non-string text \u2192 422",
+        "status": "PASS",
+        "detail": "status=422",
+        "owner": "KIM"
+      }
+    ]
+  },
+  "part_c": {
+    "name": "Backend API Coverage",
+    "pass": 64,
+    "fail": 0,
+    "tests": [
+      {
+        "name": "Signup endpoint works",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Login returns token",
+        "status": "PASS",
+        "detail": "received",
+        "owner": "KIM"
+      },
+      {
+        "name": "Duplicate signup rejected",
+        "status": "PASS",
+        "detail": "status=400",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/me with token",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "POST /auth/logout",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Re-login after logout",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Password change",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Password reset endpoint mounted",
+        "status": "PASS",
+        "detail": "status=422",
+        "owner": "KIM"
+      },
+      {
+        "name": "Verify resend mounted",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Verify required mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/sessions",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Account delete endpoint mounted",
+        "status": "PASS",
+        "detail": "status=401 (401=auth required)",
+        "owner": "KIM"
+      },
+      {
+        "name": "POST /auth/me/update",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Save-analysis requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard returns data with auth",
+        "status": "PASS",
+        "detail": "status=200, keys=['user', 'latest_profile', 'stats', 'avg_scores']",
+        "owner": "KIM"
+      },
+      {
+        "name": "Clear history requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Pricing CAD correct",
+        "status": "PASS",
+        "detail": "pro=2.99 expect=2.99",
+        "owner": "MARS"
+      },
+      {
+        "name": "Pricing GBP correct",
+        "status": "PASS",
+        "detail": "pro=1.99 expect=1.99",
+        "owner": "MARS"
+      },
+      {
+        "name": "Pricing AUD correct",
+        "status": "PASS",
+        "detail": "pro=4.99 expect=4.99",
+        "owner": "MARS"
+      },
+      {
+        "name": "Pricing NZD correct",
+        "status": "PASS",
+        "detail": "pro=3.99 expect=3.99",
+        "owner": "MARS"
+      },
+      {
+        "name": "Pricing USD correct",
+        "status": "PASS",
+        "detail": "pro=2.99 expect=2.99",
+        "owner": "MARS"
+      },
+      {
+        "name": "Pricing /all endpoint",
+        "status": "PASS",
+        "detail": "status=500",
+        "owner": "MARS"
+      },
+      {
+        "name": "Checkout requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Subscription requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Cancel subscription requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Trial status requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Trial start requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Tier endpoint requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Billing portal requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "MARS"
+      },
+      {
+        "name": "Refund policy endpoint",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "MARS"
+      },
+      {
+        "name": "Webhook endpoint exists",
+        "status": "PASS",
+        "detail": "status=400",
+        "owner": "MARS"
+      },
+      {
+        "name": "Share generate requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Share /me requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Share public 404 for bad slug",
+        "status": "PASS",
+        "detail": "status=404",
+        "owner": "KIM"
+      },
+      {
+        "name": "Referral track endpoint",
+        "status": "PASS",
+        "detail": "status=422",
+        "owner": "KIM"
+      },
+      {
+        "name": "Referral stats requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH eligibility mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH recommend mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH progress mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH history mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH CTA mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Newsletter subscribe 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Newsletter rejects bad email",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Newsletter dedup",
+        "status": "PASS",
+        "detail": "new=False",
+        "owner": "KIM"
+      },
+      {
+        "name": "Newsletter count 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Featured approved 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Featured submit requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Featured my-submission requires auth",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Featured admin requires key",
+        "status": "PASS",
+        "detail": "status=403",
+        "owner": "KIM"
+      },
+      {
+        "name": "Admin health 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Admin overview 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Admin real stats 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Admin overview requires key",
+        "status": "PASS",
+        "detail": "status=403",
+        "owner": "KIM"
+      },
+      {
+        "name": "Super admin pulse mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Super admin actions mounted",
+        "status": "PASS",
+        "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Reader event mounted",
+        "status": "PASS",
+        "detail": "status=404 (401/404 expected)",
+        "owner": "KIM"
+      },
+      {
+        "name": "Reader taste mounted",
+        "status": "PASS",
+        "detail": "status=404",
+        "owner": "KIM"
+      },
+      {
+        "name": "Reader recommendations mounted",
+        "status": "PASS",
+        "detail": "status=404",
+        "owner": "KIM"
+      },
+      {
+        "name": "Reader bookmarks mounted",
+        "status": "PASS",
+        "detail": "status=404",
+        "owner": "KIM"
+      },
+      {
+        "name": "Extension health responds",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "FREE: basic_analysis allowed",
+        "status": "PASS",
+        "detail": "allowed",
+        "owner": "KIM"
+      },
+      {
+        "name": "FREE: unlimited_analyses blocked",
+        "status": "PASS",
+        "detail": "blocked",
+        "owner": "KIM"
+      },
+      {
+        "name": "PRO: unlimited_analyses allowed",
+        "status": "PASS",
+        "detail": "allowed",
         "owner": "KIM"
       }
     ]

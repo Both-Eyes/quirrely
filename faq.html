@@ -40,6 +40,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1
 .cta-box{background:linear-gradient(135deg,var(--coral),var(--purple));border-radius:var(--radius-lg);padding:2.5rem;text-align:center;margin-top:2.5rem;color:#fff}
 .cta-box h3{font-size:1.3rem;margin-bottom:0.5rem}.cta-box p{opacity:0.9;margin-bottom:1.25rem}
 .cta-btn{display:inline-block;background:#fff;color:var(--coral);padding:0.7rem 2rem;border-radius:var(--radius-sm);font-weight:700;text-decoration:none;transition:transform 0.2s}.cta-btn:hover{transform:translateY(-2px)}
+.newsletter{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;text-align:center;margin-top:1.5rem}
+.newsletter h3{font-size:1.1rem;margin-bottom:0.4rem}.newsletter p{font-size:0.9rem;color:var(--muted);margin-bottom:1rem}
+.nl-form{display:flex;gap:0.5rem;max-width:360px;margin:0 auto}
+.nl-form input{flex:1;padding:0.6rem 1rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none}.nl-form input:focus{border-color:var(--coral)}
+.nl-form button{background:var(--coral);color:#fff;border:none;padding:0.6rem 1.2rem;border-radius:var(--radius-sm);font-weight:700;cursor:pointer;font-size:0.9rem;transition:background 0.2s}.nl-form button:hover{background:var(--coral-dark)}
 .footer{text-align:center;padding:2rem;font-size:0.85rem;color:var(--light)}.footer a{color:var(--muted);text-decoration:none}
 @media(max-width:600px){.main{padding:1rem}.header{padding:0.75rem 1rem}.header-nav{gap:0.75rem}.page-title{font-size:1.5rem}}
 </style>
@@ -77,7 +82,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1
 <div class="faq-a"><p>Pro subscribers get access to STRETCH &mdash; targeted writing exercises designed around your specific voice profile. You can also retake the analysis with different writing samples to see how your voice shifts across contexts. Your dashboard tracks your voice evolution over time so you can see growth.</p></div></div>
 
 <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What countries is Quirrely available in?<span class="faq-arrow">&#9660;</span></div>
-<div class="faq-a"><p>Quirrely is currently available in Canada, the United Kingdom, Australia, and New Zealand. USA coming soon! Our recommended reading feature links to local bookstores in each supported country.</p></div></div>
+<div class="faq-a"><p>Quirrely is available in Canada, the United States, the United Kingdom, Australia, and New Zealand. Our recommended reading feature links to local bookstores in each supported country.</p></div></div>
 
 <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I share my voice profile?<span class="faq-arrow">&#9660;</span></div>
 <div class="faq-a"><p>From your <a href="/dashboard">dashboard</a>, click the share button on your voice card. You can copy a direct link, share to LinkedIn, or post to Facebook. Your public profile shows your voice type and stance &mdash; never your raw text.</p></div></div>
@@ -92,6 +97,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1
 <p>It takes less than a minute. Paste your writing and see what makes your voice unique.</p>
 <a href="/" class="cta-btn">Take the Test Free &rarr;</a>
 </div>
+<div class="newsletter">
+<h3>Voice Insights, weekly</h3>
+<p>Tips on writing voice, new features, and featured writers — straight to your inbox.</p>
+<form class="nl-form" id="faq-nl-form">
+<input type="email" id="faq-nl-email" placeholder="you@email.com" required>
+<button type="submit" id="faq-nl-btn">Subscribe</button>
+</form>
+<p id="faq-nl-msg" style="display:none;font-size:0.85rem;margin-top:0.75rem;"></p>
+</div>
 </main>
 <footer class="footer">
 <p>Quirrely &middot; <a href="/blog/terms.html">Terms</a> &middot; <a href="/blog/privacy.html">Privacy</a> &middot; <a href="mailto:hello@quirrely.com">Support</a></p>
@@ -105,6 +119,23 @@ function toggleFaq(el){el.parentElement.classList.toggle('open')}
     n.innerHTML='<a href="/dashboard">Dashboard</a><a href="/frontend/index.html">Analyze</a><a href="/faq" class="active">FAQ</a><a href="/settings">Settings</a>';
   }
 })();
+document.getElementById('faq-nl-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var email=document.getElementById('faq-nl-email').value.trim();
+  var btn=document.getElementById('faq-nl-btn');
+  var msg=document.getElementById('faq-nl-msg');
+  if(!email)return;
+  btn.disabled=true;btn.textContent='...';
+  try{
+    var r=await fetch('/api/v2/newsletter/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,source:'faq'})});
+    var d=await r.json();
+    msg.style.display='block';
+    if(d.success){msg.style.color='var(--green)';msg.textContent=d.new?'You are in! Check your inbox.':'You are already subscribed!';}
+    else{msg.style.color='var(--coral)';msg.textContent=d.error||'Something went wrong.';}
+    if(d.success)document.getElementById('faq-nl-email').value='';
+  }catch(err){msg.style.display='block';msg.style.color='var(--coral)';msg.textContent='Connection error. Try again.';}
+  btn.disabled=false;btn.textContent='Subscribe';
+});
 </script>
 </body>
 </html>
