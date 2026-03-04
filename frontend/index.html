@@ -400,13 +400,14 @@
     .profile-container { max-width: 680px; margin: 0 auto; }
     
     .profile-header { margin-bottom: 1.75rem; text-align: center; }
-    .profile-title { 
-      font-family: var(--font-display); 
-      font-size: 1.85rem; 
-      font-weight: 700; 
+    .profile-title {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 700;
       color: var(--color-ink);
       margin-bottom: 0.5rem;
     }
+    #deep-screen .profile-title { font-size: 1.25rem; }
     .profile-title .stance-modifier { 
       font-family: var(--font-display); 
       font-size: 0.55em; 
@@ -444,13 +445,13 @@
     }
     
     .profile-sketch { 
-      background: linear-gradient(135deg, var(--color-light) 0%, #FFF 100%); 
-      border-radius: var(--radius-md); 
-      padding: 1.5rem; 
+      background: linear-gradient(135deg, var(--color-light) 0%, var(--color-card) 100%);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
       margin-bottom: 1.5rem;
       border: 1px solid var(--color-border);
     }
-    .section-title { 
+    .section-title {
       font-family: var(--font-display); 
       font-size: 0.75rem; 
       font-weight: 600;
@@ -516,11 +517,23 @@
     
     .writing-ancestors { font-style: italic; color: var(--color-muted); font-size: 0.9rem; margin-top: 0.75rem; }
     .ancestor-reason { font-size: 0.85rem; color: var(--color-ink); margin-top: 0.5rem; line-height: 1.6; }
-    
+
+    /* Deep Analysis staggered fadeUp */
+    #deep-screen .profile-header { animation: deepFadeUp 0.4s ease forwards; animation-delay: 0.05s; opacity: 0; }
+    #deep-screen .profile-sketch { animation: deepFadeUp 0.4s ease forwards; animation-delay: 0.12s; opacity: 0; }
+    #deep-screen .profile-grid { animation: deepFadeUp 0.4s ease forwards; animation-delay: 0.19s; opacity: 0; }
+    #deep-screen .voice-ingredients { animation: deepFadeUp 0.4s ease forwards; animation-delay: 0.26s; opacity: 0; }
+    #deep-screen .stance-section { animation: deepFadeUp 0.4s ease forwards; animation-delay: 0.33s; opacity: 0; }
+    #deep-screen .text-center { animation: deepFadeUp 0.4s ease forwards; animation-delay: 0.4s; opacity: 0; }
+    @keyframes deepFadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* Landing Hook - vibrant */
     .pronunciation {
       font-size: 0.9rem;
-      color: #636E72;
+      color: var(--color-muted);
       font-style: italic;
       text-align: center;
       margin-top: -0.5rem;
@@ -658,7 +671,7 @@
     
     /* Reading List - elegant book cards for click-through */
     .reading-list {
-      background: linear-gradient(135deg, var(--color-light) 0%, #FEFEFE 100%);
+      background: linear-gradient(135deg, var(--color-light) 0%, var(--color-card) 100%);
       border-radius: var(--radius-lg);
       padding: 1.5rem;
       margin: 1.5rem 0;
@@ -684,7 +697,7 @@
       line-height: 1.5;
     }
     .book-card {
-      background: white;
+      background: var(--color-card);
       border-radius: var(--radius-md);
       padding: 1rem 1.25rem;
       margin-bottom: 0.75rem;
@@ -1889,643 +1902,6 @@
       line-height: 1.6;
     }
 
-    .btn-primary {
-      background: var(--color-accent); 
-      color: white; 
-      box-shadow: 0 2px 8px rgba(196, 120, 90, 0.3);
-    }
-    .btn-primary:hover { 
-      transform: translateY(-2px); 
-      box-shadow: 0 4px 16px rgba(196, 120, 90, 0.4); 
-    }
-    .btn-secondary { 
-      background: transparent; 
-      color: var(--color-accent); 
-      border: 2px solid var(--color-accent); 
-    }
-    .btn-secondary:hover { background: var(--color-highlight); }
-    .btn-small { padding: 0.5rem 1rem; font-size: 0.85rem; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
-    
-    textarea { 
-      width: 100%; 
-      min-height: 160px; 
-      padding: 1.25rem; 
-      font-family: var(--font-body); 
-      font-size: 1rem; 
-      line-height: 1.8; 
-      border: 2px solid var(--color-border); 
-      border-radius: var(--radius-md); 
-      resize: vertical; 
-      background: var(--color-bg); 
-      transition: border-color 0.3s, box-shadow 0.3s; 
-    }
-    textarea:focus { 
-      outline: none; 
-      border-color: var(--color-accent); 
-      box-shadow: 0 0 0 4px rgba(196, 120, 90, 0.1);
-    }
-    .label { 
-      display: block; 
-      font-family: var(--font-mono); 
-      font-size: 0.7rem; 
-      text-transform: uppercase; 
-      letter-spacing: 0.12em; 
-      color: var(--color-muted); 
-      margin-bottom: 0.5rem; 
-    }
-    
-    /* Profile Icons */
-    .profile-icon { 
-      font-size: 1.5rem; 
-      margin-right: 0.5rem; 
-      vertical-align: middle;
-    }
-    
-    /* Stance badges with icons */
-    .stance-badge { 
-      display: inline-flex; 
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.4rem 1rem; 
-      border-radius: 50px; 
-      font-family: var(--font-mono); 
-      font-size: 0.75rem; 
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .stance-icon { font-size: 1rem; }
-    .stance-badge.open { background: var(--color-open); color: white; }
-    .stance-badge.closed { background: var(--color-closed); color: white; }
-    .stance-badge.balanced { background: var(--color-balanced); color: white; }
-    .stance-badge.minimal { background: var(--color-muted); color: white; }
-    .stance-badge.contradictory { background: var(--color-contradictory); color: white; }
-    
-    .stance-spectrum { 
-      display: flex; 
-      align-items: center; 
-      gap: 0.75rem; 
-      margin: 1.25rem 0; 
-      padding: 1rem; 
-      background: var(--color-cream); 
-      border-radius: var(--radius-md); 
-    }
-    .spectrum-label { font-size: 0.75rem; color: var(--color-muted); min-width: 50px; }
-    .spectrum-bar { 
-      flex: 1; 
-      height: 10px; 
-      background: linear-gradient(to right, var(--color-open), var(--color-cream), var(--color-closed)); 
-      border-radius: 5px; 
-      position: relative; 
-    }
-    .spectrum-marker { 
-      position: absolute; 
-      top: -5px; 
-      width: 20px; 
-      height: 20px; 
-      background: var(--color-ink); 
-      border-radius: 50%; 
-      border: 3px solid white; 
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2); 
-      transform: translateX(-50%); 
-      transition: left 0.3s ease;
-    }
-    
-    .marker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.75rem; margin-top: 1rem; }
-    .marker-item { 
-      background: var(--color-bg); 
-      padding: 0.75rem; 
-      border-radius: var(--radius-sm); 
-      border: 1px solid var(--color-border);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .marker-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); }
-    .marker-header { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 0.3rem; }
-    .marker-word { font-family: var(--font-mono); font-weight: 500; color: var(--color-accent); font-size: 0.9rem; }
-    .marker-category { font-size: 0.6rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-    .marker-context { font-size: 0.75rem; color: var(--color-muted); font-style: italic; }
-    
-    .stance-context { font-size: 0.9rem; color: var(--color-muted); font-style: italic; margin-top: 0.75rem; line-height: 1.6; }
-    
-    .profile-container { max-width: 700px; margin: 0 auto; }
-    
-    .profile-header { margin-bottom: 2rem; text-align: center; }
-    .profile-title { 
-      font-family: var(--font-display); 
-      font-size: 2rem; 
-      font-weight: 500; 
-      color: var(--color-ink);
-      margin-bottom: 0.5rem;
-    }
-    .profile-title .stance-modifier { 
-      font-family: var(--font-mono); 
-      font-size: 0.6em; 
-      font-weight: 600; 
-      text-transform: uppercase; 
-      letter-spacing: 0.05em; 
-      color: var(--color-accent); 
-      background: var(--color-highlight); 
-      padding: 0.2em 0.5em; 
-      border-radius: 4px; 
-      margin-right: 0.3em; 
-      vertical-align: middle; 
-    }
-    .profile-essence { 
-      font-style: italic; 
-      color: var(--color-muted); 
-      margin-top: 0.5rem; 
-      font-size: 1.05rem; 
-      max-width: 540px; 
-      margin-left: auto; 
-      margin-right: auto;
-      line-height: 1.6;
-    }
-    
-    .sample-meta { 
-      display: inline-block; 
-      padding: 0.4rem 1rem; 
-      border-radius: 50px; 
-      font-size: 0.75rem; 
-      font-family: var(--font-mono); 
-      margin-top: 1rem; 
-      background: var(--color-cream); 
-      color: var(--color-muted); 
-    }
-    
-    .profile-sketch { 
-      background: var(--color-cream); 
-      border-radius: var(--radius-md); 
-      padding: 1.75rem; 
-      margin-bottom: 1.75rem; 
-    }
-    .section-title { 
-      font-family: var(--font-mono); 
-      font-size: 0.7rem; 
-      text-transform: uppercase; 
-      letter-spacing: 0.12em; 
-      color: var(--color-secondary); 
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .section-icon { font-size: 1rem; }
-    .profile-sketch-text { line-height: 1.85; color: var(--color-ink); font-size: 1.02rem; }
-    .profile-sketch-text strong { color: var(--color-accent); font-weight: 600; }
-    
-    .stance-section { 
-      background: var(--color-card); 
-      border-radius: var(--radius-md); 
-      padding: 1.75rem; 
-      margin-bottom: 1.75rem; 
-      box-shadow: var(--shadow-card);
-      border-left: 4px solid var(--color-secondary); 
-    }
-    .stance-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-    .stance-description { line-height: 1.75; color: var(--color-ink); font-size: 0.95rem; }
-    
-    .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.75rem; }
-    @media (max-width: 600px) { .profile-grid { grid-template-columns: 1fr; } }
-    
-    .profile-section { 
-      background: var(--color-card); 
-      border-radius: var(--radius-md); 
-      padding: 1.5rem; 
-      box-shadow: var(--shadow-card);
-    }
-    
-    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-    .metric-item-full { 
-      padding: 0.75rem; 
-      background: var(--color-bg); 
-      border-radius: var(--radius-sm);
-      transition: transform 0.2s ease;
-    }
-    .metric-item-full:hover { transform: scale(1.02); }
-    .metric-header { display: flex; align-items: baseline; gap: 0.5rem; }
-    .metric-value { font-size: 1.2rem; font-weight: 600; color: var(--color-accent); }
-    .metric-label { font-size: 0.7rem; color: var(--color-ink); text-transform: uppercase; letter-spacing: 0.05em; }
-    .metric-def { font-size: 0.65rem; color: var(--color-muted); margin-top: 0.2rem; }
-    
-    .traits-list { list-style: none; }
-    .trait-item { margin-bottom: 0.9rem; }
-    .trait-content { display: flex; flex-direction: column; gap: 0.25rem; }
-    .trait-main { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.9rem; color: var(--color-ink); }
-    .trait-bullet { font-weight: bold; flex-shrink: 0; font-size: 1.1rem; }
-    .trait-bullet.positive { color: var(--color-secondary); }
-    .trait-bullet.neutral { color: var(--color-accent); }
-    .trait-interp { font-size: 0.8rem; font-style: italic; color: var(--color-muted); margin-left: 1.5rem; line-height: 1.5; }
-    
-    .growth-section { border-top: 1px solid var(--color-border); padding-top: 1.5rem; margin-top: 1rem; }
-    .growth-edges-list { list-style: none; margin-bottom: 1.25rem; }
-    .growth-edge-item { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--color-muted); }
-    .growth-arrow { color: var(--color-secondary); font-size: 1.1rem; }
-    
-    .exercise-prompt { 
-      background: var(--color-highlight); 
-      border-radius: var(--radius-md); 
-      padding: 1.25rem; 
-      margin: 1.25rem 0;
-    }
-    .exercise-label { 
-      font-family: var(--font-mono); 
-      font-size: 0.65rem; 
-      text-transform: uppercase; 
-      letter-spacing: 0.12em; 
-      color: var(--color-accent); 
-      margin-bottom: 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .exercise-text { font-size: 0.95rem; color: var(--color-ink); line-height: 1.7; margin-bottom: 1rem; }
-    
-    .writing-ancestors { font-style: italic; color: var(--color-muted); font-size: 0.9rem; margin-top: 0.75rem; }
-    .ancestor-reason { font-size: 0.85rem; color: var(--color-ink); margin-top: 0.5rem; line-height: 1.6; }
-    
-    /* Stepping Stones Progress */
-    .progress-container { 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      gap: 0.5rem; 
-      margin-bottom: 1.5rem;
-      padding: 1rem;
-      background: var(--color-cream);
-      border-radius: var(--radius-md);
-    }
-    .progress-step { 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      gap: 0.3rem;
-    }
-    .progress-dot { 
-      width: 14px; 
-      height: 14px; 
-      border-radius: 50%; 
-      background: var(--color-border);
-      transition: all 0.3s ease;
-    }
-    .progress-dot.active { 
-      background: var(--color-accent); 
-      box-shadow: 0 0 0 4px rgba(196, 120, 90, 0.2);
-    }
-    .progress-dot.completed { background: var(--color-secondary); }
-    .progress-line { 
-      width: 60px; 
-      height: 2px; 
-      background: var(--color-border);
-    }
-    .progress-line.completed { background: var(--color-secondary); }
-    .progress-label { 
-      font-family: var(--font-mono); 
-      font-size: 0.6rem; 
-      text-transform: uppercase; 
-      color: var(--color-muted);
-      letter-spacing: 0.05em;
-    }
-    .progress-label.active { color: var(--color-accent); font-weight: 500; }
-    
-    /* Curious Guide Nudge */
-    .next-action { 
-      margin-top: 2rem; 
-      padding: 1.75rem; 
-      background: var(--color-cream);
-      border-radius: var(--radius-md);
-      text-align: center; 
-    }
-    .next-action-observation {
-      font-size: 1rem;
-      color: var(--color-ink);
-      margin-bottom: 0.5rem;
-      line-height: 1.6;
-    }
-    .next-action-question {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 1.1rem;
-      color: var(--color-muted);
-      margin-bottom: 1.25rem;
-    }
-    .next-action-text { font-size: 0.95rem; color: var(--color-muted); margin-bottom: 1.25rem; line-height: 1.6; }
-    
-    .mode-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.25rem; }
-    .mode-option { 
-      background: var(--color-card); 
-      border: 2px solid var(--color-border); 
-      border-radius: var(--radius-md); 
-      padding: 1.5rem; 
-      cursor: pointer; 
-      transition: all 0.3s ease; 
-      text-align: center; 
-    }
-    .mode-option:hover { 
-      border-color: var(--color-accent); 
-      transform: translateY(-4px); 
-      box-shadow: var(--shadow-hover); 
-    }
-    .mode-option-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-    .mode-option-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 500; color: var(--color-ink); margin-bottom: 0.5rem; }
-    .mode-option-desc { font-size: 0.85rem; color: var(--color-muted); line-height: 1.5; }
-    
-    @media (max-width: 500px) { .mode-choice { grid-template-columns: 1fr; } }
-    
-    .round-indicator { 
-      font-family: var(--font-mono); 
-      font-size: 0.75rem; 
-      color: var(--color-secondary); 
-      text-transform: uppercase; 
-      letter-spacing: 0.1em; 
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .story-prompt { 
-      font-family: var(--font-display); 
-      font-size: 1.4rem; 
-      font-style: italic; 
-      color: var(--color-ink); 
-      margin-bottom: 1rem;
-      line-height: 1.5;
-    }
-    .companion-note { 
-      background: var(--color-highlight); 
-      padding: 1.25rem; 
-      border-radius: var(--radius-md); 
-      margin-bottom: 1.5rem; 
-      font-size: 0.95rem; 
-      color: var(--color-muted); 
-      font-style: italic; 
-      text-align: center;
-      line-height: 1.6;
-    }
-    .sample-count { font-size: 0.8rem; color: var(--color-muted); margin-top: 0.75rem; text-align: right; }
-    
-    .sentences-section { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px dashed var(--color-border); }
-    .sentence-analysis-item { 
-      padding: 0.75rem 0; 
-      border-bottom: 1px dotted var(--color-border);
-      transition: background 0.2s ease;
-    }
-    .sentence-analysis-item:hover { background: var(--color-cream); margin: 0 -0.5rem; padding: 0.75rem 0.5rem; border-radius: var(--radius-sm); }
-    .sentence-analysis-item:last-child { border-bottom: none; }
-    .sentence-text { font-size: 0.9rem; color: var(--color-ink); font-style: italic; margin-bottom: 0.4rem; line-height: 1.6; }
-    .sentence-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
-    .sentence-tag { 
-      font-family: var(--font-mono); 
-      font-size: 0.6rem; 
-      padding: 0.2rem 0.5rem; 
-      border-radius: 50px; 
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-    .sentence-notable { font-size: 0.8rem; color: var(--color-muted); margin-top: 0.4rem; line-height: 1.5; }
-    .tag-brief { background: #E8F5E9; color: #2E7D32; }
-    .tag-short { background: #E0F2F1; color: #00796B; }
-    .tag-medium { background: #FFF8E1; color: #F57F17; }
-    .tag-long { background: #FFEBEE; color: #C62828; }
-    .tag-question { background: #E3F2FD; color: #1565C0; }
-    .tag-parenthetical { background: #F3E5F5; color: #7B1FA2; }
-    .tag-em-dash { background: #FFF3E0; color: #E65100; }
-    .tag-poetic { background: #EDE7F6; color: #512DA8; }
-    .tag-hedged { background: #E8F5E9; color: #388E3C; }
-    .tag-certain { background: #FFEBEE; color: #D32F2F; }
-    .tag-declarative { background: #ECEFF1; color: #546E7A; }
-    .word-count { font-family: var(--font-mono); font-size: 0.6rem; color: var(--color-muted); margin-left: 0.4rem; }
-    
-    /* Share Section */
-    .share-section {
-      background: var(--color-cream);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    .share-title {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      color: var(--color-ink);
-      margin-bottom: 0.5rem;
-    }
-    .share-subtitle {
-      font-size: 0.9rem;
-      color: var(--color-muted);
-      margin-bottom: 1rem;
-      font-style: italic;
-    }
-    .share-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-    .share-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.25rem;
-      border-radius: 50px;
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      cursor: pointer;
-      border: none;
-    }
-    .share-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .share-btn-facebook {
-      background: #1877F2;
-      color: white;
-    }
-    .share-btn-linkedin {
-      background: #0A66C2;
-      color: white;
-    }
-    .share-btn-copy {
-      background: var(--color-card);
-      color: var(--color-ink);
-      border: 2px solid var(--color-border);
-    }
-    .share-btn-copy:hover {
-      border-color: var(--color-accent);
-    }
-    .share-icon {
-      font-size: 1rem;
-    }
-    
-    /* Landing Hook */
-    .pronunciation {
-      font-size: 0.9rem;
-      color: #636E72;
-      font-style: italic;
-      text-align: center;
-      margin-top: -0.5rem;
-      margin-bottom: 1rem;
-    }
-    .landing-hook {
-      text-align: center;
-      padding: 2rem 1.5rem;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-highlight) 100%);
-      border-radius: var(--radius-md);
-    }
-    .hook-example {
-      font-family: var(--font-body);
-      font-style: italic;
-      color: var(--color-muted);
-      font-size: 1rem;
-      margin-bottom: 0.75rem;
-    }
-    .hook-example-text {
-      font-style: normal;
-      color: var(--color-ink);
-      font-weight: 500;
-    }
-    .hook-result {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      color: var(--color-ink);
-      margin-bottom: 1rem;
-    }
-    .hook-result-profile {
-      color: var(--color-accent);
-      font-weight: 500;
-    }
-    .hook-question {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-style: italic;
-      color: var(--color-ink);
-      margin-bottom: 0.5rem;
-    }
-    .hook-promise {
-      font-size: 0.9rem;
-      color: var(--color-muted);
-    }
-    
-    /* Famous Writers Grid */
-    .writers-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-    @media (max-width: 500px) { .writers-grid { grid-template-columns: 1fr; } }
-    .writer-card {
-      background: var(--color-card);
-      border-radius: var(--radius-md);
-      padding: 1rem;
-      text-align: center;
-      box-shadow: var(--shadow-card);
-      transition: transform 0.2s ease;
-    }
-    .writer-card:hover {
-      transform: translateY(-3px);
-    }
-    .writer-icon {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .writer-name {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--color-ink);
-      margin-bottom: 0.25rem;
-    }
-    .writer-profile {
-      font-size: 0.75rem;
-      color: var(--color-accent);
-      font-family: var(--font-mono);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    
-    /* Voice Ingredients */
-    .voice-ingredients {
-      background: var(--color-card);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-      box-shadow: var(--shadow-card);
-    }
-    .ingredient-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 0.75rem;
-    }
-    .ingredient-row:last-child {
-      margin-bottom: 0;
-    }
-    .ingredient-label {
-      font-size: 0.8rem;
-      color: var(--color-muted);
-      min-width: 100px;
-    }
-    .ingredient-bar-container {
-      flex: 1;
-      height: 8px;
-      background: var(--color-cream);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .ingredient-bar {
-      height: 100%;
-      background: var(--color-accent);
-      border-radius: 4px;
-      transition: width 0.5s ease;
-    }
-    .ingredient-value {
-      font-size: 0.75rem;
-      color: var(--color-muted);
-      min-width: 60px;
-      text-align: right;
-      font-family: var(--font-mono);
-    }
-    
-    /* Reading List */
-    .reading-list {
-      background: var(--color-cream);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      margin: 1.5rem 0;
-    }
-    .reading-list-title {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-secondary);
-      margin-bottom: 0.75rem;
-    }
-    .reading-item {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
-    .reading-item:last-child {
-      margin-bottom: 0;
-    }
-    .reading-arrow {
-      color: var(--color-accent);
-    }
-    .reading-title {
-      font-style: italic;
-      color: var(--color-ink);
-    }
-    .reading-author {
-      color: var(--color-muted);
-    }
     
     /* Profile Card (for download) */
     .profile-card-container {
@@ -3469,7 +2845,7 @@
       }
     .pronunciation {
       font-size: 0.9rem;
-      color: #636E72;
+      color: var(--color-muted);
       font-style: italic;
       text-align: center;
       margin-top: -0.5rem;
@@ -3688,6 +3064,13 @@
         gap: 0.5rem;
       }
       
+      /* Deep analysis mobile */
+      .metrics-grid { grid-template-columns: 1fr; }
+      .profile-section { padding: 1rem; }
+      .stance-section { padding: 1.25rem; }
+      .voice-ingredients { padding: 1rem; }
+      .profile-sketch { padding: 1.25rem; }
+
       /* Footer compact */
       .site-footer {
         margin-top: 2rem;
@@ -3697,7 +3080,7 @@
         font-size: 0.8rem;
       }
     }
-    
+
     /* Extra small screens (iPhone SE, etc) */
     @media (max-width: 375px) {
       .container {
@@ -3729,8 +3112,12 @@
         width: 44px;
         height: 44px;
       }
+
+      /* Deep analysis extra small */
+      .profile-container { padding: 0 0.25rem; }
+      .marker-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
     }
-    
+
     /* Landscape phone - give textarea more room */
     @media (max-width: 768px) and (orientation: landscape) {
       textarea {
@@ -3739,7 +3126,7 @@
       
     .pronunciation {
       font-size: 0.9rem;
-      color: #636E72;
+      color: var(--color-muted);
       font-style: italic;
       text-align: center;
       margin-top: -0.5rem;
@@ -8791,18 +8178,18 @@ Analyze more writing: ${window.location.origin}
       
       document.getElementById('deep-content').innerHTML = `
         <!-- Header -->
-        <div class="profile-header fade-in">
-          <h2 class="profile-title" style="font-size: 1.25rem;"><span class="profile-icon">${profile.icon}</span> Full Analysis</h2>
+        <div class="profile-header">
+          <h2 class="profile-title"><span class="profile-icon">${profile.icon}</span> Full Analysis</h2>
         </div>
         
         <!-- Sketch / Based on Your Samples -->
-        <div class="profile-sketch fade-in">
+        <div class="profile-sketch">
           <div class="section-title"><span class="section-icon">✎</span> Based on Your Samples</div>
           <div class="profile-sketch-text">${sketch}</div>
         </div>
         
         <!-- Grid: Metrics + Traits -->
-        <div class="profile-grid fade-in">
+        <div class="profile-grid">
           <div class="profile-section">
             <div class="section-title"><span class="section-icon">◈</span> Cumulative Metrics</div>
             <div class="metrics-grid">
@@ -8852,7 +8239,7 @@ Analyze more writing: ${window.location.origin}
           </div>
           
           <div class="profile-section">
-            <div class="section-title">Detected Traits</div>
+            <div class="section-title"><span class="section-icon">◇</span> Detected Traits</div>
             <ul class="traits-list">
               ${analysis.traits.map(t => `
                 <li class="trait-item">
@@ -8870,7 +8257,7 @@ Analyze more writing: ${window.location.origin}
         </div>
         
         <!-- Voice Ingredients -->
-        <div class="voice-ingredients fade-in">
+        <div class="voice-ingredients">
           <div class="section-title"><span class="section-icon">◈</span> Voice Ingredients</div>
           <div class="ingredient-row">
             <span class="ingredient-label">Sentence Length</span>
@@ -8909,14 +8296,14 @@ Analyze more writing: ${window.location.origin}
           </div>
           
           <!-- Notable Sentences -->
-          <div class="sentences-section" style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--color-border);">
-            <div class="section-title" style="margin-bottom: 0.75rem;"><span class="section-icon">❧</span> Notable Sentences</div>
+          <div class="sentences-section">
+            <div class="section-title"><span class="section-icon">❧</span> Notable Sentences</div>
             ${sentenceAnalysisHTML}
           </div>
         </div>
         
         <!-- Stance Section -->
-        <div class="stance-section fade-in">
+        <div class="stance-section">
           <div class="stance-header">
             <span class="stance-badge ${stanceBadgeClass}"><span class="stance-icon">${stanceIcon}</span> ${analysis.stance}</span>
             <span style="font-size: 0.85rem; color: var(--color-muted);">Epistemic Stance</span>
