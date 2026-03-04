@@ -161,11 +161,33 @@ class PatternCollector:
         """Read JSON file."""
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
-    
+
     def _write_json(self, path: Path, data: Dict[str, Any]):
-        """Write JSON file."""
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, default=str)
+        """Write JSON file atomically."""
+        import tempfile
+        tmp_fd, tmp_path = tempfile.mkstemp(dir=str(path.parent), suffix=".tmp")
+        try:
+            with os.fdopen(tmp_fd, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, default=str)
+            os.replace(tmp_path, str(path))
+        except Exception:
+            try: os.unlink(tmp_path)
+            except OSError: pass
+            raise
+
+    def _locked_update(self, path: Path, updater):
+        """Read-modify-write a JSON file with file locking."""
+        import fcntl
+        lock_path = str(path) + ".lock"
+        with open(lock_path, "w") as lock_f:
+            fcntl.flock(lock_f, fcntl.LOCK_EX)
+            try:
+                data = self._read_json(path)
+                result = updater(data)
+                self._write_json(path, data)
+                return result
+            finally:
+                fcntl.flock(lock_f, fcntl.LOCK_UN)
     
     def _create_signature(self, tokens: List[int]) -> str:
         """
@@ -211,35 +233,41 @@ class PatternCollector:
         """
         signature = self._create_signature(tokens)
         
-        with self._lock:
-            # Record pattern
-            pattern_id = self._record_pattern(
-                signature=signature,
-                token_count=len(tokens),
-                profile=profile,
-                stance=stance,
-                word_count=word_count,
-                sentence_count=sentence_count,
-            )
-            
-            # Record history
-            history_id = self._record_history(
-                signature=signature,
-                profile=profile,
-                stance=stance,
-                word_count=word_count,
-                sentence_count=sentence_count,
-                user_id=user_id,
-                session_id=session_id,
-                source=source,
-                input_preview=input_preview,
-                scores=scores,
-                confidence_score=confidence_score,
-            )
-            
-            # Update daily stats
-            self._update_daily_stats(profile, stance)
-        
+        import fcntl
+        lock_path = str(self.storage_dir / "collector.lock")
+        with open(lock_path, "w") as lock_f:
+            fcntl.flock(lock_f, fcntl.LOCK_EX)
+            try:
+                # Record pattern
+                pattern_id = self._record_pattern(
+                    signature=signature,
+                    token_count=len(tokens),
+                    profile=profile,
+                    stance=stance,
+                    word_count=word_count,
+                    sentence_count=sentence_count,
+                )
+
+                # Record history
+                history_id = self._record_history(
+                    signature=signature,
+                    profile=profile,
+                    stance=stance,
+                    word_count=word_count,
+                    sentence_count=sentence_count,
+                    user_id=user_id,
+                    session_id=session_id,
+                    source=source,
+                    input_preview=input_preview,
+                    scores=scores,
+                    confidence_score=confidence_score,
+                )
+
+                # Update daily stats
+                self._update_daily_stats(profile, stance)
+            finally:
+                fcntl.flock(lock_f, fcntl.LOCK_UN)
+
         return pattern_id, history_id
     
     def _record_pattern(
@@ -436,20 +464,26 @@ class PatternCollector:
         Returns:
             Number of history entries migrated
         """
-        with self._lock:
-            data = self._read_json(self.history_file)
-            history = data.get("history", [])
-            
-            migrated = 0
-            for entry in history:
-                if entry.get("session_id") == session_id and entry.get("user_id") is None:
-                    entry["user_id"] = user_id
-                    migrated += 1
-            
-            data["history"] = history
-            self._write_json(self.history_file, data)
-            
-            return migrated
+        import fcntl
+        lock_path = str(self.storage_dir / "collector.lock")
+        with open(lock_path, "w") as lock_f:
+            fcntl.flock(lock_f, fcntl.LOCK_EX)
+            try:
+                data = self._read_json(self.history_file)
+                history = data.get("history", [])
+
+                migrated = 0
+                for entry in history:
+                    if entry.get("session_id") == session_id and entry.get("user_id") is None:
+                        entry["user_id"] = user_id
+                        migrated += 1
+
+                data["history"] = history
+                self._write_json(self.history_file, data)
+
+                return migrated
+            finally:
+                fcntl.flock(lock_f, fcntl.LOCK_UN)
     
     def get_profile_evolution(
         self,

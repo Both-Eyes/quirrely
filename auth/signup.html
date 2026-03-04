@@ -125,30 +125,37 @@
   
   <script src="/frontend/auth-state.js"></script>
   <script>
+    // Checkout redirect: capture tier from URL or sessionStorage
+    var checkout_tier = new URLSearchParams(window.location.search).get('tier') || sessionStorage.getItem('quirrely_checkout_tier') || '';
+    if (checkout_tier) sessionStorage.setItem('quirrely_checkout_tier', checkout_tier);
+
     // Redirect if already logged in
     if (AuthState.isLoggedIn()) {
-      window.location.href = '/frontend/pro-dashboard.html';
+      window.location.href = checkout_tier ? '/billing/upgrade.html?tier=' + checkout_tier : '/frontend/pro-dashboard.html';
     }
-    
+
     async function handleSignup(e) {
       e.preventDefault();
-      
+
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const submitBtn = document.getElementById('submit-btn');
       const errorMsg = document.getElementById('error-msg');
-      
+
       submitBtn.disabled = true;
       submitBtn.textContent = 'Creating account...';
       errorMsg.classList.remove('visible');
-      
+
       try {
         await AuthState.signup(email, password, name);
-        
-        // New users go to the test first
-        window.location.href = '/?welcome=1';
-        
+
+        if (checkout_tier) {
+          window.location.href = '/billing/upgrade.html?tier=' + checkout_tier;
+        } else {
+          window.location.href = '/?welcome=1';
+        }
+
       } catch (error) {
         errorMsg.textContent = error.message || 'Could not create account. Please try again.';
         errorMsg.classList.add('visible');

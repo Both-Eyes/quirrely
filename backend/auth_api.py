@@ -79,12 +79,30 @@ async def send_verification_email(user_id: str, email: str):
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://quirrely:password@localhost:5432/quirrely_prod")
 
+from psycopg2.pool import ThreadedConnectionPool
+try:
+    _auth_pool = ThreadedConnectionPool(2, 10, DATABASE_URL)
+except Exception:
+    _auth_pool = None
+
 
 def get_db():
-    """Get a database connection. Caller must close."""
+    """Get a database connection from pool. Caller must return via put_db."""
+    if _auth_pool:
+        conn = _auth_pool.getconn()
+        conn.autocommit = False
+        return conn
     conn = psycopg2.connect(DATABASE_URL)
     conn.autocommit = False
     return conn
+
+
+def put_db(conn):
+    """Return connection to pool."""
+    if _auth_pool:
+        _auth_pool.putconn(conn)
+    else:
+        conn.close()
 
 
 def db_query_one(sql: str, params: tuple = ()) -> Optional[Dict]:
@@ -96,7 +114,7 @@ def db_query_one(sql: str, params: tuple = ()) -> Optional[Dict]:
             row = cur.fetchone()
             return dict(row) if row else None
     finally:
-        conn.close()
+        put_db(conn)
 
 
 def db_query_all(sql: str, params: tuple = ()) -> list:
@@ -107,7 +125,7 @@ def db_query_all(sql: str, params: tuple = ()) -> list:
             cur.execute(sql, params)
             return [dict(row) for row in cur.fetchall()]
     finally:
-        conn.close()
+        put_db(conn)
 
 
 def db_execute(sql: str, params: tuple = ()) -> None:
@@ -121,7 +139,7 @@ def db_execute(sql: str, params: tuple = ()) -> None:
         conn.rollback()
         raise
     finally:
-        conn.close()
+        put_db(conn)
 
 
 # ═══════════════════════════════════════════════════════════════════════════

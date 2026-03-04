@@ -107,31 +107,39 @@
   
   <script src="/frontend/auth-state.js"></script>
   <script>
+    // Checkout redirect: capture tier from URL or sessionStorage
+    var checkout_tier = new URLSearchParams(window.location.search).get('tier') || sessionStorage.getItem('quirrely_checkout_tier') || '';
+    if (checkout_tier) sessionStorage.setItem('quirrely_checkout_tier', checkout_tier);
+
     // Redirect if already logged in
     if (AuthState.isLoggedIn()) {
-      window.location.href = AuthState.getPostLoginRedirect();
+      window.location.href = checkout_tier ? '/billing/upgrade.html?tier=' + checkout_tier : AuthState.getPostLoginRedirect();
     }
-    
+
     async function handleLogin(e) {
       e.preventDefault();
-      
+
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       const submitBtn = document.getElementById('submit-btn');
       const errorMsg = document.getElementById('error-msg');
-      
+
       submitBtn.disabled = true;
       submitBtn.textContent = 'Signing in...';
       errorMsg.classList.remove('visible');
-      
+
       try {
         await AuthState.login(email, password);
-        
-        // Redirect to intended destination or dashboard
-        const redirect = AuthState.getPostLoginRedirect();
-        AuthState.clearPostLoginRedirect();
-        window.location.href = redirect;
-        
+
+        if (checkout_tier) {
+          sessionStorage.removeItem('quirrely_checkout_tier');
+          window.location.href = '/billing/upgrade.html?tier=' + checkout_tier;
+        } else {
+          const redirect = AuthState.getPostLoginRedirect();
+          AuthState.clearPostLoginRedirect();
+          window.location.href = redirect;
+        }
+
       } catch (error) {
         errorMsg.textContent = error.message || 'Invalid email or password.';
         errorMsg.classList.add('visible');

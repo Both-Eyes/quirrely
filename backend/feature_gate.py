@@ -32,28 +32,46 @@ from typing import Any, Callable, Dict, List, Optional, Set
 from dataclasses import dataclass
 from enum import Enum
 import psycopg2, psycopg2.extras
+from psycopg2.pool import ThreadedConnectionPool
 _DB_URL = os.environ.get("DATABASE_URL",
     "postgresql://quirrely:Quirr2026db@127.0.0.1:5432/quirrely_prod")
+try:
+    _fg_pool = ThreadedConnectionPool(2, 10, _DB_URL)
+except Exception:
+    _fg_pool = None
+
+def _get_conn():
+    return _fg_pool.getconn() if _fg_pool else psycopg2.connect(_DB_URL)
+
+def _put_conn(conn):
+    if _fg_pool: _fg_pool.putconn(conn)
+    else: conn.close()
 
 def _wq(sql, params=None):
-    conn = psycopg2.connect(_DB_URL)
+    conn = _get_conn()
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute(sql, params)
         r = cur.fetchone()
         conn.commit()
         return r
+    except Exception:
+        conn.rollback()
+        raise
     finally:
-        conn.close()
+        _put_conn(conn)
 
 def _we(sql, params=None):
-    conn = psycopg2.connect(_DB_URL)
+    conn = _get_conn()
     try:
         cur = conn.cursor()
         cur.execute(sql, params)
         conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
     finally:
-        conn.close()
+        _put_conn(conn)
 
 
 

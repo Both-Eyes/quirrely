@@ -29,10 +29,21 @@ from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 import logging
+import psycopg2
+from psycopg2.pool import ThreadedConnectionPool
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("quirrely")
+
+# Database connection pool
+_DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://quirrely:Quirr2026db@127.0.0.1:5432/quirrely_prod")
+try:
+    _db_pool = ThreadedConnectionPool(2, 10, _DATABASE_URL)
+    logger.info("DB connection pool initialized (2-10 connections)")
+except Exception as _pool_err:
+    logger.error(f"DB pool init failed: {_pool_err}")
+    _db_pool = None
 
 # Add backend to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -419,10 +430,9 @@ if API_V2_AVAILABLE:
         if user_id:
             gate.record_analysis(user_id, None, result["word_count"])
             # Write to writing_profiles for share/history
+            _cn = None
             try:
-                import psycopg2 as _pg
-                _dburl = os.environ.get("DATABASE_URL","postgresql://quirrely:Quirr2026db@127.0.0.1:5432/quirrely_prod")
-                _cn = _pg.connect(_dburl)
+                _cn = _db_pool.getconn() if _db_pool else psycopg2.connect(_DATABASE_URL)
                 _cr = _cn.cursor()
                 ps = result["scores"].get("profiles",{})
                 sts = result["scores"].get("stances",{})
@@ -442,9 +452,13 @@ if API_V2_AVAILABLE:
                      round(sts.get("OPEN",0)*100), round(sts.get("CLOSED",0)*100),
                      round(sts.get("BALANCED",0)*100), round(sts.get("CONTRADICTORY",0)*100),
                      request.text[:500], result["word_count"]))
-                _cn.commit(); _cn.close()
+                _cn.commit()
             except Exception as _wpe:
                 logger.warning(f"writing_profiles insert failed: {_wpe}")
+                if _cn: _cn.rollback()
+            finally:
+                if _cn and _db_pool: _db_pool.putconn(_cn)
+                elif _cn: _cn.close()
 
         return AnalyzeResponse(
             profile=result["profile"], stance=result["stance"],
@@ -652,20 +666,23 @@ class _TrackReq(_TrackBM):
 
 @app.post("/api/v2/track", tags=["Analytics"])
 async def track_event(req: _TrackReq, request: Request):
+    conn = None
     try:
-        import hashlib
+        import hashlib, json
         ip = request.headers.get("x-forwarded-for", request.client.host or "unknown").split(",")[0].strip()
         user_hash = hashlib.sha256(ip.encode()).hexdigest()[:16]
         sql = """INSERT INTO analytics_events (event_name, event_category, user_hash, properties, session_id, page_url, referrer)
                  VALUES (%s, %s, %s, %s, %s, %s, %s)"""
-        import psycopg2, json, os
-        conn = psycopg2.connect(os.getenv("DATABASE_URL", "postgresql://quirrely:Quirr2026db@127.0.0.1:5432/quirrely_prod"))
+        conn = _db_pool.getconn() if _db_pool else psycopg2.connect(_DATABASE_URL)
         cur = conn.cursor()
         cur.execute(sql, (req.event, "frontend", user_hash, json.dumps(req.properties), req.sessionId, request.headers.get("referer",""), request.headers.get("referer","")))
         conn.commit()
         cur.close()
-        conn.close()
         return {"ok": True}
     except Exception as e:
         logger.error(f"track error: {e}")
+        if conn: conn.rollback()
         return {"ok": False}
+    finally:
+        if conn and _db_pool: _db_pool.putconn(conn)
+        elif conn: conn.close()
