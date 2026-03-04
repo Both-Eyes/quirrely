@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS user_auth_providers (
   user_id UUID REFERENCES users(id) ON DELETE CASCADE,
   
   -- Provider info
-  provider TEXT NOT NULL CHECK (provider IN ('email', 'google')),  -- NEVER 'apple'
+  provider TEXT NOT NULL CHECK (provider IN ('email', 'google', 'facebook', 'linkedin')),
   provider_user_id TEXT,
   
   -- Metadata
@@ -205,7 +205,7 @@ CREATE TABLE IF NOT EXISTS login_history (
   user_id UUID REFERENCES users(id) ON DELETE CASCADE,
   
   -- Login details
-  method TEXT NOT NULL CHECK (method IN ('password', 'magic_link', 'google', 'refresh')),
+  method TEXT NOT NULL CHECK (method IN ('password', 'magic_link', 'google', 'facebook', 'linkedin', 'refresh')),
   success BOOLEAN NOT NULL,
   
   -- Client info

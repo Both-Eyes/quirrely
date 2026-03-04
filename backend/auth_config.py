@@ -30,9 +30,42 @@ SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://your-project.supabase.co"
 SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "your-anon-key")
 SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "your-service-key")
 
-# OAuth providers (Google only - NEVER Apple)
+# OAuth providers
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
+FACEBOOK_CLIENT_ID = os.environ.get("FACEBOOK_CLIENT_ID", "")
+FACEBOOK_CLIENT_SECRET = os.environ.get("FACEBOOK_CLIENT_SECRET", "")
+LINKEDIN_CLIENT_ID = os.environ.get("LINKEDIN_CLIENT_ID", "")
+LINKEDIN_CLIENT_SECRET = os.environ.get("LINKEDIN_CLIENT_SECRET", "")
+
+OAUTH_REDIRECT_BASE = os.environ.get("APP_URL", "https://quirrely.ca")
+
+OAUTH_PROVIDERS = {
+    "google": {
+        "client_id": GOOGLE_CLIENT_ID,
+        "client_secret": GOOGLE_CLIENT_SECRET,
+        "authorize_url": "https://accounts.google.com/o/oauth2/v2/auth",
+        "token_url": "https://oauth2.googleapis.com/token",
+        "userinfo_url": "https://www.googleapis.com/oauth2/v3/userinfo",
+        "scopes": "openid email profile",
+    },
+    "facebook": {
+        "client_id": FACEBOOK_CLIENT_ID,
+        "client_secret": FACEBOOK_CLIENT_SECRET,
+        "authorize_url": "https://www.facebook.com/v18.0/dialog/oauth",
+        "token_url": "https://graph.facebook.com/v18.0/oauth/access_token",
+        "userinfo_url": "https://graph.facebook.com/v18.0/me?fields=id,name,email,picture",
+        "scopes": "email,public_profile",
+    },
+    "linkedin": {
+        "client_id": LINKEDIN_CLIENT_ID,
+        "client_secret": LINKEDIN_CLIENT_SECRET,
+        "authorize_url": "https://www.linkedin.com/oauth/v2/authorization",
+        "token_url": "https://www.linkedin.com/oauth/v2/accessToken",
+        "userinfo_url": "https://api.linkedin.com/v2/userinfo",
+        "scopes": "openid profile email",
+    },
+}
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -43,16 +76,19 @@ class AuthMethod(str, Enum):
     EMAIL_PASSWORD = "email_password"
     MAGIC_LINK = "magic_link"
     GOOGLE = "google"
+    FACEBOOK = "facebook"
+    LINKEDIN = "linkedin"
 
 
 ENABLED_AUTH_METHODS = [
     AuthMethod.EMAIL_PASSWORD,
     AuthMethod.MAGIC_LINK,
     AuthMethod.GOOGLE,
+    AuthMethod.FACEBOOK,
+    AuthMethod.LINKEDIN,
 ]
 
-# Social providers - Google only, NEVER Apple
-SOCIAL_PROVIDERS = ["google"]
+SOCIAL_PROVIDERS = ["google", "facebook", "linkedin"]
 
 
 # ═══════════════════════════════════════════════════════════════════════════

@@ -27,3 +27,6 @@ psycopg2-binary>=2.9.9
 
 # Payments (added v3.1.3 fix)
 stripe>=7.0.0
+
+# OAuth (added v3.1.3 social login)
+authlib>=1.3.0

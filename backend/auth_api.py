@@ -45,6 +45,8 @@ from auth_config import (
     validate_display_name,
     requires_email_verification,
     requires_display_name,
+    OAUTH_PROVIDERS,
+    OAUTH_REDIRECT_BASE,
 )
 
 logger = logging.getLogger("quirrely.auth")
@@ -405,15 +407,287 @@ async def sign_up(request: SignUpRequest):
     )
 
 
-@router.post("/signup/google")
-async def sign_up_google(request: Request):
-    """Initiate Google OAuth sign up."""
-    redirect_url = f"{SUPABASE_URL}/auth/v1/authorize?provider=google"
-    return {"redirect_url": redirect_url}
+# ═══════════════════════════════════════════════════════════════════════════
+# SOCIAL / OAUTH LOGIN
+# ═══════════════════════════════════════════════════════════════════════════
+
+import httpx
+from urllib.parse import urlencode, quote
+
+# In-memory OAuth state store (short-lived, <10 min)
+_oauth_states: Dict[str, Dict] = {}
+
+def _cleanup_oauth_states():
+    """Remove expired OAuth states (older than 10 minutes)."""
+    cutoff = datetime.utcnow() - timedelta(minutes=10)
+    expired = [k for k, v in _oauth_states.items() if v.get("created_at", cutoff) < cutoff]
+    for k in expired:
+        del _oauth_states[k]
+
+
+@router.get("/login/{provider}")
+async def oauth_login(provider: str):
+    """
+    Initiate OAuth login. Returns redirect_url to provider's consent screen.
+    Supported: google, facebook, linkedin
+    """
+    if provider not in OAUTH_PROVIDERS:
+        raise HTTPException(status_code=400, detail=f"Unsupported provider: {provider}")
+
+    cfg = OAUTH_PROVIDERS[provider]
+    if not cfg["client_id"]:
+        raise HTTPException(status_code=503, detail=f"{provider} login not configured")
+
+    _cleanup_oauth_states()
+
+    # Generate CSRF state
+    state = secrets.token_urlsafe(32)
+    _oauth_states[state] = {"provider": provider, "created_at": datetime.utcnow()}
+
+    redirect_uri = f"{OAUTH_REDIRECT_BASE}/api/v2/auth/callback/{provider}"
+
+    params = {
+        "client_id": cfg["client_id"],
+        "redirect_uri": redirect_uri,
+        "state": state,
+        "response_type": "code",
+    }
+
+    # Provider-specific scope param
+    if provider == "facebook":
+        params["scope"] = cfg["scopes"]
+    else:
+        params["scope"] = cfg["scopes"]
+
+    authorize_url = f"{cfg['authorize_url']}?{urlencode(params)}"
+    return {"redirect_url": authorize_url}
+
+
+@router.get("/callback/{provider}")
+async def oauth_callback(provider: str, code: str = None, state: str = None, error: str = None):
+    """
+    OAuth callback. Exchanges code for token, fetches user info,
+    creates/links account, creates session, redirects to frontend.
+    """
+    from fastapi.responses import HTMLResponse
+
+    if error:
+        return HTMLResponse(_oauth_error_page(f"OAuth error: {error}"))
+
+    if not code or not state:
+        return HTMLResponse(_oauth_error_page("Missing code or state"))
+
+    # Validate CSRF state
+    if state not in _oauth_states:
+        return HTMLResponse(_oauth_error_page("Invalid or expired state"))
+
+    state_data = _oauth_states.pop(state)
+    if state_data["provider"] != provider:
+        return HTMLResponse(_oauth_error_page("State mismatch"))
+
+    if provider not in OAUTH_PROVIDERS:
+        return HTMLResponse(_oauth_error_page(f"Unknown provider: {provider}"))
+
+    cfg = OAUTH_PROVIDERS[provider]
+    redirect_uri = f"{OAUTH_REDIRECT_BASE}/api/v2/auth/callback/{provider}"
+
+    try:
+        # Exchange code for access token
+        async with httpx.AsyncClient() as client:
+            token_resp = await client.post(cfg["token_url"], data={
+                "client_id": cfg["client_id"],
+                "client_secret": cfg["client_secret"],
+                "code": code,
+                "redirect_uri": redirect_uri,
+                "grant_type": "authorization_code",
+            }, headers={"Accept": "application/json"})
+
+            if token_resp.status_code != 200:
+                logger.error(f"OAuth token exchange failed: {token_resp.text}")
+                return HTMLResponse(_oauth_error_page("Failed to authenticate"))
+
+            token_data = token_resp.json()
+            access_token = token_data.get("access_token")
+            if not access_token:
+                return HTMLResponse(_oauth_error_page("No access token received"))
+
+            # Fetch user info
+            headers = {"Authorization": f"Bearer {access_token}"}
+            userinfo_resp = await client.get(cfg["userinfo_url"], headers=headers)
+            if userinfo_resp.status_code != 200:
+                return HTMLResponse(_oauth_error_page("Failed to get user info"))
+
+            userinfo = userinfo_resp.json()
+
+        # Extract user details (provider-specific)
+        oauth_user = _extract_oauth_user(provider, userinfo)
+        if not oauth_user.get("email"):
+            return HTMLResponse(_oauth_error_page("Email not provided by provider"))
+
+        # Resolve user: find or create
+        user, is_new = _resolve_oauth_user(provider, oauth_user)
+        user_id = str(user["id"])
+
+        # Create session
+        session = create_session(user_id)
+
+        # Log the login
+        db_execute(
+            """INSERT INTO login_history (user_id, method, success, country_code)
+               VALUES (%s, %s, true, %s)""",
+            (user_id, provider, None)
+        )
+
+        logger.info(f"OAuth login ({provider}): {oauth_user['email']} (user_id={user_id}, new={is_new})")
+
+        # Return HTML page that stores session in localStorage and redirects
+        return HTMLResponse(_oauth_success_page(session, user))
+
+    except Exception as e:
+        logger.error(f"OAuth callback error ({provider}): {e}")
+        return HTMLResponse(_oauth_error_page("Authentication failed"))
+
+
+def _extract_oauth_user(provider: str, userinfo: Dict) -> Dict[str, str]:
+    """Extract normalized user data from provider-specific userinfo."""
+    if provider == "google":
+        return {
+            "provider_id": userinfo.get("sub", ""),
+            "email": userinfo.get("email", ""),
+            "name": userinfo.get("name", ""),
+            "picture": userinfo.get("picture", ""),
+        }
+    elif provider == "facebook":
+        return {
+            "provider_id": userinfo.get("id", ""),
+            "email": userinfo.get("email", ""),
+            "name": userinfo.get("name", ""),
+            "picture": (userinfo.get("picture", {}).get("data", {}).get("url", "")),
+        }
+    elif provider == "linkedin":
+        return {
+            "provider_id": userinfo.get("sub", ""),
+            "email": userinfo.get("email", ""),
+            "name": userinfo.get("name", ""),
+            "picture": userinfo.get("picture", ""),
+        }
+    return {"provider_id": "", "email": "", "name": "", "picture": ""}
+
+
+def _resolve_oauth_user(provider: str, oauth_user: Dict) -> tuple:
+    """
+    Find or create user for OAuth login.
+    Returns (user_dict, is_new).
+
+    Resolution order:
+    1. Existing link in user_auth_providers → login that user
+    2. Existing user with same email → link provider + login
+    3. No match → create new user + link provider
+    """
+    email = oauth_user["email"].lower().strip()
+
+    # 1. Check for existing provider link
+    linked = db_query_one(
+        """SELECT user_id FROM user_auth_providers
+           WHERE provider = %s AND provider_user_id = %s""",
+        (provider, oauth_user["provider_id"])
+    )
+    if linked:
+        user = get_user_by_id(str(linked["user_id"]))
+        if user:
+            # Update last_used_at
+            db_execute(
+                "UPDATE user_auth_providers SET last_used_at = now() WHERE provider = %s AND provider_user_id = %s",
+                (provider, oauth_user["provider_id"])
+            )
+            return user, False
+
+    # 2. Check for existing user by email
+    user = get_user_by_email(email)
+    if user:
+        _link_provider(str(user["id"]), provider, oauth_user)
+        return user, False
+
+    # 3. Create new user
+    user_id = str(uuid.uuid4())
+    display_name = oauth_user.get("name", email.split("@")[0])
+
+    db_execute(
+        """INSERT INTO users (id, email, display_name, email_verified, subscription_tier)
+           VALUES (%s, %s, %s, true, 'free')""",
+        (user_id, email, display_name)
+    )
+
+    _link_provider(user_id, provider, oauth_user)
+
+    user = get_user_by_id(user_id)
+    return user, True
+
+
+def _link_provider(user_id: str, provider: str, oauth_user: Dict):
+    """Link an OAuth provider to a user account."""
+    try:
+        db_execute(
+            """INSERT INTO user_auth_providers (user_id, provider, provider_user_id, provider_email, provider_name, provider_avatar_url)
+               VALUES (%s, %s, %s, %s, %s, %s)
+               ON CONFLICT (user_id, provider) DO UPDATE SET
+                 provider_user_id = EXCLUDED.provider_user_id,
+                 provider_email = EXCLUDED.provider_email,
+                 provider_name = EXCLUDED.provider_name,
+                 provider_avatar_url = EXCLUDED.provider_avatar_url,
+                 last_used_at = now()""",
+            (user_id, provider, oauth_user["provider_id"], oauth_user["email"],
+             oauth_user.get("name", ""), oauth_user.get("picture", ""))
+        )
+    except Exception as e:
+        logger.error(f"Failed to link provider {provider} for user {user_id}: {e}")
+
+
+def _oauth_success_page(session: Dict, user: Dict) -> str:
+    """HTML page that stores session in localStorage and redirects to dashboard."""
+    import json
+    user_obj = {
+        "id": str(user["id"]),
+        "email": user["email"],
+        "display_name": user.get("display_name", ""),
+        "email_verified": user.get("email_verified", True),
+        "subscription_tier": user.get("subscription_tier", "free"),
+    }
+    session_obj = {
+        "token": session["access_token"],
+        "refresh_token": session["refresh_token"],
+    }
+
+    return f"""<!DOCTYPE html>
+<html><head><title>Signing in...</title></head>
+<body>
+<p style="font-family:system-ui;text-align:center;padding:3rem;">Signing you in...</p>
+<script>
+var sess = {json.dumps(session_obj)};
+sess.createdAt = new Date().toISOString();
+sess.expiresAt = new Date(Date.now() + 7*24*60*60*1000).toISOString();
+localStorage.setItem('quirrely_session', JSON.stringify(sess));
+localStorage.setItem('quirrely_user', {json.dumps(json.dumps(user_obj))});
+window.location.href = '/frontend/dashboard.html';
+</script>
+</body></html>"""
+
+
+def _oauth_error_page(message: str) -> str:
+    """HTML error page for OAuth failures."""
+    import html
+    safe_msg = html.escape(message)
+    return f"""<!DOCTYPE html>
+<html><head><title>Login Error</title></head>
+<body style="font-family:system-ui;text-align:center;padding:3rem;">
+<h2 style="color:#E74C3C;">Login Failed</h2>
+<p>{safe_msg}</p>
+<a href="/auth/login.html" style="color:#FF6B6B;">Try again</a>
+</body></html>"""
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# LOGIN
+# LOGIN (email/password)
 # ═══════════════════════════════════════════════════════════════════════════
 
 @router.post("/login", response_model=TokenResponse)
@@ -467,11 +741,7 @@ async def request_magic_link(request: MagicLinkRequest):
     return {"message": "Check your email for the login link", "email": email}
 
 
-@router.post("/login/google")
-async def login_google():
-    """Initiate Google OAuth login."""
-    redirect_url = f"{SUPABASE_URL}/auth/v1/authorize?provider=google"
-    return {"redirect_url": redirect_url}
+# Note: Social login is handled by GET /login/{provider} above
 
 
 # ═══════════════════════════════════════════════════════════════════════════
