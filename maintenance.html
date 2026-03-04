@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quirrely — We'll be right back</title>
+<meta name="description" content="Quirrely is getting a fresh makeover. We'll be back shortly with a brand new look.">
+<link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Nunito+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFBF5;
+  --ink: #2D2D2D;
+  --coral: #FF6B6B;
+  --coral-dark: #E85858;
+  --teal: #5B9E8C;
+  --amber: #C8962E;
+  --purple: #7B5E8E;
+  --muted: #6B6560;
+  --border: #E8E2DA;
+  --paper: #FFFDF9;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  font-family: 'Nunito Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--coral);
+  border-radius: 3px 3px 14px 14px;
+  padding: 3rem 2.5rem;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(120,100,80,0.08);
+  position: relative;
+}
+
+/* Rainbow stripe at very top */
+.card::before {
+  content: '';
+  position: absolute; top: -3px; left: -1px; right: -1px;
+  height: 3px;
+  background: linear-gradient(90deg, #FF5252, #C8962E, #5B9E8C, #7B5E8E, #6B8EAE);
+  border-radius: 3px 3px 0 0;
+}
+
+/* Page-edge shadow */
+.card::after {
+  content: '';
+  position: absolute; top: 0; right: 0; bottom: 0; width: 4px;
+  background: linear-gradient(to left, rgba(120,100,80,0.04), transparent);
+  border-radius: 0 14px 14px 0;
+  pointer-events: none;
+}
+
+.rejji {
+  margin-bottom: 1.5rem;
+}
+
+.wordmark {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+.wordmark .re { color: var(--coral); }
+.wordmark .ly { font-style: italic; font-weight: 500; }
+
+.tagline {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.divider {
+  text-align: center;
+  color: var(--border);
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  margin: 1.5rem 0;
+  user-select: none;
+}
+
+h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+.message {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 1.75rem;
+}
+
+.fb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, var(--coral), var(--coral-dark));
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
+  box-shadow: 0 3px 12px rgba(255,107,107,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+  position: relative;
+  overflow: hidden;
+}
+.fb-btn::before {
+  content: '';
+  position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s;
+}
+.fb-btn:hover::before { left: 100%; }
+.fb-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,107,107,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+.fb-btn:active { transform: scale(0.98); }
+
+.fb-btn svg {
+  width: 20px; height: 20px; fill: white;
+}
+
+.footer-note {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: var(--border);
+  font-style: italic;
+}
+
+/* Subtle animation */
+@keyframes gentlePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.pulse-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--teal);
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  animation: gentlePulse 2s ease-in-out infinite;
+  vertical-align: middle;
+}
+
+@media (max-width: 480px) {
+  .card { padding: 2rem 1.5rem; }
+  .wordmark { font-size: 1.6rem; }
+  h1 { font-size: 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Rejji mascot -->
+  <div class="rejji">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="64" height="96">
+      <path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+      <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+      <path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+      <path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+      <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+      <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/>
+      <path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF6B6B"/>
+      <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+      <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+      <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+      <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+      <circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+      <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+    </svg>
+  </div>
+
+  <div class="wordmark">Quir<span class="re">re</span><span class="ly">ly</span></div>
+  <div class="tagline">The curious way to find your writing voice.</div>
+
+  <div class="divider">* &nbsp; * &nbsp; *</div>
+
+  <h1>We're sprucing things up</h1>
+  <p class="message">
+    <span class="pulse-dot"></span>Quirrely is getting a fresh new look. We'll be back shortly with something worth the wait.
+  </p>
+
+  <a href="https://www.facebook.com/profile.php?id=61575643048349" target="_blank" rel="noopener" class="fb-btn">
+    <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    Follow us on Facebook
+  </a>
+
+  <div class="footer-note">~ back soon ~</div>
+</div>
+
+</body>
+</html>
