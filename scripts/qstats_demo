@@ -1491,6 +1491,7 @@ class QuirrellyStatDemo:
             self.console.print("  qstats_demo qa           # Same as frontend")
             self.console.print("  qstats_demo funnel       # Marketing funnel analytics")
             self.console.print("  qstats_demo marketing    # Same as funnel")
+            self.console.print("  qstats_demo agents       # Batch agent system status")
             self.console.print("  qstats_demo --json       # JSON output")
             return 0
             
@@ -1600,11 +1601,150 @@ class QuirrellyStatDemo:
         elif view_mode == "funnel" or view_mode == "marketing":
             marketing_funnel = self.get_demo_marketing_funnel_metrics()
             self.display_marketing_funnel_view(marketing_funnel)
+        elif view_mode == "agents":
+            agents = self.get_demo_agent_metrics()
+            self.display_agent_view(agents)
         else:
             collaboration = self.get_demo_collaboration_metrics()
             self.display_overview(security, users, features, system, events, collaboration)
         
         return 0
+    
+    def get_demo_agent_metrics(self):
+        """Get demo agent system metrics."""
+        @dataclass
+        class AgentMetrics:
+            total_agents: int = 3
+            healthy_agents: int = 3
+            last_execution_times: Dict[str, str] = field(default_factory=lambda: {
+                "conversion_optimizer": "2026-03-05 03:00:12",
+                "lncp_pattern_discovery": "2026-03-03 02:00:45", 
+                "usage_pattern_analyzer": "2026-03-01 04:00:23"
+            })
+            performance_scores: Dict[str, float] = field(default_factory=lambda: {
+                "conversion_optimizer": 8.7,
+                "lncp_pattern_discovery": 9.2,
+                "usage_pattern_analyzer": 8.1
+            })
+            system_improvements: Dict[str, Dict[str, float]] = field(default_factory=lambda: {
+                "conversion_optimizer": {
+                    "conversion_rate_improvement": 0.15,
+                    "revenue_impact": 1247.50,
+                    "funnel_optimization": 0.12
+                },
+                "lncp_pattern_discovery": {
+                    "pattern_accuracy_improvement": 0.18,
+                    "confidence_score_increase": 0.09,
+                    "new_patterns_discovered": 7.0
+                },
+                "usage_pattern_analyzer": {
+                    "allocation_efficiency_improvement": 0.23,
+                    "unused_allocation_reduction": 0.31,
+                    "tier_progression_optimization": 0.16
+                }
+            })
+            execution_status: Dict[str, str] = field(default_factory=lambda: {
+                "conversion_optimizer": "healthy",
+                "lncp_pattern_discovery": "healthy",
+                "usage_pattern_analyzer": "healthy"
+            })
+            next_scheduled: Dict[str, str] = field(default_factory=lambda: {
+                "conversion_optimizer": "2026-03-06 03:00:00",
+                "lncp_pattern_discovery": "2026-03-10 02:00:00",
+                "usage_pattern_analyzer": "2026-03-15 04:00:00"
+            })
+            total_executions_today: int = 1
+            total_optimizations_applied: int = 23
+            total_roi_generated: float = 2847.90
+        
+        return AgentMetrics()
+    
+    def display_agent_view(self, agents):
+        """Display batch agent system status."""
+        
+        self.console.print("\n🤖 [bold]Batch Agent System Status[/bold]")
+        self.console.print()
+        
+        # System health overview
+        health_table = Table(title="Agent Health Overview", show_header=True, header_style="bold cyan")
+        health_table.add_column("Agent", style="white")
+        health_table.add_column("Status", justify="center")
+        health_table.add_column("Performance", justify="center")
+        health_table.add_column("Last Run", justify="center")
+        health_table.add_column("Next Run", justify="center")
+        
+        for agent_name in ["conversion_optimizer", "lncp_pattern_discovery", "usage_pattern_analyzer"]:
+            display_name = agent_name.replace("_", " ").title()
+            status = agents.execution_status[agent_name]
+            performance = f"{agents.performance_scores[agent_name]:.1f}/10"
+            last_run = agents.last_execution_times[agent_name]
+            next_run = agents.next_scheduled[agent_name]
+            
+            if status == "healthy":
+                status_display = "[green]✓ Healthy[/green]"
+                performance_display = f"[green]{performance}[/green]"
+            elif status == "degraded":
+                status_display = "[yellow]⚠ Degraded[/yellow]"
+                performance_display = f"[yellow]{performance}[/yellow]"
+            else:
+                status_display = "[red]✗ Unhealthy[/red]"
+                performance_display = f"[red]{performance}[/red]"
+            
+            health_table.add_row(display_name, status_display, performance_display, last_run, next_run)
+        
+        self.console.print(health_table)
+        self.console.print()
+        
+        # System impact metrics
+        impact_table = Table(title="System Impact & Improvements", show_header=True, header_style="bold green")
+        impact_table.add_column("Agent", style="white")
+        impact_table.add_column("Key Improvement", justify="center")
+        impact_table.add_column("Impact Value", justify="center")
+        impact_table.add_column("Revenue Impact", justify="center")
+        
+        for agent_name in ["conversion_optimizer", "lncp_pattern_discovery", "usage_pattern_analyzer"]:
+            display_name = agent_name.replace("_", " ").title()
+            improvements = agents.system_improvements[agent_name]
+            
+            if agent_name == "conversion_optimizer":
+                key_improvement = "Conversion Rate"
+                impact_value = f"+{improvements['conversion_rate_improvement']:.1%}"
+                revenue_impact = f"${improvements['revenue_impact']:.0f}/month"
+            elif agent_name == "lncp_pattern_discovery":
+                key_improvement = "Pattern Accuracy"
+                impact_value = f"+{improvements['pattern_accuracy_improvement']:.1%}"
+                revenue_impact = f"{improvements['new_patterns_discovered']:.0f} patterns"
+            else:  # usage_pattern_analyzer
+                key_improvement = "Allocation Efficiency"
+                impact_value = f"+{improvements['allocation_efficiency_improvement']:.1%}"
+                revenue_impact = f"-{improvements['unused_allocation_reduction']:.1%} waste"
+            
+            impact_table.add_row(display_name, key_improvement, impact_value, revenue_impact)
+        
+        self.console.print(impact_table)
+        self.console.print()
+        
+        # Summary statistics
+        summary_panel = Panel(
+            f"""[bold]System Summary[/bold]
+
+🎯 Total Agents: [cyan]{agents.total_agents}[/cyan] ({agents.healthy_agents} healthy)
+⚡ Executions Today: [green]{agents.total_executions_today}[/green] 
+🔧 Optimizations Applied: [yellow]{agents.total_optimizations_applied}[/yellow]
+💰 ROI Generated: [green]${agents.total_roi_generated:.0f}[/green]
+
+📊 [bold]Current Phase:[/bold] Phase 1 - Revenue Critical Agents
+📅 [bold]Next Phase:[/bold] Phase 2 - Retention & Experience (Week 4-6)
+
+🔄 [bold]Agent Cycle Times:[/bold]
+• Conversion Optimizer: Daily at 3 AM EST
+• LNCP Pattern Discovery: Sundays at 2 AM EST  
+• Usage Pattern Analyzer: 1st & 15th at 4 AM EST""",
+            title="🤖 Agent System Summary",
+            style="blue"
+        )
+        
+        self.console.print(summary_panel)
 
 def main():
     """Entry point."""
