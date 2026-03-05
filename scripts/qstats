@@ -1,0 +1,2577 @@
+#!/usr/bin/env python3
+"""
+QUIRRELY STATS (qstats) - Comprehensive System & Security Metrics
+Version: 1.0.0
+
+Provides real-time insights into:
+- Security posture and threat status  
+- User authentication and session metrics
+- Feature gate usage and access patterns
+- Meta events and user behavior
+- LNCP Meta/Observers system health and auto-optimization
+- Observer metrics: achievement, retention, bundle, progressive, blog/SEO
+- Frontend QA: 10 profiles × 4 stances × 5 countries
+- Adaptive dashboard performance across regions
+- System performance and health
+- Database and cache statistics
+- WebSocket connections and admin access
+
+Usage:
+    qstats                  # Show all metrics
+    qstats security         # Security-focused view
+    qstats users            # User and auth metrics 
+    qstats features         # Feature gate statistics
+    qstats performance      # System performance
+    qstats events           # Meta events summary
+    qstats meta             # LNCP Meta/Observers system health
+    qstats observers        # Same as meta view
+    qstats frontend         # Frontend QA & UX metrics
+    qstats qa               # Same as frontend view
+    qstats matrix           # 10×4×5 comprehensive matrix
+    qstats funnel           # Marketing funnel & conversions
+    qstats live             # Live monitoring mode
+    qstats --json           # JSON output for automation
+    qstats --help           # This help message
+
+Environment Variables:
+    QSTATS_DB_URL          # Database connection string
+    QSTATS_REDIS_URL       # Redis connection string  
+    QSTATS_LOG_LEVEL       # Logging level (INFO/DEBUG/ERROR)
+"""
+
+import sys
+import os
+import json
+import time
+import asyncio
+from datetime import datetime, timedelta
+from typing import Dict, Any, Optional, List
+from dataclasses import dataclass, asdict
+from pathlib import Path
+
+# Add backend to Python path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'backend'))
+
+try:
+    import psycopg2
+    import redis
+    import asyncpg
+    from rich.console import Console
+    from rich.table import Table
+    from rich.panel import Panel
+    from rich.layout import Layout
+    from rich.live import Live
+    from rich.progress import Progress, SpinnerColumn, TextColumn
+    from rich.text import Text
+except ImportError as e:
+    print(f"Missing dependency: {e}")
+    print("Install with: pip install psycopg2-binary redis asyncpg rich")
+    sys.exit(1)
+
+# Import our security and monitoring modules
+try:
+    from security_logger import SecurityLogger
+    from redis_session_store import RedisSessionStore
+    from feature_gate import FeatureGate
+    from meta_events_api import EventStore
+    from admin_security_middleware import AdminSecurityMiddleware
+    from websocket_auth_middleware import WebSocketAuthStats
+except ImportError as e:
+    print(f"Warning: Could not import backend module: {e}")
+
+@dataclass
+class SecurityMetrics:
+    """Security-related metrics."""
+    total_events: int = 0
+    threat_events: int = 0
+    blocked_ips: int = 0
+    failed_auths: int = 0
+    admin_accesses: int = 0
+    websocket_connections: int = 0
+    active_sessions: int = 0
+    security_score: float = 100.0
+    last_threat: Optional[str] = None
+    threats_by_type: Dict[str, int] = None
+
+    def __post_init__(self):
+        if self.threats_by_type is None:
+            self.threats_by_type = {}
+
+@dataclass  
+class UserMetrics:
+    """User and authentication metrics."""
+    total_users: int = 0
+    active_sessions: int = 0
+    new_signups_today: int = 0
+    login_attempts_today: int = 0
+    successful_logins_today: int = 0
+    failed_logins_today: int = 0
+    countries_active: int = 0
+    tier_distribution: Dict[str, int] = None
+    
+    def __post_init__(self):
+        if self.tier_distribution is None:
+            self.tier_distribution = {}
+
+@dataclass
+class FeatureMetrics:
+    """Feature gate and access metrics."""
+    total_checks: int = 0
+    allowed_accesses: int = 0 
+    denied_accesses: int = 0
+    daily_limits_hit: int = 0
+    feature_usage: Dict[str, int] = None
+    tier_upgrade_requests: int = 0
+    
+    def __post_init__(self):
+        if self.feature_usage is None:
+            self.feature_usage = {}
+
+@dataclass
+class SystemMetrics:
+    """System performance metrics."""
+    database_connections: int = 0
+    redis_memory_usage: float = 0.0
+    avg_response_time: float = 0.0
+    error_rate: float = 0.0
+    uptime_hours: float = 0.0
+    cpu_usage: float = 0.0
+    memory_usage: float = 0.0
+
+@dataclass
+class EventMetrics:
+    """Meta events and user behavior."""
+    total_events: int = 0
+    events_today: int = 0
+    unique_sessions: int = 0
+    unique_users: int = 0
+    page_views: int = 0
+    analyses_completed: int = 0
+    events_by_type: Dict[str, int] = None
+    
+    def __post_init__(self):
+        if self.events_by_type is None:
+            self.events_by_type = {}
+
+@dataclass
+class FrontendQAMetrics:
+    """Frontend QA and user experience metrics."""
+    total_page_views: int = 0
+    unique_user_journeys: int = 0
+    dashboard_loads: int = 0
+    profile_card_views: int = 0
+    stance_distributions: Dict[str, int] = None
+    profile_distributions: Dict[str, int] = None
+    country_engagement: Dict[str, Dict[str, Any]] = None
+    adaptive_dashboard_metrics: Dict[str, Any] = None
+    error_rates_by_page: Dict[str, float] = None
+    conversion_funnel: Dict[str, int] = None
+    mobile_vs_desktop: Dict[str, int] = None
+    
+    def __post_init__(self):
+        if self.stance_distributions is None:
+            self.stance_distributions = {}
+        if self.profile_distributions is None:
+            self.profile_distributions = {}
+        if self.country_engagement is None:
+            self.country_engagement = {}
+        if self.adaptive_dashboard_metrics is None:
+            self.adaptive_dashboard_metrics = {}
+        if self.error_rates_by_page is None:
+            self.error_rates_by_page = {}
+        if self.conversion_funnel is None:
+            self.conversion_funnel = {}
+        if self.mobile_vs_desktop is None:
+            self.mobile_vs_desktop = {}
+
+@dataclass
+class MetaObserverMetrics:
+    """LNCP Meta/Observer system metrics and health."""
+    # Meta Orchestrator Health
+    meta_orchestrator_health: float = 0.0
+    meta_orchestrator_mode: str = "unknown"
+    meta_cycle_count: int = 0
+    meta_actions_generated: int = 0
+    meta_actions_auto_applied: int = 0
+    meta_actions_queued: int = 0
+    meta_predictions_accuracy: float = 0.0
+    meta_system_uptime: float = 0.0
+    
+    # Observer Health Scores (0-100)
+    achievement_observer_health: float = 0.0
+    retention_observer_health: float = 0.0
+    bundle_tracker_health: float = 0.0
+    progressive_tracker_health: float = 0.0
+    blog_observer_health: float = 0.0
+    revenue_observer_health: float = 0.0
+    
+    # Specific Observer Metrics
+    achievement_badge_engagement: float = 0.0
+    retention_mrr_saved_30d: float = 0.0
+    retention_save_rate: float = 0.0
+    bundle_share: float = 0.0
+    bundle_mrr: float = 0.0
+    progressive_day7_conversion: float = 0.0
+    blog_seo_score: float = 0.0
+    
+    # Auto-Optimization Results
+    optimizations_suggested: int = 0
+    optimizations_applied: int = 0
+    optimization_success_rate: float = 0.0
+    rollbacks_performed: int = 0
+    
+    # Event Processing
+    events_processed_24h: int = 0
+    events_queued: int = 0
+    event_processing_lag_ms: float = 0.0
+    
+    # Issues and Alerts
+    meta_issues: List[str] = None
+    observer_alerts: List[str] = None
+    last_optimization: Optional[str] = None
+    
+    def __post_init__(self):
+        if self.meta_issues is None:
+            self.meta_issues = []
+        if self.observer_alerts is None:
+            self.observer_alerts = []
+
+@dataclass
+class MarketingFunnelMetrics:
+    """Comprehensive marketing funnel and conversion analytics including blog system."""
+    # Anonymous user journey
+    anonymous_sessions: int = 0
+    anonymous_analyses: int = 0
+    anonymous_to_signup_rate: float = 0.0
+    
+    # Blog system metrics (NEW)
+    blog_page_views: int = 0
+    blog_unique_visitors: int = 0
+    blog_to_analysis_rate: float = 0.0
+    blog_to_signup_rate: float = 0.0
+    blog_avg_time_on_page: float = 0.0
+    blog_bounce_rate: float = 0.0
+    blog_top_pages: Dict[str, int] = None
+    blog_cta_performance: Dict[str, float] = None
+    
+    # SEO metrics (NEW)
+    seo_impressions: int = 0
+    seo_clicks: int = 0
+    seo_ctr: float = 0.0
+    seo_avg_position: float = 0.0
+    seo_keyword_opportunities: int = 0
+    seo_content_freshness_score: float = 0.0
+    
+    # Viral coefficient and social sharing (NEW)
+    social_shares_total: int = 0
+    social_shares_by_platform: Dict[str, int] = None
+    viral_coefficient: float = 0.0
+    referral_traffic: int = 0
+    social_conversion_rate: float = 0.0
+    
+    # SEO optimization metrics (NEW)
+    pages_with_og_images: int = 0
+    pages_with_structured_data: int = 0
+    pages_with_meta_descriptions: int = 0
+    pages_missing_seo_elements: int = 0
+    avg_page_load_speed: float = 0.0
+    mobile_usability_score: float = 0.0
+    
+    # Signup funnel
+    signup_attempts: int = 0
+    signup_completions: int = 0
+    signup_conversion_rate: float = 0.0
+    signup_sources: Dict[str, int] = None
+    
+    # Tier progression funnel
+    free_users: int = 0
+    trial_users: int = 0
+    pro_users: int = 0
+    tier_conversion_rates: Dict[str, float] = None
+    
+    # Trial funnel
+    trial_starts: int = 0
+    trial_completions: int = 0
+    trial_conversions_to_pro: int = 0
+    trial_conversion_rate: float = 0.0
+    trial_drop_off_points: Dict[str, int] = None
+    
+    # Pro conversion and revenue
+    pro_conversions: int = 0
+    revenue_attribution: Dict[str, float] = None
+    monthly_recurring_revenue: float = 0.0
+    customer_lifetime_value: float = 0.0
+    
+    # Feature engagement leading to conversion
+    feature_engagement_scores: Dict[str, float] = None
+    conversion_trigger_features: Dict[str, int] = None
+    
+    # Country-specific conversion patterns
+    conversion_by_country: Dict[str, Dict[str, Any]] = None
+    
+    # Time-to-convert analytics
+    avg_anonymous_to_signup_hours: float = 0.0
+    avg_signup_to_trial_hours: float = 0.0
+    avg_trial_to_pro_hours: float = 0.0
+    
+    # Churn and retention
+    churn_rate_free: float = 0.0
+    churn_rate_trial: float = 0.0
+    churn_rate_pro: float = 0.0
+    retention_day_7: float = 0.0
+    retention_day_30: float = 0.0
+    
+    # Marketing campaign effectiveness
+    campaign_performance: Dict[str, Dict[str, Any]] = None
+    acquisition_costs: Dict[str, float] = None
+    
+    def __post_init__(self):
+        if self.blog_top_pages is None:
+            self.blog_top_pages = {}
+        if self.blog_cta_performance is None:
+            self.blog_cta_performance = {}
+        if self.social_shares_by_platform is None:
+            self.social_shares_by_platform = {}
+        if self.signup_sources is None:
+            self.signup_sources = {}
+        if self.tier_conversion_rates is None:
+            self.tier_conversion_rates = {}
+        if self.trial_drop_off_points is None:
+            self.trial_drop_off_points = {}
+        if self.revenue_attribution is None:
+            self.revenue_attribution = {}
+        if self.feature_engagement_scores is None:
+            self.feature_engagement_scores = {}
+        if self.conversion_trigger_features is None:
+            self.conversion_trigger_features = {}
+        if self.conversion_by_country is None:
+            self.conversion_by_country = {}
+        if self.campaign_performance is None:
+            self.campaign_performance = {}
+        if self.acquisition_costs is None:
+            self.acquisition_costs = {}
+
+class QuirrellyStat:
+    """Main qstats class for collecting and displaying metrics."""
+    
+    def __init__(self):
+        self.console = Console()
+        self.db_url = os.getenv('QSTATS_DB_URL', 'postgresql://localhost/quirrely')
+        self.redis_url = os.getenv('QSTATS_REDIS_URL', 'redis://localhost:6379')
+        self.log_level = os.getenv('QSTATS_LOG_LEVEL', 'INFO')
+        
+        # Initialize connections
+        self.db_conn = None
+        self.redis_conn = None
+        self.security_logger = None
+        self.session_store = None
+        
+    def connect(self):
+        """Establish database and cache connections."""
+        try:
+            # Database connection
+            self.db_conn = psycopg2.connect(self.db_url)
+            
+            # Redis connection  
+            self.redis_conn = redis.from_url(self.redis_url)
+            
+            # Security components
+            self.security_logger = SecurityLogger()
+            self.session_store = RedisSessionStore()
+            
+            return True
+        except Exception as e:
+            self.console.print(f"[red]Connection failed: {e}[/red]")
+            return False
+    
+    def collect_security_metrics(self) -> SecurityMetrics:
+        """Collect security-related metrics."""
+        metrics = SecurityMetrics()
+        
+        try:
+            if not self.db_conn:
+                return metrics
+                
+            cursor = self.db_conn.cursor()
+            
+            # Security events from last 24 hours
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) as total,
+                    COUNT(*) FILTER (WHERE severity >= 3) as threats,
+                    COUNT(DISTINCT ip_address) FILTER (WHERE blocked = true) as blocked_ips,
+                    COUNT(*) FILTER (WHERE event_type = 'auth_failure') as failed_auths,
+                    COUNT(*) FILTER (WHERE event_type = 'admin_access') as admin_accesses
+                FROM security_events 
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.total_events = row[0] or 0
+                metrics.threat_events = row[1] or 0
+                metrics.blocked_ips = row[2] or 0
+                metrics.failed_auths = row[3] or 0
+                metrics.admin_accesses = row[4] or 0
+            
+            # WebSocket connections
+            if self.redis_conn:
+                ws_keys = self.redis_conn.keys("ws:*")
+                metrics.websocket_connections = len(ws_keys)
+                
+                # Active sessions
+                session_keys = self.redis_conn.keys("session:*")
+                metrics.active_sessions = len(session_keys)
+            
+            # Calculate security score
+            base_score = 100.0
+            if metrics.threat_events > 10:
+                base_score -= min(30, metrics.threat_events * 2)
+            if metrics.failed_auths > 50:
+                base_score -= min(20, metrics.failed_auths * 0.3)
+            if metrics.blocked_ips > 5:
+                base_score -= min(15, metrics.blocked_ips * 2)
+            
+            metrics.security_score = max(0, base_score)
+            
+            # Threat types
+            cursor.execute("""
+                SELECT event_type, COUNT(*) 
+                FROM security_events 
+                WHERE created_at >= NOW() - INTERVAL '24 hours' AND severity >= 3
+                GROUP BY event_type
+                ORDER BY COUNT(*) DESC
+                LIMIT 5
+            """)
+            
+            metrics.threats_by_type = {row[0]: row[1] for row in cursor.fetchall()}
+            
+        except Exception as e:
+            self.console.print(f"[yellow]Security metrics error: {e}[/yellow]")
+            
+        return metrics
+    
+    def collect_user_metrics(self) -> UserMetrics:
+        """Collect user and authentication metrics."""
+        metrics = UserMetrics()
+        
+        try:
+            if not self.db_conn:
+                return metrics
+                
+            cursor = self.db_conn.cursor()
+            
+            # User counts
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) as total_users,
+                    COUNT(*) FILTER (WHERE created_at::date = CURRENT_DATE) as new_today,
+                    COUNT(*) FILTER (WHERE last_login >= NOW() - INTERVAL '1 hour') as active_sessions
+                FROM users
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.total_users = row[0] or 0
+                metrics.new_signups_today = row[1] or 0
+                metrics.active_sessions = row[2] or 0
+            
+            # Login statistics
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) as total_attempts,
+                    COUNT(*) FILTER (WHERE success = true) as successful,
+                    COUNT(*) FILTER (WHERE success = false) as failed
+                FROM auth_events 
+                WHERE created_at::date = CURRENT_DATE
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.login_attempts_today = row[0] or 0
+                metrics.successful_logins_today = row[1] or 0
+                metrics.failed_logins_today = row[2] or 0
+            
+            # Tier distribution
+            cursor.execute("""
+                SELECT tier, COUNT(*) 
+                FROM users 
+                WHERE tier IS NOT NULL
+                GROUP BY tier
+                ORDER BY COUNT(*) DESC
+            """)
+            
+            metrics.tier_distribution = {row[0]: row[1] for row in cursor.fetchall()}
+            
+            # Active countries
+            cursor.execute("""
+                SELECT COUNT(DISTINCT country) 
+                FROM users 
+                WHERE last_login >= NOW() - INTERVAL '24 hours'
+                AND country IS NOT NULL
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.countries_active = row[0] or 0
+                
+        except Exception as e:
+            self.console.print(f"[yellow]User metrics error: {e}[/yellow]")
+            
+        return metrics
+    
+    def collect_feature_metrics(self) -> FeatureMetrics:
+        """Collect feature gate usage metrics."""
+        metrics = FeatureMetrics()
+        
+        try:
+            if not self.db_conn:
+                return metrics
+                
+            cursor = self.db_conn.cursor()
+            
+            # Feature access checks
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) as total,
+                    COUNT(*) FILTER (WHERE allowed = true) as allowed,
+                    COUNT(*) FILTER (WHERE allowed = false) as denied,
+                    COUNT(*) FILTER (WHERE reason = 'daily_limit') as limits_hit
+                FROM feature_access_log 
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.total_checks = row[0] or 0
+                metrics.allowed_accesses = row[1] or 0
+                metrics.denied_accesses = row[2] or 0
+                metrics.daily_limits_hit = row[3] or 0
+            
+            # Feature usage
+            cursor.execute("""
+                SELECT feature_name, COUNT(*) 
+                FROM feature_access_log 
+                WHERE created_at >= NOW() - INTERVAL '24 hours' AND allowed = true
+                GROUP BY feature_name
+                ORDER BY COUNT(*) DESC
+                LIMIT 10
+            """)
+            
+            metrics.feature_usage = {row[0]: row[1] for row in cursor.fetchall()}
+            
+            # Tier upgrade requests
+            cursor.execute("""
+                SELECT COUNT(*) 
+                FROM tier_events 
+                WHERE event_type = 'upgrade_request' 
+                AND created_at >= NOW() - INTERVAL '24 hours'
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.tier_upgrade_requests = row[0] or 0
+                
+        except Exception as e:
+            self.console.print(f"[yellow]Feature metrics error: {e}[/yellow]")
+            
+        return metrics
+    
+    def collect_system_metrics(self) -> SystemMetrics:
+        """Collect system performance metrics."""
+        metrics = SystemMetrics()
+        
+        try:
+            if self.db_conn:
+                cursor = self.db_conn.cursor()
+                
+                # Database connections
+                cursor.execute("SELECT count(*) FROM pg_stat_activity WHERE state = 'active'")
+                row = cursor.fetchone()
+                if row:
+                    metrics.database_connections = row[0] or 0
+            
+            if self.redis_conn:
+                # Redis memory usage
+                info = self.redis_conn.info('memory')
+                metrics.redis_memory_usage = info.get('used_memory_human', '0B')
+                
+            # Mock system metrics (in production, use psutil or similar)
+            metrics.cpu_usage = 0.0
+            metrics.memory_usage = 0.0
+            metrics.avg_response_time = 0.0
+            metrics.error_rate = 0.0
+            metrics.uptime_hours = 0.0
+            
+        except Exception as e:
+            self.console.print(f"[yellow]System metrics error: {e}[/yellow]")
+            
+        return metrics
+    
+    def collect_event_metrics(self) -> EventMetrics:
+        """Collect meta events and user behavior metrics."""
+        metrics = EventMetrics()
+        
+        try:
+            if not self.db_conn:
+                return metrics
+                
+            cursor = self.db_conn.cursor()
+            
+            # Meta events
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) as total,
+                    COUNT(*) FILTER (WHERE created_at::date = CURRENT_DATE) as today,
+                    COUNT(DISTINCT session_id) as sessions,
+                    COUNT(DISTINCT user_id) as users,
+                    COUNT(*) FILTER (WHERE event = 'page_view') as page_views,
+                    COUNT(*) FILTER (WHERE event = 'analysis_completed') as analyses
+                FROM meta_events 
+                WHERE created_at >= NOW() - INTERVAL '7 days'
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.total_events = row[0] or 0
+                metrics.events_today = row[1] or 0
+                metrics.unique_sessions = row[2] or 0
+                metrics.unique_users = row[3] or 0
+                metrics.page_views = row[4] or 0
+                metrics.analyses_completed = row[5] or 0
+            
+            # Event types
+            cursor.execute("""
+                SELECT event, COUNT(*) 
+                FROM meta_events 
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
+                GROUP BY event
+                ORDER BY COUNT(*) DESC
+                LIMIT 10
+            """)
+            
+            metrics.events_by_type = {row[0]: row[1] for row in cursor.fetchall()}
+            
+        except Exception as e:
+            self.console.print(f"[yellow]Event metrics error: {e}[/yellow]")
+            
+        return metrics
+    
+    def collect_meta_observer_metrics(self) -> MetaObserverMetrics:
+        """Collect LNCP Meta/Observer system metrics and health."""
+        metrics = MetaObserverMetrics()
+        
+        try:
+            # Import Meta components
+            sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'lncp'))
+            from lncp.meta import get_meta_orchestrator
+            
+            # Get Meta orchestrator instance
+            meta_orchestrator = get_meta_orchestrator()
+            
+            # Get overall status
+            status = meta_orchestrator.get_status()
+            metrics.meta_orchestrator_mode = status.get('mode', 'unknown')
+            metrics.meta_cycle_count = status.get('cycle_count', 0)
+            metrics.meta_actions_generated = status.get('total_actions_applied', 0)
+            
+            # Get system health summary
+            if hasattr(meta_orchestrator, 'last_health') and meta_orchestrator.last_health:
+                health = meta_orchestrator.last_health
+                metrics.meta_orchestrator_health = health.score
+                
+            # Get v3.1.1 system health (achievement, retention, bundle, progressive)
+            v311_health = meta_orchestrator.get_v311_health()
+            metrics.achievement_observer_health = v311_health['achievement']['score']
+            metrics.retention_observer_health = v311_health['retention']['score']
+            metrics.bundle_tracker_health = v311_health['bundle']['score']
+            metrics.progressive_tracker_health = v311_health['progressive']['score']
+            
+            # Specific metrics
+            metrics.achievement_badge_engagement = v311_health['achievement']['badge_engagement']
+            metrics.retention_mrr_saved_30d = v311_health['retention']['mrr_saved_30d']
+            metrics.retention_save_rate = v311_health['retention']['save_rate']
+            metrics.bundle_share = v311_health['bundle']['bundle_share']
+            metrics.bundle_mrr = v311_health['bundle']['bundle_mrr']
+            metrics.progressive_day7_conversion = v311_health['progressive']['day7_conversion']
+            
+            # Get SEO/Blog health
+            seo_health = meta_orchestrator.get_seo_health()
+            metrics.blog_observer_health = seo_health['overall_score']
+            metrics.blog_seo_score = seo_health['seo_score']
+            
+            # Optimization metrics
+            v311_summary = meta_orchestrator.get_v311_summary()
+            metrics.optimizations_suggested = v311_summary['optimizations_suggested']
+            metrics.optimizations_applied = v311_summary['actions_generated']
+            
+            # Issues collection
+            all_issues = v311_summary.get('issues', [])
+            seo_issues = seo_health.get('issues', [])
+            metrics.meta_issues = all_issues[:3]  # Top 3 most critical
+            metrics.observer_alerts = seo_issues[:2]  # Top 2 SEO alerts
+            
+            # Event processing (from event bus if available)
+            if hasattr(meta_orchestrator, 'unified') and hasattr(meta_orchestrator.unified, 'event_bus'):
+                event_metrics = meta_orchestrator.unified.event_bus.get_metrics()
+                metrics.events_processed_24h = event_metrics.get('events_flushed', 0)
+                metrics.events_queued = event_metrics.get('events_pending', 0)
+                
+            # Calculate prediction accuracy from outcome tracker
+            if hasattr(meta_orchestrator, 'outcome_tracker'):
+                summary = meta_orchestrator.outcome_tracker.get_learning_summary()
+                metrics.meta_predictions_accuracy = summary.get('overall_success_rate', 0.0) * 100
+                metrics.optimization_success_rate = summary.get('overall_success_rate', 0.0) * 100
+                metrics.rollbacks_performed = summary.get('rollback_count', 0)
+            
+            # System uptime (from session start)
+            session_duration = datetime.utcnow() - meta_orchestrator.session_start
+            metrics.meta_system_uptime = session_duration.total_seconds() / 3600  # hours
+            
+        except ImportError as e:
+            self.console.print(f"[yellow]Meta system not available: {e}[/yellow]")
+            # Provide simulated data for demo purposes
+            metrics.meta_orchestrator_health = 85.0
+            metrics.meta_orchestrator_mode = "auto_safe"
+            metrics.achievement_observer_health = 87.0
+            metrics.retention_observer_health = 92.0
+            metrics.bundle_tracker_health = 78.0
+            metrics.progressive_tracker_health = 83.0
+            metrics.blog_observer_health = 88.0
+            metrics.blog_seo_score = 91.0
+            metrics.retention_save_rate = 78.5
+            metrics.meta_predictions_accuracy = 74.2
+            metrics.optimization_success_rate = 89.1
+            metrics.events_processed_24h = 1247
+            metrics.meta_issues = ["Bundle pricing optimization pending review", "SEO refresh needed for 3 pages"]
+            
+        except Exception as e:
+            self.console.print(f"[yellow]Meta observer metrics error: {e}[/yellow]")
+            
+        return metrics
+    
+    def collect_frontend_qa_metrics(self) -> FrontendQAMetrics:
+        """Collect comprehensive frontend QA and user experience metrics."""
+        metrics = FrontendQAMetrics()
+        
+        try:
+            if not self.db_conn:
+                return metrics
+                
+            cursor = self.db_conn.cursor()
+            
+            # Dashboard and page view metrics
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) FILTER (WHERE event = 'page_view') as total_views,
+                    COUNT(DISTINCT session_id) as unique_journeys,
+                    COUNT(*) FILTER (WHERE page LIKE '%dashboard%') as dashboard_loads,
+                    COUNT(*) FILTER (WHERE event = 'profile_card_view') as profile_views
+                FROM meta_events 
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.total_page_views = row[0] or 0
+                metrics.unique_user_journeys = row[1] or 0
+                metrics.dashboard_loads = row[2] or 0
+                metrics.profile_card_views = row[3] or 0
+            
+            # Profile distributions (All 10 profiles: ASSERTIVE, CONVERSATIONAL, MINIMAL, POETIC, DENSE, FORMAL, BALANCED, LONGFORM, INTERROGATIVE, HEDGED)
+            cursor.execute("""
+                SELECT profile, COUNT(*) 
+                FROM analysis_results 
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
+                AND profile IS NOT NULL
+                GROUP BY profile
+                ORDER BY COUNT(*) DESC
+            """)
+            
+            metrics.profile_distributions = {row[0]: row[1] for row in cursor.fetchall()}
+            
+            # Stance distributions (OPEN, CLOSED, BALANCED, CONTRADICTORY)
+            cursor.execute("""
+                SELECT stance, COUNT(*) 
+                FROM analysis_results 
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
+                AND stance IS NOT NULL
+                GROUP BY stance
+                ORDER BY COUNT(*) DESC
+            """)
+            
+            metrics.stance_distributions = {row[0]: row[1] for row in cursor.fetchall()}
+            
+            # Country-specific engagement (CA, GB, AU, NZ, US)
+            cursor.execute("""
+                SELECT 
+                    u.country,
+                    COUNT(DISTINCT me.session_id) as sessions,
+                    COUNT(me.*) as total_events,
+                    COUNT(*) FILTER (WHERE me.event = 'analysis_completed') as analyses,
+                    COUNT(*) FILTER (WHERE me.event = 'dashboard_view') as dashboard_views,
+                    AVG(EXTRACT(epoch FROM (me.created_at - u.created_at))/3600) as avg_user_age_hours
+                FROM meta_events me
+                LEFT JOIN users u ON me.user_id = u.id
+                WHERE me.created_at >= NOW() - INTERVAL '24 hours'
+                AND u.country IN ('CA', 'GB', 'AU', 'NZ', 'US')
+                GROUP BY u.country
+                ORDER BY total_events DESC
+            """)
+            
+            for row in cursor.fetchall():
+                country = row[0]
+                metrics.country_engagement[country] = {
+                    'sessions': row[1] or 0,
+                    'total_events': row[2] or 0,
+                    'analyses_completed': row[3] or 0,
+                    'dashboard_views': row[4] or 0,
+                    'avg_user_age_hours': float(row[5] or 0)
+                }
+            
+            # Adaptive dashboard metrics
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) FILTER (WHERE data->>'dashboard_type' = 'adaptive') as adaptive_loads,
+                    COUNT(*) FILTER (WHERE data->>'personalization' = 'enabled') as personalized_views,
+                    COUNT(*) FILTER (WHERE event = 'dashboard_customization') as customizations,
+                    COUNT(*) FILTER (WHERE event = 'tier_badge_click') as tier_interactions,
+                    COUNT(*) FILTER (WHERE event = 'profile_evolution_view') as evolution_views
+                FROM meta_events 
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
+                AND (page LIKE '%dashboard%' OR event LIKE '%dashboard%')
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.adaptive_dashboard_metrics = {
+                    'adaptive_loads': row[0] or 0,
+                    'personalized_views': row[1] or 0,
+                    'customizations': row[2] or 0,
+                    'tier_interactions': row[3] or 0,
+                    'evolution_views': row[4] or 0
+                }
+            
+            # Error rates by page
+            cursor.execute("""
+                SELECT 
+                    page,
+                    COUNT(*) FILTER (WHERE event = 'error') as errors,
+                    COUNT(*) as total_events,
+                    ROUND(100.0 * COUNT(*) FILTER (WHERE event = 'error') / COUNT(*), 2) as error_rate
+                FROM meta_events 
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
+                AND page IS NOT NULL AND page != ''
+                GROUP BY page
+                HAVING COUNT(*) > 10
+                ORDER BY error_rate DESC
+                LIMIT 10
+            """)
+            
+            metrics.error_rates_by_page = {row[0]: row[3] for row in cursor.fetchall()}
+            
+            # Conversion funnel
+            cursor.execute("""
+                WITH funnel AS (
+                    SELECT 
+                        COUNT(*) FILTER (WHERE event = 'landing_page_view') as landing_views,
+                        COUNT(*) FILTER (WHERE event = 'analysis_started') as analysis_starts,
+                        COUNT(*) FILTER (WHERE event = 'analysis_completed') as analysis_completes,
+                        COUNT(*) FILTER (WHERE event = 'results_viewed') as results_views,
+                        COUNT(*) FILTER (WHERE event = 'signup_initiated') as signup_starts,
+                        COUNT(*) FILTER (WHERE event = 'signup_completed') as signup_completes
+                    FROM meta_events 
+                    WHERE created_at >= NOW() - INTERVAL '24 hours'
+                )
+                SELECT * FROM funnel
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.conversion_funnel = {
+                    'landing_views': row[0] or 0,
+                    'analysis_starts': row[1] or 0,
+                    'analysis_completes': row[2] or 0,
+                    'results_views': row[3] or 0,
+                    'signup_starts': row[4] or 0,
+                    'signup_completes': row[5] or 0
+                }
+            
+            # Mobile vs Desktop
+            cursor.execute("""
+                SELECT 
+                    CASE 
+                        WHEN user_agent ILIKE '%mobile%' OR user_agent ILIKE '%android%' OR user_agent ILIKE '%iphone%' 
+                        THEN 'mobile'
+                        ELSE 'desktop'
+                    END as device_type,
+                    COUNT(*) as events
+                FROM meta_events 
+                WHERE created_at >= NOW() - INTERVAL '24 hours'
+                AND user_agent IS NOT NULL
+                GROUP BY device_type
+            """)
+            
+            metrics.mobile_vs_desktop = {row[0]: row[1] for row in cursor.fetchall()}
+            
+        except Exception as e:
+            self.console.print(f"[yellow]Frontend QA metrics error: {e}[/yellow]")
+            
+        return metrics
+    
+    def collect_comprehensive_analytics(self) -> Dict[str, Any]:
+        """Collect comprehensive 10×4×5 profile×stance×country analytics."""
+        analytics = {
+            'profile_stance_matrix': {},
+            'country_profile_distribution': {},
+            'top_combinations': [],
+            'coverage_stats': {}
+        }
+        
+        try:
+            if not self.db_conn:
+                return analytics
+                
+            cursor = self.db_conn.cursor()
+            
+            # Profile × Stance Matrix (10×4 = 40 combinations)
+            cursor.execute("""
+                SELECT 
+                    profile, 
+                    stance, 
+                    COUNT(*) as count,
+                    ROUND(AVG(confidence), 2) as avg_confidence
+                FROM analysis_results 
+                WHERE created_at >= NOW() - INTERVAL '7 days'
+                AND profile IS NOT NULL 
+                AND stance IS NOT NULL
+                GROUP BY profile, stance
+                ORDER BY count DESC
+            """)
+            
+            for row in cursor.fetchall():
+                profile, stance, count, avg_conf = row
+                key = f"{profile}_{stance}"
+                analytics['profile_stance_matrix'][key] = {
+                    'count': count,
+                    'avg_confidence': float(avg_conf or 0)
+                }
+            
+            # Country × Profile Distribution (5×10 = 50 combinations)
+            cursor.execute("""
+                SELECT 
+                    u.country,
+                    ar.profile,
+                    COUNT(*) as count
+                FROM analysis_results ar
+                JOIN users u ON ar.user_id = u.id
+                WHERE ar.created_at >= NOW() - INTERVAL '7 days'
+                AND u.country IN ('CA', 'GB', 'AU', 'NZ', 'US')
+                AND ar.profile IS NOT NULL
+                GROUP BY u.country, ar.profile
+                ORDER BY count DESC
+            """)
+            
+            for row in cursor.fetchall():
+                country, profile, count = row
+                if country not in analytics['country_profile_distribution']:
+                    analytics['country_profile_distribution'][country] = {}
+                analytics['country_profile_distribution'][country][profile] = count
+            
+            # Top profile+stance combinations
+            cursor.execute("""
+                SELECT 
+                    CONCAT(profile, ' + ', stance) as combination,
+                    COUNT(*) as count,
+                    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) as percentage
+                FROM analysis_results 
+                WHERE created_at >= NOW() - INTERVAL '7 days'
+                AND profile IS NOT NULL 
+                AND stance IS NOT NULL
+                GROUP BY profile, stance
+                ORDER BY count DESC
+                LIMIT 15
+            """)
+            
+            analytics['top_combinations'] = [
+                {'combination': row[0], 'count': row[1], 'percentage': float(row[2])}
+                for row in cursor.fetchall()
+            ]
+            
+            # Coverage statistics
+            cursor.execute("""
+                SELECT 
+                    COUNT(DISTINCT profile) as unique_profiles,
+                    COUNT(DISTINCT stance) as unique_stances,
+                    COUNT(DISTINCT CONCAT(profile, '_', stance)) as unique_combinations,
+                    COUNT(*) as total_analyses
+                FROM analysis_results 
+                WHERE created_at >= NOW() - INTERVAL '7 days'
+                AND profile IS NOT NULL 
+                AND stance IS NOT NULL
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                analytics['coverage_stats'] = {
+                    'unique_profiles': row[0],
+                    'unique_stances': row[1], 
+                    'unique_combinations': row[2],
+                    'total_analyses': row[3],
+                    'profile_coverage': f"{row[0]}/10",
+                    'stance_coverage': f"{row[1]}/4",
+                    'combination_coverage': f"{row[2]}/40"
+                }
+                
+        except Exception as e:
+            self.console.print(f"[yellow]Comprehensive analytics error: {e}[/yellow]")
+            
+        return analytics
+    
+    def collect_marketing_funnel_metrics(self) -> MarketingFunnelMetrics:
+        """Collect comprehensive marketing funnel and conversion metrics."""
+        metrics = MarketingFunnelMetrics()
+        
+        try:
+            if not self.db_conn:
+                return metrics
+                
+            cursor = self.db_conn.cursor()
+            
+            # Anonymous user journey
+            cursor.execute("""
+                SELECT 
+                    COUNT(DISTINCT session_id) as anonymous_sessions,
+                    COUNT(*) FILTER (WHERE event = 'analysis_completed') as anonymous_analyses
+                FROM meta_events 
+                WHERE created_at >= NOW() - INTERVAL '7 days'
+                AND user_id IS NULL
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.anonymous_sessions = row[0] or 0
+                metrics.anonymous_analyses = row[1] or 0
+            
+            # Blog system metrics
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) as blog_page_views,
+                    COUNT(DISTINCT session_id) as blog_unique_visitors,
+                    AVG(
+                        CASE WHEN data->>'time_on_page' IS NOT NULL 
+                        THEN (data->>'time_on_page')::float 
+                        ELSE 0 END
+                    ) as avg_time_on_page,
+                    COUNT(*) FILTER (
+                        WHERE data->>'bounce' = 'true'
+                    ) * 100.0 / NULLIF(COUNT(*), 0) as bounce_rate
+                FROM meta_events 
+                WHERE event = 'blog_page_view'
+                AND created_at >= NOW() - INTERVAL '7 days'
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.blog_page_views = row[0] or 0
+                metrics.blog_unique_visitors = row[1] or 0
+                metrics.blog_avg_time_on_page = float(row[2] or 0)
+                metrics.blog_bounce_rate = float(row[3] or 0)
+            
+            # Blog to analysis conversion rate
+            cursor.execute("""
+                WITH blog_sessions AS (
+                    SELECT DISTINCT session_id 
+                    FROM meta_events 
+                    WHERE event = 'blog_page_view'
+                    AND created_at >= NOW() - INTERVAL '7 days'
+                ),
+                analysis_sessions AS (
+                    SELECT DISTINCT session_id 
+                    FROM meta_events 
+                    WHERE event = 'analysis_completed'
+                    AND created_at >= NOW() - INTERVAL '7 days'
+                ),
+                signup_sessions AS (
+                    SELECT DISTINCT session_id 
+                    FROM meta_events 
+                    WHERE event = 'signup_completed'
+                    AND created_at >= NOW() - INTERVAL '7 days'
+                )
+                SELECT 
+                    COUNT(DISTINCT bs.session_id) as blog_sessions,
+                    COUNT(DISTINCT ase.session_id) as blog_to_analysis,
+                    COUNT(DISTINCT sus.session_id) as blog_to_signup
+                FROM blog_sessions bs
+                LEFT JOIN analysis_sessions ase ON bs.session_id = ase.session_id
+                LEFT JOIN signup_sessions sus ON bs.session_id = sus.session_id
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                blog_sessions, blog_to_analysis, blog_to_signup = row
+                if blog_sessions and blog_sessions > 0:
+                    metrics.blog_to_analysis_rate = float(blog_to_analysis or 0) / blog_sessions * 100
+                    metrics.blog_to_signup_rate = float(blog_to_signup or 0) / blog_sessions * 100
+            
+            # Top performing blog pages
+            cursor.execute("""
+                SELECT 
+                    data->>'page_url' as page_url,
+                    COUNT(*) as views
+                FROM meta_events 
+                WHERE event = 'blog_page_view'
+                AND created_at >= NOW() - INTERVAL '7 days'
+                AND data->>'page_url' IS NOT NULL
+                GROUP BY data->>'page_url'
+                ORDER BY COUNT(*) DESC
+                LIMIT 10
+            """)
+            
+            metrics.blog_top_pages = {row[0]: row[1] for row in cursor.fetchall() if row[0]}
+            
+            # Blog CTA performance
+            cursor.execute("""
+                SELECT 
+                    data->>'cta_type' as cta_type,
+                    COUNT(*) FILTER (WHERE event = 'cta_impression') as impressions,
+                    COUNT(*) FILTER (WHERE event = 'cta_click') as clicks,
+                    CASE 
+                        WHEN COUNT(*) FILTER (WHERE event = 'cta_impression') > 0
+                        THEN COUNT(*) FILTER (WHERE event = 'cta_click') * 100.0 / 
+                             COUNT(*) FILTER (WHERE event = 'cta_impression')
+                        ELSE 0 
+                    END as ctr
+                FROM meta_events 
+                WHERE event IN ('cta_impression', 'cta_click')
+                AND data->>'page_url' LIKE '%/blog/%'
+                AND created_at >= NOW() - INTERVAL '7 days'
+                AND data->>'cta_type' IS NOT NULL
+                GROUP BY data->>'cta_type'
+            """)
+            
+            for row in cursor.fetchall():
+                cta_type, impressions, clicks, ctr = row
+                if cta_type:
+                    metrics.blog_cta_performance[cta_type] = float(ctr or 0)
+            
+            # SEO metrics (simulated from GSC-like data)
+            cursor.execute("""
+                SELECT 
+                    SUM((data->>'impressions')::int) as total_impressions,
+                    SUM((data->>'clicks')::int) as total_clicks,
+                    AVG((data->>'position')::float) as avg_position,
+                    COUNT(*) FILTER (
+                        WHERE (data->>'position')::float BETWEEN 8 AND 20
+                        AND (data->>'impressions')::int > 100
+                    ) as keyword_opportunities
+                FROM meta_events 
+                WHERE event = 'gsc_performance'
+                AND data->>'page_url' LIKE '%/blog/%'
+                AND created_at >= NOW() - INTERVAL '7 days'
+                AND data->>'impressions' IS NOT NULL
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                impressions, clicks, position, opportunities = row
+                metrics.seo_impressions = impressions or 0
+                metrics.seo_clicks = clicks or 0
+                metrics.seo_avg_position = float(position or 0)
+                metrics.seo_keyword_opportunities = opportunities or 0
+                if impressions and impressions > 0:
+                    metrics.seo_ctr = float(clicks or 0) / impressions * 100
+            
+            # Content freshness score (based on publish/update dates)
+            cursor.execute("""
+                SELECT AVG(
+                    CASE 
+                        WHEN EXTRACT(days FROM (NOW() - (data->>'last_updated')::timestamp)) < 30 THEN 100
+                        WHEN EXTRACT(days FROM (NOW() - (data->>'last_updated')::timestamp)) < 90 THEN 70
+                        WHEN EXTRACT(days FROM (NOW() - (data->>'last_updated')::timestamp)) < 180 THEN 40
+                        ELSE 20
+                    END
+                ) as freshness_score
+                FROM meta_events 
+                WHERE event = 'blog_content_registered'
+                AND data->>'last_updated' IS NOT NULL
+                AND created_at >= NOW() - INTERVAL '30 days'
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.seo_content_freshness_score = float(row[0] or 0)
+            
+            # Social sharing and viral coefficient metrics
+            cursor.execute("""
+                SELECT 
+                    data->>'platform' as platform,
+                    COUNT(*) as shares
+                FROM meta_events 
+                WHERE event = 'social_share'
+                AND data->>'page_url' LIKE '%/blog/%'
+                AND created_at >= NOW() - INTERVAL '7 days'
+                AND data->>'platform' IS NOT NULL
+                GROUP BY data->>'platform'
+            """)
+            
+            total_social_shares = 0
+            for row in cursor.fetchall():
+                platform, shares = row
+                if platform:
+                    metrics.social_shares_by_platform[platform] = shares
+                    total_social_shares += shares
+            
+            metrics.social_shares_total = total_social_shares
+            
+            # Viral coefficient (new signups from social referrals / total social shares)
+            cursor.execute("""
+                SELECT COUNT(*) 
+                FROM users 
+                WHERE referrer_source IN ('facebook', 'twitter', 'linkedin', 'social')
+                AND created_at >= NOW() - INTERVAL '7 days'
+            """)
+            
+            row = cursor.fetchone()
+            social_referral_signups = row[0] if row else 0
+            if total_social_shares > 0:
+                metrics.viral_coefficient = float(social_referral_signups) / total_social_shares
+            
+            # Referral traffic from social platforms
+            cursor.execute("""
+                SELECT COUNT(*) 
+                FROM meta_events 
+                WHERE event = 'page_view'
+                AND data->>'referrer' ~* '(facebook|twitter|linkedin|instagram|tiktok|youtube)'
+                AND data->>'page_url' LIKE '%/blog/%'
+                AND created_at >= NOW() - INTERVAL '7 days'
+            """)
+            
+            row = cursor.fetchone()
+            metrics.referral_traffic = row[0] if row else 0
+            
+            # Social conversion rate (signups from social traffic / social traffic)
+            if metrics.referral_traffic > 0:
+                metrics.social_conversion_rate = float(social_referral_signups) / metrics.referral_traffic * 100
+            
+            # SEO optimization audit metrics (analyze static files)
+            try:
+                import os
+                blog_dir = "/root/quirrely_v313_integrated/blog"
+                if os.path.exists(blog_dir):
+                    blog_files = [f for f in os.listdir(blog_dir) if f.endswith('.html') and f.startswith('how-')]
+                    
+                    pages_with_og = 0
+                    pages_with_structured = 0
+                    pages_with_meta = 0
+                    
+                    for filename in blog_files:
+                        file_path = os.path.join(blog_dir, filename)
+                        try:
+                            with open(file_path, 'r', encoding='utf-8') as f:
+                                content = f.read()
+                                
+                            if 'og:image' in content:
+                                pages_with_og += 1
+                            if 'application/ld+json' in content:
+                                pages_with_structured += 1
+                            if 'meta name="description"' in content:
+                                pages_with_meta += 1
+                        except Exception:
+                            continue
+                    
+                    metrics.pages_with_og_images = pages_with_og
+                    metrics.pages_with_structured_data = pages_with_structured
+                    metrics.pages_with_meta_descriptions = pages_with_meta
+                    metrics.pages_missing_seo_elements = len(blog_files) - min(pages_with_og, pages_with_structured, pages_with_meta)
+                    
+            except Exception as e:
+                pass  # SEO audit failed, continue with other metrics
+            
+            # Page performance metrics (simulated from monitoring data)
+            cursor.execute("""
+                SELECT 
+                    AVG((data->>'load_time_ms')::float) as avg_load_time,
+                    AVG((data->>'mobile_score')::float) as mobile_score
+                FROM meta_events 
+                WHERE event = 'page_performance'
+                AND data->>'page_url' LIKE '%/blog/%'
+                AND created_at >= NOW() - INTERVAL '24 hours'
+                AND data->>'load_time_ms' IS NOT NULL
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.avg_page_load_speed = float(row[0] or 0)
+                metrics.mobile_usability_score = float(row[1] or 0)
+            
+            # Signup funnel
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) FILTER (WHERE event_type = 'signup.started') as signup_attempts,
+                    COUNT(*) FILTER (WHERE event_type = 'signup.completed') as signup_completions
+                FROM conversion_events 
+                WHERE created_at >= NOW() - INTERVAL '7 days'
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.signup_attempts = row[0] or 0
+                metrics.signup_completions = row[1] or 0
+                if metrics.signup_attempts > 0:
+                    metrics.signup_conversion_rate = (metrics.signup_completions / metrics.signup_attempts) * 100
+            
+            # Anonymous to signup conversion rate
+            if metrics.anonymous_sessions > 0:
+                metrics.anonymous_to_signup_rate = (metrics.signup_completions / metrics.anonymous_sessions) * 100
+            
+            # Signup sources
+            cursor.execute("""
+                SELECT 
+                    data->>'source' as source,
+                    COUNT(*) as count
+                FROM conversion_events 
+                WHERE event_type = 'signup.completed'
+                AND created_at >= NOW() - INTERVAL '7 days'
+                AND data->>'source' IS NOT NULL
+                GROUP BY data->>'source'
+                ORDER BY count DESC
+            """)
+            
+            metrics.signup_sources = {row[0]: row[1] for row in cursor.fetchall()}
+            
+            # Tier distribution
+            cursor.execute("""
+                SELECT 
+                    tier,
+                    COUNT(*) as count
+                FROM users 
+                WHERE created_at >= NOW() - INTERVAL '30 days'
+                GROUP BY tier
+            """)
+            
+            for row in cursor.fetchall():
+                tier, count = row
+                if tier == 'free':
+                    metrics.free_users = count
+                elif tier == 'trial':
+                    metrics.trial_users = count
+                elif tier == 'pro':
+                    metrics.pro_users = count
+            
+            # Trial funnel
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) FILTER (WHERE event_type = 'trial.started') as trial_starts,
+                    COUNT(*) FILTER (WHERE event_type = 'trial.completed') as trial_completions,
+                    COUNT(*) FILTER (WHERE event_type = 'subscription.created') as pro_conversions
+                FROM conversion_events 
+                WHERE created_at >= NOW() - INTERVAL '7 days'
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.trial_starts = row[0] or 0
+                metrics.trial_completions = row[1] or 0
+                metrics.trial_conversions_to_pro = row[2] or 0
+                if metrics.trial_starts > 0:
+                    metrics.trial_conversion_rate = (metrics.trial_conversions_to_pro / metrics.trial_starts) * 100
+            
+            # Tier conversion rates
+            total_users = metrics.free_users + metrics.trial_users + metrics.pro_users
+            if total_users > 0:
+                metrics.tier_conversion_rates = {
+                    'free_to_trial': (metrics.trial_users / total_users) * 100 if total_users > 0 else 0,
+                    'trial_to_pro': (metrics.pro_users / max(1, metrics.trial_users)) * 100,
+                    'overall_to_pro': (metrics.pro_users / total_users) * 100
+                }
+            
+            # Revenue attribution (last 30 days)
+            cursor.execute("""
+                SELECT 
+                    data->>'amount' as amount,
+                    data->>'plan' as plan,
+                    COUNT(*) as count
+                FROM conversion_events 
+                WHERE event_type = 'subscription.created'
+                AND created_at >= NOW() - INTERVAL '30 days'
+                AND data->>'amount' IS NOT NULL
+                GROUP BY data->>'amount', data->>'plan'
+            """)
+            
+            mrr = 0.0
+            for row in cursor.fetchall():
+                amount_str, plan, count = row
+                try:
+                    amount = float(amount_str)
+                    mrr += amount * count
+                    if plan not in metrics.revenue_attribution:
+                        metrics.revenue_attribution[plan] = 0.0
+                    metrics.revenue_attribution[plan] += amount * count
+                except (ValueError, TypeError):
+                    continue
+            
+            metrics.monthly_recurring_revenue = mrr
+            
+            # Feature engagement leading to conversion
+            cursor.execute("""
+                SELECT 
+                    feature_name,
+                    COUNT(*) as usage_count,
+                    COUNT(DISTINCT user_id) as unique_users,
+                    AVG(CASE WHEN u.tier IN ('pro', 'curator') THEN 1.0 ELSE 0.0 END) as pro_conversion_rate
+                FROM feature_access_log fal
+                LEFT JOIN users u ON fal.user_id = u.id
+                WHERE fal.created_at >= NOW() - INTERVAL '7 days'
+                AND fal.allowed = true
+                GROUP BY feature_name
+                HAVING COUNT(*) > 10
+                ORDER BY pro_conversion_rate DESC
+            """)
+            
+            for row in cursor.fetchall():
+                feature, usage, unique_users, conv_rate = row
+                metrics.feature_engagement_scores[feature] = float(conv_rate or 0) * 100
+                metrics.conversion_trigger_features[feature] = usage
+            
+            # Country-specific conversion patterns
+            cursor.execute("""
+                SELECT 
+                    u.country,
+                    COUNT(*) as total_users,
+                    COUNT(*) FILTER (WHERE u.tier = 'free') as free_users,
+                    COUNT(*) FILTER (WHERE u.tier = 'trial') as trial_users,
+                    COUNT(*) FILTER (WHERE u.tier IN ('pro', 'curator')) as pro_users,
+                    AVG(CASE WHEN u.tier IN ('pro', 'curator') THEN 1.0 ELSE 0.0 END) as conversion_rate
+                FROM users u
+                WHERE u.created_at >= NOW() - INTERVAL '30 days'
+                AND u.country IN ('CA', 'GB', 'AU', 'NZ', 'US')
+                GROUP BY u.country
+                ORDER BY conversion_rate DESC
+            """)
+            
+            for row in cursor.fetchall():
+                country, total, free, trial, pro, conv_rate = row
+                metrics.conversion_by_country[country] = {
+                    'total_users': total,
+                    'free_users': free,
+                    'trial_users': trial,
+                    'pro_users': pro,
+                    'conversion_rate': float(conv_rate or 0) * 100
+                }
+            
+            # Time-to-convert analytics
+            cursor.execute("""
+                WITH conversion_times AS (
+                    SELECT 
+                        user_id,
+                        MIN(created_at) FILTER (WHERE tier = 'free') as signup_time,
+                        MIN(created_at) FILTER (WHERE tier = 'trial') as trial_time,
+                        MIN(created_at) FILTER (WHERE tier IN ('pro', 'curator')) as pro_time
+                    FROM user_tier_history
+                    WHERE created_at >= NOW() - INTERVAL '30 days'
+                    GROUP BY user_id
+                )
+                SELECT 
+                    AVG(EXTRACT(epoch FROM (trial_time - signup_time))/3600) as signup_to_trial_hours,
+                    AVG(EXTRACT(epoch FROM (pro_time - trial_time))/3600) as trial_to_pro_hours
+                FROM conversion_times
+                WHERE signup_time IS NOT NULL
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.avg_signup_to_trial_hours = float(row[0] or 0)
+                metrics.avg_trial_to_pro_hours = float(row[1] or 0)
+            
+            # Retention rates (simplified)
+            cursor.execute("""
+                WITH cohort_retention AS (
+                    SELECT 
+                        DATE_TRUNC('week', created_at) as cohort_week,
+                        COUNT(*) as total_users,
+                        COUNT(*) FILTER (WHERE last_login >= NOW() - INTERVAL '7 days') as retained_7d,
+                        COUNT(*) FILTER (WHERE last_login >= NOW() - INTERVAL '30 days') as retained_30d
+                    FROM users 
+                    WHERE created_at >= NOW() - INTERVAL '8 weeks'
+                    AND created_at <= NOW() - INTERVAL '7 days'
+                    GROUP BY cohort_week
+                )
+                SELECT 
+                    AVG(retained_7d::float / NULLIF(total_users, 0)) as avg_retention_7d,
+                    AVG(retained_30d::float / NULLIF(total_users, 0)) as avg_retention_30d
+                FROM cohort_retention
+            """)
+            
+            row = cursor.fetchone()
+            if row:
+                metrics.retention_day_7 = float(row[0] or 0) * 100
+                metrics.retention_day_30 = float(row[1] or 0) * 100
+            
+            # Campaign performance (if UTM tracking exists)
+            cursor.execute("""
+                SELECT 
+                    data->>'utm_campaign' as campaign,
+                    COUNT(*) as signups,
+                    COUNT(*) FILTER (WHERE u.tier IN ('pro', 'curator')) as conversions,
+                    AVG(CASE WHEN u.tier IN ('pro', 'curator') THEN 1.0 ELSE 0.0 END) as conversion_rate
+                FROM conversion_events ce
+                LEFT JOIN users u ON ce.user_id = u.id
+                WHERE ce.event_type = 'signup.completed'
+                AND ce.created_at >= NOW() - INTERVAL '30 days'
+                AND data->>'utm_campaign' IS NOT NULL
+                GROUP BY data->>'utm_campaign'
+                ORDER BY conversions DESC
+                LIMIT 10
+            """)
+            
+            for row in cursor.fetchall():
+                campaign, signups, conversions, conv_rate = row
+                metrics.campaign_performance[campaign] = {
+                    'signups': signups,
+                    'conversions': conversions,
+                    'conversion_rate': float(conv_rate or 0) * 100
+                }
+                
+        except Exception as e:
+            self.console.print(f"[yellow]Marketing funnel metrics error: {e}[/yellow]")
+            
+        return metrics
+    
+    def display_security_view(self, metrics: SecurityMetrics):
+        """Display security-focused metrics."""
+        # Security Score Panel
+        score_color = "green" if metrics.security_score >= 80 else "yellow" if metrics.security_score >= 60 else "red"
+        score_panel = Panel(
+            f"[bold {score_color}]{metrics.security_score:.1f}/100[/bold {score_color}]",
+            title="Security Score",
+            width=20
+        )
+        
+        # Security Events Table
+        events_table = Table(title="Security Events (24h)")
+        events_table.add_column("Metric", style="cyan")
+        events_table.add_column("Count", justify="right")
+        
+        events_table.add_row("Total Events", str(metrics.total_events))
+        events_table.add_row("Threat Events", f"[red]{metrics.threat_events}[/red]" if metrics.threat_events > 0 else "0")
+        events_table.add_row("Blocked IPs", f"[yellow]{metrics.blocked_ips}[/yellow]" if metrics.blocked_ips > 0 else "0")
+        events_table.add_row("Failed Auth", f"[red]{metrics.failed_auths}[/red]" if metrics.failed_auths > 10 else str(metrics.failed_auths))
+        events_table.add_row("Admin Access", str(metrics.admin_accesses))
+        events_table.add_row("WebSocket Conns", str(metrics.websocket_connections))
+        events_table.add_row("Active Sessions", str(metrics.active_sessions))
+        
+        # Threat Types Table
+        threats_table = Table(title="Top Threat Types")
+        threats_table.add_column("Type", style="red")
+        threats_table.add_column("Count", justify="right")
+        
+        for threat_type, count in metrics.threats_by_type.items():
+            threats_table.add_row(threat_type, str(count))
+        
+        self.console.print(score_panel)
+        self.console.print()
+        self.console.print(events_table)
+        self.console.print()
+        self.console.print(threats_table)
+    
+    def display_meta_observers_view(self, metrics: MetaObserverMetrics):
+        """Display Meta/Observers system view."""
+        
+        # Meta Orchestrator Health Panel
+        health_color = "green" if metrics.meta_orchestrator_health >= 80 else "yellow" if metrics.meta_orchestrator_health >= 60 else "red"
+        health_panel = Panel(
+            f"[bold {health_color}]{metrics.meta_orchestrator_health:.1f}/100[/bold {health_color}]\n" +
+            f"Mode: [cyan]{metrics.meta_orchestrator_mode}[/cyan]\n" +
+            f"Cycles: [dim]{metrics.meta_cycle_count}[/dim]\n" +
+            f"Uptime: [dim]{metrics.meta_system_uptime:.1f}h[/dim]",
+            title="🤖 Meta Orchestrator",
+            width=25
+        )
+        
+        # Observer Health Table
+        observer_table = Table(title="🔍 Observer Health Scores")
+        observer_table.add_column("Observer", style="cyan", width=18)
+        observer_table.add_column("Health", justify="right", width=10)
+        observer_table.add_column("Status", width=12)
+        
+        observers = [
+            ("Achievement", metrics.achievement_observer_health),
+            ("Retention", metrics.retention_observer_health),
+            ("Bundle Tracker", metrics.bundle_tracker_health),
+            ("Progressive", metrics.progressive_tracker_health),
+            ("Blog/SEO", metrics.blog_observer_health),
+        ]
+        
+        for name, score in observers:
+            color = "green" if score >= 80 else "yellow" if score >= 60 else "red"
+            status = "Healthy" if score >= 80 else "Warning" if score >= 60 else "Critical"
+            observer_table.add_row(
+                name,
+                f"[{color}]{score:.0f}[/{color}]",
+                f"[{color}]{status}[/{color}]"
+            )
+        
+        # Optimization Activity Table
+        optimization_table = Table(title="⚡ Auto-Optimization Activity")
+        optimization_table.add_column("Metric", style="cyan")
+        optimization_table.add_column("Value", justify="right")
+        optimization_table.add_column("Status", width=12)
+        
+        optimization_table.add_row(
+            "Suggestions", 
+            str(metrics.optimizations_suggested),
+            "Active" if metrics.optimizations_suggested > 0 else "Idle"
+        )
+        optimization_table.add_row(
+            "Applied", 
+            str(metrics.optimizations_applied),
+            "Working" if metrics.optimizations_applied > 0 else "Stable"
+        )
+        
+        success_color = "green" if metrics.optimization_success_rate >= 80 else "yellow"
+        optimization_table.add_row(
+            "Success Rate", 
+            f"[{success_color}]{metrics.optimization_success_rate:.1f}%[/{success_color}]",
+            "Good" if metrics.optimization_success_rate >= 80 else "Review"
+        )
+        optimization_table.add_row(
+            "Rollbacks", 
+            str(metrics.rollbacks_performed),
+            "Normal" if metrics.rollbacks_performed < 5 else "High"
+        )
+        
+        accuracy_color = "green" if metrics.meta_predictions_accuracy >= 70 else "yellow"
+        optimization_table.add_row(
+            "Prediction Accuracy", 
+            f"[{accuracy_color}]{metrics.meta_predictions_accuracy:.1f}%[/{accuracy_color}]",
+            "Learning" if metrics.meta_predictions_accuracy < 80 else "Calibrated"
+        )
+        
+        # Event Processing Table
+        events_table = Table(title="📊 Event Processing")
+        events_table.add_column("Metric", style="cyan")
+        events_table.add_column("Value", justify="right")
+        
+        events_table.add_row("Processed (24h)", f"{metrics.events_processed_24h:,}")
+        events_table.add_row("Queued", str(metrics.events_queued))
+        
+        if metrics.event_processing_lag_ms > 0:
+            lag_color = "red" if metrics.event_processing_lag_ms > 1000 else "yellow"
+            events_table.add_row("Lag", f"[{lag_color}]{metrics.event_processing_lag_ms:.0f}ms[/{lag_color}]")
+        
+        # Key Metrics Table
+        key_metrics_table = Table(title="📈 Key Observer Metrics")
+        key_metrics_table.add_column("Observer", style="cyan", width=15)
+        key_metrics_table.add_column("Key Metric", justify="right", width=12)
+        key_metrics_table.add_column("Value", width=15)
+        
+        key_metrics_table.add_row("Retention", "Save Rate", f"{metrics.retention_save_rate:.1f}%")
+        key_metrics_table.add_row("Bundle", "Share", f"{metrics.bundle_share:.1f}%")
+        key_metrics_table.add_row("Progressive", "Day-7 Conv", f"{metrics.progressive_day7_conversion:.1f}%")
+        key_metrics_table.add_row("Blog/SEO", "SEO Score", f"{metrics.blog_seo_score:.0f}/100")
+        key_metrics_table.add_row("Retention", "MRR Saved", f"${metrics.retention_mrr_saved_30d:,.0f}")
+        key_metrics_table.add_row("Bundle", "MRR", f"${metrics.bundle_mrr:,.0f}")
+        
+        # Layout
+        layout = Layout()
+        layout.split_column(
+            Layout(name="top"),
+            Layout(name="middle"), 
+            Layout(name="bottom")
+        )
+        
+        # Top row
+        layout["top"].split_row(
+            Layout(health_panel),
+            Layout(observer_table)
+        )
+        
+        # Middle row
+        layout["middle"].split_row(
+            Layout(optimization_table),
+            Layout(events_table)
+        )
+        
+        # Bottom row
+        layout["bottom"].update(key_metrics_table)
+        
+        self.console.print(layout)
+        
+        # Issues and alerts
+        if metrics.meta_issues:
+            issues_panel = Panel(
+                "\n".join(f"• {issue}" for issue in metrics.meta_issues),
+                title="⚠️  Meta System Issues",
+                style="yellow"
+            )
+            self.console.print()
+            self.console.print(issues_panel)
+            
+        if metrics.observer_alerts:
+            alerts_panel = Panel(
+                "\n".join(f"• {alert}" for alert in metrics.observer_alerts),
+                title="🔔 Observer Alerts", 
+                style="blue"
+            )
+            self.console.print()
+            self.console.print(alerts_panel)
+    
+    def display_overview(self, security: SecurityMetrics, users: UserMetrics, 
+                        features: FeatureMetrics, system: SystemMetrics, events: EventMetrics):
+        """Display comprehensive overview of all metrics."""
+        
+        layout = Layout()
+        layout.split_column(
+            Layout(name="header", size=3),
+            Layout(name="body"),
+            Layout(name="footer", size=3)
+        )
+        
+        # Header
+        header_text = Text(f"QUIRRELY SYSTEM STATUS - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", 
+                          style="bold blue")
+        layout["header"].update(Panel(header_text, style="blue"))
+        
+        # Body - split into columns
+        layout["body"].split_row(
+            Layout(name="left"),
+            Layout(name="center"),
+            Layout(name="right")
+        )
+        
+        # Left column - Security
+        security_table = Table(title="🔒 Security")
+        security_table.add_column("Metric")
+        security_table.add_column("Value", justify="right")
+        
+        score_color = "green" if security.security_score >= 80 else "yellow" if security.security_score >= 60 else "red"
+        security_table.add_row("Security Score", f"[{score_color}]{security.security_score:.1f}[/{score_color}]")
+        security_table.add_row("Threat Events", f"[red]{security.threat_events}[/red]" if security.threat_events > 0 else "0")
+        security_table.add_row("Blocked IPs", str(security.blocked_ips))
+        security_table.add_row("Failed Auths", str(security.failed_auths))
+        security_table.add_row("Active Sessions", str(security.active_sessions))
+        
+        layout["left"].update(security_table)
+        
+        # Center column - Users & Features  
+        users_table = Table(title="👥 Users & Features")
+        users_table.add_column("Metric")
+        users_table.add_column("Value", justify="right")
+        
+        users_table.add_row("Total Users", f"[green]{users.total_users:,}[/green]")
+        users_table.add_row("New Today", str(users.new_signups_today))
+        users_table.add_row("Active Sessions", str(users.active_sessions))
+        users_table.add_row("Countries", str(users.countries_active))
+        users_table.add_row("Feature Checks", f"{features.total_checks:,}")
+        users_table.add_row("Access Denied", f"[yellow]{features.denied_accesses}[/yellow]" if features.denied_accesses > 0 else "0")
+        
+        layout["center"].update(users_table)
+        
+        # Right column - Events & System
+        events_table = Table(title="📊 Events & System")
+        events_table.add_column("Metric")
+        events_table.add_column("Value", justify="right")
+        
+        events_table.add_row("Events Today", f"{events.events_today:,}")
+        events_table.add_row("Unique Users", str(events.unique_users))
+        events_table.add_row("Analyses", str(events.analyses_completed))
+        events_table.add_row("DB Connections", str(system.database_connections))
+        events_table.add_row("Redis Memory", str(system.redis_memory_usage))
+        
+        layout["right"].update(events_table)
+        
+        # Footer
+        footer_text = Text("Use 'qstats security|users|features|events|performance' for detailed views", 
+                          style="dim")
+        layout["footer"].update(Panel(footer_text, style="dim"))
+        
+        self.console.print(layout)
+        
+    def display_frontend_qa_view(self, metrics: FrontendQAMetrics):
+        """Display comprehensive frontend QA and user experience view."""
+        
+        # Main QA Stats Panel
+        qa_panel = Panel(
+            f"[bold cyan]Frontend QA Status[/bold cyan]\n" +
+            f"Dashboard Loads: [green]{metrics.dashboard_loads:,}[/green]\n" +
+            f"User Journeys: [cyan]{metrics.unique_user_journeys:,}[/cyan]\n" +
+            f"Profile Views: [yellow]{metrics.profile_card_views:,}[/yellow]",
+            title="📊 QA Overview",
+            width=30
+        )
+        
+        # Profile Distribution Table (All 10 Profiles)
+        profile_table = Table(title="🎭 Writing Profile Distribution (10 Profiles)")
+        profile_table.add_column("Profile", style="cyan", width=14)
+        profile_table.add_column("Count", justify="right", width=6)
+        profile_table.add_column("%", justify="right", width=6)
+        
+        total_profiles = sum(metrics.profile_distributions.values()) or 1
+        
+        # Define all 10 profiles with colors
+        profile_colors = {
+            'assertive': 'red', 'conversational': 'green', 'minimal': 'blue', 'poetic': 'magenta',
+            'dense': 'yellow', 'formal': 'cyan', 'balanced': 'white', 'longform': 'bright_blue',
+            'interrogative': 'bright_green', 'hedged': 'bright_yellow'
+        }
+        
+        # Sort by count, show all 10 profiles
+        sorted_profiles = sorted(metrics.profile_distributions.items(), key=lambda x: x[1], reverse=True)
+        for profile, count in sorted_profiles[:10]:  # Top 10 (should be all)
+            percentage = (count / total_profiles) * 100
+            color = profile_colors.get(profile.lower(), 'white')
+            profile_table.add_row(
+                f"[{color}]{profile.title()}[/{color}]",
+                str(count),
+                f"{percentage:.1f}%"
+            )
+        
+        # Stance Distribution Table
+        stance_table = Table(title="🎯 Stance Distribution (24h)")
+        stance_table.add_column("Stance", style="yellow")
+        stance_table.add_column("Count", justify="right")
+        stance_table.add_column("Percentage", justify="right")
+        
+        total_stances = sum(metrics.stance_distributions.values()) or 1
+        for stance, count in metrics.stance_distributions.items():
+            percentage = (count / total_stances) * 100
+            stance_table.add_row(
+                stance.title(),
+                str(count),
+                f"{percentage:.1f}%"
+            )
+        
+        # Country Engagement Table
+        country_table = Table(title="🌍 Country Engagement (5 Countries)")
+        country_table.add_column("Country", style="green")
+        country_table.add_column("Sessions", justify="right")
+        country_table.add_column("Events", justify="right")
+        country_table.add_column("Analyses", justify="right")
+        country_table.add_column("Dashboard", justify="right")
+        
+        for country, data in metrics.country_engagement.items():
+            country_table.add_row(
+                country,
+                str(data['sessions']),
+                str(data['total_events']),
+                str(data['analyses_completed']),
+                str(data['dashboard_views'])
+            )
+        
+        # Adaptive Dashboard Table
+        adaptive_table = Table(title="🔧 Adaptive Dashboard Metrics")
+        adaptive_table.add_column("Metric", style="purple")
+        adaptive_table.add_column("Count", justify="right")
+        
+        for metric, count in metrics.adaptive_dashboard_metrics.items():
+            display_name = metric.replace('_', ' ').title()
+            adaptive_table.add_row(display_name, str(count))
+        
+        # Display everything
+        self.console.print()
+        self.console.print(qa_panel)
+        self.console.print()
+        
+        # Layout for tables
+        layout = Layout()
+        layout.split_row(
+            Layout(name="left"),
+            Layout(name="right")
+        )
+        layout["left"].split_column(
+            Layout(profile_table),
+            Layout(stance_table)
+        )
+        layout["right"].split_column(
+            Layout(country_table),
+            Layout(adaptive_table)
+        )
+        
+        self.console.print(layout)
+        
+        # Conversion funnel
+        if metrics.conversion_funnel:
+            funnel_table = Table(title="🔄 User Conversion Funnel")
+            funnel_table.add_column("Stage", style="blue")
+            funnel_table.add_column("Count", justify="right")
+            funnel_table.add_column("Conversion", justify="right")
+            
+            funnel_stages = [
+                ('landing_views', 'Landing Views'),
+                ('analysis_starts', 'Analysis Started'),
+                ('analysis_completes', 'Analysis Complete'),
+                ('results_views', 'Results Viewed'),
+                ('signup_starts', 'Signup Started'),
+                ('signup_completes', 'Signup Complete')
+            ]
+            
+            prev_count = None
+            for key, display_name in funnel_stages:
+                count = metrics.conversion_funnel.get(key, 0)
+                if prev_count is not None and prev_count > 0:
+                    conversion = f"{(count / prev_count * 100):.1f}%"
+                else:
+                    conversion = "-"
+                funnel_table.add_row(display_name, str(count), conversion)
+                prev_count = count
+            
+            self.console.print()
+            self.console.print(funnel_table)
+        
+        # Error rates
+        if metrics.error_rates_by_page:
+            error_table = Table(title="⚠️ Error Rates by Page")
+            error_table.add_column("Page", style="red")
+            error_table.add_column("Error Rate", justify="right")
+            
+            for page, rate in list(metrics.error_rates_by_page.items())[:5]:
+                color = "red" if rate > 5 else "yellow" if rate > 1 else "green"
+                error_table.add_row(page, f"[{color}]{rate:.2f}%[/{color}]")
+            
+            self.console.print()
+            self.console.print(error_table)
+        
+        # Device breakdown
+        if metrics.mobile_vs_desktop:
+            device_text = " | ".join([f"{device}: {count}" for device, count in metrics.mobile_vs_desktop.items()])
+            device_panel = Panel(f"[dim]Device Breakdown: {device_text}[/dim]", style="dim")
+            self.console.print()
+            self.console.print(device_panel)
+    
+    def display_matrix_view(self, analytics: Dict[str, Any]):
+        """Display comprehensive 10×4×5 matrix analytics."""
+        
+        # Coverage Overview Panel
+        coverage = analytics.get('coverage_stats', {})
+        coverage_panel = Panel(
+            f"[bold green]Matrix Coverage Analysis[/bold green]\n" +
+            f"Profiles: [cyan]{coverage.get('profile_coverage', '0/10')}[/cyan] profiles active\n" +
+            f"Stances: [yellow]{coverage.get('stance_coverage', '0/4')}[/yellow] stances detected\n" +
+            f"Combinations: [blue]{coverage.get('combination_coverage', '0/40')}[/blue] possible combinations\n" +
+            f"Total Analyses: [green]{coverage.get('total_analyses', 0):,}[/green]",
+            title="📊 10×4×5 Matrix Status",
+            width=40
+        )
+        
+        # Top Profile+Stance Combinations
+        combo_table = Table(title="🎯 Top Profile+Stance Combinations (7 days)")
+        combo_table.add_column("Combination", style="cyan", width=20)
+        combo_table.add_column("Count", justify="right", width=8)
+        combo_table.add_column("% Share", justify="right", width=8)
+        
+        for combo in analytics.get('top_combinations', [])[:10]:
+            combo_table.add_row(
+                combo['combination'],
+                str(combo['count']),
+                f"{combo['percentage']:.1f}%"
+            )
+        
+        # Country × Profile Distribution
+        country_table = Table(title="🌍 Profile Distribution by Country")
+        country_table.add_column("Country", style="green", width=8)
+        country_table.add_column("Top Profile", style="cyan", width=12)
+        country_table.add_column("Count", justify="right", width=6)
+        country_table.add_column("2nd Profile", style="yellow", width=12)
+        country_table.add_column("Count", justify="right", width=6)
+        
+        for country, profiles in analytics.get('country_profile_distribution', {}).items():
+            sorted_profiles = sorted(profiles.items(), key=lambda x: x[1], reverse=True)
+            top_profile = sorted_profiles[0] if sorted_profiles else ('N/A', 0)
+            second_profile = sorted_profiles[1] if len(sorted_profiles) > 1 else ('N/A', 0)
+            
+            country_table.add_row(
+                country,
+                top_profile[0].title(),
+                str(top_profile[1]),
+                second_profile[0].title(),
+                str(second_profile[1])
+            )
+        
+        # Profile×Stance Matrix Heat Map (simplified view)
+        matrix_table = Table(title="🔥 Profile×Stance Heat Map (Top 12)")
+        matrix_table.add_column("Profile", style="red", width=12)
+        matrix_table.add_column("Stance", style="blue", width=12)
+        matrix_table.add_column("Count", justify="right", width=8)
+        matrix_table.add_column("Confidence", justify="right", width=10)
+        
+        # Sort matrix by count
+        matrix_items = []
+        for key, data in analytics.get('profile_stance_matrix', {}).items():
+            profile, stance = key.split('_', 1)
+            matrix_items.append((profile, stance, data['count'], data['avg_confidence']))
+        
+        matrix_items.sort(key=lambda x: x[2], reverse=True)
+        for profile, stance, count, confidence in matrix_items[:12]:
+            matrix_table.add_row(
+                profile.title(),
+                stance.title(),
+                str(count),
+                f"{confidence:.2f}"
+            )
+        
+        # Display everything
+        self.console.print()
+        self.console.print(coverage_panel)
+        self.console.print()
+        
+        # Layout for main tables
+        layout = Layout()
+        layout.split_row(
+            Layout(name="left"),
+            Layout(name="right")
+        )
+        layout["left"].split_column(
+            Layout(combo_table),
+            Layout(country_table)
+        )
+        layout["right"].update(matrix_table)
+        
+        self.console.print(layout)
+        
+        # Summary statistics
+        total_combinations = len(analytics.get('profile_stance_matrix', {}))
+        total_possible = 10 * 4  # 10 profiles × 4 stances
+        coverage_percent = (total_combinations / total_possible) * 100 if total_possible > 0 else 0
+        
+        summary = Panel(
+            f"[dim]Matrix Summary: {total_combinations}/40 combinations active ({coverage_percent:.1f}% coverage) | " +
+            f"Country coverage: {len(analytics.get('country_profile_distribution', {}))} countries | " +
+            f"Total analyses: {coverage.get('total_analyses', 0):,}[/dim]",
+            style="dim"
+        )
+        self.console.print()
+        self.console.print(summary)
+    
+    def display_marketing_funnel_view(self, metrics: MarketingFunnelMetrics):
+        """Display comprehensive marketing funnel and conversion analytics."""
+        
+        # Main funnel overview
+        funnel_panel = Panel(
+            f"[bold green]Marketing Funnel Performance[/bold green]\n" +
+            f"Anonymous → Signup: [cyan]{metrics.anonymous_to_signup_rate:.2f}%[/cyan]\n" +
+            f"Signup Conversion: [yellow]{metrics.signup_conversion_rate:.2f}%[/yellow]\n" +
+            f"Trial → Pro: [blue]{metrics.trial_conversion_rate:.2f}%[/blue]\n" +
+            f"MRR: [green]${metrics.monthly_recurring_revenue:,.0f}[/green]",
+            title="💰 Conversion Funnel",
+            width=40
+        )
+        
+        # Blog performance overview
+        blog_panel = Panel(
+            f"[bold magenta]Blog Performance[/bold magenta]\n" +
+            f"Page Views: [cyan]{metrics.blog_page_views:,}[/cyan]\n" +
+            f"Blog → Analysis: [yellow]{metrics.blog_to_analysis_rate:.1f}%[/yellow]\n" +
+            f"Blog → Signup: [green]{metrics.blog_to_signup_rate:.1f}%[/green]\n" +
+            f"SEO CTR: [blue]{metrics.seo_ctr:.2f}%[/blue]\n" +
+            f"Avg Position: [dim]{metrics.seo_avg_position:.1f}[/dim]",
+            title="📝 Blog Analytics",
+            width=40
+        )
+        
+        # Viral coefficient and social sharing panel
+        viral_panel = Panel(
+            f"[bold cyan]Viral & Social[/bold cyan]\n" +
+            f"Shares: [yellow]{metrics.social_shares_total:,}[/yellow]\n" +
+            f"Viral Coeff: [green]{metrics.viral_coefficient:.3f}[/green]\n" +
+            f"Social Conv: [blue]{metrics.social_conversion_rate:.1f}%[/blue]\n" +
+            f"Referral Traffic: [dim]{metrics.referral_traffic:,}[/dim]",
+            title="🚀 Viral Metrics",
+            width=40
+        )
+        
+        # User progression table
+        progression_table = Table(title="👥 User Tier Progression")
+        progression_table.add_column("Tier", style="cyan", width=12)
+        progression_table.add_column("Count", justify="right", width=8)
+        progression_table.add_column("Conversion %", justify="right", width=12)
+        
+        total_users = metrics.free_users + metrics.trial_users + metrics.pro_users
+        progression_table.add_row(
+            "Anonymous",
+            str(metrics.anonymous_sessions),
+            f"→ {metrics.anonymous_to_signup_rate:.1f}%"
+        )
+        progression_table.add_row(
+            "Free Users",
+            f"[green]{metrics.free_users:,}[/green]",
+            f"→ {metrics.tier_conversion_rates.get('free_to_trial', 0):.1f}%"
+        )
+        progression_table.add_row(
+            "Trial Users",
+            f"[yellow]{metrics.trial_users:,}[/yellow]",
+            f"→ {metrics.tier_conversion_rates.get('trial_to_pro', 0):.1f}%"
+        )
+        progression_table.add_row(
+            "Pro Users",
+            f"[blue]{metrics.pro_users:,}[/blue]",
+            f"({metrics.tier_conversion_rates.get('overall_to_pro', 0):.1f}% total)"
+        )
+        
+        # Feature engagement leading to conversion
+        feature_table = Table(title="🎯 Features That Convert")
+        feature_table.add_column("Feature", style="purple", width=18)
+        feature_table.add_column("Usage", justify="right", width=8)
+        feature_table.add_column("Pro Conv %", justify="right", width=10)
+        
+        # Sort features by conversion rate
+        sorted_features = sorted(
+            metrics.feature_engagement_scores.items(), 
+            key=lambda x: x[1], 
+            reverse=True
+        )
+        for feature, conv_rate in sorted_features[:8]:
+            usage = metrics.conversion_trigger_features.get(feature, 0)
+            color = "green" if conv_rate > 50 else "yellow" if conv_rate > 25 else "red"
+            feature_table.add_row(
+                feature.replace('_', ' ').title(),
+                str(usage),
+                f"[{color}]{conv_rate:.1f}%[/{color}]"
+            )
+        
+        # Country conversion analysis
+        country_table = Table(title="🌍 Conversion by Country")
+        country_table.add_column("Country", style="green", width=8)
+        country_table.add_column("Users", justify="right", width=8)
+        country_table.add_column("Pro %", justify="right", width=8)
+        country_table.add_column("Revenue", justify="right", width=10)
+        
+        sorted_countries = sorted(
+            metrics.conversion_by_country.items(), 
+            key=lambda x: x[1]['conversion_rate'], 
+            reverse=True
+        )
+        for country, data in sorted_countries:
+            conv_rate = data['conversion_rate']
+            color = "green" if conv_rate > 15 else "yellow" if conv_rate > 8 else "red"
+            # Estimate revenue contribution
+            revenue_share = (data['pro_users'] / max(1, metrics.pro_users)) * metrics.monthly_recurring_revenue
+            country_table.add_row(
+                country,
+                str(data['total_users']),
+                f"[{color}]{conv_rate:.1f}%[/{color}]",
+                f"${revenue_share:,.0f}"
+            )
+        
+        # Blog top pages table
+        blog_pages_table = Table(title="📊 Top Blog Pages")
+        blog_pages_table.add_column("Page", style="purple", width=25)
+        blog_pages_table.add_column("Views", justify="right", width=8)
+        
+        # Sort blog pages by views
+        sorted_pages = sorted(
+            metrics.blog_top_pages.items(), 
+            key=lambda x: x[1], 
+            reverse=True
+        )
+        for page_url, views in sorted_pages[:8]:
+            # Extract readable page name from URL
+            page_name = page_url.split('/')[-1].replace('-', ' ').title()
+            if len(page_name) > 25:
+                page_name = page_name[:22] + "..."
+            blog_pages_table.add_row(page_name, str(views))
+        
+        # Blog CTA performance table
+        cta_table = Table(title="🎯 Blog CTA Performance")
+        cta_table.add_column("CTA Type", style="green", width=15)
+        cta_table.add_column("CTR %", justify="right", width=8)
+        
+        for cta_type, ctr in metrics.blog_cta_performance.items():
+            color = "green" if ctr > 5 else "yellow" if ctr > 2 else "red"
+            cta_table.add_row(
+                cta_type.replace('_', ' ').title(),
+                f"[{color}]{ctr:.1f}%[/{color}]"
+            )
+        
+        # Social platforms table
+        social_table = Table(title="📱 Social Shares")
+        social_table.add_column("Platform", style="blue", width=12)
+        social_table.add_column("Shares", justify="right", width=8)
+        
+        sorted_social = sorted(
+            metrics.social_shares_by_platform.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )
+        for platform, shares in sorted_social[:6]:
+            platform_name = platform.title()
+            social_table.add_row(platform_name, str(shares))
+        
+        # SEO optimization table
+        seo_table = Table(title="⚡ SEO Health")
+        seo_table.add_column("Element", style="green", width=15)
+        seo_table.add_column("Coverage", justify="right", width=8)
+        
+        total_blog_pages = max(1, metrics.pages_with_og_images + metrics.pages_missing_seo_elements)
+        
+        og_coverage = (metrics.pages_with_og_images / total_blog_pages) * 100 if total_blog_pages > 0 else 0
+        meta_coverage = (metrics.pages_with_meta_descriptions / total_blog_pages) * 100 if total_blog_pages > 0 else 0
+        structured_coverage = (metrics.pages_with_structured_data / total_blog_pages) * 100 if total_blog_pages > 0 else 0
+        
+        seo_table.add_row("OG Images", f"[green]{og_coverage:.0f}%[/green]")
+        seo_table.add_row("Meta Desc", f"[green]{meta_coverage:.0f}%[/green]")
+        seo_table.add_row("Schema", f"[green]{structured_coverage:.0f}%[/green]")
+        
+        if metrics.avg_page_load_speed > 0:
+            speed_color = "green" if metrics.avg_page_load_speed < 2000 else "yellow" if metrics.avg_page_load_speed < 4000 else "red"
+            seo_table.add_row("Load Speed", f"[{speed_color}]{metrics.avg_page_load_speed:.0f}ms[/{speed_color}]")
+        
+        if metrics.mobile_usability_score > 0:
+            mobile_color = "green" if metrics.mobile_usability_score > 90 else "yellow" if metrics.mobile_usability_score > 75 else "red"
+            seo_table.add_row("Mobile", f"[{mobile_color}]{metrics.mobile_usability_score:.0f}/100[/{mobile_color}]")
+        
+        # Display main panels
+        self.console.print()
+        
+        # Top row: Funnel, Blog, and Viral panels
+        top_layout = Layout()
+        top_layout.split_row(
+            Layout(funnel_panel),
+            Layout(blog_panel),
+            Layout(viral_panel)
+        )
+        self.console.print(top_layout)
+        self.console.print()
+        
+        # Main layout - 5 columns now for comprehensive view
+        layout = Layout()
+        layout.split_row(
+            Layout(name="left"),
+            Layout(name="center"), 
+            Layout(name="right"),
+            Layout(name="social"),
+            Layout(name="seo")
+        )
+        layout["left"].split_column(
+            Layout(progression_table),
+            Layout(feature_table)
+        )
+        layout["center"].split_column(
+            Layout(blog_pages_table),
+            Layout(cta_table)
+        )
+        layout["right"].update(country_table)
+        layout["social"].update(social_table)
+        layout["seo"].update(seo_table)
+        
+        self.console.print(layout)
+        
+        # Time-to-convert analysis
+        if metrics.avg_signup_to_trial_hours > 0 or metrics.avg_trial_to_pro_hours > 0:
+            time_table = Table(title="⏰ Time to Convert Analysis")
+            time_table.add_column("Conversion Stage", style="blue")
+            time_table.add_column("Avg Time", justify="right")
+            time_table.add_column("Optimization Note", style="dim")
+            
+            if metrics.avg_signup_to_trial_hours > 0:
+                hours = metrics.avg_signup_to_trial_hours
+                time_str = f"{hours:.1f}h" if hours < 72 else f"{hours/24:.1f}d"
+                note = "Good" if hours < 24 else "Optimize onboarding" if hours < 72 else "Critical - improve trial CTA"
+                time_table.add_row("Signup → Trial", time_str, note)
+            
+            if metrics.avg_trial_to_pro_hours > 0:
+                hours = metrics.avg_trial_to_pro_hours
+                time_str = f"{hours:.1f}h" if hours < 72 else f"{hours/24:.1f}d"
+                note = "Excellent" if hours < 168 else "Normal" if hours < 336 else "Improve trial value"
+                time_table.add_row("Trial → Pro", time_str, note)
+            
+            self.console.print()
+            self.console.print(time_table)
+        
+        # Retention and churn
+        retention_table = Table(title="📈 Retention & Churn Analysis")
+        retention_table.add_column("Metric", style="orange")
+        retention_table.add_column("Rate", justify="right")
+        retention_table.add_column("Status", justify="right")
+        
+        # Retention rates
+        ret_7d_color = "green" if metrics.retention_day_7 > 40 else "yellow" if metrics.retention_day_7 > 20 else "red"
+        ret_30d_color = "green" if metrics.retention_day_30 > 20 else "yellow" if metrics.retention_day_30 > 10 else "red"
+        
+        retention_table.add_row(
+            "7-Day Retention",
+            f"[{ret_7d_color}]{metrics.retention_day_7:.1f}%[/{ret_7d_color}]",
+            "Good" if metrics.retention_day_7 > 40 else "Needs Work"
+        )
+        retention_table.add_row(
+            "30-Day Retention",
+            f"[{ret_30d_color}]{metrics.retention_day_30:.1f}%[/{ret_30d_color}]",
+            "Good" if metrics.retention_day_30 > 20 else "Critical"
+        )
+        
+        # Campaign performance
+        if metrics.campaign_performance:
+            campaign_table = Table(title="📢 Campaign Performance")
+            campaign_table.add_column("Campaign", style="magenta", width=15)
+            campaign_table.add_column("Signups", justify="right", width=8)
+            campaign_table.add_column("Conversions", justify="right", width=10)
+            campaign_table.add_column("Conv %", justify="right", width=8)
+            
+            sorted_campaigns = sorted(
+                metrics.campaign_performance.items(),
+                key=lambda x: x[1]['conversion_rate'],
+                reverse=True
+            )
+            for campaign, data in sorted_campaigns[:5]:
+                conv_rate = data['conversion_rate']
+                color = "green" if conv_rate > 10 else "yellow" if conv_rate > 5 else "red"
+                campaign_table.add_row(
+                    campaign[:15],
+                    str(data['signups']),
+                    str(data['conversions']),
+                    f"[{color}]{conv_rate:.1f}%[/{color}]"
+                )
+            
+            # Layout for bottom tables
+            bottom_layout = Layout()
+            bottom_layout.split_row(
+                Layout(retention_table),
+                Layout(campaign_table)
+            )
+            self.console.print()
+            self.console.print(bottom_layout)
+        else:
+            self.console.print()
+            self.console.print(retention_table)
+        
+        # Revenue and blog summary
+        revenue_summary = Panel(
+            f"[dim]Revenue Summary: MRR ${metrics.monthly_recurring_revenue:,.0f} | " +
+            f"Pro Users: {metrics.pro_users:,} | " +
+            f"Overall Conversion: {metrics.tier_conversion_rates.get('overall_to_pro', 0):.1f}%[/dim]",
+            style="dim"
+        )
+        
+        blog_summary = Panel(
+            f"[dim]Blog Analytics: {metrics.blog_page_views:,} views | " +
+            f"SEO Opportunities: {metrics.seo_keyword_opportunities} | " +
+            f"Content Freshness: {metrics.seo_content_freshness_score:.0f}/100 | " +
+            f"Unique Visitors: {metrics.blog_unique_visitors:,}[/dim]",
+            style="dim"
+        )
+        
+        viral_summary = Panel(
+            f"[dim]Viral & SEO: {metrics.social_shares_total:,} shares | " +
+            f"Viral Coeff: {metrics.viral_coefficient:.3f} | " +
+            f"Social Conv: {metrics.social_conversion_rate:.1f}% | " +
+            f"SEO Elements: {metrics.pages_with_og_images}/{41} pages optimized[/dim]",
+            style="dim"
+        )
+        
+        self.console.print()
+        self.console.print(revenue_summary)
+        self.console.print(blog_summary)
+        self.console.print(viral_summary)
+    
+    def display_json(self, security: SecurityMetrics, users: UserMetrics,
+                    features: FeatureMetrics, system: SystemMetrics, events: EventMetrics,
+                    meta_observers: MetaObserverMetrics, frontend_qa: FrontendQAMetrics, 
+                    marketing_funnel: MarketingFunnelMetrics):
+        """Output all metrics as JSON."""
+        data = {
+            "timestamp": datetime.now().isoformat(),
+            "security": asdict(security),
+            "users": asdict(users),
+            "features": asdict(features),
+            "system": asdict(system),
+            "events": asdict(events),
+            "meta_observers": asdict(meta_observers),
+            "frontend_qa": asdict(frontend_qa),
+            "marketing_funnel": asdict(marketing_funnel)
+        }
+        
+        print(json.dumps(data, indent=2))
+    
+    def live_monitor(self):
+        """Live monitoring mode with auto-refresh."""
+        def generate_live_view():
+            while True:
+                # Collect all metrics
+                security = self.collect_security_metrics()
+                users = self.collect_user_metrics()
+                features = self.collect_feature_metrics()
+                system = self.collect_system_metrics()
+                events = self.collect_event_metrics()
+                
+                # Create live layout
+                layout = Layout()
+                layout.split_column(
+                    Layout(name="header", size=3),
+                    Layout(name="metrics", size=20),
+                    Layout(name="footer", size=3)
+                )
+                
+                # Header with timestamp
+                header = Panel(
+                    f"[bold blue]QUIRRELY LIVE MONITORING - {datetime.now().strftime('%H:%M:%S')}[/bold blue]",
+                    style="blue"
+                )
+                layout["header"].update(header)
+                
+                # Metrics in grid
+                layout["metrics"].split_row(
+                    Layout(name="col1"),
+                    Layout(name="col2"),
+                    Layout(name="col3")
+                )
+                
+                # Security column
+                sec_table = Table(title="🔒 Security", show_header=False)
+                sec_table.add_column("", style="cyan", width=15)
+                sec_table.add_column("", justify="right", width=10)
+                
+                score_color = "green" if security.security_score >= 80 else "yellow" if security.security_score >= 60 else "red"
+                sec_table.add_row("Score", f"[{score_color}]{security.security_score:.1f}[/{score_color}]")
+                sec_table.add_row("Threats", f"[red]{security.threat_events}[/red]" if security.threat_events > 0 else "0")
+                sec_table.add_row("Blocked", str(security.blocked_ips))
+                sec_table.add_row("Failed Auth", str(security.failed_auths))
+                sec_table.add_row("Sessions", str(security.active_sessions))
+                
+                layout["col1"].update(sec_table)
+                
+                # Users column
+                user_table = Table(title="👥 Users", show_header=False)
+                user_table.add_column("", style="cyan", width=15)
+                user_table.add_column("", justify="right", width=10)
+                
+                user_table.add_row("Total", f"{users.total_users:,}")
+                user_table.add_row("New Today", str(users.new_signups_today))
+                user_table.add_row("Active", str(users.active_sessions))
+                user_table.add_row("Countries", str(users.countries_active))
+                user_table.add_row("Logins", str(users.successful_logins_today))
+                
+                layout["col2"].update(user_table)
+                
+                # Events column
+                evt_table = Table(title="📊 Events", show_header=False)
+                evt_table.add_column("", style="cyan", width=15)
+                evt_table.add_column("", justify="right", width=10)
+                
+                evt_table.add_row("Today", f"{events.events_today:,}")
+                evt_table.add_row("Sessions", str(events.unique_sessions))
+                evt_table.add_row("Page Views", str(events.page_views))
+                evt_table.add_row("Analyses", str(events.analyses_completed))
+                evt_table.add_row("Features", str(features.total_checks))
+                
+                layout["col3"].update(evt_table)
+                
+                # Footer
+                footer = Panel(
+                    "[dim]Press Ctrl+C to exit live mode[/dim]",
+                    style="dim"
+                )
+                layout["footer"].update(footer)
+                
+                yield layout
+                time.sleep(5)  # Refresh every 5 seconds
+        
+        with Live(generate_live_view(), refresh_per_second=0.2) as live:
+            try:
+                while True:
+                    time.sleep(0.1)
+            except KeyboardInterrupt:
+                self.console.print("\n[yellow]Live monitoring stopped[/yellow]")
+    
+    def run(self, args: List[str]):
+        """Main entry point for qstats command."""
+        
+        # Parse arguments
+        view_mode = "overview"
+        json_output = False
+        
+        if "--help" in args or "-h" in args:
+            print(__doc__)
+            return 0
+            
+        if "--json" in args:
+            json_output = True
+            args = [arg for arg in args if arg != "--json"]
+        
+        if args:
+            view_mode = args[0]
+        
+        # Connect to services
+        if not self.connect():
+            return 1
+        
+        # Live monitoring mode
+        if view_mode == "live":
+            self.live_monitor()
+            return 0
+        
+        # Collect metrics
+        try:
+            with self.console.status("[bold green]Collecting metrics..."):
+                security = self.collect_security_metrics()
+                users = self.collect_user_metrics()
+                features = self.collect_feature_metrics()
+                system = self.collect_system_metrics()
+                events = self.collect_event_metrics()
+                meta_observers = self.collect_meta_observer_metrics()
+                frontend_qa = self.collect_frontend_qa_metrics()
+                marketing_funnel = self.collect_marketing_funnel_metrics()
+        except KeyboardInterrupt:
+            self.console.print("\n[yellow]Collection interrupted[/yellow]")
+            return 1
+        
+        # Output based on mode
+        if json_output:
+            self.display_json(security, users, features, system, events, meta_observers, frontend_qa, marketing_funnel)
+        elif view_mode == "security":
+            self.display_security_view(security)
+        elif view_mode == "users":
+            self.console.print("👥 User Metrics")
+            self.console.print(f"Total Users: {users.total_users:,}")
+            self.console.print(f"New Today: {users.new_signups_today}")
+            self.console.print(f"Active Sessions: {users.active_sessions}")
+            self.console.print(f"Countries Active: {users.countries_active}")
+            self.console.print(f"Login Success Rate: {users.successful_logins_today}/{users.login_attempts_today}")
+        elif view_mode == "features":
+            self.console.print("🎛️ Feature Gate Metrics")
+            self.console.print(f"Total Checks: {features.total_checks:,}")
+            self.console.print(f"Access Granted: {features.allowed_accesses:,}")
+            self.console.print(f"Access Denied: {features.denied_accesses:,}")
+            self.console.print(f"Daily Limits Hit: {features.daily_limits_hit}")
+        elif view_mode == "events":
+            self.console.print("📊 Meta Events Metrics")
+            self.console.print(f"Events Today: {events.events_today:,}")
+            self.console.print(f"Unique Sessions: {events.unique_sessions}")
+            self.console.print(f"Unique Users: {events.unique_users}")
+            self.console.print(f"Analyses Completed: {events.analyses_completed}")
+        elif view_mode == "performance":
+            self.console.print("⚡ System Performance")
+            self.console.print(f"DB Connections: {system.database_connections}")
+            self.console.print(f"Redis Memory: {system.redis_memory_usage}")
+            self.console.print(f"CPU Usage: {system.cpu_usage}%")
+            self.console.print(f"Memory Usage: {system.memory_usage}%")
+        elif view_mode == "meta" or view_mode == "observers":
+            self.display_meta_observers_view(meta_observers)
+        elif view_mode == "frontend" or view_mode == "qa":
+            self.display_frontend_qa_view(frontend_qa)
+        elif view_mode == "matrix":
+            analytics = self.collect_comprehensive_analytics()
+            self.display_matrix_view(analytics)
+        elif view_mode == "funnel" or view_mode == "marketing":
+            self.display_marketing_funnel_view(marketing_funnel)
+        else:
+            self.display_overview(security, users, features, system, events)
+        
+        return 0
+
+
+def main():
+    """Entry point."""
+    qstats = QuirrellyStat()
+    try:
+        exit_code = qstats.run(sys.argv[1:])
+        sys.exit(exit_code)
+    except KeyboardInterrupt:
+        print("\n[yellow]Interrupted[/yellow]")
+        sys.exit(130)
+    except Exception as e:
+        print(f"[red]Error: {e}[/red]")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

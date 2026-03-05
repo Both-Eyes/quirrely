@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase4b-guidance-output-schema-v0.1.0",
+  "title": "Phase-4b Guidance Output Schema",
+  "description": "Schema for Phase-4b (Guidance Mode) consuming Phase-3 syntheses (and Phase-2/Phase-1 read-only) and emitting application-oriented guidance without recomputing metrics.",
+  "type": "object",
+  "required": [
+    "phase4b_version",
+    "source_contract_version",
+    "source_phase2_version",
+    "source_phase3_version",
+    "synthesis_scope",
+    "interpretive_frame",
+    "guidance_sets"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "phase4b_version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "source_contract_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "source_phase2_version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "source_phase3_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "synthesis_scope": {
+      "type": "string",
+      "const": "SAMPLE_ONLY"
+    },
+    "interpretive_frame": {
+      "type": "string",
+      "const": "LNCP_PEIRCEAN"
+    },
+    "guidance_sets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "guidance_set_id",
+          "synthesis_id",
+          "related_outputs",
+          "semiotic_lens",
+          "items"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "guidance_set_id": {
+            "type": "string",
+            "pattern": "^GS_[0-9]{2}$",
+            "description": "Deterministic ID, e.g., GS_01, GS_02, ..."
+          },
+          "synthesis_id": {
+            "type": "string",
+            "pattern": "^SYN_[0-9]{2}$",
+            "description": "Phase-3 synthesis identifier this set is derived from."
+          },
+          "related_outputs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "output_01",
+                "output_02",
+                "output_03",
+                "output_04",
+                "output_05",
+                "output_06",
+                "output_07",
+                "output_08",
+                "output_09",
+                "output_10"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "semiotic_lens": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Must match the Phase-3 lens label for the referenced synthesis."
+          },
+          "items": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "description": "Exactly 4 items, in fixed order, per guidance set.",
+            "prefixItems": [
+              {
+                "type": "object",
+                "required": [
+                  "item_type",
+                  "text"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "item_type": {
+                    "type": "string",
+                    "const": "GUIDE"
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "item_type",
+                  "text"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "item_type": {
+                    "type": "string",
+                    "const": "PRACTICE"
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "item_type",
+                  "text"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "item_type": {
+                    "type": "string",
+                    "const": "SCENARIO"
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "item_type",
+                  "text"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "item_type": {
+                    "type": "string",
+                    "const": "COMPARE"
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ],
+            "items": false
+          }
+        }
+      }
+    }
+  }
+}

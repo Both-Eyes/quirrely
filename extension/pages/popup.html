@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=400, initial-scale=1.0">
+  <title>Quirrely</title>
+  <link rel="stylesheet" href="../styles/popup.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-brand">
+        <div class="logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="35" r="25" fill="#E8E4E1"/>
+            <ellipse cx="50" cy="75" rx="20" ry="15" fill="#CBD5E0"/>
+            <circle cx="42" cy="30" r="4" fill="#2D3748"/>
+            <circle cx="58" cy="30" r="4" fill="#2D3748"/>
+            <ellipse cx="50" cy="40" rx="3" ry="2" fill="#FF6B5A"/>
+            <ellipse cx="50" cy="18" rx="12" ry="8" fill="#E8E4E1"/>
+            <ellipse cx="75" cy="60" rx="8" ry="20" fill="#E8E4E1" transform="rotate(30 75 60)"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Quir<span class="coral">rel</span><span class="italic">ly</span></span>
+          <span class="version-badge">v2</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-history" class="icon-btn" title="History">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12,6 12,12 16,14"/>
+          </svg>
+        </button>
+        <button id="btn-settings" class="icon-btn" title="Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- STRETCH Streak Banner (shown when user has active streak) -->
+    <div id="stretch-streak-banner" class="streak-banner" style="display: none;">
+      <div class="streak-info">
+        <span class="streak-flame">🔥</span>
+        <span class="streak-count" id="streak-count">0</span>
+        <span class="streak-label">day streak</span>
+      </div>
+      <a href="https://quirrely.com/stretch" target="_blank" class="streak-continue">Continue →</a>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main">
+      <!-- Input View (default) -->
+      <section id="view-input" class="view active">
+        <div class="input-section">
+          <label for="text-input" class="input-label">Paste or type your text</label>
+          <textarea 
+            id="text-input" 
+            class="text-input" 
+            placeholder="Enter at least 50 characters of your writing to discover your voice profile..."
+            rows="6"
+          ></textarea>
+          <div class="input-footer">
+            <span id="char-count" class="char-count">0 characters</span>
+            <span id="daily-limit" class="daily-limit"></span>
+          </div>
+        </div>
+        
+        <button id="btn-analyze" class="btn-primary" disabled>
+          <span class="btn-text">Analyze My Voice</span>
+          <span class="btn-loading">
+            <svg class="spinner" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="60" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+        
+        <p class="hint">Or select text on any webpage and click the Quirrely button</p>
+        
+        <!-- STRETCH CTA (shown for eligible users) -->
+        <div id="stretch-cta" class="stretch-cta" style="display: none;">
+          <div class="stretch-cta-icon">✨</div>
+          <div class="stretch-cta-content">
+            <div class="stretch-cta-title">Try STRETCH</div>
+            <div class="stretch-cta-desc">5-minute exercises to strengthen your voice</div>
+          </div>
+          <a href="https://quirrely.com/stretch" target="_blank" class="stretch-cta-btn">Start</a>
+        </div>
+      </section>
+
+      <!-- Result View -->
+      <section id="view-result" class="view">
+        <div class="result-card">
+          <div class="result-header">
+            <span id="result-icon" class="result-icon">🚀</span>
+            <div class="result-titles">
+              <h2 id="result-title" class="result-title">The Bold Explorer</h2>
+              <p id="result-tagline" class="result-tagline">Confident voice that invites dialogue</p>
+            </div>
+          </div>
+          
+          <div class="result-badges">
+            <span id="badge-profile" class="badge profile">ASSERTIVE</span>
+            <span id="badge-stance" class="badge stance">OPEN</span>
+            <span id="badge-confidence" class="badge confidence">85%</span>
+          </div>
+          
+          <div id="result-traits" class="result-traits">
+            <!-- Traits injected here -->
+          </div>
+          
+          <div class="result-metrics">
+            <div class="metric">
+              <span id="metric-words" class="metric-value">0</span>
+              <span class="metric-label">words</span>
+            </div>
+            <div class="metric">
+              <span id="metric-sentences" class="metric-value">0</span>
+              <span class="metric-label">sentences</span>
+            </div>
+            <div class="metric">
+              <span id="metric-questions" class="metric-value">0%</span>
+              <span class="metric-label">questions</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="result-actions">
+          <button id="btn-new-analysis" class="btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            New Analysis
+          </button>
+          <a id="btn-full-results" href="https://quirrely.com/results" target="_blank" class="btn-secondary">
+            View Full Results →
+          </a>
+        </div>
+        
+        <!-- STRETCH CTA after result -->
+        <div id="stretch-cta-result" class="stretch-cta-result" style="display: none;">
+          <div class="stretch-cta-result-inner">
+            <span class="stretch-cta-emoji">💪</span>
+            <div class="stretch-cta-text">
+              <strong>Strengthen this voice</strong>
+              <span>Try a STRETCH exercise tailored to your profile</span>
+            </div>
+            <a href="https://quirrely.com/stretch" target="_blank" class="btn-stretch">
+              Try STRETCH
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Compare View (NEW in v2) -->
+      <section id="view-compare" class="view">
+        <div class="view-header">
+          <h2 class="view-title">Compare Voices</h2>
+          <button id="btn-back-from-compare" class="btn-back">← Back</button>
+        </div>
+        
+        <div class="compare-container">
+          <div class="compare-slot" id="compare-slot-1">
+            <div class="compare-empty">
+              <span>📝</span>
+              <p>Select an analysis from history</p>
+            </div>
+          </div>
+          <div class="compare-vs">VS</div>
+          <div class="compare-slot" id="compare-slot-2">
+            <div class="compare-empty">
+              <span>📝</span>
+              <p>Select another analysis</p>
+            </div>
+          </div>
+        </div>
+        
+        <div id="compare-result" class="compare-result" style="display: none;">
+          <!-- Compatibility score injected here -->
+        </div>
+      </section>
+
+      <!-- History View -->
+      <section id="view-history" class="view">
+        <div class="view-header">
+          <h2 class="view-title">Analysis History</h2>
+          <button id="btn-back-from-history" class="btn-back">← Back</button>
+        </div>
+        
+        <div class="history-actions-top">
+          <button id="btn-compare-mode" class="btn-text">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 3h5v5M8 21H3v-5M21 3l-7 7M3 21l7-7"/>
+            </svg>
+            Compare
+          </button>
+        </div>
+        
+        <div id="history-list" class="history-list">
+          <!-- History items injected here -->
+        </div>
+        
+        <div id="history-empty" class="empty-state" style="display: none;">
+          <span class="empty-icon">📝</span>
+          <p>No analyses yet</p>
+          <p class="empty-hint">Analyze some text to see your history</p>
+        </div>
+        
+        <div class="history-actions">
+          <button id="btn-clear-history" class="btn-text-danger">Clear History</button>
+        </div>
+      </section>
+
+      <!-- Settings View -->
+      <section id="view-settings" class="view">
+        <div class="view-header">
+          <h2 class="view-title">Settings</h2>
+          <button id="btn-back-from-settings" class="btn-back">← Back</button>
+        </div>
+        
+        <div class="settings-group">
+          <h3 class="settings-group-title">Display</h3>
+          
+          <label class="setting-item">
+            <span class="setting-label">Show floating button on selection</span>
+            <input type="checkbox" id="setting-floating-button" class="toggle">
+          </label>
+          
+          <label class="setting-item">
+            <span class="setting-label">Show notifications</span>
+            <input type="checkbox" id="setting-notifications" class="toggle">
+          </label>
+          
+          <label class="setting-item">
+            <span class="setting-label">Show STRETCH reminders</span>
+            <input type="checkbox" id="setting-stretch-reminders" class="toggle">
+          </label>
+        </div>
+        
+        <div class="settings-group">
+          <h3 class="settings-group-title">Privacy</h3>
+          
+          <label class="setting-item">
+            <span class="setting-label">Store analysis history locally</span>
+            <input type="checkbox" id="setting-store-history" class="toggle">
+          </label>
+          
+          <label class="setting-item">
+            <span class="setting-label">Help improve Quirrely (anonymous data)</span>
+            <input type="checkbox" id="setting-anonymous-data" class="toggle">
+          </label>
+        </div>
+        
+        <div class="settings-group">
+          <h3 class="settings-group-title">Account</h3>
+          <div id="account-section">
+            <!-- Account info or login prompt injected here -->
+          </div>
+        </div>
+        
+        <div class="settings-group">
+          <h3 class="settings-group-title">STRETCH Progress</h3>
+          <div id="stretch-progress-section">
+            <!-- STRETCH stats injected here -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div id="tier-badge" class="tier-badge">
+        <span class="tier-icon">⭐</span>
+        <span class="tier-text">Free</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://quirrely.com/stretch" target="_blank" class="footer-link stretch-link">
+          <span>✨</span> STRETCH
+        </a>
+        <a href="https://quirrely.com" target="_blank" class="footer-link">quirrely.com</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../scripts/lncp-classifier.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

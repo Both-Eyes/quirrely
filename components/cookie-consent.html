@@ -1,0 +1,52 @@
+<!-- 
+  COOKIE CONSENT BANNER
+  Add this before </body> in all pages
+  Required for UK, AU, NZ (GDPR-style compliance)
+-->
+
+<div id="cookie-consent" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #2D3436; color: white; padding: 1rem; z-index: 9999; font-family: system-ui, sans-serif;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+    <div style="flex: 1; min-width: 300px;">
+      <p style="margin: 0; font-size: 0.95rem; line-height: 1.5;">
+        We use cookies to improve your experience. Essential cookies are required for the site to work. 
+        Analytics cookies help us understand how you use Quirrely.
+        <a href="/legal/privacy#cookies" style="color: #4ECDC4;">Learn more</a>
+      </p>
+    </div>
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <button onclick="acceptCookies('essential')" style="padding: 0.6rem 1.25rem; border: 1px solid white; background: transparent; color: white; border-radius: 25px; cursor: pointer; font-size: 0.9rem;">Essential Only</button>
+      <button onclick="acceptCookies('all')" style="padding: 0.6rem 1.25rem; border: none; background: #FF6B6B; color: white; border-radius: 25px; cursor: pointer; font-size: 0.9rem; font-weight: 600;">Accept All</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var consent = localStorage.getItem('cookie_consent');
+  if (!consent) {
+    document.getElementById('cookie-consent').style.display = 'block';
+  }
+  
+  window.acceptCookies = function(level) {
+    localStorage.setItem('cookie_consent', level);
+    localStorage.setItem('cookie_consent_date', new Date().toISOString());
+    document.getElementById('cookie-consent').style.display = 'none';
+    if (level === 'all') { initAnalytics(); }
+  };
+  
+  function initAnalytics() {
+    if (window.GA_ID) {
+      var s = document.createElement('script');
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
+      s.async = true;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', window.GA_ID);
+    }
+  }
+  
+  if (consent === 'all') { initAnalytics(); }
+})();
+</script>

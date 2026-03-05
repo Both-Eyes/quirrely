@@ -1,0 +1,203 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# QUIRRELY VERSION LOCK — v3.1.3-FINAL
+# ═══════════════════════════════════════════════════════════════════════════
+# This file locks the production-ready state of all system components.
+# DO NOT MODIFY without Super Admin approval.
+# All 202 audit checks passing. Cleared for VPS deployment.
+# ═══════════════════════════════════════════════════════════════════════════
+
+VERSION:      3.1.3-FINAL
+CODENAME:     The Stretched Squirrel
+LOCKED_AT:    2026-02-20T16:00:00Z
+LOCKED_BY:    Super Admin
+STATUS:       PRODUCTION READY
+AUDIT_SCORE:  202/202 (100%) — 0 failures, 0 warnings
+PREVIOUS:     3.1.2 (Knight of Wands)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PLATFORM
+# ═══════════════════════════════════════════════════════════════════════════
+
+[platform]
+vps             = cloud277518.mywhc.ca
+ip              = 67.215.14.130
+ssh_port        = 2243
+domain          = quirrely.com
+cdn             = Cloudflare
+process_manager = PM2 (cluster mode, 2 workers)
+server          = Uvicorn / FastAPI
+python          = 3.12
+node            = 20+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# COMPONENT VERSIONS
+# ═══════════════════════════════════════════════════════════════════════════
+
+[backend]
+version          = 3.1.3-FINAL
+entry_point      = backend/app.py
+framework        = FastAPI >= 0.104.0
+python           = 3.12
+files            = 84
+checksum_app     = sha256:63af2d1aa5171420
+checksum_api_v2  = sha256:d9794f7ee0558bf2
+checksum_auth    = sha256:551e6f54be3e1f48
+checksum_stretch = sha256:121b5418948bfed8
+checksum_reqs    = sha256:b182136fa84595da
+
+[lncp.engine]
+version          = 3.8.0
+type             = CORE_IP
+classifier       = Quinquaginta v3.8
+profiles         = 10 (ASSERTIVE, HEDGED, CONVERSATIONAL, FORMAL, DENSE, MINIMAL, POETIC, ANALYTICAL, INTERROGATIVE, LONGFORM)
+stances          = 4 (OPEN, CLOSED, BALANCED, CONTRADICTORY)
+pipeline_phases  = 6 (1, 2, 3, 4a, 4b, 6)
+checksum_profiles = sha256:2c93bc6cb649c5a1
+checksum_scoring  = sha256:8c20d617e3804ef2
+
+[lncp.safety]
+system           = HALO
+files            = halo_bridge.py, halo_detector.py, halo_core_bridge.py, halo_feedback.py, halo_observer.py
+schema           = schema_halo.sql (staged to backend/ in v3.1.3-FINAL)
+checksum_schema  = sha256:590f4a08cc8aab7c
+
+[lncp.meta]
+version          = 5.1.0
+orchestrator     = meta_orchestrator.py
+observers        = 8
+observer_list    = stretch_observer, revenue_observer, retention_observer, funnel_observer, viral_observer, achievement_observer, attribution_tracker, blog_observer
+files            = 42
+checksum_orchestrator = sha256:dce40e893de99ead
+checksum_funnel       = sha256:3f23b5e37d378675
+checksum_viral        = sha256:00991591024b5fb7
+checksum_stretch_obs  = sha256:0fdfd6076fd8396b
+
+[stretch_system]
+version          = 1.0.0
+endpoints        = 8 (/eligibility, /recommend, /start, /current, /prompt, /input, /progress, /cta)
+api_prefix       = /api/stretch
+prompt_count     = 450
+prompt_matrix    = 10 profiles x 5 cycles x 3 positions x 3 variants
+keystroke_policy = ZERO TOLERANCE (server + client validation)
+trial_extension  = +3 days on completion
+checksum_prompts = sha256:22e86929e4d67f2c
+schema_tables    = 11
+
+[frontend]
+version          = 3.1.3-FINAL
+entry            = frontend/index.html
+size_kb          = 382
+brand_coral      = #FF6B6B
+brand_teal       = #4ECDC4
+brand_cream      = #FFFBF5
+fonts            = Outfit (display), Nunito Sans (body), IBM Plex Mono
+analyze_endpoint = /api/quick-analyze
+compat_css       = assets/css/compat.css (334 lines)
+compat_js        = assets/js/compat.js (253 lines)
+responsive_css   = assets/css/responsive.css (511 lines)
+stretch_js       = assets/js/stretch-components.js (20KB)
+blog_patched     = 91/91
+checksum_index   = sha256:b7319994e2ff9bcf
+checksum_compat_css = sha256:851d69242a2b3ba2
+checksum_compat_js  = sha256:04f6baaa8626348a
+checksum_stretch_js = sha256:f702d3eb1317a37e
+
+[extension]
+version          = 2.0.0
+manifest         = Manifest V3
+classifier       = Quinquaginta v3.8 (1085 lines, embedded offline)
+api_host         = api.quirrely.com
+checksum_manifest = sha256:04a76a1d75790311
+
+[blog]
+html_files       = 91
+og_title_rate    = 100%
+canonical_rate   = 100%
+cta_rate         = 100%
+compat_patched   = 91/91
+linkedin_company = 111631951
+
+[database]
+engine           = PostgreSQL
+schemas          = 15
+schema_order     = schema.sql, schema_auth.sql, schema_payments.sql, schema_subscriptions_v2.sql, schema_analytics.sql, schema_email.sql, schema_stretch.sql, schema_admin.sql, schema_authority.sql, schema_curator.sql, schema_milestones.sql, schema_profiles.sql, schema_reader.sql, schema_token_ledger.sql, schema_halo.sql
+
+[payments]
+provider         = Stripe (CAD)
+tiers            = free, trial, pro, authority
+env_keys         = STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET
+
+[auth]
+system           = Session tokens (secrets.token_urlsafe) + JWT (python-jose)
+password_hashing = bcrypt / passlib
+env_keys         = SECRET_KEY, DATABASE_URL
+
+[email]
+provider         = Resend
+env_keys         = RESEND_API_KEY
+
+[dependencies]
+fastapi          = >= 0.104.0
+uvicorn          = >= 0.24.0 [standard]
+pydantic         = >= 2.0.0
+websockets       = >= 11.0
+python-jose      = >= 3.3.0 [cryptography]
+passlib          = >= 1.7.4 [bcrypt]
+psycopg2-binary  = >= 2.9.9
+stripe           = >= 7.0.0
+python-multipart = >= 0.0.6
+httpx            = >= 0.25.0
+jsonschema       = >= 4.20.0
+
+# ═══════════════════════════════════════════════════════════════════════════
+# G2M SIGN-OFF
+# ═══════════════════════════════════════════════════════════════════════════
+
+[g2m]
+kim_verdict      = CLEARED
+kim_confidence   = 92%
+aso_verdict      = CLEARED
+aso_confidence   = 95%
+mars_verdict     = CLEARED
+mars_confidence  = 91%
+consolidated     = GO
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUDIT RECORD
+# ═══════════════════════════════════════════════════════════════════════════
+
+[audit]
+engine           = Quirrely Static Auditor v1.0
+run_date         = 2026-02-20
+total_checks     = 215
+passed           = 202
+failed           = 0
+warned           = 0
+info             = 13
+pass_rate        = 100.0%
+phases           = 14
+pre_fix_score    = 90.6% (183/202)
+fixes_applied    = 17
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DEPLOYMENT SEQUENCE
+# ═══════════════════════════════════════════════════════════════════════════
+
+[deployment]
+01_ssh           = ssh -p 2243 user@67.215.14.130
+02_copy          = rsync -avz quirrely_v313_integrated/ server:/opt/quirrely/
+03_deps          = cd /opt/quirrely/backend && pip install -r requirements.txt
+04_env           = cp .env.example .env  # fill all secrets before proceeding
+05_schemas       = run all 15 schemas in order (see schema_order above)
+06_seed          = load backend/stretch_prompts_base.json into stretch_prompts_base table
+07_nginx         = cp nginx/quirrely.conf /etc/nginx/sites-enabled/ && nginx -t && reload
+08_pm2           = pm2 start "uvicorn app:app --host 0.0.0.0 --port 8000 --workers 2" --name quirrely && pm2 save && pm2 startup
+09_health        = curl https://api.quirrely.com/health
+10_cloudflare    = DNS proxied, WAF active, quirrely.ca redirect live
+11_smoke         = python backend/master_test_optimized.py
+
+[health_urls]
+api              = https://api.quirrely.com/health
+admin            = https://api.quirrely.com/api/admin/v2/health
+extension        = https://api.quirrely.com/api/extension/health
+websocket        = wss://api.quirrely.com/ws/metrics

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase3-synthesis-output-schema-v0.1.0",
+  "title": "Phase-3 Synthesis Output Schema",
+  "description": "Schema for Phase-3 (Semiotic Synthesis) consuming Phase-2 UX outputs and emitting structural syntheses using LNCP-mapped Peircean semiotics. Phase-3 brings multiple Phase-1 outputs into relation without recomputing metrics.",
+  "type": "object",
+  "required": [
+    "phase3_version",
+    "source_contract_version",
+    "source_phase2_version",
+    "synthesis_scope",
+    "interpretive_frame",
+    "syntheses"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "phase3_version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "source_contract_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "source_phase2_version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "synthesis_scope": {
+      "type": "string",
+      "const": "SAMPLE_ONLY",
+      "description": "Phase-3 syntheses are bounded to the sample; no generalization beyond the input."
+    },
+    "interpretive_frame": {
+      "type": "string",
+      "const": "LNCP_PEIRCEAN",
+      "description": "Interpretive framework: LNCP theory mapped through Peircean semiotics."
+    },
+    "syntheses": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Array of synthesis objects, each bringing multiple Phase-1/2 outputs into semiotic relation.",
+      "items": {
+        "type": "object",
+        "required": [
+          "synthesis_id",
+          "related_outputs",
+          "semiotic_lens",
+          "synthesis_text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "synthesis_id": {
+            "type": "string",
+            "pattern": "^SYN_[0-9]{2}$",
+            "description": "Deterministic ID, e.g., SYN_01, SYN_02, ... Sequential, 1-indexed, zero-padded to 2 digits."
+          },
+          "related_outputs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "output_01",
+                "output_02",
+                "output_03",
+                "output_04",
+                "output_05",
+                "output_06",
+                "output_07",
+                "output_08",
+                "output_09",
+                "output_10"
+              ]
+            },
+            "uniqueItems": true,
+            "description": "Phase-2 output IDs that this synthesis brings into relation."
+          },
+          "semiotic_lens": {
+            "type": "string",
+            "enum": [
+              "INTERPRETANT_STABILIZATION",
+              "MEDIATION_AND_BOUNDARY",
+              "RELATIONAL_DENSITY"
+            ],
+            "description": "The Peircean semiotic lens applied to this synthesis."
+          },
+          "synthesis_text": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The synthesis narrative. Must use structural language only, remain sample-bounded, and not make diagnostic or trait claims."
+          }
+        }
+      }
+    }
+  }
+}

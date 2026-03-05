@@ -1,0 +1,95 @@
+<!-- Quirrely Shared Header Component -->
+<!-- Include this in pages that need a consistent header -->
+
+<header class="quirrely-header">
+  <a href="/" class="logo-link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 100" width="140" height="41" style="vertical-align: middle;">
+      <g transform="translate(5, 2) scale(0.7)">
+        <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <path d="M20 68 Q12 72, 14 80 Q16 86, 24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
+        <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <circle cx="33" cy="46.5" r="2" fill="#FFF"/>
+        <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+        <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+      </g>
+      <text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">rel</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
+    </svg>
+  </a>
+  
+  <nav class="header-nav">
+    <a href="/blog/index.html">Blog</a>
+    <a href="/blog/featured.html">Featured</a>
+  </nav>
+  
+  <div class="header-auth" id="header-auth">
+    <!-- Populated by auth-state.js -->
+    <a href="/auth/login.html" class="btn-link">Sign In</a>
+    <a href="/auth/signup.html" class="btn-primary">Sign Up Free</a>
+  </div>
+</header>
+
+<style>
+  .quirrely-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: #FFFBF5;
+    border-bottom: 1px solid #E9ECEF;
+  }
+  
+  .logo-link {
+    text-decoration: none;
+  }
+  
+  .header-nav {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .header-nav a {
+    color: #636E72;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .header-nav a:hover {
+    color: #FF6B6B;
+  }
+  
+  .header-auth {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .btn-link {
+    color: #636E72;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .btn-primary {
+    background: #FF6B6B;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  
+  .btn-primary:hover {
+    background: #FF5252;
+  }
+</style>

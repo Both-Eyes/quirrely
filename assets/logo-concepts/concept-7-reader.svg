@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <!-- Cozy reading squirrel -->
+  
+  <!-- Curled tail (forms cozy backdrop) -->
+  <path d="M65 55 Q75 45, 72 30 Q68 15, 50 12 Q35 10, 30 25 Q28 35, 35 42" 
+        fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1.5"/>
+  
+  <!-- Body curled up -->
+  <ellipse cx="40" cy="50" rx="18" ry="14" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1.5"/>
+  
+  <!-- Head -->
+  <circle cx="35" cy="35" r="14" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1.5"/>
+  
+  <!-- Ears -->
+  <ellipse cx="26" cy="24" rx="4" ry="7" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1"/>
+  <ellipse cx="26" cy="26" rx="2" ry="4" fill="#FF6B6B" opacity="0.5"/>
+  <ellipse cx="38" cy="22" rx="4" ry="7" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1"/>
+  <ellipse cx="38" cy="24" rx="2" ry="4" fill="#FF6B6B" opacity="0.5"/>
+  
+  <!-- Eye (focused on reading) -->
+  <ellipse cx="40" cy="34" rx="3" ry="2.5" fill="#2D3436"/>
+  <circle cx="41" cy="33" r="1" fill="#FFFBF5"/>
+  
+  <!-- Tiny glasses -->
+  <circle cx="40" cy="34" r="5" fill="none" stroke="#636E72" stroke-width="0.8"/>
+  <line x1="45" y1="34" x2="50" y2="33" stroke="#636E72" stroke-width="0.8"/>
+  
+  <!-- Little book -->
+  <rect x="45" y="42" width="12" height="10" rx="1" fill="#4ECDC4" stroke="#2D3436" stroke-width="0.5"/>
+  <line x1="51" y1="42" x2="51" y2="52" stroke="#2D3436" stroke-width="0.5"/>
+  <!-- Book text lines -->
+  <line x1="46" y1="45" x2="50" y2="45" stroke="#2D3436" stroke-width="0.3"/>
+  <line x1="46" y1="47" x2="49" y2="47" stroke="#2D3436" stroke-width="0.3"/>
+  <line x1="52" y1="45" x2="56" y2="45" stroke="#2D3436" stroke-width="0.3"/>
+  <line x1="52" y1="47" x2="55" y2="47" stroke="#2D3436" stroke-width="0.3"/>
+  
+  <!-- Paws holding book -->
+  <ellipse cx="44" cy="48" rx="4" ry="3" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="0.8"/>
+</svg>

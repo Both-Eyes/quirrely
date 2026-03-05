@@ -1,0 +1,290 @@
+{
+  "version": "5.1.1",
+  "timestamp": "2026-02-15T03:09:29.980910+00:00",
+  "summary": {
+    "total": 44,
+    "passed": true,
+    "failed": 0,
+    "pass_rate": 100.0,
+    "critical_failed": 0,
+    "required_failed": 0
+  },
+  "phases": {
+    "Core Engine": true,
+    "Event Pipeline": true,
+    "Activation & Lifecycle": true,
+    "Engine Feedback": true,
+    "Tier Optimization": true,
+    "Command Center": true,
+    "Integrations": true,
+    "Virtuous Cycle": true
+  },
+  "can_deploy": true,
+  "status": "\ud83d\ude80 PRODUCTION READY",
+  "results": [
+    {
+      "name": "Token vocabulary loaded",
+      "level": "critical",
+      "passed": true,
+      "message": "50 tokens"
+    },
+    {
+      "name": "Token structure valid",
+      "level": "critical",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "All token categories present",
+      "level": "required",
+      "passed": true,
+      "message": "5 categories"
+    },
+    {
+      "name": "Profile vocabulary loaded",
+      "level": "critical",
+      "passed": true,
+      "message": "40 profiles"
+    },
+    {
+      "name": "Profiles have data",
+      "level": "required",
+      "passed": true,
+      "message": "40/40"
+    },
+    {
+      "name": "Scoring: assertive detection",
+      "level": "required",
+      "passed": true,
+      "message": "confidence=0.50"
+    },
+    {
+      "name": "Scoring: tentative detection",
+      "level": "required",
+      "passed": true,
+      "message": "confidence=0.50"
+    },
+    {
+      "name": "Scoring: analytical detection",
+      "level": "required",
+      "passed": true,
+      "message": "confidence=0.50"
+    },
+    {
+      "name": "Event emission complete",
+      "level": "critical",
+      "passed": true,
+      "message": "10 events emitted"
+    },
+    {
+      "name": "Event collection",
+      "level": "critical",
+      "passed": true,
+      "message": "10/10 collected"
+    },
+    {
+      "name": "Signal aggregation",
+      "level": "critical",
+      "passed": true,
+      "message": "10 events \u2192 signals"
+    },
+    {
+      "name": "UTM attribution signal",
+      "level": "required",
+      "passed": true,
+      "message": "1 sessions with UTM"
+    },
+    {
+      "name": "Friction signal",
+      "level": "required",
+      "passed": true,
+      "message": "friction_rate=1.00"
+    },
+    {
+      "name": "Analysis completion signal",
+      "level": "required",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "Health inputs generated",
+      "level": "required",
+      "passed": true,
+      "message": "score=40.0"
+    },
+    {
+      "name": "Activation rate calculation",
+      "level": "critical",
+      "passed": true,
+      "message": "rate=100.0%"
+    },
+    {
+      "name": "Activation summary",
+      "level": "required",
+      "passed": true,
+      "message": "activated=1"
+    },
+    {
+      "name": "Activation funnel",
+      "level": "required",
+      "passed": true,
+      "message": "analysis=100.0%"
+    },
+    {
+      "name": "Lifecycle state distribution",
+      "level": "required",
+      "passed": true,
+      "message": "11 states active"
+    },
+    {
+      "name": "Lifecycle conversion rates",
+      "level": "required",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "Lifecycle health inputs",
+      "level": "required",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "Engine accuracy inference",
+      "level": "critical",
+      "passed": true,
+      "message": "accuracy=75.0%"
+    },
+    {
+      "name": "Feedback summary",
+      "level": "required",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "Engine health inputs",
+      "level": "advisory",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "Tier-specific trust scoring",
+      "level": "required",
+      "passed": true,
+      "message": "FREE=0.14, PRO=0.05"
+    },
+    {
+      "name": "Proposal impact evaluation",
+      "level": "required",
+      "passed": true,
+      "message": "recommendation=approve"
+    },
+    {
+      "name": "Tier targets defined",
+      "level": "required",
+      "passed": true,
+      "message": "4 tiers configured"
+    },
+    {
+      "name": "All domains initialized",
+      "level": "critical",
+      "passed": true,
+      "message": "UX, Health, MRR, Safety"
+    },
+    {
+      "name": "Proposals generated",
+      "level": "critical",
+      "passed": true,
+      "message": "6 proposals"
+    },
+    {
+      "name": "Proposals sorted by priority",
+      "level": "required",
+      "passed": true,
+      "message": "top priority=57"
+    },
+    {
+      "name": "Injection tier distribution",
+      "level": "required",
+      "passed": true,
+      "message": "\ud83d\udfe23 \ud83d\udfe12 \ud83d\udd341"
+    },
+    {
+      "name": "Proposal approval workflow",
+      "level": "critical",
+      "passed": true,
+      "message": "approved: Increase trial reminder freque..."
+    },
+    {
+      "name": "Audit trail recorded",
+      "level": "required",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "Full state export",
+      "level": "critical",
+      "passed": true,
+      "message": "JSON exportable"
+    },
+    {
+      "name": "Stripe integration",
+      "level": "required",
+      "passed": true,
+      "message": "MRR=$16,170"
+    },
+    {
+      "name": "GSC integration",
+      "level": "required",
+      "passed": true,
+      "message": "impressions=115,105"
+    },
+    {
+      "name": "Alerting system",
+      "level": "required",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "Step 1: User action captured",
+      "level": "critical",
+      "passed": true,
+      "message": "analysis + view"
+    },
+    {
+      "name": "Step 2: Events collected",
+      "level": "critical",
+      "passed": true,
+      "message": "2 events"
+    },
+    {
+      "name": "Step 3: Signals generated",
+      "level": "critical",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "Step 4: Command Center operational",
+      "level": "critical",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "Step 5: Proposals ready for review",
+      "level": "critical",
+      "passed": true,
+      "message": "5 pending"
+    },
+    {
+      "name": "Step 6: Injection queue operational",
+      "level": "critical",
+      "passed": true,
+      "message": ""
+    },
+    {
+      "name": "VIRTUOUS CYCLE COMPLETE",
+      "level": "critical",
+      "passed": true,
+      "message": "User \u2192 Event \u2192 Signal \u2192 Proposal \u2192 Injection \u2713"
+    }
+  ]
+}

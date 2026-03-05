@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://sentense.com/sitemap.xml
+
+# Disallow admin and API
+Disallow: /api/
+Disallow: /admin/
+Disallow: /super-admin-dashboard.html
+
+# Disallow auth pages from indexing
+Disallow: /auth/
+Disallow: /payment/
+
+# Allow legal pages
+Allow: /legal/

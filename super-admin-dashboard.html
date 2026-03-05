@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quirrely Super Admin • System Pulse</title>
+  <style>
+    :root {
+      --coral: #FF6B6B;
+      --soft-gold: #D4A574;
+      --ink: #2D3436;
+      --muted: #636E72;
+      --bg: #FFFBF5;
+      --bg-dark: #F8F5F0;
+      --border: #E9ECEF;
+      --success: #00B894;
+      --warning: #FDCB6E;
+      --danger: #E74C3C;
+      --purple: #6C5CE7;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .logo { display: flex; align-items: center; gap: 0.75rem; }
+    .logo-icon { font-size: 2rem; }
+    .logo-text { font-size: 1.5rem; font-weight: 700; color: var(--ink); }
+    .logo-badge {
+      background: var(--purple);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .header-meta { text-align: right; color: var(--muted); font-size: 0.85rem; }
+    
+    .pulse-card {
+      background: linear-gradient(135deg, var(--ink) 0%, #1a1a2e 100%);
+      border-radius: 20px;
+      padding: 2.5rem;
+      color: white;
+      margin-bottom: 2rem;
+    }
+    .pulse-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .pulse-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .pulse-subtitle { opacity: 0.7; font-size: 0.9rem; margin-top: 0.25rem; }
+    .no-llm-badge {
+      background: rgba(0, 184, 148, 0.2);
+      border: 1px solid var(--success);
+      color: var(--success);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .pulse-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 1000px) {
+      .pulse-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    
+    .health-section { text-align: center; }
+    .health-ring {
+      width: 180px;
+      height: 180px;
+      position: relative;
+      margin: 0 auto 1rem;
+    }
+    .health-ring svg { transform: rotate(-90deg); }
+    .health-ring-bg { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 14; }
+    .health-ring-progress { 
+      fill: none; 
+      stroke-width: 14; 
+      stroke-linecap: round; 
+      transition: stroke-dashoffset 1s ease-out;
+    }
+    .health-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .health-number { font-size: 3.5rem; font-weight: 800; }
+    .health-label { font-size: 0.9rem; opacity: 0.7; }
+    
+    .breakdown { display: flex; flex-direction: column; gap: 1.25rem; }
+    .breakdown-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; opacity: 0.9; }
+    .breakdown-item { display: flex; align-items: center; gap: 1rem; }
+    .breakdown-label { width: 100px; font-size: 0.9rem; opacity: 0.8; }
+    .breakdown-bar { flex: 1; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
+    .breakdown-fill { height: 100%; border-radius: 5px; transition: width 1s ease-out; }
+    .breakdown-value { width: 50px; text-align: right; font-size: 0.95rem; font-weight: 700; }
+    
+    .metrics-section {}
+    .metrics-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; opacity: 0.9; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .metric-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .metric-value { font-size: 1.75rem; font-weight: 700; }
+    .metric-label { font-size: 0.8rem; opacity: 0.7; margin-top: 0.25rem; }
+    
+    .actions-summary {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .actions-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+    .actions-title { font-size: 1.1rem; font-weight: 600; }
+    .actions-counts { display: flex; gap: 1rem; }
+    .action-count {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.75rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    .action-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .action-dot.risk { background: var(--danger); }
+    .action-dot.watch { background: var(--warning); }
+    .action-dot.opportunity { background: var(--success); }
+    
+    .top-actions { display: flex; flex-direction: column; gap: 0.75rem; }
+    .top-action {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      border-left: 3px solid;
+    }
+    .top-action.risk { border-left-color: var(--danger); }
+    .top-action.watch { border-left-color: var(--warning); }
+    .top-action.opportunity { border-left-color: var(--success); }
+    .action-icon { font-size: 1.25rem; }
+    .action-content { flex: 1; }
+    .action-title-text { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .action-rec { font-size: 0.85rem; opacity: 0.7; }
+    
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 900px) {
+      .section-grid { grid-template-columns: 1fr; }
+    }
+    
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+    .card-title { font-size: 1.1rem; font-weight: 600; color: var(--ink); }
+    .card-badge {
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-dark);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    
+    .country-list { display: flex; flex-direction: column; gap: 1rem; }
+    .country-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg);
+      border-radius: 10px;
+    }
+    .country-flag { font-size: 1.5rem; }
+    .country-info { flex: 1; }
+    .country-name { font-weight: 600; font-size: 0.95rem; }
+    .country-meta { font-size: 0.8rem; color: var(--muted); }
+    .country-stats { display: flex; gap: 1.5rem; text-align: right; }
+    .country-stat-value { font-weight: 700; font-size: 1.1rem; }
+    .country-stat-label { font-size: 0.75rem; color: var(--muted); }
+    
+    .token-bars { display: flex; flex-direction: column; gap: 0.75rem; }
+    .token-row { display: flex; align-items: center; gap: 1rem; }
+    .token-label { width: 100px; font-size: 0.85rem; color: var(--muted); }
+    .token-bar-container { flex: 1; height: 24px; background: var(--bg-dark); border-radius: 6px; overflow: hidden; position: relative; }
+    .token-bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 0.5rem; }
+    .token-bar-value { font-size: 0.75rem; font-weight: 600; color: white; }
+    .token-count { width: 60px; text-align: right; font-size: 0.9rem; font-weight: 600; }
+    
+    .funnel-stages { display: flex; flex-direction: column; gap: 0.5rem; }
+    .funnel-stage {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg);
+      border-radius: 8px;
+    }
+    .funnel-name { flex: 1; font-size: 0.9rem; }
+    .funnel-rate { font-weight: 700; font-size: 0.95rem; }
+    .funnel-rate.good { color: var(--success); }
+    .funnel-rate.warn { color: var(--warning); }
+    .funnel-rate.bad { color: var(--danger); }
+    
+    .full-actions { margin-top: 2rem; }
+    .actions-filter {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { background: var(--bg-dark); }
+    .filter-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
+    
+    .action-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid;
+    }
+    .action-card.risk { border-left-color: var(--danger); }
+    .action-card.watch { border-left-color: var(--warning); }
+    .action-card.opportunity { border-left-color: var(--success); }
+    
+    .action-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+    .action-card-title { font-size: 1.05rem; font-weight: 600; color: var(--ink); }
+    .action-card-category {
+      padding: 0.2rem 0.6rem;
+      background: var(--bg-dark);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .action-card-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+    
+    .action-metrics { display: flex; gap: 2rem; margin-bottom: 1rem; }
+    .action-metric { }
+    .action-metric-label { font-size: 0.75rem; color: var(--muted); }
+    .action-metric-value { font-weight: 700; font-size: 1rem; }
+    .action-metric-value.positive { color: var(--success); }
+    .action-metric-value.negative { color: var(--danger); }
+    
+    .action-recommendation {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--bg);
+      border-radius: 8px;
+    }
+    .rec-icon { font-size: 1.25rem; }
+    .rec-text { font-size: 0.9rem; color: var(--ink); }
+    .rec-meta { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+    
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .footer-highlight { color: var(--coral); font-weight: 600; }
+    
+    .json-section { margin-top: 2rem; }
+    .json-toggle {
+      background: var(--ink);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .json-container {
+      margin-top: 1rem;
+      background: #1a1a2e;
+      border-radius: 12px;
+      padding: 1.5rem;
+      overflow-x: auto;
+      display: none;
+    }
+    .json-container.visible { display: block; }
+    .json-container pre {
+      color: #a0e7a0;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">🐿️</span>
+        <span class="logo-text">Quirrely</span>
+        <span class="logo-badge">SUPER ADMIN</span>
+      </div>
+      <div class="header-meta">
+        <div>Master Test Results</div>
+        <div id="timestamp"></div>
+      </div>
+    </header>
+    
+    <div class="pulse-card">
+      <div class="pulse-header">
+        <div>
+          <h1 class="pulse-title">💓 System Pulse</h1>
+          <p class="pulse-subtitle">4,667 users simulated over 90 days • Seed: 42</p>
+        </div>
+        <div class="no-llm-badge">✓ NO AI/LLM REQUIRED</div>
+      </div>
+      
+      <div class="pulse-grid">
+        <div class="health-section">
+          <div class="health-ring">
+            <svg width="180" height="180" viewBox="0 0 180 180">
+              <circle class="health-ring-bg" cx="90" cy="90" r="80" />
+              <circle id="health-progress" class="health-ring-progress" cx="90" cy="90" r="80" stroke-dasharray="502.65" stroke-dashoffset="502.65" />
+            </svg>
+            <div class="health-value">
+              <div class="health-number" id="health-number">0</div>
+              <div class="health-label">Health</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="breakdown">
+          <div class="breakdown-title">Health Breakdown</div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">Conversion</span>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill" id="conversion-bar" style="width: 0%; background: var(--coral);"></div>
+            </div>
+            <span class="breakdown-value" id="conversion-value">0%</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">Value</span>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill" id="value-bar" style="width: 0%; background: var(--soft-gold);"></div>
+            </div>
+            <span class="breakdown-value" id="value-value">0%</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">Retention</span>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill" id="retention-bar" style="width: 0%; background: var(--success);"></div>
+            </div>
+            <span class="breakdown-value" id="retention-value">0%</span>
+          </div>
+        </div>
+        
+        <div class="metrics-section">
+          <div class="metrics-title">Key Metrics</div>
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-value" id="metric-users">0</div>
+              <div class="metric-label">Simulated Users</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="metric-value">0.00</div>
+              <div class="metric-label">Avg Token Value</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="metric-conversion">0%</div>
+              <div class="metric-label">Subscription Rate</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="metric-churn">0%</div>
+              <div class="metric-label">Churn Rate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="actions-summary">
+        <div class="actions-header">
+          <h3 class="actions-title">Top Prescriptive Actions</h3>
+          <div class="actions-counts">
+            <div class="action-count"><span class="action-dot risk"></span><span id="risk-count">0</span> Risks</div>
+            <div class="action-count"><span class="action-dot watch"></span><span id="watch-count">0</span> Watch</div>
+            <div class="action-count"><span class="action-dot opportunity"></span><span id="opp-count">0</span> Opportunities</div>
+          </div>
+        </div>
+        <div class="top-actions" id="top-actions"></div>
+      </div>
+    </div>
+    
+    <div class="section-grid">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">🌍 Country Performance</h3>
+          <span class="card-badge">4 Markets</span>
+        </div>
+        <div class="country-list" id="country-list"></div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">🪙 Token Generation Distribution</h3>
+          <span class="card-badge">Gen 0-5</span>
+        </div>
+        <div class="token-bars" id="token-bars"></div>
+      </div>
+    </div>
+    
+    <div class="section-grid">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">🚪 Entry Path Analysis</h3>
+          <span class="card-badge">Direct vs .com</span>
+        </div>
+        <div class="country-list" id="entry-list"></div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">📊 Funnel Conversion</h3>
+          <span class="card-badge">Stage to Stage</span>
+        </div>
+        <div class="funnel-stages" id="funnel-stages"></div>
+      </div>
+    </div>
+    
+    <div class="full-actions">
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">All Prescriptive Actions</h2>
+      <div class="actions-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="risk">🔴 Risks</button>
+        <button class="filter-btn" data-filter="watch">🟡 Watch</button>
+        <button class="filter-btn" data-filter="opportunity">🟢 Opportunities</button>
+      </div>
+      <div id="all-actions"></div>
+    </div>
+    
+    <div class="json-section">
+      <button class="json-toggle" id="json-toggle"><span>{ }</span> View Raw JSON</button>
+      <div class="json-container" id="json-container"><pre id="json-output"></pre></div>
+    </div>
+    
+    <!-- MRR/ARR Section -->
+    <div class="mrr-section" style="margin-top: 2rem;">
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">💰 Revenue Metrics (MRR/ARR)</h2>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="background: linear-gradient(135deg, var(--ink) 0%, #1a1a2e 100%); color: white; padding: 2rem;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; text-align: center;">
+            <div>
+              <div style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 0.5rem;">Monthly Recurring Revenue</div>
+              <div id="mrr-value" style="font-size: 2.5rem; font-weight: 700;">$0</div>
+              <div id="mrr-delta" style="font-size: 0.9rem; color: var(--success);"></div>
+            </div>
+            <div>
+              <div style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 0.5rem;">Annual Recurring Revenue</div>
+              <div id="arr-value" style="font-size: 2.5rem; font-weight: 700;">$0</div>
+            </div>
+            <div>
+              <div style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 0.5rem;">Net Revenue Change</div>
+              <div id="net-change" style="font-size: 2.5rem; font-weight: 700; color: var(--success);">$0</div>
+              <div style="font-size: 0.9rem; opacity: 0.8;">vs previous period</div>
+            </div>
+          </div>
+        </div>
+        
+        <div style="padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <div>
+            <h4 style="font-size: 1rem; color: var(--ink); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              📈 Gains
+            </h4>
+            <div id="mrr-gains" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+          </div>
+          <div>
+            <h4 style="font-size: 1rem; color: var(--ink); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              📉 Losses
+            </h4>
+            <div id="mrr-losses" style="display: flex; flex-direction: column; gap: 0.75rem;"></div>
+          </div>
+        </div>
+        
+        <div style="padding: 1.5rem; border-top: 1px solid var(--border);">
+          <h4 style="font-size: 1rem; color: var(--ink); margin-bottom: 1rem;">🌍 MRR by Country</h4>
+          <div id="country-mrr" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;"></div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <p>Quirrely v2.1.0 <span class="footer-highlight">"Quinquaginta"</span></p>
+      <p>Self-sustaining token economy • No AI/LLM required at runtime</p>
+      <p>Users are the fuel. Users are the value. The system reflects.</p>
+    </footer>
+  </div>
+  
+  <script>
+    const MASTER_TEST_DATA = {"meta":{"run_started_at":"2026-02-14T17:18:03.922220","run_completed_at":"2026-02-14T17:18:05.046119","duration_seconds":1.123899},"config":{"total_users":4667,"simulation_days":90,"seed":42},"simulation_results":{"summary":{"total_users":6530,"simulation_days":90,"total_events":46378},"stage_distribution":{"visitor":0,"signed_up":27,"first_analysis":1144,"hit_limit":61,"trial_started":258,"trial_converted":3837,"subscribed":1203},"country_stats":{"ca":{"total_users":1914,"signed_up":1572,"subscribed":348,"churned":100,"total_value":5641.003,"avg_value":2.947},"uk":{"total_users":1725,"signed_up":1407,"subscribed":306,"churned":80,"total_value":4999.046,"avg_value":2.898},"au":{"total_users":1539,"signed_up":1224,"subscribed":269,"churned":80,"total_value":4499.424,"avg_value":2.924},"nz":{"total_users":1352,"signed_up":1122,"subscribed":280,"churned":64,"total_value":3970.466,"avg_value":2.937}},"entry_stats":{"direct":{"total_users":4664,"conversion_rate":0.182,"avg_value":2.927},"via_com":{"total_users":1866,"conversion_rate":0.190,"avg_value":2.924}},"generation_distribution":{"0":{"count":27,"total_value":25.68},"1":{"count":1206,"total_value":2551.85},"2":{"count":5285,"total_value":16476.90},"3":{"count":12,"total_value":55.51},"4":{"count":0,"total_value":0},"5":{"count":0,"total_value":0}},"value_metrics":{"total_value":19109.94,"mean_value":2.926,"max_value":5.355},"funnel_rates":{"visitor_to_signed_up":0,"signed_up_to_first_analysis":1.226,"first_analysis_to_hit_limit":0.825,"hit_limit_to_trial_started":0.048,"trial_started_to_subscribed":20.535},"churn_stats":{"total_churned":324,"churn_rate":0.0496}},"prescriptive_actions":{"total":7,"by_severity":{"opportunity":4,"watch":1,"risk":2},"actions":[{"severity":"risk","category":"funnel","title":"Signup conversion below baseline","description":"Signup converting at 0.0% vs 30.0% baseline (-100.0%)","current_value":0,"baseline_value":0.3,"delta_percent":-100.0,"action_recommended":"Audit signup flow for friction points","action_impact":"Blocking user progression","action_effort":"medium","priority_score":160},{"severity":"risk","category":"funnel","title":"Trial Start conversion below baseline","description":"Trial Start converting at 4.8% vs 70.0% baseline (-93.2%)","current_value":0.048,"baseline_value":0.7,"delta_percent":-93.2,"action_recommended":"Audit trial start flow for friction points","action_impact":"Blocking user progression","action_effort":"medium","priority_score":160},{"severity":"watch","category":"funnel","title":"Gen 3→4 progression low (Featured)","description":"Only 0.0% of behavioral users becoming Featured","current_value":0.0,"baseline_value":0.15,"delta_percent":-30,"token_generation":3,"action_recommended":"Review Featured eligibility criteria, submission friction, review queue speed","action_impact":"Limiting recognition program effectiveness","action_effort":"medium","priority_score":110},{"severity":"opportunity","category":"funnel","title":"First Analysis conversion exceeds baseline","description":"First Analysis converting at 122.6% vs 60.0% baseline (+104.4%)","current_value":1.226,"baseline_value":0.6,"delta_percent":104.4,"action_recommended":"Investigate what's driving first analysis success and amplify","action_impact":"Could increase downstream conversions","action_effort":"low","priority_score":145},{"severity":"opportunity","category":"funnel","title":"Trial Conversion conversion exceeds baseline","description":"Trial Conversion converting at 2053.5% vs 25.0% baseline (+8114.0%)","current_value":20.535,"baseline_value":0.25,"delta_percent":8114.0,"action_recommended":"Investigate what's driving trial conversion success and amplify","action_impact":"Could increase downstream conversions","action_effort":"low","priority_score":145},{"severity":"opportunity","category":"funnel","title":"Featured Approval conversion exceeds baseline","description":"Featured Approval converting at 100.0% vs 70.0% baseline (+42.9%)","current_value":1.0,"baseline_value":0.7,"delta_percent":42.9,"action_recommended":"Investigate what's driving featured approval success and amplify","action_impact":"Could increase downstream conversions","action_effort":"low","priority_score":145},{"severity":"opportunity","category":"retention","title":"Churn rate better than expected","description":"Churn at 5.0% vs 15.0% expected (-66.9%)","current_value":0.0496,"baseline_value":0.15,"delta_percent":-66.9,"action_recommended":"Document retention drivers, consider sharing as marketing proof point","action_impact":"Strong foundation for growth","action_effort":"low","priority_score":145}]},"system_pulse":{"overall_health":86,"health_breakdown":{"conversion":100,"value":83,"retention":75},"key_metrics":{"total_users":6530,"total_value":19109.94,"avg_value":2.926,"trial_conversion":20.535,"churn_rate":0.0496},"top_actions":[{"severity":"risk","title":"Signup conversion below baseline","action":"Audit signup flow for friction points"},{"severity":"risk","title":"Trial Start conversion below baseline","action":"Audit trial start flow for friction points"},{"severity":"watch","title":"Gen 3→4 progression low (Featured)","action":"Review Featured eligibility criteria, submission friction, review queue speed"},{"severity":"opportunity","title":"First Analysis conversion exceeds baseline","action":"Investigate what's driving first analysis success and amplify"},{"severity":"opportunity","title":"Trial Conversion conversion exceeds baseline","action":"Investigate what's driving trial conversion success and amplify"}]}};
+    
+    document.addEventListener('DOMContentLoaded', () => { renderDashboard(MASTER_TEST_DATA); });
+    
+    function renderDashboard(data) {
+      const pulse = data.system_pulse;
+      const sim = data.simulation_results;
+      const actions = data.prescriptive_actions;
+      
+      document.getElementById('timestamp').textContent = new Date(data.meta.run_completed_at).toLocaleString();
+      
+      setTimeout(() => {
+        const health = pulse.overall_health;
+        const circumference = 2 * Math.PI * 80;
+        const offset = circumference * (1 - health / 100);
+        const progress = document.getElementById('health-progress');
+        const healthColor = health >= 70 ? '#00B894' : health >= 50 ? '#FDCB6E' : '#E74C3C';
+        progress.style.stroke = healthColor;
+        progress.style.strokeDashoffset = offset;
+        document.getElementById('health-number').textContent = health;
+        document.getElementById('health-number').style.color = healthColor;
+      }, 100);
+      
+      const breakdown = pulse.health_breakdown;
+      setTimeout(() => {
+        document.getElementById('conversion-bar').style.width = breakdown.conversion + '%';
+        document.getElementById('conversion-value').textContent = breakdown.conversion + '%';
+        document.getElementById('value-bar').style.width = breakdown.value + '%';
+        document.getElementById('value-value').textContent = breakdown.value + '%';
+        document.getElementById('retention-bar').style.width = breakdown.retention + '%';
+        document.getElementById('retention-value').textContent = breakdown.retention + '%';
+      }, 200);
+      
+      const metrics = pulse.key_metrics;
+      document.getElementById('metric-users').textContent = metrics.total_users.toLocaleString();
+      document.getElementById('metric-value').textContent = metrics.avg_value.toFixed(2);
+      const totalUsers = Object.values(sim.country_stats).reduce((a, c) => a + c.total_users, 0);
+      const totalSubscribed = Object.values(sim.country_stats).reduce((a, c) => a + c.subscribed, 0);
+      document.getElementById('metric-conversion').textContent = (totalSubscribed / totalUsers * 100).toFixed(1) + '%';
+      document.getElementById('metric-churn').textContent = (metrics.churn_rate * 100).toFixed(1) + '%';
+      
+      document.getElementById('risk-count').textContent = actions.by_severity.risk;
+      document.getElementById('watch-count').textContent = actions.by_severity.watch;
+      document.getElementById('opp-count').textContent = actions.by_severity.opportunity;
+      
+      document.getElementById('top-actions').innerHTML = pulse.top_actions.map(a => `
+        <div class="top-action ${a.severity}">
+          <span class="action-icon">${a.severity === 'risk' ? '🔴' : a.severity === 'watch' ? '🟡' : '🟢'}</span>
+          <div class="action-content">
+            <div class="action-title-text">${a.title}</div>
+            <div class="action-rec">→ ${a.action}</div>
+          </div>
+        </div>
+      `).join('');
+      
+      const countryFlags = { ca: '🇨🇦', uk: '🇬🇧', au: '🇦🇺', nz: '🇳🇿' };
+      const countryNames = { ca: 'Canada', uk: 'United Kingdom', au: 'Australia', nz: 'New Zealand' };
+      document.getElementById('country-list').innerHTML = Object.entries(sim.country_stats).map(([code, stats]) => `
+        <div class="country-row">
+          <span class="country-flag">${countryFlags[code]}</span>
+          <div class="country-info">
+            <div class="country-name">${countryNames[code]}</div>
+            <div class="country-meta">${stats.total_users.toLocaleString()} users • ${stats.churned} churned</div>
+          </div>
+          <div class="country-stats">
+            <div><div class="country-stat-value">${stats.subscribed}</div><div class="country-stat-label">Subscribed</div></div>
+            <div><div class="country-stat-value">${stats.avg_value.toFixed(2)}</div><div class="country-stat-label">Avg Value</div></div>
+          </div>
+        </div>
+      `).join('');
+      
+      const genLabels = ['Gen 0 (Raw)', 'Gen 1 (Profile)', 'Gen 2 (Explored)', 'Gen 3 (Behavioral)', 'Gen 4 (Featured)', 'Gen 5 (Authority)'];
+      const genColors = ['#636E72', '#FF6B6B', '#D4A574', '#00B894', '#6C5CE7', '#FFD700'];
+      const maxCount = Math.max(...Object.values(sim.generation_distribution).map(g => g.count));
+      document.getElementById('token-bars').innerHTML = Object.entries(sim.generation_distribution).map(([gen, data]) => {
+        const pct = maxCount > 0 ? (data.count / maxCount * 100) : 0;
+        return `<div class="token-row"><span class="token-label">${genLabels[gen]}</span><div class="token-bar-container"><div class="token-bar-fill" style="width: ${pct}%; background: ${genColors[gen]};">${pct > 15 ? `<span class="token-bar-value">${data.count}</span>` : ''}</div></div><span class="token-count">${data.count.toLocaleString()}</span></div>`;
+      }).join('');
+      
+      document.getElementById('entry-list').innerHTML = Object.entries(sim.entry_stats).map(([type, stats]) => `
+        <div class="country-row">
+          <span class="country-flag">${type === 'direct' ? '🎯' : '🌐'}</span>
+          <div class="country-info">
+            <div class="country-name">${type === 'direct' ? 'Direct to Country Domain' : 'Via quirrely.com Redirect'}</div>
+            <div class="country-meta">${stats.total_users.toLocaleString()} users</div>
+          </div>
+          <div class="country-stats">
+            <div><div class="country-stat-value">${(stats.conversion_rate * 100).toFixed(1)}%</div><div class="country-stat-label">Conv Rate</div></div>
+            <div><div class="country-stat-value">${stats.avg_value.toFixed(2)}</div><div class="country-stat-label">Avg Value</div></div>
+          </div>
+        </div>
+      `).join('');
+      
+      const funnelLabels = {'visitor_to_signed_up': 'Visitor → Signup','signed_up_to_first_analysis': 'Signup → First Analysis','first_analysis_to_hit_limit': 'Analysis → Hit Limit','hit_limit_to_trial_started': 'Hit Limit → Trial','trial_started_to_subscribed': 'Trial → Subscribed'};
+      document.getElementById('funnel-stages').innerHTML = Object.entries(sim.funnel_rates).filter(([key]) => funnelLabels[key]).map(([key, rate]) => {
+        const pct = Math.min(rate * 100, 999);
+        const rateClass = pct > 50 ? 'good' : pct > 20 ? 'warn' : 'bad';
+        return `<div class="funnel-stage"><span class="funnel-name">${funnelLabels[key]}</span><span class="funnel-rate ${rateClass}">${pct.toFixed(1)}%</span></div>`;
+      }).join('');
+      
+      renderAllActions(actions.actions, 'all');
+      
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderAllActions(actions.actions, btn.dataset.filter);
+        });
+      });
+      
+      document.getElementById('json-toggle').addEventListener('click', () => {
+        const container = document.getElementById('json-container');
+        container.classList.toggle('visible');
+        if (container.classList.contains('visible')) {
+          document.getElementById('json-output').textContent = JSON.stringify(data, null, 2);
+        }
+      });
+      
+      // Calculate and render MRR/ARR
+      renderMRR(sim);
+    }
+    
+    function renderMRR(sim) {
+      // Pricing by country (monthly PRO)
+      const pricing = {
+        ca: { symbol: 'CAD', price: 9.99, rate: 1.0 },
+        uk: { symbol: 'GBP', price: 7.99, rate: 1.72 },
+        au: { symbol: 'AUD', price: 14.99, rate: 0.88 },
+        nz: { symbol: 'NZD', price: 15.99, rate: 0.82 },
+      };
+      
+      const countryStats = sim.country_stats;
+      let totalMRR_CAD = 0;
+      const countryMRR = {};
+      
+      // Calculate MRR per country
+      for (const [code, stats] of Object.entries(countryStats)) {
+        const p = pricing[code];
+        const localMRR = stats.subscribed * p.price;
+        const cadMRR = localMRR * p.rate;
+        countryMRR[code] = { local: localMRR, cad: cadMRR, symbol: p.symbol, subs: stats.subscribed };
+        totalMRR_CAD += cadMRR;
+      }
+      
+      const totalARR_CAD = totalMRR_CAD * 12;
+      
+      // Calculate gains/losses
+      const totalChurned = sim.churn_stats.total_churned;
+      const avgRevenuePerChurn = totalMRR_CAD / Object.values(countryStats).reduce((a, c) => a + c.subscribed, 0);
+      const churnLoss = totalChurned * avgRevenuePerChurn * 0.3; // Estimated portion that would have been MRR
+      
+      const newSubsGain = totalMRR_CAD; // All current subs are "new" in simulation
+      
+      // Render values
+      document.getElementById('mrr-value').textContent = '$' + totalMRR_CAD.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+      document.getElementById('arr-value').textContent = '$' + totalARR_CAD.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+      document.getElementById('net-change').textContent = '+$' + (totalMRR_CAD - churnLoss).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+      
+      // Render gains
+      document.getElementById('mrr-gains').innerHTML = `
+        <div style="display: flex; justify-content: space-between; padding: 0.75rem; background: rgba(0,184,148,0.1); border-radius: 8px;">
+          <span>New Subscriptions</span>
+          <span style="color: var(--success); font-weight: 600;">+$${newSubsGain.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 0.75rem; background: rgba(0,184,148,0.1); border-radius: 8px;">
+          <span>Expansion (Upgrades)</span>
+          <span style="color: var(--success); font-weight: 600;">+$0</span>
+        </div>
+      `;
+      
+      // Render losses
+      document.getElementById('mrr-losses').innerHTML = `
+        <div style="display: flex; justify-content: space-between; padding: 0.75rem; background: rgba(231,76,60,0.1); border-radius: 8px;">
+          <span>Churned (${totalChurned} users)</span>
+          <span style="color: var(--danger); font-weight: 600;">-$${churnLoss.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding: 0.75rem; background: rgba(231,76,60,0.1); border-radius: 8px;">
+          <span>Downgrades</span>
+          <span style="color: var(--danger); font-weight: 600;">-$0</span>
+        </div>
+      `;
+      
+      // Render country MRR
+      const flags = { ca: '🇨🇦', uk: '🇬🇧', au: '🇦🇺', nz: '🇳🇿' };
+      const names = { ca: 'Canada', uk: 'UK', au: 'Australia', nz: 'New Zealand' };
+      
+      document.getElementById('country-mrr').innerHTML = Object.entries(countryMRR).map(([code, data]) => `
+        <div style="background: var(--bg); padding: 1rem; border-radius: 10px; text-align: center;">
+          <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">${flags[code]}</div>
+          <div style="font-size: 0.85rem; color: var(--muted);">${names[code]}</div>
+          <div style="font-size: 1.25rem; font-weight: 700; margin-top: 0.5rem;">${data.symbol} ${data.local.toLocaleString(undefined, {maximumFractionDigits: 0})}</div>
+          <div style="font-size: 0.8rem; color: var(--muted);">${data.subs} subscribers</div>
+        </div>
+      `).join('');
+    
+    function renderAllActions(actions, filter) {
+      const filtered = filter === 'all' ? actions : actions.filter(a => a.severity === filter);
+      document.getElementById('all-actions').innerHTML = filtered.map(a => `
+        <div class="action-card ${a.severity}">
+          <div class="action-card-header">
+            <h4 class="action-card-title">${a.title}</h4>
+            <span class="action-card-category">${a.category}</span>
+          </div>
+          <p class="action-card-desc">${a.description}</p>
+          <div class="action-metrics">
+            <div class="action-metric"><div class="action-metric-label">Current</div><div class="action-metric-value">${formatMetric(a.current_value)}</div></div>
+            <div class="action-metric"><div class="action-metric-label">Baseline</div><div class="action-metric-value">${formatMetric(a.baseline_value)}</div></div>
+            <div class="action-metric"><div class="action-metric-label">Delta</div><div class="action-metric-value ${a.delta_percent > 0 ? 'positive' : 'negative'}">${a.delta_percent > 0 ? '+' : ''}${a.delta_percent.toFixed(1)}%</div></div>
+            ${a.priority_score ? `<div class="action-metric"><div class="action-metric-label">Priority</div><div class="action-metric-value">${a.priority_score}</div></div>` : ''}
+          </div>
+          <div class="action-recommendation">
+            <span class="rec-icon">💡</span>
+            <div><div class="rec-text">${a.action_recommended}</div><div class="rec-meta">Impact: ${a.action_impact} • Effort: ${a.action_effort}</div></div>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    function formatMetric(val) {
+      if (typeof val !== 'number') return val;
+      if (val < 1 && val > 0) return (val * 100).toFixed(1) + '%';
+      if (val > 100) return val.toFixed(0) + '%';
+      return val.toFixed(2);
+    }
+  </script>
+</body>
+</html>

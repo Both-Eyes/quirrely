@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 315" width="600" height="315">
+  <!-- Background -->
+  <rect width="600" height="315" fill="#FFFBF5"/>
+  
+  <!-- Squirrel watermark (top right) -->
+  <g transform="translate(420, 20) scale(0.6)" opacity="0.12">
+    <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#2D3436"/>
+    <ellipse cx="40" cy="98" rx="22" ry="26" fill="#2D3436"/>
+    <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/><path d="M34 82 Q33 90, 40 94 Q41 92, 40 82 Z" fill="#FF8E8E" opacity="0.5"/>
+    <ellipse cx="40" cy="50" rx="22" ry="20" fill="#2D3436"/>
+  </g>
+  
+  <!-- Profile badge -->
+  <rect x="30" y="30" width="120" height="32" rx="16" fill="#FF6B6B"/>
+  <text x="90" y="52" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">WRITING VOICE</text>
+  
+  <!-- Profile icon -->
+  <text x="30" y="115" font-family="system-ui, sans-serif" font-size="36" fill="#A29BFE">✦</text>
+  
+  <!-- Profile name -->
+  <text x="70" y="115" font-family="system-ui, sans-serif" font-size="42" font-weight="700" fill="#2D3436">POETIC</text>
+  
+  <!-- Description -->
+  <text x="30" y="150" font-family="system-ui, sans-serif" font-size="18" fill="#636E72">Lyrical, evocative writing</text>
+  
+  <!-- Stance indicator -->
+  <rect x="30" y="160" width="540" height="40" rx="8" fill="#4ECDC420"/>
+  <circle cx="50" cy="180" r="6" fill="#4ECDC4"/>
+  <text x="65" y="185" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="#4ECDC4">Open Stance</text>
+  <text x="200" y="185" font-family="system-ui, sans-serif" font-size="14" fill="#636E72">— Receptive to new ideas</text>
+  <!-- Divider -->
+  <rect x="30" y="220" width="540" height="1" fill="#E9ECEF"/>
+  
+  <!-- Footer with logo -->
+  <g transform="translate(30, 245)">
+    <g transform="scale(0.35)">
+      <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="2"/>
+      <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="2"/>
+      <path d="M20 68 Q12 72, 14 80 Q16 86, 24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="2.5"/>
+      <path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="2.5"/>
+      <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+      <ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+      <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/><path d="M34 82 Q33 90, 40 94 Q41 92, 40 82 Z" fill="#FF8E8E" opacity="0.5"/>
+      <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="2"/>
+      <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+      <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+      <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+      <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+      <circle cx="33" cy="46.5" r="2" fill="#FFF"/>
+      <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+      <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+    </g>
+  </g>
+  <text x="72" y="293" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">rel</tspan><tspan font-style="italic">ly</tspan></text>
+  <text x="72" y="315" font-family="system-ui, sans-serif" font-size="13" fill="#636E72">Discover yours → quirrely.app</text>
+</svg>

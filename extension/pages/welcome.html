@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Quirrely</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+      color: #E2E8F0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 600px;
+      text-align: center;
+    }
+    
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 24px;
+    }
+    
+    h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    h1 .coral { color: #FF6B5A; }
+    h1 .italic { font-style: italic; }
+    
+    .tagline {
+      font-size: 18px;
+      color: #A0AEC0;
+      margin-bottom: 48px;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    
+    .feature {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 24px 16px;
+    }
+    
+    .feature-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+    
+    .feature h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .feature p {
+      font-size: 13px;
+      color: #718096;
+      line-height: 1.5;
+    }
+    
+    .how-to {
+      background: rgba(255, 107, 90, 0.08);
+      border: 1px solid rgba(255, 107, 90, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 48px;
+      text-align: left;
+    }
+    
+    .how-to h2 {
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: #FF6B5A;
+    }
+    
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    
+    .step:last-child {
+      margin-bottom: 0;
+    }
+    
+    .step-number {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FF6B5A;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 50%;
+    }
+    
+    .step-text {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .step-text strong {
+      color: #FF6B5A;
+    }
+    
+    .keyboard {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+    
+    .cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #FF6B5A 0%, #E55A4A 100%);
+      color: white;
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 107, 90, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: #E2E8F0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .footer {
+      margin-top: 48px;
+      font-size: 12px;
+      color: #4A5568;
+    }
+    
+    .footer a {
+      color: #718096;
+      text-decoration: none;
+    }
+    
+    .footer a:hover {
+      color: #FF6B5A;
+    }
+    
+    @media (max-width: 600px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <svg class="logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="35" r="25" fill="#E8E4E1"/>
+      <ellipse cx="50" cy="75" rx="20" ry="15" fill="#CBD5E0"/>
+      <circle cx="42" cy="30" r="4" fill="#2D3748"/>
+      <circle cx="58" cy="30" r="4" fill="#2D3748"/>
+      <ellipse cx="50" cy="40" rx="3" ry="2" fill="#FF6B5A"/>
+      <ellipse cx="50" cy="18" rx="12" ry="8" fill="#E8E4E1"/>
+      <ellipse cx="75" cy="60" rx="8" ry="20" fill="#E8E4E1" transform="rotate(30 75 60)"/>
+    </svg>
+    
+    <h1>Welcome to Quir<span class="coral">rel</span><span class="italic">ly</span></h1>
+    <p class="tagline">Discover your unique writing voice</p>
+    
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">✨</div>
+        <h3>Instant Analysis</h3>
+        <p>Get your writing voice profile in seconds, powered by LNCP technology</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🌐</div>
+        <h3>Analyze Anywhere</h3>
+        <p>Select text on any webpage and analyze with one click</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h3>Track Evolution</h3>
+        <p>See how your writing voice changes over time</p>
+      </div>
+    </div>
+    
+    <div class="how-to">
+      <h2>🚀 How to Use</h2>
+      
+      <div class="step">
+        <span class="step-number">1</span>
+        <span class="step-text"><strong>Select text</strong> on any webpage — at least 50 characters of your writing</span>
+      </div>
+      
+      <div class="step">
+        <span class="step-number">2</span>
+        <span class="step-text"><strong>Click the Quirrely button</strong> that appears, or right-click and select "Analyze with Quirrely"</span>
+      </div>
+      
+      <div class="step">
+        <span class="step-number">3</span>
+        <span class="step-text"><strong>View your profile</strong> — see your writing voice type, stance, and unique traits</span>
+      </div>
+      
+      <div class="step">
+        <span class="step-number">💡</span>
+        <span class="step-text">Pro tip: Use <span class="keyboard">Ctrl+Shift+Q</span> (or <span class="keyboard">⌘+Shift+Q</span> on Mac) to quickly analyze selected text</span>
+      </div>
+    </div>
+    
+    <div class="cta">
+      <a href="https://quirrely.com" target="_blank" class="btn btn-primary">
+        Visit Quirrely.com →
+      </a>
+      <a href="options.html" class="btn btn-secondary">
+        Settings
+      </a>
+    </div>
+    
+    <footer class="footer">
+      <p>Quirrely Extension v1.0.0 · <a href="https://quirrely.com/privacy" target="_blank">Privacy</a> · <a href="https://quirrely.com/terms" target="_blank">Terms</a></p>
+    </footer>
+  </div>
+</body>
+</html>

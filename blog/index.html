@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Quirrely — The curious way to find your writing voice</title>
+  <meta name="description" content="Explore writing styles, voice profiles, and tips to strengthen your unique writing identity. Updated weekly with featured writers.">
+  <meta property="og:title" content="Quirrely Blog — Writing Voice Insights">
+  <meta property="og:description" content="Explore writing styles and discover your unique voice.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://quirrely.com/blog">
+  <style>
+    :root {
+      --bg: #FFFBF5;
+      --card: #FFFFFF;
+      --ink: #2D3436;
+      --muted: #636E72;
+      --primary: #FF6B6B;
+      --secondary: #4ECDC4;
+      --pro: #FF6B6B;
+      --border: #E9ECEF;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    
+    /* Header */
+    .header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    
+    .logo span { color: var(--primary); }
+    
+    .nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav a:hover, .nav a.active { color: var(--ink); }
+    
+    .nav .cta {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+    }
+    
+    .nav .cta:hover { opacity: 0.9; color: white; }
+    
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--primary), #FF8E8E);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    /* Main Layout */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 2rem;
+    }
+    
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; }
+    }
+    
+    /* Featured Section */
+    .featured-section {
+      margin-bottom: 2rem;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .section-link {
+      font-size: 0.85rem;
+      color: var(--pro);
+      text-decoration: none;
+    }
+    
+    .section-link:hover { text-decoration: underline; }
+    
+    /* Featured Writers Grid */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    @media (max-width: 600px) {
+      .featured-grid { grid-template-columns: 1fr; }
+    }
+    
+    .featured-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    
+    .featured-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    
+    .featured-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .featured-flag { font-size: 1.5rem; }
+    
+    .featured-info h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.1rem;
+    }
+    
+    .featured-profile {
+      font-size: 0.75rem;
+      color: var(--pro);
+      font-weight: 600;
+    }
+    
+    .featured-excerpt {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.5;
+    }
+    
+    .pro-badge {
+      display: inline-block;
+      background: var(--pro);
+      color: white;
+      font-size: 0.6rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      font-weight: 700;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    
+    /* Blog Posts */
+    .posts-section {
+      margin-bottom: 2rem;
+    }
+    
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .post-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .post-card:hover {
+      transform: translateX(4px);
+      box-shadow: var(--shadow);
+    }
+    
+    .post-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      flex-shrink: 0;
+    }
+    
+    .post-content {
+      flex: 1;
+    }
+    
+    .post-category {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    
+    .post-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+    
+    .post-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    
+    .post-locked {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: var(--pro);
+      color: white;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .sidebar-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+    }
+    
+    .sidebar-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Profile Categories */
+    .profile-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .profile-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+    }
+    
+    .profile-item:hover {
+      background: var(--bg);
+    }
+    
+    .profile-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    
+    .profile-name {
+      flex: 1;
+      font-size: 0.85rem;
+    }
+    
+    .profile-count {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    
+    /* Newsletter CTA */
+    .newsletter-cta {
+      background: linear-gradient(135deg, var(--pro), #8B7CF7);
+      color: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .newsletter-cta h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+    
+    .newsletter-cta p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.6rem 0.75rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+    
+    .newsletter-form button {
+      background: white;
+      color: var(--pro);
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    
+    /* Countries */
+    .country-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .country-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--bg);
+      padding: 0.4rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    
+    .country-tag:hover {
+      background: var(--border);
+    }
+    
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    
+    .pagination a {
+      padding: 0.5rem 0.9rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.9rem;
+    }
+    
+    .pagination a:hover {
+      border-color: var(--primary);
+    }
+    
+    .pagination a.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 2rem;
+    }
+    
+    .footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    
+    .footer a:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 100" width="140" height="41" style="vertical-align: middle;">
+      <g transform="translate(5, 2) scale(0.7)">
+        <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <path d="M20 68 Q12 72, 14 80 Q16 86, 24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
+        <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <circle cx="33" cy="46.5" r="2" fill="#FFF"/>
+        <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+        <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+      </g>
+      <text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">rel</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
+    </svg></a>
+      <nav class="nav">
+        <a href="/" >Home</a>
+        <a href="/blog" class="active">Blog</a>
+        <a href="/blog/featured">Featured</a>
+        <a href="/" class="cta">Take the Test</a>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Hero -->
+  <section class="hero">
+    <h1>✍️ The Quirrely Blog</h1>
+    <p>Explore writing voices, discover your style, and learn from writers around the world.</p>
+  </section>
+  
+  <!-- Main Content -->
+  <main class="main">
+    <div class="content">
+      <!-- Featured Writers -->
+      <section class="featured-section">
+        <div class="section-header">
+          <h2 class="section-title">✨ Featured Writers This Week</h2>
+          <a href="/blog/featured" class="section-link">See all featured →</a>
+        </div>
+        <div class="featured-grid">
+          <a href="#" class="featured-card">
+            <div class="featured-header">
+              <span class="featured-flag">🍁</span>
+              <div class="featured-info">
+                <h3>Sarah M. <span class="pro-badge">PRO</span></h3>
+                <div class="featured-profile">POETIC · OPEN</div>
+              </div>
+            </div>
+            <p class="featured-excerpt">"Words fall like autumn leaves, each carrying the weight of seasons passed..."</p>
+          </a>
+          <a href="#" class="featured-card">
+            <div class="featured-header">
+              <span class="featured-flag">🇬🇧</span>
+              <div class="featured-info">
+                <h3>James T. <span class="pro-badge">PRO</span></h3>
+                <div class="featured-profile">ASSERTIVE · BALANCED</div>
+              </div>
+            </div>
+            <p class="featured-excerpt">"The tech industry doesn't need disruption. It needs deliberation..."</p>
+          </a>
+          <a href="#" class="featured-card">
+            <div class="featured-header">
+              <span class="featured-flag">🇦🇺</span>
+              <div class="featured-info">
+                <h3>Emily K. <span class="pro-badge">PRO</span></h3>
+                <div class="featured-profile">CONVERSATIONAL · OPEN</div>
+              </div>
+            </div>
+            <p class="featured-excerpt">"Look, I know what you're thinking—but hear me out..."</p>
+          </a>
+          <a href="#" class="featured-card">
+            <div class="featured-header">
+              <span class="featured-flag">🇳🇿</span>
+              <div class="featured-info">
+                <h3>David R. <span class="pro-badge">PRO</span></h3>
+                <div class="featured-profile">MINIMAL · CLOSED</div>
+              </div>
+            </div>
+            <p class="featured-excerpt">"The door closed. Rain fell. He waited."</p>
+          </a>
+        </div>
+      </section>
+      
+      <!-- Latest Posts -->
+      <section class="posts-section">
+        <div class="section-header">
+          <h2 class="section-title">📝 Latest Articles</h2>
+        </div>
+        <div class="post-list">
+          <a href="/blog/what-is-writing-voice" class="post-card">
+            <div class="post-icon" style="background: linear-gradient(135deg, #FF6B6B, #FF8E8E);">🎭</div>
+            <div class="post-content">
+              <div class="post-category">Writing Fundamentals</div>
+              <h3 class="post-title">What Is Writing Voice? A Complete Guide</h3>
+              <div class="post-meta">8 min read · 2.4K views</div>
+            </div>
+          </a>
+          
+          <a href="/blog/canadian-writing-style" class="post-card">
+            <div class="post-icon" style="background: linear-gradient(135deg, #FF6B6B, #FF8E8E);">🍁</div>
+            <div class="post-content">
+              <div class="post-category">Regional Voices</div>
+              <h3 class="post-title">The Canadian Writing Style: Politeness Meets Precision</h3>
+              <div class="post-meta">6 min read · 1.8K views</div>
+            </div>
+          </a>
+          
+          <a href="/blog/featured-writer-system" class="post-card">
+            <div class="post-icon" style="background: linear-gradient(135deg, #00B894, #55EFC4);">⭐</div>
+            <div class="post-content">
+              <div class="post-category">Community</div>
+              <h3 class="post-title">How the Featured Writer Program Works</h3>
+              <div class="post-meta">4 min read · 956 views</div>
+            </div>
+          </a>
+          
+          <a href="#" class="post-card">
+            <div class="post-icon" style="background: linear-gradient(135deg, #FDCB6E, #FFEAA7);">📊</div>
+            <div class="post-content">
+              <div class="post-category">Deep Dives</div>
+              <h3 class="post-title">Understanding the 9 Writing Profiles <span class="post-locked">🔒 PRO</span></h3>
+              <div class="post-meta">12 min read · Pro members only</div>
+            </div>
+          </a>
+          
+          <a href="#" class="post-card">
+            <div class="post-icon" style="background: linear-gradient(135deg, #74B9FF, #0984E3);">🧠</div>
+            <div class="post-content">
+              <div class="post-category">Psychology</div>
+              <h3 class="post-title">Why Your Writing Voice Reflects Your Thinking Style <span class="post-locked">🔒 PRO</span></h3>
+              <div class="post-meta">10 min read · Pro members only</div>
+            </div>
+          </a>
+          
+          <a href="#" class="post-card">
+            <div class="post-icon" style="background: linear-gradient(135deg, #FD79A8, #E84393);">💼</div>
+            <div class="post-content">
+              <div class="post-category">Professional Writing</div>
+              <h3 class="post-title">Adapting Your Voice for Business Communication</h3>
+              <div class="post-meta">7 min read · 1.2K views</div>
+            </div>
+          </a>
+          
+          <a href="#" class="post-card">
+            <div class="post-icon" style="background: linear-gradient(135deg, #00CEC9, #81ECEC);">🌏</div>
+            <div class="post-content">
+              <div class="post-category">Global Perspectives</div>
+              <h3 class="post-title">Writing Voices Across Cultures: UK vs Australia</h3>
+              <div class="post-meta">9 min read · 890 views</div>
+            </div>
+          </a>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+          <a href="#" class="active">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">→</a>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Newsletter -->
+      <div class="newsletter-cta">
+        <h3>📬 Weekly Voice Insights</h3>
+        <p>Join 17,500+ writers getting tips every Thursday.</p>
+        <form class="newsletter-form" onsubmit="return false;">
+          <input type="email" placeholder="you@email.com">
+          <button type="submit">Join</button>
+        </form>
+      </div>
+      
+      <!-- Browse by Profile -->
+      <div class="sidebar-card">
+        <h3>📊 Browse by Profile</h3>
+        <div class="profile-list">
+          <a href="#" class="profile-item">
+            <span class="profile-dot" style="background: #FF6B6B;"></span>
+            <span class="profile-name">Assertive</span>
+            <span class="profile-count">8 posts</span>
+          </a>
+          <a href="#" class="profile-item">
+            <span class="profile-dot" style="background: #A29BFE;"></span>
+            <span class="profile-name">Poetic</span>
+            <span class="profile-count">6 posts</span>
+          </a>
+          <a href="#" class="profile-item">
+            <span class="profile-dot" style="background: #00B894;"></span>
+            <span class="profile-name">Minimal</span>
+            <span class="profile-count">5 posts</span>
+          </a>
+          <a href="#" class="profile-item">
+            <span class="profile-dot" style="background: #FDCB6E;"></span>
+            <span class="profile-name">Dense</span>
+            <span class="profile-count">4 posts</span>
+          </a>
+          <a href="#" class="profile-item">
+            <span class="profile-dot" style="background: #74B9FF;"></span>
+            <span class="profile-name">Conversational</span>
+            <span class="profile-count">7 posts</span>
+          </a>
+          <a href="#" class="profile-item">
+            <span class="profile-dot" style="background: #FD79A8;"></span>
+            <span class="profile-name">Hedged</span>
+            <span class="profile-count">3 posts</span>
+          </a>
+          <a href="#" class="profile-item">
+            <span class="profile-dot" style="background: #00CEC9;"></span>
+            <span class="profile-name">Interrogative</span>
+            <span class="profile-count">4 posts</span>
+          </a>
+          <a href="#" class="profile-item">
+            <span class="profile-dot" style="background: #636E72;"></span>
+            <span class="profile-name">Longform</span>
+            <span class="profile-count">3 posts</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Countries -->
+      <div class="sidebar-card">
+        <h3>🌍 Writers by Region</h3>
+        <div class="country-list">
+          <a href="#" class="country-tag">🍁 Canada</a>
+          <a href="#" class="country-tag">🇬🇧 UK</a>
+          <a href="#" class="country-tag">🇦🇺 Australia</a>
+          <a href="#" class="country-tag">🇳🇿 New Zealand</a>
+        </div>
+      </div>
+      
+      <!-- Take Test CTA -->
+      <div class="sidebar-card" style="background: linear-gradient(135deg, var(--primary), #FF8E8E); color: white; border: none;">
+        <h3 style="color: white;">✍️ Find Your Voice</h3>
+        <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 1rem;">Take our 2-minute test to discover your unique writing profile.</p>
+        <a href="/" style="display: block; background: white; color: var(--primary); text-align: center; padding: 0.6rem; border-radius: 8px; text-decoration: none; font-weight: 600;">Take the Test →</a>
+      </div>
+    </aside>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      © 2026 <a href="/" style="text-decoration: none;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 100" width="90" height="26" style="vertical-align: middle;">
+      <g transform="translate(5, 2) scale(0.7)">
+        <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
+        <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="32" cy="48" rx="5" ry="5.5" fill="#1a1a1a"/>
+        <ellipse cx="48" cy="48" rx="5" ry="5.5" fill="#1a1a1a"/>
+      </g>
+      <text x="105" y="62" font-family="system-ui, sans-serif" font-size="46" font-weight="700" fill="#636E72">Quir<tspan fill="#FF6B6B">rel</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
+    </svg></a> · 
+      <a href="/legal/terms">Terms</a> · 
+      <a href="/legal/privacy">Privacy</a> · 
+      <a href="/legal/affiliate-disclosure">Affiliates</a><span class="social-links" style="display: inline-flex; gap: 0.75rem; margin-left: 0.75rem;">
+        <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="Follow Quirrely on LinkedIn" style="color: inherit; opacity: 0.6; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Follow Quirrely on Facebook" style="color: inherit; opacity: 0.6; transition: opacity 0.2s; display: none;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      </span>
+    </p>
+  </footer>
+</body>
+</html>

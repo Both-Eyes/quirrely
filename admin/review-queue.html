@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LNCP Admin • Review Queue</title>
+  <style>
+    :root {
+      --coral: #FF6B6B;
+      --soft-gold: #D4A574;
+      --ink: #2D3436;
+      --muted: #636E72;
+      --bg: #F8F9FA;
+      --white: #FFFFFF;
+      --border: #E9ECEF;
+      --success: #00B894;
+      --warning: #FDCB6E;
+      --danger: #E74C3C;
+      --purple: #6C5CE7;
+      --blue: #0984E3;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    
+    /* Layout */
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    .sidebar {
+      width: 240px;
+      background: var(--ink);
+      color: white;
+      padding: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    
+    /* Sidebar */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    
+    .logo-icon { font-size: 1.5rem; }
+    
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .nav-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.5rem;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .nav-item:hover, .nav-item.active {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    
+    .nav-item.active {
+      background: var(--coral);
+    }
+    
+    .nav-badge {
+      margin-left: auto;
+      background: var(--coral);
+      color: white;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .nav-item.active .nav-badge {
+      background: white;
+      color: var(--coral);
+    }
+    
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary {
+      background: var(--coral);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #ff5252;
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--bg);
+    }
+    
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+    
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+    
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+    }
+    
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    
+    .stat-change {
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+    }
+    
+    .stat-change.up { color: var(--success); }
+    .stat-change.down { color: var(--danger); }
+    
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0.25rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+    
+    .tab {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+    
+    .tab:hover {
+      color: var(--ink);
+    }
+    
+    .tab.active {
+      color: var(--coral);
+      border-bottom-color: var(--coral);
+    }
+    
+    .tab-badge {
+      background: var(--bg);
+      padding: 0.1rem 0.5rem;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      margin-left: 0.5rem;
+    }
+    
+    .tab.active .tab-badge {
+      background: rgba(255, 107, 107, 0.1);
+      color: var(--coral);
+    }
+    
+    /* Action Cards */
+    .action-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .action-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: all 0.2s;
+    }
+    
+    .action-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    
+    .action-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .action-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    
+    .action-icon.app { background: rgba(108, 92, 231, 0.1); }
+    .action-icon.blog { background: rgba(255, 107, 107, 0.1); }
+    
+    .action-info { flex: 1; }
+    
+    .action-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .action-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    
+    .action-badges {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .badge {
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .badge.priority-critical { background: var(--danger); color: white; }
+    .badge.priority-high { background: var(--warning); color: var(--ink); }
+    .badge.priority-medium { background: var(--blue); color: white; }
+    .badge.priority-low { background: var(--border); color: var(--muted); }
+    
+    .badge.domain-app { background: rgba(108, 92, 231, 0.1); color: var(--purple); }
+    .badge.domain-blog { background: rgba(255, 107, 107, 0.1); color: var(--coral); }
+    
+    .badge.risk-critical { background: var(--danger); color: white; }
+    .badge.risk-high { background: rgba(231, 76, 60, 0.1); color: var(--danger); }
+    .badge.risk-medium { background: rgba(253, 203, 110, 0.1); color: #d68910; }
+    .badge.risk-low { background: rgba(0, 184, 148, 0.1); color: var(--success); }
+    
+    .action-description {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    
+    .action-details {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+    
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.25rem 0;
+    }
+    
+    .detail-label { color: var(--muted); }
+    .detail-value { font-weight: 500; }
+    
+    .blocking-reasons {
+      background: rgba(231, 76, 60, 0.05);
+      border: 1px solid rgba(231, 76, 60, 0.2);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--danger);
+    }
+    
+    .action-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .action-time {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+    }
+    
+    .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .empty-title {
+      font-size: 1.25rem;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Insights Panel */
+    .insights-panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-top: 2rem;
+    }
+    
+    .insights-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .insights-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .insight-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .insight-item:last-child {
+      border-bottom: none;
+    }
+    
+    .insight-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .insight-icon.high { background: rgba(231, 76, 60, 0.1); }
+    .insight-icon.medium { background: rgba(253, 203, 110, 0.1); }
+    .insight-icon.info { background: rgba(9, 132, 227, 0.1); }
+    
+    .insight-content { flex: 1; }
+    .insight-message { font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .insight-recommendation { font-size: 0.8rem; color: var(--muted); }
+    
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+    }
+    
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal {
+      background: white;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+      padding: 1.5rem;
+      transform: translateY(20px);
+      transition: transform 0.2s;
+    }
+    
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-title { font-size: 1.25rem; font-weight: 600; }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    
+    .modal-body { margin-bottom: 1.5rem; }
+    
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-icon">🐿️</span>
+        <span>LNCP Admin</span>
+      </div>
+      
+      <nav>
+        <div class="nav-section">
+          <div class="nav-label">Overview</div>
+          <div class="nav-item" onclick="showSection('dashboard')">
+            <span>📊</span> Dashboard
+          </div>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-label">Optimization</div>
+          <div class="nav-item active" onclick="showSection('review')">
+            <span>👤</span> Review Queue
+            <span class="nav-badge" id="queue-count">0</span>
+          </div>
+          <div class="nav-item" onclick="showSection('experiments')">
+            <span>🧪</span> A/B Tests
+          </div>
+          <div class="nav-item" onclick="showSection('applied')">
+            <span>✅</span> Applied
+          </div>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-label">Analytics</div>
+          <div class="nav-item" onclick="showSection('blog')">
+            <span>📈</span> Blog Performance
+          </div>
+          <div class="nav-item" onclick="showSection('app')">
+            <span>📱</span> App Health
+          </div>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main">
+      <div class="header">
+        <h1 class="page-title">Review Queue</h1>
+        <div class="header-actions">
+          <button class="btn btn-secondary" onclick="refreshQueue()">
+            🔄 Refresh
+          </button>
+          <button class="btn btn-primary" onclick="runCycle()">
+            ▶️ Run Cycle
+          </button>
+        </div>
+      </div>
+      
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Pending Review</div>
+          <div class="stat-value" id="stat-pending">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Auto-Applied Today</div>
+          <div class="stat-value" id="stat-applied">0</div>
+          <div class="stat-change up">↑ Safe actions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">System Health</div>
+          <div class="stat-value" id="stat-health">--%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Experiments Running</div>
+          <div class="stat-value" id="stat-experiments">0</div>
+        </div>
+      </div>
+      
+      <!-- Tabs -->
+      <div class="tabs">
+        <div class="tab active" onclick="filterActions('all')" data-filter="all">
+          All <span class="tab-badge" id="tab-all">0</span>
+        </div>
+        <div class="tab" onclick="filterActions('blog')" data-filter="blog">
+          Blog <span class="tab-badge" id="tab-blog">0</span>
+        </div>
+        <div class="tab" onclick="filterActions('app')" data-filter="app">
+          App <span class="tab-badge" id="tab-app">0</span>
+        </div>
+        <div class="tab" onclick="filterActions('high')" data-filter="high">
+          High Priority <span class="tab-badge" id="tab-high">0</span>
+        </div>
+      </div>
+      
+      <!-- Action List -->
+      <div class="action-list" id="action-list">
+        <!-- Actions will be rendered here -->
+      </div>
+      
+      <!-- Empty State -->
+      <div class="empty-state" id="empty-state" style="display: none;">
+        <div class="empty-icon">✨</div>
+        <div class="empty-title">All caught up!</div>
+        <p>No actions pending review. Run a cycle to generate new recommendations.</p>
+      </div>
+      
+      <!-- Insights Panel -->
+      <div class="insights-panel" id="insights-panel">
+        <div class="insights-header">
+          <div class="insights-title">💡 Insights</div>
+        </div>
+        <div id="insights-list">
+          <!-- Insights will be rendered here -->
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Reject Modal -->
+  <div class="modal-overlay" id="reject-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Reject Action</h3>
+        <button class="modal-close" onclick="closeModal('reject-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 1rem; color: var(--muted);">
+          Are you sure you want to reject this action?
+        </p>
+        <div class="form-group">
+          <label class="form-label">Reason (optional)</label>
+          <textarea class="form-textarea" id="reject-reason" placeholder="Why is this action being rejected?"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('reject-modal')">Cancel</button>
+        <button class="btn btn-danger" onclick="confirmReject()">Reject</button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // ═══════════════════════════════════════════════════════════════════
+    // STATE
+    // ═══════════════════════════════════════════════════════════════════
+    
+    let state = {
+      actions: [],
+      insights: [],
+      stats: {
+        pending: 0,
+        applied: 0,
+        health: 0,
+        experiments: 0,
+      },
+      currentFilter: 'all',
+      selectedActionId: null,
+    };
+    
+    // ═══════════════════════════════════════════════════════════════════
+    // API CALLS (mock for now, would connect to real API)
+    // ═══════════════════════════════════════════════════════════════════
+    
+    async function fetchQueue() {
+      // In production, this would be: fetch('/api/admin/queue')
+      // For now, use mock data
+      return {
+        actions: [
+          {
+            action_id: 'blog_action_20260214_0001',
+            domain: 'blog',
+            action_type: 'content_expand',
+            title: 'Expand content to improve rankings',
+            description: 'Page ranks at position 16.7 with limited content depth. Adding more examples and depth could improve position.',
+            page_url: '/blog/how-interrogative-contradictory-writers-write',
+            priority: 'medium',
+            risk_level: 'medium',
+            confidence: 0.65,
+            estimated_click_gain: 23,
+            blocking_reasons: ["Action type 'content_expand' requires human review"],
+            created_at: new Date(Date.now() - 3600000).toISOString(),
+          },
+          {
+            action_id: 'blog_action_20260214_0002',
+            domain: 'blog',
+            action_type: 'meta_title_update',
+            title: 'Update meta title for better CTR',
+            description: 'Page has 2,500 impressions but only 1.8% CTR. Expected CTR for position 12 is ~3%.',
+            page_url: '/blog/how-formal-balanced-writers-write',
+            priority: 'high',
+            risk_level: 'medium',
+            confidence: 0.78,
+            estimated_click_gain: 45,
+            current_value: 'How Formal Balanced Writers Write | Quirrely',
+            proposed_value: 'Are You a Formal Balanced Writer? Find Out | Quirrely',
+            blocking_reasons: ["Action type 'meta_title_update' requires human review"],
+            created_at: new Date(Date.now() - 7200000).toISOString(),
+          },
+          {
+            action_id: 'blog_action_20260214_0003',
+            domain: 'blog',
+            action_type: 'content_expand',
+            title: 'Expand content for conversational open profile',
+            description: 'High-traffic page with good engagement but limited depth. Expanding could capture more long-tail queries.',
+            page_url: '/blog/how-conversational-open-writers-write',
+            priority: 'medium',
+            risk_level: 'low',
+            confidence: 0.72,
+            estimated_click_gain: 35,
+            blocking_reasons: ["Action type 'content_expand' requires human review"],
+            created_at: new Date(Date.now() - 1800000).toISOString(),
+          },
+        ],
+        insights: [
+          {
+            domain: 'blog',
+            type: 'action_effectiveness',
+            priority: 'info',
+            message: '100% of actions are succeeding',
+            recommendation: 'Consider increasing auto-apply threshold',
+          },
+          {
+            domain: 'blog',
+            type: 'experiment',
+            priority: 'medium',
+            message: 'CTA experiment reaching significance',
+            recommendation: 'Variant "Find Your Profile" showing +15% conversion',
+          },
+        ],
+        stats: {
+          pending: 3,
+          applied: 2,
+          health: 85,
+          experiments: 1,
+        },
+      };
+    }
+    
+    async function approveAction(actionId) {
+      // In production: fetch('/api/admin/approve', { method: 'POST', body: { actionId } })
+      console.log('Approving action:', actionId);
+      
+      // Remove from local state
+      state.actions = state.actions.filter(a => a.action_id !== actionId);
+      state.stats.pending--;
+      state.stats.applied++;
+      
+      renderQueue();
+      updateStats();
+      
+      showToast('Action approved and queued for execution', 'success');
+    }
+    
+    async function rejectAction(actionId, reason) {
+      // In production: fetch('/api/admin/reject', { method: 'POST', body: { actionId, reason } })
+      console.log('Rejecting action:', actionId, 'Reason:', reason);
+      
+      // Remove from local state
+      state.actions = state.actions.filter(a => a.action_id !== actionId);
+      state.stats.pending--;
+      
+      renderQueue();
+      updateStats();
+      
+      showToast('Action rejected', 'info');
+    }
+    
+    async function runOptimizationCycle() {
+      // In production: fetch('/api/admin/run-cycle', { method: 'POST' })
+      showToast('Running optimization cycle...', 'info');
+      
+      // Simulate delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Refresh queue
+      await refreshQueue();
+      
+      showToast('Cycle complete! New actions added to queue.', 'success');
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════
+    // RENDERING
+    // ═══════════════════════════════════════════════════════════════════
+    
+    function renderQueue() {
+      const list = document.getElementById('action-list');
+      const emptyState = document.getElementById('empty-state');
+      
+      // Filter actions
+      let filtered = state.actions;
+      if (state.currentFilter === 'blog') {
+        filtered = state.actions.filter(a => a.domain === 'blog');
+      } else if (state.currentFilter === 'app') {
+        filtered = state.actions.filter(a => a.domain === 'app');
+      } else if (state.currentFilter === 'high') {
+        filtered = state.actions.filter(a => a.priority === 'high' || a.priority === 'critical');
+      }
+      
+      if (filtered.length === 0) {
+        list.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+      
+      emptyState.style.display = 'none';
+      list.innerHTML = filtered.map(action => renderActionCard(action)).join('');
+      
+      // Update tab badges
+      document.getElementById('tab-all').textContent = state.actions.length;
+      document.getElementById('tab-blog').textContent = state.actions.filter(a => a.domain === 'blog').length;
+      document.getElementById('tab-app').textContent = state.actions.filter(a => a.domain === 'app').length;
+      document.getElementById('tab-high').textContent = state.actions.filter(a => a.priority === 'high' || a.priority === 'critical').length;
+    }
+    
+    function renderActionCard(action) {
+      const timeAgo = getTimeAgo(action.created_at);
+      const icon = action.domain === 'blog' ? '📝' : '📱';
+      
+      return `
+        <div class="action-card" data-action-id="${action.action_id}">
+          <div class="action-header">
+            <div class="action-icon ${action.domain}">${icon}</div>
+            <div class="action-info">
+              <div class="action-title">${action.title}</div>
+              <div class="action-meta">
+                <span>${action.page_url || action.action_type}</span>
+              </div>
+            </div>
+            <div class="action-badges">
+              <span class="badge domain-${action.domain}">${action.domain}</span>
+              <span class="badge priority-${action.priority}">${action.priority}</span>
+              <span class="badge risk-${action.risk_level}">${action.risk_level} risk</span>
+            </div>
+          </div>
+          
+          <div class="action-description">${action.description}</div>
+          
+          ${action.current_value && action.proposed_value ? `
+            <div class="action-details">
+              <div class="detail-row">
+                <span class="detail-label">Current:</span>
+                <span class="detail-value">${action.current_value}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Proposed:</span>
+                <span class="detail-value">${action.proposed_value}</span>
+              </div>
+            </div>
+          ` : ''}
+          
+          ${action.estimated_click_gain ? `
+            <div class="action-details">
+              <div class="detail-row">
+                <span class="detail-label">Estimated Impact:</span>
+                <span class="detail-value">+${action.estimated_click_gain} clicks</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Confidence:</span>
+                <span class="detail-value">${Math.round(action.confidence * 100)}%</span>
+              </div>
+            </div>
+          ` : ''}
+          
+          ${action.blocking_reasons && action.blocking_reasons.length > 0 ? `
+            <div class="blocking-reasons">
+              ⚠️ ${action.blocking_reasons.join(', ')}
+            </div>
+          ` : ''}
+          
+          <div class="action-footer">
+            <div class="action-time">${timeAgo}</div>
+            <div class="action-buttons">
+              <button class="btn btn-secondary" onclick="openRejectModal('${action.action_id}')">
+                Reject
+              </button>
+              <button class="btn btn-success" onclick="approveAction('${action.action_id}')">
+                Approve
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    function renderInsights() {
+      const list = document.getElementById('insights-list');
+      
+      if (state.insights.length === 0) {
+        list.innerHTML = '<p style="color: var(--muted); font-size: 0.9rem;">No insights yet. Run an optimization cycle.</p>';
+        return;
+      }
+      
+      list.innerHTML = state.insights.map(insight => `
+        <div class="insight-item">
+          <div class="insight-icon ${insight.priority}">
+            ${insight.priority === 'high' ? '🔴' : insight.priority === 'medium' ? '🟡' : '🔵'}
+          </div>
+          <div class="insight-content">
+            <div class="insight-message">${insight.message}</div>
+            <div class="insight-recommendation">→ ${insight.recommendation}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    function updateStats() {
+      document.getElementById('stat-pending').textContent = state.stats.pending;
+      document.getElementById('stat-applied').textContent = state.stats.applied;
+      document.getElementById('stat-health').textContent = state.stats.health + '%';
+      document.getElementById('stat-experiments').textContent = state.stats.experiments;
+      document.getElementById('queue-count').textContent = state.stats.pending;
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════
+    // HELPERS
+    // ═══════════════════════════════════════════════════════════════════
+    
+    function getTimeAgo(dateStr) {
+      const date = new Date(dateStr);
+      const now = new Date();
+      const seconds = Math.floor((now - date) / 1000);
+      
+      if (seconds < 60) return 'Just now';
+      if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+      if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+      return `${Math.floor(seconds / 86400)}d ago`;
+    }
+    
+    function showToast(message, type = 'info') {
+      // Simple alert for now, would be a proper toast in production
+      console.log(`[${type.toUpperCase()}] ${message}`);
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════
+    // EVENT HANDLERS
+    // ═══════════════════════════════════════════════════════════════════
+    
+    function filterActions(filter) {
+      state.currentFilter = filter;
+      
+      // Update tab styles
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.filter === filter);
+      });
+      
+      renderQueue();
+    }
+    
+    function openRejectModal(actionId) {
+      state.selectedActionId = actionId;
+      document.getElementById('reject-modal').classList.add('active');
+    }
+    
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      state.selectedActionId = null;
+    }
+    
+    function confirmReject() {
+      const reason = document.getElementById('reject-reason').value;
+      rejectAction(state.selectedActionId, reason);
+      closeModal('reject-modal');
+      document.getElementById('reject-reason').value = '';
+    }
+    
+    async function refreshQueue() {
+      const data = await fetchQueue();
+      state.actions = data.actions;
+      state.insights = data.insights;
+      state.stats = data.stats;
+      
+      renderQueue();
+      renderInsights();
+      updateStats();
+    }
+    
+    async function runCycle() {
+      await runOptimizationCycle();
+    }
+    
+    function showSection(section) {
+      // Would navigate to different sections
+      console.log('Navigate to:', section);
+    }
+    
+    // ═══════════════════════════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════════════════════════
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      refreshQueue();
+    });
+  </script>
+</body>
+</html>

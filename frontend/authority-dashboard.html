@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authority Dashboard | Sentense</title>
+  <meta name="description" content="Your Authority Curator dashboard - the highest tier of reader-writer hybrid access.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --bg: #FFFBF5;
+      --bg-dark: #0a0a12;
+      --card: #FFFFFF;
+      --card-dark: #12121c;
+      --ink: #2D3436;
+      --ink-dark: #f0f0ff;
+      --muted: #636E72;
+      --muted-dark: #8888aa;
+      --coral: #FF6B6B;
+      --coral-light: #FF8E8E;
+      --gold: #FFD700;
+      --gold-dark: #B8860B;
+      --success: #00B894;
+      --success-light: #00FF88;
+      --info: #00AAFF;
+      --purple: #9966FF;
+      --border: #E9ECEF;
+      --border-dark: #252535;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+      --shadow-dark: 0 4px 24px rgba(0,0,0,0.3);
+    }
+    
+    [data-theme="dark"] {
+      --bg: var(--bg-dark);
+      --card: var(--card-dark);
+      --ink: var(--ink-dark);
+      --muted: var(--muted-dark);
+      --border: var(--border-dark);
+      --shadow: var(--shadow-dark);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    body[data-theme="dark"] { background: #080810; }
+    
+    /* ═══════════════════════════════════════════════════════════════ */
+    /* HEADER */
+    /* ═══════════════════════════════════════════════════════════════ */
+    
+    .header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      border-bottom: 2px solid var(--gold);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 1px;
+    }
+    
+    .authority-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: #1a1a2e;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 12px rgba(255, 215, 0, 0.4);
+    }
+    
+    .authority-badge::before {
+      content: "👑";
+      font-size: 1rem;
+    }
+    
+    .header-center {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .header-nav a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    
+    .header-nav a:hover,
+    .header-nav a.active {
+      color: white;
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .country-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      color: white;
+      font-size: 0.85rem;
+    }
+    
+    .user-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--coral) 0%, var(--purple) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════ */
+    /* MAIN LAYOUT */
+    /* ═══════════════════════════════════════════════════════════════ */
+    
+    .main {
+      display: grid;
+      grid-template-columns: 280px 1fr 320px;
+      min-height: calc(100vh - 70px);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════ */
+    /* SIDEBAR */
+    /* ═══════════════════════════════════════════════════════════════ */
+    
+    .sidebar {
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+    
+    .profile-card {
+      text-align: center;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #fff9e6 0%, #fff5cc 100%);
+      border-radius: 16px;
+      border: 2px solid var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    
+    [data-theme="dark"] .profile-card {
+      background: linear-gradient(135deg, #2a2a1e 0%, #1f1f15 100%);
+    }
+    
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      margin: 0 auto 1rem;
+      background: linear-gradient(135deg, var(--coral) 0%, var(--purple) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .profile-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    
+    .profile-handle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .profile-tier {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: #1a1a2e;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    
+    .profile-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--coral);
+    }
+    
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Sidebar nav */
+    .sidebar-nav {
+      margin-top: 1.5rem;
+    }
+    
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .nav-section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      padding-left: 0.5rem;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin-bottom: 0.25rem;
+    }
+    
+    .nav-item:hover {
+      background: rgba(255, 107, 107, 0.1);
+    }
+    
+    .nav-item.active {
+      background: var(--coral);
+      color: white;
+    }
+    
+    .nav-item .icon {
+      font-size: 1.1rem;
+    }
+    
+    .nav-badge {
+      margin-left: auto;
+      background: var(--coral);
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    
+    .nav-item.active .nav-badge {
+      background: white;
+      color: var(--coral);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════ */
+    /* MAIN CONTENT */
+    /* ═══════════════════════════════════════════════════════════════ */
+    
+    .content {
+      padding: 2rem;
+      background: var(--bg);
+      overflow-y: auto;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    
+    .page-subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    
+    .metric-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    
+    .metric-card.gold {
+      background: linear-gradient(135deg, #fff9e6 0%, #fff5cc 100%);
+      border-color: var(--gold);
+    }
+    
+    [data-theme="dark"] .metric-card.gold {
+      background: linear-gradient(135deg, #2a2a1e 0%, #1f1f15 100%);
+    }
+    
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    
+    .metric-card.gold .metric-value {
+      color: var(--gold-dark);
+    }
+    
+    .metric-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    
+    .metric-trend.up { color: var(--success); }
+    .metric-trend.down { color: var(--coral); }
+    
+    /* Content sections */
+    .section {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .section-action {
+      font-size: 0.85rem;
+      color: var(--coral);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    /* Profile Display */
+    .voice-profile {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    
+    .voice-chart {
+      width: 200px;
+      height: 200px;
+      position: relative;
+    }
+    
+    .voice-details {
+      flex: 1;
+    }
+    
+    .voice-type {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--coral);
+      margin-bottom: 0.5rem;
+    }
+    
+    .voice-description {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    
+    .voice-tokens {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .token {
+      background: rgba(255, 107, 107, 0.1);
+      color: var(--coral);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    /* Reading Paths */
+    .reading-paths {
+      display: grid;
+      gap: 1rem;
+    }
+    
+    .reading-path {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(0,0,0,0.02);
+      border-radius: 12px;
+      align-items: center;
+    }
+    
+    [data-theme="dark"] .reading-path {
+      background: rgba(255,255,255,0.03);
+    }
+    
+    .path-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-light) 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    
+    .path-info {
+      flex: 1;
+    }
+    
+    .path-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .path-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    
+    .path-follows {
+      text-align: right;
+    }
+    
+    .path-follows-count {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--success);
+    }
+    
+    .path-follows-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════════ */
+    /* RIGHT PANEL */
+    /* ═══════════════════════════════════════════════════════════════ */
+    
+    .right-panel {
+      background: var(--card);
+      border-left: 1px solid var(--border);
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    
+    .panel-section {
+      margin-bottom: 2rem;
+    }
+    
+    .panel-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Authority Progress */
+    .authority-progress {
+      background: linear-gradient(135deg, #fff9e6 0%, #fff5cc 100%);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid var(--gold);
+    }
+    
+    [data-theme="dark"] .authority-progress {
+      background: linear-gradient(135deg, #2a2a1e 0%, #1f1f15 100%);
+    }
+    
+    .authority-level {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .authority-crown {
+      font-size: 1.5rem;
+    }
+    
+    .authority-title {
+      font-weight: 700;
+      color: var(--gold-dark);
+    }
+    
+    .authority-subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 4px;
+    }
+    
+    .progress-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+    }
+    
+    /* Activity Feed */
+    .activity-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .activity-item {
+      display: flex;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .activity-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    
+    .activity-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    
+    .activity-icon.read { background: rgba(0, 170, 255, 0.1); }
+    .activity-icon.follow { background: rgba(0, 184, 148, 0.1); }
+    .activity-icon.badge { background: rgba(255, 215, 0, 0.1); }
+    .activity-icon.path { background: rgba(153, 102, 255, 0.1); }
+    
+    .activity-content {
+      flex: 1;
+    }
+    
+    .activity-text {
+      font-size: 0.9rem;
+    }
+    
+    .activity-time {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    
+    /* Quick Actions */
+    .quick-actions {
+      display: grid;
+      gap: 0.75rem;
+    }
+    
+    .quick-action {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: rgba(0,0,0,0.02);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    [data-theme="dark"] .quick-action {
+      background: rgba(255,255,255,0.03);
+    }
+    
+    .quick-action:hover {
+      background: rgba(255, 107, 107, 0.1);
+      transform: translateX(4px);
+    }
+    
+    .quick-action .icon {
+      font-size: 1.2rem;
+    }
+    
+    /* JSON Export */
+    .json-export {
+      background: #1a1a2e;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .json-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    
+    .json-title {
+      color: var(--success-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .json-copy {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    
+    .json-copy:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    
+    .json-content {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.7rem;
+      color: #a0a0a0;
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre;
+      line-height: 1.4;
+    }
+    
+    .json-content .key { color: #9966ff; }
+    .json-content .string { color: #00ff88; }
+    .json-content .number { color: #ffaa00; }
+    .json-content .boolean { color: #00aaff; }
+    
+    /* ═══════════════════════════════════════════════════════════════ */
+    /* RESPONSIVE */
+    /* ═══════════════════════════════════════════════════════════════ */
+    
+    @media (max-width: 1200px) {
+      .main {
+        grid-template-columns: 260px 1fr;
+      }
+      .right-panel { display: none; }
+    }
+    
+    @media (max-width: 900px) {
+      .main {
+        grid-template-columns: 1fr;
+      }
+      .sidebar { display: none; }
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- HEADER -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header-left">
+      <a href="/" class="logo">
+        <svg class="logo-icon" viewBox="0 0 100 120" width="40" height="48">
+          <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+          <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+          <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/>
+          <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
+          <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+          <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+          <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+          <circle cx="33" cy="46.5" r="2" fill="#FFF"/>
+          <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+          <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+        </svg>
+        <span class="logo-text">Sentense</span>
+      </a>
+      <span class="authority-badge">Authority Curator</span>
+    </div>
+    
+    <nav class="header-center header-nav">
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">My Writing</a>
+      <a href="#">Reading Paths</a>
+      <a href="#">Community</a>
+      <a href="#">Settings</a>
+      <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="opacity: 0.6;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    </nav>
+    
+    <div class="header-right">
+      <div class="country-badge">
+        <span>🍁</span>
+        <span>Canada</span>
+      </div>
+      <div class="user-avatar">MC</div>
+    </div>
+  </header>
+  
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- MAIN LAYOUT -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="main">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="profile-card">
+        <div class="profile-avatar">MC</div>
+        <div class="profile-name">Maple Creator</div>
+        <div class="profile-handle">@maplecreator</div>
+        <div class="profile-tier">👑 Authority Curator</div>
+        <div class="profile-stats">
+          <div class="stat-item">
+            <div class="stat-value">847</div>
+            <div class="stat-label">Followers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Paths Created</div>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Reader</div>
+          <a href="#" class="nav-item active">
+            <span class="icon">📊</span>
+            Dashboard
+          </a>
+          <a href="#" class="nav-item">
+            <span class="icon">📚</span>
+            My Bookmarks
+            <span class="nav-badge">24</span>
+          </a>
+          <a href="#" class="nav-item">
+            <span class="icon">🔥</span>
+            Reading Streak
+            <span class="nav-badge">23</span>
+          </a>
+          <a href="#" class="nav-item">
+            <span class="icon">🧭</span>
+            Discover
+          </a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Writer</div>
+          <a href="#" class="nav-item">
+            <span class="icon">✏️</span>
+            My Writing
+            <span class="nav-badge">8</span>
+          </a>
+          <a href="#" class="nav-item">
+            <span class="icon">📝</span>
+            Drafts
+            <span class="nav-badge">3</span>
+          </a>
+          <a href="#" class="nav-item">
+            <span class="icon">📈</span>
+            Analytics
+          </a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Curator</div>
+          <a href="#" class="nav-item">
+            <span class="icon">🛤️</span>
+            My Paths
+            <span class="nav-badge">12</span>
+          </a>
+          <a href="#" class="nav-item">
+            <span class="icon">👥</span>
+            Path Followers
+            <span class="nav-badge">1.2K</span>
+          </a>
+          <a href="#" class="nav-item">
+            <span class="icon">⭐</span>
+            Featured
+          </a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">Authority</div>
+          <a href="#" class="nav-item">
+            <span class="icon">👑</span>
+            Authority Hub
+          </a>
+          <a href="#" class="nav-item">
+            <span class="icon">🏆</span>
+            Leaderboard
+          </a>
+          <a href="#" class="nav-item">
+            <span class="icon">📊</span>
+            Impact Stats
+          </a>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Welcome back, Maple! 🍁</h1>
+          <p class="page-subtitle">Your Authority Dashboard • Sunday, February 15, 2026</p>
+        </div>
+      </div>
+      
+      <!-- METRICS -->
+      <div class="metrics-grid">
+        <div class="metric-card gold">
+          <div class="metric-label">Authority Score</div>
+          <div class="metric-value">94.7</div>
+          <div class="metric-trend up">↑ 2.3 this month</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Path Followers</div>
+          <div class="metric-value">1,247</div>
+          <div class="metric-trend up">↑ 89 this week</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Total Reads</div>
+          <div class="metric-value">3,842</div>
+          <div class="metric-trend up">↑ 12% this month</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Writing Impact</div>
+          <div class="metric-value">8.9</div>
+          <div class="metric-trend up">↑ 0.4 this month</div>
+        </div>
+      </div>
+      
+      <!-- VOICE PROFILE -->
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">📊 Your Writing Voice</h2>
+          <a href="#" class="section-action">View Full Analysis →</a>
+        </div>
+        <div class="voice-profile">
+          <div class="voice-chart">
+            <svg viewBox="0 0 200 200" width="200" height="200">
+              <!-- Radar chart background -->
+              <polygon points="100,20 175,65 175,135 100,180 25,135 25,65" fill="none" stroke="#E9ECEF" stroke-width="1"/>
+              <polygon points="100,40 155,72 155,128 100,160 45,128 45,72" fill="none" stroke="#E9ECEF" stroke-width="1"/>
+              <polygon points="100,60 135,80 135,120 100,140 65,120 65,80" fill="none" stroke="#E9ECEF" stroke-width="1"/>
+              
+              <!-- Data polygon -->
+              <polygon points="100,30 165,70 150,140 100,165 40,125 55,60" fill="rgba(255,107,107,0.2)" stroke="#FF6B6B" stroke-width="2"/>
+              
+              <!-- Labels -->
+              <text x="100" y="12" text-anchor="middle" font-size="10" fill="#636E72">Assertive</text>
+              <text x="185" y="70" text-anchor="start" font-size="10" fill="#636E72">Formal</text>
+              <text x="185" y="140" text-anchor="start" font-size="10" fill="#636E72">Detailed</text>
+              <text x="100" y="198" text-anchor="middle" font-size="10" fill="#636E72">Poetic</text>
+              <text x="15" y="140" text-anchor="end" font-size="10" fill="#636E72">Open</text>
+              <text x="15" y="70" text-anchor="end" font-size="10" fill="#636E72">Dynamic</text>
+            </svg>
+          </div>
+          <div class="voice-details">
+            <div class="voice-type">Assertive Storyteller</div>
+            <p class="voice-description">
+              You write with confidence and narrative flair. Your voice combines direct statements with 
+              rich imagery, creating engaging content that guides readers through your ideas while 
+              maintaining a personal connection. Your epistemic openness invites dialogue.
+            </p>
+            <div class="voice-tokens">
+              <span class="token">Confident</span>
+              <span class="token">Narrative</span>
+              <span class="token">Engaged</span>
+              <span class="token">Warm</span>
+              <span class="token">Structured</span>
+              <span class="token">Balanced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- READING PATHS -->
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">🛤️ Your Popular Reading Paths</h2>
+          <a href="#" class="section-action">Manage Paths →</a>
+        </div>
+        <div class="reading-paths">
+          <div class="reading-path">
+            <div class="path-icon">📖</div>
+            <div class="path-info">
+              <div class="path-title">Canadian Voices: Modern Literary Fiction</div>
+              <div class="path-meta">12 posts • Updated 2 days ago</div>
+            </div>
+            <div class="path-follows">
+              <div class="path-follows-count">438</div>
+              <div class="path-follows-label">followers</div>
+            </div>
+          </div>
+          
+          <div class="reading-path">
+            <div class="path-icon">🌲</div>
+            <div class="path-info">
+              <div class="path-title">Nature Writing & Environmental Essays</div>
+              <div class="path-meta">8 posts • Updated 5 days ago</div>
+            </div>
+            <div class="path-follows">
+              <div class="path-follows-count">312</div>
+              <div class="path-follows-label">followers</div>
+            </div>
+          </div>
+          
+          <div class="reading-path">
+            <div class="path-icon">✍️</div>
+            <div class="path-info">
+              <div class="path-title">Finding Your Voice: A Writer's Journey</div>
+              <div class="path-meta">15 posts • Updated 1 week ago</div>
+            </div>
+            <div class="path-follows">
+              <div class="path-follows-count">297</div>
+              <div class="path-follows-label">followers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel">
+      <!-- Authority Progress -->
+      <div class="panel-section">
+        <h3 class="panel-title">👑 Authority Status</h3>
+        <div class="authority-progress">
+          <div class="authority-level">
+            <span class="authority-crown">👑</span>
+            <div>
+              <div class="authority-title">Authority Curator</div>
+              <div class="authority-subtitle">Highest Tier Achieved</div>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 94.7%"></div>
+          </div>
+          <div class="progress-text">94.7 / 100 Authority Score</div>
+        </div>
+      </div>
+      
+      <!-- Recent Activity -->
+      <div class="panel-section">
+        <h3 class="panel-title">📋 Recent Activity</h3>
+        <div class="activity-feed">
+          <div class="activity-item">
+            <div class="activity-icon follow">👥</div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>23 new followers</strong> on your Canadian Voices path</div>
+              <div class="activity-time">2 hours ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon badge">🏆</div>
+            <div class="activity-content">
+              <div class="activity-text">Earned <strong>Consistency Badge</strong> — 23 day reading streak!</div>
+              <div class="activity-time">Yesterday</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon read">📖</div>
+            <div class="activity-content">
+              <div class="activity-text">Your essay was featured in <strong>Weekly Picks</strong></div>
+              <div class="activity-time">2 days ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon path">🛤️</div>
+            <div class="activity-content">
+              <div class="activity-text">Your path reached <strong>400+ followers</strong></div>
+              <div class="activity-time">3 days ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Quick Actions -->
+      <div class="panel-section">
+        <h3 class="panel-title">⚡ Quick Actions</h3>
+        <div class="quick-actions">
+          <a href="#" class="quick-action">
+            <span class="icon">✏️</span>
+            Write New Post
+          </a>
+          <a href="#" class="quick-action">
+            <span class="icon">🛤️</span>
+            Create Reading Path
+          </a>
+          <a href="#" class="quick-action">
+            <span class="icon">📊</span>
+            View Full Analytics
+          </a>
+          <a href="#" class="quick-action">
+            <span class="icon">⚙️</span>
+            Account Settings
+          </a>
+        </div>
+      </div>
+      
+      <!-- JSON Export -->
+      <div class="panel-section">
+        <h3 class="panel-title">🔧 API / JSON Data</h3>
+        <div class="json-export">
+          <div class="json-header">
+            <span class="json-title">user_profile.json</span>
+            <button class="json-copy" onclick="copyJSON()">Copy</button>
+          </div>
+          <pre class="json-content" id="json-data">{
+  <span class="key">"user"</span>: {
+    <span class="key">"id"</span>: <span class="string">"usr_ca_7x9k2m4p"</span>,
+    <span class="key">"handle"</span>: <span class="string">"@maplecreator"</span>,
+    <span class="key">"name"</span>: <span class="string">"Maple Creator"</span>,
+    <span class="key">"country"</span>: <span class="string">"CA"</span>,
+    <span class="key">"tier"</span>: <span class="string">"authority_curator"</span>,
+    <span class="key">"created_at"</span>: <span class="string">"2025-08-14T09:23:17Z"</span>
+  },
+  <span class="key">"authority"</span>: {
+    <span class="key">"score"</span>: <span class="number">94.7</span>,
+    <span class="key">"level"</span>: <span class="string">"authority_curator"</span>,
+    <span class="key">"achieved_at"</span>: <span class="string">"2026-01-22T14:08:33Z"</span>,
+    <span class="key">"rank"</span>: <span class="number">23</span>,
+    <span class="key">"percentile"</span>: <span class="number">99.2</span>
+  },
+  <span class="key">"voice_profile"</span>: {
+    <span class="key">"primary"</span>: <span class="string">"assertive"</span>,
+    <span class="key">"secondary"</span>: <span class="string">"narrative"</span>,
+    <span class="key">"openness"</span>: <span class="string">"balanced"</span>,
+    <span class="key">"tokens"</span>: [<span class="string">"confident"</span>, <span class="string">"warm"</span>, <span class="string">"structured"</span>],
+    <span class="key">"confidence"</span>: <span class="number">0.872</span>
+  },
+  <span class="key">"stats"</span>: {
+    <span class="key">"followers"</span>: <span class="number">847</span>,
+    <span class="key">"path_followers"</span>: <span class="number">1247</span>,
+    <span class="key">"paths_created"</span>: <span class="number">12</span>,
+    <span class="key">"posts_written"</span>: <span class="number">8</span>,
+    <span class="key">"total_reads"</span>: <span class="number">3842</span>,
+    <span class="key">"deep_reads"</span>: <span class="number">127</span>,
+    <span class="key">"bookmarks"</span>: <span class="number">24</span>,
+    <span class="key">"reading_streak"</span>: <span class="number">23</span>,
+    <span class="key">"writing_impact"</span>: <span class="number">8.9</span>
+  },
+  <span class="key">"permissions"</span>: {
+    <span class="key">"can_create_paths"</span>: <span class="boolean">true</span>,
+    <span class="key">"can_feature_writers"</span>: <span class="boolean">true</span>,
+    <span class="key">"can_moderate"</span>: <span class="boolean">true</span>,
+    <span class="key">"api_access"</span>: <span class="boolean">true</span>,
+    <span class="key">"export_data"</span>: <span class="boolean">true</span>,
+    <span class="key">"priority_support"</span>: <span class="boolean">true</span>
+  },
+  <span class="key">"system"</span>: {
+    <span class="key">"version"</span>: <span class="string">"5.2.0"</span>,
+    <span class="key">"engine_accuracy"</span>: <span class="number">0.872</span>,
+    <span class="key">"safety_score"</span>: <span class="number">100</span>,
+    <span class="key">"trust_level"</span>: <span class="string">"trusted"</span>
+  }
+}</pre>
+        </div>
+      </div>
+    </aside>
+  </div>
+  
+  <script>
+    // Theme toggle
+    function toggleTheme() {
+      const body = document.body;
+      body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+    
+    // Copy JSON
+    function copyJSON() {
+      const jsonText = {
+        user: {
+          id: "usr_ca_7x9k2m4p",
+          handle: "@maplecreator",
+          name: "Maple Creator",
+          country: "CA",
+          tier: "authority_curator",
+          created_at: "2025-08-14T09:23:17Z"
+        },
+        authority: {
+          score: 94.7,
+          level: "authority_curator",
+          achieved_at: "2026-01-22T14:08:33Z",
+          rank: 23,
+          percentile: 99.2
+        },
+        voice_profile: {
+          primary: "assertive",
+          secondary: "narrative",
+          openness: "balanced",
+          tokens: ["confident", "warm", "structured"],
+          confidence: 0.872
+        },
+        stats: {
+          followers: 847,
+          path_followers: 1247,
+          paths_created: 12,
+          posts_written: 8,
+          total_reads: 3842,
+          deep_reads: 127,
+          bookmarks: 24,
+          reading_streak: 23,
+          writing_impact: 8.9
+        },
+        permissions: {
+          can_create_paths: true,
+          can_feature_writers: true,
+          can_moderate: true,
+          api_access: true,
+          export_data: true,
+          priority_support: true
+        },
+        system: {
+          version: "5.2.0",
+          engine_accuracy: 0.872,
+          safety_score: 100,
+          trust_level: "trusted"
+        }
+      };
+      
+      navigator.clipboard.writeText(JSON.stringify(jsonText, null, 2))
+        .then(() => {
+          const btn = document.querySelector('.json-copy');
+          btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = 'Copy', 2000);
+        });
+    }
+    
+    // Full JSON data export
+    const USER_DATA = {
+      user: {
+        id: "usr_ca_7x9k2m4p",
+        handle: "@maplecreator",
+        name: "Maple Creator",
+        email: "maple@example.ca",
+        country: "CA",
+        country_name: "Canada",
+        country_flag: "🍁",
+        tier: "authority_curator",
+        tier_display: "Authority Curator",
+        tier_level: 5,
+        created_at: "2025-08-14T09:23:17Z",
+        last_active: "2026-02-15T03:45:00Z"
+      },
+      
+      authority: {
+        score: 94.7,
+        level: "authority_curator",
+        achieved_at: "2026-01-22T14:08:33Z",
+        rank: 23,
+        percentile: 99.2,
+        badges: [
+          { id: "early_adopter", name: "Early Adopter", earned: "2025-08-14" },
+          { id: "consistency", name: "Consistency", earned: "2026-02-14" },
+          { id: "path_pioneer", name: "Path Pioneer", earned: "2025-11-03" },
+          { id: "community_builder", name: "Community Builder", earned: "2026-01-15" },
+          { id: "authority", name: "Authority", earned: "2026-01-22" }
+        ]
+      },
+      
+      voice_profile: {
+        primary_type: "assertive",
+        secondary_type: "narrative",
+        openness: "balanced",
+        mode: "ASSERTIVE_BALANCED",
+        tokens: [
+          { name: "confident", weight: 0.89 },
+          { name: "warm", weight: 0.76 },
+          { name: "structured", weight: 0.82 },
+          { name: "narrative", weight: 0.91 },
+          { name: "engaged", weight: 0.85 },
+          { name: "balanced", weight: 0.78 }
+        ],
+        dimensions: {
+          assertiveness: 0.87,
+          formality: 0.62,
+          detail: 0.74,
+          poeticism: 0.68,
+          openness: 0.55,
+          dynamism: 0.81
+        },
+        analysis_confidence: 0.872,
+        analyses_count: 47,
+        last_analysis: "2026-02-12T18:22:45Z"
+      },
+      
+      reading: {
+        posts_read: 312,
+        deep_reads: 127,
+        profiles_explored: 28,
+        bookmarks: 24,
+        reading_streak: {
+          current: 23,
+          longest: 31,
+          last_read: "2026-02-15"
+        },
+        favorite_profiles: ["poetic", "assertive", "conversational"],
+        avg_read_time_minutes: 4.7
+      },
+      
+      writing: {
+        posts_published: 8,
+        drafts: 3,
+        total_words: 24680,
+        avg_words_per_post: 3085,
+        total_reads: 3842,
+        total_reactions: 287,
+        featured_count: 2,
+        impact_score: 8.9
+      },
+      
+      curation: {
+        paths_created: 12,
+        paths_published: 12,
+        total_path_followers: 1247,
+        total_path_completions: 423,
+        featured_paths: 3,
+        top_paths: [
+          { id: "path_01", title: "Canadian Voices: Modern Literary Fiction", followers: 438, completions: 156 },
+          { id: "path_02", title: "Nature Writing & Environmental Essays", followers: 312, completions: 98 },
+          { id: "path_03", title: "Finding Your Voice: A Writer's Journey", followers: 297, completions: 112 }
+        ]
+      },
+      
+      community: {
+        followers: 847,
+        following: 156,
+        connections: 89,
+        mentions: 34,
+        collaborations: 7
+      },
+      
+      permissions: {
+        can_create_paths: true,
+        can_feature_writers: true,
+        can_moderate: true,
+        can_access_api: true,
+        can_export_data: true,
+        can_bulk_actions: true,
+        has_priority_support: true,
+        has_early_access: true,
+        max_paths: null,
+        max_bookmarks: null
+      },
+      
+      subscription: {
+        plan: "authority_annual",
+        status: "active",
+        started_at: "2025-08-14T09:25:00Z",
+        renews_at: "2026-08-14T09:25:00Z",
+        price: 30.00,
+        currency: "CAD",
+        payment_method: "card_ending_4242"
+      },
+      
+      safety: {
+        score: 100,
+        trust_level: "trusted",
+        violations: 0,
+        warnings: 0,
+        appeals: 0,
+        last_check: "2026-02-15T03:45:00Z"
+      },
+      
+      system: {
+        version: "5.2.0",
+        codename: "Squirrel Ninja: Safety Edition",
+        engine_version: "3.8.0",
+        engine_accuracy: 0.872,
+        meta_version: "5.2.0",
+        e2e2e_validation: "100%",
+        last_sync: "2026-02-15T03:45:00Z"
+      }
+    };
+    
+    // Log full data to console
+    console.log("=== AUTHORITY CURATOR FULL PROFILE ===");
+    console.log(JSON.stringify(USER_DATA, null, 2));
+  </script>
+</body>
+</html>

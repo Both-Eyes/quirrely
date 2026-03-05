@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Quirrely Favicon with Acorn -->
+  <rect width="32" height="32" fill="#FFFBF5"/>
+  <g transform="translate(3, 0) scale(0.19)">
+    <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="3"/>
+    <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="3"/>
+    <!-- Simplified acorn -->
+    <ellipse cx="40" cy="80" rx="10" ry="4" fill="#E85A5A"/>
+    <path d="M30 80 Q29 98, 40 104 Q51 98, 50 80 Z" fill="#FF6B6B"/>
+    <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="3"/>
+    <ellipse cx="32" cy="48" rx="6" ry="7" fill="#1a1a1a"/>
+    <ellipse cx="48" cy="48" rx="6" ry="7" fill="#1a1a1a"/>
+  </g>
+</svg>

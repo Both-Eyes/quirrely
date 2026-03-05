@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 70" width="200" height="70">
+  <!-- Detailed squirrel with quill -->
+  <g transform="translate(10, 5)">
+    <!-- Fluffy tail -->
+    <path d="M15 50 Q0 45, 2 30 Q4 15, 18 10 Q28 6, 25 18 Q22 28, 18 40 Q16 48, 20 52" 
+          fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1"/>
+    
+    <!-- Body -->
+    <ellipse cx="32" cy="42" rx="15" ry="12" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1"/>
+    
+    <!-- Head -->
+    <circle cx="42" cy="28" r="12" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1"/>
+    
+    <!-- Ears -->
+    <ellipse cx="36" cy="18" rx="4" ry="7" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1"/>
+    <ellipse cx="36" cy="20" rx="2" ry="4" fill="#FFB6B6"/>
+    <ellipse cx="46" cy="16" rx="4" ry="7" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1"/>
+    <ellipse cx="46" cy="18" rx="2" ry="4" fill="#FFB6B6"/>
+    
+    <!-- Leucistic pink eye -->
+    <circle cx="46" cy="26" r="4" fill="#FFE4E4" stroke="#FFAAAA" stroke-width="1"/>
+    <circle cx="47" cy="25" r="2" fill="#FF6B6B"/>
+    <circle cx="47.5" cy="24.5" r="0.8" fill="#FFFBF5"/>
+    
+    <!-- Nose -->
+    <ellipse cx="52" cy="32" rx="2" ry="1.5" fill="#FFB6B6"/>
+    
+    <!-- Arm holding quill -->
+    <ellipse cx="48" cy="40" rx="5" ry="3" fill="#FFFBF5" stroke="#B2BEC3" stroke-width="1"/>
+    
+    <!-- Quill -->
+    <path d="M52 38 L75 15" stroke="#FF6B6B" stroke-width="2"/>
+    <path d="M75 15 Q78 12, 80 15 Q78 18, 75 15" fill="#FF6B6B"/>
+    
+    <!-- Ink trail forming text -->
+    <path d="M52 42 Q60 50, 75 48 Q90 46, 100 50" 
+          fill="none" stroke="#2D3436" stroke-width="1.5" stroke-dasharray="2,2"/>
+  </g>
+  
+  <!-- Wordmark from ink trail -->
+  <text x="70" y="60" font-family="Outfit, system-ui, sans-serif" font-size="24" font-weight="700" fill="#2D3436">
+    Senten<tspan fill="#FF6B6B">se</tspan>
+  </text>
+</svg>

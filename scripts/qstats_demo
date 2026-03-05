@@ -1,0 +1,1509 @@
+#!/usr/bin/env python3
+"""
+QUIRRELY STATS (qstats) - DEMO VERSION
+Shows qstats interface with mock data for demonstration
+"""
+
+import sys
+import json
+import time
+from datetime import datetime
+from typing import Dict, Any
+from dataclasses import dataclass, asdict, field
+from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
+from rich.layout import Layout
+from rich.text import Text
+
+@dataclass
+class SecurityMetrics:
+    """Security-related metrics."""
+    total_events: int = 0
+    threat_events: int = 0
+    blocked_ips: int = 0
+    failed_auths: int = 0
+    admin_accesses: int = 0
+    websocket_connections: int = 0
+    active_sessions: int = 0
+    security_score: float = 100.0
+    last_threat: str = None
+    threats_by_type: Dict[str, int] = None
+
+    def __post_init__(self):
+        if self.threats_by_type is None:
+            self.threats_by_type = {}
+
+@dataclass  
+class UserMetrics:
+    """User and authentication metrics."""
+    total_users: int = 0
+    active_sessions: int = 0
+    new_signups_today: int = 0
+    login_attempts_today: int = 0
+    successful_logins_today: int = 0
+    failed_logins_today: int = 0
+    countries_active: int = 0
+    tier_distribution: Dict[str, int] = None
+    
+    def __post_init__(self):
+        if self.tier_distribution is None:
+            self.tier_distribution = {}
+
+@dataclass
+class FeatureMetrics:
+    """Feature gate and access metrics."""
+    total_checks: int = 0
+    allowed_accesses: int = 0 
+    denied_accesses: int = 0
+    daily_limits_hit: int = 0
+    feature_usage: Dict[str, int] = None
+    tier_upgrade_requests: int = 0
+    
+    def __post_init__(self):
+        if self.feature_usage is None:
+            self.feature_usage = {}
+
+@dataclass
+class SystemMetrics:
+    """System performance metrics."""
+    database_connections: int = 0
+    redis_memory_usage: str = "0MB"
+    avg_response_time: float = 0.0
+    error_rate: float = 0.0
+    uptime_hours: float = 0.0
+    cpu_usage: float = 0.0
+    memory_usage: float = 0.0
+
+@dataclass
+class EventMetrics:
+    """Meta events and user behavior."""
+    total_events: int = 0
+    events_today: int = 0
+    unique_sessions: int = 0
+    unique_users: int = 0
+    page_views: int = 0
+    analyses_completed: int = 0
+    events_by_type: Dict[str, int] = None
+    
+    def __post_init__(self):
+        if self.events_by_type is None:
+            self.events_by_type = {}
+
+@dataclass
+class MetaObserverMetrics:
+    """LNCP Meta/Observer system metrics and health."""
+    # Meta Orchestrator Health
+    meta_orchestrator_health: float = 0.0
+    meta_orchestrator_mode: str = "unknown"
+    meta_cycle_count: int = 0
+    meta_actions_generated: int = 0
+    meta_actions_auto_applied: int = 0
+    meta_actions_queued: int = 0
+    meta_predictions_accuracy: float = 0.0
+    meta_system_uptime: float = 0.0
+    
+    # Observer Health Scores (0-100)
+    achievement_observer_health: float = 0.0
+    retention_observer_health: float = 0.0
+    bundle_tracker_health: float = 0.0
+    progressive_tracker_health: float = 0.0
+    blog_observer_health: float = 0.0
+    revenue_observer_health: float = 0.0
+    
+    # Specific Observer Metrics
+    achievement_badge_engagement: float = 0.0
+    retention_mrr_saved_30d: float = 0.0
+    retention_save_rate: float = 0.0
+    bundle_share: float = 0.0
+    bundle_mrr: float = 0.0
+    progressive_day7_conversion: float = 0.0
+    blog_seo_score: float = 0.0
+    
+    # Auto-Optimization Results
+    optimizations_suggested: int = 0
+    optimizations_applied: int = 0
+    optimization_success_rate: float = 0.0
+    rollbacks_performed: int = 0
+    
+    # Event Processing
+    events_processed_24h: int = 0
+    events_queued: int = 0
+    event_processing_lag_ms: float = 0.0
+    
+    # Issues and Alerts
+    meta_issues: list = field(default_factory=list)
+    observer_alerts: list = field(default_factory=list)
+    last_optimization: str = None
+
+@dataclass
+class FrontendQAMetrics:
+    """Frontend QA and user experience metrics."""
+    total_page_views: int = 0
+    unique_user_journeys: int = 0
+    dashboard_loads: int = 0
+    profile_card_views: int = 0
+    stance_distributions: Dict[str, int] = field(default_factory=dict)
+    profile_distributions: Dict[str, int] = field(default_factory=dict)
+    country_engagement: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+    adaptive_dashboard_metrics: Dict[str, Any] = field(default_factory=dict)
+    error_rates_by_page: Dict[str, float] = field(default_factory=dict)
+    conversion_funnel: Dict[str, int] = field(default_factory=dict)
+    mobile_vs_desktop: Dict[str, int] = field(default_factory=dict)
+
+@dataclass  
+class MarketingFunnelMetrics:
+    """Marketing funnel and conversion analytics for demo including blog system."""
+    # Anonymous user journey
+    anonymous_sessions: int = 0
+    anonymous_analyses: int = 0
+    anonymous_to_signup_rate: float = 0.0
+    
+    # Blog system metrics (NEW)
+    blog_page_views: int = 0
+    blog_unique_visitors: int = 0
+    blog_to_analysis_rate: float = 0.0
+    blog_to_signup_rate: float = 0.0
+    blog_avg_time_on_page: float = 0.0
+    blog_bounce_rate: float = 0.0
+    blog_top_pages: Dict[str, int] = field(default_factory=dict)
+    blog_cta_performance: Dict[str, float] = field(default_factory=dict)
+    
+    # SEO metrics (NEW)
+    seo_impressions: int = 0
+    seo_clicks: int = 0
+    seo_ctr: float = 0.0
+    seo_avg_position: float = 0.0
+    seo_keyword_opportunities: int = 0
+    seo_content_freshness_score: float = 0.0
+    
+    # Viral coefficient and social sharing (NEW)
+    social_shares_total: int = 0
+    social_shares_by_platform: Dict[str, int] = field(default_factory=dict)
+    viral_coefficient: float = 0.0
+    referral_traffic: int = 0
+    social_conversion_rate: float = 0.0
+    
+    # SEO optimization metrics (NEW)
+    pages_with_og_images: int = 0
+    pages_with_structured_data: int = 0
+    pages_with_meta_descriptions: int = 0
+    pages_missing_seo_elements: int = 0
+    avg_page_load_speed: float = 0.0
+    mobile_usability_score: float = 0.0
+    
+    # Signup funnel
+    signup_attempts: int = 0
+    signup_completions: int = 0
+    signup_conversion_rate: float = 0.0
+    signup_sources: Dict[str, int] = field(default_factory=dict)
+    
+    # Tier progression funnel
+    free_users: int = 0
+    trial_users: int = 0
+    pro_users: int = 0
+    tier_conversion_rates: Dict[str, float] = field(default_factory=dict)
+    
+    # Trial funnel
+    trial_starts: int = 0
+    trial_completions: int = 0
+    trial_conversions_to_pro: int = 0
+    trial_conversion_rate: float = 0.0
+    
+    # Pro conversion and revenue
+    pro_conversions: int = 0
+    revenue_attribution: Dict[str, float] = field(default_factory=dict)
+    monthly_recurring_revenue: float = 0.0
+    
+    # Feature engagement leading to conversion
+    feature_engagement_scores: Dict[str, float] = field(default_factory=dict)
+    conversion_trigger_features: Dict[str, int] = field(default_factory=dict)
+    
+    # Country-specific conversion patterns
+    conversion_by_country: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+    
+    # Time-to-convert analytics
+    avg_signup_to_trial_hours: float = 0.0
+    avg_trial_to_pro_hours: float = 0.0
+    
+    # Retention
+    retention_day_7: float = 0.0
+    retention_day_30: float = 0.0
+    
+    # Campaign performance
+    campaign_performance: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+
+class QuirrellyStatDemo:
+    """Demo version of qstats with mock data."""
+    
+    def __init__(self):
+        self.console = Console()
+        
+    def get_demo_security_metrics(self) -> SecurityMetrics:
+        """Get demo security metrics."""
+        return SecurityMetrics(
+            total_events=247,
+            threat_events=3,
+            blocked_ips=2, 
+            failed_auths=18,
+            admin_accesses=7,
+            websocket_connections=12,
+            active_sessions=45,
+            security_score=88.5,
+            last_threat="injection_attempt",
+            threats_by_type={
+                "injection_attempt": 2,
+                "brute_force": 1,
+                "suspicious_activity": 1
+            }
+        )
+    
+    def get_demo_user_metrics(self) -> UserMetrics:
+        """Get demo user metrics."""
+        return UserMetrics(
+            total_users=1847,
+            active_sessions=45,
+            new_signups_today=23,
+            login_attempts_today=156,
+            successful_logins_today=142,
+            failed_logins_today=14,
+            countries_active=12,
+            tier_distribution={
+                "free": 1234,
+                "pro": 456,
+                "authority": 157
+            }
+        )
+    
+    def get_demo_feature_metrics(self) -> FeatureMetrics:
+        """Get demo feature metrics."""
+        return FeatureMetrics(
+            total_checks=3247,
+            allowed_accesses=2987,
+            denied_accesses=260,
+            daily_limits_hit=34,
+            tier_upgrade_requests=18,
+            feature_usage={
+                "basic_analysis": 1847,
+                "save_results": 892,
+                "detailed_insights": 567,
+                "analytics": 234,
+                "voice_profile": 178
+            }
+        )
+    
+    def get_demo_system_metrics(self) -> SystemMetrics:
+        """Get demo system metrics."""
+        return SystemMetrics(
+            database_connections=15,
+            redis_memory_usage="128MB",
+            avg_response_time=245.5,
+            error_rate=0.12,
+            uptime_hours=168.5,
+            cpu_usage=23.4,
+            memory_usage=67.8
+        )
+    
+    def get_demo_event_metrics(self) -> EventMetrics:
+        """Get demo event metrics."""
+        return EventMetrics(
+            total_events=8456,
+            events_today=1234,
+            unique_sessions=567,
+            unique_users=345,
+            page_views=2847,
+            analyses_completed=456,
+            events_by_type={
+                "page_view": 2847,
+                "analysis_completed": 456,
+                "feature_used": 234,
+                "auth_success": 142,
+                "subscription_event": 12
+            }
+        )
+    
+    def get_demo_meta_observer_metrics(self) -> MetaObserverMetrics:
+        """Get demo Meta/Observer metrics."""
+        return MetaObserverMetrics(
+            # Meta Orchestrator Health
+            meta_orchestrator_health=87.3,
+            meta_orchestrator_mode="auto_safe",
+            meta_cycle_count=247,
+            meta_actions_generated=1456,
+            meta_actions_auto_applied=1203,
+            meta_actions_queued=23,
+            meta_predictions_accuracy=74.2,
+            meta_system_uptime=156.7,
+            
+            # Observer Health Scores
+            achievement_observer_health=89.5,
+            retention_observer_health=91.8,
+            bundle_tracker_health=76.3,
+            progressive_tracker_health=83.7,
+            blog_observer_health=88.9,
+            revenue_observer_health=92.1,
+            
+            # Specific Observer Metrics
+            achievement_badge_engagement=67.4,
+            retention_mrr_saved_30d=8947.0,
+            retention_save_rate=78.5,
+            bundle_share=34.2,
+            bundle_mrr=12847.0,
+            progressive_day7_conversion=23.8,
+            blog_seo_score=91.3,
+            
+            # Auto-Optimization Results
+            optimizations_suggested=89,
+            optimizations_applied=76,
+            optimization_success_rate=89.1,
+            rollbacks_performed=3,
+            
+            # Event Processing
+            events_processed_24h=8456,
+            events_queued=12,
+            event_processing_lag_ms=47.2,
+            
+            # Issues and Alerts
+            meta_issues=[
+                "Bundle pricing optimization pending review",
+                "SEO refresh needed for 3 blog pages",
+                "Achievement threshold calibration suggested"
+            ],
+            observer_alerts=[
+                "Progressive Day-7 conversion below target",
+                "Blog CTR declining in last 48h"
+            ],
+            last_optimization="Bundle discount increase: 15% -> 18% (approved)"
+        )
+    
+    def get_demo_frontend_qa_metrics(self):
+        """Get demo frontend QA metrics."""
+        
+        return FrontendQAMetrics(
+            total_page_views=2847,
+            unique_user_journeys=567,
+            dashboard_loads=423,
+            profile_card_views=1234,
+            stance_distributions={
+                "open": 456,
+                "closed": 234,
+                "balanced": 345,
+                "contradictory": 123
+            },
+            profile_distributions={
+                "assertive": 523,
+                "conversational": 445,
+                "minimal": 234,
+                "poetic": 156,
+                "dense": 198,
+                "formal": 167,
+                "balanced": 143,
+                "longform": 134,
+                "interrogative": 89,
+                "hedged": 67
+            },
+            country_engagement={
+                "CA": {
+                    "sessions": 145,
+                    "total_events": 567,
+                    "analyses_completed": 89,
+                    "dashboard_views": 123,
+                    "avg_user_age_hours": 48.5
+                },
+                "GB": {
+                    "sessions": 134,
+                    "total_events": 445,
+                    "analyses_completed": 67,
+                    "dashboard_views": 98,
+                    "avg_user_age_hours": 36.2
+                },
+                "AU": {
+                    "sessions": 89,
+                    "total_events": 334,
+                    "analyses_completed": 45,
+                    "dashboard_views": 67,
+                    "avg_user_age_hours": 28.7
+                },
+                "NZ": {
+                    "sessions": 67,
+                    "total_events": 234,
+                    "analyses_completed": 34,
+                    "dashboard_views": 45,
+                    "avg_user_age_hours": 24.1
+                },
+                "US": {
+                    "sessions": 23,
+                    "total_events": 78,
+                    "analyses_completed": 12,
+                    "dashboard_views": 18,
+                    "avg_user_age_hours": 12.3
+                }
+            },
+            adaptive_dashboard_metrics={
+                "adaptive_loads": 398,
+                "personalized_views": 345,
+                "customizations": 67,
+                "tier_interactions": 89,
+                "evolution_views": 234
+            },
+            error_rates_by_page={
+                "/dashboard": 0.8,
+                "/analysis": 1.2,
+                "/profile": 0.5,
+                "/settings": 2.1,
+                "/upgrade": 1.7
+            },
+            conversion_funnel={
+                "landing_views": 1500,
+                "analysis_starts": 890,
+                "analysis_completes": 756,
+                "results_views": 698,
+                "signup_starts": 234,
+                "signup_completes": 156
+            },
+            mobile_vs_desktop={
+                "mobile": 1678,
+                "desktop": 1169
+            }
+        )
+    
+    def get_demo_marketing_funnel_metrics(self):
+        """Get demo marketing funnel metrics."""
+        return MarketingFunnelMetrics(
+            anonymous_sessions=8750,
+            anonymous_analyses=3247,
+            anonymous_to_signup_rate=4.2,
+            
+            # Blog system metrics
+            blog_page_views=12847,
+            blog_unique_visitors=8934,
+            blog_to_analysis_rate=18.7,
+            blog_to_signup_rate=3.2,
+            blog_avg_time_on_page=186.5,
+            blog_bounce_rate=42.1,
+            blog_top_pages={
+                "/blog/how-assertive-open-writers-write": 1247,
+                "/blog/how-minimal-closed-writers-write": 987,
+                "/blog/how-conversational-balanced-writers-write": 834,
+                "/blog/how-poetic-contradictory-writers-write": 756,
+                "/blog/what-is-writing-voice": 689,
+                "/blog/canadian-writing-style": 567,
+                "/blog/featured-writer-system": 445,
+                "/blog/how-dense-open-writers-write": 398
+            },
+            blog_cta_performance={
+                "analyze_writing": 6.7,
+                "start_trial": 4.3,
+                "upgrade_pro": 2.8,
+                "featured_submission": 1.9,
+                "newsletter_signup": 5.1
+            },
+            
+            # SEO metrics
+            seo_impressions=45678,
+            seo_clicks=2834,
+            seo_ctr=6.2,
+            seo_avg_position=8.4,
+            seo_keyword_opportunities=23,
+            seo_content_freshness_score=76.3,
+            
+            # Viral coefficient and social sharing
+            social_shares_total=1247,
+            social_shares_by_platform={
+                "twitter": 456,
+                "linkedin": 378,
+                "facebook": 245,
+                "reddit": 89,
+                "instagram": 79
+            },
+            viral_coefficient=0.127,
+            referral_traffic=2134,
+            social_conversion_rate=4.2,
+            
+            # SEO optimization metrics  
+            pages_with_og_images=39,
+            pages_with_structured_data=37,
+            pages_with_meta_descriptions=41,
+            pages_missing_seo_elements=2,
+            avg_page_load_speed=1847.5,
+            mobile_usability_score=94.3,
+            
+            signup_attempts=523,
+            signup_completions=456,
+            signup_conversion_rate=87.2,
+            signup_sources={
+                "blog": 189,
+                "organic": 134,
+                "social": 89,
+                "referral": 67,
+                "direct": 45,
+                "email": 21
+            },
+            free_users=2847,
+            trial_users=423,
+            pro_users=189,
+            tier_conversion_rates={
+                "free_to_trial": 14.9,
+                "trial_to_pro": 44.7,
+                "overall_to_pro": 5.4
+            },
+            trial_starts=456,
+            trial_completions=423,
+            trial_conversions_to_pro=189,
+            trial_conversion_rate=41.4,
+            pro_conversions=189,
+            revenue_attribution={
+                "pro_monthly": 14175.0,
+                "pro_annual": 8946.0
+            },
+            monthly_recurring_revenue=23121.0,
+            feature_engagement_scores={
+                "save_results": 67.3,
+                "detailed_insights": 54.2,
+                "analytics": 48.7,
+                "voice_profile": 43.1,
+                "export_data": 38.9,
+                "team_sharing": 31.2,
+                "api_access": 28.4,
+                "custom_branding": 22.1
+            },
+            conversion_trigger_features={
+                "save_results": 1247,
+                "detailed_insights": 892,
+                "analytics": 567,
+                "voice_profile": 445,
+                "export_data": 334,
+                "team_sharing": 223,
+                "api_access": 156,
+                "custom_branding": 89
+            },
+            conversion_by_country={
+                "CA": {
+                    "total_users": 1247,
+                    "free_users": 945,
+                    "trial_users": 189,
+                    "pro_users": 113,
+                    "conversion_rate": 9.1
+                },
+                "GB": {
+                    "total_users": 892,
+                    "free_users": 734,
+                    "trial_users": 97,
+                    "pro_users": 61,
+                    "conversion_rate": 6.8
+                },
+                "AU": {
+                    "total_users": 567,
+                    "free_users": 489,
+                    "trial_users": 56,
+                    "pro_users": 22,
+                    "conversion_rate": 3.9
+                },
+                "NZ": {
+                    "total_users": 234,
+                    "free_users": 201,
+                    "trial_users": 23,
+                    "pro_users": 10,
+                    "conversion_rate": 4.3
+                },
+                "US": {
+                    "total_users": 89,
+                    "free_users": 82,
+                    "trial_users": 5,
+                    "pro_users": 2,
+                    "conversion_rate": 2.2
+                }
+            },
+            avg_signup_to_trial_hours=47.3,
+            avg_trial_to_pro_hours=156.7,
+            retention_day_7=52.3,
+            retention_day_30=28.1,
+            campaign_performance={
+                "linkedin_writers": {
+                    "signups": 145,
+                    "conversions": 23,
+                    "conversion_rate": 15.9
+                },
+                "twitter_launch": {
+                    "signups": 89,
+                    "conversions": 12,
+                    "conversion_rate": 13.5
+                },
+                "content_marketing": {
+                    "signups": 67,
+                    "conversions": 8,
+                    "conversion_rate": 11.9
+                },
+                "writer_community": {
+                    "signups": 234,
+                    "conversions": 19,
+                    "conversion_rate": 8.1
+                }
+            }
+        )
+    
+    def display_marketing_funnel_view(self, metrics: MarketingFunnelMetrics):
+        """Display comprehensive marketing funnel and conversion analytics."""
+        
+        # Main funnel overview
+        funnel_panel = Panel(
+            f"[bold green]Marketing Funnel Performance[/bold green]\n" +
+            f"Anonymous → Signup: [cyan]{metrics.anonymous_to_signup_rate:.2f}%[/cyan]\n" +
+            f"Signup Conversion: [yellow]{metrics.signup_conversion_rate:.2f}%[/yellow]\n" +
+            f"Trial → Pro: [blue]{metrics.trial_conversion_rate:.2f}%[/blue]\n" +
+            f"MRR: [green]${metrics.monthly_recurring_revenue:,.0f}[/green]",
+            title="💰 Conversion Funnel",
+            width=40
+        )
+        
+        # User progression table
+        progression_table = Table(title="👥 User Tier Progression")
+        progression_table.add_column("Tier", style="cyan", width=12)
+        progression_table.add_column("Count", justify="right", width=8)
+        progression_table.add_column("Conversion %", justify="right", width=12)
+        
+        total_users = metrics.free_users + metrics.trial_users + metrics.pro_users
+        progression_table.add_row(
+            "Anonymous",
+            str(metrics.anonymous_sessions),
+            f"→ {metrics.anonymous_to_signup_rate:.1f}%"
+        )
+        progression_table.add_row(
+            "Free Users",
+            f"[green]{metrics.free_users:,}[/green]",
+            f"→ {metrics.tier_conversion_rates.get('free_to_trial', 0):.1f}%"
+        )
+        progression_table.add_row(
+            "Trial Users",
+            f"[yellow]{metrics.trial_users:,}[/yellow]",
+            f"→ {metrics.tier_conversion_rates.get('trial_to_pro', 0):.1f}%"
+        )
+        progression_table.add_row(
+            "Pro Users",
+            f"[blue]{metrics.pro_users:,}[/blue]",
+            f"({metrics.tier_conversion_rates.get('overall_to_pro', 0):.1f}% total)"
+        )
+        
+        # Feature engagement leading to conversion
+        feature_table = Table(title="🎯 Features That Convert")
+        feature_table.add_column("Feature", style="purple", width=18)
+        feature_table.add_column("Usage", justify="right", width=8)
+        feature_table.add_column("Pro Conv %", justify="right", width=10)
+        
+        # Sort features by conversion rate
+        sorted_features = sorted(
+            metrics.feature_engagement_scores.items(), 
+            key=lambda x: x[1], 
+            reverse=True
+        )
+        for feature, conv_rate in sorted_features[:8]:
+            usage = metrics.conversion_trigger_features.get(feature, 0)
+            color = "green" if conv_rate > 50 else "yellow" if conv_rate > 25 else "red"
+            feature_table.add_row(
+                feature.replace('_', ' ').title(),
+                str(usage),
+                f"[{color}]{conv_rate:.1f}%[/{color}]"
+            )
+        
+        # Country conversion analysis
+        country_table = Table(title="🌍 Conversion by Country")
+        country_table.add_column("Country", style="green", width=8)
+        country_table.add_column("Users", justify="right", width=8)
+        country_table.add_column("Pro %", justify="right", width=8)
+        country_table.add_column("Revenue", justify="right", width=10)
+        
+        sorted_countries = sorted(
+            metrics.conversion_by_country.items(), 
+            key=lambda x: x[1]['conversion_rate'], 
+            reverse=True
+        )
+        for country, data in sorted_countries:
+            conv_rate = data['conversion_rate']
+            color = "green" if conv_rate > 15 else "yellow" if conv_rate > 8 else "red"
+            # Estimate revenue contribution
+            revenue_share = (data['pro_users'] / max(1, metrics.pro_users)) * metrics.monthly_recurring_revenue
+            country_table.add_row(
+                country,
+                str(data['total_users']),
+                f"[{color}]{conv_rate:.1f}%[/{color}]",
+                f"${revenue_share:,.0f}"
+            )
+        
+        # Blog performance overview
+        blog_panel = Panel(
+            f"[bold magenta]Blog Performance[/bold magenta]\n" +
+            f"Page Views: [cyan]{metrics.blog_page_views:,}[/cyan]\n" +
+            f"Blog → Analysis: [yellow]{metrics.blog_to_analysis_rate:.1f}%[/yellow]\n" +
+            f"Blog → Signup: [green]{metrics.blog_to_signup_rate:.1f}%[/green]\n" +
+            f"SEO CTR: [blue]{metrics.seo_ctr:.2f}%[/blue]\n" +
+            f"Avg Position: [dim]{metrics.seo_avg_position:.1f}[/dim]",
+            title="📝 Blog Analytics",
+            width=40
+        )
+        
+        # Viral coefficient and social sharing panel
+        viral_panel = Panel(
+            f"[bold cyan]Viral & Social[/bold cyan]\n" +
+            f"Shares: [yellow]{metrics.social_shares_total:,}[/yellow]\n" +
+            f"Viral Coeff: [green]{metrics.viral_coefficient:.3f}[/green]\n" +
+            f"Social Conv: [blue]{metrics.social_conversion_rate:.1f}%[/blue]\n" +
+            f"Referral Traffic: [dim]{metrics.referral_traffic:,}[/dim]",
+            title="🚀 Viral Metrics",
+            width=40
+        )
+        
+        # Blog top pages table
+        blog_pages_table = Table(title="📊 Top Blog Pages")
+        blog_pages_table.add_column("Page", style="purple", width=25)
+        blog_pages_table.add_column("Views", justify="right", width=8)
+        
+        # Sort blog pages by views
+        sorted_pages = sorted(
+            metrics.blog_top_pages.items(), 
+            key=lambda x: x[1], 
+            reverse=True
+        )
+        for page_url, views in sorted_pages[:8]:
+            # Extract readable page name from URL
+            page_name = page_url.split('/')[-1].replace('-', ' ').title()
+            if len(page_name) > 25:
+                page_name = page_name[:22] + "..."
+            blog_pages_table.add_row(page_name, str(views))
+        
+        # Blog CTA performance table
+        cta_table = Table(title="🎯 Blog CTA Performance")
+        cta_table.add_column("CTA Type", style="green", width=15)
+        cta_table.add_column("CTR %", justify="right", width=8)
+        
+        for cta_type, ctr in metrics.blog_cta_performance.items():
+            color = "green" if ctr > 5 else "yellow" if ctr > 2 else "red"
+            cta_table.add_row(
+                cta_type.replace('_', ' ').title(),
+                f"[{color}]{ctr:.1f}%[/{color}]"
+            )
+        
+        # Social platforms table
+        social_table = Table(title="📱 Social Shares")
+        social_table.add_column("Platform", style="blue", width=12)
+        social_table.add_column("Shares", justify="right", width=8)
+        
+        sorted_social = sorted(
+            metrics.social_shares_by_platform.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )
+        for platform, shares in sorted_social[:6]:
+            platform_name = platform.title()
+            social_table.add_row(platform_name, str(shares))
+        
+        # SEO optimization table
+        seo_table = Table(title="⚡ SEO Health")
+        seo_table.add_column("Element", style="green", width=15)
+        seo_table.add_column("Coverage", justify="right", width=8)
+        
+        total_blog_pages = max(1, metrics.pages_with_og_images + metrics.pages_missing_seo_elements)
+        
+        og_coverage = (metrics.pages_with_og_images / total_blog_pages) * 100 if total_blog_pages > 0 else 0
+        meta_coverage = (metrics.pages_with_meta_descriptions / total_blog_pages) * 100 if total_blog_pages > 0 else 0
+        structured_coverage = (metrics.pages_with_structured_data / total_blog_pages) * 100 if total_blog_pages > 0 else 0
+        
+        seo_table.add_row("OG Images", f"[green]{og_coverage:.0f}%[/green]")
+        seo_table.add_row("Meta Desc", f"[green]{meta_coverage:.0f}%[/green]")
+        seo_table.add_row("Schema", f"[green]{structured_coverage:.0f}%[/green]")
+        
+        if metrics.avg_page_load_speed > 0:
+            speed_color = "green" if metrics.avg_page_load_speed < 2000 else "yellow" if metrics.avg_page_load_speed < 4000 else "red"
+            seo_table.add_row("Load Speed", f"[{speed_color}]{metrics.avg_page_load_speed:.0f}ms[/{speed_color}]")
+        
+        if metrics.mobile_usability_score > 0:
+            mobile_color = "green" if metrics.mobile_usability_score > 90 else "yellow" if metrics.mobile_usability_score > 75 else "red"
+            seo_table.add_row("Mobile", f"[{mobile_color}]{metrics.mobile_usability_score:.0f}/100[/{mobile_color}]")
+        
+        # Display main panels
+        self.console.print()
+        
+        # Top row: Funnel, Blog, and Viral panels
+        top_layout = Layout()
+        top_layout.split_row(
+            Layout(funnel_panel),
+            Layout(blog_panel),
+            Layout(viral_panel)
+        )
+        self.console.print(top_layout)
+        self.console.print()
+        
+        # Main layout - 5 columns now for comprehensive view
+        layout = Layout()
+        layout.split_row(
+            Layout(name="left"),
+            Layout(name="center"), 
+            Layout(name="right"),
+            Layout(name="social"),
+            Layout(name="seo")
+        )
+        layout["left"].split_column(
+            Layout(progression_table),
+            Layout(feature_table)
+        )
+        layout["center"].split_column(
+            Layout(blog_pages_table),
+            Layout(cta_table)
+        )
+        layout["right"].update(country_table)
+        layout["social"].update(social_table)
+        layout["seo"].update(seo_table)
+        
+        self.console.print(layout)
+        
+        # Time-to-convert analysis
+        if metrics.avg_signup_to_trial_hours > 0 or metrics.avg_trial_to_pro_hours > 0:
+            time_table = Table(title="⏰ Time to Convert Analysis")
+            time_table.add_column("Conversion Stage", style="blue")
+            time_table.add_column("Avg Time", justify="right")
+            time_table.add_column("Optimization Note", style="dim")
+            
+            if metrics.avg_signup_to_trial_hours > 0:
+                hours = metrics.avg_signup_to_trial_hours
+                time_str = f"{hours:.1f}h" if hours < 72 else f"{hours/24:.1f}d"
+                note = "Good" if hours < 24 else "Optimize onboarding" if hours < 72 else "Critical - improve trial CTA"
+                time_table.add_row("Signup → Trial", time_str, note)
+            
+            if metrics.avg_trial_to_pro_hours > 0:
+                hours = metrics.avg_trial_to_pro_hours
+                time_str = f"{hours:.1f}h" if hours < 72 else f"{hours/24:.1f}d"
+                note = "Excellent" if hours < 168 else "Normal" if hours < 336 else "Improve trial value"
+                time_table.add_row("Trial → Pro", time_str, note)
+            
+            self.console.print()
+            self.console.print(time_table)
+        
+        # Retention and churn
+        retention_table = Table(title="📈 Retention & Churn Analysis")
+        retention_table.add_column("Metric", style="bright_yellow")
+        retention_table.add_column("Rate", justify="right")
+        retention_table.add_column("Status", justify="right")
+        
+        # Retention rates
+        ret_7d_color = "green" if metrics.retention_day_7 > 40 else "yellow" if metrics.retention_day_7 > 20 else "red"
+        ret_30d_color = "green" if metrics.retention_day_30 > 20 else "yellow" if metrics.retention_day_30 > 10 else "red"
+        
+        retention_table.add_row(
+            "7-Day Retention",
+            f"[{ret_7d_color}]{metrics.retention_day_7:.1f}%[/{ret_7d_color}]",
+            "Good" if metrics.retention_day_7 > 40 else "Needs Work"
+        )
+        retention_table.add_row(
+            "30-Day Retention",
+            f"[{ret_30d_color}]{metrics.retention_day_30:.1f}%[/{ret_30d_color}]",
+            "Good" if metrics.retention_day_30 > 20 else "Critical"
+        )
+        
+        # Campaign performance
+        if metrics.campaign_performance:
+            campaign_table = Table(title="📢 Campaign Performance")
+            campaign_table.add_column("Campaign", style="magenta", width=15)
+            campaign_table.add_column("Signups", justify="right", width=8)
+            campaign_table.add_column("Conversions", justify="right", width=10)
+            campaign_table.add_column("Conv %", justify="right", width=8)
+            
+            sorted_campaigns = sorted(
+                metrics.campaign_performance.items(),
+                key=lambda x: x[1]['conversion_rate'],
+                reverse=True
+            )
+            for campaign, data in sorted_campaigns[:5]:
+                conv_rate = data['conversion_rate']
+                color = "green" if conv_rate > 10 else "yellow" if conv_rate > 5 else "red"
+                campaign_table.add_row(
+                    campaign[:15],
+                    str(data['signups']),
+                    str(data['conversions']),
+                    f"[{color}]{conv_rate:.1f}%[/{color}]"
+                )
+            
+            # Layout for bottom tables
+            bottom_layout = Layout()
+            bottom_layout.split_row(
+                Layout(retention_table),
+                Layout(campaign_table)
+            )
+            self.console.print()
+            self.console.print(bottom_layout)
+        else:
+            self.console.print()
+            self.console.print(retention_table)
+        
+        # Revenue and blog summary
+        revenue_summary = Panel(
+            f"[dim]Revenue Summary: MRR ${metrics.monthly_recurring_revenue:,.0f} | " +
+            f"Pro Users: {metrics.pro_users:,} | " +
+            f"Overall Conversion: {metrics.tier_conversion_rates.get('overall_to_pro', 0):.1f}%[/dim]",
+            style="dim"
+        )
+        
+        blog_summary = Panel(
+            f"[dim]Blog Analytics: {metrics.blog_page_views:,} views | " +
+            f"SEO Opportunities: {metrics.seo_keyword_opportunities} | " +
+            f"Content Freshness: {metrics.seo_content_freshness_score:.0f}/100 | " +
+            f"Unique Visitors: {metrics.blog_unique_visitors:,}[/dim]",
+            style="dim"
+        )
+        
+        viral_summary = Panel(
+            f"[dim]Viral & SEO: {metrics.social_shares_total:,} shares | " +
+            f"Viral Coeff: {metrics.viral_coefficient:.3f} | " +
+            f"Social Conv: {metrics.social_conversion_rate:.1f}% | " +
+            f"SEO Elements: {metrics.pages_with_og_images}/{41} pages optimized[/dim]",
+            style="dim"
+        )
+        
+        self.console.print()
+        self.console.print(revenue_summary)
+        self.console.print(blog_summary)
+        self.console.print(viral_summary)
+    
+    def display_security_view(self, metrics: SecurityMetrics):
+        """Display security-focused metrics."""
+        # Security Score Panel
+        score_color = "green" if metrics.security_score >= 80 else "yellow" if metrics.security_score >= 60 else "red"
+        score_panel = Panel(
+            f"[bold {score_color}]{metrics.security_score:.1f}/100[/bold {score_color}]",
+            title="🔒 Security Score",
+            width=25
+        )
+        
+        # Security Events Table
+        events_table = Table(title="Security Events (24h)", show_header=True, header_style="cyan")
+        events_table.add_column("Metric", style="cyan", width=20)
+        events_table.add_column("Count", justify="right", width=10)
+        
+        events_table.add_row("Total Events", str(metrics.total_events))
+        events_table.add_row("Threat Events", f"[red]{metrics.threat_events}[/red]" if metrics.threat_events > 0 else "0")
+        events_table.add_row("Blocked IPs", f"[yellow]{metrics.blocked_ips}[/yellow]" if metrics.blocked_ips > 0 else "0")
+        events_table.add_row("Failed Auth", f"[red]{metrics.failed_auths}[/red]" if metrics.failed_auths > 10 else str(metrics.failed_auths))
+        events_table.add_row("Admin Access", str(metrics.admin_accesses))
+        events_table.add_row("WebSocket Conns", str(metrics.websocket_connections))
+        events_table.add_row("Active Sessions", str(metrics.active_sessions))
+        
+        # Threat Types Table
+        threats_table = Table(title="Top Threat Types", show_header=True, header_style="red")
+        threats_table.add_column("Type", style="red", width=20)
+        threats_table.add_column("Count", justify="right", width=8)
+        
+        for threat_type, count in metrics.threats_by_type.items():
+            threats_table.add_row(threat_type.replace('_', ' ').title(), str(count))
+        
+        self.console.print()
+        self.console.print(score_panel)
+        self.console.print()
+        self.console.print(events_table)
+        self.console.print()
+        self.console.print(threats_table)
+        self.console.print()
+    
+    def display_overview(self, security: SecurityMetrics, users: UserMetrics, 
+                        features: FeatureMetrics, system: SystemMetrics, events: EventMetrics):
+        """Display comprehensive overview of all metrics."""
+        
+        # Header
+        header = Panel(
+            f"[bold blue]QUIRRELY SYSTEM STATUS - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}[/bold blue]", 
+            style="blue"
+        )
+        
+        self.console.print()
+        self.console.print(header)
+        self.console.print()
+        
+        # Create main layout with 3 columns
+        layout = Layout()
+        layout.split_row(
+            Layout(name="left"),
+            Layout(name="center"),  
+            Layout(name="right")
+        )
+        
+        # Left column - Security
+        security_table = Table(title="🔒 Security", show_header=False)
+        security_table.add_column("", style="cyan", width=18)
+        security_table.add_column("", justify="right", width=12)
+        
+        score_color = "green" if security.security_score >= 80 else "yellow" if security.security_score >= 60 else "red"
+        security_table.add_row("Security Score", f"[{score_color}]{security.security_score:.1f}/100[/{score_color}]")
+        security_table.add_row("Threat Events", f"[red]{security.threat_events}[/red]" if security.threat_events > 0 else "0")
+        security_table.add_row("Blocked IPs", f"[yellow]{security.blocked_ips}[/yellow]" if security.blocked_ips > 0 else "0")
+        security_table.add_row("Failed Auths", f"[red]{security.failed_auths}[/red]" if security.failed_auths > 10 else str(security.failed_auths))
+        security_table.add_row("Active Sessions", str(security.active_sessions))
+        security_table.add_row("WebSocket Conns", str(security.websocket_connections))
+        
+        layout["left"].update(security_table)
+        
+        # Center column - Users & Features
+        users_table = Table(title="👥 Users & Features", show_header=False)
+        users_table.add_column("", style="cyan", width=18)
+        users_table.add_column("", justify="right", width=12)
+        
+        users_table.add_row("Total Users", f"[green]{users.total_users:,}[/green]")
+        users_table.add_row("New Today", f"[green]{users.new_signups_today}[/green]" if users.new_signups_today > 0 else "0")
+        users_table.add_row("Login Success Rate", f"{users.successful_logins_today}/{users.login_attempts_today}")
+        users_table.add_row("Countries Active", str(users.countries_active))
+        users_table.add_row("Feature Checks", f"{features.total_checks:,}")
+        users_table.add_row("Access Denied", f"[yellow]{features.denied_accesses}[/yellow]" if features.denied_accesses > 0 else "0")
+        
+        layout["center"].update(users_table)
+        
+        # Right column - Events & System
+        events_table = Table(title="📊 Events & System", show_header=False)
+        events_table.add_column("", style="cyan", width=18)
+        events_table.add_column("", justify="right", width=12)
+        
+        events_table.add_row("Events Today", f"{events.events_today:,}")
+        events_table.add_row("Unique Users", str(events.unique_users))
+        events_table.add_row("Analyses Done", f"[green]{events.analyses_completed}[/green]")
+        events_table.add_row("DB Connections", str(system.database_connections))
+        events_table.add_row("Redis Memory", str(system.redis_memory_usage))
+        events_table.add_row("Avg Response", f"{system.avg_response_time:.1f}ms")
+        
+        layout["right"].update(events_table)
+        
+        self.console.print(layout)
+        
+        # Footer with tier distribution
+        tier_text = " | ".join([f"{tier}: {count}" for tier, count in users.tier_distribution.items()])
+        footer = Panel(f"[dim]Tier Distribution: {tier_text}[/dim]", style="dim")
+        self.console.print()
+        self.console.print(footer)
+        
+        # Usage tip
+        tip = Panel(
+            "[dim]Use 'qstats security|users|features|events|performance' for detailed views | 'qstats --json' for automation[/dim]",
+            style="dim"
+        )
+        self.console.print(tip)
+        self.console.print()
+    
+    def display_frontend_qa_view(self, metrics):
+        """Display comprehensive frontend QA and user experience view."""
+        
+        # Main QA Stats Panel
+        qa_panel = Panel(
+            f"[bold cyan]Frontend QA Status[/bold cyan]\n" +
+            f"Dashboard Loads: [green]{metrics.dashboard_loads:,}[/green]\n" +
+            f"User Journeys: [cyan]{metrics.unique_user_journeys:,}[/cyan]\n" +
+            f"Profile Views: [yellow]{metrics.profile_card_views:,}[/yellow]",
+            title="📊 QA Overview",
+            width=30
+        )
+        
+        # Profile Distribution Table (All 10 Profiles)
+        profile_table = Table(title="🎭 All 10 Writing Profiles")
+        profile_table.add_column("Profile", style="cyan", width=12)
+        profile_table.add_column("Count", justify="right", width=5)
+        profile_table.add_column("%", justify="right", width=5)
+        
+        total_profiles = sum(metrics.profile_distributions.values()) or 1
+        
+        # Define all 10 profiles with colors
+        profile_colors = {
+            'assertive': 'red', 'conversational': 'green', 'minimal': 'blue', 'poetic': 'magenta',
+            'dense': 'yellow', 'formal': 'cyan', 'balanced': 'white', 'longform': 'bright_blue',
+            'interrogative': 'bright_green', 'hedged': 'bright_yellow'
+        }
+        
+        # Sort by count, show all 10 profiles
+        sorted_profiles = sorted(metrics.profile_distributions.items(), key=lambda x: x[1], reverse=True)
+        for profile, count in sorted_profiles[:10]:  # Top 10 (should be all)
+            percentage = (count / total_profiles) * 100
+            color = profile_colors.get(profile.lower(), 'white')
+            profile_table.add_row(
+                f"[{color}]{profile.title()}[/{color}]",
+                str(count),
+                f"{percentage:.1f}%"
+            )
+        
+        # Stance Distribution Table
+        stance_table = Table(title="🎯 Stance Distribution (24h)")
+        stance_table.add_column("Stance", style="yellow")
+        stance_table.add_column("Count", justify="right")
+        stance_table.add_column("Percentage", justify="right")
+        
+        total_stances = sum(metrics.stance_distributions.values()) or 1
+        for stance, count in metrics.stance_distributions.items():
+            percentage = (count / total_stances) * 100
+            stance_table.add_row(
+                stance.title(),
+                str(count),
+                f"{percentage:.1f}%"
+            )
+        
+        # Country Engagement Table
+        country_table = Table(title="🌍 Country Engagement (5 Countries)")
+        country_table.add_column("Country", style="green")
+        country_table.add_column("Sessions", justify="right")
+        country_table.add_column("Events", justify="right")
+        country_table.add_column("Analyses", justify="right")
+        country_table.add_column("Dashboard", justify="right")
+        
+        for country, data in metrics.country_engagement.items():
+            country_table.add_row(
+                country,
+                str(data['sessions']),
+                str(data['total_events']),
+                str(data['analyses_completed']),
+                str(data['dashboard_views'])
+            )
+        
+        # Adaptive Dashboard Table
+        adaptive_table = Table(title="🔧 Adaptive Dashboard Metrics")
+        adaptive_table.add_column("Metric", style="purple")
+        adaptive_table.add_column("Count", justify="right")
+        
+        for metric, count in metrics.adaptive_dashboard_metrics.items():
+            display_name = metric.replace('_', ' ').title()
+            adaptive_table.add_row(display_name, str(count))
+        
+        # Display everything
+        self.console.print()
+        self.console.print(qa_panel)
+        self.console.print()
+        
+        # Layout for tables
+        layout = Layout()
+        layout.split_row(
+            Layout(name="left"),
+            Layout(name="right")
+        )
+        layout["left"].split_column(
+            Layout(profile_table),
+            Layout(stance_table)
+        )
+        layout["right"].split_column(
+            Layout(country_table),
+            Layout(adaptive_table)
+        )
+        
+        self.console.print(layout)
+        
+        # Conversion funnel
+        if metrics.conversion_funnel:
+            funnel_table = Table(title="🔄 User Conversion Funnel")
+            funnel_table.add_column("Stage", style="blue")
+            funnel_table.add_column("Count", justify="right")
+            funnel_table.add_column("Conversion", justify="right")
+            
+            funnel_stages = [
+                ('landing_views', 'Landing Views'),
+                ('analysis_starts', 'Analysis Started'),
+                ('analysis_completes', 'Analysis Complete'),
+                ('results_views', 'Results Viewed'),
+                ('signup_starts', 'Signup Started'),
+                ('signup_completes', 'Signup Complete')
+            ]
+            
+            prev_count = None
+            for key, display_name in funnel_stages:
+                count = metrics.conversion_funnel.get(key, 0)
+                if prev_count is not None and prev_count > 0:
+                    conversion = f"{(count / prev_count * 100):.1f}%"
+                else:
+                    conversion = "-"
+                funnel_table.add_row(display_name, str(count), conversion)
+                prev_count = count
+            
+            self.console.print()
+            self.console.print(funnel_table)
+        
+        # Error rates
+        if metrics.error_rates_by_page:
+            error_table = Table(title="⚠️ Error Rates by Page")
+            error_table.add_column("Page", style="red")
+            error_table.add_column("Error Rate", justify="right")
+            
+            for page, rate in list(metrics.error_rates_by_page.items())[:5]:
+                color = "red" if rate > 5 else "yellow" if rate > 1 else "green"
+                error_table.add_row(page, f"[{color}]{rate:.2f}%[/{color}]")
+            
+            self.console.print()
+            self.console.print(error_table)
+        
+        # Device breakdown
+        if metrics.mobile_vs_desktop:
+            device_text = " | ".join([f"{device}: {count}" for device, count in metrics.mobile_vs_desktop.items()])
+            device_panel = Panel(f"[dim]Device Breakdown: {device_text}[/dim]", style="dim")
+            self.console.print()
+            self.console.print(device_panel)
+    
+    def display_meta_observers_view(self, metrics: MetaObserverMetrics):
+        """Display Meta/Observers system view."""
+        
+        # Meta Orchestrator Health Panel
+        health_color = "green" if metrics.meta_orchestrator_health >= 80 else "yellow" if metrics.meta_orchestrator_health >= 60 else "red"
+        health_panel = Panel(
+            f"[bold {health_color}]{metrics.meta_orchestrator_health:.1f}/100[/bold {health_color}]\n" +
+            f"Mode: [cyan]{metrics.meta_orchestrator_mode}[/cyan]\n" +
+            f"Cycles: [dim]{metrics.meta_cycle_count}[/dim]\n" +
+            f"Uptime: [dim]{metrics.meta_system_uptime:.1f}h[/dim]",
+            title="🤖 Meta Orchestrator",
+            width=25
+        )
+        
+        # Observer Health Table
+        observer_table = Table(title="🔍 Observer Health Scores")
+        observer_table.add_column("Observer", style="cyan", width=18)
+        observer_table.add_column("Health", justify="right", width=10)
+        observer_table.add_column("Status", width=12)
+        
+        observers = [
+            ("Achievement", metrics.achievement_observer_health),
+            ("Retention", metrics.retention_observer_health),
+            ("Bundle Tracker", metrics.bundle_tracker_health),
+            ("Progressive", metrics.progressive_tracker_health),
+            ("Blog/SEO", metrics.blog_observer_health),
+            ("Revenue", metrics.revenue_observer_health),
+        ]
+        
+        for name, score in observers:
+            color = "green" if score >= 80 else "yellow" if score >= 60 else "red"
+            status = "Healthy" if score >= 80 else "Warning" if score >= 60 else "Critical"
+            observer_table.add_row(
+                name,
+                f"[{color}]{score:.0f}[/{color}]",
+                f"[{color}]{status}[/{color}]"
+            )
+        
+        # Optimization Activity Table
+        optimization_table = Table(title="⚡ Auto-Optimization Activity")
+        optimization_table.add_column("Metric", style="cyan")
+        optimization_table.add_column("Value", justify="right")
+        optimization_table.add_column("Status", width=12)
+        
+        optimization_table.add_row(
+            "Suggestions", 
+            str(metrics.optimizations_suggested),
+            "Active" if metrics.optimizations_suggested > 0 else "Idle"
+        )
+        optimization_table.add_row(
+            "Applied", 
+            str(metrics.optimizations_applied),
+            "Working" if metrics.optimizations_applied > 0 else "Stable"
+        )
+        
+        success_color = "green" if metrics.optimization_success_rate >= 80 else "yellow"
+        optimization_table.add_row(
+            "Success Rate", 
+            f"[{success_color}]{metrics.optimization_success_rate:.1f}%[/{success_color}]",
+            "Good" if metrics.optimization_success_rate >= 80 else "Review"
+        )
+        optimization_table.add_row(
+            "Rollbacks", 
+            str(metrics.rollbacks_performed),
+            "Normal" if metrics.rollbacks_performed < 5 else "High"
+        )
+        
+        accuracy_color = "green" if metrics.meta_predictions_accuracy >= 70 else "yellow"
+        optimization_table.add_row(
+            "Prediction Accuracy", 
+            f"[{accuracy_color}]{metrics.meta_predictions_accuracy:.1f}%[/{accuracy_color}]",
+            "Learning" if metrics.meta_predictions_accuracy < 80 else "Calibrated"
+        )
+        
+        # Event Processing Table
+        events_table = Table(title="📊 Event Processing")
+        events_table.add_column("Metric", style="cyan")
+        events_table.add_column("Value", justify="right")
+        
+        events_table.add_row("Processed (24h)", f"{metrics.events_processed_24h:,}")
+        events_table.add_row("Queued", str(metrics.events_queued))
+        
+        if metrics.event_processing_lag_ms > 0:
+            lag_color = "red" if metrics.event_processing_lag_ms > 1000 else "yellow" if metrics.event_processing_lag_ms > 100 else "green"
+            events_table.add_row("Lag", f"[{lag_color}]{metrics.event_processing_lag_ms:.0f}ms[/{lag_color}]")
+        
+        # Key Metrics Table
+        key_metrics_table = Table(title="📈 Key Observer Metrics")
+        key_metrics_table.add_column("Observer", style="cyan", width=15)
+        key_metrics_table.add_column("Key Metric", justify="right", width=12)
+        key_metrics_table.add_column("Value", width=15)
+        
+        key_metrics_table.add_row("Retention", "Save Rate", f"{metrics.retention_save_rate:.1f}%")
+        key_metrics_table.add_row("Bundle", "Share", f"{metrics.bundle_share:.1f}%")
+        key_metrics_table.add_row("Progressive", "Day-7 Conv", f"{metrics.progressive_day7_conversion:.1f}%")
+        key_metrics_table.add_row("Blog/SEO", "SEO Score", f"{metrics.blog_seo_score:.0f}/100")
+        key_metrics_table.add_row("Retention", "MRR Saved", f"${metrics.retention_mrr_saved_30d:,.0f}")
+        key_metrics_table.add_row("Bundle", "MRR", f"${metrics.bundle_mrr:,.0f}")
+        
+        # Layout
+        layout = Layout()
+        layout.split_column(
+            Layout(name="top"),
+            Layout(name="middle"), 
+            Layout(name="bottom")
+        )
+        
+        # Top row
+        layout["top"].split_row(
+            Layout(health_panel),
+            Layout(observer_table)
+        )
+        
+        # Middle row
+        layout["middle"].split_row(
+            Layout(optimization_table),
+            Layout(events_table)
+        )
+        
+        # Bottom row
+        layout["bottom"].update(key_metrics_table)
+        
+        self.console.print()
+        self.console.print(layout)
+        
+        # Issues and alerts
+        if metrics.meta_issues:
+            issues_panel = Panel(
+                "\n".join(f"• {issue}" for issue in metrics.meta_issues),
+                title="⚠️  Meta System Issues",
+                style="yellow"
+            )
+            self.console.print()
+            self.console.print(issues_panel)
+            
+        if metrics.observer_alerts:
+            alerts_panel = Panel(
+                "\n".join(f"• {alert}" for alert in metrics.observer_alerts),
+                title="🔔 Observer Alerts", 
+                style="blue"
+            )
+            self.console.print()
+            self.console.print(alerts_panel)
+    
+    def display_json(self, security: SecurityMetrics, users: UserMetrics,
+                    features: FeatureMetrics, system: SystemMetrics, events: EventMetrics):
+        """Output all metrics as JSON."""
+        data = {
+            "timestamp": datetime.now().isoformat(),
+            "security": asdict(security),
+            "users": asdict(users),
+            "features": asdict(features),
+            "system": asdict(system),
+            "events": asdict(events),
+            "status": "demo_mode"
+        }
+        
+        print(json.dumps(data, indent=2))
+    
+    def run(self, args):
+        """Main entry point for demo qstats."""
+        
+        # Parse arguments
+        view_mode = "overview"
+        json_output = False
+        
+        if "--help" in args or "-h" in args:
+            self.console.print(Panel("QUIRRELY STATS - DEMO MODE", style="bold yellow"))
+            self.console.print("This is a demonstration version with mock data")
+            self.console.print("\nUsage:")
+            self.console.print("  qstats_demo              # Overview")
+            self.console.print("  qstats_demo security     # Security view")
+            self.console.print("  qstats_demo users        # User metrics") 
+            self.console.print("  qstats_demo features     # Feature metrics")
+            self.console.print("  qstats_demo meta         # LNCP Meta/Observers health")
+            self.console.print("  qstats_demo observers    # Same as meta")
+            self.console.print("  qstats_demo frontend     # Frontend QA & UX")
+            self.console.print("  qstats_demo qa           # Same as frontend")
+            self.console.print("  qstats_demo funnel       # Marketing funnel analytics")
+            self.console.print("  qstats_demo marketing    # Same as funnel")
+            self.console.print("  qstats_demo --json       # JSON output")
+            return 0
+            
+        if "--json" in args:
+            json_output = True
+            args = [arg for arg in args if arg != "--json"]
+        
+        if args:
+            view_mode = args[0]
+        
+        # Get demo metrics
+        security = self.get_demo_security_metrics()
+        users = self.get_demo_user_metrics()
+        features = self.get_demo_feature_metrics()
+        system = self.get_demo_system_metrics()
+        events = self.get_demo_event_metrics()
+        meta_observers = self.get_demo_meta_observer_metrics()
+        
+        # Output based on mode
+        if json_output:
+            self.display_json(security, users, features, system, events)
+        elif view_mode == "security":
+            self.display_security_view(security)
+        elif view_mode == "users":
+            self.console.print("\n👥 [bold]User Metrics[/bold]")
+            self.console.print(f"Total Users: [green]{users.total_users:,}[/green]")
+            self.console.print(f"New Today: [green]{users.new_signups_today}[/green]")
+            self.console.print(f"Active Sessions: {users.active_sessions}")
+            self.console.print(f"Countries Active: {users.countries_active}")
+            self.console.print(f"Login Success Rate: {users.successful_logins_today}/{users.login_attempts_today} ({(users.successful_logins_today/users.login_attempts_today*100):.1f}%)")
+            self.console.print(f"Tier Distribution:")
+            for tier, count in users.tier_distribution.items():
+                self.console.print(f"  {tier}: {count}")
+            self.console.print()
+        elif view_mode == "features":
+            self.console.print("\n🎛️ [bold]Feature Gate Metrics[/bold]")
+            self.console.print(f"Total Checks: [cyan]{features.total_checks:,}[/cyan]")
+            self.console.print(f"Access Granted: [green]{features.allowed_accesses:,}[/green] ({(features.allowed_accesses/features.total_checks*100):.1f}%)")
+            self.console.print(f"Access Denied: [red]{features.denied_accesses:,}[/red] ({(features.denied_accesses/features.total_checks*100):.1f}%)")
+            self.console.print(f"Daily Limits Hit: [yellow]{features.daily_limits_hit}[/yellow]")
+            self.console.print(f"Upgrade Requests: {features.tier_upgrade_requests}")
+            self.console.print("Top Features:")
+            for feature, count in features.feature_usage.items():
+                self.console.print(f"  {feature}: {count}")
+            self.console.print()
+        elif view_mode == "events":
+            self.console.print("\n📊 [bold]Meta Events Metrics[/bold]")
+            self.console.print(f"Events Today: [cyan]{events.events_today:,}[/cyan]")
+            self.console.print(f"Total Events: {events.total_events:,}")
+            self.console.print(f"Unique Sessions: {events.unique_sessions}")
+            self.console.print(f"Unique Users: {events.unique_users}")
+            self.console.print(f"Analyses Completed: [green]{events.analyses_completed}[/green]")
+            self.console.print("Event Breakdown:")
+            for event_type, count in events.events_by_type.items():
+                self.console.print(f"  {event_type}: {count}")
+            self.console.print()
+        elif view_mode == "performance":
+            self.console.print("\n⚡ [bold]System Performance[/bold]")
+            self.console.print(f"DB Connections: {system.database_connections}")
+            self.console.print(f"Redis Memory: {system.redis_memory_usage}")
+            self.console.print(f"Avg Response Time: {system.avg_response_time:.1f}ms")
+            self.console.print(f"Error Rate: {system.error_rate:.2f}%")
+            self.console.print(f"CPU Usage: {system.cpu_usage:.1f}%")
+            self.console.print(f"Memory Usage: {system.memory_usage:.1f}%")
+            self.console.print(f"Uptime: {system.uptime_hours:.1f} hours")
+            self.console.print()
+        elif view_mode == "meta" or view_mode == "observers":
+            self.display_meta_observers_view(meta_observers)
+        elif view_mode == "frontend" or view_mode == "qa":
+            frontend_qa = self.get_demo_frontend_qa_metrics()
+            self.display_frontend_qa_view(frontend_qa)
+        elif view_mode == "funnel" or view_mode == "marketing":
+            marketing_funnel = self.get_demo_marketing_funnel_metrics()
+            self.display_marketing_funnel_view(marketing_funnel)
+        else:
+            self.display_overview(security, users, features, system, events)
+        
+        return 0
+
+def main():
+    """Entry point."""
+    qstats = QuirrellyStatDemo()
+    try:
+        exit_code = qstats.run(sys.argv[1:])
+        sys.exit(exit_code)
+    except KeyboardInterrupt:
+        print("\n[yellow]Interrupted[/yellow]")
+        sys.exit(130)
+    except Exception as e:
+        print(f"[red]Error: {e}[/red]")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,306 @@
+<!--
+  BOOK RECOMMENDATION COMPONENT
+  =============================
+  Displays affiliate book recommendations based on user profile.
+  
+  Usage:
+  <div id="book-recommendations" 
+       data-profile="ASSERTIVE" 
+       data-stance="OPEN" 
+       data-country="CA"
+       data-source="test_results">
+  </div>
+  <script src="/components/BookRecommendation.js"></script>
+-->
+
+<template id="book-card-template">
+  <div class="book-card">
+    <div class="book-cover">
+      <img src="" alt="" loading="lazy">
+    </div>
+    <div class="book-info">
+      <h4 class="book-title"></h4>
+      <p class="book-author"></p>
+      <p class="book-hook"></p>
+      <a class="book-cta" href="#" target="_blank" rel="noopener sponsored">
+        <span class="cta-text"></span>
+        <span class="cta-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</template>
+
+<style>
+  .book-recommendations {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #FFFBF5;
+    border-radius: 12px;
+  }
+  
+  .book-recommendations-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .book-recommendations-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2D3436;
+    margin: 0;
+  }
+  
+  .book-recommendations-subtitle {
+    font-size: 0.85rem;
+    color: #636E72;
+    margin: 0.25rem 0 0 0;
+  }
+  
+  .retailer-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #636E72;
+  }
+  
+  .retailer-badge img {
+    height: 20px;
+    width: auto;
+  }
+  
+  .book-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  @media (max-width: 900px) {
+    .book-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  @media (max-width: 600px) {
+    .book-cards { grid-template-columns: 1fr; }
+  }
+  
+  .book-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    border: 1px solid #E9ECEF;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .book-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  
+  .book-cover {
+    flex-shrink: 0;
+    width: 80px;
+  }
+  
+  .book-cover img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .book-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2D3436;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.3;
+  }
+  
+  .book-author {
+    font-size: 0.8rem;
+    color: #636E72;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .book-hook {
+    font-size: 0.8rem;
+    color: #2D3436;
+    margin: 0;
+    flex: 1;
+    font-style: italic;
+  }
+  
+  .book-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--retailer-color, #FF6B6B);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  
+  .book-cta:hover {
+    opacity: 0.9;
+  }
+  
+  .cta-arrow {
+    transition: transform 0.2s;
+  }
+  
+  .book-cta:hover .cta-arrow {
+    transform: translateX(2px);
+  }
+  
+  .affiliate-disclosure {
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    color: #999;
+    text-align: center;
+  }
+  
+  .affiliate-disclosure a {
+    color: #999;
+  }
+</style>
+
+<script>
+(function() {
+  'use strict';
+  
+  // Load dependencies
+  const AFFILIATE_CONFIG = window.AFFILIATE_CONFIG;
+  const BOOK_CATALOG = window.BOOK_CATALOG;
+  
+  /**
+   * Initialize book recommendations
+   */
+  function initBookRecommendations() {
+    const container = document.getElementById('book-recommendations');
+    if (!container) return;
+    
+    const profile = container.dataset.profile;
+    const stance = container.dataset.stance;
+    const country = container.dataset.country || detectCountry();
+    const source = container.dataset.source || 'unknown';
+    
+    const key = profile + '-' + stance;
+    const books = BOOK_CATALOG[key];
+    
+    if (!books) {
+      console.warn('No books found for:', key);
+      return;
+    }
+    
+    const retailer = AFFILIATE_CONFIG.getRetailer(country);
+    
+    // Build HTML
+    container.innerHTML = `
+      <div class="book-recommendations">
+        <div class="book-recommendations-header">
+          <div>
+            <h3 class="book-recommendations-title">📚 Writers Like You Read</h3>
+            <p class="book-recommendations-subtitle">Based on your ${profile.toLowerCase()} voice</p>
+          </div>
+          <div class="retailer-badge">
+            <span>Available at</span>
+            <strong>${retailer.name}</strong>
+          </div>
+        </div>
+        
+        <div class="book-cards" id="book-cards"></div>
+        
+        <p class="affiliate-disclosure">
+          ${AFFILIATE_CONFIG.display.disclosureText}
+        </p>
+      </div>
+    `;
+    
+    // Add book cards
+    const cardsContainer = document.getElementById('book-cards');
+    const bookList = [books.hero, books.alt1, books.alt2];
+    
+    bookList.forEach(function(book, index) {
+      const affiliateUrl = AFFILIATE_CONFIG.generateLink(book.isbn, country, source);
+      
+      const card = document.createElement('div');
+      card.className = 'book-card';
+      card.innerHTML = `
+        <div class="book-cover">
+          <img src="${book.cover}" alt="${book.title}" loading="lazy" onerror="this.src='/assets/book-placeholder.svg'">
+        </div>
+        <div class="book-info">
+          <h4 class="book-title">${book.title}</h4>
+          <p class="book-author">by ${book.author}</p>
+          <p class="book-hook">"${book.hook}"</p>
+          <a class="book-cta" 
+             href="${affiliateUrl}" 
+             target="_blank" 
+             rel="noopener sponsored"
+             style="--retailer-color: ${retailer.color}"
+             onclick="trackBookClick('${book.isbn}', '${profile}', '${stance}', '${country}', '${source}')">
+            <span class="cta-text">${retailer.cta}</span>
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+      `;
+      
+      cardsContainer.appendChild(card);
+    });
+  }
+  
+  /**
+   * Detect user country
+   */
+  function detectCountry() {
+    // Check localStorage first
+    const saved = localStorage.getItem('quirrely_country');
+    if (saved && ['CA', 'UK', 'AU', 'NZ'].includes(saved)) {
+      return saved;
+    }
+    
+    // Check timezone
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (tz.includes('Toronto') || tz.includes('Vancouver') || tz.includes('America/')) return 'CA';
+    if (tz.includes('London') || tz.includes('Europe/')) return 'UK';
+    if (tz.includes('Sydney') || tz.includes('Melbourne') || tz.includes('Australia/')) return 'AU';
+    if (tz.includes('Auckland') || tz.includes('Pacific/Auckland')) return 'NZ';
+    
+    return 'CA'; // Default
+  }
+  
+  /**
+   * Track book click
+   */
+  window.trackBookClick = function(isbn, profile, stance, country, source) {
+    if (AFFILIATE_CONFIG && AFFILIATE_CONFIG.trackClick) {
+      AFFILIATE_CONFIG.trackClick(isbn, country, profile, stance, source);
+    }
+  };
+  
+  // Auto-initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBookRecommendations);
+  } else {
+    initBookRecommendations();
+  }
+  
+  // Expose for manual initialization
+  window.initBookRecommendations = initBookRecommendations;
+})();
+</script>

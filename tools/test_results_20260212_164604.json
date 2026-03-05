@@ -1,0 +1,235 @@
+{
+  "timestamp": "2026-02-12T16:46:04.564895",
+  "summary": {
+    "passed": 45,
+    "failed": 0,
+    "skipped": 0
+  },
+  "tests": [
+    {
+      "name": "Backend word limits match spec",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Backend hybrid rules match spec",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Frontend profile-system limits match spec",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Extension storage limits match spec",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "10 profile types defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "4 stances defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "40 profile combinations exist",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "All profiles have titles and icons",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Keystroke detection rules defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Paste detection rules defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Method locking logic for FREE tier",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Method locking logic for TRIAL tier",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Hybrid allowed for PRO tier",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "All required endpoints defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "/analyze accepts input_method parameter",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "/limits returns word-based data",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "429 response for limit exceeded",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "WordLimitDisplay component defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "MethodLockWarning component defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "UpgradeModal component defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "ProfileResultCard component defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "EvolutionChart component defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "InputMethodDetector class defined",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Storage manager handles word usage",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Content script tracks keystrokes",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Content script detects paste events",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Popup shows method-specific limits",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "File exists: backend/feature_gate.py",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "File exists: backend/pattern_collector.py",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "File exists: backend/api_v2.py",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "File exists: frontend/settings.html",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "File exists: frontend/week3/dashboard/dashboard.html",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "File exists: frontend/week3/utils/profile-system.js",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "File exists: frontend/week3/components/profile-result-card.js",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "File exists: frontend/week3/components/evolution-chart.js",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "File exists: tools/batch_analyze.py",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "40 blog posts generated",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Posts include word limit info",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Posts include correct CTAs",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Posts have SEO metadata",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Scenario: FREE user types original text",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Scenario: TRIAL user switches methods (blocked)",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Scenario: PRO user mixes methods freely",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Scenario: Upgrade from FREE to TRIAL",
+      "status": "PASS",
+      "message": ""
+    },
+    {
+      "name": "Scenario: Extension syncs with web",
+      "status": "PASS",
+      "message": ""
+    }
+  ]
+}

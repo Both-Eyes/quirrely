@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <!-- Background -->
+  <circle cx="30" cy="30" r="28" fill="#FF6B6B"/>
+  
+  <!-- Squirrel silhouette forming quotation marks -->
+  <g fill="#FFFBF5">
+    <!-- Opening quote / Tail curl -->
+    <path d="M18 20 Q12 15 14 22 Q16 28 12 32 Q10 35 15 35 Q20 35 22 30 Q24 25 20 22 Z"/>
+    <!-- Body / Closing quote -->
+    <path d="M32 25 Q28 22 30 28 Q32 34 28 38 Q26 42 32 42 Q38 42 40 36 Q42 30 38 26 Q35 23 32 25 Z"/>
+    <!-- Ear accent -->
+    <path d="M36 22 Q40 18 42 22 Q40 24 36 24 Z"/>
+  </g>
+</svg>

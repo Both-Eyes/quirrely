@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LNCP Core v4.0 • Super Admin Dashboard</title>
+  <style>
+    :root {
+      --coral: #FF6B6B;
+      --soft-gold: #D4A574;
+      --ink: #2D3436;
+      --muted: #636E72;
+      --bg: #FFFBF5;
+      --bg-dark: #F8F5F0;
+      --border: #E9ECEF;
+      --success: #00B894;
+      --warning: #FDCB6E;
+      --danger: #E74C3C;
+      --purple: #6C5CE7;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo { display: flex; align-items: center; gap: 0.75rem; }
+    .logo-icon { font-size: 2rem; }
+    .logo-text { font-size: 1.5rem; font-weight: 700; color: var(--ink); }
+    .version-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge.core { background: var(--purple); color: white; }
+    .badge.engine { background: var(--coral); color: white; }
+    .badge.meta { background: var(--success); color: white; }
+    
+    .architecture-diagram {
+      background: linear-gradient(135deg, var(--ink) 0%, #1a1a2e 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      color: white;
+      margin-bottom: 2rem;
+      overflow-x: auto;
+    }
+    .architecture-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .arch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 800px) {
+      .arch-grid { grid-template-columns: 1fr; }
+    }
+    .arch-box {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .arch-box.engine { border-left: 4px solid var(--coral); }
+    .arch-box.meta { border-left: 4px solid var(--success); }
+    .arch-box h4 { font-size: 1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .arch-box ul { list-style: none; }
+    .arch-box li { padding: 0.25rem 0; font-size: 0.9rem; opacity: 0.9; }
+    .arch-box li::before { content: "• "; color: var(--soft-gold); }
+    
+    .pulse-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .pulse-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .pulse-title { font-size: 1.25rem; font-weight: 600; }
+    .no-ai-badge {
+      background: rgba(0, 184, 148, 0.1);
+      color: var(--success);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .pulse-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .pulse-grid { grid-template-columns: 1fr; }
+    }
+    
+    .health-ring {
+      width: 160px;
+      height: 160px;
+      position: relative;
+      margin: 0 auto;
+    }
+    .health-ring svg { transform: rotate(-90deg); }
+    .health-ring-bg {
+      fill: none;
+      stroke: var(--border);
+      stroke-width: 12;
+    }
+    .health-ring-progress {
+      fill: none;
+      stroke: var(--success);
+      stroke-width: 12;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s ease-out;
+    }
+    .health-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .health-number { font-size: 2.5rem; font-weight: 800; }
+    .health-label { font-size: 0.8rem; color: var(--muted); }
+    
+    .breakdown-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .breakdown-label { width: 80px; font-size: 0.85rem; color: var(--muted); }
+    .breakdown-bar {
+      flex: 1;
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .breakdown-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s;
+    }
+    .breakdown-value { width: 40px; text-align: right; font-weight: 600; font-size: 0.9rem; }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    .metric-card {
+      background: var(--bg);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .metric-value { font-size: 1.5rem; font-weight: 700; color: var(--ink); }
+    .metric-label { font-size: 0.75rem; color: var(--muted); }
+    
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .country-row {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .country-row:last-child { border-bottom: none; }
+    .country-flag { font-size: 1.5rem; margin-right: 0.75rem; }
+    .country-info { flex: 1; }
+    .country-name { font-weight: 500; }
+    .country-stats { font-size: 0.8rem; color: var(--muted); }
+    .country-value { font-weight: 600; color: var(--ink); }
+    
+    .gen-bar {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0;
+    }
+    .gen-label { width: 100px; font-size: 0.85rem; }
+    .gen-bar-container {
+      flex: 1;
+      height: 20px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 0 0.75rem;
+    }
+    .gen-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s;
+    }
+    .gen-count { width: 60px; text-align: right; font-size: 0.85rem; font-weight: 500; }
+    
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .footer-highlight { color: var(--purple); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">🐿️</span>
+        <span class="logo-text">LNCP Core</span>
+        <div class="version-badges">
+          <span class="badge core">v4.0</span>
+          <span class="badge engine">Engine 3.8</span>
+          <span class="badge meta">Meta 1.0</span>
+        </div>
+      </div>
+      <div id="timestamp" style="color: var(--muted); font-size: 0.85rem;"></div>
+    </header>
+    
+    <div class="architecture-diagram">
+      <div class="architecture-title">📐 Architecture</div>
+      <div class="arch-grid">
+        <div class="arch-box engine">
+          <h4><span style="color: var(--coral);">●</span> ENGINE v3.8 (Immutable)</h4>
+          <ul>
+            <li>50-token vocabulary (tokens.py)</li>
+            <li>40 voice profiles (profiles.py)</li>
+            <li>Scoring algorithm (scoring.py)</li>
+            <li>Token economics (value.py)</li>
+          </ul>
+        </div>
+        <div class="arch-box meta">
+          <h4><span style="color: var(--success);">●</span> META v1.0 (Self-Optimizing)</h4>
+          <ul>
+            <li>Simulation engine (simulation.py)</li>
+            <li>Action classifier (action_classifier.py)</li>
+            <li>Auto-applier + A/B (auto_applier.py)</li>
+            <li>Feedback loop (feedback_loop.py)</li>
+            <li>Orchestrator (orchestrator.py)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pulse-card">
+      <div class="pulse-header">
+        <h2 class="pulse-title">💓 System Pulse</h2>
+        <span class="no-ai-badge">✓ NO AI/LLM AT RUNTIME</span>
+      </div>
+      
+      <div class="pulse-grid">
+        <div class="health-section">
+          <div class="health-ring">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <circle class="health-ring-bg" cx="80" cy="80" r="70" />
+              <circle id="health-progress" class="health-ring-progress" cx="80" cy="80" r="70" 
+                      stroke-dasharray="439.82" stroke-dashoffset="439.82" />
+            </svg>
+            <div class="health-value">
+              <div class="health-number" id="health-number">0</div>
+              <div class="health-label">Health</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="breakdown">
+          <div class="breakdown-item">
+            <span class="breakdown-label">Conversion</span>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill" id="conv-bar" style="width: 0%; background: var(--coral);"></div>
+            </div>
+            <span class="breakdown-value" id="conv-val">0%</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">Value</span>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill" id="val-bar" style="width: 0%; background: var(--soft-gold);"></div>
+            </div>
+            <span class="breakdown-value" id="val-val">0%</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-label">Retention</span>
+            <div class="breakdown-bar">
+              <div class="breakdown-fill" id="ret-bar" style="width: 0%; background: var(--success);"></div>
+            </div>
+            <span class="breakdown-value" id="ret-val">0%</span>
+          </div>
+        </div>
+        
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value" id="m-users">0</div>
+            <div class="metric-label">Total Users</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="m-subs">0</div>
+            <div class="metric-label">Subscribed</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="m-value">0</div>
+            <div class="metric-label">Avg Value</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value" id="m-featured">0</div>
+            <div class="metric-label">Featured</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section-grid">
+      <div class="card">
+        <h3 class="card-title">🌍 Country Performance</h3>
+        <div id="countries"></div>
+      </div>
+      
+      <div class="card">
+        <h3 class="card-title">🪙 Token Generation</h3>
+        <div id="generations"></div>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <p>LNCP Core <span class="footer-highlight">v4.0</span></p>
+      <p>Engine: Voice Analysis • Meta: Self-Optimization</p>
+      <p style="margin-top: 0.5rem;">Users are the fuel. System reflects. Loop closes.</p>
+    </footer>
+  </div>
+  
+  <script>
+    // Master Test Results (embedded)
+    const DATA = {
+      "system_pulse": {
+        "overall_health": 83,
+        "health_breakdown": {
+          "conversion": 100,
+          "value": 100,
+          "retention": 45
+        }
+      },
+      "simulation_results": {
+        "summary": {
+          "total_users": 4667,
+          "total_events": 22875
+        },
+        "country_stats": {
+          "ca": {"total_users": 1670, "subscribed": 507, "featured": 962, "avg_value": 4.91, "churned": 0},
+          "uk": {"total_users": 1474, "subscribed": 459, "featured": 0, "avg_value": 4.89, "churned": 0},
+          "au": {"total_users": 997, "subscribed": 293, "featured": 0, "avg_value": 4.71, "churned": 0},
+          "nz": {"total_users": 526, "subscribed": 145, "featured": 0, "avg_value": 4.74, "churned": 0}
+        },
+        "generation_distribution": {
+          "0": {"count": 249, "total_value": 219.66},
+          "1": {"count": 90, "total_value": 79.40},
+          "2": {"count": 1070, "total_value": 3228.00},
+          "3": {"count": 2296, "total_value": 12222.43},
+          "4": {"count": 962, "total_value": 6851.26},
+          "5": {"count": 0, "total_value": 0}
+        },
+        "value_metrics": {
+          "total_value": 22600.75,
+          "mean_value": 4.84
+        }
+      }
+    };
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('timestamp').textContent = new Date().toLocaleString();
+      
+      const pulse = DATA.system_pulse;
+      const sim = DATA.simulation_results;
+      
+      // Health ring animation
+      setTimeout(() => {
+        const health = pulse.overall_health;
+        const circumference = 2 * Math.PI * 70;
+        const offset = circumference * (1 - health / 100);
+        const progress = document.getElementById('health-progress');
+        const healthColor = health >= 70 ? '#00B894' : health >= 50 ? '#FDCB6E' : '#E74C3C';
+        progress.style.stroke = healthColor;
+        progress.style.strokeDashoffset = offset;
+        document.getElementById('health-number').textContent = health;
+        document.getElementById('health-number').style.color = healthColor;
+      }, 100);
+      
+      // Breakdown bars
+      const bd = pulse.health_breakdown;
+      setTimeout(() => {
+        document.getElementById('conv-bar').style.width = bd.conversion + '%';
+        document.getElementById('conv-val').textContent = bd.conversion + '%';
+        document.getElementById('val-bar').style.width = bd.value + '%';
+        document.getElementById('val-val').textContent = bd.value + '%';
+        document.getElementById('ret-bar').style.width = bd.retention + '%';
+        document.getElementById('ret-val').textContent = bd.retention + '%';
+      }, 200);
+      
+      // Metrics
+      const totalUsers = Object.values(sim.country_stats).reduce((a, c) => a + c.total_users, 0);
+      const totalSubs = Object.values(sim.country_stats).reduce((a, c) => a + c.subscribed, 0);
+      const totalFeatured = sim.generation_distribution['4'].count;
+      
+      document.getElementById('m-users').textContent = totalUsers.toLocaleString();
+      document.getElementById('m-subs').textContent = totalSubs.toLocaleString();
+      document.getElementById('m-value').textContent = sim.value_metrics.mean_value.toFixed(2);
+      document.getElementById('m-featured').textContent = totalFeatured.toLocaleString();
+      
+      // Countries
+      const flags = {ca: '🇨🇦', uk: '🇬🇧', au: '🇦🇺', nz: '🇳🇿'};
+      const names = {ca: 'Canada', uk: 'United Kingdom', au: 'Australia', nz: 'New Zealand'};
+      
+      document.getElementById('countries').innerHTML = Object.entries(sim.country_stats)
+        .map(([code, stats]) => `
+          <div class="country-row">
+            <span class="country-flag">${flags[code]}</span>
+            <div class="country-info">
+              <div class="country-name">${names[code]}</div>
+              <div class="country-stats">${stats.total_users} users • ${stats.subscribed} subscribed</div>
+            </div>
+            <div class="country-value">${stats.avg_value.toFixed(2)} avg</div>
+          </div>
+        `).join('');
+      
+      // Generations
+      const genLabels = ['Gen 0 (Raw)', 'Gen 1 (Profile)', 'Gen 2 (Explored)', 'Gen 3 (Behavioral)', 'Gen 4 (Featured)', 'Gen 5 (Authority)'];
+      const genColors = ['#636E72', '#D4A574', '#6C5CE7', '#FF6B6B', '#00B894', '#FDCB6E'];
+      const maxCount = Math.max(...Object.values(sim.generation_distribution).map(g => g.count));
+      
+      document.getElementById('generations').innerHTML = Object.entries(sim.generation_distribution)
+        .map(([gen, data], i) => `
+          <div class="gen-bar">
+            <span class="gen-label">${genLabels[i]}</span>
+            <div class="gen-bar-container">
+              <div class="gen-bar-fill" style="width: ${data.count / maxCount * 100}%; background: ${genColors[i]};"></div>
+            </div>
+            <span class="gen-count">${data.count}</span>
+          </div>
+        `).join('');
+    });
+  </script>
+</body>
+</html>

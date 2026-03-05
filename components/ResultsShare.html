@@ -1,0 +1,216 @@
+<!--
+  RESULTS SHARE COMPONENT
+  =======================
+  Enables sharing of writing profile results.
+  Key viral driver (21% of viral traffic in simulation).
+  
+  Usage:
+  <div id="results-share" 
+       data-profile="ASSERTIVE" 
+       data-stance="OPEN"
+       data-display-name="Your Name">
+  </div>
+-->
+
+<template id="results-share-template">
+  <div class="results-share">
+    <h3 class="share-title">Share Your Profile</h3>
+    <div class="share-buttons">
+      <button class="share-btn twitter" data-platform="twitter">
+        <span class="icon">𝕏</span> Share
+      </button>
+      <button class="share-btn linkedin" data-platform="linkedin">
+        <span class="icon">in</span> Share
+      </button>
+      <button class="share-btn copy" data-platform="copy">
+        <span class="icon">🔗</span> Copy Link
+      </button>
+      <button class="share-btn download" data-platform="download">
+        <span class="icon">📥</span> Save Card
+      </button>
+    </div>
+    <p class="share-hint">10% of test-takers share their results!</p>
+  </div>
+</template>
+
+<style>
+  .results-share {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+  }
+  
+  .share-title {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  
+  .share-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  
+  .share-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+  }
+  
+  .share-btn .icon {
+    font-size: 1rem;
+  }
+  
+  .share-btn.twitter {
+    background: #000;
+    color: white;
+  }
+  
+  .share-btn.linkedin {
+    background: #0077B5;
+    color: white;
+  }
+  
+  .share-btn.copy {
+    background: white;
+    color: #333;
+  }
+  
+  .share-btn.download {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  
+  .share-hint {
+    margin: 1rem 0 0;
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+  
+  .share-success {
+    display: none;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.2);
+    border-radius: 6px;
+    margin-top: 1rem;
+  }
+  
+  .share-success.visible {
+    display: inline-block;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+(function() {
+  'use strict';
+  
+  function initResultsShare() {
+    const container = document.getElementById('results-share');
+    if (!container) return;
+    
+    const profile = container.dataset.profile || 'UNKNOWN';
+    const stance = container.dataset.stance || 'BALANCED';
+    const displayName = container.dataset.displayName || '';
+    
+    const shareUrl = `https://quirrely.com/profile/${profile.toLowerCase()}-${stance.toLowerCase()}`;
+    const shareText = `I just discovered my writing style: ${profile} with a ${stance} stance! Find your unique voice at Quirrely.`;
+    
+    container.innerHTML = `
+      <div class="results-share">
+        <h3 class="share-title">Share Your ${profile} Profile</h3>
+        <div class="share-buttons">
+          <button class="share-btn twitter" data-platform="twitter">
+            <span class="icon">𝕏</span> Share
+          </button>
+          <button class="share-btn linkedin" data-platform="linkedin">
+            <span class="icon">in</span> Share
+          </button>
+          <button class="share-btn copy" data-platform="copy">
+            <span class="icon">🔗</span> Copy Link
+          </button>
+          <button class="share-btn download" data-platform="download">
+            <span class="icon">📥</span> Save Card
+          </button>
+        </div>
+        <p class="share-hint">10% of test-takers share their results!</p>
+        <div class="share-success" id="share-success">✓ Copied!</div>
+      </div>
+    `;
+    
+    // Event handlers
+    container.querySelector('.twitter').addEventListener('click', function() {
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+      window.open(url, '_blank', 'width=550,height=420');
+      trackShare('twitter', profile, stance);
+    });
+    
+    container.querySelector('.linkedin').addEventListener('click', function() {
+      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+      window.open(url, '_blank', 'width=550,height=420');
+      trackShare('linkedin', profile, stance);
+    });
+    
+    container.querySelector('.copy').addEventListener('click', function() {
+      navigator.clipboard.writeText(shareUrl).then(function() {
+        const success = document.getElementById('share-success');
+        success.classList.add('visible');
+        setTimeout(() => success.classList.remove('visible'), 2000);
+        trackShare('copy', profile, stance);
+      });
+    });
+    
+    container.querySelector('.download').addEventListener('click', function() {
+      // Trigger card download (would integrate with canvas generation)
+      trackShare('download', profile, stance);
+      alert('Card download coming soon!');
+    });
+  }
+  
+  function trackShare(platform, profile, stance) {
+    // GA4 tracking
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'results_share', {
+        platform,
+        profile,
+        stance,
+        share_url: window.location.href
+      });
+    }
+    
+    console.log('Share tracked:', { platform, profile, stance });
+  }
+  
+  // Auto-init
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initResultsShare);
+  } else {
+    initResultsShare();
+  }
+  
+  window.initResultsShare = initResultsShare;
+})();
+</script>

@@ -1,0 +1,62 @@
+{
+  "system": "LNCP",
+  "version": "5.2.0",
+  "codename": "Squirrel Ninja: Safety Edition",
+  "lock_date": "2026-02-15T03:12:10.149082+00:00",
+  "status": "PRODUCTION_READY",
+  "validation": {
+    "e2e2e_pass_rate": 100.0,
+    "e2e2e_tests": 44,
+    "e2e2e_phases": 8,
+    "critical_failures": 0
+  },
+  "code_metrics": {
+    "engine_lines": 1136,
+    "meta_lines": 25297,
+    "security_lines": 1187,
+    "test_lines": 1447,
+    "total_lines": 29067
+  },
+  "components": {
+    "core_engine": {
+      "version": "3.8.0",
+      "status": "LOCKED",
+      "tokens": 50,
+      "profiles": 40
+    },
+    "meta_layer": {
+      "version": "5.2.0",
+      "status": "LOCKED",
+      "event_types": 49,
+      "safety_events": 11,
+      "user_states": 11,
+      "domains": 4
+    },
+    "safety_layer": {
+      "version": "1.0.0",
+      "status": "LOCKED",
+      "components": [
+        "HALOObserver",
+        "HALOFeedbackLoop",
+        "SafetyCoreBridge"
+      ]
+    },
+    "security_layer": {
+      "version": "1.0.0",
+      "status": "LOCKED",
+      "layers": 6
+    }
+  },
+  "domains": [
+    "ux",
+    "health",
+    "mrr",
+    "safety"
+  ],
+  "files": {
+    "lock_document": "docs/LNCP_v5.2.0_PRODUCTION_LOCK.md",
+    "api_reference": "docs/API_REFERENCE.md",
+    "operations": "docs/OPERATIONS_RUNBOOK.md",
+    "security_guide": "docs/SECURITY_IMPLEMENTATION_GUIDE.md"
+  }
+}

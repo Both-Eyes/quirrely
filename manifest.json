@@ -1,0 +1,41 @@
+{
+  "name": "Quirrely — Discover Your Writing Voice",
+  "short_name": "Quirrely",
+  "description": "The curious way to find your writing voice.",
+  "start_url": "/frontend/index.html",
+  "display": "standalone",
+  "background_color": "#FFFBF5",
+  "theme_color": "#FF6B6B",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/assets/logo/favicon.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/logo/logo-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/logo/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/logo/og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "label": "Quirrely Home"
+    }
+  ],
+  "categories": ["productivity", "education", "lifestyle"],
+  "prefer_related_applications": false
+}

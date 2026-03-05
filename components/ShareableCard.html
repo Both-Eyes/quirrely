@@ -1,0 +1,180 @@
+<!--
+  SHAREABLE RESULTS CARD GENERATOR
+  ================================
+  Creates downloadable/shareable image cards with the Quirrely logo
+  and user's writing profile results.
+  
+  Usage:
+  Include this component, then call:
+  ShareableCard.generate({ profile: 'ASSERTIVE', stance: 'OPEN', name: 'User' })
+-->
+
+<template id="shareable-card-template">
+  <div class="shareable-card-container" style="display:none;">
+    <svg id="shareable-card-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+      <!-- Background -->
+      <rect width="600" height="400" fill="#FFFBF5"/>
+      
+      <!-- Subtle pattern -->
+      <defs>
+        <pattern id="card-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+          <circle cx="10" cy="10" r="0.5" fill="#E9ECEF"/>
+        </pattern>
+      </defs>
+      <rect width="600" height="400" fill="url(#card-dots)"/>
+      
+      <!-- Squirrel Logo (top left) -->
+      <g transform="translate(30, 25) scale(0.5)">
+        <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.5"/>
+        <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.5"/>
+        <path d="M20 68 Q12 72, 14 80 Q16 86, 24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="2"/>
+        <path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="2"/>
+        <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
+        <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.5"/>
+        <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <circle cx="33" cy="46.5" r="2" fill="#FFF"/>
+        <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+        <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+      </g>
+      
+      <!-- Wordmark -->
+      <text x="95" y="60" font-family="system-ui, sans-serif" font-size="24" font-weight="700" fill="#2D3436">
+        Senten<tspan fill="#FF6B6B">se</tspan>
+      </text>
+      
+      <!-- Profile Badge -->
+      <rect x="30" y="100" width="540" height="180" rx="16" fill="#FFFFFF" stroke="#E9ECEF" stroke-width="1"/>
+      
+      <!-- Profile Type -->
+      <text id="card-profile-type" x="300" y="150" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#636E72">
+        MY WRITING PROFILE
+      </text>
+      <text id="card-profile-name" x="300" y="195" text-anchor="middle" font-family="system-ui, sans-serif" font-size="36" font-weight="700" fill="#2D3436">
+        ASSERTIVE
+      </text>
+      
+      <!-- Stance -->
+      <text id="card-stance" x="300" y="235" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#636E72">
+        <tspan fill="#4ECDC4">●</tspan> Open Stance
+      </text>
+      
+      <!-- User name -->
+      <text id="card-user-name" x="300" y="265" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#636E72">
+        — Your Name
+      </text>
+      
+      <!-- CTA -->
+      <rect x="200" y="310" width="200" height="44" rx="22" fill="#FF6B6B"/>
+      <text x="300" y="338" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">
+        Discover yours free →
+      </text>
+      
+      <!-- URL -->
+      <text x="300" y="385" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#B2BEC3">
+        quirrely.app
+      </text>
+    </svg>
+  </div>
+</template>
+
+<script>
+const ShareableCard = {
+  stanceColors: {
+    'OPEN': '#4ECDC4',
+    'CLOSED': '#FF6B6B',
+    'BALANCED': '#FF8E8E',
+    'CONTRADICTORY': '#FDCB6E'
+  },
+  
+  stanceLabels: {
+    'OPEN': 'Open Stance',
+    'CLOSED': 'Closed Stance',
+    'BALANCED': 'Balanced Stance',
+    'CONTRADICTORY': 'Contradictory Stance'
+  },
+  
+  generate: function(options) {
+    const { profile = 'ASSERTIVE', stance = 'OPEN', name = '' } = options;
+    
+    // Clone template
+    const template = document.getElementById('shareable-card-template');
+    const container = template.content.cloneNode(true);
+    const svg = container.querySelector('#shareable-card-svg');
+    
+    // Update profile name
+    svg.querySelector('#card-profile-name').textContent = profile.toUpperCase();
+    
+    // Update stance with color
+    const stanceEl = svg.querySelector('#card-stance');
+    const stanceColor = this.stanceColors[stance] || '#4ECDC4';
+    const stanceLabel = this.stanceLabels[stance] || 'Open Stance';
+    stanceEl.innerHTML = `<tspan fill="${stanceColor}">●</tspan> ${stanceLabel}`;
+    
+    // Update user name if provided
+    if (name) {
+      svg.querySelector('#card-user-name').textContent = `— ${name}`;
+    } else {
+      svg.querySelector('#card-user-name').textContent = '';
+    }
+    
+    return svg.outerHTML;
+  },
+  
+  download: function(options) {
+    const svgContent = this.generate(options);
+    
+    // Create canvas to convert SVG to PNG
+    const canvas = document.createElement('canvas');
+    canvas.width = 1200;
+    canvas.height = 800;
+    const ctx = canvas.getContext('2d');
+    
+    const img = new Image();
+    img.onload = function() {
+      ctx.drawImage(img, 0, 0, 1200, 800);
+      
+      // Download
+      const link = document.createElement('a');
+      link.download = `quirrely-${options.profile.toLowerCase()}-profile.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
+    
+    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgContent)));
+  },
+  
+  getShareUrl: function(options) {
+    const { profile, stance, name } = options;
+    const params = new URLSearchParams({
+      p: profile,
+      s: stance,
+      n: name || ''
+    });
+    return `https://quirrely.app/share?${params.toString()}`;
+  },
+  
+  shareTwitter: function(options) {
+    const text = `I'm a ${options.profile} writer with ${options.stance} stance! The curious way to find your writing voice:`;
+    const url = this.getShareUrl(options);
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+  },
+  
+  shareLinkedIn: function(options) {
+    const url = this.getShareUrl(options);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+  }
+};
+</script>
+
+<style>
+  .shareable-card-container {
+    position: fixed;
+    top: -9999px;
+    left: -9999px;
+  }
+</style>

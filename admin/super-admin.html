@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LNCP Super Admin Dashboard</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a24;
+            --text-primary: #e8e8ed;
+            --text-secondary: #9898a8;
+            --accent-green: #00d4aa;
+            --accent-blue: #3b82f6;
+            --accent-yellow: #fbbf24;
+            --accent-red: #ef4444;
+            --accent-purple: #a855f7;
+            --border: #2a2a3a;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .header h1 span { color: var(--accent-green); }
+        
+        .header-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Status Cards */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+        }
+        
+        .status-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+        }
+        
+        .status-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .status-card-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+        
+        .status-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .status-card-sub {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        
+        .status-healthy { color: var(--accent-green); }
+        .status-warning { color: var(--accent-yellow); }
+        .status-critical { color: var(--accent-red); }
+        .status-info { color: var(--accent-blue); }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0;
+            padding: 0 2rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+        
+        .tab {
+            padding: 1rem 1.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .tab:hover { color: var(--text-primary); }
+        
+        .tab.active {
+            color: var(--accent-green);
+            border-bottom-color: var(--accent-green);
+        }
+        
+        .tab-badge {
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 1.5rem 2rem;
+        }
+        
+        .tab-content.active { display: block; }
+        
+        /* Health Dashboard */
+        .health-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .health-main {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+        
+        .health-score {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .health-score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 8px solid var(--accent-green);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .health-score-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .health-score-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .health-domains {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        
+        .domain-card {
+            background: var(--bg-tertiary);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .domain-score {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .domain-name {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+        
+        .domain-trend {
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .trend-up { color: var(--accent-green); }
+        .trend-down { color: var(--accent-red); }
+        
+        /* Alerts Sidebar */
+        .alerts-sidebar {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        
+        .alerts-header {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .alert-item {
+            padding: 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 0.375rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            border-left: 3px solid var(--accent-yellow);
+        }
+        
+        .alert-item.critical { border-left-color: var(--accent-red); }
+        
+        /* Proposals */
+        .proposal-list { display: flex; flex-direction: column; gap: 1rem; }
+        
+        .proposal-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+        }
+        
+        .proposal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .proposal-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .proposal-type {
+            font-size: 0.75rem;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+        }
+        
+        .proposal-priority {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .priority-high { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+        .priority-medium { background: rgba(251, 191, 36, 0.2); color: var(--accent-yellow); }
+        .priority-low { background: rgba(0, 212, 170, 0.2); color: var(--accent-green); }
+        
+        .proposal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .proposal-section h4 {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .proposal-section p {
+            font-size: 0.875rem;
+        }
+        
+        .proposal-actions {
+            display: flex;
+            gap: 0.75rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.2s;
+        }
+        
+        .btn:hover { opacity: 0.9; }
+        
+        .btn-approve { background: var(--accent-green); color: var(--bg-primary); }
+        .btn-reject { background: var(--accent-red); color: white; }
+        .btn-defer { background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border); }
+        
+        /* Trust Table */
+        .trust-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-secondary);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .trust-table th,
+        .trust-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .trust-table th {
+            background: var(--bg-tertiary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        
+        .trust-score {
+            font-weight: 600;
+        }
+        
+        .trust-bar {
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            width: 100px;
+        }
+        
+        .trust-bar-fill {
+            height: 100%;
+            background: var(--accent-green);
+            border-radius: 3px;
+        }
+        
+        .lane-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .lane-auto { background: rgba(0, 212, 170, 0.2); color: var(--accent-green); }
+        .lane-review { background: rgba(251, 191, 36, 0.2); color: var(--accent-yellow); }
+        .lane-super { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+        
+        /* Parameters */
+        .params-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .param-category {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        
+        .param-category h3 {
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .param-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            font-size: 0.875rem;
+        }
+        
+        .param-name { color: var(--text-secondary); }
+        .param-value { font-weight: 500; font-family: monospace; }
+        
+        /* Outcomes */
+        .outcomes-summary {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .outcome-stat {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .outcome-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .outcome-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>LNCP <span>Super Admin</span></h1>
+        <div class="header-meta">
+            <span>Mode: <strong>STANDARD</strong></span>
+            <span>Cycle: <strong>#247</strong></span>
+            <span>Last: <strong>2 min ago</strong></span>
+        </div>
+    </header>
+    
+    <!-- Status Cards -->
+    <div class="status-grid">
+        <div class="status-card">
+            <div class="status-card-header">
+                <span class="status-card-label">System Health</span>
+            </div>
+            <div class="status-card-value status-healthy">72.2%</div>
+            <div class="status-card-sub">HEALTHY • +2.1% trend</div>
+        </div>
+        <div class="status-card">
+            <div class="status-card-header">
+                <span class="status-card-label">Pending Proposals</span>
+            </div>
+            <div class="status-card-value status-info">2</div>
+            <div class="status-card-sub">1 high priority</div>
+        </div>
+        <div class="status-card">
+            <div class="status-card-header">
+                <span class="status-card-label">Actions for Review</span>
+            </div>
+            <div class="status-card-value status-warning">3</div>
+            <div class="status-card-sub">Blog optimizations</div>
+        </div>
+        <div class="status-card">
+            <div class="status-card-header">
+                <span class="status-card-label">Alerts</span>
+            </div>
+            <div class="status-card-value">1</div>
+            <div class="status-card-sub">Warning level</div>
+        </div>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <div class="tab active" data-tab="health">Health</div>
+        <div class="tab" data-tab="proposals">Proposals <span class="tab-badge">2</span></div>
+        <div class="tab" data-tab="trust">Trust Scores</div>
+        <div class="tab" data-tab="params">Parameters</div>
+        <div class="tab" data-tab="outcomes">Outcomes</div>
+        <div class="tab" data-tab="actions">Actions <span class="tab-badge">3</span></div>
+    </div>
+    
+    <!-- Tab: Health -->
+    <div class="tab-content active" id="health">
+        <div class="health-grid">
+            <div class="health-main">
+                <div class="health-score">
+                    <div class="health-score-circle">
+                        <div class="health-score-value">72</div>
+                        <div class="health-score-label">HEALTH</div>
+                    </div>
+                    <div>
+                        <h2 style="margin-bottom: 0.5rem;">System Status: HEALTHY</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                            Risk Tolerance: <strong style="color: var(--accent-green);">ELEVATED</strong>
+                        </p>
+                        <p style="color: var(--text-secondary);">
+                            Auto-apply: Enabled • Max 10 actions/cycle
+                        </p>
+                    </div>
+                </div>
+                
+                <h3 style="margin-bottom: 1rem; font-size: 0.875rem; color: var(--text-secondary);">DOMAIN BREAKDOWN</h3>
+                <div class="health-domains">
+                    <div class="domain-card">
+                        <div class="domain-score status-healthy">75.2</div>
+                        <div class="domain-name">App</div>
+                        <div class="domain-trend trend-up">↑ +3.2%</div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-score status-warning">63.0</div>
+                        <div class="domain-name">Blog</div>
+                        <div class="domain-trend trend-up">↑ +1.5%</div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-score status-healthy">71.9</div>
+                        <div class="domain-name">Revenue</div>
+                        <div class="domain-trend trend-up">↑ +5.1%</div>
+                    </div>
+                    <div class="domain-card">
+                        <div class="domain-score status-healthy">80.0</div>
+                        <div class="domain-name">Meta</div>
+                        <div class="domain-trend">— stable</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alerts-sidebar">
+                <div class="alerts-header">Active Alerts</div>
+                <div class="alert-item">
+                    Blog health below 70% threshold. Consider pausing aggressive SEO changes.
+                </div>
+                <div class="alert-item" style="border-left-color: var(--accent-green);">
+                    Revenue health improving. MRR growth at 8%.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tab: Proposals -->
+    <div class="tab-content" id="proposals">
+        <div class="proposal-list">
+            <div class="proposal-card">
+                <div class="proposal-header">
+                    <div>
+                        <div class="proposal-type">Lane Change</div>
+                        <div class="proposal-title">Move meta_title_update to AUTO lane</div>
+                    </div>
+                    <span class="proposal-priority priority-medium">Medium</span>
+                </div>
+                <div class="proposal-body">
+                    <div class="proposal-section">
+                        <h4>Evidence</h4>
+                        <p>96% approval rate over 30 days (23 actions reviewed, 22 approved)</p>
+                    </div>
+                    <div class="proposal-section">
+                        <h4>Expected Impact</h4>
+                        <p>~92 hours saved per month, +2.3% CTR improvement</p>
+                    </div>
+                    <div class="proposal-section">
+                        <h4>Risk Assessment</h4>
+                        <p>Reversible. Worst case: -5% CTR on affected pages.</p>
+                    </div>
+                </div>
+                <p style="font-size: 0.875rem; margin-bottom: 1rem;">
+                    <strong>Recommendation:</strong> APPROVE with A/B safeguard on first 5 auto-applies
+                </p>
+                <div class="proposal-actions">
+                    <button class="btn btn-approve">Approve</button>
+                    <button class="btn btn-reject">Reject</button>
+                    <button class="btn btn-defer">Defer 7 days</button>
+                </div>
+            </div>
+            
+            <div class="proposal-card">
+                <div class="proposal-header">
+                    <div>
+                        <div class="proposal-type">Parameter Adjust</div>
+                        <div class="proposal-title">Lower auto-apply confidence threshold</div>
+                    </div>
+                    <span class="proposal-priority priority-low">Low</span>
+                </div>
+                <div class="proposal-body">
+                    <div class="proposal-section">
+                        <h4>Current → Proposed</h4>
+                        <p>0.87 → 0.85 (confidence threshold)</p>
+                    </div>
+                    <div class="proposal-section">
+                        <h4>Evidence</h4>
+                        <p>System health optimal (72.2%) for 14 consecutive days</p>
+                    </div>
+                    <div class="proposal-section">
+                        <h4>Risk Assessment</h4>
+                        <p>Fully reversible. Monitored via health score.</p>
+                    </div>
+                </div>
+                <div class="proposal-actions">
+                    <button class="btn btn-approve">Approve</button>
+                    <button class="btn btn-reject">Reject</button>
+                    <button class="btn btn-defer">Defer 7 days</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tab: Trust Scores -->
+    <div class="tab-content" id="trust">
+        <table class="trust-table">
+            <thead>
+                <tr>
+                    <th>Action Type</th>
+                    <th>Trust Score</th>
+                    <th>Level</th>
+                    <th>Current Lane</th>
+                    <th>Success Rate</th>
+                    <th>Events</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>meta_title_update</strong></td>
+                    <td>
+                        <span class="trust-score">18.4</span>
+                        <div class="trust-bar"><div class="trust-bar-fill" style="width: 92%"></div></div>
+                    </td>
+                    <td><span style="color: var(--accent-green)">TRUSTED</span></td>
+                    <td><span class="lane-badge lane-review">review</span></td>
+                    <td>96%</td>
+                    <td>23</td>
+                    <td><button class="btn btn-defer" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Promote</button></td>
+                </tr>
+                <tr>
+                    <td><strong>meta_description_update</strong></td>
+                    <td>
+                        <span class="trust-score">12.1</span>
+                        <div class="trust-bar"><div class="trust-bar-fill" style="width: 60%"></div></div>
+                    </td>
+                    <td><span style="color: var(--accent-blue)">HIGH</span></td>
+                    <td><span class="lane-badge lane-review">review</span></td>
+                    <td>88%</td>
+                    <td>17</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><strong>cta_variant_change</strong></td>
+                    <td>
+                        <span class="trust-score">7.3</span>
+                        <div class="trust-bar"><div class="trust-bar-fill" style="width: 36%"></div></div>
+                    </td>
+                    <td><span style="color: var(--accent-yellow)">MEDIUM</span></td>
+                    <td><span class="lane-badge lane-review">review</span></td>
+                    <td>75%</td>
+                    <td>12</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><strong>content_restructure</strong></td>
+                    <td>
+                        <span class="trust-score">2.1</span>
+                        <div class="trust-bar"><div class="trust-bar-fill" style="width: 10%"></div></div>
+                    </td>
+                    <td><span style="color: var(--text-secondary)">LOW</span></td>
+                    <td><span class="lane-badge lane-super">super_admin</span></td>
+                    <td>60%</td>
+                    <td>5</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Tab: Parameters -->
+    <div class="tab-content" id="params">
+        <div class="params-grid">
+            <div class="param-category">
+                <h3>Classification Thresholds</h3>
+                <div class="param-item">
+                    <span class="param-name">Auto-apply confidence</span>
+                    <span class="param-value">0.87</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-name">Review confidence</span>
+                    <span class="param-value">0.60</span>
+                </div>
+            </div>
+            <div class="param-category">
+                <h3>Risk Weights</h3>
+                <div class="param-item">
+                    <span class="param-name">User impact</span>
+                    <span class="param-value">0.30</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-name">Revenue impact</span>
+                    <span class="param-value">0.35</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-name">Reversibility</span>
+                    <span class="param-value">0.20</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-name">Precedent</span>
+                    <span class="param-value">0.15</span>
+                </div>
+            </div>
+            <div class="param-category">
+                <h3>Execution Limits</h3>
+                <div class="param-item">
+                    <span class="param-name">Max auto per cycle</span>
+                    <span class="param-value">10</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-name">Max auto per day</span>
+                    <span class="param-value">50</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-name">A/B min duration</span>
+                    <span class="param-value">7 days</span>
+                </div>
+            </div>
+            <div class="param-category">
+                <h3>Health Thresholds</h3>
+                <div class="param-item">
+                    <span class="param-name">Safe for auto</span>
+                    <span class="param-value">70.0</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-name">Pause all</span>
+                    <span class="param-value">50.0</span>
+                </div>
+                <div class="param-item">
+                    <span class="param-name">Rollback threshold</span>
+                    <span class="param-value">10%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tab: Outcomes -->
+    <div class="tab-content" id="outcomes">
+        <div class="outcomes-summary">
+            <div class="outcome-stat">
+                <div class="outcome-stat-value">47</div>
+                <div class="outcome-stat-label">Total Tracked</div>
+            </div>
+            <div class="outcome-stat">
+                <div class="outcome-stat-value status-healthy">38</div>
+                <div class="outcome-stat-label">Success</div>
+            </div>
+            <div class="outcome-stat">
+                <div class="outcome-stat-value status-warning">6</div>
+                <div class="outcome-stat-label">Partial</div>
+            </div>
+            <div class="outcome-stat">
+                <div class="outcome-stat-value status-critical">2</div>
+                <div class="outcome-stat-label">Failure</div>
+            </div>
+            <div class="outcome-stat">
+                <div class="outcome-stat-value">1</div>
+                <div class="outcome-stat-label">Rollback</div>
+            </div>
+        </div>
+        
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.5rem;">
+            <h3 style="margin-bottom: 1rem;">Prediction Accuracy by Type</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>CTR Change</span>
+                        <span style="color: var(--accent-green);">78%</span>
+                    </div>
+                    <div class="trust-bar" style="width: 100%">
+                        <div class="trust-bar-fill" style="width: 78%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Conversion Change</span>
+                        <span style="color: var(--accent-yellow);">65%</span>
+                    </div>
+                    <div class="trust-bar" style="width: 100%">
+                        <div class="trust-bar-fill" style="width: 65%; background: var(--accent-yellow);"></div>
+                    </div>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Health Change</span>
+                        <span style="color: var(--accent-green);">82%</span>
+                    </div>
+                    <div class="trust-bar" style="width: 100%">
+                        <div class="trust-bar-fill" style="width: 82%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tab: Actions -->
+    <div class="tab-content" id="actions">
+        <div class="proposal-list">
+            <div class="proposal-card">
+                <div class="proposal-header">
+                    <div>
+                        <div class="proposal-type">Blog • meta_description_update</div>
+                        <div class="proposal-title">Update meta description for "/blog/voice-profiles"</div>
+                    </div>
+                    <span class="proposal-priority priority-medium">Confidence: 78%</span>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                    Current: "Learn about voice profiles..." → Proposed: "Discover your unique writing voice with 40 scientifically-designed profiles..."
+                </p>
+                <div class="proposal-actions">
+                    <button class="btn btn-approve">Approve</button>
+                    <button class="btn btn-reject">Reject</button>
+                </div>
+            </div>
+            
+            <div class="proposal-card">
+                <div class="proposal-header">
+                    <div>
+                        <div class="proposal-type">Blog • cta_variant_change</div>
+                        <div class="proposal-title">Test new CTA on "/blog/writing-style-guide"</div>
+                    </div>
+                    <span class="proposal-priority priority-low">Confidence: 72%</span>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                    A/B test: "Start Free Trial" vs "Analyze My Writing"
+                </p>
+                <div class="proposal-actions">
+                    <button class="btn btn-approve">Approve</button>
+                    <button class="btn btn-reject">Reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active from all
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active to clicked
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // Button handlers (placeholder)
+        document.querySelectorAll('.btn-approve').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.textContent = '✓ Approved';
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            });
+        });
+        
+        document.querySelectorAll('.btn-reject').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.textContent = '✗ Rejected';
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            });
+        });
+    </script>
+</body>
+</html>

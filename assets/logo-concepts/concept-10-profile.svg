@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <!-- Cameo frame -->
+  <circle cx="30" cy="30" r="28" fill="none" stroke="#FF6B6B" stroke-width="3"/>
+  <circle cx="30" cy="30" r="24" fill="#FFFBF5"/>
+  
+  <!-- Elegant squirrel profile facing right -->
+  <g transform="translate(8, 10)">
+    <!-- Body silhouette -->
+    <path d="M20 35 
+             Q12 32, 14 24 
+             Q16 18, 22 15 
+             Q28 12, 34 16 
+             Q38 20, 36 28 
+             Q34 34, 28 38 
+             Z" 
+          fill="#2D3436"/>
+    
+    <!-- Elegant tail -->
+    <path d="M20 35 
+             Q8 38, 6 28 
+             Q4 18, 12 12 
+             Q18 8, 18 16" 
+          fill="#2D3436"/>
+    
+    <!-- Ear -->
+    <path d="M28 15 Q32 8, 38 12 Q36 16, 30 17" fill="#2D3436"/>
+    
+    <!-- Eye highlight -->
+    <circle cx="32" cy="22" r="2" fill="#FFFBF5"/>
+  </g>
+</svg>

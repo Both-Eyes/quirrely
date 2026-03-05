@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Pages -->
+  <url><loc>https://quirrely.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://quirrely.com/test</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://quirrely.com/results</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  
+  <!-- Blog -->
+  <url><loc>https://quirrely.com/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://quirrely.com/blog/featured</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  
+  <!-- Profile Pages (40 combinations) -->
+  <url><loc>https://quirrely.com/profile/assertive-open</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/assertive-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/assertive-balanced</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/minimal-open</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/minimal-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/poetic-open</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/poetic-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/dense-open</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/dense-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/conversational-open</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/conversational-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/hedged-open</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/hedged-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/interrogative-open</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/interrogative-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/longform-open</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://quirrely.com/profile/longform-closed</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  
+  <!-- Legal -->
+  <url><loc>https://quirrely.com/legal/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://quirrely.com/legal/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://quirrely.com/legal/affiliate-disclosure</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  
+  <!-- Auth -->
+  <url><loc>https://quirrely.com/login</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://quirrely.com/signup</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  
+  <!-- Pro -->
+  <url><loc>https://quirrely.com/pro</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://quirrely.com/upgrade</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+</urlset>

@@ -1,0 +1,512 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "updated": "2026-02-10",
+    "total_books": 48,
+    "profiles": 8,
+    "stances": 2,
+    "books_per_combo": 3,
+    "price_target": "$28-35 hardcover",
+    "selection_criteria": "price × velocity × profile_match × evergreen"
+  },
+  
+  "ASSERTIVE-OPEN": {
+    "hero": {
+      "isbn": "9780062316110",
+      "title": "Extreme Ownership",
+      "author": "Jocko Willink & Leif Babin",
+      "hook": "Lead and win. No excuses.",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780062316110-M.jpg",
+      "year": 2017
+    },
+    "alt1": {
+      "isbn": "9780735211292",
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "hook": "Small changes, remarkable results",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780735211292-M.jpg",
+      "year": 2018
+    },
+    "alt2": {
+      "isbn": "9781982137274",
+      "title": "Can't Hurt Me",
+      "author": "David Goggins",
+      "hook": "Master your mind and defy the odds",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9781982137274-M.jpg",
+      "year": 2018
+    }
+  },
+  
+  "ASSERTIVE-CLOSED": {
+    "hero": {
+      "isbn": "9780062457714",
+      "title": "The Subtle Art of Not Giving a F*ck",
+      "author": "Mark Manson",
+      "hook": "Counterintuitive approach to living well",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780062457714-M.jpg",
+      "year": 2016
+    },
+    "alt1": {
+      "isbn": "9781501111105",
+      "title": "Never Split the Difference",
+      "author": "Chris Voss",
+      "hook": "Negotiate as if your life depended on it",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9781501111105-M.jpg",
+      "year": 2016
+    },
+    "alt2": {
+      "isbn": "9780062273208",
+      "title": "The Hard Thing About Hard Things",
+      "author": "Ben Horowitz",
+      "hook": "Building a business when there are no easy answers",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780062273208-M.jpg",
+      "year": 2014
+    }
+  },
+  
+  "MINIMAL-OPEN": {
+    "hero": {
+      "isbn": "9780465050659",
+      "title": "The Design of Everyday Things",
+      "author": "Don Norman",
+      "hook": "Why simplicity matters",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780465050659-M.jpg",
+      "year": 2013
+    },
+    "alt1": {
+      "isbn": "9780060745295",
+      "title": "The Elements of Style",
+      "author": "Strunk & White",
+      "hook": "The essential guide to clear writing",
+      "price_tier": "L",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780060745295-M.jpg",
+      "year": 1999
+    },
+    "alt2": {
+      "isbn": "9781491950357",
+      "title": "Make Time",
+      "author": "Jake Knapp & John Zeratsky",
+      "hook": "Focus on what matters every day",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9781491950357-M.jpg",
+      "year": 2018
+    }
+  },
+  
+  "MINIMAL-CLOSED": {
+    "hero": {
+      "isbn": "9781591847984",
+      "title": "Essentialism",
+      "author": "Greg McKeown",
+      "hook": "The disciplined pursuit of less",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9781591847984-M.jpg",
+      "year": 2014
+    },
+    "alt1": {
+      "isbn": "9780307463746",
+      "title": "Rework",
+      "author": "Jason Fried & DHH",
+      "hook": "Change the way you work forever",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780307463746-M.jpg",
+      "year": 2010
+    },
+    "alt2": {
+      "isbn": "9781591846352",
+      "title": "The One Thing",
+      "author": "Gary Keller",
+      "hook": "The surprisingly simple truth behind extraordinary results",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9781591846352-M.jpg",
+      "year": 2013
+    }
+  },
+  
+  "POETIC-OPEN": {
+    "hero": {
+      "isbn": "9780062315007",
+      "title": "The Alchemist",
+      "author": "Paulo Coelho",
+      "hook": "Follow your dreams across the desert",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780062315007-M.jpg",
+      "year": 2014
+    },
+    "alt1": {
+      "isbn": "9780525559474",
+      "title": "The Midnight Library",
+      "author": "Matt Haig",
+      "hook": "Between life and death, infinite possibilities",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780525559474-M.jpg",
+      "year": 2020
+    },
+    "alt2": {
+      "isbn": "9780399592522",
+      "title": "Circe",
+      "author": "Madeline Miller",
+      "hook": "The witch of myth finds her voice",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780399592522-M.jpg",
+      "year": 2018
+    }
+  },
+  
+  "POETIC-CLOSED": {
+    "hero": {
+      "isbn": "9780385333481",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "hook": "The American dream, shattered",
+      "price_tier": "L",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780385333481-M.jpg",
+      "year": 1925
+    },
+    "alt1": {
+      "isbn": "9780374529024",
+      "title": "When Breath Becomes Air",
+      "author": "Paul Kalanithi",
+      "hook": "What makes life worth living?",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780374529024-M.jpg",
+      "year": 2016
+    },
+    "alt2": {
+      "isbn": "9780525520375",
+      "title": "A Little Life",
+      "author": "Hanya Yanagihara",
+      "hook": "Friendship, trauma, survival",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780525520375-M.jpg",
+      "year": 2015
+    }
+  },
+  
+  "DENSE-OPEN": {
+    "hero": {
+      "isbn": "9780374533557",
+      "title": "Thinking, Fast and Slow",
+      "author": "Daniel Kahneman",
+      "hook": "Two systems that drive the way we think",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780374533557-M.jpg",
+      "year": 2011
+    },
+    "alt1": {
+      "isbn": "9780062316097",
+      "title": "Sapiens",
+      "author": "Yuval Noah Harari",
+      "hook": "A brief history of humankind",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780062316097-M.jpg",
+      "year": 2015
+    },
+    "alt2": {
+      "isbn": "9780393609394",
+      "title": "Astrophysics for People in a Hurry",
+      "author": "Neil deGrasse Tyson",
+      "hook": "The universe explained",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780393609394-M.jpg",
+      "year": 2017
+    }
+  },
+  
+  "DENSE-CLOSED": {
+    "hero": {
+      "isbn": "9780679720201",
+      "title": "Meditations",
+      "author": "Marcus Aurelius",
+      "hook": "Timeless wisdom from a Roman emperor",
+      "price_tier": "L",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780679720201-M.jpg",
+      "year": 180
+    },
+    "alt1": {
+      "isbn": "9780316017923",
+      "title": "Outliers",
+      "author": "Malcolm Gladwell",
+      "hook": "The story of success",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780316017923-M.jpg",
+      "year": 2008
+    },
+    "alt2": {
+      "isbn": "9780525558613",
+      "title": "Range",
+      "author": "David Epstein",
+      "hook": "Why generalists triumph in a specialized world",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780525558613-M.jpg",
+      "year": 2019
+    }
+  },
+  
+  "CONVERSATIONAL-OPEN": {
+    "hero": {
+      "isbn": "9781984822185",
+      "title": "Untamed",
+      "author": "Glennon Doyle",
+      "hook": "Stop pleasing, start living",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9781984822185-M.jpg",
+      "year": 2020
+    },
+    "alt1": {
+      "isbn": "9781501139154",
+      "title": "Big Magic",
+      "author": "Elizabeth Gilbert",
+      "hook": "Creative living beyond fear",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9781501139154-M.jpg",
+      "year": 2015
+    },
+    "alt2": {
+      "isbn": "9780525429142",
+      "title": "Me Talk Pretty One Day",
+      "author": "David Sedaris",
+      "hook": "Hilarious personal essays",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780525429142-M.jpg",
+      "year": 2000
+    }
+  },
+  
+  "CONVERSATIONAL-CLOSED": {
+    "hero": {
+      "isbn": "9780812981605",
+      "title": "Quiet",
+      "author": "Susan Cain",
+      "hook": "The power of introverts",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780812981605-M.jpg",
+      "year": 2012
+    },
+    "alt1": {
+      "isbn": "9780143127741",
+      "title": "Daring Greatly",
+      "author": "Brené Brown",
+      "hook": "How vulnerability transforms the way we live",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780143127741-M.jpg",
+      "year": 2012
+    },
+    "alt2": {
+      "isbn": "9780399590528",
+      "title": "Maybe You Should Talk to Someone",
+      "author": "Lori Gottlieb",
+      "hook": "A therapist, her therapist, and our lives revealed",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780399590528-M.jpg",
+      "year": 2019
+    }
+  },
+  
+  "HEDGED-OPEN": {
+    "hero": {
+      "isbn": "9780374275631",
+      "title": "The Signal and the Noise",
+      "author": "Nate Silver",
+      "hook": "Why so many predictions fail—but some don't",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780374275631-M.jpg",
+      "year": 2012
+    },
+    "alt1": {
+      "isbn": "9780735222120",
+      "title": "Factfulness",
+      "author": "Hans Rosling",
+      "hook": "Ten reasons we're wrong about the world",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780735222120-M.jpg",
+      "year": 2018
+    },
+    "alt2": {
+      "isbn": "9780593298633",
+      "title": "Noise",
+      "author": "Daniel Kahneman et al.",
+      "hook": "A flaw in human judgment",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780593298633-M.jpg",
+      "year": 2021
+    }
+  },
+  
+  "HEDGED-CLOSED": {
+    "hero": {
+      "isbn": "9780553418026",
+      "title": "The Black Swan",
+      "author": "Nassim Nicholas Taleb",
+      "hook": "The impact of the highly improbable",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780553418026-M.jpg",
+      "year": 2007
+    },
+    "alt1": {
+      "isbn": "9780141033570",
+      "title": "Bad Science",
+      "author": "Ben Goldacre",
+      "hook": "Exposing quacks and flawed studies",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780141033570-M.jpg",
+      "year": 2008
+    },
+    "alt2": {
+      "isbn": "9780525561323",
+      "title": "The Scout Mindset",
+      "author": "Julia Galef",
+      "hook": "Why some people see things clearly",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780525561323-M.jpg",
+      "year": 2021
+    }
+  },
+  
+  "INTERROGATIVE-OPEN": {
+    "hero": {
+      "isbn": "9780385537858",
+      "title": "A More Beautiful Question",
+      "author": "Warren Berger",
+      "hook": "The power of inquiry to spark breakthrough ideas",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780385537858-M.jpg",
+      "year": 2014
+    },
+    "alt1": {
+      "isbn": "9780525510314",
+      "title": "The Book of Why",
+      "author": "Judea Pearl",
+      "hook": "The new science of cause and effect",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780525510314-M.jpg",
+      "year": 2018
+    },
+    "alt2": {
+      "isbn": "9780544272996",
+      "title": "What If?",
+      "author": "Randall Munroe",
+      "hook": "Serious scientific answers to absurd questions",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780544272996-M.jpg",
+      "year": 2014
+    }
+  },
+  
+  "INTERROGATIVE-CLOSED": {
+    "hero": {
+      "isbn": "9780307588364",
+      "title": "Freakonomics",
+      "author": "Steven Levitt & Stephen Dubner",
+      "hook": "A rogue economist explores the hidden side of everything",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780307588364-M.jpg",
+      "year": 2005
+    },
+    "alt1": {
+      "isbn": "9780316346627",
+      "title": "The Girl with the Dragon Tattoo",
+      "author": "Stieg Larsson",
+      "hook": "Questions that unravel dark secrets",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780316346627-M.jpg",
+      "year": 2005
+    },
+    "alt2": {
+      "isbn": "9780385350198",
+      "title": "Gone Girl",
+      "author": "Gillian Flynn",
+      "hook": "What really happened?",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780385350198-M.jpg",
+      "year": 2012
+    }
+  },
+  
+  "LONGFORM-OPEN": {
+    "hero": {
+      "isbn": "9780553593716",
+      "title": "A Game of Thrones",
+      "author": "George R.R. Martin",
+      "hook": "Epic fantasy that changed everything",
+      "price_tier": "H",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780553593716-M.jpg",
+      "year": 1996
+    },
+    "alt1": {
+      "isbn": "9780316769488",
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "hook": "The original coming-of-age novel",
+      "price_tier": "L",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780316769488-M.jpg",
+      "year": 1951
+    },
+    "alt2": {
+      "isbn": "9780307277671",
+      "title": "The Road",
+      "author": "Cormac McCarthy",
+      "hook": "A father and son journey through the apocalypse",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780307277671-M.jpg",
+      "year": 2006
+    }
+  },
+  
+  "LONGFORM-CLOSED": {
+    "hero": {
+      "isbn": "9780345803481",
+      "title": "1984",
+      "author": "George Orwell",
+      "hook": "Big Brother is watching",
+      "price_tier": "L",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780345803481-M.jpg",
+      "year": 1949
+    },
+    "alt1": {
+      "isbn": "9780307474278",
+      "title": "The Shining",
+      "author": "Stephen King",
+      "hook": "Isolation breeds terror",
+      "price_tier": "M",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780307474278-M.jpg",
+      "year": 1977
+    },
+    "alt2": {
+      "isbn": "9780140449136",
+      "title": "Crime and Punishment",
+      "author": "Fyodor Dostoevsky",
+      "hook": "The psychology of guilt",
+      "price_tier": "L",
+      "cover": "https://covers.openlibrary.org/b/isbn/9780140449136-M.jpg",
+      "year": 1866
+    }
+  },
+  
+  "_country_authors": {
+    "_note": "Local authors to feature for country-specific recommendations",
+    "CA": [
+      {"name": "Margaret Atwood", "profile": "POETIC", "book": "The Handmaid's Tale"},
+      {"name": "Malcolm Gladwell", "profile": "DENSE", "book": "Outliers"}
+    ],
+    "UK": [
+      {"name": "Matt Haig", "profile": "CONVERSATIONAL", "book": "Reasons to Stay Alive"},
+      {"name": "Zadie Smith", "profile": "DENSE", "book": "White Teeth"}
+    ],
+    "AU": [
+      {"name": "Tim Winton", "profile": "POETIC", "book": "Cloudstreet"},
+      {"name": "Markus Zusak", "profile": "LONGFORM", "book": "The Book Thief"}
+    ],
+    "NZ": [
+      {"name": "Eleanor Catton", "profile": "DENSE", "book": "The Luminaries"},
+      {"name": "Witi Ihimaera", "profile": "POETIC", "book": "The Whale Rider"}
+    ]
+  }
+}

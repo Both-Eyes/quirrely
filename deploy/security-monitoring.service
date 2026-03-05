@@ -1,0 +1,36 @@
+[Unit]
+Description=Quirrely Security Monitoring System
+After=network.target postgresql.service redis.service nginx.service
+Wants=postgresql.service redis.service nginx.service
+
+[Service]
+Type=exec
+User=quirrely
+Group=quirrely
+WorkingDirectory=/opt/quirrely/quirrely_v313_integrated
+Environment=PYTHONPATH=/opt/quirrely/quirrely_v313_integrated/backend
+ExecStart=/usr/bin/python3 /opt/quirrely/quirrely_v313_integrated/scripts/security_monitoring.py --mode monitor
+Restart=always
+RestartSec=10
+StandardOutput=append:/var/log/quirrely/security_monitor.log
+StandardError=append:/var/log/quirrely/security_monitor_error.log
+
+# Security settings
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/quirrely /tmp
+PrivateTmp=true
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+RestrictRealtime=true
+RestrictNamespaces=true
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target

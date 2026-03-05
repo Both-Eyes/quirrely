@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "run_started_at": "2026-02-14T18:58:20.301650",
+    "run_completed_at": "2026-02-14T18:58:20.434381",
+    "duration_seconds": 0.132731
+  },
+  "config": {
+    "total_users": 4667,
+    "simulation_days": 90,
+    "seed": 42
+  },
+  "baseline": {
+    "signup_rate": 0.3,
+    "first_analysis_rate": 0.6,
+    "trial_start_rate": 0.7,
+    "trial_convert_rate": 0.25,
+    "monthly_churn_rate": 0.05
+  },
+  "simulation_results": {
+    "config": {
+      "total_users": 4667,
+      "simulation_days": 90,
+      "seed": 42
+    },
+    "summary": {
+      "total_users": 4667,
+      "simulation_days": 90,
+      "total_events": 22875
+    },
+    "stage_distribution": {
+      "visitor": 249,
+      "signed_up": 90,
+      "first_analysis": 807,
+      "hit_limit": 72,
+      "trial_started": 191,
+      "subscribed": 933,
+      "featured_eligible": 65,
+      "featured_approved": 406,
+      "authority": 0,
+      "churned": 1854
+    },
+    "country_stats": {
+      "ca": {
+        "total_users": 1670,
+        "signed_up": 1575,
+        "subscribed": 507,
+        "featured": 154,
+        "churned": 658,
+        "total_value": 8195.14,
+        "avg_value": 4.907269461077844
+      },
+      "uk": {
+        "total_users": 1474,
+        "signed_up": 1405,
+        "subscribed": 459,
+        "featured": 135,
+        "churned": 594,
+        "total_value": 7211.804,
+        "avg_value": 4.892675712347354
+      },
+      "au": {
+        "total_users": 997,
+        "signed_up": 935,
+        "subscribed": 293,
+        "featured": 85,
+        "churned": 397,
+        "total_value": 4699.032,
+        "avg_value": 4.713171514543631
+      },
+      "nz": {
+        "total_users": 526,
+        "signed_up": 503,
+        "subscribed": 145,
+        "featured": 32,
+        "churned": 205,
+        "total_value": 2494.77,
+        "avg_value": 4.742908745247148
+      }
+    },
+    "entry_stats": {
+      "direct": {
+        "total_users": 2838,
+        "conversion_rate": 0.3023255813953488,
+        "avg_value": 4.8538505990133896
+      },
+      "via_com": {
+        "total_users": 1829,
+        "conversion_rate": 0.29852378348824493,
+        "avg_value": 4.82532422088573
+      }
+    },
+    "generation_distribution": {
+      "0": {
+        "count": 249,
+        "total_value": 219.659
+      },
+      "1": {
+        "count": 90,
+        "total_value": 79.4
+      },
+      "2": {
+        "count": 1070,
+        "total_value": 3228.004
+      },
+      "3": {
+        "count": 2296,
+        "total_value": 12222.427
+      },
+      "4": {
+        "count": 962,
+        "total_value": 6851.256
+      },
+      "5": {
+        "count": 0,
+        "total_value": 0
+      }
+    },
+    "value_metrics": {
+      "total_value": 22600.746,
+      "mean_value": 4.8426710949217915,
+      "max_value": 14.805
+    },
+    "churn_stats": {
+      "total_churned": 1854,
+      "churn_rate": 0.569060773480663
+    },
+    "funnel_rates": {
+      "visitor_to_signed_up": 0.9466466680951361,
+      "signed_up_to_first_analysis": 0.9796287913082843,
+      "first_analysis_to_subscribed": 0.7527726432532348
+    }
+  },
+  "prescriptive_actions": {
+    "total": 0,
+    "by_severity": {
+      "risk": 0,
+      "watch": 0,
+      "opportunity": 0
+    },
+    "actions": []
+  },
+  "system_pulse": {
+    "overall_health": 83,
+    "health_breakdown": {
+      "conversion": 100,
+      "value": 100,
+      "retention": 45
+    },
+    "key_metrics": {
+      "total_users": 4667,
+      "total_value": 22600.746,
+      "avg_value": 4.8426710949217915,
+      "subscription_rate": 0.3008356545961003,
+      "churn_rate": 0.569060773480663
+    },
+    "top_actions": []
+  }
+}
