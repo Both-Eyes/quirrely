@@ -1614,17 +1614,29 @@ class QuirrellyStatDemo:
         """Get demo agent system metrics."""
         @dataclass
         class AgentMetrics:
-            total_agents: int = 3
-            healthy_agents: int = 3
+            total_agents: int = 9
+            healthy_agents: int = 9
             last_execution_times: Dict[str, str] = field(default_factory=lambda: {
                 "conversion_optimizer": "2026-03-05 03:00:12",
                 "lncp_pattern_discovery": "2026-03-03 02:00:45", 
-                "usage_pattern_analyzer": "2026-03-01 04:00:23"
+                "usage_pattern_analyzer": "2026-03-01 04:00:23",
+                "retention_predictor": "2026-03-05 01:00:34",
+                "ab_test_analyzer": "2026-03-05 03:00:18",
+                "content_optimizer": "2026-03-02 02:00:51",
+                "partnership_intelligence": "2026-03-05 02:00:27",
+                "pricing_optimization": "2026-03-02 04:00:15",
+                "revenue_forecasting": "2026-02-28 03:00:42"
             })
             performance_scores: Dict[str, float] = field(default_factory=lambda: {
                 "conversion_optimizer": 8.7,
                 "lncp_pattern_discovery": 9.2,
-                "usage_pattern_analyzer": 8.1
+                "usage_pattern_analyzer": 8.1,
+                "retention_predictor": 8.9,
+                "ab_test_analyzer": 9.0,
+                "content_optimizer": 8.5,
+                "partnership_intelligence": 8.8,
+                "pricing_optimization": 9.1,
+                "revenue_forecasting": 8.6
             })
             system_improvements: Dict[str, Dict[str, float]] = field(default_factory=lambda: {
                 "conversion_optimizer": {
@@ -1641,21 +1653,63 @@ class QuirrellyStatDemo:
                     "allocation_efficiency_improvement": 0.23,
                     "unused_allocation_reduction": 0.31,
                     "tier_progression_optimization": 0.16
+                },
+                "retention_predictor": {
+                    "churn_reduction": 0.18,
+                    "intervention_success_rate": 0.72,
+                    "user_lifetime_value_improvement": 0.14
+                },
+                "ab_test_analyzer": {
+                    "test_velocity_improvement": 3.2,
+                    "statistical_confidence_improvement": 0.09,
+                    "feature_adoption_rate_improvement": 0.21
+                },
+                "content_optimizer": {
+                    "engagement_rate_improvement": 0.16,
+                    "insight_effectiveness_improvement": 0.19,
+                    "personalization_accuracy": 0.13
+                },
+                "partnership_intelligence": {
+                    "partnership_success_rate_improvement": 0.22,
+                    "collaboration_frequency_increase": 0.18,
+                    "partnership_revenue_optimization": 0.14
+                },
+                "pricing_optimization": {
+                    "pricing_strategy_optimization": 0.12,
+                    "conversion_rate_improvement": 0.17,
+                    "revenue_per_user_increase": 0.19
+                },
+                "revenue_forecasting": {
+                    "forecasting_accuracy_improvement": 0.25,
+                    "growth_rate_optimization": 0.13,
+                    "revenue_trend_prediction": 0.16
                 }
             })
             execution_status: Dict[str, str] = field(default_factory=lambda: {
                 "conversion_optimizer": "healthy",
                 "lncp_pattern_discovery": "healthy",
-                "usage_pattern_analyzer": "healthy"
+                "usage_pattern_analyzer": "healthy",
+                "retention_predictor": "healthy",
+                "ab_test_analyzer": "healthy",
+                "content_optimizer": "healthy",
+                "partnership_intelligence": "healthy",
+                "pricing_optimization": "healthy",
+                "revenue_forecasting": "healthy"
             })
             next_scheduled: Dict[str, str] = field(default_factory=lambda: {
                 "conversion_optimizer": "2026-03-06 03:00:00",
                 "lncp_pattern_discovery": "2026-03-10 02:00:00",
-                "usage_pattern_analyzer": "2026-03-15 04:00:00"
+                "usage_pattern_analyzer": "2026-03-15 04:00:00",
+                "retention_predictor": "2026-03-06 01:00:00",
+                "ab_test_analyzer": "2026-03-12 03:00:00",
+                "content_optimizer": "2026-03-08 02:00:00",
+                "partnership_intelligence": "2026-03-11 02:00:00",
+                "pricing_optimization": "2026-03-09 04:00:00",
+                "revenue_forecasting": "2026-03-07 03:00:00"
             })
-            total_executions_today: int = 1
-            total_optimizations_applied: int = 23
-            total_roi_generated: float = 2847.90
+            total_executions_today: int = 3
+            total_optimizations_applied: int = 67
+            total_roi_generated: float = 8947.20
         
         return AgentMetrics()
     
@@ -1673,7 +1727,11 @@ class QuirrellyStatDemo:
         health_table.add_column("Last Run", justify="center")
         health_table.add_column("Next Run", justify="center")
         
-        for agent_name in ["conversion_optimizer", "lncp_pattern_discovery", "usage_pattern_analyzer"]:
+        agent_list = ["conversion_optimizer", "lncp_pattern_discovery", "usage_pattern_analyzer", 
+                     "retention_predictor", "ab_test_analyzer", "content_optimizer",
+                     "partnership_intelligence", "pricing_optimization", "revenue_forecasting"]
+        
+        for agent_name in agent_list:
             display_name = agent_name.replace("_", " ").title()
             status = agents.execution_status[agent_name]
             performance = f"{agents.performance_scores[agent_name]:.1f}/10"
@@ -1702,7 +1760,7 @@ class QuirrellyStatDemo:
         impact_table.add_column("Impact Value", justify="center")
         impact_table.add_column("Revenue Impact", justify="center")
         
-        for agent_name in ["conversion_optimizer", "lncp_pattern_discovery", "usage_pattern_analyzer"]:
+        for agent_name in agent_list:
             display_name = agent_name.replace("_", " ").title()
             improvements = agents.system_improvements[agent_name]
             
@@ -1714,10 +1772,34 @@ class QuirrellyStatDemo:
                 key_improvement = "Pattern Accuracy"
                 impact_value = f"+{improvements['pattern_accuracy_improvement']:.1%}"
                 revenue_impact = f"{improvements['new_patterns_discovered']:.0f} patterns"
-            else:  # usage_pattern_analyzer
+            elif agent_name == "usage_pattern_analyzer":
                 key_improvement = "Allocation Efficiency"
                 impact_value = f"+{improvements['allocation_efficiency_improvement']:.1%}"
                 revenue_impact = f"-{improvements['unused_allocation_reduction']:.1%} waste"
+            elif agent_name == "retention_predictor":
+                key_improvement = "Churn Reduction"
+                impact_value = f"-{improvements['churn_reduction']:.1%}"
+                revenue_impact = f"{improvements['intervention_success_rate']:.0%} success"
+            elif agent_name == "ab_test_analyzer":
+                key_improvement = "Test Velocity"
+                impact_value = f"{improvements['test_velocity_improvement']:.1f}x faster"
+                revenue_impact = f"+{improvements['feature_adoption_rate_improvement']:.1%} adoption"
+            elif agent_name == "content_optimizer":
+                key_improvement = "Engagement Rate"
+                impact_value = f"+{improvements['engagement_rate_improvement']:.1%}"
+                revenue_impact = f"{improvements['personalization_accuracy']:.1%} accuracy"
+            elif agent_name == "partnership_intelligence":
+                key_improvement = "Partnership Success"
+                impact_value = f"+{improvements['partnership_success_rate_improvement']:.1%}"
+                revenue_impact = f"+{improvements['collaboration_frequency_increase']:.1%} collaboration"
+            elif agent_name == "pricing_optimization":
+                key_improvement = "Pricing Strategy"
+                impact_value = f"+{improvements['revenue_per_user_increase']:.1%}"
+                revenue_impact = f"+{improvements['conversion_rate_improvement']:.1%} conversion"
+            else:  # revenue_forecasting
+                key_improvement = "Forecast Accuracy"
+                impact_value = f"+{improvements['forecasting_accuracy_improvement']:.1%}"
+                revenue_impact = f"+{improvements['growth_rate_optimization']:.1%} growth"
             
             impact_table.add_row(display_name, key_improvement, impact_value, revenue_impact)
         
@@ -1733,13 +1815,19 @@ class QuirrellyStatDemo:
 🔧 Optimizations Applied: [yellow]{agents.total_optimizations_applied}[/yellow]
 💰 ROI Generated: [green]${agents.total_roi_generated:.0f}[/green]
 
-📊 [bold]Current Phase:[/bold] Phase 1 - Revenue Critical Agents
-📅 [bold]Next Phase:[/bold] Phase 2 - Retention & Experience (Week 4-6)
+📊 [bold]Current Phase:[/bold] Phase 1, 2 & 3 - Complete Intelligence Suite
+📅 [bold]Next Phase:[/bold] Phase 4 - Advanced Analytics & Predictive Insights (Week 10-12)
 
 🔄 [bold]Agent Cycle Times:[/bold]
 • Conversion Optimizer: Daily at 3 AM EST
 • LNCP Pattern Discovery: Sundays at 2 AM EST  
-• Usage Pattern Analyzer: 1st & 15th at 4 AM EST""",
+• Usage Pattern Analyzer: 1st & 15th at 4 AM EST
+• Retention Predictor: Daily at 1 AM EST
+• A/B Test Analyzer: Wednesdays at 3 AM EST
+• Content Optimizer: Saturdays at 2 AM EST
+• Partnership Intelligence: Tuesdays at 2 AM EST
+• Pricing Optimization: Sundays at 4 AM EST
+• Revenue Forecasting: Fridays at 3 AM EST""",
             title="🤖 Agent System Summary",
             style="blue"
         )

@@ -11,10 +11,20 @@ from datetime import datetime
 from typing import Dict, Any
 import asyncpg
 
-from .base_agent import initialize_agent_system, AgentRegistry
-from .conversion_optimizer import ConversionOptimizationAgent
-from .lncp_pattern_discovery import LNCPPatternDiscoveryAgent
-from .usage_pattern_analyzer import UsagePatternAnalyzer
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+
+from backend.agents.base_agent import initialize_agent_system, AgentRegistry
+from backend.agents.conversion_optimizer import ConversionOptimizationAgent
+from backend.agents.lncp_pattern_discovery import LNCPPatternDiscoveryAgent
+from backend.agents.usage_pattern_analyzer import UsagePatternAnalyzer
+from backend.agents.retention_predictor import RetentionPredictionAgent
+from backend.agents.ab_test_analyzer import ABTestAnalysisAgent
+from backend.agents.content_optimizer import ContentOptimizationAgent
+from backend.agents.partnership_intelligence import PartnershipIntelligenceAgent
+from backend.agents.pricing_optimization import PricingOptimizationAgent
+from backend.agents.revenue_forecasting import RevenueForecastingAgent
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +54,16 @@ class BatchAgentScheduler:
         self.registry.register_agent(ConversionOptimizationAgent(self.db))
         self.registry.register_agent(LNCPPatternDiscoveryAgent(self.db))
         self.registry.register_agent(UsagePatternAnalyzer(self.db))
+        
+        # Register Phase 2 agents (retention & experience)
+        self.registry.register_agent(RetentionPredictionAgent(self.db))
+        self.registry.register_agent(ABTestAnalysisAgent(self.db))
+        self.registry.register_agent(ContentOptimizationAgent(self.db))
+        
+        # Register Phase 3 agents (partnership & pricing intelligence)
+        self.registry.register_agent(PartnershipIntelligenceAgent(self.db))
+        self.registry.register_agent(PricingOptimizationAgent(self.db))
+        self.registry.register_agent(RevenueForecastingAgent(self.db))
         
         self.initialized = True
         logger.info("Agent system initialized successfully")
