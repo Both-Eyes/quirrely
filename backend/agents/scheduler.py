@@ -25,6 +25,7 @@ from backend.agents.content_optimizer import ContentOptimizationAgent
 from backend.agents.partnership_intelligence import PartnershipIntelligenceAgent
 from backend.agents.pricing_optimization import PricingOptimizationAgent
 from backend.agents.revenue_forecasting import RevenueForecastingAgent
+from backend.agents.content_generation_agent import ContentGenerationAgent
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +65,9 @@ class BatchAgentScheduler:
         self.registry.register_agent(PartnershipIntelligenceAgent(self.db))
         self.registry.register_agent(PricingOptimizationAgent(self.db))
         self.registry.register_agent(RevenueForecastingAgent(self.db))
+        
+        # Register Phase 4 agents (automated content generation)
+        self.registry.register_agent(ContentGenerationAgent(self.db))
         
         self.initialized = True
         logger.info("Agent system initialized successfully")
