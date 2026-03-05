@@ -96,11 +96,52 @@ class ContentGenerationAgent(BatchAgent):
         # Content generation settings
         self.config = {
             "max_posts_per_run": 1,  # Generate 1 optimal post per run
+            "generate_country_variations": True,  # Generate 5-country variations
+            "countries": ["us", "ca", "uk", "au", "nz"],  # Target countries
             "min_opportunity_score": 70,  # Higher threshold for best opportunities
             "target_word_count": 1200,
             "max_word_count": 2000,
             "seo_score_threshold": 85,
             "keyword_difficulty_max": "medium"
+        }
+        
+        # Country-specific content configurations
+        self.country_config = {
+            "us": {
+                "spelling": "american",
+                "tone": "direct and confident",
+                "examples": "American business writing, direct communication",
+                "domain": "quirrely.com",
+                "locale": "en_US"
+            },
+            "ca": {
+                "spelling": "canadian", 
+                "tone": "polite and balanced",
+                "examples": "Canadian professional writing, considerate directness",
+                "domain": "quirrely.ca",
+                "locale": "en_CA"
+            },
+            "uk": {
+                "spelling": "british",
+                "tone": "proper and structured", 
+                "examples": "British formal writing, measured authority",
+                "domain": "quirrely.co.uk",
+                "locale": "en_GB"
+            },
+            "au": {
+                "spelling": "australian",
+                "tone": "authentic and straightforward",
+                "examples": "Australian direct communication, genuine expression",
+                "domain": "quirrely.com.au", 
+                "locale": "en_AU"
+            },
+            "nz": {
+                "spelling": "new_zealand",
+                "tone": "clear and understated",
+                "examples": "New Zealand clear communication, thoughtful expression",
+                "domain": "quirrely.co.nz",
+                "locale": "en_NZ"
+            }
         }
         
         # ML models (will be enhanced over time)
@@ -209,19 +250,40 @@ class ContentGenerationAgent(BatchAgent):
         best_opportunity = await self._select_optimal_opportunity_for_time(sorted_opportunities)
         
         if best_opportunity:
-            content = await self._generate_content(best_opportunity, top_patterns)
-            if content:
-                generated_content.append(content)
-                actions.append({
-                    "type": "generate_content",
-                    "opportunity": best_opportunity,
-                    "content": content,
-                    "expected_monthly_clicks": best_opportunity.estimated_monthly_clicks,
-                    "priority_score": best_opportunity.priority,
-                    "generation_time": datetime.now().strftime("%H:%M EST")
-                })
-                
-                self.logger.info(f"Generated optimal content: {content.title} (priority: {best_opportunity.priority:.1f})")
+            # Generate base content
+            base_content = await self._generate_content(best_opportunity, top_patterns)
+            if base_content:
+                # Generate country variations if enabled
+                if self.config["generate_country_variations"]:
+                    for country in self.config["countries"]:
+                        country_content = await self._generate_country_variation(base_content, country, best_opportunity)
+                        if country_content:
+                            generated_content.append(country_content)
+                            
+                            actions.append({
+                                "type": "generate_content",
+                                "opportunity": best_opportunity,
+                                "content": country_content,
+                                "country": country,
+                                "expected_monthly_clicks": best_opportunity.estimated_monthly_clicks // 5,  # Split across countries
+                                "priority_score": best_opportunity.priority,
+                                "generation_time": datetime.now().strftime("%H:%M EST")
+                            })
+                    
+                    self.logger.info(f"Generated {len(generated_content)} country variations for: {base_content.title}")
+                else:
+                    # Single content without variations
+                    generated_content.append(base_content)
+                    actions.append({
+                        "type": "generate_content", 
+                        "opportunity": best_opportunity,
+                        "content": base_content,
+                        "expected_monthly_clicks": best_opportunity.estimated_monthly_clicks,
+                        "priority_score": best_opportunity.priority,
+                        "generation_time": datetime.now().strftime("%H:%M EST")
+                    })
+                    
+                    self.logger.info(f"Generated optimal content: {base_content.title} (priority: {best_opportunity.priority:.1f})")
             else:
                 self.logger.warning(f"Failed to generate content for best opportunity: {best_opportunity.keyword}")
         else:
@@ -679,11 +741,34 @@ Start with {self._get_next_step(topic)}. Practice consistently. Your writing wil
     async def _write_content_file(self, content: GeneratedContent):
         """Write generated content to HTML file."""
         blog_dir = Path("/root/quirrely_v313_integrated/blog")
-        file_path = blog_dir / content.filename
+        
+        # Create country-specific subdirectory if needed
+        if content.filename.startswith(('ca-', 'uk-', 'au-', 'nz-')):
+            country = content.filename.split('-')[0]
+            country_dir = blog_dir / country
+            country_dir.mkdir(exist_ok=True)
+            
+            # Remove country prefix from filename when placing in country directory
+            clean_filename = '-'.join(content.filename.split('-')[1:])
+            file_path = country_dir / clean_filename
+        else:
+            # US content goes in main blog directory
+            file_path = blog_dir / content.filename
+        
+        # Determine country and locale from content
+        country = "us"  # default
+        locale = "en_US"  # default
+        domain = "quirrely.com"  # default
+        
+        if content.filename.startswith(('ca-', 'uk-', 'au-', 'nz-')):
+            country = content.filename.split('-')[0]
+            country_conf = self.country_config.get(country, self.country_config["us"])
+            locale = country_conf["locale"]
+            domain = country_conf["domain"]
         
         # Use existing blog template structure
         html_content = f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="{locale.replace('_', '-')}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -695,18 +780,20 @@ Start with {self._get_next_step(topic)}. Practice consistently. Your writing wil
     <meta name="content-source" content="{content.content_source}">
     <meta name="template-used" content="{content.template_used}">
     <meta name="generated-date" content="{datetime.utcnow().isoformat()}">
+    <meta name="country" content="{country}">
     
     <!-- Social Media Meta Tags -->
     <meta property="og:title" content="{content.title}">
     <meta property="og:description" content="{content.meta_description}">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://quirrely.io{content.url_path}">
+    <meta property="og:url" content="https://{domain}{content.url_path}">
+    <meta property="og:locale" content="{locale}">
     
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{content.title}">
     <meta name="twitter:description" content="{content.meta_description}">
     
-    <link rel="canonical" href="https://quirrely.io{content.url_path}">
+    <link rel="canonical" href="https://{domain}{content.url_path}">
     
     <!-- Blog Styles -->
     <link rel="stylesheet" href="../sentense-app/src/styles/blog.css">
@@ -1003,3 +1090,152 @@ Start with {self._get_next_step(topic)}. Practice consistently. Your writing wil
         
         # Fallback to highest priority if no engaging content available  
         return opportunities[0]
+    
+    # ─────────────────────────────────────────────────────────────────────
+    # COUNTRY-SPECIFIC CONTENT GENERATION
+    # ─────────────────────────────────────────────────────────────────────
+    
+    async def _generate_country_variation(self, base_content: GeneratedContent, country: str, opportunity: ContentOpportunity) -> Optional[GeneratedContent]:
+        """Generate a country-specific variation of the base content."""
+        try:
+            country_conf = self.country_config.get(country)
+            if not country_conf:
+                return None
+            
+            # Create country-specific content
+            country_title = self._localize_title(base_content.title, country)
+            country_meta = self._localize_meta_description(base_content.meta_description, country)
+            country_body = await self._localize_content_body(base_content.body, country)
+            
+            # Generate country-specific filename and URL
+            base_filename = base_content.filename
+            if country == "us":
+                # US is default, no country prefix
+                country_filename = base_filename
+                country_url = base_content.url_path
+            else:
+                # Add country prefix for other countries
+                country_filename = f"{country}-{base_filename}"
+                country_url = f"/blog/{country}{base_content.url_path.replace('/blog', '')}"
+            
+            # Update target keywords with country-specific variations
+            country_keywords = self._localize_keywords(base_content.target_keywords, country)
+            
+            return GeneratedContent(
+                filename=country_filename,
+                title=country_title,
+                meta_description=country_meta,
+                body=country_body,
+                url_path=country_url,
+                target_keywords=country_keywords,
+                template_used=f"{base_content.template_used}_{country}",
+                seo_score=base_content.seo_score,
+                content_source=f"ai_generated_{country}"
+            )
+            
+        except Exception as e:
+            self.logger.error(f"Failed to generate {country} variation: {str(e)}")
+            return None
+    
+    def _localize_title(self, title: str, country: str) -> str:
+        """Localize title for specific country."""
+        country_conf = self.country_config[country]
+        
+        # Add country-specific context to title
+        if country == "ca":
+            return f"{title} | Canadian Writing Guide"
+        elif country == "uk":
+            return f"{title} | British Writing Guide" 
+        elif country == "au":
+            return f"{title} | Australian Writing Guide"
+        elif country == "nz":
+            return f"{title} | New Zealand Writing Guide"
+        else:  # US
+            return title
+    
+    def _localize_meta_description(self, meta: str, country: str) -> str:
+        """Localize meta description for specific country."""
+        country_conf = self.country_config[country]
+        
+        if country == "ca":
+            return meta.replace("writers", "Canadian writers").replace("writing", "Canadian writing")
+        elif country == "uk": 
+            return meta.replace("writers", "British writers").replace("writing", "British writing")
+        elif country == "au":
+            return meta.replace("writers", "Australian writers").replace("writing", "Australian writing")
+        elif country == "nz":
+            return meta.replace("writers", "New Zealand writers").replace("writing", "New Zealand writing")
+        else:  # US
+            return meta
+    
+    async def _localize_content_body(self, body: str, country: str) -> str:
+        """Localize content body for specific country."""
+        country_conf = self.country_config[country]
+        
+        # Apply spelling localization
+        localized_body = self._apply_country_spelling(body, country)
+        
+        # Add country-specific introduction
+        country_intro = self._get_country_intro(country)
+        
+        # Add country-specific examples
+        country_examples = self._get_country_examples(country)
+        
+        # Combine with localized tone
+        final_body = f"{country_intro}\n\n{localized_body}\n\n{country_examples}"
+        
+        return final_body
+    
+    def _apply_country_spelling(self, text: str, country: str) -> str:
+        """Apply country-specific spelling to text."""
+        if country in ["ca", "uk", "au", "nz"]:
+            # Apply British/Commonwealth spelling
+            text = text.replace("color", "colour")
+            text = text.replace("realize", "realise")
+            text = text.replace("center", "centre")
+            text = text.replace("organize", "organise")
+            text = text.replace("behavior", "behaviour")
+        # US spelling is default, no changes needed
+        
+        return text
+    
+    def _get_country_intro(self, country: str) -> str:
+        """Get country-specific introduction."""
+        intros = {
+            "ca": "Canadian writers blend directness with politeness, creating a distinctive voice that reflects our multicultural perspective.",
+            "uk": "British writers demonstrate measured authority through proper structure and refined expression.",
+            "au": "Australian writers embrace authenticity and straightforward communication that cuts through the noise.",
+            "nz": "New Zealand writers value clarity and understatement, expressing confidence without overwhelming the reader.",
+            "us": "American writers lead with confidence and directness, making their point clearly and efficiently."
+        }
+        return intros.get(country, intros["us"])
+    
+    def _get_country_examples(self, country: str) -> str:
+        """Get country-specific writing examples."""
+        examples = {
+            "ca": "CANADIAN CONTEXT\n\nThis voice style appears in Canadian business writing, academic discourse, and professional communication. Think of how Canadian writers balance assertiveness with consideration for others' perspectives.",
+            "uk": "BRITISH CONTEXT\n\nThis voice style is evident in British formal writing, academic papers, and professional correspondence. Consider how British writers maintain authority while following established conventions.",
+            "au": "AUSTRALIAN CONTEXT\n\nThis voice style shines in Australian direct communication, creative writing, and authentic expression. Notice how Australian writers cut through pretense to get to the heart of the matter.", 
+            "nz": "NEW ZEALAND CONTEXT\n\nThis voice style appears in New Zealand clear communication, thoughtful discourse, and understated confidence. Observe how Kiwi writers express strength without unnecessary drama.",
+            "us": "AMERICAN CONTEXT\n\nThis voice style dominates American business writing, confident communication, and direct expression. See how American writers lead with clarity and conviction."
+        }
+        return examples.get(country, examples["us"])
+    
+    def _localize_keywords(self, keywords: List[str], country: str) -> List[str]:
+        """Add country-specific keyword variations."""
+        country_keywords = keywords.copy()
+        
+        # Add country-specific keyword variations
+        base_keywords = [kw for kw in keywords if "writing" in kw.lower()]
+        
+        for keyword in base_keywords:
+            if country == "ca":
+                country_keywords.append(f"Canadian {keyword}")
+            elif country == "uk":
+                country_keywords.append(f"British {keyword}")
+            elif country == "au": 
+                country_keywords.append(f"Australian {keyword}")
+            elif country == "nz":
+                country_keywords.append(f"New Zealand {keyword}")
+        
+        return country_keywords
