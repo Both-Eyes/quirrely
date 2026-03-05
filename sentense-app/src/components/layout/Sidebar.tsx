@@ -17,6 +17,7 @@ import {
   TrendingUp,
   Settings,
   HelpCircle,
+  Heart,
   X,
 } from 'lucide-react';
 import { useUIStore, useAuthStore } from '@/stores';
@@ -53,6 +54,7 @@ const navigation: NavSection[] = [
       { label: 'My Writing', href: '/writer/posts', icon: <PenTool className="h-5 w-5" /> },
       { label: 'Drafts', href: '/writer/drafts', icon: <FileText className="h-5 w-5" /> },
       { label: 'Voice Profile', href: '/dashboard/voice', icon: <Star className="h-5 w-5" />, requiredAddon: 'voice_style' },
+      { label: 'Writing Partnership', href: '/dashboard/partnership', icon: <Heart className="h-5 w-5" />, requiredTier: ['pro', 'curator', 'featured_writer', 'featured_curator', 'authority_writer', 'authority_curator'] },
       { label: 'Analytics', href: '/writer/analytics', icon: <BarChart3 className="h-5 w-5" />, requiredTier: ['pro', 'curator', 'featured_writer', 'featured_curator', 'authority_writer', 'authority_curator'] },
     ],
   },

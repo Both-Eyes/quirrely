@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { AuthLayout, DashboardLayout, ProtectedRoute } from '@/components/layout';
 import { Login, Signup, ForgotPassword } from '@/pages/auth';
-import { Overview, Settings, VoiceProfilePage } from '@/pages/dashboard';
+import { Overview, Settings, VoiceProfilePage, Partnership } from '@/pages/dashboard';
 import { Discover, Bookmarks, Streak } from '@/pages/reader';
 import { MyWriting, Drafts, Editor, Analytics } from '@/pages/writer';
 import { MyPaths, PathEditor } from '@/pages/curator';
@@ -60,6 +60,17 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/settings',
         element: <Settings />,
+      },
+      {
+        // Partnership - requires pro+ tier
+        path: '/dashboard/partnership',
+        element: (
+          <ProtectedRoute 
+            requiredTier={['pro', 'curator', 'featured_writer', 'featured_curator', 'authority_writer', 'authority_curator']}
+          >
+            <Partnership />
+          </ProtectedRoute>
+        ),
       },
 
       // Reader

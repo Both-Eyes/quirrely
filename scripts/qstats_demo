@@ -65,6 +65,43 @@ class FeatureMetrics:
             self.feature_usage = {}
 
 @dataclass
+class CollaborationMetrics:
+    """Writing partnership and collaboration metrics."""
+    # Partnership Statistics
+    total_partnerships: int = 0
+    active_partnerships: int = 0
+    pending_invitations: int = 0
+    completed_partnerships: int = 0
+    cancelled_partnerships: int = 0
+    
+    # Invitation Flow
+    invitations_sent_today: int = 0
+    invitations_accepted_today: int = 0
+    invitation_acceptance_rate: float = 0.0
+    average_invitation_response_time: float = 0.0  # hours
+    
+    # Word Usage
+    shared_words_used_today: int = 0
+    solo_words_used_today: int = 0
+    total_words_in_partnerships: int = 0
+    partnership_word_utilization: float = 0.0  # percentage of allocated words used
+    
+    # Partnership Types
+    partnerships_by_type: Dict[str, int] = None
+    
+    # Rate Limiting
+    cancellations_blocked_today: int = 0
+    users_rate_limited: int = 0
+    
+    # Engagement
+    featured_submissions: int = 0
+    partnership_duration_avg_days: float = 0.0
+    
+    def __post_init__(self):
+        if self.partnerships_by_type is None:
+            self.partnerships_by_type = {}
+
+@dataclass
 class SystemMetrics:
     """System performance metrics."""
     database_connections: int = 0
@@ -290,6 +327,46 @@ class QuirrellyStatDemo:
                 "analytics": 234,
                 "voice_profile": 178
             }
+        )
+    
+    def get_demo_collaboration_metrics(self) -> CollaborationMetrics:
+        """Get demo collaboration metrics."""
+        return CollaborationMetrics(
+            # Partnership Statistics
+            total_partnerships=156,
+            active_partnerships=89,
+            pending_invitations=12,
+            completed_partnerships=34,
+            cancelled_partnerships=21,
+            
+            # Invitation Flow
+            invitations_sent_today=8,
+            invitations_accepted_today=6,
+            invitation_acceptance_rate=72.4,
+            average_invitation_response_time=18.5,  # hours
+            
+            # Word Usage
+            shared_words_used_today=15847,
+            solo_words_used_today=23456,
+            total_words_in_partnerships=892456,
+            partnership_word_utilization=67.3,  # percentage of allocated words used
+            
+            # Partnership Types
+            partnerships_by_type={
+                "growth": 34,
+                "heart": 28,
+                "professional": 23,
+                "creative": 19,
+                "life": 12
+            },
+            
+            # Rate Limiting
+            cancellations_blocked_today=3,
+            users_rate_limited=7,
+            
+            # Engagement
+            featured_submissions=5,
+            partnership_duration_avg_days=28.4
         )
     
     def get_demo_system_metrics(self) -> SystemMetrics:
@@ -1002,7 +1079,7 @@ class QuirrellyStatDemo:
         self.console.print()
     
     def display_overview(self, security: SecurityMetrics, users: UserMetrics, 
-                        features: FeatureMetrics, system: SystemMetrics, events: EventMetrics):
+                        features: FeatureMetrics, system: SystemMetrics, events: EventMetrics, collaboration: CollaborationMetrics):
         """Display comprehensive overview of all metrics."""
         
         # Header
@@ -1045,8 +1122,8 @@ class QuirrellyStatDemo:
         
         users_table.add_row("Total Users", f"[green]{users.total_users:,}[/green]")
         users_table.add_row("New Today", f"[green]{users.new_signups_today}[/green]" if users.new_signups_today > 0 else "0")
-        users_table.add_row("Login Success Rate", f"{users.successful_logins_today}/{users.login_attempts_today}")
-        users_table.add_row("Countries Active", str(users.countries_active))
+        users_table.add_row("Active Partnerships", f"[cyan]{collaboration.active_partnerships}[/cyan]")
+        users_table.add_row("Invites Today", f"[green]{collaboration.invitations_sent_today}[/green]" if collaboration.invitations_sent_today > 0 else "0")
         users_table.add_row("Feature Checks", f"{features.total_checks:,}")
         users_table.add_row("Access Denied", f"[yellow]{features.denied_accesses}[/yellow]" if features.denied_accesses > 0 else "0")
         
@@ -1076,7 +1153,7 @@ class QuirrellyStatDemo:
         
         # Usage tip
         tip = Panel(
-            "[dim]Use 'qstats security|users|features|events|performance' for detailed views | 'qstats --json' for automation[/dim]",
+            "[dim]Use 'qstats security|users|features|collaboration|events|performance' for detailed views | 'qstats --json' for automation[/dim]",
             style="dim"
         )
         self.console.print(tip)
@@ -1407,6 +1484,8 @@ class QuirrellyStatDemo:
             self.console.print("  qstats_demo security     # Security view")
             self.console.print("  qstats_demo users        # User metrics") 
             self.console.print("  qstats_demo features     # Feature metrics")
+            self.console.print("  qstats_demo collaboration # Writing partnership metrics")
+            self.console.print("  qstats_demo partnerships # Same as collaboration")
             self.console.print("  qstats_demo meta         # LNCP Meta/Observers health")
             self.console.print("  qstats_demo observers    # Same as meta")
             self.console.print("  qstats_demo frontend     # Frontend QA & UX")
@@ -1458,6 +1537,41 @@ class QuirrellyStatDemo:
             for feature, count in features.feature_usage.items():
                 self.console.print(f"  {feature}: {count}")
             self.console.print()
+        elif view_mode == "collaboration" or view_mode == "partnerships":
+            collaboration = self.get_demo_collaboration_metrics()
+            self.console.print("\n🤝 [bold]Writing Partnership Metrics[/bold]")
+            self.console.print(f"Total Partnerships: [cyan]{collaboration.total_partnerships:,}[/cyan]")
+            self.console.print(f"Active: [green]{collaboration.active_partnerships:,}[/green] | Pending: [yellow]{collaboration.pending_invitations}[/yellow] | Completed: {collaboration.completed_partnerships}")
+            self.console.print(f"Cancelled: [red]{collaboration.cancelled_partnerships}[/red]")
+            self.console.print()
+            
+            self.console.print("📨 [bold]Invitation Flow[/bold]")
+            self.console.print(f"Sent Today: [cyan]{collaboration.invitations_sent_today}[/cyan] | Accepted: [green]{collaboration.invitations_accepted_today}[/green]")
+            self.console.print(f"Acceptance Rate: [green]{collaboration.invitation_acceptance_rate:.1f}%[/green]")
+            self.console.print(f"Avg Response Time: {collaboration.average_invitation_response_time:.1f} hours")
+            self.console.print()
+            
+            self.console.print("✏️ [bold]Word Usage[/bold]")
+            self.console.print(f"Shared Words Today: [cyan]{collaboration.shared_words_used_today:,}[/cyan]")
+            self.console.print(f"Solo Words Today: [blue]{collaboration.solo_words_used_today:,}[/blue]")
+            self.console.print(f"Total Partnership Words: [green]{collaboration.total_words_in_partnerships:,}[/green]")
+            self.console.print(f"Word Pool Utilization: [yellow]{collaboration.partnership_word_utilization:.1f}%[/yellow]")
+            self.console.print()
+            
+            self.console.print("💝 [bold]Partnership Types[/bold]")
+            for ptype, count in collaboration.partnerships_by_type.items():
+                self.console.print(f"  {ptype}: {count}")
+            self.console.print()
+            
+            self.console.print("🔒 [bold]Rate Limiting[/bold]")
+            self.console.print(f"Cancellations Blocked Today: [red]{collaboration.cancellations_blocked_today}[/red]")
+            self.console.print(f"Users Currently Rate Limited: [yellow]{collaboration.users_rate_limited}[/yellow]")
+            self.console.print()
+            
+            self.console.print("⭐ [bold]Engagement[/bold]")
+            self.console.print(f"Featured Submissions: [green]{collaboration.featured_submissions}[/green]")
+            self.console.print(f"Avg Partnership Duration: [cyan]{collaboration.partnership_duration_avg_days:.1f} days[/cyan]")
+            self.console.print()
         elif view_mode == "events":
             self.console.print("\n📊 [bold]Meta Events Metrics[/bold]")
             self.console.print(f"Events Today: [cyan]{events.events_today:,}[/cyan]")
@@ -1488,7 +1602,8 @@ class QuirrellyStatDemo:
             marketing_funnel = self.get_demo_marketing_funnel_metrics()
             self.display_marketing_funnel_view(marketing_funnel)
         else:
-            self.display_overview(security, users, features, system, events)
+            collaboration = self.get_demo_collaboration_metrics()
+            self.display_overview(security, users, features, system, events, collaboration)
         
         return 0
 
