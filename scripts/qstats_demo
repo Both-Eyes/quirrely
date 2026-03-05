@@ -307,8 +307,7 @@ class QuirrellyStatDemo:
             countries_active=12,
             tier_distribution={
                 "free": 1234,
-                "pro": 456,
-                "authority": 157
+                "pro": 613  # Previous pro + authority users
             }
         )
     

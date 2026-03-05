@@ -258,16 +258,16 @@ async def activate_collaboration(collaboration_id: str) -> None:
 async def initialize_word_pools(collaboration_id: str) -> None:
     """Initialize word allocations for new collaboration."""
     
-    # Standard Pro tier allocation: 25k each user
-    # Shared pool: 25k (12.5k contribution from each)
-    # Solo remaining: 12.5k each
+    # New tier allocation system:
+    # Partnership users: 10k personal + share of 20k shared pool
+    # Each partner gets 10k personal + 10k shared = 20k total per user
     
     update_query = """
         UPDATE writing_partnerships 
-        SET shared_creative_space = 25000,
+        SET shared_creative_space = 20000,
             shared_space_used = 0,
-            initiator_solo_space_remaining = 12500,
-            partner_solo_space_remaining = 12500,
+            initiator_solo_space_remaining = 10000,
+            partner_solo_space_remaining = 10000,
             current_period_start = DATE_TRUNC('month', NOW()),
             current_period_end = DATE_TRUNC('month', NOW() + INTERVAL '1 month')
         WHERE id = $1

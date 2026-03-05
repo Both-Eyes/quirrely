@@ -12,8 +12,8 @@
 
 export type Country = 'CA' | 'GB' | 'AU' | 'NZ';
 
-export type WriterTier = 'free' | 'pro' | 'featured_writer' | 'authority_writer';
-export type CuratorTier = 'free' | 'curator' | 'featured_curator' | 'authority_curator';
+export type WriterTier = 'free' | 'pro' | 'featured_writer';
+export type CuratorTier = 'free' | 'curator' | 'featured_curator';
 
 export type Addon = 'voice_style';
 

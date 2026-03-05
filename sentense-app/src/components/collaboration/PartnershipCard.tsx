@@ -307,11 +307,11 @@ export const PartnershipInvitationCard: React.FC<InvitationCardProps> = ({
           <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
             <li className="flex items-center gap-2">
               <div className="w-1 h-1 bg-coral-500 rounded-full"></div>
-              25k word shared creative space
+              20k word shared creative space
             </li>
             <li className="flex items-center gap-2">
               <div className="w-1 h-1 bg-coral-500 rounded-full"></div>
-              12.5k words for your solo work
+              10k words for your personal work
             </li>
             <li className="flex items-center gap-2">
               <div className="w-1 h-1 bg-coral-500 rounded-full"></div>
