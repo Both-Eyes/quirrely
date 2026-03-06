@@ -9,10 +9,10 @@ from datetime import datetime
 
 class QuirrellViralModel:
     def __init__(self):
-        # Current baseline metrics from CLAUDE.md
-        self.current_users = 1847
-        self.current_mrr = 23121
-        self.current_signup_rate = 23  # per day
+        # Current baseline metrics - MAINTENANCE MODE RESET
+        self.current_users = 10  # maintenance mode survivors
+        self.current_mrr = 38    # 1 Pro user @ $37.72/month
+        self.current_signup_rate = 0  # starting from zero (maintenance mode)
         self.current_pro_conversion = 0.414  # 41.4%
         self.pro_price = 37.72  # avg per month
         
