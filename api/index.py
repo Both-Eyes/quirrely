@@ -32,5 +32,5 @@ def health_check():
     return {"status": "healthy", "version": "2.0"}
 
 # For Vercel deployment
-def handler(request):
-    return app(request.environ, lambda *args: None)
+from mangum import Mangum
+handler = Mangum(app)

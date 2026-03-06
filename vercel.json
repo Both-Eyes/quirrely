@@ -7,12 +7,12 @@
   "buildCommand": null,
   "outputDirectory": ".",
   "functions": {
-    "backend/api.py": {
+    "api/index.py": {
       "runtime": "python3.9"
     }
   },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/backend/api.py" },
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
     { "source": "/blog/how-:profile-:stance-writers-write", "destination": "/blog/blog-post.html" },
     { "source": "/writer/:username", "destination": "/blog/user-profile-public.html" },
     { "source": "/blog/featured/:week", "destination": "/blog/featured-writer-system.html" }
