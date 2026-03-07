@@ -6,3 +6,9 @@ node_modules/
 *.log
 .DS_Store
 backend/.env.backup*
+
+# Runtime files
+backend/sessions/
+backend/node_modules/
+backend/*.bak*
+backend/patterns/*.lock
