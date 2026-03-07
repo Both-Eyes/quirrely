@@ -1240,6 +1240,69 @@ class Part4_FrontendIntegrity(TestHarness):
             self.record("Deploy dir has vivid vars", "--accent-coral-vivid" in deploy_dash,
                          "synced" if "--accent-coral-vivid" in deploy_dash else "STALE", "MARS")
 
+        # Unified Header/Footer (Session 14r)
+        self.section("MARS — Unified Header/Footer")
+        # All pages should have the unified header
+        for path, name in [
+            (f"{FRONTEND_DIR}/index.html", "index"),
+            (f"{FRONTEND_DIR}/dashboard.html", "dashboard"),
+            (f"{FRONTEND_DIR}/settings.html", "settings"),
+            (f"{FRONTEND_DIR}/export.html", "export"),
+            (f"{PROJECT_ROOT}/faq.html", "faq"),
+            (f"{PROJECT_ROOT}/auth/login.html", "login"),
+            (f"{PROJECT_ROOT}/auth/signup.html", "signup"),
+            (f"{PROJECT_ROOT}/auth/reset.html", "reset"),
+            (f"{PROJECT_ROOT}/billing/upgrade.html", "billing-upgrade"),
+            (f"{PROJECT_ROOT}/billing/manage.html", "billing-manage"),
+            (f"{PROJECT_ROOT}/billing/success.html", "billing-success"),
+            (f"{BLOG_DIR}/index.html", "blog-index"),
+        ]:
+            c = self.read_file(path)
+            if c:
+                # Check for unified header elements
+                has_header = "site-header" in c or "header" in c
+                has_nav_underline = "scaleX(0)" in c
+                has_hamburger = "site-hamburger" in c or "siteHamburger" in c
+                has_footer = "site-footer" in c
+                has_768_bp = "max-width: 768px" in c or "max-width:768px" in c or "max-width: 900px" in c or "max-width:900px" in c
+                self.record(f"{name} unified header", has_header,
+                            "found" if has_header else "MISSING", "MARS")
+                self.record(f"{name} nav underline", has_nav_underline,
+                            "found" if has_nav_underline else "MISSING", "MARS")
+                self.record(f"{name} hamburger menu", has_hamburger,
+                            "found" if has_hamburger else "MISSING", "MARS")
+                self.record(f"{name} unified footer", has_footer,
+                            "found" if has_footer else "MISSING", "MARS")
+                self.record(f"{name} mobile breakpoint", has_768_bp,
+                            "found" if has_768_bp else "MISSING", "MARS")
+        # Blog posts batch check
+        blog_posts = _glob.glob(f"{BLOG_DIR}/*.html")
+        blog_with_header = sum(1 for f in blog_posts if "site-header" in self.read_file(f))
+        self.record(f"Blog posts with unified header ({blog_with_header}/{len(blog_posts)})",
+                    blog_with_header >= len(blog_posts) - 1,
+                    f"{blog_with_header}/{len(blog_posts)}", "MARS")
+        # Consistent nav items check
+        idx_c = self.read_file(f"{FRONTEND_DIR}/index.html")
+        faq_c = self.read_file(f"{PROJECT_ROOT}/faq.html")
+        blog_c = self.read_file(f"{BLOG_DIR}/index.html")
+        for c, name in [(idx_c, "index"), (faq_c, "faq"), (blog_c, "blog")]:
+            if c:
+                has_pricing = "/billing/upgrade" in c
+                self.record(f"{name} nav has Pricing link", has_pricing,
+                            "found" if has_pricing else "MISSING", "MARS")
+        # Consistent footer links
+        for path, name in [(f"{FRONTEND_DIR}/settings.html", "settings"),
+                           (f"{PROJECT_ROOT}/auth/login.html", "login"),
+                           (f"{PROJECT_ROOT}/billing/upgrade.html", "billing")]:
+            c = self.read_file(path)
+            if c:
+                has_terms = "terms" in c.lower()
+                has_privacy = "privacy" in c.lower()
+                has_support = "hello@quirrely.com" in c
+                self.record(f"{name} footer has Terms+Privacy+Support",
+                            has_terms and has_privacy and has_support,
+                            "complete" if (has_terms and has_privacy and has_support) else "INCOMPLETE", "MARS")
+
         # Sitemaps
         self.section("MARS — Sitemaps")
         sitemap = self.read_file(f"{PROJECT_ROOT}/sitemap.xml")

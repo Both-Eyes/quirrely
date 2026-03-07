@@ -16,13 +16,108 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Nunito Sans', -apple-system, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
     
-    .header { padding: 1rem 2rem; background: linear-gradient(180deg, #FFFDF9, #FFFBF5); }
-    .header nav { display: flex; gap: 1.5rem; }
-    .header nav a { position: relative; color: var(--ink); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
-    .header nav a::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 100%; height: 2px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
-    .header nav a:hover::after { transform: scaleX(1); }
-    .logo { font-size: 1.25rem; font-weight: 700; text-decoration: none; color: var(--ink); }
-    .logo span { color: var(--primary); }
+    /* ===== UNIFIED HEADER ===== */
+    .site-header {
+      background: linear-gradient(180deg, #FFFDF9, #FFFBF5);
+      border-bottom: 1px solid #E8E2DA;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 8px rgba(120,100,80,0.06);
+    }
+    .site-header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      gap: 2rem;
+    }
+    .site-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .site-logo svg { width: 28px; height: 42px; }
+    .site-logo-text {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.25rem; font-weight: 700; color: #2D2D2D;
+    }
+    .site-logo-text .re { color: #FF6B6B; }
+    .site-logo-text .ly { font-style: italic; font-weight: 500; }
+    .site-nav {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .site-nav a {
+      padding: 8px 14px; font-size: 0.875rem; font-weight: 500;
+      color: #6B6560; text-decoration: none; position: relative;
+      transition: color 0.2s; border-radius: 6px;
+    }
+    .site-nav a::after {
+      content: ''; position: absolute; bottom: 2px; left: 14px; right: 14px;
+      height: 2px; background: #FF6B6B; border-radius: 1px;
+      transform: scaleX(0); transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .site-nav a:hover { color: #FF6B6B; }
+    .site-nav a:hover::after { transform: scaleX(1); }
+    .site-nav a.active { color: #FF6B6B; }
+    .site-nav a.active::after { transform: scaleX(1); }
+    .site-header-right {
+      margin-left: auto; display: flex; align-items: center; gap: 12px;
+    }
+    .site-header-right .signin-link {
+      font-size: 0.875rem; font-weight: 500; color: #6B6560;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .site-header-right .signin-link:hover { color: #FF6B6B; }
+    .site-header-right .signup-btn {
+      padding: 0.5rem 1.25rem;
+      background: linear-gradient(135deg, #FF6B6B, #E85858);
+      color: white; border-radius: 6px; text-decoration: none;
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 0.85rem; font-weight: 600;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 2px 8px rgba(255,107,107,0.25);
+    }
+    .site-header-right .signup-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,107,107,0.35); }
+    .site-hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      padding: 4px; color: #2D2D2D; margin-left: auto;
+    }
+    .site-mobile-menu {
+      display: none; position: fixed; top: 56px; left: 0; right: 0;
+      background: #FFFDF9; border-bottom: 1px solid #E8E2DA;
+      box-shadow: 0 8px 32px rgba(120,100,80,0.12); padding: 0.75rem; z-index: 99;
+    }
+    .site-mobile-menu.show { display: block; }
+    .site-mobile-menu a {
+      display: block; padding: 0.75rem 1rem; font-size: 0.95rem;
+      color: #2D2D2D; text-decoration: none; border-radius: 6px;
+    }
+    .site-mobile-menu a:hover { background: rgba(0,0,0,0.04); }
+    .site-mobile-menu a.active { color: #FF6B6B; }
+    .site-mobile-menu .mobile-signup {
+      margin: 0.5rem 1rem; padding: 0.65rem 1rem;
+      background: linear-gradient(135deg, #FF6B6B, #E85858);
+      color: white; border-radius: 6px; text-align: center; font-weight: 600;
+    }
+    @media (max-width: 768px) {
+      .site-header { padding: 0 1rem; }
+      .site-nav { display: none; }
+      .site-header-right { display: none; }
+      .site-hamburger { display: block; }
+    }
+    /* ===== UNIFIED FOOTER ===== */
+    .site-footer {
+      text-align: center; padding: 2rem; border-top: 1px solid #E8E2DA;
+      font-size: 0.85rem; color: #6B6560; margin-top: 3rem;
+    }
+    .site-footer a { color: #6B6560; text-decoration: none; transition: color 0.2s; }
+    .site-footer a:hover { color: #FF6B6B; }
+    .site-footer .footer-brand { font-family: 'Fraunces', Georgia, serif; font-weight: 600; color: #2D2D2D; }
+    .footer-social { display: inline-flex; align-items: center; gap: 0.75rem; margin-left: 0.5rem; }
+    .footer-social a { opacity: 0.6; }
+    .footer-social a:hover { opacity: 1; }
     
     .main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem; }
     
@@ -59,31 +154,54 @@
     .social-btn { display: flex; align-items: center; justify-content: center; gap: 0.75rem; width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; background: white; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.2s, border-color 0.2s; color: var(--ink); }
     .social-btn:hover { background: #F7F3EE; border-color: #CED4DA; }
     .social-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    @media (max-width: 480px) {
+      body { padding: 0; }
+      .auth-card { margin: 1rem; padding: 1.5rem; }
+      h1 { font-size: 1.25rem; }
+      .site-footer { padding: 1.5rem 1rem; }
+    }
   </style>
 </head>
 <body>
-  <header class="header">
-    <a href="/" class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365 100" width="140" height="41" style="vertical-align: middle;">
-      <g transform="translate(5, 2) scale(0.7)">
-        <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
-        <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
-        <path d="M20 68 Q12 72, 14 80 Q16 86, 24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
-        <path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
-        <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
-        <ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
-        <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
-        <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
-        <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
-        <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
-        <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
-        <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
-        <circle cx="33" cy="46.5" r="2" fill="#FFF"/>
-        <circle cx="49" cy="46.5" r="2" fill="#FFF"/>
-        <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
-      </g>
-      <text x="105" y="62" font-family="'Fraunces', Georgia, serif" font-size="46" font-weight="700" fill="#2D3436">Quir<tspan fill="#FF6B6B">re</tspan><tspan fill="#2D3436" font-style="italic" font-weight="500">ly</tspan></text>
-    </svg></a>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="site-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="28" height="42">
+          <path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+          <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+          <path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+          <path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+          <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+          <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/>
+          <path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF6B6B"/>
+          <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+          <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+          <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+          <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+          <circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+          <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+        </svg>
+        <span class="site-logo-text">Quir<span class="re">re</span><span class="ly">ly</span></span>
+      </a>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/faq">FAQ</a>
+      </nav>
+      <div class="site-header-right">
+        <a href="/auth/signup.html" class="signup-btn">Sign Up</a>
+      </div>
+      <button class="site-hamburger" onclick="document.getElementById('siteMobileMenu').classList.toggle('show')" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
   </header>
+  <div class="site-mobile-menu" id="siteMobileMenu">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/faq">FAQ</a>
+    <a href="/auth/signup.html" class="mobile-signup">Sign Up</a>
+  </div>
   
   <main class="main">
     <div class="auth-card">
@@ -198,10 +316,15 @@
     }
   </script>
 
-  <footer style="text-align: center; padding: 1.5rem; margin-top: 2rem; border-top: 1px solid #E8E2DA; color: #6B6560; font-size: 0.85rem;">
-    <a href="/" style="color: inherit; text-decoration: none;">Quirrely</a> · 
-    <a href="/legal/privacy" style="color: inherit;">Privacy</a>
-    <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="color: inherit; opacity: 0.6; margin-left: 0.75rem;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+  <footer class="site-footer">
+    <span class="footer-brand">Quirrely</span> ·
+    <a href="/blog/terms.html">Terms</a> ·
+    <a href="/blog/privacy.html">Privacy</a> ·
+    <a href="mailto:hello@quirrely.com">Support</a>
+    <span class="footer-social">
+      <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="https://www.facebook.com/profile.php?id=61575643048349" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    </span>
   </footer>
 </body>
 </html>

@@ -74,8 +74,13 @@ async def generate_share(req: GenerateRequest, user: dict = Depends(require_auth
         FROM writing_profiles WHERE user_id=%s
         ORDER BY created_at DESC LIMIT 1
     """, (uid,))
-    profile = latest["profile"] if latest else None
+    # Derive dominant profile from scores (matches dashboard behaviour)
     stance = latest["stance"] if latest else None
+    if latest:
+        sc = {k.replace("score_",""):v for k,v in latest.items() if k.startswith("score_") and v is not None}
+        profile = max(sc, key=lambda k: sc[k]) if sc else latest["profile"]
+    else:
+        profile = None
     confidence = None
     scores = None
     if latest:
@@ -112,7 +117,7 @@ async def generate_share(req: GenerateRequest, user: dict = Depends(require_auth
     # Generate personalized OG image on claim
     try:
         generate_og_image(slug=slug, name=display_name, profile=profile or "UNKNOWN",
-                         scores=scores or {}, total_words=tw, total_analyses=ta)
+                         scores=scores or {}, total_words=tw, total_analyses=ta, stance=stance)
     except Exception as oge:
         import logging; logging.warning(f"OG image gen failed: {oge}")
     return ShareProfileResponse(
@@ -169,7 +174,8 @@ async def refresh_share(user: dict = Depends(require_auth)):
             profile=latest["profile"] if latest else "UNKNOWN",
             scores=scores or {},
             total_words=totals["tw"] if totals else 0,
-            total_analyses=totals["ta"] if totals else 0
+            total_analyses=totals["ta"] if totals else 0,
+            stance=latest["stance"] if latest else None
         )
     except Exception as oge:
         import logging; logging.warning(f"OG image gen failed: {oge}")

@@ -149,7 +149,12 @@ async def get_dashboard(user: Dict = Depends(require_auth)):
         "avg_scores": avg_scores,
         "profiles": [{"id": str(p["id"]), "created_at": str(p["created_at"]),
                        "profile": p["profile"], "stance": p["stance"],
-                       "word_count": p.get("input_word_count")} for p in profiles[:20]],
+                       "word_count": p.get("input_word_count"),
+                       "score_assertive": p.get("score_assertive"), "score_minimal": p.get("score_minimal"),
+                       "score_poetic": p.get("score_poetic"), "score_dense": p.get("score_dense"),
+                       "score_conversational": p.get("score_conversational"), "score_formal": p.get("score_formal"),
+                       "score_longform": p.get("score_longform"), "score_interrogative": p.get("score_interrogative"),
+                       "score_hedged": p.get("score_hedged"), "score_balanced": p.get("score_balanced")} for p in profiles[:20]],
     }
     if latest:
         response["latest_profile"] = {

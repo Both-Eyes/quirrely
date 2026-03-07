@@ -37,7 +37,7 @@
   --font-body: 'Nunito Sans', -apple-system, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
   --sidebar-width: 300px;
-  --header-height: 64px;
+  --header-height: 56px;
   --card: var(--bg-card);
   --coral: var(--accent-coral);
   --ink: var(--text);
@@ -151,6 +151,37 @@ img { max-width: 100%; }
 }
 .user-dropdown a:hover, .user-dropdown button:hover { background: var(--bg-sidebar); }
 .user-dropdown .logout-btn { color: var(--primary); }
+/* Hamburger menu */
+.site-hamburger {
+  display: none; background: none; border: none; cursor: pointer;
+  padding: 4px; color: var(--text); margin-left: 12px;
+}
+.site-mobile-menu {
+  display: none; position: fixed; top: var(--header-height); left: 0; right: 0;
+  background: var(--paper-cream); border-bottom: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(120,100,80,0.12); padding: 0.75rem; z-index: 99;
+}
+.site-mobile-menu.show { display: block; }
+.site-mobile-menu a {
+  display: block; padding: 0.75rem 1rem; font-size: 0.95rem;
+  color: var(--text); text-decoration: none; border-radius: 6px;
+}
+.site-mobile-menu a:hover { background: rgba(0,0,0,0.04); }
+.site-mobile-menu a.active { color: var(--primary); }
+/* Unified footer */
+.site-footer {
+  text-align: center; padding: 2rem; border-top: 1px solid var(--border);
+  font-size: 0.85rem; color: var(--text-muted); margin-top: 0;
+}
+.site-footer a, .site-footer button {
+  color: var(--text-muted); text-decoration: none; background: none;
+  border: none; cursor: pointer; font-size: 0.85rem; transition: color 0.2s;
+}
+.site-footer a:hover, .site-footer button:hover { color: var(--primary); }
+.site-footer .footer-brand { font-family: var(--font-display); font-weight: 600; color: var(--text); }
+.footer-social { display: inline-flex; align-items: center; gap: 0.75rem; margin-left: 0.5rem; }
+.footer-social a { opacity: 0.6; }
+.footer-social a:hover { opacity: 1; }
 
 /* ===== LAYOUT ===== */
 .layout {
@@ -628,6 +659,7 @@ img { max-width: 100%; }
   .sidebar { display: none; }
   .main { padding: 20px; }
   .header-nav { display: none; }
+  .site-hamburger { display: block; }
 }
 @media (max-width: 600px) {
   .main { padding: 16px; }
@@ -636,6 +668,8 @@ img { max-width: 100%; }
   .welcome-banner h1 { font-size: 1.3rem; }
   .writer-cards { grid-template-columns: 1fr; }
   .book-cards { grid-template-columns: 1fr; }
+  .header-nav { display: none; }
+  .site-hamburger { display: block; }
 }
 
 /* ===== SECTION TRANSITIONS ===== */
@@ -751,7 +785,16 @@ body.is-pro .tier-free-only {
       <button class="logout-btn" onclick="doLogout()">Log out</button>
     </div>
   </div>
+        <button class="site-hamburger" id="siteHamburger" onclick="document.getElementById('siteMobileMenu').classList.toggle('show')" aria-label="Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
 </header>
+    <div class="site-mobile-menu" id="siteMobileMenu">
+      <a href="/dashboard" class="active">Dashboard</a>
+      <a href="/blog">Blog</a>
+      <a href="/faq">FAQ</a>
+      <a href="/settings">Settings</a>
+    </div>
 
 <!-- LAYOUT -->
 <div class="layout">
@@ -999,6 +1042,16 @@ body.is-pro .tier-free-only {
         </div>
       </div>
     </div>
+      <footer class="site-footer">
+        <span class="footer-brand">Quirrely</span> ·
+        <a href="/blog/terms.html">Terms</a> ·
+        <a href="/blog/privacy.html">Privacy</a> ·
+        <a href="mailto:hello@quirrely.com">Support</a>
+        <span class="footer-social">
+          <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          <a href="https://www.facebook.com/profile.php?id=61575643048349" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        </span>
+      </footer>
   </main>
 </div>
 
@@ -1022,7 +1075,13 @@ const STYLE_COLORS = {
   reflective: ['#7CAE82', '#6B9D71'],
   technical: ['#6B8EAE', '#5A7D9D'],
   narrative: ['#D4A853', '#C39742'],
-  persuasive: ['#C48A3F', '#B37930']
+  persuasive: ['#C48A3F', '#B37930'],
+  dense: ['#8B6E9B', '#7A5D8A'],
+  formal: ['#6B8EAE', '#5A7D9D'],
+  balanced: ['#7CAE82', '#6B9D71'],
+  longform: ['#D4A853', '#C39742'],
+  interrogative: ['#7CAE9E', '#6B9D8D'],
+  hedged: ['#B08090', '#9F6F7F']
 };
 
 const STYLE_LABELS = {

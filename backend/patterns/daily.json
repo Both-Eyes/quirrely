@@ -21,14 +21,98 @@
       "new_patterns": 0
     },
     "2026-03-03": {
-      "total_analyses": 8,
+      "total_analyses": 15,
       "profile_distribution": {
         "INTERROGATIVE": 2,
-        "DENSE": 6
+        "DENSE": 13
       },
       "stance_distribution": {
         "CLOSED": 2,
-        "OPEN": 6
+        "OPEN": 13
+      },
+      "new_patterns": 0
+    },
+    "2026-03-04": {
+      "total_analyses": 1901,
+      "profile_distribution": {
+        "DENSE": 164,
+        "MINIMAL": 213,
+        "LONGFORM": 58,
+        "FORMAL": 174,
+        "INTERROGATIVE": 357,
+        "POETIC": 162,
+        "ASSERTIVE": 268,
+        "HEDGED": 346,
+        "PARALLEL": 159
+      },
+      "stance_distribution": {
+        "OPEN": 512,
+        "CONTRADICTORY": 286,
+        "CLOSED": 564,
+        "BALANCED": 539
+      },
+      "new_patterns": 0
+    },
+    "2026-03-05": {
+      "total_analyses": 208,
+      "profile_distribution": {
+        "LONGFORM": 6,
+        "FORMAL": 18,
+        "HEDGED": 42,
+        "ASSERTIVE": 22,
+        "MINIMAL": 24,
+        "POETIC": 18,
+        "DENSE": 18,
+        "PARALLEL": 18,
+        "INTERROGATIVE": 42
+      },
+      "stance_distribution": {
+        "OPEN": 60,
+        "CONTRADICTORY": 30,
+        "BALANCED": 52,
+        "CLOSED": 66
+      },
+      "new_patterns": 0
+    },
+    "2026-03-06": {
+      "total_analyses": 36,
+      "profile_distribution": {
+        "LONGFORM": 1,
+        "FORMAL": 3,
+        "HEDGED": 7,
+        "ASSERTIVE": 5,
+        "MINIMAL": 4,
+        "POETIC": 3,
+        "DENSE": 3,
+        "PARALLEL": 3,
+        "INTERROGATIVE": 7
+      },
+      "stance_distribution": {
+        "OPEN": 10,
+        "CONTRADICTORY": 5,
+        "BALANCED": 10,
+        "CLOSED": 11
+      },
+      "new_patterns": 0
+    },
+    "2026-03-07": {
+      "total_analyses": 34,
+      "profile_distribution": {
+        "LONGFORM": 1,
+        "FORMAL": 3,
+        "HEDGED": 7,
+        "ASSERTIVE": 3,
+        "MINIMAL": 4,
+        "POETIC": 3,
+        "DENSE": 3,
+        "PARALLEL": 3,
+        "INTERROGATIVE": 7
+      },
+      "stance_distribution": {
+        "OPEN": 10,
+        "CONTRADICTORY": 5,
+        "BALANCED": 8,
+        "CLOSED": 11
       },
       "new_patterns": 0
     }

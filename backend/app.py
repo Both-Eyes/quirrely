@@ -311,7 +311,7 @@ except Exception as e:
 from fastapi.responses import HTMLResponse
 PROFILE_COLORS={"ASSERTIVE":"#E74C3C","MINIMAL":"#3498DB","POETIC":"#9B59B6","DENSE":"#2C3E50","CONVERSATIONAL":"#E67E22","FORMAL":"#1ABC9C","INTERROGATIVE":"#F39C12","HEDGED":"#7F8C8D","PARALLEL":"#2ECC71","LONGFORM":"#8E44AD"}
 
-def _build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta):
+def _build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta,scores_js="{}",cols_js="{}",dom_color="#FF6B6B",vtitle=""):
     title=_html.escape(str(title))
     name=_html.escape(str(name))
     profile=_html.escape(str(profile))
@@ -349,20 +349,33 @@ body{{font-family:Nunito Sans,-apple-system,sans-serif;background:#FFFBF5;color:
 .logo{{margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:8px}}
 </style></head><body>
 <div class="card">
-<div class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="40" height="60" style="vertical-align:middle"><path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF6B6B"/><ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/><ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/></svg> <span style="font-family:Outfit,system-ui,sans-serif;font-size:1.4em;font-weight:700;color:#2D3436">Quir<span style="color:#FF6B6B">re</span><span style="font-style:italic;font-weight:500">ly</span></span></div>
+<div style="font-family:Outfit,sans-serif;font-size:1.1em;font-weight:600;color:#2D3436;margin-bottom:16px">My Voice Shape</div><div class="logo" style="margin-bottom:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="40" height="60" style="vertical-align:middle"><path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF6B6B"/><ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/><ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/></svg> <span style="font-family:Outfit,system-ui,sans-serif;font-size:1.4em;font-weight:700;color:#2D3436">Quir<span style="color:#FF6B6B">re</span><span style="font-style:italic;font-weight:500">ly</span></span></div>
 <div class="nm">{name}</div>
+<div class="vt" style="font-family:Outfit,sans-serif;font-size:1em;font-style:italic;color:#8C7B6B;margin:4px 0 14px">{vtitle}</div>
 <div class="badge">{profile}</div>
 <div class="st">{stance} stance</div>
-<div class="ds">{desc}</div>
-<div class="sc">{bars}</div>
+<div class="sc">{bars}</div><script>(function(){{var SC={scores_js},CL={cols_js},dm="{dom_color}";var keys=Object.keys(SC),n=keys.length,R=95,ns="http://www.w3.org/2000/svg";var svg=document.createElementNS(ns,"svg");svg.setAttribute("viewBox","-120 -120 240 240");svg.setAttribute("width","220");svg.setAttribute("height","220");svg.style.overflow="visible";var pt=function(i,r){{var a=(i/n)*2*Math.PI-Math.PI/2;return[r*Math.cos(a),r*Math.sin(a)];}};var spts=keys.map(function(k,i){{return pt(i,R*(SC[k]/100));}});var sp=spts.map(function(p){{return p.join(",");}}).join(" ");[0.25,0.5,0.75,1].forEach(function(f){{var po=document.createElementNS(ns,"polygon");po.setAttribute("points",keys.map(function(_,i){{return pt(i,R*f).join(",");}}).join(" "));po.setAttribute("fill","none");po.setAttribute("stroke",f===1?"#D8D0C4":"#EDE7DC");po.setAttribute("stroke-width",f===1?"1.5":"1");svg.appendChild(po);}});keys.forEach(function(_,i){{var p=pt(i,R),ln=document.createElementNS(ns,"line");["x1","y1","x2","y2"].forEach(function(a,j){{ln.setAttribute(a,[0,0,p[0],p[1]][j]);}});ln.setAttribute("stroke","#EDE7DC");ln.setAttribute("stroke-width","1");svg.appendChild(ln);}});var defs=document.createElementNS(ns,"defs");var cp=document.createElementNS(ns,"clipPath");cp.setAttribute("id","vc");cp.setAttribute("clipPathUnits","userSpaceOnUse");var cpp=document.createElementNS(ns,"polygon");cpp.setAttribute("points",sp);cp.appendChild(cpp);defs.appendChild(cp);svg.appendChild(defs);var rp=[["path","M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112","#FFFEF9","#E0DBD5","1.4"],["ellipse","","#FFFEF9","#E0DBD5","1.4",40,98,22,26],["path","M20 68 Q12 72,14 80 Q16 86,24 88 L32 86","#FFFEF9","#E0DBD5","1.8"],["path","M60 68 Q68 72,66 80 Q64 86,56 88 L48 86","#FFFEF9","#E0DBD5","1.8"],["ellipse","","#FFFEF9","","",28,86,7,5],["ellipse","","#FFFEF9","","",52,86,7,5],["ellipse","","#E85A5A","","",40,78,9,4],["path","M31 78 Q30 94,40 99 Q50 94,49 78 Z","#FF6B6B","",""],["ellipse","","#FFFEF9","#E0DBD5","1.4",40,50,22,20],["ellipse","","#D4CCC4","","",24,30,8,14],["ellipse","","#D4CCC4","","",56,30,8,14],["ellipse","","#1a1a1a","","",32,48,5.5,6],["ellipse","","#1a1a1a","","",48,48,5.5,6],["circle","","#FFF","","",33,46.5,2],["circle","","#FFF","","",49,46.5,2],["ellipse","","#4A4A4A","","",40,60,4.5,3.5]];function mkR(op){{var g=document.createElementNS(ns,"g");g.setAttribute("transform","scale(1.85) translate(-40,-60)");g.setAttribute("opacity",op);rp.forEach(function(r){{var el=document.createElementNS(ns,r[0]);if(r[1])el.setAttribute("d",r[1]);if(r[0]==="ellipse"){{el.setAttribute("cx",r[5]);el.setAttribute("cy",r[6]);el.setAttribute("rx",r[7]);el.setAttribute("ry",r[8]);}}if(r[0]==="circle"){{el.setAttribute("cx",r[5]);el.setAttribute("cy",r[6]);el.setAttribute("r",r[7]);}}el.setAttribute("fill",r[2]);if(r[3])el.setAttribute("stroke",r[3]);if(r[4])el.setAttribute("stroke-width",r[4]);g.appendChild(el);}});return g;}}svg.appendChild(mkR(0.06));var cg=document.createElementNS(ns,"g");cg.setAttribute("clip-path","url(#vc)");cg.appendChild(mkR(0.55));cg.style.opacity="0";svg.appendChild(cg);setTimeout(function(){{cg.style.transition="opacity 0.7s ease";cg.style.opacity="1";}},150);var fp=document.createElementNS(ns,"polygon");fp.setAttribute("points",sp);fp.setAttribute("fill",dm);fp.setAttribute("fill-opacity","0.12");fp.setAttribute("stroke",dm);fp.setAttribute("stroke-width","2");fp.setAttribute("stroke-linejoin","round");fp.style.transformOrigin="center";fp.style.animation="rEx 0.85s cubic-bezier(0.34,1.56,0.64,1) forwards";fp.style.animationDelay="0.15s";fp.style.opacity="0";svg.appendChild(fp);keys.forEach(function(k,i){{var p=pt(i,R*(SC[k]/100));var ci=document.createElementNS(ns,"circle");ci.setAttribute("cx",p[0]);ci.setAttribute("cy",p[1]);ci.setAttribute("r","3");ci.setAttribute("fill",CL[k]||"#ccc");ci.setAttribute("fill-opacity","0.8");ci.style.animation="rEx 0.4s ease-out "+(0.2+i*0.05)+"s forwards";ci.style.opacity="0";svg.appendChild(ci);}});keys.forEach(function(k,i){{var p=pt(i,R+18);var t=document.createElementNS(ns,"text");t.setAttribute("x",p[0]);t.setAttribute("y",p[1]);t.setAttribute("text-anchor","middle");t.setAttribute("dominant-baseline","middle");t.setAttribute("font-size","8");t.setAttribute("font-family","Nunito Sans,sans-serif");t.setAttribute("fill","#8C7B6B");t.textContent=k;svg.appendChild(t);}});var st=document.createElement("style");st.textContent="@keyframes rEx{{from{{transform:scale(0);opacity:0}}to{{transform:scale(1);opacity:1}}}}";document.head.appendChild(st);document.getElementById("vsr").appendChild(svg);var leg=document.getElementById("vsl");var srt=Object.entries(SC).sort(function(a,b){{return b[1]-a[1];}}).slice(0,5);srt.forEach(function(e,i){{var d=document.createElement("div");d.style.cssText="display:flex;align-items:center;gap:4px;font-size:0.68rem;color:#8C7B6B;text-transform:capitalize";var dot=document.createElement("div");dot.style.cssText="width:7px;height:7px;border-radius:50%;background:"+(CL[e[0]]||"#ccc")+";opacity:"+(i===0?"1":"0.55");var sp2=document.createElement("span");if(i===0)sp2.style.cssText="font-weight:700;color:#2C2416";sp2.textContent=e[0]+" · "+e[1];d.appendChild(dot);d.appendChild(sp2);leg.appendChild(d);}});}})();</script>
 <div class="stats"><div>{tw:,} words</div><div>{ta} analyses</div></div>
-<a class="cta" href="https://quirrely.ca/?ref={slug}">See how your voice compares to {name} &rarr;</a>
+<div style="margin-top:24px;padding-top:20px;border-top:1px solid #F0EAE0;display:flex;align-items:center;justify-content:center;gap:8px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="22" height="33"><path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF6B6B"/><ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/><ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/></svg><span style="font-family:Outfit,system-ui,sans-serif;font-size:1.1em;font-weight:700;color:#2D3436">Quir<span style="color:#FF6B6B">re</span><span style="font-style:italic;font-weight:500">ly</span></span></div>
+<a class="cta" href="https://quirrely.ca/?ref={slug}">Find your writing voice. &rarr;</a>
 </div>
 <script>try{{var u=JSON.parse(localStorage.getItem('quirrely_user'));if(u){{var s=JSON.parse(localStorage.getItem('quirrely_session'));if(s&&s.token){{var slug='{slug}';var shareSlug=(u.share_slug||'').toLowerCase();var displayName=(u.display_name||'').toLowerCase();if(slug.toLowerCase()===shareSlug||slug.toLowerCase()===displayName){{fetch('/frontend/dashboard.html').then(function(r){{return r.text()}}).then(function(h){{document.open();document.write(h);document.close();history.replaceState(null,'','/user/'+slug)}}).catch(function(){{window.location.replace('/dashboard')}})}}}}}}}}catch(e){{}}</script>
 </body></html>"""
 
 PROFILE_DESC={"ASSERTIVE":"Bold, direct, and confident","MINIMAL":"Clean, precise, and economical","POETIC":"Lyrical, imagery-rich, and evocative","DENSE":"Complex, layered, and information-rich","CONVERSATIONAL":"Warm, natural, and approachable","FORMAL":"Structured, polished, and authoritative","INTERROGATIVE":"Curious, questioning, and exploratory","HEDGED":"Nuanced, cautious, and qualifying","PARALLEL":"Rhythmic, balanced, and patterned","LONGFORM":"Expansive, detailed, and immersive"}
-PROFILE_TITLES={"ASSERTIVE":"The Direct Voice","MINIMAL":"The Quiet Observer","POETIC":"The Fragment Weaver","DENSE":"The Layered Thinker","CONVERSATIONAL":"The Voice in the Room","FORMAL":"The Polished Pen","INTERROGATIVE":"The Questioner","HEDGED":"The Careful Scholar","PARALLEL":"The Pattern Maker","LONGFORM":"The Sentence Builder"}
+PROFILE_TITLES={
+"ASSERTIVE":{"open":"The Direct Voice","closed":"The Confident Verdict","balanced":"The Measured Advocate","contradictory":"The Restless Challenger"},
+"MINIMAL":{"open":"The Quiet Observer","closed":"The Spare Absolutist","balanced":"The Careful Understater","contradictory":"The Silent Contrarian"},
+"POETIC":{"open":"The Fragment Weaver","closed":"The Sealed Lyricist","balanced":"The Melodic Thinker","contradictory":"The Broken Sonneteer"},
+"DENSE":{"open":"The Layered Thinker","closed":"The Closed System","balanced":"The Considered Architect","contradictory":"The Tangled Theorist"},
+"CONVERSATIONAL":{"open":"The Voice in the Room","closed":"The Opinionated Friend","balanced":"The Even-Keeled Storyteller","contradictory":"The Ambivalent Confessor"},
+"INTERROGATIVE":{"open":"The Questioner","closed":"The Skeptic","balanced":"The Careful Inquirer","contradictory":"The Doubting Voice"},
+"HEDGED":{"open":"The Careful Scholar","closed":"The Reluctant Authority","balanced":"The Measured Equivocator","contradictory":"The Uncertain Sage"},
+"FORMAL":{"open":"The Considered Essayist","closed":"The Authoritative Voice","balanced":"The Disciplined Thinker","contradictory":"The Formal Dissenter"},
+"LONGFORM":{"open":"The Sentence Builder","closed":"The Exhaustive Chronicler","balanced":"The Patient Explicator","contradictory":"The Labyrinthine Mind"},
+"BALANCED":{"open":"The Fair Witness","closed":"The Principled Moderator","balanced":"The Centred Voice","contradictory":"The Torn Observer"},
+"PARALLEL":{"open":"The Pattern Maker","closed":"The Rigid Stylist","balanced":"The Rhythmic Thinker","contradictory":"The Fractured Composer"},
+}
 
 @app.get("/user/{slug}", response_class=HTMLResponse)
 async def public_voice_page(slug: str):
@@ -378,40 +391,25 @@ async def public_voice_page(slug: str):
     scores=p.get("scores") or {}
     tw=p.get("total_words") or 0
     ta=p.get("total_analyses") or 0
-    sorted_scores=sorted(scores.items(),key=lambda x:x[1] if x[1] else 0,reverse=True) if scores else []
-    top5=sorted_scores[:5]
-    rest=sorted_scores[5:]
-    def _acorn_svg(idx,clr,pct,w=44,h=60):
-        bp='M6 14 Q5 35,20 48 Q35 35,34 14 Z'
-        ft=48-int(34*min(pct,100)/100)
-        fh=48-ft
-        return f'<svg viewBox="0 0 40 55" width="{w}" height="{h}" style="display:block;margin:0 auto"><rect x="18" y="3" width="4" height="6" rx="2" fill="#D4CCC4"/><ellipse cx="20" cy="12" rx="14" ry="5" fill="#E8E4DF" stroke="#E0DBD5" stroke-width="0.8"/><path d="{bp}" fill="#f0eeeb" stroke="#E0DBD5" stroke-width="0.8"/><defs><clipPath id="pf{idx}"><rect x="0" y="{ft}" width="40" height="{fh}"/></clipPath></defs><path d="{bp}" fill="{clr}" clip-path="url(#pf{idx})" opacity="0.85"/><path d="{bp}" fill="none" stroke="#E0DBD5" stroke-width="0.8"/></svg>'
-    SCORE_COLORS={"assertive":"#FF6B6B","minimal":"#5B9BD5","poetic":"#9B59B6","analytical":"#4ECDC4","conversational":"#FFB347","provocative":"#E74C3C","reflective":"#6BCB77","technical":"#3498DB","narrative":"#F39C12","persuasive":"#E67E22","dense":"#4ECDC4","formal":"#1ABC9C","interrogative":"#F39C12","hedged":"#7F8C8D","parallel":"#2ECC71","longform":"#8E44AD","parenthetical":"#E67E22"}
-    bars='<div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:12px 0">'
-    for i,(sn,sv) in enumerate(top5):
-        pct=min(int(float(sv)),100) if sv else 0
-        sc=SCORE_COLORS.get(sn.lower(),color)
-        bw=80 if i==0 else 72
-        sw=52 if i==0 else 48
-        sh=72 if i==0 else 66
-        bars+=f'<div style="text-align:center;width:{bw}px">{_acorn_svg(i,sc,pct,sw,sh)}<div style="font-size:.95em;font-weight:700;color:{sc};margin-top:4px">{pct}</div><div style="font-size:.8em;color:#777;text-transform:capitalize;margin-top:2px">{sn}</div></div>'
-    bars+='</div>'
-    if rest:
-        bars+='<div style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid #f0eeeb">'
-        for i,(sn,sv) in enumerate(rest):
-            pct=min(int(float(sv)),100) if sv else 0
-            sc=SCORE_COLORS.get(sn.lower(),color)
-            bars+=f'<div style="text-align:center;width:56px">{_acorn_svg(5+i,sc,pct,36,50)}<div style="font-size:.8em;font-weight:700;color:{sc};margin-top:2px">{pct}</div><div style="font-size:.7em;color:#777;text-transform:capitalize;margin-top:1px">{sn}</div></div>'
-        bars+='</div>'
+    import json as _j
+    RCOLS={"assertive":"#FF6B6B","minimal":"#7CAE9E","poetic":"#B08090","dense":"#8B6E9B","conversational":"#D4A853","formal":"#6B8EAE","longform":"#D4A853","interrogative":"#7CAE9E","hedged":"#B08090","balanced":"#7CAE82"}
+    RKEYS=["assertive","minimal","poetic","dense","conversational","formal","longform","interrogative","hedged","balanced"]
+    sc_norm={k.lower():v for k,v in scores.items()}
+    sorted_scores=sorted(sc_norm.items(),key=lambda x:x[1] if x[1] else 0,reverse=True)
+    dominant=sorted_scores[0][0] if sorted_scores else profile.lower()
+    dom_color=RCOLS.get(dominant,color)
+    scores_js=_j.dumps({k:sc_norm.get(k,0) for k in RKEYS})
+    cols_js=_j.dumps(RCOLS)
+    bars='<div id="vsr" style="display:flex;justify-content:center;margin:8px 0 4px"></div><div id="vsl" style="display:flex;flex-wrap:wrap;gap:5px 12px;justify-content:center;margin-top:8px"></div>'
     # Use personalized OG image if exists, else generic
     import os
     if os.path.exists(f"/home/quirrely/quirrely.ca/og/users/{slug}.png"):
         og_img=f"https://quirrely.ca/og/users/{slug}.png"
     else:
         og_img=f"https://quirrely.ca/og/{profile.lower()}.png"
-    vtitle=PROFILE_TITLES.get(profile,"")
+    vtitle=PROFILE_TITLES.get(profile,{}).get((stance or "open").lower(), PROFILE_TITLES.get(profile,{}).get("open",""))
     title=f"{name} — {vtitle}" if vtitle else f"{name} writes with a {profile} voice"
-    html=_build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta)
+    html=_build_voice_html(title,name,profile,stance,desc,color,bars,og_img,slug,tw,ta,scores_js,cols_js,dom_color,vtitle=vtitle)
     return HTMLResponse(html)
 
 from starlette.responses import RedirectResponse
