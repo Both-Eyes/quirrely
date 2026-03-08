@@ -8,6 +8,9 @@
   <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/assets/css/compat.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <script src="/assets/js/compat.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Write Like Jeanette Winterson | Quirrely</title>
@@ -53,7 +56,6 @@
     .footer-social a { opacity: 0.6; }
     .footer-social a:hover { opacity: 1; }
     /* === End Unified Header === */
-    @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
     :root { --bg: #FFFBF5; --ink: #2D3436; --primary: #FF6B6B; --secondary: #7CAE9E; --muted: #6B6560; --border: #E8E2DA; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Nunito Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.8; }
@@ -65,9 +67,12 @@
     .header-cta { background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 20px; text-decoration: none; font-weight: 600; }
     .breadcrumb { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
     .breadcrumb a { color: var(--secondary); text-decoration: none; }
-    .hero { height: 200px; border-radius: 16px; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; position: relative; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); }
-    .hero-badge { font-size: 1.5rem; font-weight: 700; color: white; background: rgba(0,0,0,0.3); padding: 0.75rem 1.5rem; border-radius: 30px; }
-    .hero-stance { position: absolute; bottom: 1rem; right: 1rem; color: white; background: rgba(0,0,0,0.5); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; }
+    .hero { background: linear-gradient(135deg, var(--primary) 0%, #d85a5a 100%); color: white; padding: 3rem 2rem; border-radius: 16px; margin-bottom: 2rem; }
+    .hero-label { font-family: 'Nunito Sans', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; margin-bottom: 0.5rem; }
+    .hero h1 { font-size: 1.75rem; margin-bottom: 0.75rem; font-family: 'Fraunces', Georgia, serif; }
+    .hero .hook { font-size: 1.1rem; opacity: 0.95; font-style: italic; }
+    .hero .badges { margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .hero .badge { padding: 0.4rem 1rem; background: rgba(255,255,255,0.2); border-radius: 20px; font-size: 0.85rem; }
     h1 { font-size: 2rem; margin-bottom: 1rem; }
     .tagline { color: var(--muted); font-size: 1.1rem; margin-bottom: 1rem; font-style: italic; }
     .meta { color: var(--muted); margin-bottom: 2rem; font-size: 0.9rem; }
@@ -127,14 +132,17 @@
     <a href="/auth/signup.html" class="mobile-signup">Sign Up</a>
   </div>
 
-    <div class="breadcrumb"><a href="/">Home</a> / <a href="/blog">Blog</a> / How Poetic + Closed Writers Write</div>
-    <div class="hero">
-      <span class="hero-badge">POETIC</span>
-      <span class="hero-stance">+ CLOSED</span>
+    <div class="container">
+<div class="hero">
+      <div class="hero-label">Write Like</div>
+      <h1>Write Like...</h1>
+      <p class="hook"></p>
+      <div class="badges">
+        <span class="badge" id="hero-profile-badge"></span>
+        <span class="badge" id="hero-stance-badge"></span>
+        <span class="badge">Writing Voice</span>
+      </div>
     </div>
-    <h1>How Poetic + Closed Writers Write</h1>
-    <div class="tagline">Lyrical, Rhythmic. Definitive Certainty.</div>
-    <div class="meta">5 min read • Writing Voice Guide</div>
     <article>
       <p>This is how it is, written in starlight.</p>
       <p>Poetic + Closed writers bring something distinctive to the page. This combination creates prose that's both recognizable and rare. You've found your voice in this intersection, and it shapes everything you write in subtle but powerful ways.</p>

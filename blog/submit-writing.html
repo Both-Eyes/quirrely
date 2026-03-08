@@ -402,7 +402,7 @@
         const icon = tier === 't3' ? '⛔' : tier === 't2' ? '⚠️' : '💡';
         const title = tier === 't3' ? 'Content Blocked' : tier === 't2' ? 'Content Warning' : 'Notice';
         
-        haloWarning.innerHTML = '<h4>' + icon + ' ' + title + '</h4><p>' + result.message + '</p>';
+        haloWarning.innerHTML = '<h4>' + icon + ' ' + title + '</h4><h2>' + result.message + '</h2>';
       }
       
       function hideHALOWarning() {

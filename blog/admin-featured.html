@@ -78,7 +78,7 @@ async function loadSubs(){
   var ad=await ar.json();
   document.getElementById('approved-count').textContent=(ad.writers||[]).length;
   var list=document.getElementById('submissions-list');
-  if(!subs.length){list.innerHTML='<div class="empty"><p>No pending submissions</p></div>';return;}
+  if(!subs.length){list.innerHTML='<div class="empty"><h2>No pending submissions</h2></div>';return;}
   list.innerHTML='';
   var fl={CA:'\ud83c\udde8\ud83c\udde6',GB:'\ud83c\uddec\ud83c\udde7',AU:'\ud83c\udde6\ud83c\uddfa',NZ:'\ud83c\uddf3\ud83c\uddff',US:'\ud83c\uddfa\ud83c\uddf8'};
   subs.forEach(function(s){
