@@ -562,7 +562,7 @@
           <div class="filter-row" id="type-filters">
             <button class="filter-btn active" data-filter="type" data-val="all">All (80)</button>
             <button class="filter-btn" data-filter="type" data-val="guide">Guides (0)</button>
-            <button class="filter-btn" data-filter="type" data-val="how">How I Write (40)</button>
+            <button class="filter-btn" data-filter="type" data-val="how">Write Like (40)</button>
             <button class="filter-btn" data-filter="type" data-val="combo">Reading Taste (40)</button>
           </div>
           <div class="filter-label">Profile</div>
@@ -705,7 +705,7 @@
     var html = '';
     Object.keys(BLOG_DATA).forEach(function(key){
       var p = BLOG_DATA[key];
-      var label = p.type==='how' ? 'How I Write' : 'Reading Taste';
+      var label = p.type==='how' ? 'Write Like' : 'Reading Taste';
       var t = p.title.replace(/[<>]/g,'');
       html += '<a href="/blog/'+p.slug+'" class="post-card" data-type="'+p.type+'" data-profile="'+p.profile+'">'
         +'<div class="post-icon" style="background:'+p.color+';">'+p.icon+'</div>'
