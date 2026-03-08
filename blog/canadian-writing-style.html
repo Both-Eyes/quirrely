@@ -82,7 +82,11 @@
     footer { text-align: center; padding: 2rem; color: #6B6560; border-top: 1px solid #E8E2DA; }
     footer a { color: #FF6B6B; text-decoration: none; }
       @media (max-width: 600px) { .container { padding: 1rem; } h1 { font-size: 1.5rem; } .nav-arrows, .writer-content, .highlight-grid { flex-direction: column; } .grid-2, .grid-4 { grid-template-columns: 1fr; } }
-  </style>
+      .sample-block { background: var(--light, #F7F3EE); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
+    .sample-block h2 { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; color: var(--primary, #FF6B6B); margin-bottom: 1rem; }
+    .sample-quote { border-left: 3px solid var(--primary, #FF6B6B); padding-left: 1rem; font-style: italic; color: var(--ink, #2D3436); margin-bottom: 1rem; line-height: 1.8; }
+    .sample-analysis { font-size: 0.9rem; color: var(--muted, #6B6560); }
+</style>
 </head>
 <body>
   <div class="container">
@@ -236,5 +240,6 @@
   }
 })();
 </script>
+<script src="/blog/blog-sample.js"></script>
 </body>
 </html>
