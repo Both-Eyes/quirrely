@@ -21,22 +21,29 @@
     badges[2].textContent = entry.type === 'how' ? 'Writing Voice' : 'Reading Profile';
   }
 
-  if (entry.type === 'combo') {
-    var titleWords = entry.title.replace('Why You Like ', '');
-    var authorName = titleWords.replace("'s Writing Style", '').trim();
-    var lastName = authorName.split(' ').pop();
-    var profile = entry.profile.toUpperCase();
-    var stance = entry.stance.toUpperCase();
-    var article = document.querySelector('article');
-    if (article) {
-      article.innerHTML = article.innerHTML.replace(
-        new RegExp(profile + ' \\+ ' + stance + ' writers', 'g'),
-        authorName
-      );
-      article.innerHTML = article.innerHTML.replace(
-        new RegExp(profile + ' \\+ ' + stance + ' writing', 'g'),
-        authorName + "'s writing"
-      );
-    }
+  var authorName = entry.title
+    .replace('Why You Like ', '')
+    .replace('Write Like ', '')
+    .replace("'s Writing Style", '').trim();
+  var lastName = authorName.split(' ').pop();
+  var p = entry.profile, s = entry.stance;
+  var article = document.querySelector('article');
+  if (article) {
+    var h = article.innerHTML;
+    var caps = p.toUpperCase() + ' \\+ ' + s.toUpperCase();
+    var title = p.charAt(0).toUpperCase()+p.slice(1) + ' \\+ ' + s.charAt(0).toUpperCase()+s.slice(1);
+    var lower = p + ' \\+ ' + s;
+    h = h.replace(new RegExp(caps + ' writers', 'g'), authorName);
+    h = h.replace(new RegExp(caps + ' writing', 'g'), authorName + "'s writing");
+    h = h.replace(new RegExp(title + ' writers', 'g'), authorName);
+    h = h.replace(new RegExp(title + ' writing', 'g'), authorName + "'s writing");
+    h = h.replace(new RegExp(title + ' prose', 'g'), authorName + "'s prose");
+    h = h.replace(new RegExp(title + ' voices', 'g'), authorName + "'s voice");
+    h = h.replace(new RegExp(lower + ' voices', 'g'), authorName + "'s voice");
+    h = h.replace(new RegExp(lower + ' writing', 'g'), authorName + "'s writing");
+    h = h.replace(new RegExp(lower + ' prose', 'g'), authorName + "'s prose");
+    h = h.replace(new RegExp('assertive writing', 'gi'), lastName + "'s writing");
+    h = h.replace(new RegExp('the open stance', 'gi'), lastName + "'s openness");
+    article.innerHTML = h;
   }
 })();
