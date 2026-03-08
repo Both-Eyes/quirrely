@@ -5,7 +5,7 @@ const BLOG_DATA = {
 
   'ASSERTIVE-OPEN': {
     type: 'combo',
-    slug: 'assertive-open',
+    slug: 'ian-mcewan-writing-style',
     title: 'Ian McEwan\'s Writing Style',
     excerpt: 'Direct statements. Receptive to challenge. The confident conversationalist.',
     icon: '🎯',
@@ -39,7 +39,7 @@ Some readers miss the openness. They see the assertion and assume you're closed.
 
   'ASSERTIVE-CLOSED': {
     type: 'combo',
-    slug: 'assertive-closed',
+    slug: 'george-orwell-writing-style',
     title: 'George Orwell\'s Writing Style',
     excerpt: 'High certainty. No hedging. The definitive voice.',
     icon: '🎯',
@@ -73,7 +73,7 @@ Arrogance. Readers may push back not on the ideas but on the delivery. Use spari
 
   'ASSERTIVE-BALANCED': {
     type: 'combo',
-    slug: 'assertive-balanced',
+    slug: 'hilary-mantel-writing-style',
     title: 'Hilary Mantel\'s Writing Style',
     excerpt: 'Strong voice. Multiple perspectives. The fair-minded authority.',
     icon: '🎯',
@@ -107,7 +107,7 @@ Length. Balance takes space. Know when to cut to the chase and when to show the 
 
   'ASSERTIVE-CONTRADICTORY': {
     type: 'combo',
-    slug: 'assertive-contradictory',
+    slug: 'zadie-smith-writing-style',
     title: 'Zadie Smith\'s Writing Style',
     excerpt: 'Bold claims. Self-aware tensions. The provocateur.',
     icon: '🎯',
@@ -141,7 +141,7 @@ Confusion. Some readers want resolution. They'll find this frustrating. That's f
 
   'MINIMAL-OPEN': {
     type: 'combo',
-    slug: 'minimal-open',
+    slug: 'alice-munro-writing-style',
     title: 'Alice Munro\'s Writing Style',
     excerpt: 'Sparse. Receptive. The quiet listener.',
     icon: '🪨',
@@ -175,7 +175,7 @@ Too sparse. Some need more. Know your audience.`,
 
   'MINIMAL-CLOSED': {
     type: 'combo',
-    slug: 'minimal-closed',
+    slug: 'samuel-beckett-writing-style',
     title: 'Samuel Beckett\'s Writing Style',
     excerpt: 'Spare. Certain. The final word.',
     icon: '🪨',
@@ -209,7 +209,7 @@ Cold. Some readers need warmth. Won't find it here.`,
 
   'MINIMAL-BALANCED': {
     type: 'combo',
-    slug: 'minimal-balanced',
+    slug: 'muriel-spark-writing-style',
     title: 'Muriel Spark\'s Writing Style',
     excerpt: 'Brief. Fair. Both sides in few words.',
     icon: '🪨',
@@ -243,7 +243,7 @@ Too compressed. Nuance may be lost.`,
 
   'MINIMAL-CONTRADICTORY': {
     type: 'combo',
-    slug: 'minimal-contradictory',
+    slug: 'jm-coetzee-writing-style',
     title: 'J.M. Coetzee\'s Writing Style',
     excerpt: 'Sparse paradox. The koan.',
     icon: '🪨',
@@ -277,7 +277,7 @@ Obscure. Some readers need more. They'll leave confused.`,
 
   'POETIC-OPEN': {
     type: 'combo',
-    slug: 'poetic-open',
+    slug: 'virginia-woolf-writing-style',
     title: 'Virginia Woolf\'s Writing Style',
     excerpt: 'Lyrical and curious. The wondering voice.',
     icon: '🌙',
@@ -309,7 +309,7 @@ Readers seeking efficiency will grow impatient. Not every moment calls for wonde
 
   'POETIC-CLOSED': {
     type: 'combo',
-    slug: 'poetic-closed',
+    slug: 'jeanette-winterson-writing-style',
     title: 'Jeanette Winterson\'s Writing Style',
     excerpt: 'Beautiful and certain. The oracle speaks.',
     icon: '🌙',
@@ -341,7 +341,7 @@ Pretension waits at the edges. The line between oracle and pomposity is thin. Ea
 
   'POETIC-BALANCED': {
     type: 'combo',
-    slug: 'poetic-balanced',
+    slug: 'ali-smith-writing-style',
     title: 'Ali Smith\'s Writing Style',
     excerpt: 'Lyrical fairness. The meditative witness.',
     icon: '🌙',
@@ -373,7 +373,7 @@ Length. Balance and poetry both take space. Together, they can sprawl. Disciplin
 
   'POETIC-CONTRADICTORY': {
     type: 'combo',
-    slug: 'poetic-contradictory',
+    slug: 'leonard-cohen-writing-style',
     title: 'Leonard Cohen\'s Writing Style',
     excerpt: 'Beautiful paradox. The sublime tension.',
     icon: '🌙',
@@ -405,7 +405,7 @@ Inaccessibility. Not every reader wants to dwell in paradox. Some want answers. 
 
   'DENSE-OPEN': {
     type: 'combo',
-    slug: 'dense-open',
+    slug: 'as-byatt-writing-style',
     title: 'A.S. Byatt\'s Writing Style',
     excerpt: 'Rich complexity with genuine inquiry. The scholar who still questions.',
     icon: '🔬',
@@ -437,7 +437,7 @@ Accessibility suffers. Readers without relevant background knowledge may lose th
 
   'DENSE-CLOSED': {
     type: 'combo',
-    slug: 'dense-closed',
+    slug: 'martin-amis-writing-style',
     title: 'Martin Amis\'s Writing Style',
     excerpt: 'Maximum information. Maximum certainty. The definitive treatise.',
     icon: '🔬',
@@ -469,7 +469,7 @@ Intimidation or arrogance. Readers may feel excluded or talked down to. Use with
 
   'DENSE-BALANCED': {
     type: 'combo',
-    slug: 'dense-balanced',
+    slug: 'salman-rushdie-writing-style',
     title: 'Salman Rushdie\'s Writing Style',
     excerpt: 'Comprehensive analysis. Multiple perspectives integrated. The synthesis.',
     icon: '🔬',
@@ -501,7 +501,7 @@ Length and potential for reader exhaustion. Not every topic requires this treatm
 
   'DENSE-CONTRADICTORY': {
     type: 'combo',
-    slug: 'dense-contradictory',
+    slug: 'margaret-atwood-writing-style',
     title: 'Margaret Atwood\'s Writing Style',
     excerpt: 'Complex paradox fully elaborated. The philosophical puzzle.',
     icon: '🔬',
@@ -531,7 +531,7 @@ Frustration among readers seeking practical guidance. Ensure the complexity serv
 
   'CONVERSATIONAL-OPEN': {
     type: 'combo',
-    slug: 'conversational-open',
+    slug: 'nick-hornby-writing-style',
     title: 'Nick Hornby\'s Writing Style',
     excerpt: 'Friendly and curious. The coffee chat.',
     icon: '☕',
@@ -563,7 +563,7 @@ Some contexts need more authority. Know when to shift registers.`,
 
   'CONVERSATIONAL-CLOSED': {
     type: 'combo',
-    slug: 'conversational-closed',
+    slug: 'douglas-adams-writing-style',
     title: 'Douglas Adams\'s Writing Style',
     excerpt: 'Friendly but certain. The trusted advisor.',
     icon: '☕',
@@ -595,7 +595,7 @@ Overconfidence. The friendly package can make certainty feel pushy. Make sure yo
 
   'CONVERSATIONAL-BALANCED': {
     type: 'combo',
-    slug: 'conversational-balanced',
+    slug: 'david-mitchell-writing-style',
     title: 'David Mitchell\'s Writing Style',
     excerpt: 'Friendly and fair. The considerate friend.',
     icon: '☕',
@@ -627,7 +627,7 @@ Can feel wishy-washy. Sometimes people need "here's what to do," not "here are t
 
   'CONVERSATIONAL-CONTRADICTORY': {
     type: 'combo',
-    slug: 'conversational-contradictory',
+    slug: 'helen-garner-writing-style',
     title: 'Helen Garner\'s Writing Style',
     excerpt: 'Friendly but paradoxical. The honest mess.',
     icon: '☕',
@@ -659,7 +659,7 @@ Readers seeking resolution may feel frustrated.`,
 
   'FORMAL-OPEN': {
     type: 'combo',
-    slug: 'formal-open',
+    slug: 'terry-eagleton-writing-style',
     title: 'Terry Eagleton\'s Writing Style',
     excerpt: 'Professional and receptive. The institutional inquiry.',
     icon: '🎩',
@@ -691,7 +691,7 @@ The openness may seem token. Demonstrate genuine receptivity through action.`,
 
   'FORMAL-CLOSED': {
     type: 'combo',
-    slug: 'formal-closed',
+    slug: 'simon-schama-writing-style',
     title: 'Simon Schama\'s Writing Style',
     excerpt: 'Professional and definitive. The official position.',
     icon: '🎩',
@@ -723,7 +723,7 @@ Alienation. Overuse creates distance. Deploy strategically.`,
 
   'FORMAL-BALANCED': {
     type: 'combo',
-    slug: 'formal-balanced',
+    slug: 'isaiah-berlin-writing-style',
     title: 'Isaiah Berlin\'s Writing Style',
     excerpt: 'Professional fairness. The objective report.',
     icon: '🎩',
@@ -755,7 +755,7 @@ False equivalence. Not all positions deserve equal weight.`,
 
   'FORMAL-CONTRADICTORY': {
     type: 'combo',
-    slug: 'formal-contradictory',
+    slug: 'gk-chesterton-writing-style',
     title: 'G.K. Chesterton\'s Writing Style',
     excerpt: 'Professional paradox. The institutional complexity.',
     icon: '🎩',
@@ -785,7 +785,7 @@ Paralysis or excuse-making. The paradox must be navigated, not merely admitted.`
 
   'BALANCED-OPEN': {
     type: 'combo',
-    slug: 'balanced-open',
+    slug: 'reni-eddo-lodge-writing-style',
     title: 'Reni Eddo-Lodge\'s Writing Style',
     excerpt: 'Fair-minded and curious. The thoughtful explorer.',
     icon: '🔄',
@@ -817,7 +817,7 @@ May seem indecisive in contexts requiring clear direction.`,
 
   'BALANCED-CLOSED': {
     type: 'combo',
-    slug: 'balanced-closed',
+    slug: 'david-goodhart-writing-style',
     title: 'David Goodhart\'s Writing Style',
     excerpt: 'Fair analysis, firm conclusion. The judicious verdict.',
     icon: '🔄',
@@ -847,7 +847,7 @@ The balance can feel performative if the conclusion was predetermined.`,
 
   'BALANCED-BALANCED': {
     type: 'combo',
-    slug: 'balanced-balanced',
+    slug: 'kwame-anthony-appiah-writing-style',
     title: 'Kwame Anthony Appiah\'s Writing Style',
     excerpt: 'Fairness on fairness. The ultimate mediator.',
     icon: '🔄',
@@ -877,7 +877,7 @@ Can feel paralyzed. Sometimes readers need guidance.`,
 
   'BALANCED-CONTRADICTORY': {
     type: 'combo',
-    slug: 'balanced-contradictory',
+    slug: 'john-gray-writing-style',
     title: 'John Gray\'s Writing Style',
     excerpt: 'Fair to paradox. The complexity embracer.',
     icon: '🔄',
@@ -907,7 +907,7 @@ Readers seeking action may find this frustrating.`,
 
   'LONGFORM-OPEN': {
     type: 'combo',
-    slug: 'longform-open',
+    slug: 'olivia-laing-writing-style',
     title: 'Olivia Laing\'s Writing Style',
     excerpt: 'Extended exploration with genuine inquiry. The deep dive that still wonders.',
     icon: '🗺️',
@@ -937,7 +937,7 @@ Patience required. Not all readers will follow.`,
 
   'LONGFORM-CLOSED': {
     type: 'combo',
-    slug: 'longform-closed',
+    slug: 'patrick-leigh-fermor-writing-style',
     title: 'Patrick Leigh Fermor\'s Writing Style',
     excerpt: 'Extended argument with definitive conclusion. The comprehensive case.',
     icon: '🗺️',
@@ -967,7 +967,7 @@ Can feel overwhelming. Ensure certainty is warranted.`,
 
   'LONGFORM-BALANCED': {
     type: 'combo',
-    slug: 'longform-balanced',
+    slug: 'lawrence-hill-writing-style',
     title: 'Lawrence Hill\'s Writing Style',
     excerpt: 'Extended fairness. The comprehensive overview.',
     icon: '🗺️',
@@ -997,7 +997,7 @@ Length. Readers may lose patience. Signpost clearly.`,
 
   'LONGFORM-CONTRADICTORY': {
     type: 'combo',
-    slug: 'longform-contradictory',
+    slug: 'wg-sebald-writing-style',
     title: 'W.G. Sebald\'s Writing Style',
     excerpt: 'Extended paradox. The full elaboration of irresolvable tension.',
     icon: '🗺️',
@@ -1027,7 +1027,7 @@ Reader frustration. Extended exploration with no resolution is challenging.`,
 
   'INTERROGATIVE-OPEN': {
     type: 'combo',
-    slug: 'interrogative-open',
+    slug: 'naomi-klein-writing-style',
     title: 'Naomi Klein\'s Writing Style',
     excerpt: 'Questions upon questions. The Socratic explorer.',
     icon: '🧩',
@@ -1057,7 +1057,7 @@ Can feel evasive. Some readers want answers.`,
 
   'INTERROGATIVE-CLOSED': {
     type: 'combo',
-    slug: 'interrogative-closed',
+    slug: 'malcolm-gladwell-writing-style',
     title: 'Malcolm Gladwell\'s Writing Style',
     excerpt: 'Rhetorical questions with predetermined answers. The leading examiner.',
     icon: '🧩',
@@ -1087,7 +1087,7 @@ Can feel manipulative. Skeptical readers may push back.`,
 
   'INTERROGATIVE-BALANCED': {
     type: 'combo',
-    slug: 'interrogative-balanced',
+    slug: 'robert-manne-writing-style',
     title: 'Robert Manne\'s Writing Style',
     excerpt: 'Questions that explore multiple sides. The balanced inquiry.',
     icon: '🧩',
@@ -1117,7 +1117,7 @@ Can seem uncommitted. Some readers want positions.`,
 
   'INTERROGATIVE-CONTRADICTORY': {
     type: 'combo',
-    slug: 'interrogative-contradictory',
+    slug: 'john-berger-writing-style',
     title: 'John Berger\'s Writing Style',
     excerpt: 'Questions that embrace paradox. The unresolvable inquiry.',
     icon: '🧩',
@@ -1147,7 +1147,7 @@ Double frustration: questions without answers about contradictions without resol
 
   'HEDGED-OPEN': {
     type: 'combo',
-    slug: 'hedged-open',
+    slug: 'penelope-fitzgerald-writing-style',
     title: 'Penelope Fitzgerald\'s Writing Style',
     excerpt: 'Tentative and curious. The genuinely uncertain explorer.',
     icon: '🔭',
@@ -1177,7 +1177,7 @@ Can seem unconfident. Some contexts require more certainty.`,
 
   'HEDGED-CLOSED': {
     type: 'combo',
-    slug: 'hedged-closed',
+    slug: 'kazuo-ishiguro-writing-style',
     title: 'Kazuo Ishiguro\'s Writing Style',
     excerpt: 'Tentative but not seeking input. The private uncertainty.',
     icon: '🔭',
@@ -1207,7 +1207,7 @@ May seem closed-minded despite the hedging.`,
 
   'HEDGED-BALANCED': {
     type: 'combo',
-    slug: 'hedged-balanced',
+    slug: 'pat-barker-writing-style',
     title: 'Pat Barker\'s Writing Style',
     excerpt: 'Tentative fairness. The humble both-sides.',
     icon: '🔭',
@@ -1237,7 +1237,7 @@ Can seem paralyzed. Double hedging may frustrate readers.`,
 
   'HEDGED-CONTRADICTORY': {
     type: 'combo',
-    slug: 'hedged-contradictory',
+    slug: 'ali-smith-hedged-writing-style',
     title: 'Ali Smith\'s Writing Style',
     excerpt: 'Tentatively paradoxical. The humble acceptance of mess.',
     icon: '🔭',
@@ -1266,7 +1266,7 @@ Readers may find this exhaustingly uncertain.`,
   },
   'HOW-ASSERTIVE-OPEN': {
     type: 'how',
-    slug: 'how-assertive-open-writers-write',
+    slug: 'write-like-ian-mcewan',
     title: 'Write Like Ian McEwan',
     excerpt: 'Direct statements. Receptive to challenge. The confident conversationalist.',
     icon: '✊',
@@ -1286,7 +1286,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-ASSERTIVE-CLOSED': {
     type: 'how',
-    slug: 'how-assertive-closed-writers-write',
+    slug: 'write-like-george-orwell',
     title: 'Write Like George Orwell',
     excerpt: 'High certainty. No hedging. The definitive voice.',
     icon: '✊',
@@ -1307,7 +1307,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-ASSERTIVE-BALANCED': {
     type: 'how',
-    slug: 'how-assertive-balanced-writers-write',
+    slug: 'write-like-hilary-mantel',
     title: 'Write Like Hilary Mantel',
     excerpt: 'Strong voice. Multiple perspectives. The fair-minded authority.',
     icon: '✊',
@@ -1326,7 +1326,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-ASSERTIVE-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-assertive-contradictory-writers-write',
+    slug: 'write-like-zadie-smith',
     title: 'Write Like Zadie Smith',
     excerpt: 'Bold claims. Self-aware tensions. The provocateur.',
     icon: '✊',
@@ -1345,7 +1345,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-MINIMAL-OPEN': {
     type: 'how',
-    slug: 'how-minimal-open-writers-write',
+    slug: 'write-like-alice-munro',
     title: 'Write Like Alice Munro',
     excerpt: 'Sparse. Receptive. The quiet listener.',
     icon: '◾',
@@ -1365,7 +1365,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-MINIMAL-CLOSED': {
     type: 'how',
-    slug: 'how-minimal-closed-writers-write',
+    slug: 'write-like-samuel-beckett',
     title: 'Write Like Samuel Beckett',
     excerpt: 'Spare. Certain. The final word.',
     icon: '◾',
@@ -1384,7 +1384,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-MINIMAL-BALANCED': {
     type: 'how',
-    slug: 'how-minimal-balanced-writers-write',
+    slug: 'write-like-muriel-spark',
     title: 'Write Like Muriel Spark',
     excerpt: 'Brief. Fair. Both sides in few words.',
     icon: '◾',
@@ -1403,7 +1403,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-MINIMAL-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-minimal-contradictory-writers-write',
+    slug: 'write-like-jm-coetzee',
     title: 'Write Like J.M. Coetzee',
     excerpt: 'Sparse paradox. The koan.',
     icon: '◾',
@@ -1422,7 +1422,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-POETIC-OPEN': {
     type: 'how',
-    slug: 'how-poetic-open-writers-write',
+    slug: 'write-like-virginia-woolf',
     title: 'Write Like Virginia Woolf',
     excerpt: 'Lyrical and curious. The wondering voice.',
     icon: '🌸',
@@ -1441,7 +1441,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-POETIC-CLOSED': {
     type: 'how',
-    slug: 'how-poetic-closed-writers-write',
+    slug: 'write-like-jeanette-winterson',
     title: 'Write Like Jeanette Winterson',
     excerpt: 'Beautiful and certain. The oracle speaks.',
     icon: '🌸',
@@ -1460,7 +1460,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-POETIC-BALANCED': {
     type: 'how',
-    slug: 'how-poetic-balanced-writers-write',
+    slug: 'write-like-ali-smith',
     title: 'Write Like Ali Smith',
     excerpt: 'Lyrical fairness. The meditative witness.',
     icon: '🌸',
@@ -1479,7 +1479,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-POETIC-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-poetic-contradictory-writers-write',
+    slug: 'write-like-leonard-cohen',
     title: 'Write Like Leonard Cohen',
     excerpt: 'Beautiful paradox. The sublime tension.',
     icon: '🌸',
@@ -1498,7 +1498,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-DENSE-OPEN': {
     type: 'how',
-    slug: 'how-dense-open-writers-write',
+    slug: 'write-like-as-byatt',
     title: 'Write Like A.S. Byatt',
     excerpt: 'Rich complexity with genuine inquiry. The scholar who still questions.',
     icon: '📚',
@@ -1517,7 +1517,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-DENSE-CLOSED': {
     type: 'how',
-    slug: 'how-dense-closed-writers-write',
+    slug: 'write-like-martin-amis',
     title: 'Write Like Martin Amis',
     excerpt: 'Maximum information. Maximum certainty. The definitive treatise.',
     icon: '📚',
@@ -1536,7 +1536,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-DENSE-BALANCED': {
     type: 'how',
-    slug: 'how-dense-balanced-writers-write',
+    slug: 'write-like-salman-rushdie',
     title: 'Write Like Salman Rushdie',
     excerpt: 'Comprehensive analysis. Multiple perspectives integrated.',
     icon: '📚',
@@ -1555,7 +1555,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-DENSE-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-dense-contradictory-writers-write',
+    slug: 'write-like-margaret-atwood',
     title: 'Write Like Margaret Atwood',
     excerpt: 'Complex paradox fully elaborated. The philosophical puzzle.',
     icon: '📚',
@@ -1574,7 +1574,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-CONVERSATIONAL-OPEN': {
     type: 'how',
-    slug: 'how-conversational-open-writers-write',
+    slug: 'write-like-nick-hornby',
     title: 'Write Like Nick Hornby',
     excerpt: 'Friendly and curious. The coffee chat.',
     icon: '💬',
@@ -1593,7 +1593,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-CONVERSATIONAL-CLOSED': {
     type: 'how',
-    slug: 'how-conversational-closed-writers-write',
+    slug: 'write-like-douglas-adams',
     title: 'Write Like Douglas Adams',
     excerpt: 'Friendly but certain. The trusted advisor.',
     icon: '💬',
@@ -1612,7 +1612,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-CONVERSATIONAL-BALANCED': {
     type: 'how',
-    slug: 'how-conversational-balanced-writers-write',
+    slug: 'write-like-david-mitchell',
     title: 'Write Like David Mitchell',
     excerpt: 'Friendly and fair. The considerate friend.',
     icon: '💬',
@@ -1631,7 +1631,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-CONVERSATIONAL-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-conversational-contradictory-writers-write',
+    slug: 'write-like-helen-garner',
     title: 'Write Like Helen Garner',
     excerpt: 'Friendly but paradoxical. The honest mess.',
     icon: '💬',
@@ -1650,7 +1650,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-FORMAL-OPEN': {
     type: 'how',
-    slug: 'how-formal-open-writers-write',
+    slug: 'write-like-terry-eagleton',
     title: 'Write Like Terry Eagleton',
     excerpt: 'Professional and receptive. The institutional inquiry.',
     icon: '📋',
@@ -1669,7 +1669,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-FORMAL-CLOSED': {
     type: 'how',
-    slug: 'how-formal-closed-writers-write',
+    slug: 'write-like-simon-schama',
     title: 'Write Like Simon Schama',
     excerpt: 'Professional and definitive. The official position.',
     icon: '📋',
@@ -1688,7 +1688,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-FORMAL-BALANCED': {
     type: 'how',
-    slug: 'how-formal-balanced-writers-write',
+    slug: 'write-like-isaiah-berlin',
     title: 'Write Like Isaiah Berlin',
     excerpt: 'Professional fairness. The objective report.',
     icon: '📋',
@@ -1707,7 +1707,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-FORMAL-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-formal-contradictory-writers-write',
+    slug: 'write-like-gk-chesterton',
     title: 'Write Like G.K. Chesterton',
     excerpt: 'Professional paradox. The institutional complexity.',
     icon: '📋',
@@ -1726,7 +1726,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-BALANCED-OPEN': {
     type: 'how',
-    slug: 'how-balanced-open-writers-write',
+    slug: 'write-like-reni-eddo-lodge',
     title: 'Write Like Reni Eddo-Lodge',
     excerpt: 'Fair-minded and curious. The thoughtful explorer.',
     icon: '🌗',
@@ -1745,7 +1745,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-BALANCED-CLOSED': {
     type: 'how',
-    slug: 'how-balanced-closed-writers-write',
+    slug: 'write-like-david-goodhart',
     title: 'Write Like David Goodhart',
     excerpt: 'Fair analysis, firm conclusion. The judicious verdict.',
     icon: '🌗',
@@ -1764,7 +1764,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-BALANCED-BALANCED': {
     type: 'how',
-    slug: 'how-balanced-balanced-writers-write',
+    slug: 'write-like-kwame-anthony-appiah',
     title: 'Write Like Kwame Anthony Appiah',
     excerpt: 'Fairness on fairness. The ultimate mediator.',
     icon: '🌗',
@@ -1783,7 +1783,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-BALANCED-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-balanced-contradictory-writers-write',
+    slug: 'write-like-john-gray',
     title: 'Write Like John Gray',
     excerpt: 'Fair to paradox. The complexity embracer.',
     icon: '🌗',
@@ -1802,7 +1802,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-LONGFORM-OPEN': {
     type: 'how',
-    slug: 'how-longform-open-writers-write',
+    slug: 'write-like-olivia-laing',
     title: 'Write Like Olivia Laing',
     excerpt: 'Extended exploration with genuine inquiry. The deep dive.',
     icon: '📜',
@@ -1821,7 +1821,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-LONGFORM-CLOSED': {
     type: 'how',
-    slug: 'how-longform-closed-writers-write',
+    slug: 'write-like-patrick-leigh-fermor',
     title: 'Write Like Patrick Leigh Fermor',
     excerpt: 'Extended argument with definitive conclusion. The comprehensive case.',
     icon: '📜',
@@ -1840,7 +1840,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-LONGFORM-BALANCED': {
     type: 'how',
-    slug: 'how-longform-balanced-writers-write',
+    slug: 'write-like-lawrence-hill',
     title: 'Write Like Lawrence Hill',
     excerpt: 'Extended fairness. The comprehensive overview.',
     icon: '📜',
@@ -1859,7 +1859,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-LONGFORM-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-longform-contradictory-writers-write',
+    slug: 'write-like-wg-sebald',
     title: 'Write Like W.G. Sebald',
     excerpt: 'Extended paradox. The full elaboration of tension.',
     icon: '📜',
@@ -1878,7 +1878,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-INTERROGATIVE-OPEN': {
     type: 'how',
-    slug: 'how-interrogative-open-writers-write',
+    slug: 'write-like-naomi-klein',
     title: 'Write Like Naomi Klein',
     excerpt: 'Questions upon questions. The Socratic explorer.',
     icon: '❓',
@@ -1897,7 +1897,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-INTERROGATIVE-CLOSED': {
     type: 'how',
-    slug: 'how-interrogative-closed-writers-write',
+    slug: 'write-like-malcolm-gladwell',
     title: 'Write Like Malcolm Gladwell',
     excerpt: 'Rhetorical questions with predetermined answers. The leading examiner.',
     icon: '❓',
@@ -1916,7 +1916,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-INTERROGATIVE-BALANCED': {
     type: 'how',
-    slug: 'how-interrogative-balanced-writers-write',
+    slug: 'write-like-robert-manne',
     title: 'Write Like Robert Manne',
     excerpt: 'Questions that explore multiple sides. The balanced inquiry.',
     icon: '❓',
@@ -1935,7 +1935,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-INTERROGATIVE-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-interrogative-contradictory-writers-write',
+    slug: 'write-like-john-berger',
     title: 'Write Like John Berger',
     excerpt: 'Questions that embrace paradox. The unresolvable inquiry.',
     icon: '❓',
@@ -1954,7 +1954,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-HEDGED-OPEN': {
     type: 'how',
-    slug: 'how-hedged-open-writers-write',
+    slug: 'write-like-penelope-fitzgerald',
     title: 'Write Like Penelope Fitzgerald',
     excerpt: 'Tentative and curious. The genuinely uncertain explorer.',
     icon: '⚖️',
@@ -1973,7 +1973,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-HEDGED-CLOSED': {
     type: 'how',
-    slug: 'how-hedged-closed-writers-write',
+    slug: 'write-like-kazuo-ishiguro',
     title: 'Write Like Kazuo Ishiguro',
     excerpt: 'Tentative but not seeking input. The private uncertainty.',
     icon: '⚖️',
@@ -1992,7 +1992,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-HEDGED-BALANCED': {
     type: 'how',
-    slug: 'how-hedged-balanced-writers-write',
+    slug: 'write-like-pat-barker',
     title: 'Write Like Pat Barker',
     excerpt: 'Tentative fairness. The humble both-sides.',
     icon: '⚖️',
@@ -2011,7 +2011,7 @@ Readers may find this exhaustingly uncertain.`,
 
   'HOW-HEDGED-CONTRADICTORY': {
     type: 'how',
-    slug: 'how-hedged-contradictory-writers-write',
+    slug: 'write-like-ali-smith-hedged',
     title: 'Write Like Ali Smith',
     excerpt: 'Tentatively paradoxical. The humble mess.',
     icon: '⚖️',
