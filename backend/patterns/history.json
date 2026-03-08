@@ -74459,6 +74459,1230 @@
         }
       },
       "analyzed_at": "2026-03-07T08:00:18.149801Z"
+    },
+    {
+      "id": "7299b70e7bea4ea2",
+      "user_id": null,
+      "session_id": null,
+      "profile": "LONGFORM",
+      "stance": "OPEN",
+      "word_count": 14,
+      "sentence_count": 2,
+      "token_signature": "5-8-1-4-1-5-8-7-4-2",
+      "confidence_score": 0.8593993551001659,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write.",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.9922827734799691,
+          "MINIMAL": 0.35796850102393873,
+          "POETIC": 0.6368550818354595,
+          "DENSE": 0.9805528717626975,
+          "CONVERSATIONAL": 0.29213137515534104,
+          "FORMAL": 0.9552994675420896,
+          "INTERROGATIVE": 0.22011246253812977,
+          "HEDGED": 0.3174053658050068,
+          "PARALLEL": 0.47663037237719086,
+          "LONGFORM": 0.9411898181234835
+        },
+        "stances": {
+          "OPEN": 0.6023747591726354,
+          "CLOSED": 0.061179996776128065,
+          "BALANCED": 0.315502576389493,
+          "CONTRADICTORY": 0.25597735708335656
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:10.461433Z"
+    },
+    {
+      "id": "7197e2f723a80e6c",
+      "user_id": null,
+      "session_id": null,
+      "profile": "FORMAL",
+      "stance": "CONTRADICTORY",
+      "word_count": 31,
+      "sentence_count": 4,
+      "token_signature": "4-8-8-7-9-0-3-6-3-8",
+      "confidence_score": 0.8881788356089999,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.6599501360890767,
+          "MINIMAL": 0.5605846786355572,
+          "POETIC": 0.9885700611224217,
+          "DENSE": 0.2253651329117602,
+          "CONVERSATIONAL": 0.1925432845060684,
+          "FORMAL": 0.8598711849597865,
+          "INTERROGATIVE": 0.5461619379747239,
+          "HEDGED": 0.4905258753100543,
+          "PARALLEL": 0.749589002658487,
+          "LONGFORM": 0.5666959392617902
+        },
+        "stances": {
+          "OPEN": 0.47821546125761905,
+          "CLOSED": 0.9146844688661694,
+          "BALANCED": 0.5757011942283303,
+          "CONTRADICTORY": 0.7218946089272485
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:11.082306Z"
+    },
+    {
+      "id": "c60de98092bcfe1f",
+      "user_id": null,
+      "session_id": null,
+      "profile": "HEDGED",
+      "stance": "BALANCED",
+      "word_count": 19,
+      "sentence_count": 3,
+      "token_signature": "9-3-3-0-0-4-2-6-3-2",
+      "confidence_score": 0.8127976454775587,
+      "source": "web",
+      "input_preview": "This is exactly what needs to happen. No more excuses. We will do this now and we will succeed.",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8115308134645306,
+          "MINIMAL": 0.6124817706375436,
+          "POETIC": 0.7804135711749052,
+          "DENSE": 0.17670451152798394,
+          "CONVERSATIONAL": 0.5422968879317274,
+          "FORMAL": 0.8020352207742563,
+          "INTERROGATIVE": 0.721500106147819,
+          "HEDGED": 0.7782184430958207,
+          "PARALLEL": 0.3377560263173771,
+          "LONGFORM": 0.5100813774136145
+        },
+        "stances": {
+          "OPEN": 0.15638757358394606,
+          "CLOSED": 0.28154070314484425,
+          "BALANCED": 0.7534229719321133,
+          "CONTRADICTORY": 0.961623644092546
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:11.545567Z"
+    },
+    {
+      "id": "8cf21b227d501c5e",
+      "user_id": null,
+      "session_id": null,
+      "profile": "ASSERTIVE",
+      "stance": "CONTRADICTORY",
+      "word_count": 12,
+      "sentence_count": 4,
+      "token_signature": "1-6-7-4-8-1-7-0-6-1",
+      "confidence_score": 0.9083657115186464,
+      "source": "web",
+      "input_preview": "Short words. Clean lines. Done. Nothing more to add here for analysis.",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8766792931700487,
+          "MINIMAL": 0.005964515899776757,
+          "POETIC": 0.4238430617986375,
+          "DENSE": 0.9476327142415245,
+          "CONVERSATIONAL": 0.7368374695725789,
+          "FORMAL": 0.2785315274322443,
+          "INTERROGATIVE": 0.77405363615662,
+          "HEDGED": 0.2629269416924701,
+          "PARALLEL": 0.9246017099226199,
+          "LONGFORM": 0.7669505832542204
+        },
+        "stances": {
+          "OPEN": 0.057602559781832374,
+          "CLOSED": 0.9621794941347382,
+          "BALANCED": 0.7579667390742335,
+          "CONTRADICTORY": 0.6553979236718713
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:11.867018Z"
+    },
+    {
+      "id": "d9c3f655ce865b3f",
+      "user_id": null,
+      "session_id": null,
+      "profile": "MINIMAL",
+      "stance": "CLOSED",
+      "word_count": 22,
+      "sentence_count": 1,
+      "token_signature": "6-6-5-3-5-9-9-7-8-1",
+      "confidence_score": 0.927014456745954,
+      "source": "web",
+      "input_preview": "The morning unfurled like a silk ribbon across the sky, each hue bleeding into the next like waterco",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.3862746983931111,
+          "MINIMAL": 0.9083155181761683,
+          "POETIC": 0.16223910207756354,
+          "DENSE": 0.5364707484610053,
+          "CONVERSATIONAL": 0.5921450701977401,
+          "FORMAL": 0.3489708808811022,
+          "INTERROGATIVE": 0.8026581039821568,
+          "HEDGED": 0.5167379051126049,
+          "PARALLEL": 0.776434922483405,
+          "LONGFORM": 0.9091625830461123
+        },
+        "stances": {
+          "OPEN": 0.6206716069439592,
+          "CLOSED": 0.7279519250729943,
+          "BALANCED": 0.5332178149793523,
+          "CONTRADICTORY": 0.5968502710645216
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:12.260116Z"
+    },
+    {
+      "id": "bae18a26703d48e4",
+      "user_id": null,
+      "session_id": null,
+      "profile": "POETIC",
+      "stance": "OPEN",
+      "word_count": 12,
+      "sentence_count": 1,
+      "token_signature": "7-0-9-7-0-8-8-4-3-9",
+      "confidence_score": 0.9360497292981522,
+      "source": "web",
+      "input_preview": "The socioeconomic implications of this multi-factorial paradigm shift necessitate a comprehensive re",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.9854309780955837,
+          "MINIMAL": 0.9440079611402693,
+          "POETIC": 0.9362011829719504,
+          "DENSE": 0.11770351425712466,
+          "CONVERSATIONAL": 0.8514985084885803,
+          "FORMAL": 0.8988079074498638,
+          "INTERROGATIVE": 0.5371539845607268,
+          "HEDGED": 0.9089378594528215,
+          "PARALLEL": 0.9764417005175823,
+          "LONGFORM": 0.6806050231366492
+        },
+        "stances": {
+          "OPEN": 0.6344506735845363,
+          "CLOSED": 0.23060426247391785,
+          "BALANCED": 0.7229267299810777,
+          "CONTRADICTORY": 0.5527278423484387
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:12.660414Z"
+    },
+    {
+      "id": "d3ce1f833b3a29ff",
+      "user_id": null,
+      "session_id": null,
+      "profile": "HEDGED",
+      "stance": "OPEN",
+      "word_count": 23,
+      "sentence_count": 2,
+      "token_signature": "7-3-0-9-2-0-8-9-2-2",
+      "confidence_score": 0.8920226146543226,
+      "source": "web",
+      "input_preview": "So anyway, I was just thinking about this the other day, you know? Like, it's kind of wild when you ",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.27827626756181045,
+          "MINIMAL": 0.6533084417815547,
+          "POETIC": 0.22253339177925158,
+          "DENSE": 0.6366639920201099,
+          "CONVERSATIONAL": 0.6685139041533161,
+          "FORMAL": 0.6787681562710518,
+          "INTERROGATIVE": 0.058028391211374486,
+          "HEDGED": 0.7295852624382754,
+          "PARALLEL": 0.5585892247550001,
+          "LONGFORM": 0.18207535716824086
+        },
+        "stances": {
+          "OPEN": 0.6638485970652068,
+          "CLOSED": 0.662195734762203,
+          "BALANCED": 0.9957314615135192,
+          "CONTRADICTORY": 0.9472116151658787
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:13.091384Z"
+    },
+    {
+      "id": "901ae1368669c3ef",
+      "user_id": null,
+      "session_id": null,
+      "profile": "POETIC",
+      "stance": "CLOSED",
+      "word_count": 16,
+      "sentence_count": 1,
+      "token_signature": "3-8-5-4-2-7-4-8-5-4",
+      "confidence_score": 0.8338851503393478,
+      "source": "web",
+      "input_preview": "It is with considerable deliberation that this committee hereby recommends the implementation of the",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.3128014040036725,
+          "MINIMAL": 0.9202828476449192,
+          "POETIC": 0.9213848111061013,
+          "DENSE": 0.4740206938610032,
+          "CONVERSATIONAL": 0.5181998649527182,
+          "FORMAL": 0.6964216359938233,
+          "INTERROGATIVE": 0.24065898631286597,
+          "HEDGED": 0.17623574880015747,
+          "PARALLEL": 0.4540524806561891,
+          "LONGFORM": 0.3445734463768424
+        },
+        "stances": {
+          "OPEN": 0.37062581528679905,
+          "CLOSED": 0.6658481081894921,
+          "BALANCED": 0.9602462564978048,
+          "CONTRADICTORY": 0.26139770827661113
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:13.437492Z"
+    },
+    {
+      "id": "5cf58afd0bbfae0c",
+      "user_id": null,
+      "session_id": null,
+      "profile": "DENSE",
+      "stance": "OPEN",
+      "word_count": 26,
+      "sentence_count": 1,
+      "token_signature": "3-6-5-3-7-0-7-7-1-5",
+      "confidence_score": 0.9046961329858043,
+      "source": "web",
+      "input_preview": "The story begins in a small town where nothing much happened, or so it seemed, until the day the let",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.599195515993204,
+          "MINIMAL": 0.8352715043277761,
+          "POETIC": 0.5976877167629047,
+          "DENSE": 0.8753147140944939,
+          "CONVERSATIONAL": 0.2658445534026944,
+          "FORMAL": 0.08313867087577953,
+          "INTERROGATIVE": 0.5793218127700568,
+          "HEDGED": 0.4426530325668784,
+          "PARALLEL": 0.22591524287948728,
+          "LONGFORM": 0.2680411992381353
+        },
+        "stances": {
+          "OPEN": 0.7032183550455084,
+          "CLOSED": 0.8422681780658832,
+          "BALANCED": 0.7787907103162859,
+          "CONTRADICTORY": 0.45208655786737784
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:13.817881Z"
+    },
+    {
+      "id": "474bcec200db57d8",
+      "user_id": null,
+      "session_id": null,
+      "profile": "MINIMAL",
+      "stance": "BALANCED",
+      "word_count": 21,
+      "sentence_count": 4,
+      "token_signature": "0-6-9-4-4-5-3-5-8-7",
+      "confidence_score": 0.8523760516910459,
+      "source": "web",
+      "input_preview": "What if we're wrong? Have we considered the alternative? Who decided this was the best approach? Why",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.3537986948636923,
+          "MINIMAL": 0.8218346024889638,
+          "POETIC": 0.9434903520988085,
+          "DENSE": 0.4731226798810101,
+          "CONVERSATIONAL": 0.6406303790242247,
+          "FORMAL": 0.9660205381710607,
+          "INTERROGATIVE": 0.7927000993971968,
+          "HEDGED": 0.5167124595310664,
+          "PARALLEL": 0.006667523028932254,
+          "LONGFORM": 0.4901047325590949
+        },
+        "stances": {
+          "OPEN": 0.11415752632776066,
+          "CLOSED": 0.6860714309734608,
+          "BALANCED": 0.628415959644152,
+          "CONTRADICTORY": 0.3473104439564676
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:14.199323Z"
+    },
+    {
+      "id": "38e967cf4954e2dc",
+      "user_id": null,
+      "session_id": null,
+      "profile": "DENSE",
+      "stance": "CONTRADICTORY",
+      "word_count": 19,
+      "sentence_count": 1,
+      "token_signature": "0-1-5-5-8-7-7-1-2-7",
+      "confidence_score": 0.7804948497206199,
+      "source": "web",
+      "input_preview": "It seems somewhat possible that this might be partially correct, though one could perhaps argue ther",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.6503608923798575,
+          "MINIMAL": 0.8319911041094801,
+          "POETIC": 0.39884418799054244,
+          "DENSE": 0.7287042656074171,
+          "CONVERSATIONAL": 0.9796093235145056,
+          "FORMAL": 0.4267128316385177,
+          "INTERROGATIVE": 0.5096798175575113,
+          "HEDGED": 0.11457652788264427,
+          "PARALLEL": 0.13388968849014016,
+          "LONGFORM": 0.35656276583797875
+        },
+        "stances": {
+          "OPEN": 0.2402795996819237,
+          "CLOSED": 0.061741635316662324,
+          "BALANCED": 0.4090927249319891,
+          "CONTRADICTORY": 0.6338017000651837
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:14.536766Z"
+    },
+    {
+      "id": "9db91f8d50201fc0",
+      "user_id": null,
+      "session_id": null,
+      "profile": "PARALLEL",
+      "stance": "CLOSED",
+      "word_count": 18,
+      "sentence_count": 3,
+      "token_signature": "5-0-4-9-4-1-3-1-6-3",
+      "confidence_score": 0.896914400325495,
+      "source": "web",
+      "input_preview": "We came, we saw, we conquered. Not with force, but with patience. Not with anger, but with grace.",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.9040513986431251,
+          "MINIMAL": 0.08335604764484694,
+          "POETIC": 0.7203567925438604,
+          "DENSE": 0.07728861362377393,
+          "CONVERSATIONAL": 0.4758332286480951,
+          "FORMAL": 0.43365231376691504,
+          "INTERROGATIVE": 0.9568956960217426,
+          "HEDGED": 0.7198823456218116,
+          "PARALLEL": 0.7985605171932149,
+          "LONGFORM": 0.9938069790302421
+        },
+        "stances": {
+          "OPEN": 0.03708662943101937,
+          "CLOSED": 0.7016719879350324,
+          "BALANCED": 0.7761053188805663,
+          "CONTRADICTORY": 0.33395236417018226
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:14.880817Z"
+    },
+    {
+      "id": "d66550c2f8758e6b",
+      "user_id": null,
+      "session_id": null,
+      "profile": "HEDGED",
+      "stance": "BALANCED",
+      "word_count": 19,
+      "sentence_count": 3,
+      "token_signature": "9-3-3-0-0-4-2-6-3-2",
+      "confidence_score": 0.8127976454775587,
+      "source": "web",
+      "input_preview": "This is exactly what needs to happen. No more excuses. We will do this now and we will succeed.",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8115308134645306,
+          "MINIMAL": 0.6124817706375436,
+          "POETIC": 0.7804135711749052,
+          "DENSE": 0.17670451152798394,
+          "CONVERSATIONAL": 0.5422968879317274,
+          "FORMAL": 0.8020352207742563,
+          "INTERROGATIVE": 0.721500106147819,
+          "HEDGED": 0.7782184430958207,
+          "PARALLEL": 0.3377560263173771,
+          "LONGFORM": 0.5100813774136145
+        },
+        "stances": {
+          "OPEN": 0.15638757358394606,
+          "CLOSED": 0.28154070314484425,
+          "BALANCED": 0.7534229719321133,
+          "CONTRADICTORY": 0.961623644092546
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:15.228389Z"
+    },
+    {
+      "id": "e833e652a6268fb0",
+      "user_id": null,
+      "session_id": null,
+      "profile": "HEDGED",
+      "stance": "BALANCED",
+      "word_count": 19,
+      "sentence_count": 3,
+      "token_signature": "9-3-3-0-0-4-2-6-3-2",
+      "confidence_score": 0.8127976454775587,
+      "source": "web",
+      "input_preview": "This is exactly what needs to happen. No more excuses. We will do this now and we will succeed.",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8115308134645306,
+          "MINIMAL": 0.6124817706375436,
+          "POETIC": 0.7804135711749052,
+          "DENSE": 0.17670451152798394,
+          "CONVERSATIONAL": 0.5422968879317274,
+          "FORMAL": 0.8020352207742563,
+          "INTERROGATIVE": 0.721500106147819,
+          "HEDGED": 0.7782184430958207,
+          "PARALLEL": 0.3377560263173771,
+          "LONGFORM": 0.5100813774136145
+        },
+        "stances": {
+          "OPEN": 0.15638757358394606,
+          "CLOSED": 0.28154070314484425,
+          "BALANCED": 0.7534229719321133,
+          "CONTRADICTORY": 0.961623644092546
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:15.554917Z"
+    },
+    {
+      "id": "c572f58042c52e3f",
+      "user_id": null,
+      "session_id": null,
+      "profile": "FORMAL",
+      "stance": "BALANCED",
+      "word_count": 20,
+      "sentence_count": 2,
+      "token_signature": "8-5-6-9-2-4-3-8-3-9",
+      "confidence_score": 0.7787492253509539,
+      "source": "web",
+      "input_preview": "Sample text number 0 for uniqueness testing. This is a test of the analysis system with enough words",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.0717422805678114,
+          "MINIMAL": 0.5248769888774316,
+          "POETIC": 0.7339965064898862,
+          "DENSE": 0.3803537300980938,
+          "CONVERSATIONAL": 0.05565865617603316,
+          "FORMAL": 0.8642276168355614,
+          "INTERROGATIVE": 0.8777992731411304,
+          "HEDGED": 0.8442601835729591,
+          "PARALLEL": 0.547167643963656,
+          "LONGFORM": 0.42461759763851437
+        },
+        "stances": {
+          "OPEN": 0.397975665559949,
+          "CLOSED": 0.04542746029653122,
+          "BALANCED": 0.6639939452054304,
+          "CONTRADICTORY": 0.8684354130243395
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:15.896758Z"
+    },
+    {
+      "id": "e1b41cd193892879",
+      "user_id": null,
+      "session_id": null,
+      "profile": "POETIC",
+      "stance": "BALANCED",
+      "word_count": 20,
+      "sentence_count": 2,
+      "token_signature": "7-0-6-5-1-3-1-9-2-8",
+      "confidence_score": 0.7617679372512454,
+      "source": "web",
+      "input_preview": "Sample text number 1 for uniqueness testing. This is a test of the analysis system with enough words",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.9264682614160488,
+          "MINIMAL": 0.7523236217163596,
+          "POETIC": 0.7528380220769993,
+          "DENSE": 0.8581748999137744,
+          "CONVERSATIONAL": 0.34482392671576634,
+          "FORMAL": 0.2239372262822834,
+          "INTERROGATIVE": 0.7391280437573743,
+          "HEDGED": 0.4612230926474322,
+          "PARALLEL": 0.9638148952160017,
+          "LONGFORM": 0.584123103543979
+        },
+        "stances": {
+          "OPEN": 0.8050528212936853,
+          "CLOSED": 0.7071748537312976,
+          "BALANCED": 0.8278875341955569,
+          "CONTRADICTORY": 0.46622015564825303
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:16.242213Z"
+    },
+    {
+      "id": "9556ee828d81fab7",
+      "user_id": null,
+      "session_id": null,
+      "profile": "FORMAL",
+      "stance": "CLOSED",
+      "word_count": 25,
+      "sentence_count": 3,
+      "token_signature": "0-6-0-1-0-4-7-3-9-0",
+      "confidence_score": 0.7992420218615552,
+      "source": "web",
+      "input_preview": "Les id\u00e9es na\u00efves sont parfois les plus profondes. \u00c7a va \u00eatre une journ\u00e9e magnifique avec des r\u00eaves \u00e9",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.5192897944022218,
+          "MINIMAL": 0.4340773075595412,
+          "POETIC": 0.5739738264995692,
+          "DENSE": 0.31434434245679344,
+          "CONVERSATIONAL": 0.8885703448512668,
+          "FORMAL": 0.9375183644247937,
+          "INTERROGATIVE": 0.4911163936412527,
+          "HEDGED": 0.25736064369133005,
+          "PARALLEL": 0.2570616153226929,
+          "LONGFORM": 0.13765174117580448
+        },
+        "stances": {
+          "OPEN": 0.673752333321557,
+          "CLOSED": 0.6930360884939013,
+          "BALANCED": 0.45263371493361415,
+          "CONTRADICTORY": 0.015866190599280405
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:16.582185Z"
+    },
+    {
+      "id": "01edd587a388a5ed",
+      "user_id": null,
+      "session_id": null,
+      "profile": "MINIMAL",
+      "stance": "OPEN",
+      "word_count": 50,
+      "sentence_count": 500,
+      "token_signature": "8-1-3-4-7-6-1-4-0-3",
+      "confidence_score": 0.9337889002541329,
+      "source": "web",
+      "input_preview": "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick ",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.16800814313846024,
+          "MINIMAL": 0.7813091049884254,
+          "POETIC": 0.7387298316715687,
+          "DENSE": 0.4233059726169386,
+          "CONVERSATIONAL": 0.4235879787148501,
+          "FORMAL": 0.9754150257358394,
+          "INTERROGATIVE": 0.6464287408983366,
+          "HEDGED": 0.01446596896079988,
+          "PARALLEL": 0.24354464001882314,
+          "LONGFORM": 0.15818584514464462
+        },
+        "stances": {
+          "OPEN": 0.6824857335717799,
+          "CLOSED": 0.7464516721004635,
+          "BALANCED": 0.8119072895889748,
+          "CONTRADICTORY": 0.45099987838115563
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:16.907466Z"
+    },
+    {
+      "id": "d36475d3baab28a4",
+      "user_id": null,
+      "session_id": null,
+      "profile": "PARALLEL",
+      "stance": "CLOSED",
+      "word_count": 22,
+      "sentence_count": 0,
+      "token_signature": "4-8-5-4-0-0-9-4-8-9",
+      "confidence_score": 0.755013523758003,
+      "source": "web",
+      "input_preview": "'; DROP TABLE users; -- This is a test of SQL injection with enough words to reach the minimum thres",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8045364459446167,
+          "MINIMAL": 0.2245385834553143,
+          "POETIC": 0.3819383942493011,
+          "DENSE": 0.9293641160488711,
+          "CONVERSATIONAL": 0.6770660703227359,
+          "FORMAL": 0.33738729851833216,
+          "INTERROGATIVE": 0.16856686261893117,
+          "HEDGED": 0.38473749823321324,
+          "PARALLEL": 0.8321020861486158,
+          "LONGFORM": 0.2846179788237927
+        },
+        "stances": {
+          "OPEN": 0.5915644282656357,
+          "CLOSED": 0.7076082905514118,
+          "BALANCED": 0.5619455042113446,
+          "CONTRADICTORY": 0.8043601942531498
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:17.244456Z"
+    },
+    {
+      "id": "86de341de8f4229d",
+      "user_id": null,
+      "session_id": null,
+      "profile": "DENSE",
+      "stance": "BALANCED",
+      "word_count": 19,
+      "sentence_count": 0,
+      "token_signature": "0-0-9-5-8-0-8-9-1-4",
+      "confidence_score": 0.8130528254032601,
+      "source": "web",
+      "input_preview": "<script>alert('xss')</script> This is a longer test with script tags to verify XSS is handled safely",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.7556890564138795,
+          "MINIMAL": 0.5669684377781219,
+          "POETIC": 0.35900158329466314,
+          "DENSE": 0.7223649041630318,
+          "CONVERSATIONAL": 0.3046964586808796,
+          "FORMAL": 0.8117895717630542,
+          "INTERROGATIVE": 0.26887432927363375,
+          "HEDGED": 0.2724382432885618,
+          "PARALLEL": 0.07993286533272681,
+          "LONGFORM": 0.08329722095334602
+        },
+        "stances": {
+          "OPEN": 0.966219015515135,
+          "CLOSED": 0.46645983549275005,
+          "BALANCED": 0.6489070677169132,
+          "CONTRADICTORY": 0.03833553567933656
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:17.568362Z"
+    },
+    {
+      "id": "7b94ab3e97177932",
+      "user_id": null,
+      "session_id": null,
+      "profile": "ASSERTIVE",
+      "stance": "BALANCED",
+      "word_count": 29,
+      "sentence_count": 4,
+      "token_signature": "6-7-4-5-6-8-3-4-6-7",
+      "confidence_score": 0.8563316413318838,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.9231705985550885,
+          "MINIMAL": 0.650459709393301,
+          "POETIC": 0.5406509300088054,
+          "DENSE": 0.5800177548721168,
+          "CONVERSATIONAL": 0.6302581242643323,
+          "FORMAL": 0.6451036738984186,
+          "INTERROGATIVE": 0.6471888181352445,
+          "HEDGED": 0.9762553839472408,
+          "PARALLEL": 0.44558967069220634,
+          "LONGFORM": 0.26100172070529337
+        },
+        "stances": {
+          "OPEN": 0.8383326672530311,
+          "CLOSED": 0.33538836129442195,
+          "BALANCED": 0.7363523284492345,
+          "CONTRADICTORY": 0.13053564229040682
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:22.286679Z"
+    },
+    {
+      "id": "2f418448ee097b7f",
+      "user_id": "104845b9-9e9f-46cf-9cb7-8f6676d63e4e",
+      "session_id": null,
+      "profile": "ASSERTIVE",
+      "stance": "BALANCED",
+      "word_count": 29,
+      "sentence_count": 4,
+      "token_signature": "6-7-4-5-6-8-3-4-6-7",
+      "confidence_score": 0.8563316413318838,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.9231705985550885,
+          "MINIMAL": 0.650459709393301,
+          "POETIC": 0.5406509300088054,
+          "DENSE": 0.5800177548721168,
+          "CONVERSATIONAL": 0.6302581242643323,
+          "FORMAL": 0.6451036738984186,
+          "INTERROGATIVE": 0.6471888181352445,
+          "HEDGED": 0.9762553839472408,
+          "PARALLEL": 0.44558967069220634,
+          "LONGFORM": 0.26100172070529337
+        },
+        "stances": {
+          "OPEN": 0.8383326672530311,
+          "CLOSED": 0.33538836129442195,
+          "BALANCED": 0.7363523284492345,
+          "CONTRADICTORY": 0.13053564229040682
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:23.372265Z"
+    },
+    {
+      "id": "000d7485ca8f0a7c",
+      "user_id": "6a27674d-3902-44b2-a595-0769496963f2",
+      "session_id": null,
+      "profile": "ASSERTIVE",
+      "stance": "BALANCED",
+      "word_count": 29,
+      "sentence_count": 4,
+      "token_signature": "6-7-4-5-6-8-3-4-6-7",
+      "confidence_score": 0.8563316413318838,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.9231705985550885,
+          "MINIMAL": 0.650459709393301,
+          "POETIC": 0.5406509300088054,
+          "DENSE": 0.5800177548721168,
+          "CONVERSATIONAL": 0.6302581242643323,
+          "FORMAL": 0.6451036738984186,
+          "INTERROGATIVE": 0.6471888181352445,
+          "HEDGED": 0.9762553839472408,
+          "PARALLEL": 0.44558967069220634,
+          "LONGFORM": 0.26100172070529337
+        },
+        "stances": {
+          "OPEN": 0.8383326672530311,
+          "CLOSED": 0.33538836129442195,
+          "BALANCED": 0.7363523284492345,
+          "CONTRADICTORY": 0.13053564229040682
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:26.164412Z"
+    },
+    {
+      "id": "091344b48bb70b80",
+      "user_id": null,
+      "session_id": null,
+      "profile": "INTERROGATIVE",
+      "stance": "CLOSED",
+      "word_count": 23,
+      "sentence_count": 1,
+      "token_signature": "1-8-3-5-0-5-5-8-9-0",
+      "confidence_score": 0.7809635287307288,
+      "source": "web",
+      "input_preview": "'; DROP TABLE users; -- This is a sufficiently long text to test SQL injection handling by the analy",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8821063337443189,
+          "MINIMAL": 0.6199344513682384,
+          "POETIC": 0.09452630345422142,
+          "DENSE": 0.7014876817694289,
+          "CONVERSATIONAL": 0.4260039410350751,
+          "FORMAL": 0.07092401545351523,
+          "INTERROGATIVE": 0.8877470856274523,
+          "HEDGED": 0.4983604594040233,
+          "PARALLEL": 0.13077948226751068,
+          "LONGFORM": 0.12484482228026816
+        },
+        "stances": {
+          "OPEN": 0.3888465171380042,
+          "CLOSED": 0.8049921081549283,
+          "BALANCED": 0.44677299898618317,
+          "CONTRADICTORY": 0.6589372257166644
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:30.613285Z"
+    },
+    {
+      "id": "7fa8e34c69fd5082",
+      "user_id": null,
+      "session_id": null,
+      "profile": "PARALLEL",
+      "stance": "CONTRADICTORY",
+      "word_count": 21,
+      "sentence_count": 1,
+      "token_signature": "4-9-3-4-8-4-5-2-9-0",
+      "confidence_score": 0.8673109888044507,
+      "source": "web",
+      "input_preview": "' OR '1'='1 This is a sufficiently long text to test SQL injection handling by the analysis engine f",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.12950570151956942,
+          "MINIMAL": 0.7979997041402173,
+          "POETIC": 0.9689114016172583,
+          "DENSE": 0.2417527414771352,
+          "CONVERSATIONAL": 0.0216833459074115,
+          "FORMAL": 0.10978443233730473,
+          "INTERROGATIVE": 0.3065949158884105,
+          "HEDGED": 0.8225510984612083,
+          "PARALLEL": 0.7891159005915704,
+          "LONGFORM": 0.6277770200406125
+        },
+        "stances": {
+          "OPEN": 0.1829059610515522,
+          "CLOSED": 0.40568801889485984,
+          "BALANCED": 0.9128756736144125,
+          "CONTRADICTORY": 0.6648093194528706
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:30.933562Z"
+    },
+    {
+      "id": "50313065c0a49821",
+      "user_id": null,
+      "session_id": null,
+      "profile": "INTERROGATIVE",
+      "stance": "CONTRADICTORY",
+      "word_count": 25,
+      "sentence_count": 1,
+      "token_signature": "1-0-4-0-4-1-3-3-3-8",
+      "confidence_score": 0.8259727253421038,
+      "source": "web",
+      "input_preview": "1; SELECT * FROM users WHERE 1=1 This is a sufficiently long text to test SQL injection handling by ",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.715313258037995,
+          "MINIMAL": 0.14003694535858546,
+          "POETIC": 0.7949169674782859,
+          "DENSE": 0.5120850209185042,
+          "CONVERSATIONAL": 0.1807606813160686,
+          "FORMAL": 0.4793394814384371,
+          "INTERROGATIVE": 0.7701707626235061,
+          "HEDGED": 0.242379061904879,
+          "PARALLEL": 0.03252268762079469,
+          "LONGFORM": 0.497232694552011
+        },
+        "stances": {
+          "OPEN": 0.547706047651559,
+          "CLOSED": 0.7704763132682436,
+          "BALANCED": 0.40081726123037287,
+          "CONTRADICTORY": 0.6774410218424487
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:31.296285Z"
+    },
+    {
+      "id": "153c3b1878fc70b9",
+      "user_id": null,
+      "session_id": null,
+      "profile": "ASSERTIVE",
+      "stance": "OPEN",
+      "word_count": 18,
+      "sentence_count": 0,
+      "token_signature": "2-1-9-7-2-0-7-1-2-3",
+      "confidence_score": 0.8412324751130786,
+      "source": "web",
+      "input_preview": "<script>alert('xss')</script> <script>alert('xss')</script> <script>alert('xss')</script> <script>al",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.730040018259845,
+          "MINIMAL": 0.6432097053946434,
+          "POETIC": 0.08957028170039905,
+          "DENSE": 0.2137969275456102,
+          "CONVERSATIONAL": 0.34491198058779593,
+          "FORMAL": 0.3900079047078979,
+          "INTERROGATIVE": 0.5416257448254777,
+          "HEDGED": 0.27382768419964265,
+          "PARALLEL": 0.38192914609879547,
+          "LONGFORM": 0.37503737864311804
+        },
+        "stances": {
+          "OPEN": 0.7411292764094761,
+          "CLOSED": 0.2539705913206465,
+          "BALANCED": 0.779271380413527,
+          "CONTRADICTORY": 0.6366039413583249
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:31.680887Z"
+    },
+    {
+      "id": "73678639b44035d8",
+      "user_id": null,
+      "session_id": null,
+      "profile": "HEDGED",
+      "stance": "OPEN",
+      "word_count": 16,
+      "sentence_count": 2,
+      "token_signature": "4-9-5-2-7-1-0-9-4-7",
+      "confidence_score": 0.8152541279708079,
+      "source": "web",
+      "input_preview": "The morning light filtered through the curtains. She sat quietly thinking about what to write next.",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8991826114381322,
+          "MINIMAL": 0.47035004863161534,
+          "POETIC": 0.5749487805962525,
+          "DENSE": 0.17326589626457622,
+          "CONVERSATIONAL": 0.5664300167095543,
+          "FORMAL": 0.3904310272659529,
+          "INTERROGATIVE": 0.30209562939766443,
+          "HEDGED": 0.7367757785570843,
+          "PARALLEL": 0.6947260194432083,
+          "LONGFORM": 0.04378162810639041
+        },
+        "stances": {
+          "OPEN": 0.7797747557980267,
+          "CLOSED": 0.04224828443517248,
+          "BALANCED": 0.2725914233221943,
+          "CONTRADICTORY": 0.34707209353717394
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:32.638027Z"
+    },
+    {
+      "id": "bde305e8e9539481",
+      "user_id": null,
+      "session_id": null,
+      "profile": "HEDGED",
+      "stance": "OPEN",
+      "word_count": 16,
+      "sentence_count": 2,
+      "token_signature": "4-9-5-2-7-1-0-9-4-7",
+      "confidence_score": 0.8152541279708079,
+      "source": "web",
+      "input_preview": "The morning light filtered through the curtains. She sat quietly thinking about what to write next.",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8991826114381322,
+          "MINIMAL": 0.47035004863161534,
+          "POETIC": 0.5749487805962525,
+          "DENSE": 0.17326589626457622,
+          "CONVERSATIONAL": 0.5664300167095543,
+          "FORMAL": 0.3904310272659529,
+          "INTERROGATIVE": 0.30209562939766443,
+          "HEDGED": 0.7367757785570843,
+          "PARALLEL": 0.6947260194432083,
+          "LONGFORM": 0.04378162810639041
+        },
+        "stances": {
+          "OPEN": 0.7797747557980267,
+          "CLOSED": 0.04224828443517248,
+          "BALANCED": 0.2725914233221943,
+          "CONTRADICTORY": 0.34707209353717394
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:32.982332Z"
+    },
+    {
+      "id": "9ae110d9e441a5ef",
+      "user_id": null,
+      "session_id": null,
+      "profile": "HEDGED",
+      "stance": "OPEN",
+      "word_count": 16,
+      "sentence_count": 2,
+      "token_signature": "4-9-5-2-7-1-0-9-4-7",
+      "confidence_score": 0.8152541279708079,
+      "source": "web",
+      "input_preview": "The morning light filtered through the curtains. She sat quietly thinking about what to write next.",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8991826114381322,
+          "MINIMAL": 0.47035004863161534,
+          "POETIC": 0.5749487805962525,
+          "DENSE": 0.17326589626457622,
+          "CONVERSATIONAL": 0.5664300167095543,
+          "FORMAL": 0.3904310272659529,
+          "INTERROGATIVE": 0.30209562939766443,
+          "HEDGED": 0.7367757785570843,
+          "PARALLEL": 0.6947260194432083,
+          "LONGFORM": 0.04378162810639041
+        },
+        "stances": {
+          "OPEN": 0.7797747557980267,
+          "CLOSED": 0.04224828443517248,
+          "BALANCED": 0.2725914233221943,
+          "CONTRADICTORY": 0.34707209353717394
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:33.341774Z"
+    },
+    {
+      "id": "b406a6a1acb4f40c",
+      "user_id": null,
+      "session_id": null,
+      "profile": "INTERROGATIVE",
+      "stance": "CLOSED",
+      "word_count": 24,
+      "sentence_count": 4,
+      "token_signature": "6-9-6-8-2-5-5-3-1-3",
+      "confidence_score": 0.7729712962589393,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.6987384032832958,
+          "MINIMAL": 0.44320881838579773,
+          "POETIC": 0.6309944912744784,
+          "DENSE": 0.13842352090355403,
+          "CONVERSATIONAL": 0.8256052878909855,
+          "FORMAL": 0.1717549313725406,
+          "INTERROGATIVE": 0.8415061286730323,
+          "HEDGED": 0.5936664796850893,
+          "PARALLEL": 0.4788475353523237,
+          "LONGFORM": 0.9600985276951606
+        },
+        "stances": {
+          "OPEN": 0.304592335965983,
+          "CLOSED": 0.8253499039639677,
+          "BALANCED": 0.6887988161705553,
+          "CONTRADICTORY": 0.8071288615763428
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:33.701659Z"
+    },
+    {
+      "id": "41e6181464935837",
+      "user_id": null,
+      "session_id": null,
+      "profile": "INTERROGATIVE",
+      "stance": "CLOSED",
+      "word_count": 24,
+      "sentence_count": 4,
+      "token_signature": "6-9-6-8-2-5-5-3-1-3",
+      "confidence_score": 0.7729712962589393,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.6987384032832958,
+          "MINIMAL": 0.44320881838579773,
+          "POETIC": 0.6309944912744784,
+          "DENSE": 0.13842352090355403,
+          "CONVERSATIONAL": 0.8256052878909855,
+          "FORMAL": 0.1717549313725406,
+          "INTERROGATIVE": 0.8415061286730323,
+          "HEDGED": 0.5936664796850893,
+          "PARALLEL": 0.4788475353523237,
+          "LONGFORM": 0.9600985276951606
+        },
+        "stances": {
+          "OPEN": 0.304592335965983,
+          "CLOSED": 0.8253499039639677,
+          "BALANCED": 0.6887988161705553,
+          "CONTRADICTORY": 0.8071288615763428
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:34.192516Z"
+    },
+    {
+      "id": "f519e66fd65a3e89",
+      "user_id": null,
+      "session_id": null,
+      "profile": "INTERROGATIVE",
+      "stance": "CLOSED",
+      "word_count": 24,
+      "sentence_count": 4,
+      "token_signature": "6-9-6-8-2-5-5-3-1-3",
+      "confidence_score": 0.7729712962589393,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.6987384032832958,
+          "MINIMAL": 0.44320881838579773,
+          "POETIC": 0.6309944912744784,
+          "DENSE": 0.13842352090355403,
+          "CONVERSATIONAL": 0.8256052878909855,
+          "FORMAL": 0.1717549313725406,
+          "INTERROGATIVE": 0.8415061286730323,
+          "HEDGED": 0.5936664796850893,
+          "PARALLEL": 0.4788475353523237,
+          "LONGFORM": 0.9600985276951606
+        },
+        "stances": {
+          "OPEN": 0.304592335965983,
+          "CLOSED": 0.8253499039639677,
+          "BALANCED": 0.6887988161705553,
+          "CONTRADICTORY": 0.8071288615763428
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:34.535786Z"
+    },
+    {
+      "id": "1e26924334f43aa8",
+      "user_id": null,
+      "session_id": null,
+      "profile": "INTERROGATIVE",
+      "stance": "CLOSED",
+      "word_count": 24,
+      "sentence_count": 4,
+      "token_signature": "6-9-6-8-2-5-5-3-1-3",
+      "confidence_score": 0.7729712962589393,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.6987384032832958,
+          "MINIMAL": 0.44320881838579773,
+          "POETIC": 0.6309944912744784,
+          "DENSE": 0.13842352090355403,
+          "CONVERSATIONAL": 0.8256052878909855,
+          "FORMAL": 0.1717549313725406,
+          "INTERROGATIVE": 0.8415061286730323,
+          "HEDGED": 0.5936664796850893,
+          "PARALLEL": 0.4788475353523237,
+          "LONGFORM": 0.9600985276951606
+        },
+        "stances": {
+          "OPEN": 0.304592335965983,
+          "CLOSED": 0.8253499039639677,
+          "BALANCED": 0.6887988161705553,
+          "CONTRADICTORY": 0.8071288615763428
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:34.853257Z"
+    },
+    {
+      "id": "6cee959c093f9f91",
+      "user_id": null,
+      "session_id": null,
+      "profile": "INTERROGATIVE",
+      "stance": "CLOSED",
+      "word_count": 24,
+      "sentence_count": 4,
+      "token_signature": "6-9-6-8-2-5-5-3-1-3",
+      "confidence_score": 0.7729712962589393,
+      "source": "web",
+      "input_preview": "The morning light filtered through curtains. She sat quietly thinking about what to write next. Word",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.6987384032832958,
+          "MINIMAL": 0.44320881838579773,
+          "POETIC": 0.6309944912744784,
+          "DENSE": 0.13842352090355403,
+          "CONVERSATIONAL": 0.8256052878909855,
+          "FORMAL": 0.1717549313725406,
+          "INTERROGATIVE": 0.8415061286730323,
+          "HEDGED": 0.5936664796850893,
+          "PARALLEL": 0.4788475353523237,
+          "LONGFORM": 0.9600985276951606
+        },
+        "stances": {
+          "OPEN": 0.304592335965983,
+          "CLOSED": 0.8253499039639677,
+          "BALANCED": 0.6887988161705553,
+          "CONTRADICTORY": 0.8071288615763428
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:35.184162Z"
+    },
+    {
+      "id": "54b625aaea35b18b",
+      "user_id": null,
+      "session_id": null,
+      "profile": "MINIMAL",
+      "stance": "OPEN",
+      "word_count": 50,
+      "sentence_count": 500,
+      "token_signature": "8-1-3-4-7-6-1-4-0-3",
+      "confidence_score": 0.9337889002541329,
+      "source": "web",
+      "input_preview": "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick ",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.16800814313846024,
+          "MINIMAL": 0.7813091049884254,
+          "POETIC": 0.7387298316715687,
+          "DENSE": 0.4233059726169386,
+          "CONVERSATIONAL": 0.4235879787148501,
+          "FORMAL": 0.9754150257358394,
+          "INTERROGATIVE": 0.6464287408983366,
+          "HEDGED": 0.01446596896079988,
+          "PARALLEL": 0.24354464001882314,
+          "LONGFORM": 0.15818584514464462
+        },
+        "stances": {
+          "OPEN": 0.6824857335717799,
+          "CLOSED": 0.7464516721004635,
+          "BALANCED": 0.8119072895889748,
+          "CONTRADICTORY": 0.45099987838115563
+        }
+      },
+      "analyzed_at": "2026-03-08T07:00:35.518051Z"
     }
   ],
   "version": "1.0"

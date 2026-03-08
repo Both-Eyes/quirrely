@@ -4,9 +4,6 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-HQ818WM2YB");</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-HQ818WM2YB");</script>
   <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/assets/css/compat.css">
@@ -497,6 +494,16 @@
     .footer-social { display: inline-flex; align-items: center; gap: 0.75rem; margin-left: 0.5rem; }
     .footer-social a { opacity: 0.6; }
     .footer-social a:hover { opacity: 1; }
+
+    .filter-bar { margin-bottom: 1.5rem; }
+    .filter-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .filter-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 0.4rem; font-weight: 600; }
+    .filter-btn { padding: 0.35rem 0.85rem; border: 1px solid var(--border); border-radius: 20px; background: var(--card); color: var(--ink); font-size: 0.82rem; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+    .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .filter-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+    .post-excerpt{font-size:0.82rem;color:var(--muted);margin-top:0.3rem;line-height:1.5;}
+    .post-count { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+    .post-card[style*="display: none"] { display: none !important; }
   </style>
 </head>
 <body>
@@ -545,108 +552,116 @@
     <a href="/auth/signup.html" class="mobile-signup">Sign Up</a>
   </div>
   
-  <!-- Hero -->
-  <section class="hero">
-    <h1>✍️ The Quirrely Blog</h1>
-    <p>Explore writing voices, discover your style, and learn from writers around the world.</p>
-  </section>
-  
   <!-- Main Content -->
   <main class="main">
     <div class="content">
-      <!-- Featured Writers -->
-      <section class="featured-section">
-        <div class="section-header">
-          <h2 class="section-title">✨ Featured Writers</h2>
-          <a href="/blog/featured" class="section-link">Learn more →</a>
-        </div>
-        <div id="blog-featured-grid" class="featured-grid">
-          <a href="/blog/featured" class="featured-card" style="grid-column:1/-1;text-align:center;padding:2rem;">
-            <p style="font-size:2rem;margin-bottom:0.5rem;">✨</p>
-            <h3 style="margin-bottom:0.5rem;">Get Featured on Quirrely</h3>
-            <p class="featured-excerpt">Pro members can submit their writing to be showcased here and in our newsletter. Share your unique voice with the Quirrely community.</p>
-            <span style="display:inline-block;margin-top:1rem;background:var(--primary);color:white;padding:0.5rem 1.5rem;border-radius:20px;font-weight:600;font-size:0.9rem;">Learn More →</span>
-          </a>
-        </div>
-      </section>
       
-      <!-- Latest Posts -->
       <section class="posts-section">
-        <div class="section-header">
-          <h2 class="section-title">📝 Latest Articles</h2>
+        <div class="filter-bar">
+          <div class="filter-label">Type</div>
+          <div class="filter-row" id="type-filters">
+            <button class="filter-btn active" data-filter="type" data-val="all">All (88)</button>
+            <button class="filter-btn" data-filter="type" data-val="guide">Guides (7)</button>
+            <button class="filter-btn" data-filter="type" data-val="how">How I Write (41)</button>
+            <button class="filter-btn" data-filter="type" data-val="combo">Reading Taste (40)</button>
+          </div>
+          <div class="filter-label">Profile</div>
+          <div class="filter-row" id="profile-filters">
+            <button class="filter-btn active" data-filter="profile" data-val="all">All</button>
+            <button class="filter-btn" data-filter="profile" data-val="assertive">Assertive</button><button class="filter-btn" data-filter="profile" data-val="poetic">Poetic</button><button class="filter-btn" data-filter="profile" data-val="minimal">Minimal</button><button class="filter-btn" data-filter="profile" data-val="dense">Dense</button><button class="filter-btn" data-filter="profile" data-val="conversational">Conversational</button><button class="filter-btn" data-filter="profile" data-val="hedged">Hedged</button><button class="filter-btn" data-filter="profile" data-val="interrogative">Interrogative</button><button class="filter-btn" data-filter="profile" data-val="longform">Longform</button><button class="filter-btn" data-filter="profile" data-val="contradictory">Contradictory</button>
+          </div>
         </div>
-        <div class="post-list">
-          <a href="/blog/what-is-writing-voice" class="post-card">
-            <div class="post-icon" style="background: linear-gradient(135deg, #FF6B6B, #FF8E8E);">🎭</div>
-            <div class="post-content">
-              <div class="post-category">Writing Fundamentals</div>
-              <h3 class="post-title">What Is Writing Voice? A Complete Guide</h3>
-              <div class="post-meta">8 min read · 2.4K views</div>
-            </div>
-          </a>
-          
-          <a href="/blog/canadian-writing-style" class="post-card">
-            <div class="post-icon" style="background: linear-gradient(135deg, #FF6B6B, #FF8E8E);">🍁</div>
-            <div class="post-content">
-              <div class="post-category">Regional Voices</div>
-              <h3 class="post-title">The Canadian Writing Style: Politeness Meets Precision</h3>
-              <div class="post-meta">6 min read · 1.8K views</div>
-            </div>
-          </a>
-          
-          <a href="/blog/featured-writer-system" class="post-card">
-            <div class="post-icon" style="background: linear-gradient(135deg, #7CAE82, #55EFC4);">⭐</div>
-            <div class="post-content">
-              <div class="post-category">Community</div>
-              <h3 class="post-title">How the Featured Writer Program Works</h3>
-              <div class="post-meta">4 min read · 956 views</div>
-            </div>
-          </a>
-          
-          <a href="#" class="post-card">
-            <div class="post-icon" style="background: linear-gradient(135deg, #E8C875, #FFEAA7);">📊</div>
-            <div class="post-content">
-              <div class="post-category">Deep Dives</div>
-              <h3 class="post-title">Understanding the 9 Writing Profiles <span class="post-locked">🔒 PRO</span></h3>
-              <div class="post-meta">12 min read · Pro members only</div>
-            </div>
-          </a>
-          
-          <a href="#" class="post-card">
-            <div class="post-icon" style="background: linear-gradient(135deg, #74B9FF, #0984E3);">🧠</div>
-            <div class="post-content">
-              <div class="post-category">Psychology</div>
-              <h3 class="post-title">Why Your Writing Voice Reflects Your Thinking Style <span class="post-locked">🔒 PRO</span></h3>
-              <div class="post-meta">10 min read · Pro members only</div>
-            </div>
-          </a>
-          
-          <a href="#" class="post-card">
-            <div class="post-icon" style="background: linear-gradient(135deg, #FD79A8, #E84393);">💼</div>
-            <div class="post-content">
-              <div class="post-category">Professional Writing</div>
-              <h3 class="post-title">Adapting Your Voice for Business Communication</h3>
-              <div class="post-meta">7 min read · 1.2K views</div>
-            </div>
-          </a>
-          
-          <a href="#" class="post-card">
-            <div class="post-icon" style="background: linear-gradient(135deg, #00CEC9, #81ECEC);">🌏</div>
-            <div class="post-content">
-              <div class="post-category">Global Perspectives</div>
-              <h3 class="post-title">Writing Voices Across Cultures: UK vs Australia</h3>
-              <div class="post-meta">9 min read · 890 views</div>
-            </div>
-          </a>
-        </div>
-        
-        <!-- Pagination -->
-        <div class="pagination">
-          <a href="#" class="active">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">→</a>
+        <div class="post-count" id="post-count">Showing all 88 posts</div>
+        <div class="post-list" id="post-list">
+        <a href="/blog/what-is-writing-voice" class="post-card" data-type="guide" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📖</div><div class="post-content"><div class="post-category">Guide</div><h3 class="post-title">What Is Writing Voice</h3></div></a>
+<a href="/blog/canadian-writing-style" class="post-card" data-type="guide" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📖</div><div class="post-content"><div class="post-category">Guide</div><h3 class="post-title">Canadian Writing Style</h3></div></a>
+<a href="/blog/understanding-9-profiles" class="post-card" data-type="guide" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📖</div><div class="post-content"><div class="post-category">Guide</div><h3 class="post-title">Understanding 9 Profiles</h3></div></a>
+<a href="/blog/voice-reflects-thinking" class="post-card" data-type="guide" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📖</div><div class="post-content"><div class="post-category">Guide</div><h3 class="post-title">Voice Reflects Thinking</h3></div></a>
+<a href="/blog/business-writing-voice" class="post-card" data-type="guide" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📖</div><div class="post-content"><div class="post-category">Guide</div><h3 class="post-title">Business Writing Voice</h3></div></a>
+<a href="/blog/uk-australia-writing-voice" class="post-card" data-type="guide" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📖</div><div class="post-content"><div class="post-category">Guide</div><h3 class="post-title">Uk Australia Writing Voice</h3></div></a>
+<a href="/blog/featured-writer-system" class="post-card" data-type="guide" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📖</div><div class="post-content"><div class="post-category">Guide</div><h3 class="post-title">Featured Writer System</h3></div></a>
+<a href="/blog/how-assertive-balanced-writers-write" class="post-card" data-type="how" data-profile="assertive"><div class="post-icon" style="background:#FF6B6B;">✊</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Assertive + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-assertive-closed-writers-write" class="post-card" data-type="how" data-profile="assertive"><div class="post-icon" style="background:#FF6B6B;">✊</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Assertive + Closed Writers Write</h3></div></a>
+<a href="/blog/how-assertive-contradictory-writers-write" class="post-card" data-type="how" data-profile="assertive"><div class="post-icon" style="background:#FF6B6B;">✊</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Assertive + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-assertive-open-writers-write-tracked" class="post-card" data-type="how" data-profile="assertive"><div class="post-icon" style="background:#FF6B6B;">✊</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Assertive + Open Writers Write</h3></div></a>
+<a href="/blog/how-assertive-open-writers-write" class="post-card" data-type="how" data-profile="assertive"><div class="post-icon" style="background:#FF6B6B;">✊</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Assertive + Open Writers Write</h3></div></a>
+<a href="/blog/how-balanced-balanced-writers-write" class="post-card" data-type="how" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Balanced + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-balanced-closed-writers-write" class="post-card" data-type="how" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Balanced + Closed Writers Write</h3></div></a>
+<a href="/blog/how-balanced-contradictory-writers-write" class="post-card" data-type="how" data-profile="contradictory"><div class="post-icon" style="background:#A29BFE;">🔀</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Balanced + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-balanced-open-writers-write" class="post-card" data-type="how" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Balanced + Open Writers Write</h3></div></a>
+<a href="/blog/how-conversational-balanced-writers-write" class="post-card" data-type="how" data-profile="conversational"><div class="post-icon" style="background:#74B9FF;">💬</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Conversational + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-conversational-closed-writers-write" class="post-card" data-type="how" data-profile="conversational"><div class="post-icon" style="background:#74B9FF;">💬</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Conversational + Closed Writers Write</h3></div></a>
+<a href="/blog/how-conversational-contradictory-writers-write" class="post-card" data-type="how" data-profile="conversational"><div class="post-icon" style="background:#74B9FF;">💬</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Conversational + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-conversational-open-writers-write" class="post-card" data-type="how" data-profile="conversational"><div class="post-icon" style="background:#74B9FF;">💬</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Conversational + Open Writers Write</h3></div></a>
+<a href="/blog/how-dense-balanced-writers-write" class="post-card" data-type="how" data-profile="dense"><div class="post-icon" style="background:#E8C875;">📚</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Dense + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-dense-closed-writers-write" class="post-card" data-type="how" data-profile="dense"><div class="post-icon" style="background:#E8C875;">📚</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Dense + Closed Writers Write</h3></div></a>
+<a href="/blog/how-dense-contradictory-writers-write" class="post-card" data-type="how" data-profile="dense"><div class="post-icon" style="background:#E8C875;">📚</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Dense + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-dense-open-writers-write" class="post-card" data-type="how" data-profile="dense"><div class="post-icon" style="background:#E8C875;">📚</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Dense + Open Writers Write</h3></div></a>
+<a href="/blog/how-formal-balanced-writers-write" class="post-card" data-type="how" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Formal + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-formal-closed-writers-write" class="post-card" data-type="how" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Formal + Closed Writers Write</h3></div></a>
+<a href="/blog/how-formal-contradictory-writers-write" class="post-card" data-type="how" data-profile="contradictory"><div class="post-icon" style="background:#A29BFE;">🔀</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Formal + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-formal-open-writers-write" class="post-card" data-type="how" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Formal + Open Writers Write</h3></div></a>
+<a href="/blog/how-hedged-balanced-writers-write" class="post-card" data-type="how" data-profile="hedged"><div class="post-icon" style="background:#FD79A8;">⚖️</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Hedged + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-hedged-closed-writers-write" class="post-card" data-type="how" data-profile="hedged"><div class="post-icon" style="background:#FD79A8;">⚖️</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Hedged + Closed Writers Write</h3></div></a>
+<a href="/blog/how-hedged-contradictory-writers-write" class="post-card" data-type="how" data-profile="hedged"><div class="post-icon" style="background:#FD79A8;">⚖️</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Hedged + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-hedged-open-writers-write" class="post-card" data-type="how" data-profile="hedged"><div class="post-icon" style="background:#FD79A8;">⚖️</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Hedged + Open Writers Write</h3></div></a>
+<a href="/blog/how-interrogative-balanced-writers-write" class="post-card" data-type="how" data-profile="interrogative"><div class="post-icon" style="background:#00CEC9;">❓</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Interrogative + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-interrogative-closed-writers-write" class="post-card" data-type="how" data-profile="interrogative"><div class="post-icon" style="background:#00CEC9;">❓</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Interrogative + Closed Writers Write</h3></div></a>
+<a href="/blog/how-interrogative-contradictory-writers-write" class="post-card" data-type="how" data-profile="interrogative"><div class="post-icon" style="background:#00CEC9;">❓</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Interrogative + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-interrogative-open-writers-write" class="post-card" data-type="how" data-profile="interrogative"><div class="post-icon" style="background:#00CEC9;">❓</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Interrogative + Open Writers Write</h3></div></a>
+<a href="/blog/how-longform-balanced-writers-write" class="post-card" data-type="how" data-profile="longform"><div class="post-icon" style="background:#6B6560;">📜</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Longform + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-longform-closed-writers-write" class="post-card" data-type="how" data-profile="longform"><div class="post-icon" style="background:#6B6560;">📜</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Longform + Closed Writers Write</h3></div></a>
+<a href="/blog/how-longform-contradictory-writers-write" class="post-card" data-type="how" data-profile="longform"><div class="post-icon" style="background:#6B6560;">📜</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Longform + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-longform-open-writers-write" class="post-card" data-type="how" data-profile="longform"><div class="post-icon" style="background:#6B6560;">📜</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Longform + Open Writers Write</h3></div></a>
+<a href="/blog/how-minimal-balanced-writers-write" class="post-card" data-type="how" data-profile="minimal"><div class="post-icon" style="background:#7CAE82;">◾</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Minimal + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-minimal-closed-writers-write" class="post-card" data-type="how" data-profile="minimal"><div class="post-icon" style="background:#7CAE82;">◾</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Minimal + Closed Writers Write</h3></div></a>
+<a href="/blog/how-minimal-contradictory-writers-write" class="post-card" data-type="how" data-profile="minimal"><div class="post-icon" style="background:#7CAE82;">◾</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Minimal + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-minimal-open-writers-write" class="post-card" data-type="how" data-profile="minimal"><div class="post-icon" style="background:#7CAE82;">◾</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Minimal + Open Writers Write</h3></div></a>
+<a href="/blog/how-poetic-balanced-writers-write" class="post-card" data-type="how" data-profile="poetic"><div class="post-icon" style="background:#9A8EC2;">🌸</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Poetic + Balanced Writers Write</h3></div></a>
+<a href="/blog/how-poetic-closed-writers-write" class="post-card" data-type="how" data-profile="poetic"><div class="post-icon" style="background:#9A8EC2;">🌸</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Poetic + Closed Writers Write</h3></div></a>
+<a href="/blog/how-poetic-contradictory-writers-write" class="post-card" data-type="how" data-profile="poetic"><div class="post-icon" style="background:#9A8EC2;">🌸</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Poetic + Contradictory Writers Write</h3></div></a>
+<a href="/blog/how-poetic-open-writers-write" class="post-card" data-type="how" data-profile="poetic"><div class="post-icon" style="background:#9A8EC2;">🌸</div><div class="post-content"><div class="post-category">How I Write</div><h3 class="post-title">How Poetic + Open Writers Write</h3></div></a>
+<a href="/blog/assertive-balanced" class="post-card" data-type="combo" data-profile="assertive"><div class="post-icon" style="background:#FF6B6B;">✊</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Assertive Balanced</h3></div></a>
+<a href="/blog/assertive-closed" class="post-card" data-type="combo" data-profile="assertive"><div class="post-icon" style="background:#FF6B6B;">✊</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Assertive Closed</h3></div></a>
+<a href="/blog/assertive-contradictory" class="post-card" data-type="combo" data-profile="assertive"><div class="post-icon" style="background:#FF6B6B;">✊</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Assertive Contradictory</h3></div></a>
+<a href="/blog/assertive-open" class="post-card" data-type="combo" data-profile="assertive"><div class="post-icon" style="background:#FF6B6B;">✊</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Assertive Open</h3></div></a>
+<a href="/blog/balanced-balanced" class="post-card" data-type="combo" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Balanced Balanced</h3></div></a>
+<a href="/blog/balanced-closed" class="post-card" data-type="combo" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Balanced Closed</h3></div></a>
+<a href="/blog/balanced-contradictory" class="post-card" data-type="combo" data-profile="contradictory"><div class="post-icon" style="background:#A29BFE;">🔀</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Balanced Contradictory</h3></div></a>
+<a href="/blog/balanced-open" class="post-card" data-type="combo" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Balanced Open</h3></div></a>
+<a href="/blog/conversational-balanced" class="post-card" data-type="combo" data-profile="conversational"><div class="post-icon" style="background:#74B9FF;">💬</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Conversational Balanced</h3></div></a>
+<a href="/blog/conversational-closed" class="post-card" data-type="combo" data-profile="conversational"><div class="post-icon" style="background:#74B9FF;">💬</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Conversational Closed</h3></div></a>
+<a href="/blog/conversational-contradictory" class="post-card" data-type="combo" data-profile="conversational"><div class="post-icon" style="background:#74B9FF;">💬</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Conversational Contradictory</h3></div></a>
+<a href="/blog/conversational-open" class="post-card" data-type="combo" data-profile="conversational"><div class="post-icon" style="background:#74B9FF;">💬</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Conversational Open</h3></div></a>
+<a href="/blog/dense-balanced" class="post-card" data-type="combo" data-profile="dense"><div class="post-icon" style="background:#E8C875;">📚</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Dense Balanced</h3></div></a>
+<a href="/blog/dense-closed" class="post-card" data-type="combo" data-profile="dense"><div class="post-icon" style="background:#E8C875;">📚</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Dense Closed</h3></div></a>
+<a href="/blog/dense-contradictory" class="post-card" data-type="combo" data-profile="dense"><div class="post-icon" style="background:#E8C875;">📚</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Dense Contradictory</h3></div></a>
+<a href="/blog/dense-open" class="post-card" data-type="combo" data-profile="dense"><div class="post-icon" style="background:#E8C875;">📚</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Dense Open</h3></div></a>
+<a href="/blog/formal-balanced" class="post-card" data-type="combo" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Formal Balanced</h3></div></a>
+<a href="/blog/formal-closed" class="post-card" data-type="combo" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Formal Closed</h3></div></a>
+<a href="/blog/formal-contradictory" class="post-card" data-type="combo" data-profile="contradictory"><div class="post-icon" style="background:#A29BFE;">🔀</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Formal Contradictory</h3></div></a>
+<a href="/blog/formal-open" class="post-card" data-type="combo" data-profile="other"><div class="post-icon" style="background:#FF6B6B;">📝</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Formal Open</h3></div></a>
+<a href="/blog/hedged-balanced" class="post-card" data-type="combo" data-profile="hedged"><div class="post-icon" style="background:#FD79A8;">⚖️</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Hedged Balanced</h3></div></a>
+<a href="/blog/hedged-closed" class="post-card" data-type="combo" data-profile="hedged"><div class="post-icon" style="background:#FD79A8;">⚖️</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Hedged Closed</h3></div></a>
+<a href="/blog/hedged-contradictory" class="post-card" data-type="combo" data-profile="hedged"><div class="post-icon" style="background:#FD79A8;">⚖️</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Hedged Contradictory</h3></div></a>
+<a href="/blog/hedged-open" class="post-card" data-type="combo" data-profile="hedged"><div class="post-icon" style="background:#FD79A8;">⚖️</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Hedged Open</h3></div></a>
+<a href="/blog/interrogative-balanced" class="post-card" data-type="combo" data-profile="interrogative"><div class="post-icon" style="background:#00CEC9;">❓</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Interrogative Balanced</h3></div></a>
+<a href="/blog/interrogative-closed" class="post-card" data-type="combo" data-profile="interrogative"><div class="post-icon" style="background:#00CEC9;">❓</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Interrogative Closed</h3></div></a>
+<a href="/blog/interrogative-contradictory" class="post-card" data-type="combo" data-profile="interrogative"><div class="post-icon" style="background:#00CEC9;">❓</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Interrogative Contradictory</h3></div></a>
+<a href="/blog/interrogative-open" class="post-card" data-type="combo" data-profile="interrogative"><div class="post-icon" style="background:#00CEC9;">❓</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Interrogative Open</h3></div></a>
+<a href="/blog/longform-balanced" class="post-card" data-type="combo" data-profile="longform"><div class="post-icon" style="background:#6B6560;">📜</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Longform Balanced</h3></div></a>
+<a href="/blog/longform-closed" class="post-card" data-type="combo" data-profile="longform"><div class="post-icon" style="background:#6B6560;">📜</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Longform Closed</h3></div></a>
+<a href="/blog/longform-contradictory" class="post-card" data-type="combo" data-profile="longform"><div class="post-icon" style="background:#6B6560;">📜</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Longform Contradictory</h3></div></a>
+<a href="/blog/longform-open" class="post-card" data-type="combo" data-profile="longform"><div class="post-icon" style="background:#6B6560;">📜</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Longform Open</h3></div></a>
+<a href="/blog/minimal-balanced" class="post-card" data-type="combo" data-profile="minimal"><div class="post-icon" style="background:#7CAE82;">◾</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Minimal Balanced</h3></div></a>
+<a href="/blog/minimal-closed" class="post-card" data-type="combo" data-profile="minimal"><div class="post-icon" style="background:#7CAE82;">◾</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Minimal Closed</h3></div></a>
+<a href="/blog/minimal-contradictory" class="post-card" data-type="combo" data-profile="minimal"><div class="post-icon" style="background:#7CAE82;">◾</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Minimal Contradictory</h3></div></a>
+<a href="/blog/minimal-open" class="post-card" data-type="combo" data-profile="minimal"><div class="post-icon" style="background:#7CAE82;">◾</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Minimal Open</h3></div></a>
+<a href="/blog/poetic-balanced" class="post-card" data-type="combo" data-profile="poetic"><div class="post-icon" style="background:#9A8EC2;">🌸</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Poetic Balanced</h3></div></a>
+<a href="/blog/poetic-closed" class="post-card" data-type="combo" data-profile="poetic"><div class="post-icon" style="background:#9A8EC2;">🌸</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Poetic Closed</h3></div></a>
+<a href="/blog/poetic-contradictory" class="post-card" data-type="combo" data-profile="poetic"><div class="post-icon" style="background:#9A8EC2;">🌸</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Poetic Contradictory</h3></div></a>
+<a href="/blog/poetic-open" class="post-card" data-type="combo" data-profile="poetic"><div class="post-icon" style="background:#9A8EC2;">🌸</div><div class="post-content"><div class="post-category">Reading Taste</div><h3 class="post-title">Poetic Open</h3></div></a>
+
         </div>
       </section>
     </div>
@@ -662,45 +677,6 @@
           <button type="submit" id="nl-btn">Join</button>
         </form>
         <p id="nl-msg" style="display:none;font-size:0.85rem;margin-top:0.5rem;"></p>
-      </div>
-      
-      <!-- Browse by Profile -->
-      <div class="sidebar-card">
-        <h3>📊 Browse by Profile</h3>
-        <div class="profile-list">
-          <a href="/blog/how-assertive-open-writers-write.html" class="profile-item">
-            <span class="profile-dot" style="background: #FF6B6B;"></span>
-            <span class="profile-name">Assertive</span>
-          </a>
-          <a href="/blog/how-poetic-open-writers-write.html" class="profile-item">
-            <span class="profile-dot" style="background: #9A8EC2;"></span>
-            <span class="profile-name">Poetic</span>
-          </a>
-          <a href="/blog/how-minimal-open-writers-write.html" class="profile-item">
-            <span class="profile-dot" style="background: #7CAE82;"></span>
-            <span class="profile-name">Minimal</span>
-          </a>
-          <a href="/blog/how-dense-open-writers-write.html" class="profile-item">
-            <span class="profile-dot" style="background: #E8C875;"></span>
-            <span class="profile-name">Dense</span>
-          </a>
-          <a href="/blog/how-conversational-open-writers-write.html" class="profile-item">
-            <span class="profile-dot" style="background: #74B9FF;"></span>
-            <span class="profile-name">Conversational</span>
-          </a>
-          <a href="/blog/how-hedged-open-writers-write.html" class="profile-item">
-            <span class="profile-dot" style="background: #FD79A8;"></span>
-            <span class="profile-name">Hedged</span>
-          </a>
-          <a href="/blog/how-interrogative-open-writers-write.html" class="profile-item">
-            <span class="profile-dot" style="background: #00CEC9;"></span>
-            <span class="profile-name">Interrogative</span>
-          </a>
-          <a href="/blog/how-longform-open-writers-write.html" class="profile-item">
-            <span class="profile-dot" style="background: #6B6560;"></span>
-            <span class="profile-name">Longform</span>
-          </a>
-        </div>
       </div>
       
       <!-- Take Test CTA -->
@@ -773,6 +749,39 @@
     try{var ud=JSON.parse(u);av.textContent=(ud.display_name||ud.email||'?')[0].toUpperCase();}catch(e){av.textContent='?';}
     nav.appendChild(av);
   }
+})();
+</script>
+
+<script>
+(function(){
+  var activeType = 'all', activeProfile = 'all';
+  function applyFilters(){
+    var cards = document.querySelectorAll('#post-list .post-card');
+    var shown = 0;
+    cards.forEach(function(card){
+      var t = card.dataset.type, p = card.dataset.profile;
+      var typeOk = activeType==='all' || t===activeType;
+      var profOk = activeProfile==='all' || p===activeProfile;
+      if(typeOk && profOk){ card.style.display=''; shown++; }
+      else { card.style.display='none'; }
+    });
+    var el = document.getElementById('post-count');
+    if(el) el.textContent = 'Showing '+shown+' post'+(shown===1?'':'s');
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.filter-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var filter = btn.dataset.filter, val = btn.dataset.val;
+        if(filter==='type') activeType = val;
+        if(filter==='profile') activeProfile = val;
+        document.querySelectorAll('[data-filter="'+filter+'"]').forEach(function(b){
+          b.classList.remove('active');
+        });
+        btn.classList.add('active');
+        applyFilters();
+      });
+    });
+  });
 })();
 </script>
 </body>

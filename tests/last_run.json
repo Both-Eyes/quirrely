@@ -1,8 +1,8 @@
 {
-  "run_at": "2026-03-07T08:00:18.777970+00:00",
+  "run_at": "2026-03-08T07:00:36.243225+00:00",
   "version": "2.0",
   "mode": "production",
-  "duration_seconds": 16,
+  "duration_seconds": 32,
   "part_1": {
     "name": "Infrastructure & Environment",
     "pass": 36,
@@ -77,7 +77,7 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=140",
+        "detail": "rows=147",
         "owner": "ASO"
       },
       {
@@ -89,7 +89,7 @@
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=411",
+        "detail": "rows=420",
         "owner": "ASO"
       },
       {
@@ -101,7 +101,7 @@
       {
         "name": "DB connection pool < 80%",
         "status": "PASS",
-        "detail": "1/100 (1%)",
+        "detail": "13/100 (13%)",
         "owner": "ASO"
       },
       {
@@ -119,19 +119,19 @@
       {
         "name": "SSL valid: quirrely.com",
         "status": "PASS",
-        "detail": "74 days",
+        "detail": "73 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: api.quirrely.com",
         "status": "PASS",
-        "detail": "74 days",
+        "detail": "73 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: quirrely.ca",
         "status": "PASS",
-        "detail": "74 days",
+        "detail": "73 days",
         "owner": "ASO"
       },
       {
@@ -167,7 +167,7 @@
       {
         "name": "Disk usage < 80%",
         "status": "PASS",
-        "detail": "13% (12G/100G)",
+        "detail": "14% (13G/100G)",
         "owner": "ASO"
       },
       {
@@ -191,25 +191,25 @@
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "655ms",
+        "detail": "414ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "7ms",
+        "detail": "9ms",
         "owner": "ASO"
       },
       {
         "name": "Admin health < 500ms",
         "status": "PASS",
-        "detail": "10ms",
+        "detail": "4ms",
         "owner": "ASO"
       },
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "11ms (401 expected)",
+        "detail": "7ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -240,7 +240,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=f156aeba...",
+        "detail": "session=796fd06e...",
         "owner": "KIM"
       },
       {
@@ -451,49 +451,49 @@
   },
   "part_3": {
     "name": "Backend API Coverage",
-    "pass": 53,
-    "fail": 16,
+    "pass": 73,
+    "fail": 0,
     "tests": [
       {
         "name": "Signup endpoint works",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "Login returns token",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "received",
         "owner": "KIM"
       },
       {
         "name": "Duplicate signup rejected",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=400",
         "owner": "KIM"
       },
       {
         "name": "GET /auth/me with token",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "POST /auth/logout",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "Re-login after logout",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "Password change",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -505,7 +505,7 @@
       {
         "name": "Verify resend mounted",
         "status": "PASS",
-        "detail": "status=500",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -515,27 +515,39 @@
         "owner": "KIM"
       },
       {
+        "name": "GET /auth/sessions",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
         "name": "Account delete endpoint mounted",
         "status": "PASS",
         "detail": "status=401 (401=auth required)",
         "owner": "KIM"
       },
       {
+        "name": "POST /auth/me/update",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
         "name": "OAuth google redirect URL",
-        "status": "FAIL",
-        "detail": "status=503, has_url=False",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
         "owner": "KIM"
       },
       {
         "name": "OAuth facebook redirect URL",
-        "status": "FAIL",
-        "detail": "status=503, has_url=False",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
         "owner": "KIM"
       },
       {
         "name": "OAuth linkedin redirect URL",
-        "status": "FAIL",
-        "detail": "status=503, has_url=False",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
         "owner": "KIM"
       },
       {
@@ -554,6 +566,12 @@
         "name": "GET /auth/providers requires auth",
         "status": "PASS",
         "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/providers returns list",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -578,6 +596,12 @@
         "name": "Save-analysis requires auth",
         "status": "PASS",
         "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard returns data with auth",
+        "status": "PASS",
+        "detail": "status=200, keys=['user', 'latest_profile', 'stats', 'avg_scores']",
         "owner": "KIM"
       },
       {
@@ -690,8 +714,8 @@
       },
       {
         "name": "Share public 404 for bad slug",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=404",
         "owner": "KIM"
       },
       {
@@ -738,8 +762,8 @@
       },
       {
         "name": "Newsletter subscribe 200",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -750,20 +774,20 @@
       },
       {
         "name": "Newsletter dedup",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "new=False",
         "owner": "KIM"
       },
       {
         "name": "Newsletter count 200",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "Featured approved 200",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -798,8 +822,8 @@
       },
       {
         "name": "Admin real stats 200",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -2061,8 +2085,8 @@
   },
   "part_5": {
     "name": "E2E User Journeys",
-    "pass": 7,
-    "fail": 10,
+    "pass": 23,
+    "fail": 0,
     "tests": [
       {
         "name": "Anonymous analyze 200",
@@ -2090,32 +2114,62 @@
       },
       {
         "name": "Signup successful",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "Login returns token",
-        "status": "FAIL",
-        "detail": "missing",
+        "status": "PASS",
+        "detail": "received",
+        "owner": "KIM"
+      },
+      {
+        "name": "Auth analyze 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Save analysis",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard 200",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard has user key",
+        "status": "PASS",
+        "detail": "keys=['user', 'latest_profile', 'stats', 'avg_scores', 'profiles']",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard has stats",
+        "status": "PASS",
+        "detail": "found",
         "owner": "KIM"
       },
       {
         "name": "Trial start",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "MARS"
       },
       {
-        "name": "Trial status",
-        "status": "FAIL",
-        "detail": "no token",
+        "name": "Trial status endpoint",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "MARS"
       },
       {
-        "name": "Tier endpoint",
-        "status": "FAIL",
-        "detail": "no token",
+        "name": "Tier endpoint works",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "MARS"
       },
       {
@@ -2126,32 +2180,38 @@
       },
       {
         "name": "Share generate",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "Public profile",
-        "status": "FAIL",
-        "detail": "no token",
+        "name": "Public profile accessible",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "/user/ page",
-        "status": "FAIL",
-        "detail": "no token",
+        "name": "/user/{slug} page renders",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
-        "name": "OG tags",
-        "status": "FAIL",
-        "detail": "no token",
+        "name": "User page has OG tags",
+        "status": "PASS",
+        "detail": "found",
         "owner": "KIM"
       },
       {
-        "name": "STRETCH eligibility",
-        "status": "FAIL",
-        "detail": "no token",
+        "name": "STRETCH eligibility check",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
+        "name": "STRETCH CTA check",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -2170,8 +2230,8 @@
   },
   "part_6": {
     "name": "Security & Compliance",
-    "pass": 39,
-    "fail": 2,
+    "pass": 41,
+    "fail": 0,
     "tests": [
       {
         "name": "No f-string SQL in featured_api.py",
@@ -2289,14 +2349,14 @@
       },
       {
         "name": "Expired/garbage token \u2192 401",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=401",
         "owner": "MARS"
       },
       {
         "name": "Empty token \u2192 401",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=401",
         "owner": "MARS"
       },
       {
@@ -2688,61 +2748,61 @@
       {
         "name": "Health p50 < 200ms",
         "status": "PASS",
-        "detail": "p50=2ms p95=4ms",
+        "detail": "p50=2ms p95=3ms",
         "owner": "ASO"
       },
       {
         "name": "Health p95 < 400ms",
         "status": "PASS",
-        "detail": "p95=4ms",
+        "detail": "p95=3ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=2ms p95=6ms",
+        "detail": "p50=2ms p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=6ms",
+        "detail": "p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Featured p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=28ms p95=35ms",
+        "detail": "p50=3ms p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Featured p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=35ms",
+        "detail": "p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Newsletter count p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=12ms p95=12ms",
+        "detail": "p50=3ms p95=3ms",
         "owner": "ASO"
       },
       {
         "name": "Newsletter count p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=12ms",
+        "detail": "p95=3ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p50 < 3s",
         "status": "PASS",
-        "detail": "p50=336ms",
+        "detail": "p50=356ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p95 < 5s",
         "status": "PASS",
-        "detail": "p95=434ms",
+        "detail": "p95=365ms",
         "owner": "ASO"
       },
       {
@@ -2754,7 +2814,7 @@
       {
         "name": "Concurrent: none > 10s",
         "status": "PASS",
-        "detail": "max=1632ms",
+        "detail": "max=1811ms",
         "owner": "ASO"
       },
       {
@@ -2772,7 +2832,7 @@
       {
         "name": "5000-word text < 15s",
         "status": "PASS",
-        "detail": "327ms",
+        "detail": "335ms",
         "owner": "ASO"
       },
       {
@@ -2784,51 +2844,51 @@
       {
         "name": "DB User count < 1s",
         "status": "PASS",
-        "detail": "30ms, 132",
+        "detail": "32ms, 137",
         "owner": "ASO"
       },
       {
         "name": "DB Profile count < 1s",
         "status": "PASS",
-        "detail": "25ms, 6",
+        "detail": "29ms, 9",
         "owner": "ASO"
       },
       {
         "name": "DB Events count < 1s",
         "status": "PASS",
-        "detail": "24ms, 411",
+        "detail": "29ms, 420",
         "owner": "ASO"
       },
       {
         "name": "DB connections < 80%",
         "status": "PASS",
-        "detail": "1/100 (1%)",
+        "detail": "12/100 (12%)",
         "owner": "ASO"
       }
     ]
   },
   "summary": {
-    "total_pass": 428,
-    "total_fail": 30,
-    "pct": 93
+    "total_pass": 466,
+    "total_fail": 2,
+    "pct": 99
   },
   "suggestions": [
     "GA4 missing from 3 files: maintenance.html, pro-dashboard.html, index.html"
   ],
   "benchmarks": {
     "health_ms": 6,
-    "analyze_ms": 655,
-    "pricing_ms": 7,
+    "analyze_ms": 414,
+    "pricing_ms": 9,
     "health_p50_ms": 2,
-    "health_p95_ms": 4,
+    "health_p95_ms": 3,
     "pricing_p50_ms": 2,
-    "pricing_p95_ms": 6,
-    "featured_p50_ms": 28,
-    "featured_p95_ms": 35,
-    "newsletter_count_p50_ms": 12,
-    "newsletter_count_p95_ms": 12,
-    "analyze_p50_ms": 336,
-    "analyze_p95_ms": 434
+    "pricing_p95_ms": 2,
+    "featured_p50_ms": 3,
+    "featured_p95_ms": 4,
+    "newsletter_count_p50_ms": 3,
+    "newsletter_count_p95_ms": 3,
+    "analyze_p50_ms": 356,
+    "analyze_p95_ms": 365
   },
   "part_a": {
     "name": "Infrastructure & Environment",
@@ -2904,7 +2964,7 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=140",
+        "detail": "rows=147",
         "owner": "ASO"
       },
       {
@@ -2916,7 +2976,7 @@
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=411",
+        "detail": "rows=420",
         "owner": "ASO"
       },
       {
@@ -2928,7 +2988,7 @@
       {
         "name": "DB connection pool < 80%",
         "status": "PASS",
-        "detail": "1/100 (1%)",
+        "detail": "13/100 (13%)",
         "owner": "ASO"
       },
       {
@@ -2946,19 +3006,19 @@
       {
         "name": "SSL valid: quirrely.com",
         "status": "PASS",
-        "detail": "74 days",
+        "detail": "73 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: api.quirrely.com",
         "status": "PASS",
-        "detail": "74 days",
+        "detail": "73 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: quirrely.ca",
         "status": "PASS",
-        "detail": "74 days",
+        "detail": "73 days",
         "owner": "ASO"
       },
       {
@@ -2994,7 +3054,7 @@
       {
         "name": "Disk usage < 80%",
         "status": "PASS",
-        "detail": "13% (12G/100G)",
+        "detail": "14% (13G/100G)",
         "owner": "ASO"
       },
       {
@@ -3018,25 +3078,25 @@
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "655ms",
+        "detail": "414ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "7ms",
+        "detail": "9ms",
         "owner": "ASO"
       },
       {
         "name": "Admin health < 500ms",
         "status": "PASS",
-        "detail": "10ms",
+        "detail": "4ms",
         "owner": "ASO"
       },
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "11ms (401 expected)",
+        "detail": "7ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -3067,7 +3127,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=f156aeba...",
+        "detail": "session=796fd06e...",
         "owner": "KIM"
       },
       {
@@ -3278,49 +3338,49 @@
   },
   "part_c": {
     "name": "Backend API Coverage",
-    "pass": 53,
-    "fail": 16,
+    "pass": 73,
+    "fail": 0,
     "tests": [
       {
         "name": "Signup endpoint works",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "Login returns token",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "received",
         "owner": "KIM"
       },
       {
         "name": "Duplicate signup rejected",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=400",
         "owner": "KIM"
       },
       {
         "name": "GET /auth/me with token",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "POST /auth/logout",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "Re-login after logout",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "Password change",
-        "status": "FAIL",
-        "detail": "no token",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -3332,7 +3392,7 @@
       {
         "name": "Verify resend mounted",
         "status": "PASS",
-        "detail": "status=500",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -3342,27 +3402,39 @@
         "owner": "KIM"
       },
       {
+        "name": "GET /auth/sessions",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
         "name": "Account delete endpoint mounted",
         "status": "PASS",
         "detail": "status=401 (401=auth required)",
         "owner": "KIM"
       },
       {
+        "name": "POST /auth/me/update",
+        "status": "PASS",
+        "detail": "status=200",
+        "owner": "KIM"
+      },
+      {
         "name": "OAuth google redirect URL",
-        "status": "FAIL",
-        "detail": "status=503, has_url=False",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
         "owner": "KIM"
       },
       {
         "name": "OAuth facebook redirect URL",
-        "status": "FAIL",
-        "detail": "status=503, has_url=False",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
         "owner": "KIM"
       },
       {
         "name": "OAuth linkedin redirect URL",
-        "status": "FAIL",
-        "detail": "status=503, has_url=False",
+        "status": "PASS",
+        "detail": "status=200, has_url=True",
         "owner": "KIM"
       },
       {
@@ -3381,6 +3453,12 @@
         "name": "GET /auth/providers requires auth",
         "status": "PASS",
         "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "GET /auth/providers returns list",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -3405,6 +3483,12 @@
         "name": "Save-analysis requires auth",
         "status": "PASS",
         "detail": "status=401",
+        "owner": "KIM"
+      },
+      {
+        "name": "Dashboard returns data with auth",
+        "status": "PASS",
+        "detail": "status=200, keys=['user', 'latest_profile', 'stats', 'avg_scores']",
         "owner": "KIM"
       },
       {
@@ -3517,8 +3601,8 @@
       },
       {
         "name": "Share public 404 for bad slug",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=404",
         "owner": "KIM"
       },
       {
@@ -3565,8 +3649,8 @@
       },
       {
         "name": "Newsletter subscribe 200",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -3577,20 +3661,20 @@
       },
       {
         "name": "Newsletter dedup",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "new=False",
         "owner": "KIM"
       },
       {
         "name": "Newsletter count 200",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
         "name": "Featured approved 200",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
@@ -3625,8 +3709,8 @@
       },
       {
         "name": "Admin real stats 200",
-        "status": "FAIL",
-        "detail": "status=500",
+        "status": "PASS",
+        "detail": "status=200",
         "owner": "KIM"
       },
       {
