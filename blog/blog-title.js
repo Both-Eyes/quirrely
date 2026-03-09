@@ -50,6 +50,9 @@
   }
   var article = document.querySelector('article');
   if (article) {
+    if (entry.type === 'combo' && entry.body) {
+      article.innerHTML = entry.body;
+    }
     var h = article.innerHTML;
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers bring','g'), authorName+' brings');
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers','g'), authorName);
@@ -177,9 +180,5 @@
       if (note) note.remove();
     }
   }
-  // Remove duplicate opening hook para (already in hero)
-  if (entry.type !== 'how') {
-    var firstP = article.querySelector('p');
-    if (firstP) firstP.remove();
-  }
+
 })();
