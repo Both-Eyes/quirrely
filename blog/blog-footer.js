@@ -54,7 +54,9 @@
 
   // CTA based on auth state
   var ctaHtml = '<div class="bf-cta bf-cta-unauthed"><p>Discover your unique writing voice.</p><a href="/" class="bf-cta-btn">Take the Free Test →</a></div>';
-  var s = localStorage.getItem('quirrely_session');
+  var _sq = localStorage.getItem('quirrely_session');
+  var s = null;
+  try { var _so = JSON.parse(_sq); s = _so && _so.token ? _so.token : _sq; } catch(e) { s = _sq; }
   if (s) {
     ctaHtml = '<div class="bf-cta bf-cta-free"><p>Ready to go deeper?</p><a href="/billing/upgrade.html" class="bf-cta-btn">Upgrade to Pro →</a></div>';
     fetch('/api/v2/user/tier', {headers:{'Authorization':'Bearer '+s}})
@@ -83,12 +85,16 @@
 })();
 // Nav auth state
 (function(){
-  var s=localStorage.getItem('quirrely_session');
+  var _sq=localStorage.getItem('quirrely_session');
+  var s=null;
+  try{var _so=JSON.parse(_sq);s=_so&&_so.token?_so.token:_sq;}catch(e){s=_sq;}
   if(!s){
     var si=document.querySelector('.signin-link');
     if(si) si.style.display='none';
   } else {
+    var si2=document.querySelector('.signin-link');
+    if(si2) si2.style.display='none';
     var su=document.querySelector('.signup-btn');
-    if(su) su.style.display='none';
+    if(su){ su.textContent='Dashboard'; su.href='/frontend/dashboard.html'; }
   }
 })();
