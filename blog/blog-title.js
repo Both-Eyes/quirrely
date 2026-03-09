@@ -97,8 +97,8 @@
     h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writers deliver','g'), authorName+' delivers');
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers do','g'), authorName+' does');
     h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writers do','g'), authorName+' does');
-    h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers don't','g'), authorName+' doesn't');
-    h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writers don't','g'), authorName+' doesn't');
+    h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+" writers don't","g"), authorName+" doesn't");
+    h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+" writers don't","g"), authorName+" doesn't");
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers embrace','g'), authorName+' embraces');
     h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writers embrace','g'), authorName+' embraces');
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers exhibit','g'), authorName+' exhibits');
