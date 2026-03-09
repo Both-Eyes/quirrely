@@ -67,12 +67,10 @@
     }
     var h = article.innerHTML;
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers bring','g'), authorName+' brings');
-    h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers','g'), authorName);
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writing','g'), authorName+"'s writing");
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' prose','g'), authorName+"'s prose");
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' voices','g'), authorName+"'s voice");
     h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writers bring','g'), authorName+' brings');
-    h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writers','g'), authorName);
     h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writing','g'), authorName+"'s writing");
     h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' prose','g'), authorName+"'s prose");
     h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' voices','g'), authorName+"'s voice");
@@ -137,6 +135,8 @@
     h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writers use','g'), authorName+' uses');
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers weave','g'), authorName+' weaves');
     h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writers weave','g'), authorName+' weaves');
+    h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers','g'), authorName);
+    h = h.replace(new RegExp(PT+'\\s*\\+\\s*'+ST+' writers','g'), authorName);
     h = h.replace(new RegExp('The '+PT+' element','g'), authorName+"'s "+p+" voice");
     h = h.replace(new RegExp('The '+ST+' element','g'), authorName+"'s "+stanceLabel);
     h = h.replace(new RegExp('the '+p+' element','gi'), authorName+"'s "+p+" voice");
