@@ -46,6 +46,8 @@
     h = h.replace(new RegExp('the '+s+' element','gi'), authorName+"'s "+s+" quality");
     h = h.replace(new RegExp(p+' writing','gi'), authorName+"'s writing");
     h = h.replace(new RegExp('the '+s+' stance','gi'), lastName+"'s openness");
+    h = h.replace(/Writers in this mode/g, authorName);
+    h = h.replace(/writers in this mode/g, authorName);
     article.innerHTML = h;
   }
 })();

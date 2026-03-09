@@ -38,7 +38,7 @@
   });
   var relHtml = '';
   related.forEach(function(e) {
-    var n = e.title.replace('Why You Like ','').replace('Write Like ','').replace("'s Writing Style",'').trim();
+    var n = e.profile.toUpperCase()+' + '+e.stance.toUpperCase();
     relHtml += '<a href="/blog/'+e.slug+'" class="related-pill" style="background:'+e.color+'20;border:1px solid '+e.color+'40;color:'+e.color+'">'+n+'</a>';
   });
 
