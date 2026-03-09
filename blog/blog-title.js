@@ -77,6 +77,44 @@
   }
 
 
+  // Render writers section from blog-data.js
+  if (entry.type === 'combo' && entry.writers) {
+    var wGrid = document.querySelector('.writers-grid');
+    var wSect = document.querySelector('.writers');
+    var flags = {CA:'🇨🇦',UK:'🇬🇧',AU:'🇦🇺',NZ:'🇳🇿',US:'🇺🇸'};
+    var stores = {
+      CA:'https://www.chapters.indigo.ca/en-ca/home/search/?keywords=',
+      UK:'https://uk.bookshop.org/search?keywords=',
+      AU:'https://www.booktopia.com.au/search.ep?keywords=',
+      NZ:'https://www.fishpond.co.nz/search?keywords=',
+      US:'https://bookshop.org/search?keywords='
+    };
+    if (!wGrid && wSect) {
+      wGrid = document.createElement('div');
+      wGrid.className = 'writers-grid';
+      wSect.appendChild(wGrid);
+    }
+    if (wGrid && wSect) {
+      var html = '';
+      Object.keys(entry.writers).forEach(function(c) {
+        var w = entry.writers[c];
+        var flag = flags[c] || '';
+        var kw = encodeURIComponent(w.writer+' '+w.book);
+        var url = (stores[c] || stores.UK) + kw + '&tag=quirrely';
+        html += '<div class="writer-card" data-country="'+c+'">'+
+          '<span class="writer-flag">'+flag+'</span>'+
+          '<div class="writer-info">'+
+          '<span class="writer-name">'+w.writer+'</span>'+
+          '<span class="writer-book">'+w.book+'</span>'+
+          '</div>'+
+          '<a href="'+url+'" target="_blank" rel="noopener" class="writer-link">Find Book →</a>'+
+          '</div>';
+      });
+      wGrid.innerHTML = html;
+      var note = wSect.querySelector('.writers-note');
+      if (note) note.remove();
+    }
+  }
   // Remove duplicate opening hook para (already in hero)
   if (entry.type !== 'how') {
     var firstP = article.querySelector('p');
