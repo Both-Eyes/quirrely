@@ -32,9 +32,13 @@
     var e = BLOG_DATA[k];
     if (e.type !== entry.type) return;
     if (e.slug === entry.slug) return;
-    if (e.profile === entry.profile && related.length < 3) {
-      related.push(e);
-    }
+    if (e.profile === entry.profile && related.length < 3) related.push(e);
+  });
+  Object.keys(BLOG_DATA).forEach(function(k) {
+    var e = BLOG_DATA[k];
+    if (e.type !== entry.type) return;
+    if (e.slug === entry.slug) return;
+    if (e.profile !== entry.profile && related.length < 6) related.push(e);
   });
   var relHtml = '';
   related.forEach(function(e) {
