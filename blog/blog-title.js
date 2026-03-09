@@ -55,7 +55,7 @@
       var P2 = PT+' + '+ST;
       article.innerHTML =
         '<h2>What This Voice Feels Like</h2>'+
-        '<p>There is a particular sensation when you find writing that fits — not just writing you enjoy, but writing that feels made for the way your mind works. '+p+' prose with a '+s+' orientation does something specific: it matches a reading instinct you have probably always had but never quite named.</p>'+
+        '<p>There is a particular sensation when you find writing that fits — not just writing you enjoy, but writing that feels made for the way your mind works. '+p.charAt(0).toUpperCase()+p.slice(1)+' prose with a '+s+' orientation does something specific: it matches a reading instinct you have probably always had but never quite named.</p>'+
         '<p>When you read '+authorName+', something settles. The '+p+' quality in the prose creates a particular texture — one your reading instincts have always sought. The '+SL+' built into the stance means you always know where the writing stands. Together they create prose that is distinctive, consistent, and deeply satisfying to readers who share this taste.</p>'+
         '<h2>Why Some Readers Are Drawn Here</h2>'+
         '<p>Not every reader responds to '+p+' writing. Some find it too unfamiliar, too unlike what they usually reach for. But for readers like you, that quality is precisely the appeal. You are not looking for writing that blends into the background — you want writing with a distinct character, a recognisable way of seeing.</p>'+
