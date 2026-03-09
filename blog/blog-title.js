@@ -66,6 +66,46 @@
   var sTex = stanceTexture[s] || s+' orientation';
   var pHow = profileHow[p] || 'The '+p+' quality shapes every sentence.';
   var sHow = stanceHow[s] || 'The '+s+' orientation shapes how the reader is positioned.';
+  var profileWhy = {
+    minimal: 'You are drawn to writing that does not overstay its welcome. Excess prose registers as noise. When a writer strips it away and leaves only what is necessary, you feel the relief of it.',
+    assertive: 'You are drawn to writing that knows its own mind. Hedged, endlessly provisional prose frustrates you — not because you want to be told what to think, but because you want a writer who has actually done the thinking.',
+    poetic: 'You are drawn to writing where the language itself is doing work — not just conveying information but creating an experience. The sound of a sentence matters to you. You read prose the way other people listen to music.',
+    dense: 'You are drawn to writing that treats you as capable of difficulty. Prose that simplifies, that explains itself twice — it insults the intelligence you bring. You want to be worked for.',
+    conversational: 'You are drawn to writing where the person behind the prose is present. The formal distance of much literary writing leaves you cold. You want the sense of a mind at work, in real time, willing to admit what it does not know.',
+    formal: 'You are drawn to writing that takes its responsibilities seriously. The casual, the performatively informal — these read as evasion. When a writer brings full formal attention to a subject, you feel the weight of it.',
+    balanced: 'You are drawn to writing that earns its conclusions. The quick take that ignores counter-evidence strikes you as a shortcut. You want a writer who has genuinely sat with the difficulty before arriving at a view.',
+    longform: 'You are drawn to writing that commits to depth. The short form, the reduction to bullet points — these feel like betrayals of complexity. You want a writer willing to go all the way in.',
+    interrogative: 'You are drawn to writing that does not pretend to have more answers than it does. The false confidence of much expository prose strikes you as dishonest. You want a writer who asks the question and means it.',
+    hedged: 'You are drawn to writing scrupulously honest about its own limits. Overclaiming frustrates you. You trust writers who distinguish between what they know and what they suspect.'
+  };
+  var stanceWhy = {
+    open: 'The open orientation means the writing treats you as a participant. It presents conclusions as the current best thinking, subject to revision. That honesty is what keeps you reading.',
+    closed: 'The closed orientation means the writing has done its work before you arrive. The writer has reached a view and is sharing it directly. That confidence is what you respond to.',
+    balanced: 'The balanced orientation means the writing takes the opposition seriously — it does not strawman or dismiss. That intellectual honesty is what earns your trust.',
+    contradictory: 'The contradictory orientation means the writing refuses to resolve what cannot honestly be resolved. That refusal is a form of integrity — and you notice it.'
+  };
+  var pWhy = profileWhy[p] || 'You are drawn to the '+p+' quality in this writing.';
+  var sWhy = stanceWhy[s] || 'The '+s+' orientation is part of what draws you here.';
+  var profileFail = {
+    minimal: 'it tips into obscurity — the stripped sentence becomes the incomplete one, and the reader is left not with space but with confusion',
+    assertive: 'it tips into bluster — conviction becomes refusal to engage, and confidence starts to read as closed-mindedness',
+    poetic: 'it tips into decoration — the beautiful sentence becomes the empty one, imagery obscures rather than illuminates',
+    dense: 'it tips into opacity — compression becomes inaccessibility, and rigour starts to look like exclusion',
+    conversational: 'it tips into casualness — warmth starts to substitute for thought, and the friendly sentence becomes the imprecise one',
+    formal: 'it tips into stiffness — authority starts to feel like distance, and the considered sentence becomes airless',
+    balanced: 'it tips into false equivalence — balance becomes an excuse not to decide, and fairness starts to look like evasion',
+    longform: 'it tips into sprawl — the accumulating argument loses its thread, and length starts to substitute for depth',
+    interrogative: 'it tips into evasion — the genuine question becomes a rhetorical dodge, and curiosity looks like an excuse to avoid conclusions',
+    hedged: 'it tips into paralysis — the careful qualifier multiplies until precision starts to look like a failure of nerve'
+  };
+  var stanceFail = {
+    open: 'the openness becomes performance — invitations to respond multiply until they feel like a tic, and the reader stops believing them',
+    closed: 'the closure becomes arrogance — earned conviction tips into incuriosity, and the confident sentence becomes the dismissive one',
+    balanced: 'the balance becomes evasion — all sides presented so carefully that no view emerges, and fairness becomes a way of avoiding a position',
+    contradictory: 'the contradiction becomes habit — tension that once felt earned starts to feel manufactured, and refusing resolution starts to look like an inability to think things through'
+  };
+  var pFail = profileFail[p] || 'the '+p+' quality collapses under pressure';
+  var sFail = stanceFail[s] || 'the '+s+' orientation hardens into something that stops working';
   if (entry.type === 'how') {
     var art = document.querySelector('article');
     if (art) {
@@ -77,16 +117,16 @@
         '<p>'+pHow+' '+sHow+' The result is prose with a consistent fingerprint — one you can learn to produce deliberately once you understand how it is built.</p>'+
         '<h2>The Pattern to Study</h2>'+
         '<p>Read a paragraph of '+authorName+' aloud. Notice where the energy concentrates and where it releases. The '+p+' quality shows up in word choice, sentence length, and where claims are placed. The '+s+' orientation shows up in what happens after those claims land — what the prose invites, what it closes off, what room it leaves.</p>'+
-        '<p>The ratio matters. Too much '+p+' without the '+s+' orientation and the prose becomes one-note. Too much '+s+' without the '+p+' quality and it loses its character. The best writing in this mode holds both at full strength. Study where '+authorName+' finds that balance — it will not be where you expect.</p>'+
+        '<p>The ratio matters. Too much '+p+' without the '+s+' orientation and the prose becomes one-note. Too much '+s+' without the '+p+' quality and it loses its character. Study where '+authorName+' finds that balance — it will not be where you expect.</p>'+
         '<h2>Why It Works on Readers</h2>'+
-        '<p>Readers respond to this voice because it is consistent. They always know what kind of attention it is asking for. The '+p+' quality establishes the register; the '+s+' orientation establishes the relationship. Together they create prose that feels both trustworthy and alive — readers know where the writer stands and how the writer wants them to feel standing there.</p>'+
+        '<p>Readers respond to this voice because it is consistent. The '+p+' quality establishes the register; the '+s+' orientation establishes the relationship. Together they create prose that feels trustworthy and alive — readers know where the writer stands and how the writer wants them to feel standing there.</p>'+
         '<p>This is why '+P+' writing earns loyal readers. It does not perform its qualities. It enacts them, sentence by sentence, without slipping.</p>'+
         '<h2>How to Practice It</h2>'+
-        '<p>Take a piece of your own writing. Read each sentence and ask: where is the '+p+' quality? Where is the '+s+' orientation? Mark both. Look at the ratio and the sequencing. Now rewrite one paragraph so both qualities appear in every sentence — not alternating, but simultaneous. That is the target.</p>'+
-        '<p>Then read it against '+authorName+'. The gap between the two drafts is your curriculum. Do not close it too fast — understanding why the gap exists is more useful than closing it.</p>'+
+        '<p>Take a piece of your own writing. Read each sentence and ask: where is the '+p+' quality? Where is the '+s+' orientation? Mark both. Now rewrite one paragraph so both appear in every sentence — not alternating, but simultaneous. That is the target.</p>'+
+        '<p>Then read it against '+authorName+'. The gap between your draft and the source is your curriculum. Do not close it too fast — understanding why the gap exists is more useful than closing it.</p>'+
         '<h2>Where It Goes Wrong</h2>'+
-        '<p>Writers learning this mode tend to default to one quality under pressure. When the argument gets hard, the '+p+' softens into qualification. When the prose gets comfortable, the '+s+' orientation stiffens into something that has stopped listening. Both failures produce writing that looks like this mode but does not feel like it.</p>'+
-        '<p>The test is simple: read the paragraph back and ask whether both qualities are still present at full strength. If one has retreated, the voice has collapsed. Rewrite until they are both there, together, in every sentence.</p>'
+        '<p>Under pressure, the '+p+' quality is the first to go: '+pFail+'. Watch for the moment it starts to slip — it usually happens at the sentence level before it shows up in the argument.</p>'+
+        '<p>The '+s+' orientation has its own failure mode: '+sFail+'. The test is simple: read the paragraph back. If either quality has retreated, the voice has collapsed. Rewrite until both are present at full strength.</p>'
     }
   }
   var article = document.querySelector('article');
@@ -95,17 +135,17 @@
       var P2 = PT+' + '+ST;
       article.innerHTML =
         '<h2>What This Voice Feels Like</h2>'+
-        '<p>Reading '+authorName+' does something specific: it '+pTex+'. This is not a style you stumbled into — it is one your reading instincts were already looking for. The prose '+sTex+'. Together these qualities create a reading experience that feels both deliberate and inevitable.</p>'+
-        '<p>Readers who connect with this voice often describe the same thing: a sense that the writing is operating at exactly the right register. The '+p+' quality and the '+s+' orientation are calibrated to each other. That calibration is what you are responding to.</p>'+
+        '<p>Reading '+authorName+' does something specific: it '+pTex+'. The prose '+sTex+'. These two qualities create a reading experience that feels both deliberate and inevitable — writing operating at exactly the register your instincts were already looking for.</p>'+
+        '<p>Readers who connect with this voice often describe the same thing: a sense that the writing is calibrated precisely to how they want to engage with ideas. The '+p+' quality and the '+s+' orientation are not accidental. They are structural choices, made at the sentence level, that accumulate into something unmistakable.</p>'+
         '<h2>Why Some Readers Are Drawn Here</h2>'+
-        '<p>Not every reader finds this combination satisfying. Some want more warmth, more uncertainty, more room to push back. But you are drawn here because this voice commits. The '+p+' quality means the writing has a spine. The '+s+' orientation means it knows what to do with that spine.</p>'+
-        '<p>Readers who love this mode often read widely but return to it. It is a home register — the one that feels most true, most like the inside of a mind that works the way yours does. '+authorName+' is one of its finest practitioners, but the taste runs deeper than any single writer.</p>'+
+        '<p>'+pWhy+'</p>'+
+        '<p>'+sWhy+' Together, these qualities attract readers who have always known what they wanted from prose but have not always been able to find it. When they do find it, they tend to be loyal to it.</p>'+
         '<h2>Your Reading Taste</h2>'+
-        '<p>Knowing what draws you to '+p+' writing with a '+s+' orientation is genuinely useful. It explains why certain books grip you immediately while others, equally praised, leave you cold. The difference is usually this: the books that grip you share this structural fingerprint.</p>'+
-        '<p>It also tells you where to look next. The writers below make the same fundamental choices '+authorName+' makes — not the same subjects or settings, but the same decisions about how to hold a reader. That is the thing that travels across genres and decades.</p>'+
-        '<p>The fact that you are drawn to '+P2+' writing now probably means you have always been, even before you had words for it. Reading taste has a core that is more stable than most people realise.</p>'+
+        '<p>Knowing what draws you to '+p+' writing with a '+s+' orientation is genuinely useful. It explains why certain books grip you from the first page while others, equally praised, leave you cold. The difference is usually structural: the books that grip you share this fingerprint. The others do not.</p>'+
+        '<p>It also tells you where to look next. The writers below make the same fundamental choices '+authorName+' makes — not the same subjects or settings, but the same decisions about how to hold a reader. That is the quality that travels across genres and decades.</p>'+
+        '<p>Reading taste has a core that is more stable than most people realise. The fact that you are drawn to '+P2+' writing now probably means you have always been, even before you had words for it.</p>'+
         '<h2>Finding More Writing Like This</h2>'+
-        '<p>The fingerprint of '+p+' writing with a '+s+' orientation shows up in sentence-level decisions: how claims are made, how the reader is addressed, what the prose closes off and what it leaves open. Once you can name it, you will notice it everywhere — in journalism, in essays, in writers you have not yet read.</p>'+
+        '<p>The fingerprint of '+p+' writing with a '+s+' orientation shows up in sentence-level decisions: how claims are made, how the reader is addressed, what the prose closes off and what it leaves open. Once you can name it, you will start noticing it everywhere — in journalism, in essays, in writers you have not yet read.</p>'+
         '<p>Start with the writers below. Each shares the structural DNA of this voice while bringing their own place, their own obsessions, their own rhythm. The regional links go to local booksellers. The book in your hands is always better than the book on a list.</p>';
     }
     var h = article.innerHTML;
