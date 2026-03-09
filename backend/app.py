@@ -100,7 +100,16 @@ app = FastAPI(
 
 
 # Rate limiting
-limiter = Limiter(key_func=get_remote_address, default_limits=["100/minute"])
+def get_real_ip(request):
+    cf_ip = request.headers.get("CF-Connecting-IP")
+    if cf_ip:
+        return cf_ip
+    fwd = request.headers.get("X-Forwarded-For", "")
+    if fwd:
+        return fwd.split(",")[0].strip()
+    return request.client.host or "unknown"
+
+limiter = Limiter(key_func=get_real_ip, default_limits=["100/minute"])
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
@@ -121,15 +130,11 @@ app.add_middleware(
         "https://admin.quirrely.com",
         # Chrome extension (disabled - add specific ID when needed)
         # Development
-        "http://localhost:3000",
-        "http://localhost:8000",
-        "http://localhost:8001",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:8000",
+        # localhost origins removed from production
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allow_headers=["*"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID", "X-Extension-Version"],
     expose_headers=["X-Request-ID", "X-Extension-Version"],
     max_age=3600  # Cache preflight for 1 hour
 )
