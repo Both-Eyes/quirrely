@@ -70,7 +70,7 @@
   var footer = document.createElement('div');
   footer.className = 'blog-footer-block';
   footer.innerHTML = writersHtml +
-    '<div class="bf-dowrite"><h2>Do You Write Like You Read?</h2><p>Here\'s an interesting question: does your writing voice match your reading taste? Some people write exactly how they love to read. Others produce prose that surprises them\u2014different from what they consume.</p><p>If you\'re curious, you can analyze your own writing and find out. You might discover a perfect match. Or you might discover a fascinating gap.</p></div>'+'<div id="bf-cta-wrap">'+ctaHtml+'</div>';
+    '<div class="bf-dowrite"><h2>Do You Write Like You Read?</h2><p>Here\'s an interesting question: does your writing voice match your reading taste? Some people write exactly how they love to read. Others produce prose that surprises them\u2014different from what they consume. If you're curious, analyze your writing — you might discover a perfect match, or a fascinating gap.</p></div>'+'<div id="bf-cta-wrap">'+ctaHtml+'</div>';
 
   var siteFooter = document.querySelector('.site-footer');
   if (siteFooter) siteFooter.parentNode.insertBefore(footer, siteFooter);
