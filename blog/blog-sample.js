@@ -24,5 +24,5 @@
   el.className = 'sample-block';
   el.innerHTML = '<h2>In the Style of '+author.writer+'</h2><blockquote class="sample-quote">'+sample+'</blockquote><p class="sample-analysis">'+analysis+'</p>';
   var article = document.querySelector('article');
-  if (article) article.appendChild(el);
+  if (article) article.parentNode.insertBefore(el, article);
 })();
