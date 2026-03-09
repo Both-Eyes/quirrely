@@ -10,7 +10,9 @@
   // Remove old hardcoded HOW- footer elements
   var oldCta = document.querySelector('.cta');
   if (oldCta) oldCta.remove();
-  var oldRelated = document.querySelector('.related-posts');
+  var oldRelated = document.querySelector('.related-posts')||document.querySelector('.related');
+  var oldCtaRow = document.querySelector('.cta-row');
+  if (oldCtaRow) oldCtaRow.remove();
   if (oldRelated) oldRelated.remove();
 
   // Find paired combo entry
@@ -69,4 +71,15 @@
 
   var siteFooter = document.querySelector('.site-footer');
   if (siteFooter) siteFooter.parentNode.insertBefore(footer, siteFooter);
+})();
+// Nav auth state
+(function(){
+  var s=localStorage.getItem('quirrely_session');
+  if(!s){
+    var si=document.querySelector('.signin-link');
+    if(si) si.style.display='none';
+  } else {
+    var su=document.querySelector('.signup-btn');
+    if(su) su.style.display='none';
+  }
 })();
