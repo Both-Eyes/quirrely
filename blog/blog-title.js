@@ -46,10 +46,31 @@
     h = h.replace(new RegExp('the '+s+' element','gi'), authorName+"'s "+s+" quality");
     h = h.replace(new RegExp(p+' writing','gi'), authorName+"'s writing");
     h = h.replace(new RegExp('the '+s+' stance','gi'), lastName+"'s openness");
-    h = h.replace(/Writers in this mode are/g, authorName+' invites');
-    h = h.replace(/writers in this mode are/g, authorName+' invites');
+    h = h.replace(/Writers in this mode are inviting you/g, authorName+' invites you');
+    h = h.replace(/writers in this mode are inviting you/g, authorName+' invites you');
     h = h.replace(/Writers in this mode/g, authorName);
     h = h.replace(/writers in this mode/g, authorName);
     article.innerHTML = h;
+  }
+
+  // Reorder: move "Finding More Writing Like This" section above writers block
+  if (entry.type !== 'how') {
+    var h2s = article.querySelectorAll('h2');
+    var findingH2 = null;
+    h2s.forEach(function(h) {
+      if (h.textContent.indexOf('Finding More') !== -1) findingH2 = h;
+    });
+    if (findingH2) {
+      var nodes = [findingH2];
+      var sib = findingH2.nextSibling;
+      while (sib && sib.nodeName !== 'H2') {
+        nodes.push(sib);
+        sib = sib.nextSibling;
+      }
+      var writers = document.querySelector('.writers');
+      if (writers) {
+        nodes.forEach(function(n) { writers.parentNode.insertBefore(n, writers); });
+      }
+    }
   }
 })();
