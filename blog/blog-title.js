@@ -40,12 +40,14 @@
     h = h.replace(new RegExp(p+'\\s*\\+\\s*'+s+' voices','g'), authorName+"'s voice");
     h = h.replace(new RegExp(p+'\\s*\\+\\s*'+s+' writing','g'), authorName+"'s writing");
     h = h.replace(new RegExp(p+'\\s*\\+\\s*'+s+' prose','g'), authorName+"'s prose");
-    h = h.replace(new RegExp('The '+PT+' element','g'), authorName+"'s "+p);
+    h = h.replace(new RegExp('The '+PT+' element','g'), authorName+"'s "+p+" voice");
     h = h.replace(new RegExp('The '+ST+' element','g'), authorName+"'s "+s+" quality");
-    h = h.replace(new RegExp('the '+p+' element','gi'), authorName+"'s "+p);
+    h = h.replace(new RegExp('the '+p+' element','gi'), authorName+"'s "+p+" voice");
     h = h.replace(new RegExp('the '+s+' element','gi'), authorName+"'s "+s+" quality");
     h = h.replace(new RegExp(p+' writing','gi'), authorName+"'s writing");
     h = h.replace(new RegExp('the '+s+' stance','gi'), lastName+"'s openness");
+    h = h.replace(/Writers in this mode are/g, authorName+' invites');
+    h = h.replace(/writers in this mode are/g, authorName+' invites');
     h = h.replace(/Writers in this mode/g, authorName);
     h = h.replace(/writers in this mode/g, authorName);
     article.innerHTML = h;
