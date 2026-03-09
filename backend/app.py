@@ -52,6 +52,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 # IMPORT ROUTERS
 # ═══════════════════════════════════════════════════════════════════════════
 
+from features_api import router as features_router
 # Import API v2 app (we'll mount it)
 try:
     from api_v2 import app as api_v2_app
@@ -296,6 +297,7 @@ try:
     app.include_router(newsletter_router, tags=["Newsletter"])
     from share_api import router as share_router, get_public_profile
     app.include_router(share_router, tags=["Share"])
+    app.include_router(features_router, tags=["Features"])
     from featured_api import router as featured_router
     app.include_router(featured_router, tags=["Featured"])
     from super_admin_api import router as super_admin_router

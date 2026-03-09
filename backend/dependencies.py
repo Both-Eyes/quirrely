@@ -165,44 +165,39 @@ async def get_current_user_optional(
 
 
 def _validate_token(token: str) -> Optional[str]:
-    """
-    Validate JWT token and return user_id.
-    
-    TODO: Implement proper JWT validation
-    """
-    # Placeholder - implement JWT validation
+    """Validate session token against auth_sessions table."""
     try:
-        import jwt
-        import os
-        
-        secret = os.environ.get('JWT_SECRET', 'dev-secret-change-in-production')
-        payload = jwt.decode(token, secret, algorithms=['HS256'])
-        return payload.get('user_id')
+        import psycopg2
+        conn = psycopg2.connect('postgresql://quirrely:QuirrDB2026xK9m@localhost:5432/quirrely_prod')
+        cur = conn.cursor()
+        cur.execute('SELECT user_id FROM auth_sessions WHERE access_token = %s LIMIT 1', (token,))
+        row = cur.fetchone()
+        conn.close()
+        return str(row[0]) if row else None
     except Exception as e:
         logger.debug(f"Token validation failed: {e}")
         return None
 
 
 async def _get_user_by_id(user_id: str) -> Optional[CurrentUser]:
-    """
-    Get user from database.
-    
-    TODO: Implement database lookup
-    """
-    # Placeholder - implement database lookup
-    gate = get_feature_gate()
-    user_tier_info = gate.get_user_tier(user_id)
-    
-    # Mock user for development
-    return CurrentUser(
-        id=user_id,
-        email=f"{user_id}@example.com",
-        name=f"User {user_id}",
-        tier=user_tier_info.effective_tier,
-        addons=user_tier_info.addons,
-        is_admin=user_id.startswith('admin_'),
-        is_super_admin=user_id.startswith('super_'),
-    )
+    """Get user from database."""
+    try:
+        import psycopg2
+        conn = psycopg2.connect('postgresql://quirrely:QuirrDB2026xK9m@localhost:5432/quirrely_prod')
+        cur = conn.cursor()
+        cur.execute('SELECT email, display_name, subscription_tier FROM users WHERE id = %s', (user_id,))
+        row = cur.fetchone()
+        conn.close()
+        if not row:
+            return None
+        email, name, sub_tier = row
+        tier_str = sub_tier or 'free'
+        valid = [t.value for t in Tier]
+        tier = Tier(tier_str) if tier_str in valid else Tier.FREE
+        return CurrentUser(id=user_id, email=email, name=name or email, tier=tier, addons=[])
+    except Exception as e:
+        logger.debug(f"User lookup failed: {e}")
+        return None
 
 
 # ═══════════════════════════════════════════════════════════════════════════
