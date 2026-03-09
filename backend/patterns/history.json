@@ -76907,6 +76907,40 @@
         }
       },
       "analyzed_at": "2026-03-09T07:00:28.932001Z"
+    },
+    {
+      "id": "f2537c6df3d48a6b",
+      "user_id": "5992bb07-2b65-4006-abae-0b1777ccb27f",
+      "session_id": null,
+      "profile": "FORMAL",
+      "stance": "CONTRADICTORY",
+      "word_count": 50,
+      "sentence_count": 14,
+      "token_signature": "1-5-5-9-3-9-3-0-2-8",
+      "confidence_score": 0.7658483906903943,
+      "source": "web",
+      "input_preview": "Ottawa is letting an unnamed automaker import a higher quota of U.S.-made vehicles without tariffs b",
+      "scores": {
+        "profiles": {
+          "ASSERTIVE": 0.8863482636753204,
+          "MINIMAL": 0.4559764747359373,
+          "POETIC": 0.46509893606349595,
+          "DENSE": 0.48714512498869766,
+          "CONVERSATIONAL": 0.363655125011478,
+          "FORMAL": 0.9091421115951962,
+          "INTERROGATIVE": 0.20377125967346243,
+          "HEDGED": 0.85305579004804,
+          "PARALLEL": 0.7411482805329396,
+          "LONGFORM": 0.4760029229438124
+        },
+        "stances": {
+          "OPEN": 0.5402298494944409,
+          "CLOSED": 0.6272809016973083,
+          "BALANCED": 0.4087652415816577,
+          "CONTRADICTORY": 0.6514228712608771
+        }
+      },
+      "analyzed_at": "2026-03-09T19:17:37.812789Z"
     }
   ],
   "version": "1.0"

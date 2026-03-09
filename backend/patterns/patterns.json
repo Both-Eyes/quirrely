@@ -734,6 +734,21 @@
       "avg_sentence_count": 3.0,
       "first_seen_at": "2026-03-04T15:00:39.351231Z",
       "last_seen_at": "2026-03-09T07:00:08.820403Z"
+    },
+    "1-5-5-9-3-9-3-0-2-8": {
+      "token_signature": "1-5-5-9-3-9-3-0-2-8",
+      "token_count": 50,
+      "profile_counts": {
+        "FORMAL": 1
+      },
+      "stance_counts": {
+        "CONTRADICTORY": 1
+      },
+      "total_observations": 1,
+      "avg_word_count": 50,
+      "avg_sentence_count": 14,
+      "first_seen_at": "2026-03-09T19:17:37.705555Z",
+      "last_seen_at": "2026-03-09T19:17:37.705555Z"
     }
   },
   "version": "1.0"

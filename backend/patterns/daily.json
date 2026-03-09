@@ -138,10 +138,10 @@
       "new_patterns": 0
     },
     "2026-03-09": {
-      "total_analyses": 36,
+      "total_analyses": 37,
       "profile_distribution": {
         "LONGFORM": 1,
-        "FORMAL": 3,
+        "FORMAL": 4,
         "HEDGED": 7,
         "ASSERTIVE": 5,
         "MINIMAL": 4,
@@ -152,7 +152,7 @@
       },
       "stance_distribution": {
         "OPEN": 10,
-        "CONTRADICTORY": 5,
+        "CONTRADICTORY": 6,
         "BALANCED": 10,
         "CLOSED": 11
       },
