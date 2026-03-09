@@ -50,20 +50,23 @@
   }
   var article = document.querySelector('article');
   if (article) {
-    if (entry.type === 'combo' && entry.body) {
-      var raw = entry.body.trim();
-      var blocks = raw.split(/\n\n+/);
-      var htmlOut = '';
-      blocks.forEach(function(b) {
-        b = b.trim();
-        if (!b) return;
-        if (/^[A-Z][A-Z\s+]+$/.test(b)) {
-          htmlOut += '<h2>'+b.charAt(0)+b.slice(1).toLowerCase()+'</h2>';
-        } else {
-          htmlOut += '<p>'+b.replace(/\n/g,' ')+'</p>';
-        }
-      });
-      article.innerHTML = htmlOut;
+    if (entry.type === 'combo') {
+      var SL = stanceLabel;
+      var P2 = PT+' + '+ST;
+      article.innerHTML =
+        '<h2>What This Voice Feels Like</h2>'+
+        '<p>There is a particular sensation when you find writing that fits — not just writing you enjoy, but writing that feels made for the way your mind works. '+PT+' prose with a '+ST+' orientation does something specific: it matches a reading instinct you have probably always had but never quite named.</p>'+
+        '<p>When you read '+authorName+', something settles. The '+p+' quality means the writing never wastes your time with false starts or endless qualification. The '+SL+' of the stance means you know exactly where you stand as a reader. Together they create prose that is demanding and satisfying in equal measure.</p>'+
+        '<h2>Why Some Readers Are Drawn Here</h2>'+
+        '<p>Not every reader responds to '+p+' writing. Some find it too forceful, too unwilling to leave room for doubt. But for readers like you, that directness is precisely the appeal. You are not looking for writing that holds your hand — you want writing that has already done the thinking and shows its work.</p>'+
+        '<p>The '+s+' stance adds its own dimension. It tells you something about how '+authorName+' sees the relationship between writer and reader. That quality of '+SL+' is what makes the prose feel alive rather than merely competent. You noticed it before you could explain it.</p>'+
+        '<h2>Your Reading Taste</h2>'+
+        '<p>Understanding what draws you to certain writing is not just interesting — it is useful. It helps you curate your reading list with precision. It helps you understand why some books grip you from the first page while others, equally praised, leave you cold.</p>'+
+        '<p>You are drawn to writing that is '+p+' in its claims and '+s+' in its orientation. That combination is rarer than it sounds. Most writing defaults to one or the other. The writers who hold both at full strength are the ones you return to.</p>'+
+        '<p>Reading taste is not fixed. You might crave '+P2+' writing now and something quieter later. But recognising the pattern gives you a map — you know what you are looking for, even when you cannot find it.</p>'+
+        '<h2>Finding More Writing Like This</h2>'+
+        '<p>Once you can name what draws you to '+authorName+' and writing like it, you will start noticing the same fingerprint elsewhere — in journalism, in essays, in the novels you keep returning to without quite knowing why.</p>'+
+        '<p>The writers below share that fingerprint. They are not identical to '+authorName+' — each has their own concerns and rhythm — but they make the same fundamental choices about how to hold a reader. Start with the one from your region.</p>';
     }
     var h = article.innerHTML;
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers bring','g'), authorName+' brings');
