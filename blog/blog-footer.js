@@ -59,10 +59,10 @@
   try { var _so = JSON.parse(_sq); s = _so && _so.token ? _so.token : _sq; } catch(e) { s = _sq; }
   if (s) {
     ctaHtml = '<div class="bf-cta bf-cta-free"><p>Ready to go deeper?</p><a href="/billing/upgrade.html" class="bf-cta-btn">Upgrade to Pro →</a></div>';
-    fetch('/api/v2/user/tier', {headers:{'Authorization':'Bearer '+s}})
+    fetch('/api/v2/features', {headers:{'Authorization':'Bearer '+s}})
       .then(function(r){return r.json();})
       .then(function(d){
-        if (d.effective_tier==='pro'||d.effective_tier==='trial') {
+        if (d.user_tier && d.user_tier !== 'free') {
           var c = document.getElementById('bf-cta-wrap');
           if (c) c.innerHTML = '<div class="bf-cta bf-cta-pro"><p>Think you write like '+authorName+'?</p><a href="/auth/signup.html?ref=featured" class="bf-cta-btn">Submit to Be a Featured Writer →</a></div>';
         }
