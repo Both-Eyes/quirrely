@@ -53,4 +53,10 @@
     article.innerHTML = h;
   }
 
+
+  // Remove duplicate opening hook para (already in hero)
+  if (entry.type !== 'how') {
+    var firstP = article.querySelector('p');
+    if (firstP) firstP.remove();
+  }
 })();
