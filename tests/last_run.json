@@ -1,8 +1,8 @@
 {
-  "run_at": "2026-03-08T07:00:36.243225+00:00",
+  "run_at": "2026-03-09T07:00:29.665956+00:00",
   "version": "2.0",
   "mode": "production",
-  "duration_seconds": 32,
+  "duration_seconds": 26,
   "part_1": {
     "name": "Infrastructure & Environment",
     "pass": 36,
@@ -77,19 +77,19 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=147",
+        "detail": "rows=148",
         "owner": "ASO"
       },
       {
         "name": "Table 'newsletter_subscribers' accessible",
         "status": "PASS",
-        "detail": "rows=3",
+        "detail": "rows=4",
         "owner": "ASO"
       },
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=420",
+        "detail": "rows=460",
         "owner": "ASO"
       },
       {
@@ -119,19 +119,19 @@
       {
         "name": "SSL valid: quirrely.com",
         "status": "PASS",
-        "detail": "73 days",
+        "detail": "72 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: api.quirrely.com",
         "status": "PASS",
-        "detail": "73 days",
+        "detail": "72 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: quirrely.ca",
         "status": "PASS",
-        "detail": "73 days",
+        "detail": "72 days",
         "owner": "ASO"
       },
       {
@@ -185,19 +185,19 @@
       {
         "name": "Health < 200ms",
         "status": "PASS",
-        "detail": "6ms",
+        "detail": "15ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "414ms",
+        "detail": "392ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "9ms",
+        "detail": "5ms",
         "owner": "ASO"
       },
       {
@@ -209,7 +209,7 @@
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "7ms (401 expected)",
+        "detail": "6ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -240,7 +240,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=796fd06e...",
+        "detail": "session=d0e4b84f...",
         "owner": "KIM"
       },
       {
@@ -896,8 +896,8 @@
   },
   "part_4": {
     "name": "Frontend Integrity",
-    "pass": 197,
-    "fail": 0,
+    "pass": 195,
+    "fail": 2,
     "tests": [
       {
         "name": "File exists: App index.html",
@@ -1267,8 +1267,8 @@
       },
       {
         "name": "GA4 on public pages >= 90%",
-        "status": "PASS",
-        "detail": "117/120 pages (98%)",
+        "status": "FAIL",
+        "detail": "26/29 pages (90%)",
         "owner": "MARS"
       },
       {
@@ -1920,9 +1920,9 @@
         "owner": "MARS"
       },
       {
-        "name": "Blog posts with unified header (51/52)",
+        "name": "Blog posts with unified header (96/97)",
         "status": "PASS",
-        "detail": "51/52",
+        "detail": "96/97",
         "owner": "MARS"
       },
       {
@@ -2041,8 +2041,8 @@
       },
       {
         "name": "Blog canonicals use .ca",
-        "status": "PASS",
-        "detail": "clean",
+        "status": "FAIL",
+        "detail": "poetic-closed.html,assertive-balanced.html,assertive-open.html,interrogative-closed.html,minimal-contradictory.html",
         "owner": "MARS"
       },
       {
@@ -2748,13 +2748,13 @@
       {
         "name": "Health p50 < 200ms",
         "status": "PASS",
-        "detail": "p50=2ms p95=3ms",
+        "detail": "p50=2ms p95=5ms",
         "owner": "ASO"
       },
       {
         "name": "Health p95 < 400ms",
         "status": "PASS",
-        "detail": "p95=3ms",
+        "detail": "p95=5ms",
         "owner": "ASO"
       },
       {
@@ -2772,7 +2772,7 @@
       {
         "name": "Featured p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=3ms p95=4ms",
+        "detail": "p50=2ms p95=4ms",
         "owner": "ASO"
       },
       {
@@ -2784,25 +2784,25 @@
       {
         "name": "Newsletter count p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=3ms p95=3ms",
+        "detail": "p50=2ms p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Newsletter count p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=3ms",
+        "detail": "p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p50 < 3s",
         "status": "PASS",
-        "detail": "p50=356ms",
+        "detail": "p50=328ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p95 < 5s",
         "status": "PASS",
-        "detail": "p95=365ms",
+        "detail": "p95=358ms",
         "owner": "ASO"
       },
       {
@@ -2814,7 +2814,7 @@
       {
         "name": "Concurrent: none > 10s",
         "status": "PASS",
-        "detail": "max=1811ms",
+        "detail": "max=1671ms",
         "owner": "ASO"
       },
       {
@@ -2832,7 +2832,7 @@
       {
         "name": "5000-word text < 15s",
         "status": "PASS",
-        "detail": "335ms",
+        "detail": "343ms",
         "owner": "ASO"
       },
       {
@@ -2844,19 +2844,19 @@
       {
         "name": "DB User count < 1s",
         "status": "PASS",
-        "detail": "32ms, 137",
+        "detail": "33ms, 137",
         "owner": "ASO"
       },
       {
         "name": "DB Profile count < 1s",
         "status": "PASS",
-        "detail": "29ms, 9",
+        "detail": "26ms, 9",
         "owner": "ASO"
       },
       {
         "name": "DB Events count < 1s",
         "status": "PASS",
-        "detail": "29ms, 420",
+        "detail": "30ms, 460",
         "owner": "ASO"
       },
       {
@@ -2868,27 +2868,27 @@
     ]
   },
   "summary": {
-    "total_pass": 466,
-    "total_fail": 2,
+    "total_pass": 464,
+    "total_fail": 4,
     "pct": 99
   },
   "suggestions": [
     "GA4 missing from 3 files: maintenance.html, pro-dashboard.html, index.html"
   ],
   "benchmarks": {
-    "health_ms": 6,
-    "analyze_ms": 414,
-    "pricing_ms": 9,
+    "health_ms": 15,
+    "analyze_ms": 392,
+    "pricing_ms": 5,
     "health_p50_ms": 2,
-    "health_p95_ms": 3,
+    "health_p95_ms": 5,
     "pricing_p50_ms": 2,
     "pricing_p95_ms": 2,
-    "featured_p50_ms": 3,
+    "featured_p50_ms": 2,
     "featured_p95_ms": 4,
-    "newsletter_count_p50_ms": 3,
-    "newsletter_count_p95_ms": 3,
-    "analyze_p50_ms": 356,
-    "analyze_p95_ms": 365
+    "newsletter_count_p50_ms": 2,
+    "newsletter_count_p95_ms": 2,
+    "analyze_p50_ms": 328,
+    "analyze_p95_ms": 358
   },
   "part_a": {
     "name": "Infrastructure & Environment",
@@ -2964,19 +2964,19 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=147",
+        "detail": "rows=148",
         "owner": "ASO"
       },
       {
         "name": "Table 'newsletter_subscribers' accessible",
         "status": "PASS",
-        "detail": "rows=3",
+        "detail": "rows=4",
         "owner": "ASO"
       },
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=420",
+        "detail": "rows=460",
         "owner": "ASO"
       },
       {
@@ -3006,19 +3006,19 @@
       {
         "name": "SSL valid: quirrely.com",
         "status": "PASS",
-        "detail": "73 days",
+        "detail": "72 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: api.quirrely.com",
         "status": "PASS",
-        "detail": "73 days",
+        "detail": "72 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: quirrely.ca",
         "status": "PASS",
-        "detail": "73 days",
+        "detail": "72 days",
         "owner": "ASO"
       },
       {
@@ -3072,19 +3072,19 @@
       {
         "name": "Health < 200ms",
         "status": "PASS",
-        "detail": "6ms",
+        "detail": "15ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "414ms",
+        "detail": "392ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "9ms",
+        "detail": "5ms",
         "owner": "ASO"
       },
       {
@@ -3096,7 +3096,7 @@
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "7ms (401 expected)",
+        "detail": "6ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -3127,7 +3127,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=796fd06e...",
+        "detail": "session=d0e4b84f...",
         "owner": "KIM"
       },
       {
