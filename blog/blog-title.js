@@ -51,7 +51,19 @@
   var article = document.querySelector('article');
   if (article) {
     if (entry.type === 'combo' && entry.body) {
-      article.innerHTML = entry.body;
+      var raw = entry.body.trim();
+      var blocks = raw.split(/\n\n+/);
+      var htmlOut = '';
+      blocks.forEach(function(b) {
+        b = b.trim();
+        if (!b) return;
+        if (/^[A-Z][A-Z\s+]+$/.test(b)) {
+          htmlOut += '<h2>'+b.charAt(0)+b.slice(1).toLowerCase()+'</h2>';
+        } else {
+          htmlOut += '<p>'+b.replace(/\n/g,' ')+'</p>';
+        }
+      });
+      article.innerHTML = htmlOut;
     }
     var h = article.innerHTML;
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers bring','g'), authorName+' brings');
