@@ -64,7 +64,7 @@
       .then(function(d){
         if (d.user_tier && d.user_tier !== 'free') {
           var c = document.getElementById('bf-cta-wrap');
-          if (c) c.innerHTML = '<div class="bf-cta bf-cta-pro"><p>Think you write like '+authorName+'?</p><a href="/auth/signup.html?ref=featured" class="bf-cta-btn">Submit to Be a Featured Writer →</a></div>';
+          if (c) c.innerHTML = '<div class="bf-cta bf-cta-pro"><p>Think you write like '+authorName+'?</p><a href="/frontend/dashboard.html?ref=featured" class="bf-cta-btn">Submit to Be a Featured Writer →</a></div>';
         }
       }).catch(function(){});
   }
