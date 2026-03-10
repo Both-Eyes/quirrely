@@ -8,53 +8,59 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --primary: #FF6B6B;
-  --primary-dark: #E85555;
-  --primary-light: #FF8A8A;
-  --bg: #FFFBF5;
-  --bg-card: #FFFFFF;
-  --bg-sidebar: #FAF5EE;
-  --text: #2D2D2D;
-  --text-muted: #6B6560;
-  --text-light: #9A9590;
-  --border: #E8E2DA;
-  --border-light: #F0EBE3;
-  --accent-coral: #FF6B6B;
-  --accent-amber: #D4A853;
-  --accent-teal: #7CAE9E;
-  --accent-purple: #8B6E9B;
-  --accent-blue: #6B8EAE;
-  --accent-green: #7CAE82;
-  --shadow-sm: 0 1px 4px rgba(120,100,80,0.05);
-  --shadow-md: 0 4px 16px rgba(120,100,80,0.07);
-  --shadow-lg: 0 8px 32px rgba(120,100,80,0.09);
-  --radius: 10px;
-  --radius-sm: 8px;
-  --radius-lg: 14px;
-  --radius-btn: 10px;
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'Nunito Sans', -apple-system, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
-  --sidebar-width: 300px;
-  --header-height: 56px;
-  --card: var(--bg-card);
-  --coral: var(--accent-coral);
-  --ink: var(--text);
-  --accent-green-light: #EFF5F0;
-  --border-green: #D8E5DA;
-  --accent-orange: #C48A3F;
-  --accent-amber-light: #F2E6C9;
-  /* Literary Edition vivid accents */
-  --accent-coral-vivid: #FF5252;
-  --accent-amber-vivid: #C8962E;
-  --accent-teal-vivid: #5B9E8C;
-  --accent-purple-vivid: #7B5E8E;
-  --paper-cream: #FFFDF9;
-  --paper-warm: #FBF6EE;
-  --paper-rose: #FFF8F6;
-  --ink-deep: #1E1E1E;
-}
+  :root {
+    --primary: #FF5C34;
+    --primary-dark: #E04820;
+    --primary-light: #FF7F5E;
+    --bg: #FFFBF5;
+    --bg-card: #FFFFFF;
+    --bg-sidebar: #FAF5EE;
+    --bg-editorial: #D7EFFF;
+    --text: #351E28;
+    --text-muted: #6B5B62;
+    --text-light: #9A8A90;
+    --border: #AEB8A0;
+    --border-light: #CDD4C5;
+    --surface-jade: #AEB8A0;
+    --accent-wasabi: #E9F056;
+    --error: #E74C3C;
+    --success: #7CAE82;
+    --warning: #D4A853;
+    --info: #D7EFFF;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Nunito Sans', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --radius-sm: 8px;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --radius-btn: 10px;
+    --sidebar-width: 300px;
+    --header-height: 56px;
+    --shadow-sm: 0 1px 4px rgba(53,30,40,0.05);
+    --shadow-md: 0 4px 16px rgba(53,30,40,0.07);
+    --shadow-lg: 0 8px 32px rgba(53,30,40,0.09);
+    --card: var(--bg-card);
+    --coral: var(--primary);
+    --ink: var(--text);
+    --accent-coral: var(--primary);
+    --accent-amber: #D4A853;
+    --accent-teal: #7CAE9E;
+    --accent-purple: #8B6E9B;
+    --accent-blue: #6B8EAE;
+    --accent-green: #7CAE82;
+    --accent-green-light: #EFF5F0;
+    --border-green: #D8E5DA;
+    --accent-orange: #C48A3F;
+    --accent-amber-light: #F2E6C9;
+    --accent-coral-vivid: var(--primary);
+    --accent-amber-vivid: #C8962E;
+    --accent-teal-vivid: #5B9E8C;
+    --accent-purple-vivid: #7B5E8E;
+    --paper-cream: #FFFDF9;
+    --paper-warm: #FBF6EE;
+    --paper-rose: #FFF8F6;
+    --ink-deep: #1E1E1E;
+  }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; }
 body {
@@ -122,7 +128,7 @@ img { max-width: 100%; }
 }
 .tier-badge.free { background: #F0F0F0; color: #888; }
 .tier-badge.pro {
-  background: linear-gradient(135deg, #FF6B6B, #E85858); color: white;
+  background: linear-gradient(135deg, #FF5C34, #E04820); color: white;
   border-radius: 3px; box-shadow: 0 2px 8px rgba(255,107,107,0.3);
 }
 .user-menu {
@@ -309,7 +315,6 @@ img { max-width: 100%; }
 #writersCard { border-top-color: var(--accent-amber-vivid); }
 #booksCard { border-top-color: var(--accent-teal-vivid); }
 .stretch-card { border-top-color: var(--accent-green) !important; }
-#activityCard { border-top-color: var(--accent-blue); }
 #shareCard { border-top-color: var(--accent-amber); }
 .card-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -547,7 +552,7 @@ img { max-width: 100%; }
 }
 .btn:active { transform: scale(0.98); }
 .btn-primary {
-  background: linear-gradient(135deg, #FF6B6B, #E85858);
+  background: linear-gradient(135deg, #FF5C34, #E04820);
   color: white; box-shadow: 0 3px 12px rgba(255,107,107,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 .btn-primary::before {
@@ -720,6 +725,83 @@ body.is-pro .tier-free-only {
   font-size: 0.85rem; letter-spacing: 0.3em;
 }
 
+/* ===== EVOLUTION TIMELINE STRIP ===== */
+.evo-track {
+  display: flex; align-items: flex-end; gap: 0;
+  padding: 24px 0 8px; overflow-x: auto;
+}
+.evo-stop {
+  display: flex; flex-direction: column; align-items: center;
+  flex: 1; min-width: 80px; position: relative;
+}
+.evo-dot-label {
+  text-align: center; margin-bottom: 8px;
+}
+.evo-dot-profile {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 0.82rem; text-transform: capitalize; margin-bottom: 2px;
+}
+.evo-dot-stance {
+  font-size: 0.7rem; color: var(--text-muted); text-transform: capitalize;
+}
+.evo-dot-time {
+  font-size: 0.7rem; color: var(--text-light); margin-top: 2px;
+}
+.evo-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  position: relative; z-index: 2; flex-shrink: 0;
+}
+.evo-stop-latest .evo-dot {
+  width: 18px; height: 18px;
+}
+.evo-dot-inner {
+  position: absolute; inset: 3px; background: white;
+  border-radius: 50%;
+}
+.evo-line {
+  position: absolute; top: 50%; right: -50%;
+  width: 100%; height: 2px;
+  background: var(--border); z-index: 1;
+  transform: translateY(7px);
+}
+.evo-footer {
+  display: flex; justify-content: space-between;
+  font-size: 0.78rem; color: var(--text-muted);
+  margin-top: 12px; padding-top: 10px;
+  border-top: 1px solid var(--border-light);
+}
+.evo-consistency { font-weight: 600; }
+.evo-scores {
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+.evo-scores-title {
+  font-size: 0.72rem; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.evo-bar-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 6px;
+}
+.evo-bar-label {
+  font-size: 0.72rem; color: var(--text-muted);
+  text-transform: capitalize; width: 88px;
+  flex-shrink: 0; text-align: right;
+}
+.evo-bar-track {
+  flex: 1; height: 6px; background: var(--border-light);
+  border-radius: 3px; overflow: hidden;
+}
+.evo-bar-fill {
+  height: 100%; border-radius: 3px;
+  transition: width 0.6s ease;
+}
+.evo-bar-value {
+  font-size: 0.7rem; color: var(--text-muted);
+  width: 24px; text-align: right; flex-shrink: 0;
+}
+
 /* ===== SHIMMER KEYFRAME ===== */
 @keyframes shimmerSlide {
   from { left: -100%; }
@@ -754,7 +836,7 @@ body.is-pro .tier-free-only {
       <path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
       <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
       <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/>
-      <path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF6B6B"/>
+      <path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF5C34"/>
       <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
       <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
       <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
@@ -762,7 +844,7 @@ body.is-pro .tier-free-only {
       <circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/>
       <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
     </svg>
-    <span>Quir<span style="color:#FF6B6B">re</span><span style="font-style:italic;font-weight:500">ly</span></span>
+    <span>Quir<span style="color:#FF5C34">re</span><span style="font-style:italic;font-weight:500">ly</span></span>
   </a>
   <nav class="header-nav">
     <a href="/dashboard" class="active">Dashboard</a>
@@ -1006,20 +1088,6 @@ body.is-pro .tier-free-only {
       <a href="/billing/" class="upgrade-cta" id="upgradeCtaLink">Go Pro</a>
     </div>
 
-    <!-- Recent Activity -->
-    <div class="card" id="activityCard">
-      <div class="card-header">
-        <span class="card-title">Recent Activity</span>
-      </div>
-      <div class="activity-list" id="activityList">
-        <div class="evolution-empty" id="noActivity">
-          <div style="text-align:center;">
-            <div style="margin-bottom:8px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-            <p>No activity yet. <a href="/">Take a test</a> to get started.</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Share Profile -->
     <div class="card share-card" id="shareCard">
@@ -1066,7 +1134,7 @@ body.is-pro .tier-free-only {
 
 // ===== STYLE DATA =====
 const STYLE_COLORS = {
-  assertive: ['#FF6B6B', '#E85555'],
+  assertive: ['#FF5C34', '#E04820'],
   minimal: ['#6B8EAE', '#5A7D9D'],
   poetic: ['#8B6E9B', '#7A5D8A'],
   analytical: ['#7CAE9E', '#6B9D8D'],
@@ -1110,130 +1178,143 @@ const PROFILE_DISPLAY = {
   parenthetical:  { title: 'The Aside Artist',       icon: '⟨⟩' },
 };
 
+const PROFILE_DISPLAY_BY_STANCE = {
+  assertive:      { open: 'The Direct Voice',          closed: 'The Confident Verdict',      balanced: 'The Measured Advocate',       contradictory: 'The Restless Challenger' },
+  minimal:        { open: 'The Quiet Observer',         closed: 'The Spare Absolutist',       balanced: 'The Careful Understater',     contradictory: 'The Silent Contrarian' },
+  poetic:         { open: 'The Fragment Weaver',        closed: 'The Sealed Lyricist',        balanced: 'The Melodic Thinker',         contradictory: 'The Broken Sonneteer' },
+  dense:          { open: 'The Layered Thinker',        closed: 'The Closed System',          balanced: 'The Considered Architect',    contradictory: 'The Tangled Theorist' },
+  conversational: { open: 'The Voice in the Room',      closed: 'The Opinionated Friend',     balanced: 'The Even-Keeled Storyteller', contradictory: 'The Ambivalent Confessor' },
+  interrogative:  { open: 'The Questioner',             closed: 'The Skeptic',                balanced: 'The Careful Inquirer',        contradictory: 'The Doubting Voice' },
+  hedged:         { open: 'The Careful Scholar',        closed: 'The Reluctant Authority',    balanced: 'The Measured Equivocator',    contradictory: 'The Uncertain Sage' },
+  formal:         { open: 'The Considered Essayist',    closed: 'The Authoritative Voice',    balanced: 'The Disciplined Thinker',     contradictory: 'The Formal Dissenter' },
+  longform:       { open: 'The Sentence Builder',       closed: 'The Exhaustive Chronicler',  balanced: 'The Patient Explicator',      contradictory: 'The Labyrinthine Mind' },
+  balanced:       { open: 'The Fair Witness',           closed: 'The Principled Moderator',   balanced: 'The Centred Voice',           contradictory: 'The Torn Observer' },
+};
+
 const WRITERS_BY_STYLE = {
-  conversational: [
-    { name: 'Nora Ephron', note: 'Warm, witty, effortlessly personal' },
-    { name: 'David Sedaris', note: 'Dry humor meets everyday storytelling' },
-    { name: 'Roxane Gay', note: 'Candid cultural commentary' },
-    { name: 'Samantha Irby', note: 'Unfiltered, hilarious honesty' },
-    { name: 'Sloane Crosley', note: 'Sharp wit meets self-deprecation' }
-  ],
-  assertive: [
-    { name: 'Christopher Hitchens', note: 'Fearless intellectual provocation' },
-    { name: 'Ta-Nehisi Coates', note: 'Uncompromising moral clarity' },
-    { name: 'Joan Didion', note: 'Precise, unflinching observation' },
-    { name: 'Rebecca Solnit', note: 'Fierce clarity on power and place' },
-    { name: 'Roxane Gay', note: 'Bold, unapologetic cultural voice' }
-  ],
-  poetic: [
-    { name: 'Ocean Vuong', note: 'Lyrical, deeply felt prose' },
-    { name: 'Maggie Nelson', note: 'Blurs poetry and philosophy' },
-    { name: 'Mary Oliver', note: 'Nature as spiritual practice' },
-    { name: 'Claudia Rankine', note: 'Poetic excavation of race and self' },
-    { name: 'Anne Carson', note: 'Fragments that fracture meaning' }
-  ],
-  analytical: [
-    { name: 'Malcolm Gladwell', note: 'Makes complexity accessible' },
-    { name: 'Atul Gawande', note: 'Medical precision meets humanity' },
-    { name: 'Nate Silver', note: 'Data-driven storytelling' },
-    { name: 'Steven Pinker', note: 'Rigorous optimism, wide-lens thinking' },
-    { name: 'Mary Roach', note: 'Curious science with deadpan wit' }
-  ],
-  minimal: [
-    { name: 'Raymond Carver', note: 'Says everything with nothing' },
-    { name: 'Ernest Hemingway', note: 'The iceberg theory master' },
-    { name: 'Amy Hempel', note: 'Brevity as emotional force' },
-    { name: 'Lydia Davis', note: 'Entire worlds in a single sentence' },
-    { name: 'Denis Johnson', note: 'Spare, hallucinatory precision' }
-  ],
-  provocative: [
-    { name: 'Hunter S. Thompson', note: 'Gonzo journalism pioneer' },
-    { name: 'Chuck Palahniuk', note: 'Transgressive, visceral, unforgettable' },
-    { name: 'Bret Easton Ellis', note: 'Detached cultural critique' },
-    { name: 'Ottessa Moshfegh', note: 'Discomfort as dark comedy' },
-    { name: 'Dennis Cooper', note: 'Transgressive minimalist intensity' }
-  ],
-  reflective: [
-    { name: 'Marilynne Robinson', note: 'Deep spiritual contemplation' },
-    { name: 'Pico Iyer', note: 'Stillness in a moving world' },
-    { name: 'Annie Dillard', note: 'Mystical nature observation' },
-    { name: 'Wendell Berry', note: 'Rooted, unhurried contemplation' },
-    { name: 'Tara Westover', note: 'Memory as self-discovery' }
-  ],
-  technical: [
-    { name: 'Paul Graham', note: 'Startup wisdom, clear thinking' },
-    { name: 'Cal Newport', note: 'Deep work philosophy' },
-    { name: 'James Clear', note: 'Systems over goals' },
-    { name: 'Kathy Sierra', note: 'User-first technical clarity' },
-    { name: 'Julia Evans', note: 'Joyful, visual systems thinking' }
-  ],
-  narrative: [
-    { name: 'Chimamanda Ngozi Adichie', note: 'Vivid, sweeping storytelling' },
-    { name: 'Anthony Bourdain', note: 'Food as cultural journey' },
-    { name: 'Jon Krakauer', note: 'Adventure as human drama' },
-    { name: 'Isabel Wilkerson', note: 'History told through human lives' },
-    { name: 'Patrick Radden Keefe', note: 'Obsessive investigative storytelling' }
-  ],
-  persuasive: [
-    { name: 'Brené Brown', note: 'Vulnerability as strength' },
-    { name: 'Simon Sinek', note: 'Start with Why framework' },
-    { name: 'Seth Godin', note: 'Marketing as art form' },
-    { name: 'Chimamanda Ngozi Adichie', note: 'Passionate feminist conviction' },
-    { name: 'Ta-Nehisi Coates', note: 'Moral urgency in every sentence' }
-  ]
+  assertive: {
+    open:          [ {name:'Christopher Hitchens',note:'Fearless intellectual provocation'}, {name:'Ta-Nehisi Coates',note:'Uncompromising moral clarity'}, {name:'Rebecca Solnit',note:'Fierce clarity on power and place'}, {name:'Roxane Gay',note:'Bold, unapologetic cultural voice'}, {name:'Lindy West',note:'Righteous wit, zero apology'} ],
+    closed:        [ {name:'George Orwell',note:'Certainty as discipline'}, {name:'Christopher Hitchens',note:'No exits, no hedges'}, {name:'Ta-Nehisi Coates',note:'Conviction that does not flinch'}, {name:'Toni Morrison',note:'Authority that needs no permission'}, {name:'James Baldwin',note:'Moral certitude, lyric fire'} ],
+    balanced:      [ {name:'Joan Didion',note:'Precise, unflinching observation'}, {name:'Ta-Nehisi Coates',note:'Moral urgency held in careful prose'}, {name:'Zadie Smith',note:'Argues without losing nuance'}, {name:'Teju Cole',note:'Conviction tempered by curiosity'}, {name:'Hilary Mantel',note:'Authoritative yet deeply human'} ],
+    contradictory: [ {name:'Zadie Smith',note:'Argues against her own positions'}, {name:'David Foster Wallace',note:'Earnestness wrestling with irony'}, {name:'Maggie Nelson',note:'Certainty and doubt in same breath'}, {name:'Geoff Dyer',note:'Takes strong stances, then undoes them'}, {name:'Leslie Jamison',note:'Conviction that keeps questioning itself'} ]
+  },
+  minimal: {
+    open:          [ {name:'Raymond Carver',note:'Says everything with nothing'}, {name:'Lydia Davis',note:'Entire worlds in a single sentence'}, {name:'Jenny Offill',note:'Fragments that breathe'}, {name:'Diane Williams',note:'Compressed, unsettling precision'}, {name:'Gary Lutz',note:'Syntax stripped to bone'} ],
+    closed:        [ {name:'Ernest Hemingway',note:'The iceberg theory master'}, {name:'Amy Hempel',note:'Brevity as emotional force'}, {name:'Denis Johnson',note:'Spare, hallucinatory precision'}, {name:'Sam Shepard',note:'Hard surfaces, no decoration'}, {name:'Joy Williams',note:'Blunt, elliptical, devastating'} ],
+    balanced:      [ {name:'Marilynne Robinson',note:'Economy that contains multitudes'}, {name:'Penelope Fitzgerald',note:'Minimal words, maximum implication'}, {name:'Tove Jansson',note:'Quiet exactness'}, {name:'Alice Munro',note:'Dense restraint across long arcs'}, {name:'Joan Silber',note:'Years compressed into paragraphs'} ],
+    contradictory: [ {name:'Samuel Beckett',note:'Negation as form'}, {name:'Thomas Bernhard',note:'Repetition that contradicts itself'}, {name:'Lydia Davis',note:'Logic turned against logic'}, {name:'Nathalie Sarraute',note:'The unsaid fighting the said'}, {name:'Anne Carson',note:'Fragments in productive tension'} ]
+  },
+poetic: {
+    open:          [ {name:'Ocean Vuong',note:'Lyrical, deeply felt prose'}, {name:'Ross Gay',note:'Delight as radical openness'}, {name:'Claudia Rankine',note:'Poetic excavation of race and self'}, {name:'Robin Wall Kimmerer',note:'Science as ceremony'}, {name:'Mary Oliver',note:'Nature as spiritual invitation'} ],
+    closed:        [ {name:'Anne Carson',note:'Fragments that fracture meaning'}, {name:'Claudia Rankine',note:'Form as controlled grief'}, {name:'Terrance Hayes',note:'Constraint as poetic engine'}, {name:'Layli Long Soldier',note:'Language under structural pressure'}, {name:'Natalie Diaz',note:'The body as closed argument'} ],
+    balanced:      [ {name:'Maggie Nelson',note:'Blurs poetry and philosophy'}, {name:'Eliot Weinberger',note:'Essay as measured lyric'}, {name:'Barry Lopez',note:'Landscape as emotional fact'}, {name:'Gretel Ehrlich',note:'Place and person in balance'}, {name:'W.S. Merwin',note:'Clarity within deep lyricism'} ],
+    contradictory: [ {name:'Anne Carson',note:'Classical form, radical rupture'}, {name:'Maggie Nelson',note:'Theory and feeling at war'}, {name:'Claudia Rankine',note:'Beauty and rage in same line'}, {name:'Bhanu Kapil',note:'Fragments resist resolution'}, {name:'Camille Dungy',note:'Elegy that refuses consolation'} ]
+  },
+  dense: {
+    open:          [ {name:'Toni Morrison',note:'Layered language, mythic weight'}, {name:'Zadie Smith',note:'Rich texture, sociological eye'}, {name:'Roberto Bolaño',note:'Sprawling, digressive, hypnotic'}, {name:'Marilynne Robinson',note:'Theological density, infinite patience'}, {name:'W.G. Sebald',note:'Memory and image interwoven'} ],
+    closed:        [ {name:'David Foster Wallace',note:'Obsessive density, footnoted thought'}, {name:'Vladimir Nabokov',note:'Intricate prose as performance'}, {name:'Thomas Pynchon',note:'Dense systems with no exits'}, {name:'William Gaddis',note:'Relentless, unapologetic difficulty'}, {name:'Don DeLillo',note:'Paranoid precision, hermetic vision'} ],
+    balanced:      [ {name:'Zadie Smith',note:'Complexity served with clarity'}, {name:'Colm Tóibín',note:'Dense emotion, accessible surface'}, {name:'Michael Ondaatje',note:'Rich prose that rewards patience'}, {name:'Hilary Mantel',note:'Historical density made vivid'}, {name:'Ian McEwan',note:'Psychological weight, clean line'} ],
+    contradictory: [ {name:'David Foster Wallace',note:'Sincerity and irony at maximum density'}, {name:'Anne Carson',note:'Dense learning, radical fragmentation'}, {name:'Clarice Lispector',note:'Interior density that resists meaning'}, {name:'László Krasznahorkai',note:'Sentences that loop and contradict'}, {name:'Roberto Bolaño',note:'Encyclopedic yet always undermining itself'} ]
+  },
+conversational: {
+    open:          [ {name:'Nora Ephron',note:'Warm, witty, effortlessly personal'}, {name:'David Sedaris',note:'Dry humor meets everyday storytelling'}, {name:'Roxane Gay',note:'Candid cultural commentary'}, {name:'Samantha Irby',note:'Unfiltered, hilarious honesty'}, {name:'Sloane Crosley',note:'Sharp wit meets self-deprecation'} ],
+    closed:        [ {name:'Fran Lebowitz',note:'Opinions delivered as settled facts'}, {name:'David Sedaris',note:'Observation with no room for rebuttal'}, {name:'Samantha Irby',note:'Confessional with firm edges'}, {name:'Lindy West',note:'Conversational but immovable'}, {name:'Nora Ephron',note:'Warm certainty, no wobble'} ],
+    balanced:      [ {name:'David Sedaris',note:'Sees all sides through humor'}, {name:'Anne Lamott',note:'Honest about her own contradictions'}, {name:'Michael Paterniti',note:'Personal voice, generous perspective'}, {name:'John Jeremiah Sullivan',note:'Casual tone, genuine curiosity'}, {name:'Wells Tower',note:'Self-aware without self-absorption'} ],
+    contradictory: [ {name:'David Sedaris',note:'Undermines himself mid-story'}, {name:'Sloane Crosley',note:'Sets up then subverts expectations'}, {name:'Samantha Irby',note:'Confident voice, chaotic logic'}, {name:'Jenny Zhang',note:'Switches registers without warning'}, {name:'Durga Chew-Bose',note:'Conversational digression as form'} ]
+  },
+  formal: {
+    open:          [ {name:'George Orwell',note:'Clarity as political act'}, {name:'James Baldwin',note:'Formal grace, moral fire'}, {name:'Susan Sontag',note:'Rigorous cultural criticism'}, {name:'Edmund Wilson',note:'Authoritative literary intelligence'}, {name:'V.S. Naipaul',note:'Formal precision, unsparing eye'} ],
+    closed:        [ {name:'Edmund Wilson',note:'Critical authority, no concessions'}, {name:'Susan Sontag',note:'Positions held with full conviction'}, {name:'F.R. Leavis',note:'Formal judgment as moral duty'}, {name:'Lionel Trilling',note:'Criticism as settled cultural verdict'}, {name:'George Steiner',note:'Erudition as closed system'} ],
+    balanced:      [ {name:'Joan Didion',note:'Formal structure, open observation'}, {name:'James Baldwin',note:'Precision that invites rather than excludes'}, {name:'Zadie Smith',note:'Formal essay mode, generous conclusions'}, {name:'John Updike',note:'Craft held lightly'}, {name:'Marilynne Robinson',note:'Formal register, theological openness'} ],
+    contradictory: [ {name:'Roland Barthes',note:'Formal method, perpetual self-undoing'}, {name:'Susan Sontag',note:'Argues against her own earlier positions'}, {name:'James Baldwin',note:'Formal sentences containing impossible tensions'}, {name:'Walter Benjamin',note:'Aphorism as unresolved fragment'}, {name:'Theodor Adorno',note:'Dialectic that refuses synthesis'} ]
+  },
+interrogative: {
+    open:          [ {name:'Rebecca Solnit',note:'Questions power through wandering thought'}, {name:'Maggie Nelson',note:'Blurs poetry, theory, autobiography'}, {name:'Geoff Dyer',note:'Genre-defying, restless inquiry'}, {name:'Saidiya Hartman',note:'History as open wound and question'}, {name:'Teju Cole',note:'Curious without needing to conclude'} ],
+    closed:        [ {name:'David Shields',note:'Reality hunger, collage thinking'}, {name:'Zadie Smith',note:'Essays that circle without settling'}, {name:'Wayne Koestenbaum',note:'Questions as the only honest form'}, {name:'Chris Kraus',note:'Interrogation with no safe exits'}, {name:'Hilton Als',note:'Identity questioned from every angle'} ],
+    balanced:      [ {name:'Claudia Rankine',note:'Questions held in formal structure'}, {name:'Leslie Jamison',note:'Inquiry balanced with careful argument'}, {name:'Elif Batuman',note:'Curious, rigorous, fair to complexity'}, {name:'Aleksandar Hemon',note:'Questions that respect what they examine'}, {name:'Pankaj Mishra',note:'Interrogative but grounds conclusions'} ],
+    contradictory: [ {name:'Maggie Nelson',note:'Each answer opens three more questions'}, {name:'Anne Carson',note:'Interrogation that contradicts its premises'}, {name:'Bhanu Kapil',note:'Questions that refuse their own frames'}, {name:'Claudia Rankine',note:'Asks and simultaneously doubts the asking'}, {name:'Fred Moten',note:'Inquiry as productive undoing'} ]
+  },
+  hedged: {
+    open:          [ {name:'Oliver Sacks',note:'Clinical wonder, careful humility'}, {name:'Alain de Botton',note:'Philosophy rendered approachable'}, {name:'Teju Cole',note:'Quiet, precise, perpetually provisional'}, {name:'Tim Robinson',note:'Meticulous, open to revision'}, {name:'Robert Macfarlane',note:'Tentative steps into deep knowledge'} ],
+    closed:        [ {name:'Marilynne Robinson',note:'Deep spiritual contemplation'}, {name:'Adam Phillips',note:'Psychoanalytic maybe, essay as pause'}, {name:'W.G. Sebald',note:'Hedged narration, sealed melancholy'}, {name:'J.M. Coetzee',note:'Withholding as moral position'}, {name:'Penelope Fitzgerald',note:'Saying less than she knows'} ],
+    balanced:      [ {name:'Oliver Sacks',note:'Uncertainty held with warmth'}, {name:'Atul Gawande',note:'Medical humility, balanced conclusions'}, {name:'Adam Phillips',note:'Hedging as intellectual honesty'}, {name:'Svetlana Alexievich',note:'Lets voices hedge for her'}, {name:'Elizabeth Kolbert',note:'Science reported with appropriate doubt'} ],
+    contradictory: [ {name:'Adam Phillips',note:'Every hedge contradicts the last'}, {name:'Roland Barthes',note:'Provisional statements undone by next paragraph'}, {name:'Maggie Nelson',note:'Tentative but will not stop pushing'}, {name:'Wayne Koestenbaum',note:'Qualifies until meaning dissolves'}, {name:'Anne Carson',note:'Hedged form, radical content'} ]
+  },
+parallel: {
+    open:          [ {name:'Joan Didion',note:'Parallelism as incantation'}, {name:'James Baldwin',note:'Rhythmic, sermon-cadenced repetition'}, {name:'Ursula K. Le Guin',note:'Balanced dualities, paired ideas'}, {name:'Annie Dillard',note:'Repeating motifs that accumulate meaning'}, {name:'Robin Wall Kimmerer',note:'Structure mirrors natural cycles'} ],
+    closed:        [ {name:'James Baldwin',note:'Parallel clauses as moral hammer'}, {name:'Martin Luther King Jr.',note:'Anaphora as sealed argument'}, {name:'Toni Morrison',note:'Repetition as ritual closure'}, {name:'Joan Didion',note:'Lists that lock the world in place'}, {name:'Marilynne Robinson',note:'Syntactic mirroring as theological form'} ],
+    balanced:      [ {name:'Ursula K. Le Guin',note:'Parallel structures held in equilibrium'}, {name:'Walter Murch',note:'Mirrored systems thinking'}, {name:'Annie Dillard',note:'Recurring images balanced across a piece'}, {name:'John McPhee',note:'Structural symmetry, open conclusions'}, {name:'Barry Lopez',note:'Nature and culture in careful parallel'} ],
+    contradictory: [ {name:'Walt Whitman',note:'Parallel lists that contradict themselves'}, {name:'Anne Carson',note:'Mirrored forms with mismatched content'}, {name:'David Foster Wallace',note:'Parallel structure ironising itself'}, {name:'Claudia Rankine',note:'Formal repetition, destabilised meaning'}, {name:'Maggie Nelson',note:'Symmetry broken at the exact right moment'} ]
+  },
+  longform: {
+    open:          [ {name:'John McPhee',note:'The master of the long arc'}, {name:'David Grann',note:'Obsessive research, page-turning prose'}, {name:'Robert Macfarlane',note:'Deep time, open curiosity'}, {name:'Rebecca Solnit',note:'Long form as wandering thought'}, {name:'Elizabeth Kolbert',note:'Science unfolded with patience'} ],
+    closed:        [ {name:'Robert Caro',note:'Exhaustive, monumental biography'}, {name:'Lawrence Wright',note:'Deep investigation, vivid narrative'}, {name:'Erik Larson',note:'History as immersive thriller'}, {name:'Katherine Boo',note:'Immersion journalism, no loose ends'}, {name:'Patrick Radden Keefe',note:'Obsessive reporting, sealed verdicts'} ],
+    balanced:      [ {name:'John McPhee',note:'Deep reporting, unhurried clarity'}, {name:'Michael Lewis',note:'Long narrative, fair to all sides'}, {name:'Atul Gawande',note:'Extended argument, generous conclusions'}, {name:'Isabel Wilkerson',note:'History told through human lives'}, {name:'David Grann',note:'Thorough yet lets reader judge'} ],
+    contradictory: [ {name:'W.G. Sebald',note:'Long form that undermines its own narrative'}, {name:'Roberto Bolaño',note:'Epic structure, digressive undoing'}, {name:'David Foster Wallace',note:'Longform that questions why it is long'}, {name:'László Krasznahorkai',note:'Endless sentences resisting conclusion'}, {name:'Thomas Bernhard',note:'Extended monologue eating itself'} ]
+  }
 };
 
 const BOOKS_BY_STYLE = {
-  conversational: [
-    { title: 'I Feel Bad About My Neck', author: 'Nora Ephron', isbn: '9780307276827' },
-    { title: 'Me Talk Pretty One Day', author: 'David Sedaris', isbn: '9780316776967' },
-    { title: 'Wow, No Thank You', author: 'Samantha Irby', isbn: '9780525563488' }
-  ],
-  assertive: [
-    { title: 'Between the World and Me', author: 'Ta-Nehisi Coates', isbn: '9780451482211' },
-    { title: 'The Year of Magical Thinking', author: 'Joan Didion', isbn: '9781400078431' },
-    { title: 'Men We Reaped', author: 'Jesmyn Ward', isbn: '9781608195213' }
-  ],
-  poetic: [
-    { title: 'On Earth We\'re Briefly Gorgeous', author: 'Ocean Vuong', isbn: '9780525562023' },
-    { title: 'Bluets', author: 'Maggie Nelson', isbn: '9781933517407' },
-    { title: 'Citizen', author: 'Claudia Rankine', isbn: '9781555976903' }
-  ],
-  analytical: [
-    { title: 'Outliers', author: 'Malcolm Gladwell', isbn: '9780316017930' },
-    { title: 'Being Mortal', author: 'Atul Gawande', isbn: '9780805095159' },
-    { title: 'Stiff', author: 'Mary Roach', isbn: '9780393324822' }
-  ],
-  minimal: [
-    { title: 'What We Talk About When We Talk About Love', author: 'Raymond Carver', isbn: '9780679723059' },
-    { title: 'The Old Man and the Sea', author: 'Ernest Hemingway', isbn: '9780684801223' },
-    { title: 'The Collected Stories of Lydia Davis', author: 'Lydia Davis', isbn: '9780312655396' }
-  ],
-  provocative: [
-    { title: 'Fear and Loathing in Las Vegas', author: 'Hunter S. Thompson', isbn: '9780679785897' },
-    { title: 'Fight Club', author: 'Chuck Palahniuk', isbn: '9780393327342' },
-    { title: 'My Year of Rest and Relaxation', author: 'Ottessa Moshfegh', isbn: '9780525522133' }
-  ],
-  reflective: [
-    { title: 'Gilead', author: 'Marilynne Robinson', isbn: '9780312424404' },
-    { title: 'The Art of Stillness', author: 'Pico Iyer', isbn: '9781476784724' },
-    { title: 'Pilgrim at Tinker Creek', author: 'Annie Dillard', isbn: '9780061233326' }
-  ],
-  technical: [
-    { title: 'Hackers & Painters', author: 'Paul Graham', isbn: '9781449389550' },
-    { title: 'Deep Work', author: 'Cal Newport', isbn: '9781455586691' },
-    { title: 'Atomic Habits', author: 'James Clear', isbn: '9780735211292' }
-  ],
-  narrative: [
-    { title: 'Americanah', author: 'Chimamanda Ngozi Adichie', isbn: '9780307455925' },
-    { title: 'Kitchen Confidential', author: 'Anthony Bourdain', isbn: '9780060899226' },
-    { title: 'The Warmth of Other Suns', author: 'Isabel Wilkerson', isbn: '9780679763888' }
-  ],
-  persuasive: [
-    { title: 'Daring Greatly', author: 'Brené Brown', isbn: '9781592408412' },
-    { title: 'Start with Why', author: 'Simon Sinek', isbn: '9781591846444' },
-    { title: 'Daring Greatly', author: 'Brené Brown', isbn: '9781592408412' }
-  ]
+  assertive: {
+    open:          [ {title:'Between the World and Me',author:'Ta-Nehisi Coates',isbn:'9780451482211'}, {title:'The Fire Next Time',author:'James Baldwin',isbn:'9780679744726'}, {title:'Men We Reaped',author:'Jesmyn Ward',isbn:'9781608195213'} ],
+    closed:        [ {title:'Homage to Catalonia',author:'George Orwell',isbn:'9780156421171'}, {title:'No Longer Human',author:'Osamu Dazai',isbn:'9780811204811'}, {title:'The Collected Essays of James Baldwin',author:'James Baldwin',isbn:'9780679745174'} ],
+    balanced:      [ {title:'The Year of Magical Thinking',author:'Joan Didion',isbn:'9781400078431'}, {title:'Feel Free',author:'Zadie Smith',isbn:'9780143131434'}, {title:'Known and Strange Things',author:'Teju Cole',isbn:'9780812988833'} ],
+    contradictory: [ {title:'Consider the Lobster',author:'David Foster Wallace',isbn:'9780316156110'}, {title:'The Argonauts',author:'Maggie Nelson',isbn:'9781555977351'}, {title:'Otherwise Known as the Human Condition',author:'Geoff Dyer',isbn:'9781555976118'} ]
+  },
+  minimal: {
+    open:          [ {title:'What We Talk About When We Talk About Love',author:'Raymond Carver',isbn:'9780679723059'}, {title:'Dept. of Speculation',author:'Jenny Offill',isbn:'9780345807878'}, {title:'Varieties of Disturbance',author:'Lydia Davis',isbn:'9780374530976'} ],
+    closed:        [ {title:'The Old Man and the Sea',author:'Ernest Hemingway',isbn:'9780684801223'}, {title:'At the Bottom of the River',author:'Jamaica Kincaid',isbn:'9780374522636'}, {title:'Jesus\' Son',author:'Denis Johnson',isbn:'9780374174444'} ],
+    balanced:      [ {title:'Gilead',author:'Marilynne Robinson',isbn:'9780312424404'}, {title:'The Gate',author:'Natsume Soseki',isbn:'9780231157124'}, {title:'The Collected Stories of Lydia Davis',author:'Lydia Davis',isbn:'9780312655396'} ],
+    contradictory: [ {title:'Worstward Ho',author:'Samuel Beckett',isbn:'9780802150240'}, {title:'Correction',author:'Thomas Bernhard',isbn:'9780679724109'}, {title:'Autobiography of Red',author:'Anne Carson',isbn:'9780375701290'} ]
+  },
+  poetic: {
+    open:          [ {title:'On Earth We\'re Briefly Gorgeous',author:'Ocean Vuong',isbn:'9780525562023'}, {title:'Braiding Sweetgrass',author:'Robin Wall Kimmerer',isbn:'9781571313560'}, {title:'Citizen',author:'Claudia Rankine',isbn:'9781555976903'} ],
+    closed:        [ {title:'Bluets',author:'Maggie Nelson',isbn:'9781933517407'}, {title:'Whereas',author:'Layli Long Soldier',isbn:'9781555977672'}, {title:'Nox',author:'Anne Carson',isbn:'9781567923735'} ],
+    balanced:      [ {title:'The Rings of Saturn',author:'W.G. Sebald',isbn:'9780811214131'}, {title:'Upstream',author:'Mary Oliver',isbn:'9781594206702'}, {title:'An Intimate History of Humanity',author:'Theodore Zeldin',isbn:'9780060975425'} ],
+    contradictory: [ {title:'Autobiography of Red',author:'Anne Carson',isbn:'9780375701290'}, {title:'Don\'t Let Me Be Lonely',author:'Claudia Rankine',isbn:'9781555973452'}, {title:'Dictee',author:'Theresa Hak Kyung Cha',isbn:'9780520261129'} ]
+  },
+dense: {
+    open:          [ {title:'Beloved',author:'Toni Morrison',isbn:'9781400033416'}, {title:'The Savage Detectives',author:'Roberto Bolaño',isbn:'9780312427481'}, {title:'The Rings of Saturn',author:'W.G. Sebald',isbn:'9780811214131'} ],
+    closed:        [ {title:'Infinite Jest',author:'David Foster Wallace',isbn:'9780316066525'}, {title:'Ada or Ardor',author:'Vladimir Nabokov',isbn:'9780679725893'}, {title:'The Recognitions',author:'William Gaddis',isbn:'9780140283495'} ],
+    balanced:      [ {title:'NW',author:'Zadie Smith',isbn:'9780143123934'}, {title:'The English Patient',author:'Michael Ondaatje',isbn:'9780679745204'}, {title:'Wolf Hall',author:'Hilary Mantel',isbn:'9780312429980'} ],
+    contradictory: [ {title:'The Pale King',author:'David Foster Wallace',isbn:'9780316074230'}, {title:'The Passion According to G.H.',author:'Clarice Lispector',isbn:'9780816616985'}, {title:'Satantango',author:'László Krasznahorkai',isbn:'9780811220255'} ]
+  },
+  conversational: {
+    open:          [ {title:'I Feel Bad About My Neck',author:'Nora Ephron',isbn:'9780307276827'}, {title:'Me Talk Pretty One Day',author:'David Sedaris',isbn:'9780316776967'}, {title:'Wow No Thank You',author:'Samantha Irby',isbn:'9780525563488'} ],
+    closed:        [ {title:'Metropolitan Life',author:'Fran Lebowitz',isbn:'9780452254725'}, {title:'Naked',author:'David Sedaris',isbn:'9780316777728'}, {title:'We Are Never Meeting in Real Life',author:'Samantha Irby',isbn:'9780525435129'} ],
+    balanced:      [ {title:'Bird by Bird',author:'Anne Lamott',isbn:'9780385480017'}, {title:'Travels in Siberia',author:'Ian Frazier',isbn:'9780312610180'}, {title:'Pulphead',author:'John Jeremiah Sullivan',isbn:'9780374532901'} ],
+    contradictory: [ {title:'Dress Your Family in Corduroy and Denim',author:'David Sedaris',isbn:'9780316159005'}, {title:'The Longshot',author:'Sloane Crosley',isbn:'9780374191610'}, {title:'Bestiary',author:'Donika Kelly',isbn:'9781555977542'} ]
+  },
+  formal: {
+    open:          [ {title:'Notes of a Native Son',author:'James Baldwin',isbn:'9780807006238'}, {title:'Against Interpretation',author:'Susan Sontag',isbn:'9780312280864'}, {title:'Essays',author:'George Orwell',isbn:'9780141185378'} ],
+    closed:        [ {title:'Axel\'s Castle',author:'Edmund Wilson',isbn:'9780374504236'}, {title:'The Great Tradition',author:'F.R. Leavis',isbn:'9780814250235'}, {title:'Language and Silence',author:'George Steiner',isbn:'9780300074574'} ],
+    balanced:      [ {title:'The White Album',author:'Joan Didion',isbn:'9780374532079'}, {title:'The Price of the Ticket',author:'James Baldwin',isbn:'9780312643850'}, {title:'Changing My Mind',author:'Zadie Smith',isbn:'9780143117551'} ],
+    contradictory: [ {title:'A Lover\'s Discourse',author:'Roland Barthes',isbn:'9780374521608'}, {title:'Minima Moralia',author:'Theodor Adorno',isbn:'9781844670512'}, {title:'The Origin of German Tragic Drama',author:'Walter Benjamin',isbn:'9781844670277'} ]
+  },
+interrogative: {
+    open:          [ {title:'A Field Guide to Getting Lost',author:'Rebecca Solnit',isbn:'9780143037248'}, {title:'The Argonauts',author:'Maggie Nelson',isbn:'9781555977351'}, {title:'Zona',author:'Geoff Dyer',isbn:'9780307742490'} ],
+    closed:        [ {title:'Reality Hunger',author:'David Shields',isbn:'9780307273765'}, {title:'I Love Dick',author:'Chris Kraus',isbn:'9781584350170'}, {title:'Afro Blue',author:'Hilton Als',isbn:'9780374117061'} ],
+    balanced:      [ {title:'Citizen',author:'Claudia Rankine',isbn:'9781555976903'}, {title:'The Idiot',author:'Elif Batuman',isbn:'9781594205613'}, {title:'The Question of Bruno',author:'Aleksandar Hemon',isbn:'9780375727078'} ],
+    contradictory: [ {title:'Bluets',author:'Maggie Nelson',isbn:'9781933517407'}, {title:'Autobiography of Red',author:'Anne Carson',isbn:'9780375701290'}, {title:'Stolen Life',author:'Fred Moten',isbn:'9780819574084'} ]
+  },
+  hedged: {
+    open:          [ {title:'The Man Who Mistook His Wife for a Hat',author:'Oliver Sacks',isbn:'9780684853949'}, {title:'The Consolations of Philosophy',author:'Alain de Botton',isbn:'9780679779179'}, {title:'Landmarks',author:'Robert Macfarlane',isbn:'9780241967874'} ],
+    closed:        [ {title:'Gilead',author:'Marilynne Robinson',isbn:'9780312424404'}, {title:'On Kissing Tickling and Being Bored',author:'Adam Phillips',isbn:'9780674634572'}, {title:'Disgrace',author:'J.M. Coetzee',isbn:'9780142001547'} ],
+    balanced:      [ {title:'Being Mortal',author:'Atul Gawande',isbn:'9780805095159'}, {title:'Secondhand Time',author:'Svetlana Alexievich',isbn:'9781771962056'}, {title:'The Sixth Extinction',author:'Elizabeth Kolbert',isbn:'9781250062187'} ],
+    contradictory: [ {title:'Houdini\'s Box',author:'Adam Phillips',isbn:'9780375707827'}, {title:'Camera Lucida',author:'Roland Barthes',isbn:'9780374521349'}, {title:'Plainwater',author:'Anne Carson',isbn:'9780679767473'} ]
+  },
+parallel: {
+    open:          [ {title:'Slouching Towards Bethlehem',author:'Joan Didion',isbn:'9780374521721'}, {title:'The Writing Life',author:'Annie Dillard',isbn:'9780060919558'}, {title:'The Wave in the Mind',author:'Ursula K. Le Guin',isbn:'9781570614569'} ],
+    closed:        [ {title:'The Fire Next Time',author:'James Baldwin',isbn:'9780679744726'}, {title:'Beloved',author:'Toni Morrison',isbn:'9781400033416'}, {title:'Letter to My Daughter',author:'Maya Angelou',isbn:'9780812979237'} ],
+    balanced:      [ {title:'The Sense of an Ending',author:'Frank Kermode',isbn:'9780195169768'}, {title:'In the Blink of an Eye',author:'Walter Murch',isbn:'9781879505629'}, {title:'The Control of Nature',author:'John McPhee',isbn:'9780374522827'} ],
+    contradictory: [ {title:'Leaves of Grass',author:'Walt Whitman',isbn:'9780140421996'}, {title:'Nox',author:'Anne Carson',isbn:'9781567923735'}, {title:'The Pale King',author:'David Foster Wallace',isbn:'9780316074230'} ]
+  },
+  longform: {
+    open:          [ {title:'The Pine Barrens',author:'John McPhee',isbn:'9780374514426'}, {title:'The Lost City of Z',author:'David Grann',isbn:'9781400078455'}, {title:'Under a White Sky',author:'Elizabeth Kolbert',isbn:'9780593136010'} ],
+    closed:        [ {title:'The Power Broker',author:'Robert Caro',isbn:'9780394480763'}, {title:'The Looming Tower',author:'Lawrence Wright',isbn:'9781400030842'}, {title:'Killers of the Flower Moon',author:'David Grann',isbn:'9780385541213'} ],
+    balanced:      [ {title:'The Warmth of Other Suns',author:'Isabel Wilkerson',isbn:'9780679763888'}, {title:'The Big Short',author:'Michael Lewis',isbn:'9780393338171'}, {title:'Being Mortal',author:'Atul Gawande',isbn:'9780805095159'} ],
+    contradictory: [ {title:'2666',author:'Roberto Bolaño',isbn:'9780312429218'}, {title:'The Melancholy of Resistance',author:'László Krasznahorkai',isbn:'9780811214162'}, {title:'The Rings of Saturn',author:'W.G. Sebald',isbn:'9780811214131'} ]
+  }
 };
 
 const BOOKSTORE_BY_COUNTRY = {
@@ -1482,6 +1563,47 @@ async function claimSlug() {
     showToast('Your voice profile is live!');
   } catch(ex) { showToast('Error claiming slug'); }
 }
+function shareVoiceShape() {
+  if (!_shareUrl) {
+    showToast('Claim your URL in the Share card below first');
+    const sc = document.getElementById('shareCard');
+    if (sc) sc.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const slug = _shareUrl.split('/').pop();
+  const imgUrl = '/og/users/'+slug+'.png?t='+Date.now();
+  let modal = document.getElementById('vsShareModal');
+  if (modal) { modal.style.display='flex'; return; }
+  modal = document.createElement('div');
+  modal.id = 'vsShareModal';
+  modal.style.cssText='position:fixed;inset:0;z-index:99998;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);padding:16px;';
+  modal.innerHTML='<div style="background:#fff;border-radius:16px;padding:24px;width:100%;max-width:480px;box-shadow:0 12px 48px rgba(0,0,0,0.22);position:relative;">'
+    +'<button onclick="vssClose()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#aaa;">×</button>'
+    +'<div style="font-weight:700;font-size:1.05rem;margin-bottom:4px;">Share Your Voice Shape</div>'
+    +'<div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:14px;">This card will appear when you share.</div>'
+    +'<img src="'+imgUrl+'" style="width:100%;border-radius:10px;margin-bottom:16px;border:1px solid #eee;" />'
+    +'<div style="display:flex;flex-direction:column;gap:9px;">'
+    +'<button onclick="vssCopy()" style="display:flex;align-items:center;gap:10px;padding:11px 16px;border:1.5px solid #e0dbd4;border-radius:9px;background:#faf8f5;cursor:pointer;font-size:0.92rem;">Copy link</button>'
+    +'<button onclick="vssLinkedIn()" style="padding:11px 16px;border:none;border-radius:9px;background:#0A66C2;color:#fff;cursor:pointer;font-size:0.92rem;font-weight:600;">Share on LinkedIn</button>'
+    +'<button onclick="vssFacebook()" style="padding:11px 16px;border:none;border-radius:9px;background:#1877F2;color:#fff;cursor:pointer;font-size:0.92rem;font-weight:600;">Share on Facebook</button>'
+    +'</div></div>';
+  modal.addEventListener('click', e => { if (e.target===modal) vssClose(); });
+  document.body.appendChild(modal);
+}
+
+function vssClose() { const m=document.getElementById('vsShareModal'); if(m) m.style.display='none'; }
+function vssCopy() { navigator.clipboard.writeText(_shareUrl).then(()=>{showToast('Link copied!');vssClose();}).catch(()=>showToast('Could not copy')); }
+async function vssLinkedIn() {
+  await refreshShare(true);
+  const txt = encodeURIComponent('I just discovered my writing voice on Quirrely — check it out: '+_shareUrl);
+  window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(_shareUrl)+'&summary='+txt,'_blank');
+  vssClose();
+}
+async function vssFacebook() {
+  await refreshShare(true);
+  window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(_shareUrl),'_blank');
+  vssClose();
+}
 function copyProfileLink() {
   if (!_shareUrl) { showToast('Claim your URL first'); return; }
   navigator.clipboard.writeText(_shareUrl).then(()=>showToast('Link copied!')).catch(()=>showToast('Could not copy'));
@@ -1523,8 +1645,10 @@ function renderVoiceBars(scores, voiceType, stance, displayName) {
 
   if (entries.length === 0) return;
 
-  const pd = PROFILE_DISPLAY[voiceType] || {};
-  const dominantColor = (STYLE_COLORS[entries[0][0].replace('score_', '')] || ['#FF6B6B'])[0];
+  const stanceKey = (stance || 'open').toLowerCase();
+  const pdByStance = PROFILE_DISPLAY_BY_STANCE[voiceType] || {};
+  const pd = { title: pdByStance[stanceKey] || (PROFILE_DISPLAY[voiceType] || {}).title, icon: (PROFILE_DISPLAY[voiceType] || {}).icon };
+  const dominantColor = (STYLE_COLORS[entries[0][0].replace('score_', '')] || ['#FF5C34'])[0];
 
   // Identity header
   let html = '<div class="voice-acorn-header">';
@@ -1602,13 +1726,14 @@ function renderVoiceBars(scores, voiceType, stance, displayName) {
 
 // ===== RENDER WRITERS =====
 function renderWriters(voiceType, stance) {
-  const writers = WRITERS_BY_STYLE[voiceType] || WRITERS_BY_STYLE.conversational;
+  const vt = (voiceType || 'conversational').toLowerCase();
   const st = (stance || 'open').toLowerCase();
-  const blogSlug = '/blog/how-' + voiceType + '-' + st + '-writers-write.html';
+  const writers = (WRITERS_BY_STYLE[vt] && WRITERS_BY_STYLE[vt][st]) || (WRITERS_BY_STYLE[vt] && WRITERS_BY_STYLE[vt].open) || WRITERS_BY_STYLE.conversational.open;
+  const blogSlug = '/blog/how-' + vt + '-' + st + '-writers-write.html';
   const container = document.getElementById('writerCards');
   container.innerHTML = `
     <div style="margin-bottom:12px;">
-      <a href="${blogSlug}" style="font-size:0.85rem;color:var(--primary);text-decoration:none;font-weight:500;">Read: How ${voiceType} + ${st} writers write →</a>
+      <a href="${blogSlug}" style="font-size:0.85rem;color:var(--primary);text-decoration:none;font-weight:500;">Read: How ${vt} + ${st} writers write →</a>
     </div>
   ` + writers.map(w => `
     <div class="writer-card">
@@ -1620,8 +1745,10 @@ function renderWriters(voiceType, stance) {
 }
 
 // ===== RENDER BOOKS =====
-function renderBooks(voiceType, country) {
-  const books = BOOKS_BY_STYLE[voiceType] || BOOKS_BY_STYLE.conversational;
+function renderBooks(voiceType, country, stance) {
+  const vb = (voiceType || 'conversational').toLowerCase();
+  const sb = (stance || 'open').toLowerCase();
+  const books = (BOOKS_BY_STYLE[vb] && BOOKS_BY_STYLE[vb][sb]) || (BOOKS_BY_STYLE[vb] && BOOKS_BY_STYLE[vb].open) || BOOKS_BY_STYLE.conversational.open;
   const store = getBookstore(country);
   const sub = document.getElementById('bookstoreSubtitle');
   if(sub) sub.textContent = store.flag + ' Support ' + store.name + ' bookstores';
@@ -1642,24 +1769,6 @@ function renderBooks(voiceType, country) {
   `).join('');
 }
 
-// ===== RENDER ACTIVITY =====
-function renderActivity(profiles) {
-  if (!profiles || profiles.length === 0) return;
-  const container = document.getElementById('activityList');
-  const noAct = document.getElementById('noActivity');
-  if (noAct) noAct.style.display = 'none';
-
-  const colors = ['var(--accent-coral)', 'var(--accent-teal)', 'var(--accent-amber)', 'var(--accent-purple)', 'var(--accent-blue)'];
-  container.innerHTML = profiles.slice(0, 8).map((p, i) => `
-    <div class="activity-item">
-      <div class="activity-dot" style="background:${colors[i % colors.length]};"></div>
-      <div class="activity-text">
-        Analyzed <strong>${p.word_count || '—'} words</strong> — voice: <em>${p.profile || 'unknown'}</em>
-      </div>
-      <div class="activity-time">${timeAgo(p.created_at)}</div>
-    </div>
-  `).join('');
-}
 
 // ===== RENDER STRETCH =====
 // ===== STRETCH FLOW FUNCTIONS =====
@@ -1953,33 +2062,161 @@ async function showStretchLanding(ex) {
 }
 
 // ===== RENDER EVOLUTION =====
-function renderEvolution(profiles) {
+function renderEvolution(profiles, consistency, displayName, voiceType, stance) {
   const container = document.getElementById('evolutionContent');
   if (!profiles || profiles.length < 2) return;
+  container.style.visibility='hidden';
 
+  // Chronological order (oldest first)
+  const ordered = [...profiles].reverse();
   const latest = profiles[0];
-  const earliest = profiles[profiles.length - 1];
-  container.innerHTML = `
-    <div class="evolution-timeline">
-      <div class="evolution-box">
-        <div class="evolution-box-label">First Test</div>
-        <div class="evolution-box-profile">${earliest.profile || '—'}</div>
-        <div class="evolution-box-time">${timeAgo(earliest.created_at)}</div>
-      </div>
-      <div class="evolution-arrow">→</div>
-      <div class="evolution-box latest">
-        <div class="evolution-box-label">Latest</div>
-        <div class="evolution-box-profile">${latest.profile || '—'}</div>
-        <div class="evolution-box-time">${timeAgo(latest.created_at)}</div>
-      </div>
-    </div>
-    <div class="evolution-footer">
-      ${profiles.length} tests analyzed · Voice consistency tracked over time
-    </div>
-  `;
+
+  const dots = ordered.map((p, i) => {
+    const isLatest = p.id === latest.id;
+    const profile = (p.profile || 'unknown').toLowerCase();
+    const profileDisplay = profile.charAt(0).toUpperCase() + profile.slice(1);
+    const color = (STYLE_COLORS[profile] || ['#ccc'])[0];
+    const VALID_STANCES = ['open','closed','balanced','contradictory'];
+    const stanceNorm = (p.stance || '').toLowerCase();
+    const stanceStr = VALID_STANCES.includes(stanceNorm) ? ('<div class="evo-dot-stance">'+stanceNorm+'</div>') : '';
+    return '<div class="evo-stop'+(isLatest?' evo-stop-latest':'')+'">'
+      + '<div class="evo-dot-label">'
+        + '<div class="evo-dot-profile" style="color:'+color+'">'+profileDisplay+'</div>'
+        + stanceStr
+        + '<div class="evo-dot-time">'+timeAgo(p.created_at)+'</div>'
+      + '</div>'
+      + '<div class="evo-dot" style="background:'+color+';box-shadow:0 0 0 3px '+color+'30;">'
+        + (isLatest ? '<div class="evo-dot-inner"></div>' : '')
+      + '</div>'
+      + (i < ordered.length - 1 ? '<div class="evo-line"></div>' : '')
+    + '</div>';
+  }).join('');
+
+  const consistencyColor = consistency >= 80 ? 'var(--accent-green)' : consistency >= 50 ? 'var(--accent-amber)' : 'var(--accent-coral)';
+  const consistencyLabel = consistency >= 80 ? 'Highly consistent' : consistency >= 50 ? 'Evolving' : 'Exploratory';
+  const consistencyNote = consistency >= 80
+    ? 'Your voice is settled and distinctly yours across your writing.'
+    : consistency >= 50
+    ? 'Your voice is finding its shape — some variation across your writing.'
+    : 'Your voice shifts and experiments freely across your writing.';
+
+  // Score bars for latest profile
+  const RCOLS = {assertive:'#FF5C34',minimal:'#7CAE9E',poetic:'#B08090',dense:'#8B6E9B',conversational:'#D4A853',formal:'#6B8EAE',longform:'#D4A853',interrogative:'#7CAE9E',hedged:'#B08090',balanced:'#7CAE82'};
+  const RKEYS = ['assertive','minimal','poetic','dense','conversational','formal','longform','interrogative','hedged','balanced'];
+  const scNorm = {};
+  RKEYS.forEach(k => { const v = latest['score_'+k]; scNorm[k] = (v !== null && v !== undefined) ? v : 0; });
+  const sortedSc = Object.entries(scNorm).sort((a,b)=>b[1]-a[1]);
+  const dominant = sortedSc[0][0];
+  const domColor = RCOLS[dominant] || '#FF5C34';
+  const scoresHtml = '<div class="evo-scores"><div class="evo-scores-title">My Voice Shape</div>'
+    + '<div id="vsr" style="display:flex;justify-content:center;margin:8px 0 4px"></div>'
+    + '<div id="vsl" style="display:flex;flex-wrap:wrap;gap:5px 12px;justify-content:center;margin-top:8px"></div>'
+    + '<div style="text-align:center;margin-top:16px;"><button class="share-btn" onclick="shareVoiceShape()" style="gap:6px;display:inline-flex;align-items:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share My Voice Shape</button></div>'
+    + '</div>';
+
+  const stanceKey=(stance||'open').toLowerCase();
+  const pdByStance=PROFILE_DISPLAY_BY_STANCE[voiceType]||{};
+  const pdTitle=pdByStance[stanceKey]||(PROFILE_DISPLAY[voiceType]||{}).title||'';
+  const idDomColor=(STYLE_COLORS[voiceType]||['#FF5C34'])[0];
+  const idHeader='<div class="voice-acorn-header" style="margin-bottom:16px;">'
+    +(displayName?'<div class="voice-acorn-name">'+displayName+'</div>':'')
+    +(pdTitle?'<div class="voice-acorn-title">'+pdTitle+'</div>':'')
+    +(stance?'<span class="voice-acorn-stance" style="background:'+idDomColor+'18;color:'+idDomColor+'">'+stance+'</span>':'')
+    +'</div>';
+  container.innerHTML = idHeader+'<div class="evo-track">'+dots+'</div>'
+    + '<div class="evo-footer">'
+    + '<span>'+profiles.length+' analyses</span>'
+    + '<div style="text-align:right;">'
+    + '<span class="evo-consistency" style="color:'+consistencyColor+'">'+consistencyLabel+' · '+(consistency||0)+'%</span>'
+    + '<div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">'+consistencyNote+'</div>'
+    + '</div>'
+    + '</div>'
+    + scoresHtml;
+  renderVoiceRadar(scNorm, domColor, RCOLS);
+  container.style.visibility='visible';
 }
 
 
+
+function renderVoiceRadar(SC, dm, CL) {
+  const vsrEl=document.getElementById('vsr');
+  const vslEl=document.getElementById('vsl');
+  if(!vsrEl)return;
+  const keys=Object.keys(SC),n=keys.length,R=95,ns='http://www.w3.org/2000/svg';
+  const svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','-120 -120 240 240');
+  svg.setAttribute('width','220');svg.setAttribute('height','220');
+  svg.style.overflow='visible';
+  const pt=(i,r)=>{const a=(i/n)*2*Math.PI-Math.PI/2;return[r*Math.cos(a),r*Math.sin(a)];};
+  const spts=keys.map((k,i)=>pt(i,R*(SC[k]/100)));
+  const sp=spts.map(p=>p.join(',')).join(' ');
+  [0.25,0.5,0.75,1].forEach(f=>{
+    const po=document.createElementNS(ns,'polygon');
+    po.setAttribute('points',keys.map((_,i)=>pt(i,R*f).join(',')).join(' '));
+    po.setAttribute('fill','none');po.setAttribute('stroke',f===1?'#D8D0C4':'#EDE7DC');
+    po.setAttribute('stroke-width',f===1?'1.5':'1');svg.appendChild(po);});
+  keys.forEach((_,i)=>{
+    const p=pt(i,R),ln=document.createElementNS(ns,'line');
+    ['x1','y1','x2','y2'].forEach((a,j)=>ln.setAttribute(a,[0,0,p[0],p[1]][j]));
+    ln.setAttribute('stroke','#EDE7DC');ln.setAttribute('stroke-width','1');svg.appendChild(ln);});
+  const defs=document.createElementNS(ns,'defs');
+  const cp=document.createElementNS(ns,'clipPath');cp.setAttribute('id','vc');cp.setAttribute('clipPathUnits','userSpaceOnUse');
+  const cpp=document.createElementNS(ns,'polygon');cpp.setAttribute('points',sp);cp.appendChild(cpp);defs.appendChild(cp);svg.appendChild(defs);
+  const rp=[['path','M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112','#FFFEF9','#E0DBD5','1.4'],
+    ['ellipse','','#FFFEF9','#E0DBD5','1.4',40,98,22,26],
+    ['path','M20 68 Q12 72,14 80 Q16 86,24 88 L32 86','#FFFEF9','#E0DBD5','1.8'],
+    ['path','M60 68 Q68 72,66 80 Q64 86,56 88 L48 86','#FFFEF9','#E0DBD5','1.8'],
+    ['ellipse','','#FFFEF9','','',28,86,7,5],['ellipse','','#FFFEF9','','',52,86,7,5],
+    ['ellipse','','#E85A5A','','',40,78,9,4],
+    ['path','M31 78 Q30 94,40 99 Q50 94,49 78 Z','#FF5C34','',''],
+    ['ellipse','','#FFFEF9','#E0DBD5','1.4',40,50,22,20],
+    ['ellipse','','#D4CCC4','','',24,30,8,14],['ellipse','','#D4CCC4','','',56,30,8,14],
+    ['ellipse','','#1a1a1a','','',32,48,5.5,6],['ellipse','','#1a1a1a','','',48,48,5.5,6],
+    ['circle','','#FFF','','',33,46.5,2],['circle','','#FFF','','',49,46.5,2],
+    ['ellipse','','#4A4A4A','','',40,60,4.5,3.5]];
+  function mkR(op){
+    const g=document.createElementNS(ns,'g');
+    g.setAttribute('transform','scale(1.85) translate(-40,-60)');g.setAttribute('opacity',op);
+    rp.forEach(r=>{
+      const el=document.createElementNS(ns,r[0]);
+      if(r[1])el.setAttribute('d',r[1]);
+      if(r[0]==='ellipse'){el.setAttribute('cx',r[5]);el.setAttribute('cy',r[6]);el.setAttribute('rx',r[7]);el.setAttribute('ry',r[8]);}
+      if(r[0]==='circle'){el.setAttribute('cx',r[5]);el.setAttribute('cy',r[6]);el.setAttribute('r',r[7]);}
+      el.setAttribute('fill',r[2]);if(r[3])el.setAttribute('stroke',r[3]);if(r[4])el.setAttribute('stroke-width',r[4]);
+      g.appendChild(el);});return g;}
+  svg.appendChild(mkR(0.06));
+  const cg=document.createElementNS(ns,'g');cg.setAttribute('clip-path','url(#vc)');
+  cg.appendChild(mkR(0.55));cg.style.opacity='0';svg.appendChild(cg);
+  setTimeout(()=>{cg.style.transition='opacity 0.7s ease';cg.style.opacity='1';},150);
+  const fp=document.createElementNS(ns,'polygon');fp.setAttribute('points',sp);
+  fp.setAttribute('fill',dm);fp.setAttribute('fill-opacity','0.12');
+  fp.setAttribute('stroke',dm);fp.setAttribute('stroke-width','2');fp.setAttribute('stroke-linejoin','round');
+  fp.style.transformOrigin='center';fp.style.animation='rEx 0.85s cubic-bezier(0.34,1.56,0.64,1) forwards';
+  fp.style.animationDelay='0.15s';fp.style.opacity='0';svg.appendChild(fp);
+  keys.forEach((k,i)=>{
+    const p=pt(i,R*(SC[k]/100));const ci=document.createElementNS(ns,'circle');
+    ci.setAttribute('cx',p[0]);ci.setAttribute('cy',p[1]);ci.setAttribute('r','3');
+    ci.setAttribute('fill',CL[k]||'#ccc');ci.setAttribute('fill-opacity','0.8');
+    ci.style.animation=`rEx 0.4s ease-out ${0.2+i*0.05}s forwards`;ci.style.opacity='0';svg.appendChild(ci);});
+  keys.forEach((k,i)=>{
+    const p=pt(i,R+18);const t=document.createElementNS(ns,'text');
+    t.setAttribute('x',p[0]);t.setAttribute('y',p[1]);t.setAttribute('text-anchor','middle');
+    t.setAttribute('dominant-baseline','middle');t.setAttribute('font-size','8');
+    t.setAttribute('font-family','Nunito Sans,sans-serif');t.setAttribute('fill','#8C7B6B');
+    t.textContent=k;svg.appendChild(t);});
+  if(!document.getElementById('rExStyle')){
+    const st=document.createElement('style');st.id='rExStyle';
+    st.textContent='@keyframes rEx{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}';
+    document.head.appendChild(st);}
+  vsrEl.appendChild(svg);
+  Object.entries(SC).sort((a,b)=>b[1]-a[1]).slice(0,5).forEach(([k,v],i)=>{
+    const d=document.createElement('div');
+    d.style.cssText='display:flex;align-items:center;gap:4px;font-size:0.68rem;color:#8C7B6B;text-transform:capitalize';
+    const dot=document.createElement('div');
+    dot.style.cssText=`width:7px;height:7px;border-radius:50%;background:${CL[k]||'#ccc'};opacity:${i===0?1:0.55}`;
+    const sp2=document.createElement('span');if(i===0)sp2.style.cssText='font-weight:700;color:#2C2416';
+    sp2.textContent=k+' · '+v;d.appendChild(dot);d.appendChild(sp2);vslEl.appendChild(d);});
+}
 
 // ===== WORD USAGE BAR =====
 async function renderWordUsage(token) {
@@ -2196,6 +2433,7 @@ async function init() {
       // Voice Acorn
       const scores = data.avg_scores || {};
       renderVoiceBars(scores, voiceType, lp.stance || '', name);
+      const vcEl=document.getElementById('voiceCard');if(vcEl)vcEl.style.display='none';
 
       // Welcome text update
       if (!params.get('welcome')) {
@@ -2205,7 +2443,10 @@ async function init() {
 
       // Writers & Books (Pro+)
       renderWriters(voiceType, lp.stance);
-      renderBooks(voiceType, (u.country||'CA'));
+      renderBooks(voiceType, (u.country||'CA'), lp.stance);
+      if (data.profiles?.length >= 2) {
+        renderEvolution(data.profiles, data.stats?.consistency, name, voiceType, lp.stance||'');
+      }
     }
 
     // Stats
@@ -2222,12 +2463,9 @@ async function init() {
     renderConnectedAccounts(token);
 
     // Activity
-    renderActivity(data.profiles || []);
 
-    // Evolution (Pro+)
-    if (data.profiles?.length >= 2) {
-      renderEvolution(data.profiles);
-    }
+    // Evolution (Pro+) -- moved to lp block for name/voiceType scope
+    if (!lp) renderEvolution(data.profiles, data.stats?.consistency);
 
     // STRETCH (Pro+)
     if (u.id) {

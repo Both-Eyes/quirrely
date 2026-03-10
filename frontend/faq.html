@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-HQ818WM2YB");</script>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/assets/css/compat.css">
+<script src="/assets/js/compat.js" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ | Quirrely</title>
+<meta name="description" content="Common questions about Quirrely writing voice analysis, plans, privacy, and features.">
+<link rel="canonical" href="https://quirrely.ca/faq">
+<link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#FF5C34;--primary-dark:#E04820;--primary-light:#FF7F5E;--bg:#FFFBF5;--bg-card:#FFFFFF;--bg-editorial:#D7EFFF;--text:#351E28;--text-muted:#6B5B62;--text-light:#9A8A90;--border:#AEB8A0;--border-light:#CDD4C5;--surface-jade:#AEB8A0;--accent-wasabi:#E9F056;--error:#E74C3C;--success:#7CAE82;--warning:#D4A853;--info:#D7EFFF;--font-display:'Fraunces',Georgia,serif;--font-body:'Nunito Sans',-apple-system,sans-serif;--font-mono:'IBM Plex Mono',monospace;--radius-sm:8px;--radius:10px;--radius-lg:14px;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-height:1.6;min-height:100vh}
+/* ===== UNIFIED HEADER ===== */
+.site-header{background:linear-gradient(180deg,#FFFDF9,#FFFBF5);border-bottom:1px solid #E8E2DA;padding:0 2rem;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(120,100,80,0.06)}
+.site-header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;height:56px;gap:2rem}
+.site-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.site-logo svg{width:28px;height:42px}
+.site-logo-text{font-family:'Fraunces',Georgia,serif;font-size:1.25rem;font-weight:700;color:#2D2D2D}
+.site-logo-text .re{color:#FF5C34}
+.site-logo-text .ly{font-style:italic;font-weight:500}
+.site-nav{display:flex;align-items:center;gap:4px}
+.site-nav a{padding:8px 14px;font-size:0.875rem;font-weight:500;color:#6B6560;text-decoration:none;position:relative;transition:color 0.2s;border-radius:6px}
+.site-nav a::after{content:'';position:absolute;bottom:2px;left:14px;right:14px;height:2px;background:#FF5C34;border-radius:1px;transform:scaleX(0);transition:transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94)}
+.site-nav a:hover{color:#FF5C34}
+.site-nav a:hover::after{transform:scaleX(1)}
+.site-nav a.active{color:#FF5C34}
+.site-nav a.active::after{transform:scaleX(1)}
+.site-header-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.site-header-right .signin-link{font-size:0.875rem;font-weight:500;color:#6B6560;text-decoration:none;transition:color 0.2s}
+.site-header-right .signin-link:hover{color:#FF5C34}
+.site-header-right .signup-btn{padding:0.5rem 1.25rem;background:linear-gradient(135deg,#FF5C34,#E04820);color:white;border-radius:6px;text-decoration:none;font-family:'Fraunces',Georgia,serif;font-size:0.85rem;font-weight:600;transition:transform 0.15s,box-shadow 0.15s;box-shadow:0 2px 8px rgba(255,107,107,0.25)}
+.site-header-right .signup-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,107,107,0.35)}
+.site-hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;color:#2D2D2D;margin-left:auto}
+.site-mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#FFFDF9;border-bottom:1px solid #E8E2DA;box-shadow:0 8px 32px rgba(120,100,80,0.12);padding:0.75rem;z-index:99}
+.site-mobile-menu.show{display:block}
+.site-mobile-menu a{display:block;padding:0.75rem 1rem;font-size:0.95rem;color:#2D2D2D;text-decoration:none;border-radius:6px}
+.site-mobile-menu a:hover{background:rgba(0,0,0,0.04)}
+.site-mobile-menu a.active{color:#FF5C34}
+.site-mobile-menu .mobile-signup{margin:0.5rem 1rem;padding:0.65rem 1rem;background:linear-gradient(135deg,#FF5C34,#E04820);color:white;border-radius:6px;text-align:center;font-weight:600}
+@media(max-width:768px){.site-header{padding:0 1rem}.site-nav{display:none}.site-header-right{display:none}.site-hamburger{display:block}}
+.main{max-width:800px;margin:0 auto;padding:2rem}
+.page-title{font-family:var(--font-display);font-size:2rem;font-weight:700;margin-bottom:0.5rem}
+.page-subtitle{font-size:1.05rem;color:var(--muted);margin-bottom:2rem}
+.faq-item{background:var(--card);border:1px solid var(--border);border-left:3px solid transparent;border-radius:var(--radius-md);margin-bottom:0.75rem;overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow 0.2s,border-left-color 0.25s ease}
+.faq-item:hover{box-shadow:var(--shadow-md)}
+.faq-item.open{border-left-color:var(--coral,#FF5C34)}
+.faq-q{font-family:var(--font-display);padding:1.25rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:1rem;user-select:none}
+.faq-q:hover{color:var(--coral)}
+.faq-arrow{font-size:1.2rem;transition:transform 0.3s;color:var(--light)}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--coral)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease;padding:0 1.5rem}
+.faq-item.open .faq-a{max-height:500px;padding:0 1.5rem 1.25rem}
+.faq-a p{color:var(--muted);font-size:0.95rem;line-height:1.7;margin-bottom:0.5rem}
+.faq-a a{color:var(--blue);text-decoration:none;font-weight:500}.faq-a a:hover{text-decoration:underline}
+.faq-a ul{margin:0.5rem 0 0.5rem 1.5rem;color:var(--muted);font-size:0.95rem}.faq-a li{margin-bottom:0.3rem}
+.cta-box{background:var(--paper-cream,#FFFDF9);border-top:3px solid var(--coral,#FF5C34);border-radius:3px 3px 14px 14px;padding:2.5rem;text-align:center;margin-top:2.5rem;color:var(--ink)}
+.cta-box h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:0.5rem}.cta-box p{color:var(--muted);margin-bottom:1.25rem}
+.cta-btn{display:inline-block;background:linear-gradient(135deg,var(--coral),var(--coral-dark));color:#fff;padding:0.7rem 2rem;border-radius:6px;font-weight:700;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;background-size:200% 200%;animation:btnShimmer 3s ease infinite}.cta-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}.cta-btn:active{transform:scale(0.98)}
+.newsletter{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;text-align:center;margin-top:1.5rem}
+.newsletter h3{font-size:1.1rem;margin-bottom:0.4rem}.newsletter p{font-size:0.9rem;color:var(--muted);margin-bottom:1rem}
+.nl-form{display:flex;gap:0.5rem;max-width:360px;margin:0 auto}
+.nl-form input{flex:1;padding:0.6rem 1rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.9rem;outline:none}.nl-form input:focus{border-color:var(--coral)}
+.nl-form button{background:transparent;color:var(--coral);border:1.5px solid var(--coral);padding:0.6rem 1.2rem;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.9rem;transition:background 0.2s,color 0.2s}.nl-form button:hover{background:var(--coral);color:#fff}
+/* ===== UNIFIED FOOTER ===== */
+.site-footer{text-align:center;padding:2rem;border-top:1px solid #E8E2DA;font-size:0.85rem;color:#6B6560;margin-top:3rem}
+.site-footer a{color:#6B6560;text-decoration:none;transition:color 0.2s}
+.site-footer a:hover{color:#FF5C34}
+.site-footer .footer-brand{font-family:'Fraunces',Georgia,serif;font-weight:600;color:#2D2D2D}
+.footer-social{display:inline-flex;align-items:center;gap:0.75rem;margin-left:0.5rem}
+.footer-social a{opacity:0.6}
+.footer-social a:hover{opacity:1}
+@media(max-width:600px){.main{padding:1rem}.page-title{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="28" height="42">
+        <path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+        <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+        <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/>
+        <path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF5C34"/>
+        <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+        <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+        <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+        <circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+        <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+      </svg>
+      <span class="site-logo-text">Quir<span class="re">re</span><span class="ly">ly</span></span>
+    </a>
+    <nav class="site-nav" id="main-nav">
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/faq" class="active">FAQ</a>
+      <a href="/billing/upgrade.html">Pricing</a>
+    </nav>
+    <div class="site-header-right">
+      <a href="/auth/login.html" class="signin-link">Sign In</a>
+      <a href="/auth/signup.html" class="signup-btn">Sign Up</a>
+    </div>
+    <button class="site-hamburger" onclick="document.getElementById('siteMobileMenu').classList.toggle('show')" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+<div class="site-mobile-menu" id="siteMobileMenu">
+  <a href="/">Home</a>
+  <a href="/blog">Blog</a>
+  <a href="/faq" class="active">FAQ</a>
+  <a href="/billing/upgrade.html">Pricing</a>
+  <a href="/auth/login.html">Sign In</a>
+  <a href="/auth/signup.html" class="mobile-signup">Sign Up</a>
+</div>
+<main class="main">
+<h1 class="page-title">Frequently Asked Questions</h1>
+<p class="page-subtitle">Everything you need to know about Quirrely and your writing voice.</p>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is Quirrely and how does it work?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Quirrely is a writing voice analysis tool. Paste a sample of your writing, and our LNCP engine analyzes it across 50 linguistic tokens to reveal your unique voice profile. You get a voice type (like Assertive or Conversational) and a stance (Open, Closed, Balanced, or Contradictory) that together describe how you write.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What are voice types and stances?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Quirrely identifies 10 voice types: Conversational, Assertive, Poetic, Analytical, Minimal, Provocative, Reflective, Technical, Narrative, and Persuasive. Each is paired with one of 4 stances &mdash; Open, Closed, Balanced, or Contradictory &mdash; describing how your writing engages with its audience.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I take a writing voice test?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>From the <a href="/">home page</a>, paste any sample of your writing into the text area and click Analyze. For best results, use 200+ words of natural writing &mdash; an email, blog post, or journal entry works great. You can save your results and retake the test anytime.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What do I get with the free plan vs Pro?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p><strong>Free</strong> includes basic voice analysis, your public profile, and share cards.</p><p><strong>Pro ($2.99/mo CAD)</strong> unlocks everything:</p><ul><li>Voice Evolution tracking over time</li><li>STRETCH exercises to strengthen your voice</li><li>Writers Like You &mdash; famous authors with similar voices</li><li>Recommended Reading from your country's bookstores</li><li>Full data export tools</li></ul><p><a href="/billing/upgrade.html">Compare plans &rarr;</a></p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my writing data private?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Yes. Your writing samples and results are private by default. You can optionally enable a public profile in <a href="/settings">Settings</a> to share your voice type, but your actual text is never shown publicly. You can clear your history or delete your account at any time.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I improve my writing voice?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Pro subscribers get access to STRETCH &mdash; targeted writing exercises designed around your specific voice profile. You can also retake the analysis with different writing samples to see how your voice shifts across contexts. Your dashboard tracks your voice evolution over time so you can see growth.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What countries is Quirrely available in?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Quirrely is available in Canada, the United States, the United Kingdom, Australia, and New Zealand. Our recommended reading feature links to local bookstores in each supported country.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I share my voice profile?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>From your <a href="/dashboard">dashboard</a>, click the share button on your voice card. You can copy a direct link, share to LinkedIn, or post to Facebook. Your public profile shows your voice type and stance &mdash; never your raw text.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I delete my data?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Yes. Go to <a href="/settings">Settings</a> where you can clear your analysis history or delete your entire account. Deletion is permanent and removes all your data from our servers.</p></div></div>
+
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I get featured as a writer?<span class="faq-arrow">&#9660;</span></div>
+<div class="faq-a"><p>Pro and Featured tier subscribers can submit writing samples for review. If selected, your work appears on our <a href="/blog/featured">Featured Writers</a> page and you earn a Featured badge on your public profile. Submit from your dashboard once you have an active Pro subscription.</p></div></div>
+
+<div class="cta-box">
+<h3>Ready to discover your writing voice?</h3>
+<p>It takes less than a minute. Paste your writing and see what makes your voice unique.</p>
+<a href="/" class="cta-btn">Take the Test Free &rarr;</a>
+</div>
+<div class="newsletter">
+<h3>Voice Insights, weekly</h3>
+<p>Tips on writing voice, new features, and featured writers — straight to your inbox.</p>
+<form class="nl-form" id="faq-nl-form">
+<input type="email" id="faq-nl-email" placeholder="you@email.com" required>
+<button type="submit" id="faq-nl-btn">Subscribe</button>
+</form>
+<p id="faq-nl-msg" style="display:none;font-size:0.85rem;margin-top:0.75rem;"></p>
+</div>
+</main>
+<footer class="site-footer">
+  <span class="footer-brand">Quirrely</span> ·
+  <a href="/blog/terms.html">Terms</a> ·
+  <a href="/blog/privacy.html">Privacy</a> ·
+  <a href="mailto:hello@quirrely.com">Support</a>
+  <span class="footer-social">
+    <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="https://www.facebook.com/profile.php?id=61575643048349" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+  </span>
+</footer>
+<script>
+function toggleFaq(el){el.parentElement.classList.toggle('open')}
+(function(){
+  var t=localStorage.getItem('quirrely_token');
+  if(t){
+    var _u=null;try{_u=JSON.parse(localStorage.getItem('quirrely_user'))}catch(e){}
+    var _d=(_u&&_u.share_slug)?'/user/'+_u.share_slug:'/dashboard';
+    var n=document.getElementById('main-nav');
+    n.innerHTML='<a href="'+_d+'">Dashboard</a> <a href="/">Analyze</a> <a href="/faq" class="active">FAQ</a> <a href="/settings">Settings</a>';
+    document.querySelectorAll('a[href="/dashboard"]').forEach(function(a){a.href=_d});
+  }
+})();
+document.getElementById('faq-nl-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var email=document.getElementById('faq-nl-email').value.trim();
+  var btn=document.getElementById('faq-nl-btn');
+  var msg=document.getElementById('faq-nl-msg');
+  if(!email)return;
+  btn.disabled=true;btn.textContent='...';
+  try{
+    var r=await fetch('/api/v2/newsletter/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,source:'faq'})});
+    var d=await r.json();
+    msg.style.display='block';
+    if(d.success){msg.style.color='var(--green)';msg.textContent=d.new?'You are in! Check your inbox.':'You are already subscribed!';}
+    else{msg.style.color='var(--coral)';msg.textContent=d.error||'Something went wrong.';}
+    if(d.success)document.getElementById('faq-nl-email').value='';
+  }catch(err){msg.style.display='block';msg.style.color='var(--coral)';msg.textContent='Connection error. Try again.';}
+  btn.disabled=false;btn.textContent='Subscribe';
+});
+</script>
+</body>
+</html>
