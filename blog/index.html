@@ -233,6 +233,10 @@
     av.style.cssText='width:28px;height:28px;border-radius:50%;background:#FF5C34;display:inline-flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;font-weight:600;text-decoration:none;margin-left:0.5rem;';
     try{var ud=JSON.parse(u);av.textContent=(ud.display_name||ud.email||'?')[0].toUpperCase();}catch(e){av.textContent='?';}
     nav.appendChild(av);
+    var si=document.getElementById('nav-signin');
+    var su=document.getElementById('nav-signup');
+    if(si)si.style.display='none';
+    if(su)su.style.display='none';
   }
 })();
 </script>
