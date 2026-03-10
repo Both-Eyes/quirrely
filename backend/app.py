@@ -306,11 +306,11 @@ try:
     @app.get("/api/v2/user/voice")
     async def get_user_voice(authorization: Optional[str] = Header(None)):
         from auth_api import get_current_user
-        from db import get_db as _get_db
         user = get_current_user(authorization)
         if not user:
             raise HTTPException(status_code=401, detail="Authentication required")
         uid = str(user["id"])
+        from auth_api import get_db as _get_db
         with _get_db() as conn:
             with conn.cursor() as cur:
                 cur.execute("""SELECT AVG(score_assertive) a,AVG(score_minimal) m,
