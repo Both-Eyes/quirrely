@@ -415,14 +415,25 @@ async def get_user_voice(user_id: str = Depends(get_user_id)):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication required")
     with get_db() as conn:
         with conn.cursor() as cur:
-            cur.execute(
-                "SELECT profile, stance FROM writing_profiles WHERE user_id=%s ORDER BY created_at DESC LIMIT 1",
-                (user_id,)
-            )
+            cur.execute("""
+                SELECT profile, stance,
+                    AVG(score_assertive) as a, AVG(score_minimal) as m,
+                    AVG(score_poetic) as p, AVG(score_dense) as d,
+                    AVG(score_conversational) as c, AVG(score_hedged) as h,
+                    AVG(score_interrogative) as i, AVG(score_longform) as l,
+                    AVG(score_formal) as f
+                FROM writing_profiles WHERE user_id=%s
+            """, (user_id,))
             row = cur.fetchone()
-    if not row:
+    if not row or not row["profile"]:
         raise HTTPException(status_code=404, detail="No voice profile found")
-    return {"profile": (row["profile"] or "").lower(), "stance": (row["stance"] or "").lower()}
+    scores={"assertive":row["a"],"minimal":row["m"],"poetic":row["p"],
+            "dense":row["d"],"conversational":row["c"],"hedged":row["h"],
+            "interrogative":row["i"],"longform":row["l"],"formal":row["f"]}
+    scores={k:float(v or 0) for k,v in scores.items()}
+    dominant=max(scores,key=lambda k:scores[k]) if any(scores.values()) else (row["profile"] or "").lower()
+    stance=(row["stance"] or "open").lower()
+    return {"profile":dominant,"stance":stance}
 
 # History & Evolution Endpoints
 # ═══════════════════════════════════════════════════════════════════════════
