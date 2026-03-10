@@ -19,491 +19,46 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #FFFBF5;
-      --card: #FFFFFF;
-      --ink: #351E28;
-      --muted: #6B5B62;
-      --primary: #FF5C34;
-      --secondary: #7CAE9E;
-      --pro: #FF5C34;
-      --border: #AEB8A0;
-      --shadow: 0 2px 12px rgba(120,100,80,0.06);
-    }
-    
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Nunito Sans', -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.6;
-    }
-    
-    /* ===== UNIFIED HEADER ===== */
-    .site-header {
-      background: linear-gradient(180deg, #FFFDF9, #FFFBF5);
-      border-bottom: 1px solid #AEB8A0;
-      padding: 0 2rem;
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 1px 8px rgba(120,100,80,0.06);
-    }
-    .site-header-inner {
-      max-width: 960px; margin: 0 auto;
-      display: flex; align-items: center; height: 56px; gap: 2rem;
-    }
-    .site-logo {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none; flex-shrink: 0;
-    }
-    .site-logo svg { width: 28px; height: 42px; }
-    .site-logo-text {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: 1.25rem; font-weight: 700; color: #351E28;
-    }
-    .site-logo-text .re { color: #FF5C34; }
-    .site-logo-text .ly { font-style: italic; font-weight: 500; }
-    .site-nav {
-      display: flex; align-items: center; gap: 4px;
-    }
-    .site-nav a {
-      padding: 8px 14px; font-size: 0.875rem; font-weight: 500;
-      color: #6B5B62; text-decoration: none; position: relative;
-      transition: color 0.2s; border-radius: 6px;
-    }
-    .site-nav a::after {
-      content: ''; position: absolute; bottom: 2px; left: 14px; right: 14px;
-      height: 2px; background: #FF5C34; border-radius: 1px;
-      transform: scaleX(0); transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-    .site-nav a:hover { color: #FF5C34; }
-    .site-nav a:hover::after { transform: scaleX(1); }
-    .site-nav a.active { color: #FF5C34; }
-    .site-nav a.active::after { transform: scaleX(1); }
-    .site-header-right {
-      margin-left: auto; display: flex; align-items: center; gap: 12px;
-    }
-    .site-header-right .signin-link {
-      font-size: 0.875rem; font-weight: 500; color: #6B5B62;
-      text-decoration: none; transition: color 0.2s;
-    }
-    .site-header-right .signin-link:hover { color: #FF5C34; }
-    .site-header-right .signup-btn {
-      padding: 0.5rem 1.25rem;
-      background: linear-gradient(135deg, #FF5C34, #E04820);
-      color: white; border-radius: 6px; text-decoration: none;
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: 0.85rem; font-weight: 600;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 2px 8px rgba(255,107,107,0.25);
-    }
-    .site-header-right .signup-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,107,107,0.35); }
-    .site-hamburger {
-      display: none; background: none; border: none; cursor: pointer;
-      padding: 4px; color: #351E28; margin-left: auto;
-    }
-    .site-mobile-menu {
-      display: none; position: fixed; top: 56px; left: 0; right: 0;
-      background: #FFFDF9; border-bottom: 1px solid #AEB8A0;
-      box-shadow: 0 8px 32px rgba(120,100,80,0.12); padding: 0.75rem; z-index: 99;
-    }
-    .site-mobile-menu.show { display: block; }
-    .site-mobile-menu a {
-      display: block; padding: 0.75rem 1rem; font-size: 0.95rem;
-      color: #351E28; text-decoration: none; border-radius: 6px;
-    }
-    .site-mobile-menu a:hover { background: rgba(0,0,0,0.04); }
-    .site-mobile-menu a.active { color: #FF5C34; }
-    .site-mobile-menu .mobile-signup {
-      margin: 0.5rem 1rem; padding: 0.65rem 1rem;
-      background: linear-gradient(135deg, #FF5C34, #E04820);
-      color: white; border-radius: 6px; text-align: center; font-weight: 600;
-    }
-    @media (max-width: 768px) {
-      .site-header { padding: 0 1rem; }
-      .site-nav { display: none; }
-      .site-header-right { display: none; }
-      .site-hamburger { display: block; }
-    }
-    
-    /* Hero */
-    .hero {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-    
-    .hero h1 {
-      font-family: 'Fraunces', -apple-system, sans-serif;
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .hero p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    
-    /* Main Layout */
-    .main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 2rem;
-    }
-    
-    @media (max-width: 900px) {
-      .main { grid-template-columns: 1fr; }
-    }
-    
-    /* Featured Section */
-    .featured-section {
-      margin-bottom: 2rem;
-    }
-    
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-    
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .section-link {
-      font-size: 0.85rem;
-      color: var(--pro);
-      text-decoration: none;
-    }
-    
-    .section-link:hover { text-decoration: underline; }
-    
-    /* Featured Writers Grid */
-    .featured-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-    
-    @media (max-width: 600px) {
-      .featured-grid { grid-template-columns: 1fr; }
-    }
-    
-    .featured-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 1.25rem;
-      border: 1px solid var(--border);
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    
-    .featured-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-    }
-    
-    .featured-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-    
-    .featured-flag { font-size: 1.5rem; }
-    
-    .featured-info h3 {
-      font-size: 0.95rem;
-      margin-bottom: 0.1rem;
-    }
-    
-    .featured-profile {
-      font-size: 0.75rem;
-      color: var(--pro);
-      font-weight: 600;
-    }
-    
-    .featured-excerpt {
-      font-size: 0.85rem;
-      color: var(--muted);
-      font-style: italic;
-      line-height: 1.5;
-    }
-    
-    .pro-badge {
-      display: inline-block;
-      background: var(--pro);
-      color: white;
-      font-size: 0.6rem;
-      padding: 0.1rem 0.4rem;
-      border-radius: 3px;
-      font-weight: 700;
-      margin-left: 0.4rem;
-      vertical-align: middle;
-    }
-    
-    /* Blog Posts */
-    .posts-section {
-      margin-bottom: 2rem;
-    }
-    
-    .post-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    
-    .post-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 1.25rem;
-      border: 1px solid var(--border);
-      display: flex;
-      gap: 1rem;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    
-    .post-card:hover {
-      transform: translateX(4px);
-      box-shadow: var(--shadow);
-    }
-    
-    .post-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.75rem;
-      flex-shrink: 0;
-    }
-    
-    .post-content {
-      flex: 1;
-    }
-    
-    .post-category {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--muted);
-      margin-bottom: 0.25rem;
-    }
-    
-    .post-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      line-height: 1.3;
-    }
-    
-    .post-meta {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-    
-    .post-locked {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      background: var(--pro);
-      color: white;
-      font-size: 0.65rem;
-      padding: 0.15rem 0.4rem;
-      border-radius: 3px;
-      font-weight: 600;
-      margin-left: 0.5rem;
-    }
-    
-    /* Sidebar */
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    
-    .sidebar-card {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 1.25rem;
-      border: 1px solid var(--border);
-    }
-    
-    .sidebar-card h3 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    /* Profile Categories */
-    .profile-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .profile-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.2s;
-    }
-    
-    .profile-item:hover {
-      background: var(--bg);
-    }
-    
-    .profile-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    
-    .profile-name {
-      flex: 1;
-      font-size: 0.85rem;
-    }
-    
-    /* Newsletter CTA */
-    .newsletter-cta {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-    }
-    
-    .newsletter-cta h3 {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-      color: white;
-    }
-    
-    .newsletter-cta p {
-      font-size: 0.85rem;
-      opacity: 0.9;
-      margin-bottom: 1rem;
-    }
-    
-    .newsletter-form {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .newsletter-form input {
-      flex: 1;
-      padding: 0.6rem 0.75rem;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.85rem;
-    }
-    
-    .newsletter-form button {
-      background: white;
-      color: var(--pro);
-      border: none;
-      padding: 0.6rem 1rem;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-    
-    /* Countries */
-    .country-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    
-    .country-tag {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: var(--bg);
-      padding: 0.4rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      text-decoration: none;
-      color: var(--ink);
-    }
-    
-    .country-tag:hover {
-      background: var(--border);
-    }
-    
-    /* Pagination */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 2rem;
-    }
-    
-    .pagination a {
-      padding: 0.5rem 0.9rem;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      text-decoration: none;
-      color: var(--ink);
-      font-size: 0.9rem;
-    }
-    
-    .pagination a:hover {
-      border-color: var(--primary);
-    }
-    
-    .pagination a.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-    
-    /* ===== UNIFIED FOOTER ===== */
-    .site-footer {
-      text-align: center; padding: 2rem; border-top: 1px solid #AEB8A0;
-      font-size: 0.85rem; color: #6B5B62; margin-top: 2rem;
-    }
-    .site-footer a { color: #6B5B62; text-decoration: none; transition: color 0.2s; }
-    .site-footer a:hover { color: #FF5C34; }
-    .site-footer .footer-brand { font-family: 'Fraunces', Georgia, serif; font-weight: 600; color: #351E28; }
-    .footer-social { display: inline-flex; align-items: center; gap: 0.75rem; margin-left: 0.5rem; }
-    .footer-social a { opacity: 0.6; }
-    .footer-social a:hover { opacity: 1; }
-
-    .filter-bar { margin-bottom: 1.5rem; }
-    .filter-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
-    .filter-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 0.4rem; font-weight: 600; }
-    .filter-btn { padding: 0.35rem 0.85rem; border: 1px solid var(--border); border-radius: 20px; background: var(--card); color: var(--ink); font-size: 0.82rem; cursor: pointer; transition: all 0.15s; font-family: inherit; }
-    .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
-    .filter-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
-    .post-excerpt{font-size:0.82rem;color:var(--muted);margin-top:0.3rem;line-height:1.5;}
-    .post-count { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
-    .post-card[style*="display: none"] { display: none !important; }
+    :root{--bg:#FFFBF5;--card:#FFFFFF;--ink:#351E28;--muted:#6B5B62;--primary:#FF5C34;--primary-dark:#E04820;--border:#AEB8A0;--border-light:#CDD4C5;--bg-editorial:#D7EFFF;--shadow:0 2px 12px rgba(120,100,80,0.06);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Nunito Sans',-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;}
+    .masthead{background:var(--bg);border-bottom:3px solid var(--primary);padding:3rem 2rem 2.5rem;text-align:center;}
+    .masthead-eyebrow{font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:0.75rem;font-weight:600;}
+    .masthead h1{font-family:'Fraunces',Georgia,serif;font-size:2.75rem;font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:0.75rem;}
+    .masthead-sub{font-size:1rem;color:var(--muted);max-width:480px;margin:0 auto;}
+    .main{max-width:1160px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:1fr 300px;gap:2.5rem;}
+    @media(max-width:900px){.main{grid-template-columns:1fr;}}
+    .start-here{margin-bottom:2rem;}
+    .section-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:0.85rem;}
+    .start-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.85rem;}
+    @media(max-width:700px){.start-grid{grid-template-columns:1fr;}}
+    .start-card{display:block;padding:1.1rem 1.1rem 1.1rem 1.4rem;background:var(--card);border:1px solid var(--border-light);border-left:3px solid var(--primary);border-radius:10px;text-decoration:none;color:var(--ink);transition:border-color 0.2s,transform 0.15s;}
+    .start-card:hover{transform:translateY(-1px);box-shadow:var(--shadow);}
+    .start-card-type{font-size:0.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:0.35rem;font-weight:600;}
+    .start-card-title{font-family:'Fraunces',Georgia,serif;font-size:0.95rem;font-weight:600;line-height:1.35;color:var(--ink);}
+    .filter-bar{margin-bottom:1.25rem;}
+    .filter-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.5rem;}
+    .filter-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:0.35rem;font-weight:600;}
+    .filter-btn{padding:0.28rem 0.75rem;border:1px solid var(--border);border-radius:20px;background:var(--card);color:var(--muted);font-size:0.78rem;cursor:pointer;transition:all 0.15s;font-family:inherit;}
+    .filter-btn:hover{border-color:var(--primary);color:var(--primary);}
+    .filter-btn.active{border-color:var(--primary);color:var(--primary);font-weight:600;background:rgba(255,92,52,0.06);}
+    .post-count{font-size:0.78rem;color:var(--muted);margin-bottom:0.85rem;}
+    .post-list{display:flex;flex-direction:column;gap:0.6rem;}
+    .post-card{background:var(--card);border-radius:10px;padding:1rem 1.1rem 1rem 1.4rem;border:1px solid var(--border-light);border-left:3px solid var(--border);display:block;text-decoration:none;color:var(--ink);transition:border-left-color 0.2s,transform 0.15s,box-shadow 0.15s;}
+    .post-card:hover{border-left-color:var(--primary);transform:translateX(2px);box-shadow:var(--shadow);}
+    .post-category{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:0.2rem;font-weight:600;}
+    .post-title{font-family:'Fraunces',Georgia,serif;font-size:1rem;font-weight:600;line-height:1.3;color:var(--ink);}
+    .post-excerpt{font-size:0.82rem;color:var(--muted);margin-top:0.2rem;line-height:1.5;}
+    .sidebar{display:flex;flex-direction:column;gap:1.25rem;}
+    .sidebar-card{background:var(--card);border-radius:10px;padding:1.25rem;border:1px solid var(--border-light);}
+    .sidebar-card h3{font-family:'Fraunces',Georgia,serif;font-size:1rem;color:var(--ink);margin-bottom:0.75rem;}
+    .newsletter-form{display:flex;flex-direction:column;gap:0.5rem;margin-top:0.5rem;}
+    .newsletter-form input{padding:0.55rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-size:0.85rem;font-family:inherit;background:#FFFBF5;color:var(--ink);}
+    .newsletter-form button{padding:0.55rem 1rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;border:none;border-radius:6px;font-weight:600;font-size:0.85rem;cursor:pointer;font-family:inherit;}
+    .cta-sidebar{background:#D7EFFF;border-radius:10px;padding:1.25rem;border:1px solid var(--border-light);}
+    .cta-sidebar h3{font-family:'Fraunces',Georgia,serif;font-size:1rem;color:var(--ink);margin-bottom:0.5rem;}
+    .cta-sidebar p{font-size:0.85rem;color:var(--muted);margin-bottom:0.85rem;line-height:1.5;}
+    .cta-sidebar a{display:block;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;text-align:center;padding:0.6rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.88rem;}
   </style>
 </head>
 <body>
@@ -551,55 +106,74 @@
     <a href="/auth/login.html">Sign In</a>
     <a href="/auth/signup.html" class="mobile-signup">Sign Up</a>
   </div>
-  
-  <!-- Main Content -->
+  <div class="masthead">
+    <div class="masthead-eyebrow">Quirrely Blog</div>
+    <h1>Writing Voice, Examined</h1>
+    <p class="masthead-sub">Forty voices. Forty stances. Find the writers who think like you.</p>
+  </div>
   <main class="main">
     <div class="content">
-      
+      <div class="start-here">
+        <div class="section-label">Start Here</div>
+        <div class="start-grid">
+          <a href="/blog/how-assertive-balanced-writers-write" class="start-card">
+            <div class="start-card-type">Write Like</div>
+            <div class="start-card-title">How Assertive + Balanced Writers Write</div>
+          </a>
+          <a href="/blog/poetic-open" class="start-card">
+            <div class="start-card-type">Reading Taste</div>
+            <div class="start-card-title">The Poetic + Open Reading Profile</div>
+          </a>
+          <a href="/blog/how-minimal-closed-writers-write" class="start-card">
+            <div class="start-card-type">Write Like</div>
+            <div class="start-card-title">How Minimal + Closed Writers Write</div>
+          </a>
+        </div>
+      </div>
       <section class="posts-section">
         <div class="filter-bar">
           <div class="filter-label">Type</div>
           <div class="filter-row" id="type-filters">
-            <button class="filter-btn active" data-filter="type" data-val="all">All (80)</button>
-            <button class="filter-btn" data-filter="type" data-val="how">Write Like (40)</button>
-            <button class="filter-btn" data-filter="type" data-val="combo">Reading Taste (40)</button>
+            <button class="filter-btn active" data-filter="type" data-val="all">All</button>
+            <button class="filter-btn" data-filter="type" data-val="how">Write Like</button>
+            <button class="filter-btn" data-filter="type" data-val="combo">Reading Taste</button>
           </div>
           <div class="filter-label">Profile</div>
           <div class="filter-row" id="profile-filters">
             <button class="filter-btn active" data-filter="profile" data-val="all">All</button>
-            <button class="filter-btn" data-filter="profile" data-val="assertive">Assertive</button><button class="filter-btn" data-filter="profile" data-val="poetic">Poetic</button><button class="filter-btn" data-filter="profile" data-val="minimal">Minimal</button><button class="filter-btn" data-filter="profile" data-val="dense">Dense</button><button class="filter-btn" data-filter="profile" data-val="conversational">Conversational</button><button class="filter-btn" data-filter="profile" data-val="hedged">Hedged</button><button class="filter-btn" data-filter="profile" data-val="interrogative">Interrogative</button><button class="filter-btn" data-filter="profile" data-val="longform">Longform</button><button class="filter-btn" data-filter="profile" data-val="contradictory">Contradictory</button><button class="filter-btn" data-filter="profile" data-val="formal">Formal</button><button class="filter-btn" data-filter="profile" data-val="balanced">Balanced</button>
+            <button class="filter-btn" data-filter="profile" data-val="assertive">Assertive</button>
+            <button class="filter-btn" data-filter="profile" data-val="poetic">Poetic</button>
+            <button class="filter-btn" data-filter="profile" data-val="minimal">Minimal</button>
+            <button class="filter-btn" data-filter="profile" data-val="dense">Dense</button>
+            <button class="filter-btn" data-filter="profile" data-val="conversational">Conversational</button>
+            <button class="filter-btn" data-filter="profile" data-val="hedged">Hedged</button>
+            <button class="filter-btn" data-filter="profile" data-val="interrogative">Interrogative</button>
+            <button class="filter-btn" data-filter="profile" data-val="longform">Longform</button>
+            <button class="filter-btn" data-filter="profile" data-val="formal">Formal</button>
           </div>
         </div>
-        <div class="post-count" id="post-count">Showing all 88 posts</div>
-        <div class="post-list" id="post-list">
-        </div>
+        <div class="post-count" id="post-count">Showing all 80 posts</div>
+        <div class="post-list" id="post-list"></div>
       </section>
     </div>
-    
-    <!-- Sidebar -->
     <aside class="sidebar">
-      <!-- Newsletter -->
-      <div class="newsletter-cta">
-        <h3>📬 Voice Insights</h3>
-        <p>Join writers getting tips every week.</p>
+      <div class="sidebar-card">
+        <h3>Voice Insights</h3>
+        <p style="font-size:0.85rem;color:var(--muted);line-height:1.5;">Tips for writers, weekly.</p>
         <form class="newsletter-form" id="newsletter-form">
           <input type="email" id="nl-email" placeholder="you@email.com" required>
-          <button type="submit" id="nl-btn">Join</button>
+          <button type="submit" id="nl-btn">Subscribe</button>
         </form>
-        <p id="nl-msg" style="display:none;font-size:0.85rem;margin-top:0.5rem;"></p>
+        <p id="nl-msg" style="display:none;font-size:0.82rem;margin-top:0.5rem;"></p>
       </div>
-      
-      <!-- Take Test CTA -->
-      <div class="sidebar-card" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none;">
-        <h3 style="color: white;">✍️ Find Your Voice</h3>
-        <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 1rem;">Take our 2-minute test to discover your unique writing profile.</p>
-        <a href="/" style="display: block; background: white; color: var(--primary); text-align: center; padding: 0.6rem; border-radius: 8px; text-decoration: none; font-weight: 600;">Take the Test →</a>
+      <div class="cta-sidebar">
+        <h3>Find Your Voice</h3>
+        <p>Two minutes. Instant results. No signup needed.</p>
+        <a href="/">Take the Free Test →</a>
       </div>
     </aside>
   </main>
-  
-  <!-- Unified Footer -->
-  <footer class="site-footer">
+  < class="site-footer">
     <span class="footer-brand">Quirrely</span> ·
     <a href="/blog/terms.html">Terms</a> ·
     <a href="/blog/privacy.html">Privacy</a> ·
@@ -699,26 +273,24 @@
 <script>
 (function(){
   function renderCards(){
-    var list = document.getElementById('post-list');
-    if(!list || typeof BLOG_DATA === 'undefined') return;
-    var html = '';
+    var list=document.getElementById('post-list');
+    if(!list||typeof BLOG_DATA==='undefined')return;
+    var html='';
     Object.keys(BLOG_DATA).forEach(function(key){
-      var p = BLOG_DATA[key];
-      var label = p.type==='how' ? 'Write Like' : 'Reading Taste';
-      var t = p.title.replace(/[<>]/g,'');
-      html += '<a href="/blog/'+p.slug+'" class="post-card" data-type="'+p.type+'" data-profile="'+p.profile+'">'
-        +'<div class="post-icon" style="background:'+p.color+';">'+p.icon+'</div>'
-        +'<div class="post-content"><div class="post-category">'+label+'</div>'
-        +'<h3 class="post-title">'+t+'</h3><p class="post-excerpt">'+p.excerpt+'</p></div></a>';
+      var p=BLOG_DATA[key];
+      var label=p.type==='how'?'Write Like':'Reading Taste';
+      var t=p.title.replace(/[<>]/g,'');
+      html+='<a href="/blog/'+p.slug+'" class="post-card" data-type="'+p.type+'" data-profile="'+p.profile+'">'
+        +'<div class="post-category">'+label+'</div>'
+        +'<div class="post-title">'+t+'</div>'
+        +'<div class="post-excerpt">'+p.excerpt+'</div></a>';
     });
-    list.innerHTML = html;
-    var total = Object.keys(BLOG_DATA).length;
-    var el = document.getElementById('post-count');
-    if(el) el.textContent = 'Showing all '+total+' posts';
-    var allBtn = document.querySelector('[data-filter="type"][data-val="all"]');
-    if(allBtn) allBtn.textContent = 'All ('+total+')';
+    list.innerHTML=html;
+    var total=Object.keys(BLOG_DATA).length;
+    var el=document.getElementById('post-count');
+    if(el)el.textContent='Showing all '+total+' posts';
   }
-  document.addEventListener('DOMContentLoaded', renderCards);
+  document.addEventListener('DOMContentLoaded',renderCards);
 })();
 </script>
 </body>
