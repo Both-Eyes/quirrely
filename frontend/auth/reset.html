@@ -25,16 +25,16 @@
     .btn { width: 100%; padding: 1rem; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; }
     .btn:active, button[type=submit]:active { transform: scale(0.98); }
     .btn-primary { background: linear-gradient(135deg, #FF5C34, #E04820); color: white; }
-    .btn-primary:hover { background: linear-gradient(135deg, #FF5252, #D94E4E); }
+    .btn-primary:hover { background: linear-gradient(135deg, #FF5C34, #E04820); }
     .links { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; }
     .links a { color: var(--primary); text-decoration: none; position: relative; }
     .links a::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 100%; height: 2px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease; }
     .links a:hover::after { transform: scaleX(1); }
-    .success { background: #F0FFF4; border: 1px solid #9AE6B4; color: #276749; padding: 1rem; border-radius: 8px; text-align: center; display: none; }
+    .success { background: #EAF5FF; border: 1px solid #AEB8A0; color: #351E28; padding: 1rem; border-radius: 8px; text-align: center; display: none; }
     /* ===== UNIFIED HEADER ===== */
     .site-header {
       background: linear-gradient(180deg, #FFFDF9, #FFFBF5);
-      border-bottom: 1px solid #E8E2DA;
+      border-bottom: 1px solid #AEB8A0;
       padding: 0 2rem;
       position: sticky;
       top: 0;
@@ -65,7 +65,7 @@
     }
     .site-nav a {
       padding: 8px 14px; font-size: 0.875rem; font-weight: 500;
-      color: #6B6560; text-decoration: none; position: relative;
+      color: #6B5B62; text-decoration: none; position: relative;
       transition: color 0.2s; border-radius: 6px;
     }
     .site-nav a::after {
@@ -81,7 +81,7 @@
       margin-left: auto; display: flex; align-items: center; gap: 12px;
     }
     .site-header-right .signin-link {
-      font-size: 0.875rem; font-weight: 500; color: #6B6560;
+      font-size: 0.875rem; font-weight: 500; color: #6B5B62;
       text-decoration: none; transition: color 0.2s;
     }
     .site-header-right .signin-link:hover { color: #FF5C34; }
@@ -101,7 +101,7 @@
     }
     .site-mobile-menu {
       display: none; position: fixed; top: 56px; left: 0; right: 0;
-      background: #FFFDF9; border-bottom: 1px solid #E8E2DA;
+      background: #FFFDF9; border-bottom: 1px solid #AEB8A0;
       box-shadow: 0 8px 32px rgba(120,100,80,0.12); padding: 0.75rem; z-index: 99;
     }
     .site-mobile-menu.show { display: block; }
@@ -124,8 +124,8 @@
     }
     /* ===== UNIFIED FOOTER ===== */
     .site-footer {
-      text-align: center; padding: 2rem; border-top: 1px solid #E8E2DA;
-      font-size: 0.85rem; color: #6B6560; margin-top: 3rem;
+      text-align: center; padding: 2rem; border-top: 1px solid #AEB8A0;
+      font-size: 0.85rem; color: #6B5B62; margin-top: 3rem;
     }
     .site-footer a { color: #AEB8A0; text-decoration: none; transition: color 0.2s; }
     .site-footer a:hover { color: #FF5C34; }

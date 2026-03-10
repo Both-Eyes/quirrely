@@ -11,26 +11,26 @@
     <ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
     <!-- ACORN -->
     <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/>
-    <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
+    <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF5C34"/>
     <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="0.7"/>
     <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
     <ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
   </g>
   
   <text x="320" y="160" font-family="Outfit, system-ui, sans-serif">
-    <tspan font-size="48" font-weight="700" fill="#2D3436">Quir</tspan><tspan font-size="48" font-weight="700" fill="#FF6B6B">rel</tspan><tspan font-style="italic">y</tspan>
+    <tspan font-size="48" font-weight="700" fill="#351E28">Quir</tspan><tspan font-size="48" font-weight="700" fill="#FF5C34">rel</tspan><tspan font-style="italic">y</tspan>
   </text>
   
-  <text x="320" y="220" font-family="Outfit, system-ui, sans-serif" font-size="22" fill="#636E72">
+  <text x="320" y="220" font-family="Outfit, system-ui, sans-serif" font-size="22" fill="#6B5B62">
     The curious way to find your writing voice.
   </text>
   
-  <rect x="320" y="260" width="160" height="44" rx="22" fill="#FF6B6B"/>
+  <rect x="320" y="260" width="160" height="44" rx="22" fill="#FF5C34"/>
   <text x="400" y="290" text-anchor="middle" font-family="Outfit, system-ui, sans-serif" font-size="16" font-weight="600" fill="#FFFFFF">
     Try Free →
   </text>
   
-  <text x="320" y="380" font-family="Outfit, system-ui, sans-serif" font-size="16" fill="#B2BEC3">
+  <text x="320" y="380" font-family="Outfit, system-ui, sans-serif" font-size="16" fill="#AEB8A0">
     quirrely.com
   </text>
 </svg>

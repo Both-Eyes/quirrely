@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="120" height="40">
-  <rect width="120" height="40" rx="8" fill="#FFFBF5" stroke="#E9ECEF" stroke-width="1"/>
+  <rect width="120" height="40" rx="8" fill="#FFFBF5" stroke="#CDD4C5" stroke-width="1"/>
   <g transform="translate(4, 2) scale(0.26)">
     <path d="M58 112 Q85 98, 94 62 Q100 26, 74 8 Q50 -8, 42 22 Q38 44, 54 60 Q70 78, 62 100 Q58 110, 58 112" fill="#FFFEF9" stroke="#DDD" stroke-width="2"/>
     <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#DDD" stroke-width="2"/>
@@ -7,7 +7,7 @@
     <path d="M60 68 Q68 72, 66 80 Q64 86, 56 88 L48 86" fill="#FFFEF9" stroke="#DDD" stroke-width="3"/>
     <ellipse cx="28" cy="86" rx="8" ry="6" fill="#FFFEF9"/>
     <ellipse cx="52" cy="86" rx="8" ry="6" fill="#FFFEF9"/>
-    <ellipse cx="40" cy="84" rx="12" ry="9" fill="#FF6B6B"/>
+    <ellipse cx="40" cy="84" rx="12" ry="9" fill="#FF5C34"/>
     <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#DDD" stroke-width="2"/>
     <ellipse cx="24" cy="33" rx="5" ry="10" fill="#D4CCC4"/>
     <ellipse cx="56" cy="33" rx="5" ry="10" fill="#D4CCC4"/>
@@ -15,7 +15,7 @@
     <circle cx="48" cy="48" r="6" fill="#1a1a1a"/>
     <ellipse cx="40" cy="60" rx="4" ry="3" fill="#4A4A4A"/>
   </g>
-  <text x="44" y="26" font-family="'Outfit', sans-serif" font-size="14" font-weight="700" fill="#2D3436">
-    Senten<tspan fill="#FF6B6B">se</tspan>
+  <text x="44" y="26" font-family="'Outfit', sans-serif" font-size="14" font-weight="700" fill="#351E28">
+    Senten<tspan fill="#FF5C34">se</tspan>
   </text>
 </svg>

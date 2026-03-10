@@ -13,8 +13,8 @@
     <!-- ACORN NUT -->
     <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/>
     <rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/>
-    <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
-    <path d="M34 82 Q33 90, 40 94 Q41 92, 40 82 Z" fill="#FF8E8E" opacity="0.5"/>
+    <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF5C34"/>
+    <path d="M34 82 Q33 90, 40 94 Q41 92, 40 82 Z" fill="#FF7F5E" opacity="0.5"/>
     <!-- Head -->
     <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
     <!-- Ears -->
@@ -30,6 +30,6 @@
   </g>
   <!-- Wordmark -->
   <text x="100" y="62" font-family="Outfit, system-ui, sans-serif">
-    <tspan font-size="44" font-weight="700" fill="#2D3436">Quir</tspan><tspan font-size="44" font-weight="700" fill="#FF6B6B">rel</tspan><tspan font-style="italic" font-weight="500" font-size="40">y</tspan>
+    <tspan font-size="44" font-weight="700" fill="#351E28">Quir</tspan><tspan font-size="44" font-weight="700" fill="#FF5C34">rel</tspan><tspan font-style="italic" font-weight="500" font-size="40">y</tspan>
   </text>
 </svg>

@@ -9,8 +9,8 @@
   <!-- ACORN -->
   <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/>
   <rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/>
-  <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
-  <path d="M34 82 Q33 90, 40 94 Q41 92, 40 82 Z" fill="#FF8E8E" opacity="0.5"/>
+  <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF5C34"/>
+  <path d="M34 82 Q33 90, 40 94 Q41 92, 40 82 Z" fill="#FF7F5E" opacity="0.5"/>
   <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#FFF" stroke-width="0.5" opacity="0.95"/>
   <ellipse cx="24" cy="30" rx="8" ry="14" fill="#C4B8AC" opacity="0.6"/>
   <ellipse cx="56" cy="30" rx="8" ry="14" fill="#C4B8AC" opacity="0.6"/>

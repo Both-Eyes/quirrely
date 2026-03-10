@@ -3,7 +3,7 @@
   <rect width="1200" height="630" fill="#FFFBF5"/>
   <defs>
     <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-      <circle cx="20" cy="20" r="1" fill="#F0EBE5" opacity="0.5"/>
+      <circle cx="20" cy="20" r="1" fill="#EAF5FF" opacity="0.5"/>
     </pattern>
   </defs>
   <rect width="1200" height="630" fill="url(#dots)"/>
@@ -19,8 +19,8 @@
     <!-- ACORN -->
     <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/>
     <rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/>
-    <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF6B6B"/>
-    <path d="M34 82 Q33 90, 40 94 Q41 92, 40 82 Z" fill="#FF8E8E" opacity="0.5"/>
+    <path d="M31 78 Q30 94, 40 99 Q50 94, 49 78 Z" fill="#FF5C34"/>
+    <path d="M34 82 Q33 90, 40 94 Q41 92, 40 82 Z" fill="#FF7F5E" opacity="0.5"/>
     <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="0.5"/>
     <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
     <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
@@ -32,23 +32,23 @@
   </g>
   
   <text x="500" y="250" font-family="Outfit, system-ui, sans-serif">
-    <tspan font-size="72" font-weight="700" fill="#2D3436">Quir</tspan><tspan font-size="72" font-weight="700" fill="#FF6B6B">rel</tspan><tspan font-style="italic">y</tspan>
+    <tspan font-size="72" font-weight="700" fill="#351E28">Quir</tspan><tspan font-size="72" font-weight="700" fill="#FF5C34">rel</tspan><tspan font-style="italic">y</tspan>
   </text>
   
-  <text x="500" y="290" font-family="Outfit, system-ui, sans-serif" font-size="20" fill="#636E72" font-style="italic">
+  <text x="500" y="290" font-family="Outfit, system-ui, sans-serif" font-size="20" fill="#6B5B62" font-style="italic">
     (kwir-el-ee)
   </text>
   
-  <text x="500" y="355" font-family="Outfit, system-ui, sans-serif" font-size="28" fill="#636E72">
+  <text x="500" y="355" font-family="Outfit, system-ui, sans-serif" font-size="28" fill="#6B5B62">
     The curious way to find your writing voice.
   </text>
   
-  <rect x="500" y="395" width="220" height="56" rx="28" fill="#FF6B6B"/>
+  <rect x="500" y="395" width="220" height="56" rx="28" fill="#FF5C34"/>
   <text x="610" y="432" text-anchor="middle" font-family="Outfit, system-ui, sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">
     Try Free →
   </text>
   
-  <text x="500" y="560" font-family="Outfit, system-ui, sans-serif" font-size="20" fill="#B2BEC3">
+  <text x="500" y="560" font-family="Outfit, system-ui, sans-serif" font-size="20" fill="#AEB8A0">
     quirrely.com
   </text>
 </svg>
