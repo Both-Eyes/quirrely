@@ -408,6 +408,22 @@ async def get_user_tier_info(user_id: str = Depends(get_user_id)):
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+
+@app.get("/api/v2/user/voice")
+async def get_user_voice(user_id: str = Depends(get_user_id)):
+    if not user_id:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication required")
+    with get_db() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT profile, stance FROM writing_profiles WHERE user_id=%s ORDER BY created_at DESC LIMIT 1",
+                (user_id,)
+            )
+            row = cur.fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail="No voice profile found")
+    return {"profile": (row["profile"] or "").lower(), "stance": (row["stance"] or "").lower()}
+
 # History & Evolution Endpoints
 # ═══════════════════════════════════════════════════════════════════════════
 
