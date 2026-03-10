@@ -157,6 +157,27 @@
         "CLOSED": 11
       },
       "new_patterns": 0
+    },
+    "2026-03-10": {
+      "total_analyses": 36,
+      "profile_distribution": {
+        "LONGFORM": 1,
+        "FORMAL": 3,
+        "HEDGED": 7,
+        "ASSERTIVE": 5,
+        "MINIMAL": 4,
+        "POETIC": 3,
+        "DENSE": 3,
+        "PARALLEL": 3,
+        "INTERROGATIVE": 7
+      },
+      "stance_distribution": {
+        "OPEN": 10,
+        "CONTRADICTORY": 5,
+        "BALANCED": 10,
+        "CLOSED": 11
+      },
+      "new_patterns": 0
     }
   },
   "version": "1.0"
