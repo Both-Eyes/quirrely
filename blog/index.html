@@ -153,6 +153,14 @@
             <button class="filter-btn" data-filter="profile" data-val="longform">Longform</button>
             <button class="filter-btn" data-filter="profile" data-val="formal">Formal</button>
           </div>
+          <div class="filter-label">Stance</div>
+          <div class="filter-row" id="stance-filters">
+            <button class="filter-btn active" data-filter="stance" data-val="all">All</button>
+            <button class="filter-btn" data-filter="stance" data-val="open">Open</button>
+            <button class="filter-btn" data-filter="stance" data-val="closed">Closed</button>
+            <button class="filter-btn" data-filter="stance" data-val="balanced">Balanced</button>
+            <button class="filter-btn" data-filter="stance" data-val="contradictory">Contradictory</button>
+          </div>
         </div>
         <div class="post-count" id="post-count">Showing all 80 posts</div>
         <div class="post-list" id="post-list"></div>
@@ -244,15 +252,16 @@
 
 <script>
 (function(){
-  var activeType = 'all', activeProfile = 'all';
+  var activeType = 'all', activeProfile = 'all', activeStance = 'all';
   function applyFilters(){
     var cards = document.querySelectorAll('#post-list .post-card');
     var shown = 0;
     cards.forEach(function(card){
-      var t = card.dataset.type, p = card.dataset.profile;
+      var t = card.dataset.type, p = card.dataset.profile, s = card.dataset.stance;
       var typeOk = activeType==='all' || t===activeType;
       var profOk = activeProfile==='all' || p===activeProfile;
-      if(typeOk && profOk){ card.style.display=''; shown++; }
+      var stanceOk = activeStance==='all' || s===activeStance;
+      if(typeOk && profOk && stanceOk){ card.style.display=''; shown++; }
       else { card.style.display='none'; }
     });
     var el = document.getElementById('post-count');
@@ -264,6 +273,7 @@
         var filter = btn.dataset.filter, val = btn.dataset.val;
         if(filter==='type') activeType = val;
         if(filter==='profile') activeProfile = val;
+        if(filter==='stance') activeStance = val;
         document.querySelectorAll('[data-filter="'+filter+'"]').forEach(function(b){
           b.classList.remove('active');
         });
@@ -285,7 +295,7 @@
       var p=BLOG_DATA[key];
       var label=p.type==='how'?'Write Like':'Reading Taste';
       var t=p.title.replace(/[<>]/g,'');
-      html+='<a href="/blog/'+p.slug+'" class="post-card" data-type="'+p.type+'" data-profile="'+p.profile+'">'
+      html+='<a href="/blog/'+p.slug+'" class="post-card" data-type="'+p.type+'" data-profile="'+p.profile+'" data-stance="'+(p.stance||'')+'">'
         +'<div class="post-category">'+label+'</div>'
         +'<div class="post-title">'+t+'</div>'
         +'<div class="post-excerpt">'+p.excerpt+'</div></a>';
