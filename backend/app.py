@@ -313,18 +313,17 @@ try:
         from auth_api import get_db as _get_db
         with _get_db() as conn:
             with conn.cursor() as cur:
-                cur.execute("""SELECT AVG(score_assertive) a,AVG(score_minimal) m,
-                    AVG(score_poetic) p,AVG(score_dense) d,AVG(score_conversational) c,
-                    AVG(score_hedged) h,AVG(score_interrogative) i,AVG(score_longform) l,
-                    AVG(score_formal) f,MAX(stance) stance
+                cur.execute("""SELECT AVG(score_assertive),AVG(score_minimal),
+                    AVG(score_poetic),AVG(score_dense),AVG(score_conversational),
+                    AVG(score_hedged),AVG(score_interrogative),AVG(score_longform),
+                    AVG(score_formal),MAX(stance)
                     FROM writing_profiles WHERE user_id=%s""", (uid,))
                 r = cur.fetchone()
-        if not r or not r["a"]:
+        if not r or not r[0]:
             raise HTTPException(status_code=404, detail="No voice profile found")
-        sc={"assertive":r["a"],"minimal":r["m"],"poetic":r["p"],"dense":r["d"],
-            "conversational":r["c"],"hedged":r["h"],"interrogative":r["i"],"longform":r["l"],"formal":r["f"]}
-        sc={k:float(v or 0) for k,v in sc.items()}
-        return {"profile":max(sc,key=lambda k:sc[k]),"stance":(r["stance"] or "open").lower()}
+        keys=["assertive","minimal","poetic","dense","conversational","hedged","interrogative","longform","formal"]
+        sc={keys[i]:float(r[i] or 0) for i in range(9)}
+        return {"profile":max(sc,key=lambda k:sc[k]),"stance":(r[9] or "open").lower()}
     app.include_router(features_router, tags=["Features"])
     from featured_api import router as featured_router
     app.include_router(featured_router, tags=["Featured"])
