@@ -19,95 +19,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* === Unified Site Header === */
-    .site-header { background: linear-gradient(180deg, #FFFDF9, #FFFBF5); border-bottom: 1px solid #AEB8A0; padding: 0 2rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 8px rgba(120,100,80,0.06); margin: -2rem -2rem 2rem -2rem; }
-    .site-header-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; height: 56px; gap: 2rem; }
-    .site-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-    .site-logo svg { width: 28px; height: 42px; }
-    .site-logo-text { font-family: 'Fraunces', Georgia, serif; font-size: 1.25rem; font-weight: 700; color: #351E28; }
-    .site-logo-text .re { color: #FF5C34; }
-    .site-logo-text .ly { font-style: italic; font-weight: 500; }
-    .site-nav { display: flex; align-items: center; gap: 4px; }
-    .site-nav a { padding: 8px 14px; font-size: 0.875rem; font-weight: 500; color: #6B5B62; text-decoration: none; position: relative; transition: color 0.2s; border-radius: 6px; }
-    .site-nav a::after { content: ''; position: absolute; bottom: 2px; left: 14px; right: 14px; height: 2px; background: #FF5C34; border-radius: 1px; transform: scaleX(0); transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94); }
-    .site-nav a:hover { color: #FF5C34; }
-    .site-nav a:hover::after { transform: scaleX(1); }
-    .site-nav a.active { color: #FF5C34; }
-    .site-nav a.active::after { transform: scaleX(1); }
-    .site-header-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-    .site-header-right .signin-link { font-size: 0.875rem; font-weight: 500; color: #6B5B62; text-decoration: none; transition: color 0.2s; }
-    .site-header-right .signin-link:hover { color: #FF5C34; }
-    .site-header-right .signup-btn { padding: 0.5rem 1.25rem; background: linear-gradient(135deg, #FF5C34, #E04820); color: white; border-radius: 6px; text-decoration: none; font-family: 'Fraunces', Georgia, serif; font-size: 0.85rem; font-weight: 600; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 2px 8px rgba(255,107,107,0.25); }
-    .site-header-right .signup-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,107,107,0.35); }
-    .site-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; color: #351E28; margin-left: auto; }
-    .site-mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: #FFFDF9; border-bottom: 1px solid #AEB8A0; box-shadow: 0 8px 32px rgba(120,100,80,0.12); padding: 0.75rem; z-index: 99; }
-    .site-mobile-menu.show { display: block; }
-    .site-mobile-menu a { display: block; padding: 0.75rem 1rem; font-size: 0.95rem; color: #351E28; text-decoration: none; border-radius: 6px; }
-    .site-mobile-menu a:hover { background: rgba(0,0,0,0.04); }
-    .site-mobile-menu a.active { color: #FF5C34; }
-    .site-mobile-menu .mobile-signup { margin: 0.5rem 1rem; padding: 0.65rem 1rem; background: linear-gradient(135deg, #FF5C34, #E04820); color: white; border-radius: 6px; text-align: center; font-weight: 600; }
-    @media (max-width: 768px) { .site-header { padding: 0 1rem; } .site-nav { display: none; } .site-header-right { display: none; } .site-hamburger { display: block; } }
-    .site-footer { text-align: center; padding: 2rem; border-top: 1px solid #AEB8A0; font-size: 0.85rem; color: #6B5B62; margin-top: 3rem; }
-    .site-footer a { color: #6B5B62; text-decoration: none; transition: color 0.2s; }
-    .site-footer a:hover { color: #FF5C34; }
-    .site-footer .footer-brand { font-family: 'Fraunces', Georgia, serif; font-weight: 600; color: #351E28; }
-    .footer-social { display: inline-flex; align-items: center; gap: 0.75rem; margin-left: 0.5rem; }
-    .footer-social a { opacity: 0.6; }
-    .footer-social a:hover { opacity: 1; }
-    /* === End Unified Header === */
-    :root { --bg: #FFFBF5; --ink: #351E28; --primary: #FF5C34; --muted: #6B5B62; --pro: #FF5C34; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Nunito Sans', -apple-system, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
-    .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-    .logo { font-size: 1.25rem; font-weight: 700; margin-bottom: 2rem; }
-    .logo a { text-decoration: none; color: inherit; }
-    .logo span { color: var(--primary); }
-    h1 { font-family: 'Fraunces', -apple-system, sans-serif; font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .subtitle { color: var(--muted); margin-bottom: 3rem; font-size: 1.1rem; }
-    
-    .featured-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    @media (max-width: 700px) { .featured-grid { grid-template-columns: 1fr; } }
-    
-    .writer-card { background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid #AEB8A0; transition: transform 0.2s, box-shadow 0.2s; }
-    .writer-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(120,100,80,0.08); }
-    
-    .writer-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-    .writer-flag { font-size: 2rem; }
-    .writer-info h3 { font-size: 1.1rem; margin: 0; }
-    .writer-profile { font-size: 0.85rem; color: var(--pro); font-weight: 600; }
-    
-    .writer-sample { font-style: italic; color: var(--muted); margin-bottom: 1rem; border-left: 3px solid var(--primary); padding-left: 1rem; }
-    
-    .writer-bio { font-size: 0.9rem; color: var(--ink); }
-    
-    .writer-links { display: flex; gap: 0.75rem; margin-top: 1rem; }
-    .writer-links a { font-size: 0.85rem; color: var(--primary); text-decoration: none; }
-    .writer-links a:hover { text-decoration: underline; }
-    
-    .pro-badge { display: inline-block; background: var(--pro); color: white; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-left: 0.5rem; }
-    
-    .cta-section { margin-top: 3rem; text-align: center; padding: 2rem; background: linear-gradient(135deg, var(--pro), #8B7CF7); border-radius: 16px; color: white; }
-    .cta-section h2 { margin-bottom: 0.5rem; }
-    .cta-section p { opacity: 0.9; margin-bottom: 1.5rem; }
-    .cta-btn { display: inline-block; background: white; color: var(--pro); padding: 0.75rem 2rem; border-radius: 30px; text-decoration: none; font-weight: 600; }
-    .cta-btn:hover { opacity: 0.95; }
-    
-    footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
-      .sample-block { background: var(--light, #F7F3EE); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
-    .sample-block h2 { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; color: var(--primary, #FF5C34); margin-bottom: 1rem; }
-    .sample-quote { border-left: 3px solid var(--primary, #FF5C34); padding-left: 1rem; font-style: italic; color: var(--ink, #351E28); margin-bottom: 1rem; line-height: 1.8; }
-    .sample-analysis { font-size: 0.9rem; color: var(--muted, #6B5B62); }
-    .blog-footer-block { max-width: 720px; margin: 2rem auto; padding: 0 2rem; }
-    .bf-writers-link { margin-bottom: 1.5rem; }
-    .bf-writers-link a { color: var(--primary, #FF5C34); text-decoration: none; font-weight: 600; }
-    .bf-related h3 { font-family: 'Fraunces', Georgia, serif; font-size: 1rem; color: var(--muted, #6B5B62); margin-bottom: 0.75rem; }
-    .bf-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
-    .related-pill { padding: 0.4rem 0.9rem; border-radius: 20px; font-size: 0.85rem; text-decoration: none; font-weight: 500; }
-    .bf-cta { background: linear-gradient(135deg, #FF5C34, #E04820); color: white; padding: 2rem; border-radius: 12px; text-align: center; margin: 1.5rem 0; }
-    .bf-cta p { margin-bottom: 1rem; font-size: 1rem; opacity: 0.95; }
-    .bf-cta-btn { display: inline-block; background: white; color: #FF5C34; padding: 0.65rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem; }
-</style>
 
+    :root { --bg: #FFFBF5; --ink: #351E28; --primary: #FF5C34; --muted: #6B5B62; --pro: #FF5C34; }
+  </style>
+
+  <link rel="stylesheet" href="/blog/blog-shared.css">
 </head>
 <body>
   <div class="container">
