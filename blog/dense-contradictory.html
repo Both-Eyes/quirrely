@@ -37,6 +37,7 @@
   </script>
   
   <style>
+
     :root {
       --bg: #FFFBF5;
       --ink: #351E28;
@@ -47,119 +48,7 @@
       --coral: #FF5C34;
       --softGold: #D4A574;
     }
-    
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Nunito Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.8; }
-    .container { max-width: 720px; margin: 0 auto; padding: 2rem; }
-    
-        /* === Unified Site Header === */
-    .site-header { background: linear-gradient(180deg, #FFFDF9, #FFFBF5); border-bottom: 1px solid #AEB8A0; padding: 0 2rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 8px rgba(120,100,80,0.06); margin: -2rem -2rem 2rem -2rem; }
-    .site-header-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; height: 56px; gap: 2rem; }
-    .site-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-    .site-logo svg { width: 28px; height: 42px; }
-    .site-logo-text { font-family: 'Fraunces', Georgia, serif; font-size: 1.25rem; font-weight: 700; color: #2D2D2D; }
-    .site-logo-text .re { color: #FF5C34; }
-    .site-logo-text .ly { font-style: italic; font-weight: 500; }
-    .site-nav { display: flex; align-items: center; gap: 4px; }
-    .site-nav a { padding: 8px 14px; font-size: 0.875rem; font-weight: 500; color: #6B5B62; text-decoration: none; position: relative; transition: color 0.2s; border-radius: 6px; }
-    .site-nav a:hover { color: #FF5C34; }
-    .site-nav a.active { color: #FF5C34; }
-    .site-header-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-    .site-header-right .signin-link { font-size: 0.875rem; font-weight: 500; color: #6B5B62; text-decoration: none; }
-    .site-header-right .signin-link:hover { color: #FF5C34; }
-    .site-header-right .signup-btn { padding: 0.5rem 1.25rem; background: linear-gradient(135deg, #FF5C34, #E04820); color: white; border-radius: 6px; text-decoration: none; font-family: 'Fraunces', Georgia, serif; font-size: 0.85rem; font-weight: 600; box-shadow: 0 2px 8px rgba(255,107,107,0.25); }
-    .site-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; color: #2D2D2D; margin-left: auto; }
-    .site-mobile-menu { display: none; position: fixed; top: 56px; left: 0; right: 0; background: #FFFDF9; border-bottom: 1px solid #AEB8A0; padding: 0.75rem; z-index: 99; }
-    .site-mobile-menu.show { display: block; }
-    .site-mobile-menu a { display: block; padding: 0.75rem 1rem; font-size: 0.95rem; color: #2D2D2D; text-decoration: none; border-radius: 6px; }
-    .site-mobile-menu .mobile-signup { margin: 0.5rem 1rem; padding: 0.65rem 1rem; background: linear-gradient(135deg, #FF5C34, #E04820); color: white; border-radius: 6px; text-align: center; font-weight: 600; }
-    @media (max-width: 768px) { .site-header { padding: 0 1rem; } .site-nav { display: none; } .site-header-right { display: none; } .site-hamburger { display: block; } }
-    .site-footer { text-align: center; padding: 2rem; border-top: 1px solid #AEB8A0; font-size: 0.85rem; color: #6B5B62; margin-top: 3rem; }
-    .site-footer a { color: #6B5B62; text-decoration: none; }
-    .site-footer a:hover { color: #FF5C34; }
-    .site-footer .footer-brand { font-family: 'Fraunces', Georgia, serif; font-weight: 600; color: #2D2D2D; }
-    /* === End Unified Header === */
-    
-    /* Hero */
-    .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, #5b4ec4 100%);
-      color: white;
-      padding: 3rem 2rem;
-      border-radius: 16px;
-      margin-bottom: 2rem;
-    }
-    .hero-label { font-family: system-ui, sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; margin-bottom: 0.5rem; }
-    .hero h1 { font-size: 1.75rem; margin-bottom: 0.75rem; font-family: 'Fraunces', Georgia, serif; }
-    .hero .hook { font-size: 1.1rem; opacity: 0.95; font-style: italic; }
-    .hero .badges { margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
-    .hero .badge { padding: 0.4rem 1rem; background: rgba(255,255,255,0.2); border-radius: 20px; font-size: 0.85rem; font-family: system-ui, sans-serif; }
-    
-    /* Content */
-    article { margin-bottom: 2rem; }
-    article p { margin-bottom: 1.5rem; }
-    article h2 { font-size: 1.1rem; color: var(--primary); margin: 2rem 0 1rem; font-family: 'Fraunces', Georgia, serif; }
-    
-    /* Writers */
-    .writers { background: var(--light); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; }
-    .writers h3 { font-family: system-ui, sans-serif; font-size: 1.1rem; margin-bottom: 1rem; }
-    .writers-grid { display: grid; gap: 1rem; }
-    .writer-card { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: white; border-radius: 8px; border: 1px solid var(--border); }
-    .writer-flag { font-size: 1.5rem; }
-    .writer-info { flex: 1; }
-    .writer-name { display: block; font-weight: 600; font-size: 0.95rem; }
-    .writer-book { display: block; font-size: 0.85rem; color: var(--muted); font-style: italic; }
-    .writer-link { padding: 0.4rem 0.75rem; background: var(--coral); color: white; text-decoration: none; border-radius: 6px; font-size: 0.8rem; font-family: system-ui, sans-serif; }
-    .writer-link:hover { filter: brightness(1.1); }
-    .affiliate-note { font-size: 0.75rem; color: var(--muted); margin-top: 1rem; text-align: center; }
-    .writers-note { color: var(--muted); font-size: 0.9rem; }
-    
-    /* Featured Writer (conditional) */
-    .featured-writer { background: linear-gradient(135deg, rgba(212,165,116,0.15) 0%, rgba(212,165,116,0.05) 100%); border: 1px solid rgba(212,165,116,0.3); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; }
-    .featured-writer h3 { font-family: system-ui, sans-serif; font-size: 1rem; color: var(--softGold); margin-bottom: 0.75rem; }
-    .featured-writer .coming-soon { color: var(--muted); font-size: 0.9rem; }
-    
-    /* CTAs */
-    .cta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
-    .cta-card { padding: 1.5rem; border-radius: 12px; text-align: center; }
-    .cta-card.taste { background: linear-gradient(135deg, var(--primary) 0%, #5b4ec4 100%); color: white; }
-    .cta-card.voice { background: var(--coral); color: white; }
-    .cta-card h4 { font-family: system-ui, sans-serif; font-size: 1rem; margin-bottom: 0.5rem; }
-    .cta-card p { font-size: 0.85rem; opacity: 0.9; margin-bottom: 1rem; }
-    .cta-card .btn { display: inline-block; padding: 0.6rem 1.25rem; background: white; color: var(--ink); text-decoration: none; border-radius: 8px; font-family: system-ui, sans-serif; font-size: 0.9rem; font-weight: 600; }
-    .cta-card .btn:hover { transform: translateY(-1px); }
-    
-    /* Related */
-    .related { margin: 2rem 0; }
-    .related h3 { font-family: system-ui, sans-serif; font-size: 1rem; margin-bottom: 1rem; color: var(--muted); }
-    .related-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .related-links a { padding: 0.4rem 0.75rem; background: var(--light); border: 1px solid var(--border); border-radius: 6px; text-decoration: none; color: var(--ink); font-size: 0.85rem; }
-    .related-links a:hover { background: var(--border); }
-    
-    /* Footer */
-    .footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
-    .footer a { color: var(--coral); text-decoration: none; }
-    
-    @media (max-width: 600px) {
-      .container { padding: 1rem; }
-      .hero { padding: 1.5rem; }
-      .hero h1 { font-size: 1.35rem; }
-      .cta-row { grid-template-columns: 1fr; }
-    }
-  
-    .sample-block { background: var(--light, #F7F3EE); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
-    .sample-block h2 { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; color: var(--primary, #FF5C34); margin-bottom: 1rem; }
-    .sample-quote { border-left: 3px solid var(--primary, #FF5C34); padding-left: 1rem; font-style: italic; color: var(--ink, #351E28); margin-bottom: 1rem; line-height: 1.8; }
-    .sample-analysis { font-size: 0.9rem; color: var(--muted, #6B5B62); }
-    .blog-footer-block { max-width: 720px; margin: 2rem auto; padding: 0 2rem; }
-    .bf-writers-link { margin-bottom: 1.5rem; }
-    .bf-writers-link a { color: var(--primary, #FF5C34); text-decoration: none; font-weight: 600; }
-    .bf-related h3 { font-family: 'Fraunces', Georgia, serif; font-size: 1rem; color: var(--muted, #6B5B62); margin-bottom: 0.75rem; }
-    .bf-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
-    .related-pill { padding: 0.4rem 0.9rem; border-radius: 20px; font-size: 0.85rem; text-decoration: none; font-weight: 500; }
-    .bf-cta { background: linear-gradient(135deg, #FF5C34, #E04820); color: white; padding: 2rem; border-radius: 12px; text-align: center; margin: 1.5rem 0; }
-    .bf-cta p { margin-bottom: 1rem; font-size: 1rem; opacity: 0.95; }
-    .bf-cta-btn { display: inline-block; background: white; color: #FF5C34; padding: 0.65rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem; }
-</style>
+  </style>
   
   <!-- Reader Tracking -->
   <script>
@@ -198,6 +87,7 @@
     });
   </script>
 
+  <link rel="stylesheet" href="/blog/blog-shared.css">
 </head>
 <body>
 <header class="site-header">
