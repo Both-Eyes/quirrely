@@ -330,7 +330,7 @@
     Object.keys(BLOG_DATA).forEach(function(k){
       var e=BLOG_DATA[k];
       if(e.type==='how'&&e.profile===p&&e.stance===s)howEntry=e;
-      if(e.type==='combo'&&e.profile===p&&e.stance===s)tasteEntry=e;
+      if(e.type==='combo'&&e.profile===p&&e.stance===(ALT_STANCE[s]||s))tasteEntry=e;
       if(e.type==='combo'&&e.profile===adjP&&e.stance===s)adjEntry=e;
     });
     var cards='';
