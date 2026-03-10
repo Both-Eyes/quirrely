@@ -311,6 +311,7 @@
   var ADJACENT={assertive:'poetic',poetic:'conversational',conversational:'assertive',
     minimal:'dense',dense:'longform',longform:'formal',
     formal:'hedged',hedged:'interrogative',interrogative:'minimal'};
+  var ALT_STANCE={open:'closed',closed:'balanced',balanced:'contradictory',contradictory:'open'};
   function cardHTML(href,type,title,tag){
     return '<a href="'+href+'" class="start-card">'
       +'<div class="start-card-type">'+type+(tag?' <span style="font-size:0.6rem;background:#FF5C34;color:white;padding:0.1rem 0.4rem;border-radius:3px;margin-left:0.3rem;">'+tag+'</span>':'')+'</div>'
@@ -326,17 +327,18 @@
     if(!el||typeof BLOG_DATA==='undefined'){renderEditorial();return;}
     var p=profile.toLowerCase(),s=stance.toLowerCase();
     var adjP=ADJACENT[p]||'poetic';
+    var altS=ALT_STANCE[s]||'closed';
     var howEntry=null,tasteEntry=null,adjEntry=null;
     Object.keys(BLOG_DATA).forEach(function(k){
       var e=BLOG_DATA[k];
       if(e.type==='how'&&e.profile===p&&e.stance===s)howEntry=e;
-      if(e.type==='combo'&&e.profile===p&&e.stance===(ALT_STANCE[s]||s))tasteEntry=e;
+      if(e.type==='combo'&&e.profile===p&&e.stance===altS)tasteEntry=e;
       if(e.type==='combo'&&e.profile===adjP&&e.stance===s)adjEntry=e;
     });
     var cards='';
-    if(howEntry)cards+=cardHTML('/blog/'+howEntry.slug,'Write Like',howEntry.title,'YOUR VOICE');
-    if(tasteEntry)cards+=cardHTML('/blog/'+tasteEntry.slug,'Reading Taste',tasteEntry.title,'YOUR TASTE');
-    if(adjEntry)cards+=cardHTML('/blog/'+adjEntry.slug,'Explore',adjEntry.title,'');
+    if(howEntry)cards+=cardHTML('/blog/'+howEntry.slug,'YOUR VOICE',howEntry.title,'');
+    if(tasteEntry)cards+=cardHTML('/blog/'+tasteEntry.slug,'YOUR TASTE',tasteEntry.title,'');
+    if(adjEntry)cards+=cardHTML('/blog/'+adjEntry.slug,'NEW VOICE',adjEntry.title,'');
     el.innerHTML=cards||EDITORIAL.map(function(c){return cardHTML(c.href,c.type,c.title,'');}).join('');
   }
   function init(){
@@ -348,9 +350,8 @@
     fetch('/api/v2/user/voice',{headers:{'Authorization':'Bearer '+token}})
       .then(function(r){return r.ok?r.json():null;})
       .then(function(d){
-        if(d&&d.profile&&d.stance){
-          renderPersonalised(d.profile,d.stance,tier);
-        }else{renderEditorial();}
+        if(d&&d.profile&&d.stance){renderPersonalised(d.profile,d.stance,tier);}
+        else{renderEditorial();}
       })
       .catch(function(){renderEditorial();});
   }
@@ -364,4 +365,3 @@
 })();
 </script>
 </body>
-</html>
