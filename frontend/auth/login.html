@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- GA4 --><script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-HQ818WM2YB");</script>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/compat.css">
+  <script src="/assets/js/compat.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
+  <title>Sign In | Quirrely</title>
+  <meta name="description" content="Sign in to your Quirrely account to access your writing profile and dashboard.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--primary:#FF5C34;--primary-dark:#E04820;--primary-light:#FF7F5E;--bg:#FFFBF5;--bg-card:#FFFFFF;--bg-editorial:#D7EFFF;--text:#351E28;--text-muted:#6B5B62;--text-light:#9A8A90;--border:#AEB8A0;--border-light:#CDD4C5;--surface-jade:#AEB8A0;--accent-wasabi:#E9F056;--error:#E74C3C;--success:#7CAE82;--warning:#D4A853;--info:#D7EFFF;--font-display:'Fraunces',Georgia,serif;--font-body:'Nunito Sans',-apple-system,sans-serif;--font-mono:'IBM Plex Mono',monospace;--radius-sm:8px;--radius:10px;--radius-lg:14px;}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito Sans', -apple-system, sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
+    
+    /* ===== UNIFIED HEADER ===== */
+    .site-header {
+      background: linear-gradient(180deg, #FFFDF9, #FFFBF5);
+      border-bottom: 1px solid #E8E2DA;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 8px rgba(120,100,80,0.06);
+    }
+    .site-header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      gap: 2rem;
+    }
+    .site-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .site-logo svg { width: 28px; height: 42px; }
+    .site-logo-text {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.25rem; font-weight: 700; color: #2D2D2D;
+    }
+    .site-logo-text .re { color: #FF5C34; }
+    .site-logo-text .ly { font-style: italic; font-weight: 500; }
+    .site-nav {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .site-nav a {
+      padding: 8px 14px; font-size: 0.875rem; font-weight: 500;
+      color: #6B6560; text-decoration: none; position: relative;
+      transition: color 0.2s; border-radius: 6px;
+    }
+    .site-nav a::after {
+      content: ''; position: absolute; bottom: 2px; left: 14px; right: 14px;
+      height: 2px; background: #FF5C34; border-radius: 1px;
+      transform: scaleX(0); transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .site-nav a:hover { color: #FF5C34; }
+    .site-nav a:hover::after { transform: scaleX(1); }
+    .site-nav a.active { color: #FF5C34; }
+    .site-nav a.active::after { transform: scaleX(1); }
+    .site-header-right {
+      margin-left: auto; display: flex; align-items: center; gap: 12px;
+    }
+    .site-header-right .signin-link {
+      font-size: 0.875rem; font-weight: 500; color: #6B6560;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .site-header-right .signin-link:hover { color: #FF5C34; }
+    .site-header-right .signup-btn {
+      padding: 0.5rem 1.25rem;
+      background: linear-gradient(135deg, #FF5C34, #E04820);
+      color: white; border-radius: 6px; text-decoration: none;
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 0.85rem; font-weight: 600;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 2px 8px rgba(255,107,107,0.25);
+    }
+    .site-header-right .signup-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,107,107,0.35); }
+    .site-hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      padding: 4px; color: #2D2D2D; margin-left: auto;
+    }
+    .site-mobile-menu {
+      display: none; position: fixed; top: 56px; left: 0; right: 0;
+      background: #FFFDF9; border-bottom: 1px solid #E8E2DA;
+      box-shadow: 0 8px 32px rgba(120,100,80,0.12); padding: 0.75rem; z-index: 99;
+    }
+    .site-mobile-menu.show { display: block; }
+    .site-mobile-menu a {
+      display: block; padding: 0.75rem 1rem; font-size: 0.95rem;
+      color: #2D2D2D; text-decoration: none; border-radius: 6px;
+    }
+    .site-mobile-menu a:hover { background: rgba(0,0,0,0.04); }
+    .site-mobile-menu a.active { color: #FF5C34; }
+    .site-mobile-menu .mobile-signup {
+      margin: 0.5rem 1rem; padding: 0.65rem 1rem;
+      background: linear-gradient(135deg, #FF5C34, #E04820);
+      color: white; border-radius: 6px; text-align: center; font-weight: 600;
+    }
+    @media (max-width: 768px) {
+      .site-header { padding: 0 1rem; }
+      .site-nav { display: none; }
+      .site-header-right { display: none; }
+      .site-hamburger { display: block; }
+    }
+    /* ===== UNIFIED FOOTER ===== */
+    .site-footer {
+      text-align: center; padding: 2rem; border-top: 1px solid #E8E2DA;
+      font-size: 0.85rem; color: #6B6560; margin-top: 3rem;
+    }
+    .site-footer a { color: #6B6560; text-decoration: none; transition: color 0.2s; }
+    .site-footer a:hover { color: #FF5C34; }
+    .site-footer .footer-brand { font-family: 'Fraunces', Georgia, serif; font-weight: 600; color: #2D2D2D; }
+    .footer-social { display: inline-flex; align-items: center; gap: 0.75rem; margin-left: 0.5rem; }
+    .footer-social a { opacity: 0.6; }
+    .footer-social a:hover { opacity: 1; }
+    
+    .main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    
+    .auth-card { background: var(--paper-cream, #FFFDF9); border-top: 3px solid var(--primary, #FF5C34); border-radius: 3px 3px 14px 14px; padding: 2.5rem; width: 100%; max-width: 400px; box-shadow: 0 4px 24px rgba(120,100,80,0.08); }
+    
+    .auth-card h1 { font-family: 'Fraunces', -apple-system, sans-serif; font-size: 1.5rem; text-align: center; margin-bottom: 0.5rem; }
+    .auth-card .subtitle { text-align: center; color: var(--muted); margin-bottom: 2rem; }
+    
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .form-group input { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; transition: border-color 0.2s; }
+    .form-group input:focus { outline: none; border-color: var(--primary); }
+    
+    .error-msg { color: var(--error); font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+    .error-msg.visible { display: block; }
+    
+    .submit-btn { width: 100%; padding: 0.875rem; background: linear-gradient(135deg, #FF5C34, #E04820); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .submit-btn:hover { background: linear-gradient(135deg, #FF5252, #D94E4E); }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:disabled { background: var(--muted); cursor: not-allowed; }
+    
+    .divider { display: flex; align-items: center; margin: 1.5rem 0; color: var(--muted); font-size: 0.85rem; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .divider span { padding: 0 1rem; }
+    
+    .alt-action { text-align: center; color: var(--muted); font-size: 0.9rem; }
+    .alt-action a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    .alt-action a:hover { text-decoration: underline; }
+    
+    .forgot-link { display: block; text-align: right; font-size: 0.85rem; color: var(--muted); text-decoration: none; margin-top: 0.5rem; }
+    .forgot-link:hover { color: var(--primary); }
+
+    .social-buttons { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .social-btn { display: flex; align-items: center; justify-content: center; gap: 0.75rem; width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 8px; background: white; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.2s, border-color 0.2s; color: var(--ink); }
+    .social-btn:hover { background: #F7F3EE; border-color: #CED4DA; }
+    .social-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    @media (max-width: 480px) {
+      body { padding: 0; }
+      .auth-card { margin: 1rem; padding: 1.5rem; }
+      h1 { font-size: 1.25rem; }
+      .site-footer { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="/" class="site-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="28" height="42">
+          <path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+          <ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+          <path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+          <path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/>
+          <ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/>
+          <ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/>
+          <path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF5C34"/>
+          <ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/>
+          <ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+          <ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/>
+          <ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/>
+          <circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/>
+          <ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/>
+        </svg>
+        <span class="site-logo-text">Quir<span class="re">re</span><span class="ly">ly</span></span>
+      </a>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/faq">FAQ</a>
+      </nav>
+      <div class="site-header-right">
+        <a href="/auth/signup.html" class="signup-btn">Sign Up</a>
+      </div>
+      <button class="site-hamburger" onclick="document.getElementById('siteMobileMenu').classList.toggle('show')" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+  <div class="site-mobile-menu" id="siteMobileMenu">
+    <a href="/">Home</a>
+    <a href="/blog">Blog</a>
+    <a href="/faq">FAQ</a>
+    <a href="/auth/signup.html" class="mobile-signup">Sign Up</a>
+  </div>
+  
+  <main class="main">
+    <div class="auth-card">
+      <h1>Welcome back</h1>
+      <p class="subtitle">Sign in to access your writing profile</p>
+      
+      <form id="login-form" onsubmit="return handleLogin(event)">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" autocomplete="email">
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="••••••••" autocomplete="current-password">
+          <a href="/auth/reset.html" class="forgot-link">Forgot password?</a>
+        </div>
+        
+        <div class="error-msg" id="error-msg">Invalid email or password. Please try again.</div>
+        
+        <button type="submit" class="submit-btn" id="submit-btn">Sign In</button>
+      </form>
+      
+      <div class="divider"><span>or continue with</span></div>
+
+      <div class="social-buttons">
+        <button onclick="socialLogin('google')" class="social-btn" type="button">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A11.96 11.96 0 001 12c0 1.92.46 3.74 1.18 5.27l3.66-2.84v-.34z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Google
+        </button>
+        <button onclick="socialLogin('facebook')" class="social-btn" type="button">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/></svg>
+          Facebook
+        </button>
+        <button onclick="socialLogin('linkedin')" class="social-btn" type="button">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="#0A66C2"/></svg>
+          LinkedIn
+        </button>
+      </div>
+
+      <p class="alt-action">
+        Don't have an account? <a href="/auth/signup.html">Sign up free</a>
+      </p>
+    </div>
+  </main>
+  
+  <script src="/frontend/auth-state.js"></script>
+  <script>
+    // Checkout redirect: capture tier from URL or sessionStorage
+    var checkout_tier = new URLSearchParams(window.location.search).get('tier') || sessionStorage.getItem('quirrely_checkout_tier') || '';
+    if (checkout_tier) sessionStorage.setItem('quirrely_checkout_tier', checkout_tier);
+
+    // Redirect if already logged in
+    if (AuthState.isLoggedIn()) {
+      window.location.href = checkout_tier ? '/billing/upgrade.html?tier=' + checkout_tier : AuthState.getPostLoginRedirect();
+    }
+
+    async function socialLogin(provider) {
+      try {
+        const res = await fetch('/api/v2/auth/login/' + provider);
+        const data = await res.json();
+        if (data.redirect_url) window.location.href = data.redirect_url;
+        else throw new Error(data.detail || 'Failed to start login');
+      } catch (e) {
+        var errorMsg = document.getElementById('error-msg');
+        errorMsg.textContent = e.message || 'Social login unavailable';
+        errorMsg.classList.add('visible');
+      }
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const submitBtn = document.getElementById('submit-btn');
+      const errorMsg = document.getElementById('error-msg');
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing in...';
+      errorMsg.classList.remove('visible');
+
+      try {
+        const res = await fetch('/api/v2/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Invalid email or password');
+
+        AuthState.setSession(
+          { token: data.access_token, refresh_token: data.refresh_token },
+          data.user
+        );
+
+        if (checkout_tier) {
+          sessionStorage.removeItem('quirrely_checkout_tier');
+          window.location.href = '/billing/upgrade.html?tier=' + checkout_tier;
+        } else {
+          const redirect = AuthState.getPostLoginRedirect();
+          AuthState.clearPostLoginRedirect();
+          window.location.href = redirect;
+        }
+
+      } catch (error) {
+        errorMsg.textContent = error.message || 'Invalid email or password.';
+        errorMsg.classList.add('visible');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign In';
+      }
+    }
+  </script>
+
+  <footer class="site-footer">
+    <span class="footer-brand">Quirrely</span> ·
+    <a href="/blog/terms.html">Terms</a> ·
+    <a href="/blog/privacy.html">Privacy</a> ·
+    <a href="mailto:hello@quirrely.com">Support</a>
+    <span class="footer-social">
+      <a href="https://www.linkedin.com/company/111631951/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="https://www.facebook.com/profile.php?id=61575643048349" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    </span>
+  </footer>
+</body>
+</html>
