@@ -10,7 +10,7 @@
   <title>Admin: Featured Writer Review | Quirrely</title>
   <link rel="icon" type="image/svg+xml" href="/assets/logo/favicon.svg">
   <style>
-    :root { --bg:#F7F3EE; --ink:#2D3436; --primary:#FF6B6B; --success:#7CAE82; --danger:#E74C3C; --muted:#6B6560; --border:#E8E2DA; }
+    :root { --bg:#F7F3EE; --ink:#351E28; --primary:#FF5C34; --success:#7CAE82; --danger:#E74C3C; --muted:#6B5B62; --border:#AEB8A0; }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
     .container { max-width:900px; margin:0 auto; padding:2rem; }
@@ -41,18 +41,18 @@
     .btn-reject { background:var(--danger); color:white; }
     .btn:disabled { opacity:0.5; }
       .sample-block { background: var(--light, #F7F3EE); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; }
-    .sample-block h2 { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; color: var(--primary, #FF6B6B); margin-bottom: 1rem; }
-    .sample-quote { border-left: 3px solid var(--primary, #FF6B6B); padding-left: 1rem; font-style: italic; color: var(--ink, #2D3436); margin-bottom: 1rem; line-height: 1.8; }
-    .sample-analysis { font-size: 0.9rem; color: var(--muted, #6B6560); }
+    .sample-block h2 { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; color: var(--primary, #FF5C34); margin-bottom: 1rem; }
+    .sample-quote { border-left: 3px solid var(--primary, #FF5C34); padding-left: 1rem; font-style: italic; color: var(--ink, #351E28); margin-bottom: 1rem; line-height: 1.8; }
+    .sample-analysis { font-size: 0.9rem; color: var(--muted, #6B5B62); }
     .blog-footer-block { max-width: 720px; margin: 2rem auto; padding: 0 2rem; }
     .bf-writers-link { margin-bottom: 1.5rem; }
-    .bf-writers-link a { color: var(--primary, #FF6B6B); text-decoration: none; font-weight: 600; }
-    .bf-related h3 { font-family: 'Fraunces', Georgia, serif; font-size: 1rem; color: var(--muted, #6B6560); margin-bottom: 0.75rem; }
+    .bf-writers-link a { color: var(--primary, #FF5C34); text-decoration: none; font-weight: 600; }
+    .bf-related h3 { font-family: 'Fraunces', Georgia, serif; font-size: 1rem; color: var(--muted, #6B5B62); margin-bottom: 0.75rem; }
     .bf-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
     .related-pill { padding: 0.4rem 0.9rem; border-radius: 20px; font-size: 0.85rem; text-decoration: none; font-weight: 500; }
-    .bf-cta { background: linear-gradient(135deg, #FF6B6B, #E85858); color: white; padding: 2rem; border-radius: 12px; text-align: center; margin: 1.5rem 0; }
+    .bf-cta { background: linear-gradient(135deg, #FF5C34, #E04820); color: white; padding: 2rem; border-radius: 12px; text-align: center; margin: 1.5rem 0; }
     .bf-cta p { margin-bottom: 1rem; font-size: 1rem; opacity: 0.95; }
-    .bf-cta-btn { display: inline-block; background: white; color: #FF6B6B; padding: 0.65rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem; }
+    .bf-cta-btn { display: inline-block; background: white; color: #FF5C34; padding: 0.65rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.95rem; }
 </style>
 </head>
 <body>
@@ -101,7 +101,7 @@ async function loadSubs(){
     if(s.link_newsletter)lk+='<a href="'+s.link_newsletter+'" target="_blank">Newsletter</a> ';
     if(s.link_facebook)lk+='<a href="'+s.link_facebook+'" target="_blank">Facebook</a>';
     var c=document.createElement('div');c.className='sub-card';c.id='sub-'+s.id;
-    c.innerHTML='<div class="sub-header"><div class="sub-meta"><span>'+flag+'</span> <strong>'+s.display_name+'</strong> <span class="badge badge-profile">'+s.profile.toUpperCase()+' \u00b7 '+s.stance.toUpperCase()+'</span> <span class="badge badge-country">'+s.country+'</span></div><div style="font-size:0.8rem;color:#6B6560;">'+s.word_count+' words \u00b7 '+new Date(s.created_at).toLocaleDateString()+'</div></div><div class="sub-sample">'+s.sample+'</div>'+(s.bio?'<div class="sub-bio">'+s.bio+'</div>':'')+(lk?'<div class="sub-links">'+lk+'</div>':'')+'<div class="sub-footer"><input type="text" id="reason-'+s.id+'" placeholder="Rejection reason (optional)"><button class="btn btn-approve" onclick="doApprove(\''+s.id+'\')">Approve</button><button class="btn btn-reject" onclick="doReject(\''+s.id+'\')">Reject</button></div>';
+    c.innerHTML='<div class="sub-header"><div class="sub-meta"><span>'+flag+'</span> <strong>'+s.display_name+'</strong> <span class="badge badge-profile">'+s.profile.toUpperCase()+' \u00b7 '+s.stance.toUpperCase()+'</span> <span class="badge badge-country">'+s.country+'</span></div><div style="font-size:0.8rem;color:#6B5B62;">'+s.word_count+' words \u00b7 '+new Date(s.created_at).toLocaleDateString()+'</div></div><div class="sub-sample">'+s.sample+'</div>'+(s.bio?'<div class="sub-bio">'+s.bio+'</div>':'')+(lk?'<div class="sub-links">'+lk+'</div>':'')+'<div class="sub-footer"><input type="text" id="reason-'+s.id+'" placeholder="Rejection reason (optional)"><button class="btn btn-approve" onclick="doApprove(\''+s.id+'\')">Approve</button><button class="btn btn-reject" onclick="doReject(\''+s.id+'\')">Reject</button></div>';
     list.appendChild(c);
   });
 }
