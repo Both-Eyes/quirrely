@@ -345,7 +345,7 @@
     var u={};try{u=JSON.parse(localStorage.getItem('quirrely_user')||'{}');}catch(e){}
     var tier=(u.subscription_tier||'free').toLowerCase();
     var token='';try{token=JSON.parse(sess).token||'';}catch(e){}
-    fetch('/api/v2/share/me',{headers:{'Authorization':'Bearer '+token}})
+    fetch('/api/v2/user/voice',{headers:{'Authorization':'Bearer '+token}})
       .then(function(r){return r.ok?r.json():null;})
       .then(function(d){
         if(d&&d.profile&&d.stance){
