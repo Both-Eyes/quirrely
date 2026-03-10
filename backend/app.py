@@ -304,22 +304,18 @@ try:
     app.include_router(share_router, tags=["Share"])
 
     @app.get("/api/v2/user/voice")
-    async def get_user_voice(authorization: str = Header(None)):
-        if not authorization or not authorization.startswith("Bearer "):
+    async def get_user_voice(authorization: Optional[str] = Header(None)):
+        from auth_api import get_current_user
+        user = get_current_user(authorization)
+        if not user:
             raise HTTPException(status_code=401, detail="Authentication required")
-        token = authorization.split(" ", 1)[1]
-        from db import get_db
+        uid = str(user["id"])
         with get_db() as conn:
             with conn.cursor() as cur:
-                cur.execute("SELECT user_id FROM auth_tokens WHERE token=%s AND expires_at > NOW()", (token,))
-                row = cur.fetchone()
-                if not row:
-                    raise HTTPException(status_code=401, detail="Invalid token")
-                uid = row["user_id"]
-                cur.execute("""SELECT AVG(score_assertive) as a,AVG(score_minimal) as m,
-                    AVG(score_poetic) as p,AVG(score_dense) as d,AVG(score_conversational) as c,
-                    AVG(score_hedged) as h,AVG(score_interrogative) as i,AVG(score_longform) as l,
-                    AVG(score_formal) as f,MAX(stance) as stance
+                cur.execute("""SELECT AVG(score_assertive) a,AVG(score_minimal) m,
+                    AVG(score_poetic) p,AVG(score_dense) d,AVG(score_conversational) c,
+                    AVG(score_hedged) h,AVG(score_interrogative) i,AVG(score_longform) l,
+                    AVG(score_formal) f,MAX(stance) stance
                     FROM writing_profiles WHERE user_id=%s""", (uid,))
                 r = cur.fetchone()
         if not r or not r["a"]:
@@ -327,8 +323,7 @@ try:
         sc={"assertive":r["a"],"minimal":r["m"],"poetic":r["p"],"dense":r["d"],
             "conversational":r["c"],"hedged":r["h"],"interrogative":r["i"],"longform":r["l"],"formal":r["f"]}
         sc={k:float(v or 0) for k,v in sc.items()}
-        dominant=max(sc,key=lambda k:sc[k])
-        return {"profile":dominant,"stance":(r["stance"] or "open").lower()}
+        return {"profile":max(sc,key=lambda k:sc[k]),"stance":(r["stance"] or "open").lower()}
     app.include_router(features_router, tags=["Features"])
     from featured_api import router as featured_router
     app.include_router(featured_router, tags=["Featured"])
