@@ -18,6 +18,7 @@
     badges[0].textContent = entry.profile ? entry.profile.toUpperCase() : '';
     badges[1].textContent = entry.stance ? entry.stance.toUpperCase() : '';
     badges[2].textContent = entry.type === 'how' ? 'Writing Voice' : 'Reading Profile';
+    if (badges.length >= 4 && entry.confidence) badges[3].textContent = Math.round(entry.confidence*100)+'% match';
   }
   var authorName = entry.title.replace('Why You Like ','').replace('Write Like ','').replace("'s Writing Style",'').trim();
   var lastName = authorName.split(' ').pop();
@@ -26,6 +27,8 @@
   var PT = p.charAt(0).toUpperCase()+p.slice(1), ST = s.charAt(0).toUpperCase()+s.slice(1);
   var stanceLabelMap = {open:'openness',closed:'certainty',balanced:'balance',contradictory:'complexity'};
   var stanceLabel = stanceLabelMap[s] || s+' quality';
+  var av = (typeof AUTHOR_VOICE !== 'undefined' && AUTHOR_VOICE[authorName]) ? AUTHOR_VOICE[authorName] : null;
+  var avHtml = av ? '<p class="author-voice">'+av.join(' ')+'</p>' : '';
   var profileTexture = {
     minimal: 'strips language back to what matters — no word survives that does not earn its place',
     assertive: 'takes a position and holds it — every sentence knows where it stands',
@@ -126,7 +129,8 @@
         '<p>Then read it against '+authorName+'. The gap between your draft and the source is your curriculum. Do not close it too fast — understanding why the gap exists is more useful than closing it.</p>'+
         '<h2>Where It Goes Wrong</h2>'+
         '<p>Under pressure, the '+p+' quality is the first to go: '+pFail+'. Watch for the moment it starts to slip — it usually happens at the sentence level before it shows up in the argument.</p>'+
-        '<p>The '+s+' orientation has its own failure mode: '+sFail+'. The test is simple: read the paragraph back. If either quality has retreated, the voice has collapsed. Rewrite until both are present at full strength.</p>'
+        '<p>The '+s+' orientation has its own failure mode: '+sFail+'. The test is simple: read the paragraph back. If either quality has retreated, the voice has collapsed. Rewrite until both are present at full strength.</p>'+
+          avHtml
     }
   }
   var article = document.querySelector('article');
@@ -146,7 +150,8 @@
         '<p>Reading taste has a core that is more stable than most people realise. The fact that you are drawn to '+P2+' writing now probably means you have always been, even before you had words for it.</p>'+
         '<h2>Finding More Writing Like This</h2>'+
         '<p>The fingerprint of '+p+' writing with a '+s+' orientation shows up in sentence-level decisions: how claims are made, how the reader is addressed, what the prose closes off and what it leaves open. Once you can name it, you will start noticing it everywhere — in journalism, in essays, in writers you have not yet read.</p>'+
-        '<p>Start with the writers below. Each shares the structural DNA of this voice while bringing their own place, their own obsessions, their own rhythm. The regional links go to local booksellers. The book in your hands is always better than the book on a list.</p>';
+        '<p>Start with the writers below. Each shares the structural DNA of this voice while bringing their own place, their own obsessions, their own rhythm. The regional links go to local booksellers. The book in your hands is always better than the book on a list.</p>'+
+          avHtml;
     }
     var h = article.innerHTML;
     h = h.replace(new RegExp(PC+'\\s*\\+\\s*'+SC+' writers bring','g'), authorName+' brings');
