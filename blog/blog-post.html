@@ -34,10 +34,12 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-hei
 .nav-wordmark{font-family:var(--font-body);font-size:1.1rem;font-weight:700;letter-spacing:-0.01em;}
 .nav-wordmark span{color:var(--primary);}
 .nav-links{display:flex;align-items:center;gap:1.5rem;}
-.nav-links a{font-size:0.88rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.15s;}
+.nav-links a{font-size:0.875rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.15s;}
 .nav-links a:hover{color:var(--ink);}
-.nav-links .signup-btn{background:var(--primary);color:#fff;padding:0.4rem 1rem;border-radius:6px;font-weight:600;}
-.nav-links .signup-btn:hover{background:var(--primary-dark);color:#fff;}
+.nav-links .signin-link{color:var(--muted);}
+.nav-links .signin-link:hover{color:var(--primary);}
+.nav-links .signup-btn{padding:0.5rem 1.25rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-radius:6px;font-weight:600;font-size:0.85rem;box-shadow:0 2px 8px rgba(255,92,52,0.25);text-decoration:none;}
+.nav-links .signup-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,92,52,0.35);}
 @media(max-width:640px){.nav-links .nav-hide{display:none;}}
 .hero{background:linear-gradient(180deg,#D7EFFF 0%,#EEF7FF 60%,var(--bg) 100%);border-bottom:3px solid var(--primary);padding:3.5rem 2rem 2.5rem;text-align:center;}
 .hero-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);font-weight:600;margin-bottom:0.75rem;}
