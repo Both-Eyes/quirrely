@@ -25,7 +25,7 @@
   }
   var article = document.querySelector('article');
   if (article && typeof BLOG_BODY !== 'undefined' && BLOG_BODY[slug]) {
-    article.innerHTML = BLOG_BODY[slug];
+    article.innerHTML = '<div class="article-body">' + BLOG_BODY[slug] + '</div>';
   }
 
   if (entry.writers) {
