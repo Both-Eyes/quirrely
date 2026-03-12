@@ -1,8 +1,8 @@
 {
-  "run_at": "2026-03-10T07:00:30.456139+00:00",
+  "run_at": "2026-03-12T07:00:31.594099+00:00",
   "version": "2.0",
   "mode": "production",
-  "duration_seconds": 26,
+  "duration_seconds": 27,
   "part_1": {
     "name": "Infrastructure & Environment",
     "pass": 36,
@@ -77,7 +77,7 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=146",
+        "detail": "rows=149",
         "owner": "ASO"
       },
       {
@@ -89,13 +89,13 @@
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=496",
+        "detail": "rows=515",
         "owner": "ASO"
       },
       {
         "name": "Table 'share_profiles' accessible",
         "status": "PASS",
-        "detail": "rows=2",
+        "detail": "rows=3",
         "owner": "ASO"
       },
       {
@@ -119,19 +119,19 @@
       {
         "name": "SSL valid: quirrely.com",
         "status": "PASS",
-        "detail": "71 days",
+        "detail": "69 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: api.quirrely.com",
         "status": "PASS",
-        "detail": "71 days",
+        "detail": "69 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: quirrely.ca",
         "status": "PASS",
-        "detail": "71 days",
+        "detail": "69 days",
         "owner": "ASO"
       },
       {
@@ -191,25 +191,25 @@
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "466ms",
+        "detail": "488ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "8ms",
         "owner": "ASO"
       },
       {
         "name": "Admin health < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "5ms",
         "owner": "ASO"
       },
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "7ms (401 expected)",
+        "detail": "13ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -240,7 +240,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=ebb3be82...",
+        "detail": "session=0734d2e3...",
         "owner": "KIM"
       },
       {
@@ -896,8 +896,8 @@
   },
   "part_4": {
     "name": "Frontend Integrity",
-    "pass": 195,
-    "fail": 2,
+    "pass": 184,
+    "fail": 13,
     "tests": [
       {
         "name": "File exists: App index.html",
@@ -1123,8 +1123,8 @@
       },
       {
         "name": "JS fn renderActivity()",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "KIM"
       },
       {
@@ -1267,8 +1267,8 @@
       },
       {
         "name": "GA4 on public pages >= 90%",
-        "status": "FAIL",
-        "detail": "26/29 pages (90%)",
+        "status": "PASS",
+        "detail": "21/23 pages (91%)",
         "owner": "MARS"
       },
       {
@@ -1357,43 +1357,43 @@
       },
       {
         "name": "index.html uses Fraunces font",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
         "name": "dashboard.html uses Fraunces font",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
         "name": "login.html uses Fraunces font",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
         "name": "signup.html uses Fraunces font",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
         "name": "Dashboard dark welcome banner",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
         "name": "Dashboard rainbow stripe",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
         "name": "Dashboard vivid accent vars",
-        "status": "PASS",
+        "status": "FAIL",
         "detail": "found",
         "owner": "MARS"
       },
@@ -1417,8 +1417,8 @@
       },
       {
         "name": "Dashboard gradient buttons",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
@@ -1447,8 +1447,8 @@
       },
       {
         "name": "Dashboard sidebar notebook lines",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
@@ -1543,14 +1543,14 @@
       },
       {
         "name": "Blog nav underline",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
         "name": "Deploy dir has dark banner",
-        "status": "PASS",
-        "detail": "synced",
+        "status": "FAIL",
+        "detail": "STALE",
         "owner": "MARS"
       },
       {
@@ -1897,8 +1897,8 @@
       },
       {
         "name": "blog-index nav underline",
-        "status": "PASS",
-        "detail": "found",
+        "status": "FAIL",
+        "detail": "MISSING",
         "owner": "MARS"
       },
       {
@@ -1920,9 +1920,9 @@
         "owner": "MARS"
       },
       {
-        "name": "Blog posts with unified header (96/97)",
+        "name": "Blog posts with unified header (3/4)",
         "status": "PASS",
-        "detail": "96/97",
+        "detail": "3/4",
         "owner": "MARS"
       },
       {
@@ -2041,8 +2041,8 @@
       },
       {
         "name": "Blog canonicals use .ca",
-        "status": "FAIL",
-        "detail": "poetic-closed.html,assertive-balanced.html,assertive-open.html,interrogative-closed.html,minimal-contradictory.html",
+        "status": "PASS",
+        "detail": "clean",
         "owner": "MARS"
       },
       {
@@ -2748,61 +2748,61 @@
       {
         "name": "Health p50 < 200ms",
         "status": "PASS",
-        "detail": "p50=3ms p95=3ms",
+        "detail": "p50=2ms p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Health p95 < 400ms",
         "status": "PASS",
-        "detail": "p95=3ms",
+        "detail": "p95=2ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=2ms p95=3ms",
+        "detail": "p50=2ms p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=3ms",
+        "detail": "p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Featured p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=3ms p95=5ms",
+        "detail": "p50=2ms p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Featured p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=5ms",
+        "detail": "p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Newsletter count p50 < 500ms",
         "status": "PASS",
-        "detail": "p50=2ms p95=3ms",
+        "detail": "p50=3ms p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Newsletter count p95 < 1000ms",
         "status": "PASS",
-        "detail": "p95=3ms",
+        "detail": "p95=4ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p50 < 3s",
         "status": "PASS",
-        "detail": "p50=336ms",
+        "detail": "p50=368ms",
         "owner": "ASO"
       },
       {
         "name": "Analyze p95 < 5s",
         "status": "PASS",
-        "detail": "p95=360ms",
+        "detail": "p95=369ms",
         "owner": "ASO"
       },
       {
@@ -2814,7 +2814,7 @@
       {
         "name": "Concurrent: none > 10s",
         "status": "PASS",
-        "detail": "max=1746ms",
+        "detail": "max=1802ms",
         "owner": "ASO"
       },
       {
@@ -2832,7 +2832,7 @@
       {
         "name": "5000-word text < 15s",
         "status": "PASS",
-        "detail": "337ms",
+        "detail": "454ms",
         "owner": "ASO"
       },
       {
@@ -2844,19 +2844,19 @@
       {
         "name": "DB User count < 1s",
         "status": "PASS",
-        "detail": "49ms, 137",
+        "detail": "38ms, 137",
         "owner": "ASO"
       },
       {
         "name": "DB Profile count < 1s",
         "status": "PASS",
-        "detail": "26ms, 11",
+        "detail": "30ms, 11",
         "owner": "ASO"
       },
       {
         "name": "DB Events count < 1s",
         "status": "PASS",
-        "detail": "27ms, 496",
+        "detail": "32ms, 515",
         "owner": "ASO"
       },
       {
@@ -2868,27 +2868,27 @@
     ]
   },
   "summary": {
-    "total_pass": 464,
-    "total_fail": 4,
-    "pct": 99
+    "total_pass": 453,
+    "total_fail": 15,
+    "pct": 96
   },
   "suggestions": [
-    "GA4 missing from 3 files: maintenance.html, pro-dashboard.html, index.html"
+    "GA4 missing from 2 files: maintenance.html, pro-dashboard.html"
   ],
   "benchmarks": {
     "health_ms": 3,
-    "analyze_ms": 466,
-    "pricing_ms": 4,
-    "health_p50_ms": 3,
-    "health_p95_ms": 3,
+    "analyze_ms": 488,
+    "pricing_ms": 8,
+    "health_p50_ms": 2,
+    "health_p95_ms": 2,
     "pricing_p50_ms": 2,
-    "pricing_p95_ms": 3,
-    "featured_p50_ms": 3,
-    "featured_p95_ms": 5,
-    "newsletter_count_p50_ms": 2,
-    "newsletter_count_p95_ms": 3,
-    "analyze_p50_ms": 336,
-    "analyze_p95_ms": 360
+    "pricing_p95_ms": 4,
+    "featured_p50_ms": 2,
+    "featured_p95_ms": 4,
+    "newsletter_count_p50_ms": 3,
+    "newsletter_count_p95_ms": 4,
+    "analyze_p50_ms": 368,
+    "analyze_p95_ms": 369
   },
   "part_a": {
     "name": "Infrastructure & Environment",
@@ -2964,7 +2964,7 @@
       {
         "name": "Table 'auth_sessions' accessible",
         "status": "PASS",
-        "detail": "rows=146",
+        "detail": "rows=149",
         "owner": "ASO"
       },
       {
@@ -2976,13 +2976,13 @@
       {
         "name": "Table 'analytics_events' accessible",
         "status": "PASS",
-        "detail": "rows=496",
+        "detail": "rows=515",
         "owner": "ASO"
       },
       {
         "name": "Table 'share_profiles' accessible",
         "status": "PASS",
-        "detail": "rows=2",
+        "detail": "rows=3",
         "owner": "ASO"
       },
       {
@@ -3006,19 +3006,19 @@
       {
         "name": "SSL valid: quirrely.com",
         "status": "PASS",
-        "detail": "71 days",
+        "detail": "69 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: api.quirrely.com",
         "status": "PASS",
-        "detail": "71 days",
+        "detail": "69 days",
         "owner": "ASO"
       },
       {
         "name": "SSL valid: quirrely.ca",
         "status": "PASS",
-        "detail": "71 days",
+        "detail": "69 days",
         "owner": "ASO"
       },
       {
@@ -3078,25 +3078,25 @@
       {
         "name": "Analyze < 3s",
         "status": "PASS",
-        "detail": "466ms",
+        "detail": "488ms",
         "owner": "ASO"
       },
       {
         "name": "Pricing < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "8ms",
         "owner": "ASO"
       },
       {
         "name": "Admin health < 500ms",
         "status": "PASS",
-        "detail": "4ms",
+        "detail": "5ms",
         "owner": "ASO"
       },
       {
         "name": "Dashboard endpoint < 500ms",
         "status": "PASS",
-        "detail": "7ms (401 expected)",
+        "detail": "13ms (401 expected)",
         "owner": "ASO"
       },
       {
@@ -3127,7 +3127,7 @@
       {
         "name": "LNCP session created",
         "status": "PASS",
-        "detail": "session=ebb3be82...",
+        "detail": "session=0734d2e3...",
         "owner": "KIM"
       },
       {
