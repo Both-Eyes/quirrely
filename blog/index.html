@@ -120,7 +120,7 @@
         <div class="start-grid" id="start-grid">
           <a href="/blog/write-like-ian-mcewan" class="start-card">
             <div class="start-card-type">Write Like</div>
-            <div class="start-card-title">Write Like Ian McEwan</div>
+            <div class="start-card-title"><span style="color:var(--muted);font-weight:400;">Write Like </span><span style="color:var(--primary-dark);font-weight:700;">Ian McEwan</span></div>
           </a>
           <a href="/blog/virginia-woolf-writing-style" class="start-card">
             <div class="start-card-type">Reading Taste</div>
@@ -128,7 +128,7 @@
           </a>
           <a href="/blog/write-like-samuel-beckett" class="start-card">
             <div class="start-card-type">Write Like</div>
-            <div class="start-card-title">Write Like Samuel Beckett</div>
+            <div class="start-card-title"><span style="color:var(--muted);font-weight:400;">Write Like </span><span style="color:var(--primary-dark);font-weight:700;">Samuel Beckett</span></div>
           </a>
         </div>
       </div>
@@ -307,7 +307,7 @@
       var borderCol=p.color||'#FF5C34';
       html+='<a href="/blog/'+p.slug+'" class="post-card" data-profile="'+p.profile+'" data-stance="'+(p.stance||'')+'" data-country="'+(p.country||'')+'" style="border-left-color:'+borderCol+'">'
         +'<div class="post-category" style="color:'+borderCol+'">In the Style <span style="font-size:0.6rem;background:'+borderCol+';color:#fff;padding:0.1rem 0.35rem;border-radius:3px;margin-left:0.3rem;vertical-align:middle;">'+( p.country||'')+' </span></div>'
-        +'<div class="post-title">'+t+'</div>'
+        +'<div class="post-title"><span style="color:var(--muted);font-weight:400;">'+t.replace(/^In the Style of /,'In the Style of <span style="color:var(--primary-dark);font-weight:700;">')+'</span></div>'
         +'<div class="post-excerpt">'+p.excerpt+'</div></a>';
     });
     list.innerHTML=html;
@@ -328,9 +328,11 @@
     {href:'/blog/samuel-beckett-writing-style',color:'#8B9A8B',title:'In the Style of Samuel Beckett'}
   ];
   function cardHTML(href,color,title){
-    return '<a href="'+href+'" class="start-card" style="border-left-color:'+color+'">'
+    var pfx=title.match(/^(In the Style of |Why You Like )/);
+      var tHtml=pfx?'<span style="color:var(--muted);font-weight:400;">'+pfx[0]+'</span><span style="color:var(--primary-dark);font-weight:700;">'+title.slice(pfx[0].length)+'</span>':title;
+      return '<a href="'+href+'" class="start-card" style="border-left-color:'+color+'">'
       +'<div class="start-card-type" style="color:'+color+'">In the Style</div>'
-      +'<div class="start-card-title">'+title+'</div></a>';
+      +'<div class="start-card-title">'+tHtml+'</div></a>';
   }
   function renderEditorial(){
     var el=document.getElementById('start-grid');
