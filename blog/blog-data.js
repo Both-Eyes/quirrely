@@ -9,10 +9,10 @@ const BLOG_DATA = [
     country: 'WS',
     stance: 'open',
     writers: {
-      CA: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      UK: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      AU: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      NZ: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
+      CA: { writer: 'Michael Ondaatje', book: 'The English Patient', why: 'Ondaatje\'s lyrical prose invites multiple readings.' },
+      UK: { writer: 'Virginia Woolf', book: 'To the Lighthouse', why: 'Woolf\'s poetic style opens endless interpretation.' },
+      AU: { writer: 'Alexis Wright', book: 'Carpentaria', why: 'Wright\'s lyrical storytelling invites diverse readings.' },
+      NZ: { writer: 'Patricia Grace', book: 'Potiki', why: 'Grace\'s poetic prose opens to multiple interpretations.' }
     }
   },
   {
@@ -24,10 +24,10 @@ const BLOG_DATA = [
     profile: 'dense',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      UK: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      NZ: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
+      CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
+      UK: { writer: 'John Fowles', book: 'The French Lieutenant\'s Woman', why: 'Fowles\' dense metafiction embraces paradox.' },
+      AU: { writer: 'Peter Carey', book: 'Oscar and Lucinda', why: 'Carey\'s intricate prose holds contradiction.' },
+      NZ: { writer: 'Ian Wedde', book: 'Symmes Hole', why: 'Wedde\'s dense style embraces postmodern paradox.' }
     }
   },
   {
@@ -67,10 +67,10 @@ const BLOG_DATA = [
     profile: 'formal',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      UK: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      AU: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      NZ: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
+      CA: { writer: 'Thomas Homer-Dixon', book: 'The Upside of Down', why: 'Homer-Dixon holds contradictory futures in balance.' },
+      UK: { writer: 'John Gray', book: 'Straw Dogs', why: 'Gray presents balanced view of humanity\'s contradictions.' },
+      AU: { writer: 'Tim Flannery', book: 'The Weather Makers', why: 'Flannery balances hope and despair about climate.' },
+      NZ: { writer: 'Geoff Park', book: 'Theatre Country', why: 'Park holds environmental contradictions in balance.' }
     }
   },
   {
@@ -82,10 +82,10 @@ const BLOG_DATA = [
     profile: 'conversational',
     stance: 'closed',
     writers: {
-      CA: { writer: 'Douglas Adams', book: 'The Hitchhiker\'s Guide', why: 'Adams\'s wit arrives at absurdist certainty.' },
-      UK: { writer: 'Douglas Adams', book: 'The Hitchhiker\'s Guide', why: 'Adams\'s wit arrives at absurdist certainty.' },
-      AU: { writer: 'Douglas Adams', book: 'The Hitchhiker\'s Guide', why: 'Adams\'s wit arrives at absurdist certainty.' },
-      NZ: { writer: 'Douglas Adams', book: 'The Hitchhiker\'s Guide', why: 'Adams\'s wit arrives at absurdist certainty.' },
+      CA: { writer: 'Will Ferguson', book: 'Happiness', why: 'Ferguson\'s chatty style delivers satirical truths.' },
+      UK: { writer: 'Douglas Adams', book: 'The Hitchhiker\'s Guide', why: 'Adams\' conversational voice makes absurdist certainties.' },
+      AU: { writer: 'Clive James', book: 'Unreliable Memoirs', why: 'James\' friendly voice delivers definitive observations.' },
+      NZ: { writer: 'Danyl McLauchlan', book: 'Unspeakable Secrets', why: 'McLauchlan\'s chatty style makes satirical points.' }
     }
   },
   {
@@ -98,10 +98,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'open',
     writers: {
-      CA: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
-      UK: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
-      AU: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
-      NZ: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
+      CA: { writer: 'Naomi Klein', book: 'This Changes Everything', why: 'Klein asks genuine questions about climate solutions.' },
+      UK: { writer: 'Rebecca Solnit', book: 'Hope in the Dark', why: 'Solnit asks genuine questions about activism.' },
+      AU: { writer: 'Helen Garner', book: 'This House of Grief', why: 'Garner questions certainty throughout.' },
+      NZ: { writer: 'Diana Wichtel', book: 'Driving to Treblinka', why: 'Wichtel questions family history openly.' }
     }
   },
   {
@@ -113,10 +113,10 @@ const BLOG_DATA = [
     profile: 'formal',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      UK: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      AU: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      NZ: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
+      CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
+      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formal essays balance intellectual traditions.' },
+      AU: { writer: 'Inga Clendinnen', book: 'Dancing with Strangers', why: 'Clendinnen\'s formal prose balances colonial perspectives.' },
+      NZ: { writer: 'Ranginui Walker', book: 'Ka Whawhai Tonu Matou', why: 'Walker\'s formal analysis balances perspectives.' }
     }
   },
   {
@@ -128,10 +128,10 @@ const BLOG_DATA = [
     profile: 'assertive',
     stance: 'open',
     writers: {
-      CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      UK: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      AU: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      NZ: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Warlight', why: 'Ondaatje writes with confidence but leaves space for mystery.' },
+      UK: { writer: 'Ian McEwan', book: 'Atonement', why: 'McEwan asserts his narrative while remaining open to moral complexity.' },
+      AU: { writer: 'Richard Flanagan', book: 'The Narrow Road to the Deep North', why: 'Flanagan writes with conviction while exploring ambiguity.' },
+      NZ: { writer: 'Eleanor Catton', book: 'The Luminaries', why: 'Catton builds assertive prose with genuine openness.' }
     }
   },
   {
@@ -144,10 +144,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      UK: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      AU: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      NZ: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
+      CA: { writer: 'Anne Michaels', book: 'Fugitive Pieces', why: 'Michaels\' poetry is certain even when beautiful.' },
+      UK: { writer: 'Jeanette Winterson', book: 'The Passion', why: 'Winterson\'s lyrical prose delivers truth with certainty.' },
+      AU: { writer: 'David Malouf', book: 'Ransom', why: 'Malouf\'s poetic prose makes definitive claims.' },
+      NZ: { writer: 'Elizabeth Knox', book: 'The Vintner\'s Luck', why: 'Knox\'s beautiful prose is confident in its vision.' }
     }
   },
   {
@@ -160,10 +160,10 @@ const BLOG_DATA = [
     country: 'IE',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      UK: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      AU: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      NZ: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Divisadero', why: 'Ondaatje holds contradictions tentatively.' },
+      UK: { writer: 'Ali Smith', book: 'Autumn', why: 'Smith\'s uncertain prose embraces Brexit\'s contradictions.' },
+      AU: { writer: 'Alexis Wright', book: 'The Swan Book', why: 'Wright holds climate contradictions in uncertain prose.' },
+      NZ: { writer: 'Pip Adam', book: 'The New Animals', why: 'Adam\'s hesitant prose holds identity contradictions.' }
     }
   },
   {
@@ -176,10 +176,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'closed',
     writers: {
-      CA: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
-      UK: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
-      AU: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
-      NZ: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
+      CA: { writer: 'Sheila Heti', book: 'How Should a Person Be?', why: 'Heti\'s spare prose delivers definitive observations.' },
+      UK: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips language to essence with certainty.' },
+      AU: { writer: 'David Malouf', book: 'An Imaginary Life', why: 'Malouf\'s minimal prose is spare and certain.' },
+      NZ: { writer: 'C.K. Stead', book: 'All Visitors Ashore', why: 'Stead writes with spare, final authority.' }
     }
   },
   {
@@ -192,10 +192,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'open',
     writers: {
-      CA: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
-      UK: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
-      AU: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
-      NZ: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
+      CA: { writer: 'Naomi Klein', book: 'This Changes Everything', why: 'Klein asks genuine questions about climate solutions.' },
+      UK: { writer: 'Rebecca Solnit', book: 'Hope in the Dark', why: 'Solnit asks genuine questions about activism.' },
+      AU: { writer: 'Helen Garner', book: 'This House of Grief', why: 'Garner questions certainty throughout.' },
+      NZ: { writer: 'Diana Wichtel', book: 'Driving to Treblinka', why: 'Wichtel questions family history openly.' }
     }
   },
   {
@@ -222,10 +222,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'open',
     writers: {
-      CA: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
-      UK: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
-      AU: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
-      NZ: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
+      CA: { writer: 'Alice Munro', book: 'Runaway', why: 'Munro says little but implies much, inviting interpretation.' },
+      UK: { writer: 'Kazuo Ishiguro', book: 'Never Let Me Go', why: 'Ishiguro\'s spare prose creates space for discovery.' },
+      AU: { writer: 'Gerald Murnane', book: 'The Plains', why: 'Murnane\'s minimal style opens rather than closes meaning.' },
+      NZ: { writer: 'Janet Frame', book: 'Towards Another Summer', why: 'Frame\'s economy creates expansive ambiguity.' }
     }
   },
   {
@@ -238,10 +238,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      UK: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      AU: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      NZ: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
+      CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
+      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formal essays balance intellectual traditions.' },
+      AU: { writer: 'Inga Clendinnen', book: 'Dancing with Strangers', why: 'Clendinnen\'s formal prose balances colonial perspectives.' },
+      NZ: { writer: 'Ranginui Walker', book: 'Ka Whawhai Tonu Matou', why: 'Walker\'s formal analysis balances perspectives.' }
     }
   },
   {
@@ -254,10 +254,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'open',
     writers: {
-      CA: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
-      UK: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
-      AU: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
-      NZ: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
+      CA: { writer: 'Alice Munro', book: 'Runaway', why: 'Munro says little but implies much, inviting interpretation.' },
+      UK: { writer: 'Kazuo Ishiguro', book: 'Never Let Me Go', why: 'Ishiguro\'s spare prose creates space for discovery.' },
+      AU: { writer: 'Gerald Murnane', book: 'The Plains', why: 'Murnane\'s minimal style opens rather than closes meaning.' },
+      NZ: { writer: 'Janet Frame', book: 'Towards Another Summer', why: 'Frame\'s economy creates expansive ambiguity.' }
     }
   },
   {
@@ -269,10 +269,10 @@ const BLOG_DATA = [
     profile: 'assertive',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      UK: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      AU: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      NZ: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
+      CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
+      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith asserts contradictory truths with equal conviction.' },
+      AU: { writer: 'Peter Carey', book: 'True History of the Kelly Gang', why: 'Carey\'s Kelly is certain even when unreliable.' },
+      NZ: { writer: 'Keri Hulme', book: 'The Bone People', why: 'Hulme writes with fierce conviction about irresolvable tensions.' }
     }
   },
   {
@@ -284,10 +284,10 @@ const BLOG_DATA = [
     profile: 'dense',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      UK: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      NZ: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
+      CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
+      UK: { writer: 'John Fowles', book: 'The French Lieutenant\'s Woman', why: 'Fowles\' dense metafiction embraces paradox.' },
+      AU: { writer: 'Peter Carey', book: 'Oscar and Lucinda', why: 'Carey\'s intricate prose holds contradiction.' },
+      NZ: { writer: 'Ian Wedde', book: 'Symmes Hole', why: 'Wedde\'s dense style embraces postmodern paradox.' }
     }
   },
   {
@@ -300,10 +300,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'closed',
     writers: {
-      CA: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
-      UK: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
-      AU: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
-      NZ: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
+      CA: { writer: 'Sheila Heti', book: 'How Should a Person Be?', why: 'Heti\'s spare prose delivers definitive observations.' },
+      UK: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips language to essence with certainty.' },
+      AU: { writer: 'David Malouf', book: 'An Imaginary Life', why: 'Malouf\'s minimal prose is spare and certain.' },
+      NZ: { writer: 'C.K. Stead', book: 'All Visitors Ashore', why: 'Stead writes with spare, final authority.' }
     }
   },
   {
@@ -316,10 +316,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      UK: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      AU: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      NZ: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
+      CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
+      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formal essays balance intellectual traditions.' },
+      AU: { writer: 'Inga Clendinnen', book: 'Dancing with Strangers', why: 'Clendinnen\'s formal prose balances colonial perspectives.' },
+      NZ: { writer: 'Ranginui Walker', book: 'Ka Whawhai Tonu Matou', why: 'Walker\'s formal analysis balances perspectives.' }
     }
   },
   {
@@ -331,10 +331,10 @@ const BLOG_DATA = [
     profile: 'conversational',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -347,10 +347,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      UK: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      AU: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      NZ: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Divisadero', why: 'Ondaatje holds contradictions tentatively.' },
+      UK: { writer: 'Ali Smith', book: 'Autumn', why: 'Smith\'s uncertain prose embraces Brexit\'s contradictions.' },
+      AU: { writer: 'Alexis Wright', book: 'The Swan Book', why: 'Wright holds climate contradictions in uncertain prose.' },
+      NZ: { writer: 'Pip Adam', book: 'The New Animals', why: 'Adam\'s hesitant prose holds identity contradictions.' }
     }
   },
   {
@@ -363,10 +363,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'open',
     writers: {
-      CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      UK: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      AU: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      NZ: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Warlight', why: 'Ondaatje writes with confidence but leaves space for mystery.' },
+      UK: { writer: 'Ian McEwan', book: 'Atonement', why: 'McEwan asserts his narrative while remaining open to moral complexity.' },
+      AU: { writer: 'Richard Flanagan', book: 'The Narrow Road to the Deep North', why: 'Flanagan writes with conviction while exploring ambiguity.' },
+      NZ: { writer: 'Eleanor Catton', book: 'The Luminaries', why: 'Catton builds assertive prose with genuine openness.' }
     }
   },
   {
@@ -378,10 +378,10 @@ const BLOG_DATA = [
     profile: 'assertive',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      UK: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      AU: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      NZ: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
+      CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
+      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith asserts contradictory truths with equal conviction.' },
+      AU: { writer: 'Peter Carey', book: 'True History of the Kelly Gang', why: 'Carey\'s Kelly is certain even when unreliable.' },
+      NZ: { writer: 'Keri Hulme', book: 'The Bone People', why: 'Hulme writes with fierce conviction about irresolvable tensions.' }
     }
   },
   {
@@ -393,10 +393,10 @@ const BLOG_DATA = [
     profile: 'assertive',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      UK: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      AU: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      NZ: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
+      CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
+      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith asserts contradictory truths with equal conviction.' },
+      AU: { writer: 'Peter Carey', book: 'True History of the Kelly Gang', why: 'Carey\'s Kelly is certain even when unreliable.' },
+      NZ: { writer: 'Keri Hulme', book: 'The Bone People', why: 'Hulme writes with fierce conviction about irresolvable tensions.' }
     }
   },
   {
@@ -408,10 +408,10 @@ const BLOG_DATA = [
     profile: 'assertive',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      UK: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      AU: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      NZ: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
+      CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
+      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith asserts contradictory truths with equal conviction.' },
+      AU: { writer: 'Peter Carey', book: 'True History of the Kelly Gang', why: 'Carey\'s Kelly is certain even when unreliable.' },
+      NZ: { writer: 'Keri Hulme', book: 'The Bone People', why: 'Hulme writes with fierce conviction about irresolvable tensions.' }
     }
   },
   {
@@ -424,10 +424,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -440,10 +440,10 @@ const BLOG_DATA = [
     country: 'IE',
     stance: 'closed',
     writers: {
-      CA: { writer: 'Kazuo Ishiguro', book: 'The Remains of the Day', why: 'Ishiguro\'s qualifications arrive at devastating certainty.' },
-      UK: { writer: 'Kazuo Ishiguro', book: 'The Remains of the Day', why: 'Ishiguro\'s qualifications arrive at devastating certainty.' },
-      AU: { writer: 'Kazuo Ishiguro', book: 'The Remains of the Day', why: 'Ishiguro\'s qualifications arrive at devastating certainty.' },
-      NZ: { writer: 'Kazuo Ishiguro', book: 'The Remains of the Day', why: 'Ishiguro\'s qualifications arrive at devastating certainty.' },
+      CA: { writer: 'Alice Munro', book: 'Dear Life', why: 'Munro hedges on facts but not on emotional truth.' },
+      UK: { writer: 'Kazuo Ishiguro', book: 'The Remains of the Day', why: 'Stevens hedges constantly but the meaning is certain.' },
+      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s prose is uncertain on surface, certain beneath.' },
+      NZ: { writer: 'Fiona Kidman', book: 'This Mortal Boy', why: 'Kidman hedges on interpretation but not on tragedy.' }
     }
   },
   {
@@ -456,10 +456,10 @@ const BLOG_DATA = [
     country: 'US',
     stance: 'closed',
     writers: {
-      CA: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
-      UK: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
-      AU: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
-      NZ: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
+      CA: { writer: 'Sheila Heti', book: 'How Should a Person Be?', why: 'Heti\'s spare prose delivers definitive observations.' },
+      UK: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips language to essence with certainty.' },
+      AU: { writer: 'David Malouf', book: 'An Imaginary Life', why: 'Malouf\'s minimal prose is spare and certain.' },
+      NZ: { writer: 'C.K. Stead', book: 'All Visitors Ashore', why: 'Stead writes with spare, final authority.' }
     }
   },
   {
@@ -472,10 +472,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -487,10 +487,10 @@ const BLOG_DATA = [
     profile: 'poetic',
     stance: 'open',
     writers: {
-      CA: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      UK: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      AU: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      NZ: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
+      CA: { writer: 'Michael Ondaatje', book: 'The English Patient', why: 'Ondaatje\'s lyrical prose invites multiple readings.' },
+      UK: { writer: 'Virginia Woolf', book: 'To the Lighthouse', why: 'Woolf\'s poetic style opens endless interpretation.' },
+      AU: { writer: 'Alexis Wright', book: 'Carpentaria', why: 'Wright\'s lyrical storytelling invites diverse readings.' },
+      NZ: { writer: 'Patricia Grace', book: 'Potiki', why: 'Grace\'s poetic prose opens to multiple interpretations.' }
     }
   },
   {
@@ -502,10 +502,10 @@ const BLOG_DATA = [
     profile: 'assertive',
     stance: 'open',
     writers: {
-      CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      UK: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      AU: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      NZ: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Warlight', why: 'Ondaatje writes with confidence but leaves space for mystery.' },
+      UK: { writer: 'Ian McEwan', book: 'Atonement', why: 'McEwan asserts his narrative while remaining open to moral complexity.' },
+      AU: { writer: 'Richard Flanagan', book: 'The Narrow Road to the Deep North', why: 'Flanagan writes with conviction while exploring ambiguity.' },
+      NZ: { writer: 'Eleanor Catton', book: 'The Luminaries', why: 'Catton builds assertive prose with genuine openness.' }
     }
   },
   {
@@ -518,10 +518,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -534,10 +534,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      UK: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      AU: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      NZ: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
+      CA: { writer: 'Anne Michaels', book: 'Fugitive Pieces', why: 'Michaels\' poetry is certain even when beautiful.' },
+      UK: { writer: 'Jeanette Winterson', book: 'The Passion', why: 'Winterson\'s lyrical prose delivers truth with certainty.' },
+      AU: { writer: 'David Malouf', book: 'Ransom', why: 'Malouf\'s poetic prose makes definitive claims.' },
+      NZ: { writer: 'Elizabeth Knox', book: 'The Vintner\'s Luck', why: 'Knox\'s beautiful prose is confident in its vision.' }
     }
   },
   {
@@ -549,10 +549,10 @@ const BLOG_DATA = [
     profile: 'dense',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      UK: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      NZ: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
+      CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
+      UK: { writer: 'John Fowles', book: 'The French Lieutenant\'s Woman', why: 'Fowles\' dense metafiction embraces paradox.' },
+      AU: { writer: 'Peter Carey', book: 'Oscar and Lucinda', why: 'Carey\'s intricate prose holds contradiction.' },
+      NZ: { writer: 'Ian Wedde', book: 'Symmes Hole', why: 'Wedde\'s dense style embraces postmodern paradox.' }
     }
   },
   {
@@ -565,10 +565,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      UK: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      NZ: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
+      CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
+      UK: { writer: 'John Fowles', book: 'The French Lieutenant\'s Woman', why: 'Fowles\' dense metafiction embraces paradox.' },
+      AU: { writer: 'Peter Carey', book: 'Oscar and Lucinda', why: 'Carey\'s intricate prose holds contradiction.' },
+      NZ: { writer: 'Ian Wedde', book: 'Symmes Hole', why: 'Wedde\'s dense style embraces postmodern paradox.' }
     }
   },
   {
@@ -581,10 +581,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      UK: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      AU: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      NZ: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Divisadero', why: 'Ondaatje holds contradictions tentatively.' },
+      UK: { writer: 'Ali Smith', book: 'Autumn', why: 'Smith\'s uncertain prose embraces Brexit\'s contradictions.' },
+      AU: { writer: 'Alexis Wright', book: 'The Swan Book', why: 'Wright holds climate contradictions in uncertain prose.' },
+      NZ: { writer: 'Pip Adam', book: 'The New Animals', why: 'Adam\'s hesitant prose holds identity contradictions.' }
     }
   },
   {
@@ -597,10 +597,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'open',
     writers: {
-      CA: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      AU: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      NZ: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
+      CA: { writer: 'Stuart McLean', book: 'Vinyl Cafe Stories', why: 'McLean invites you in and asks what you think.' },
+      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s chatty prose genuinely wonders.' },
+      AU: { writer: 'Tim Winton', book: 'Cloudstreet', why: 'Winton\'s vernacular storytelling invites participation.' },
+      NZ: { writer: 'Carl Shuker', book: 'The Method Actors', why: 'Shuker\'s conversational style opens interpretation.' }
     }
   },
   {
@@ -613,10 +613,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      UK: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      AU: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      NZ: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
+      CA: { writer: 'Anne Michaels', book: 'Fugitive Pieces', why: 'Michaels\' poetry is certain even when beautiful.' },
+      UK: { writer: 'Jeanette Winterson', book: 'The Passion', why: 'Winterson\'s lyrical prose delivers truth with certainty.' },
+      AU: { writer: 'David Malouf', book: 'Ransom', why: 'Malouf\'s poetic prose makes definitive claims.' },
+      NZ: { writer: 'Elizabeth Knox', book: 'The Vintner\'s Luck', why: 'Knox\'s beautiful prose is confident in its vision.' }
     }
   },
   {
@@ -628,10 +628,10 @@ const BLOG_DATA = [
     profile: 'conversational',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -644,10 +644,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'open',
     writers: {
-      CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      UK: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      AU: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      NZ: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
+      CA: { writer: 'Michael Ignatieff', book: 'The Russian Album', why: 'Ignatieff\'s extended meditation remains questioning.' },
+      UK: { writer: 'Olivia Laing', book: 'The Lonely City', why: 'Laing\'s extended essays explore with curiosity.' },
+      AU: { writer: 'Anna Krien', book: 'Night Games', why: 'Krien\'s longform journalism remains genuinely uncertain.' },
+      NZ: { writer: 'Steve Braunias', book: 'Civilisation', why: 'Braunias\' extended profiles invite interpretation.' }
     }
   },
   {
@@ -660,10 +660,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'open',
     writers: {
-      CA: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formality opens to genuine intellectual hospitality.' },
-      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formality opens to genuine intellectual hospitality.' },
-      AU: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formality opens to genuine intellectual hospitality.' },
-      NZ: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formality opens to genuine intellectual hospitality.' },
+      CA: { writer: 'John Ralston Saul', book: 'Voltaire\'s Bastards', why: 'Saul\'s formal prose invites intellectual response.' },
+      UK: { writer: 'Terry Eagleton', book: 'Literary Theory', why: 'Eagleton\'s academic style remains questioning.' },
+      AU: { writer: 'Robert Dessaix', book: 'What Days Are For', why: 'Dessaix\'s formal essays invite reflective response.' },
+      NZ: { writer: 'Brian Turner', book: 'Elemental', why: 'Turner\'s formal poetry invites contemplation.' }
     }
   },
   {
@@ -690,10 +690,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'closed',
     writers: {
-      CA: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
-      UK: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
-      AU: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
-      NZ: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
+      CA: { writer: 'Robertson Davies', book: 'Fifth Business', why: 'Davies\' erudite prose delivers definitive insights.' },
+      UK: { writer: 'Martin Amis', book: 'Money', why: 'Amis\' dense, stylized prose is supremely confident.' },
+      AU: { writer: 'Patrick White', book: 'Voss', why: 'White\'s complex prose makes definitive claims.' },
+      NZ: { writer: 'C.K. Stead', book: 'Mansfield', why: 'Stead\'s scholarly prose delivers authority.' }
     }
   },
   {
@@ -720,10 +720,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'closed',
     writers: {
-      CA: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
-      UK: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
-      AU: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
-      NZ: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
+      CA: { writer: 'Sheila Heti', book: 'How Should a Person Be?', why: 'Heti\'s spare prose delivers definitive observations.' },
+      UK: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips language to essence with certainty.' },
+      AU: { writer: 'David Malouf', book: 'An Imaginary Life', why: 'Malouf\'s minimal prose is spare and certain.' },
+      NZ: { writer: 'C.K. Stead', book: 'All Visitors Ashore', why: 'Stead writes with spare, final authority.' }
     }
   },
   {
@@ -750,10 +750,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      UK: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      AU: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      NZ: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
+      CA: { writer: 'Anne Michaels', book: 'Fugitive Pieces', why: 'Michaels\' poetry is certain even when beautiful.' },
+      UK: { writer: 'Jeanette Winterson', book: 'The Passion', why: 'Winterson\'s lyrical prose delivers truth with certainty.' },
+      AU: { writer: 'David Malouf', book: 'Ransom', why: 'Malouf\'s poetic prose makes definitive claims.' },
+      NZ: { writer: 'Elizabeth Knox', book: 'The Vintner\'s Luck', why: 'Knox\'s beautiful prose is confident in its vision.' }
     }
   },
   {
@@ -766,10 +766,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'open',
     writers: {
-      CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      UK: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      AU: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      NZ: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
+      CA: { writer: 'Michael Ignatieff', book: 'The Russian Album', why: 'Ignatieff\'s extended meditation remains questioning.' },
+      UK: { writer: 'Olivia Laing', book: 'The Lonely City', why: 'Laing\'s extended essays explore with curiosity.' },
+      AU: { writer: 'Anna Krien', book: 'Night Games', why: 'Krien\'s longform journalism remains genuinely uncertain.' },
+      NZ: { writer: 'Steve Braunias', book: 'Civilisation', why: 'Braunias\' extended profiles invite interpretation.' }
     }
   },
   {
@@ -781,10 +781,10 @@ const BLOG_DATA = [
     profile: 'dense',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      UK: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      NZ: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
+      CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
+      UK: { writer: 'John Fowles', book: 'The French Lieutenant\'s Woman', why: 'Fowles\' dense metafiction embraces paradox.' },
+      AU: { writer: 'Peter Carey', book: 'Oscar and Lucinda', why: 'Carey\'s intricate prose holds contradiction.' },
+      NZ: { writer: 'Ian Wedde', book: 'Symmes Hole', why: 'Wedde\'s dense style embraces postmodern paradox.' }
     }
   },
   {
@@ -810,10 +810,10 @@ const BLOG_DATA = [
     profile: 'interrogative',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'John Berger', book: 'G.', why: 'Berger interrogates every position with equal rigour.' },
-      UK: { writer: 'John Berger', book: 'G.', why: 'Berger interrogates every position with equal rigour.' },
-      AU: { writer: 'John Berger', book: 'G.', why: 'Berger interrogates every position with equal rigour.' },
-      NZ: { writer: 'John Berger', book: 'G.', why: 'Berger interrogates every position with equal rigour.' },
+      CA: { writer: 'Michael Ignatieff', book: 'The Lesser Evil', why: 'Ignatieff questions torture ethics from all angles.' },
+      UK: { writer: 'Kwame Anthony Appiah', book: 'Cosmopolitanism', why: 'Appiah questions identity from multiple perspectives.' },
+      AU: { writer: 'Robert Manne', book: 'The Monthly Essays', why: 'Manne questions Australian politics fairly.' },
+      NZ: { writer: 'Andrew Dean', book: 'Ruth, Roger and Me', why: 'Dean questions neoliberalism from multiple angles.' }
     }
   },
   {
@@ -825,10 +825,10 @@ const BLOG_DATA = [
     profile: 'formal',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      UK: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      AU: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      NZ: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
+      CA: { writer: 'Thomas Homer-Dixon', book: 'The Upside of Down', why: 'Homer-Dixon holds contradictory futures in balance.' },
+      UK: { writer: 'John Gray', book: 'Straw Dogs', why: 'Gray presents balanced view of humanity\'s contradictions.' },
+      AU: { writer: 'Tim Flannery', book: 'The Weather Makers', why: 'Flannery balances hope and despair about climate.' },
+      NZ: { writer: 'Geoff Park', book: 'Theatre Country', why: 'Park holds environmental contradictions in balance.' }
     }
   },
   {
@@ -841,10 +841,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      UK: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      AU: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      NZ: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
+      CA: { writer: 'Anne Michaels', book: 'Fugitive Pieces', why: 'Michaels\' poetry is certain even when beautiful.' },
+      UK: { writer: 'Jeanette Winterson', book: 'The Passion', why: 'Winterson\'s lyrical prose delivers truth with certainty.' },
+      AU: { writer: 'David Malouf', book: 'Ransom', why: 'Malouf\'s poetic prose makes definitive claims.' },
+      NZ: { writer: 'Elizabeth Knox', book: 'The Vintner\'s Luck', why: 'Knox\'s beautiful prose is confident in its vision.' }
     }
   },
   {
@@ -870,10 +870,10 @@ const BLOG_DATA = [
     profile: 'formal',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      UK: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      AU: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      NZ: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
+      CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
+      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formal essays balance intellectual traditions.' },
+      AU: { writer: 'Inga Clendinnen', book: 'Dancing with Strangers', why: 'Clendinnen\'s formal prose balances colonial perspectives.' },
+      NZ: { writer: 'Ranginui Walker', book: 'Ka Whawhai Tonu Matou', why: 'Walker\'s formal analysis balances perspectives.' }
     }
   },
   {
@@ -885,10 +885,10 @@ const BLOG_DATA = [
     profile: 'dense',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      UK: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      NZ: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
+      CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
+      UK: { writer: 'John Fowles', book: 'The French Lieutenant\'s Woman', why: 'Fowles\' dense metafiction embraces paradox.' },
+      AU: { writer: 'Peter Carey', book: 'Oscar and Lucinda', why: 'Carey\'s intricate prose holds contradiction.' },
+      NZ: { writer: 'Ian Wedde', book: 'Symmes Hole', why: 'Wedde\'s dense style embraces postmodern paradox.' }
     }
   },
   {
@@ -900,10 +900,10 @@ const BLOG_DATA = [
     profile: 'formal',
     stance: 'open',
     writers: {
-      CA: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formality opens to genuine intellectual hospitality.' },
-      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formality opens to genuine intellectual hospitality.' },
-      AU: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formality opens to genuine intellectual hospitality.' },
-      NZ: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formality opens to genuine intellectual hospitality.' },
+      CA: { writer: 'John Ralston Saul', book: 'Voltaire\'s Bastards', why: 'Saul\'s formal prose invites intellectual response.' },
+      UK: { writer: 'Terry Eagleton', book: 'Literary Theory', why: 'Eagleton\'s academic style remains questioning.' },
+      AU: { writer: 'Robert Dessaix', book: 'What Days Are For', why: 'Dessaix\'s formal essays invite reflective response.' },
+      NZ: { writer: 'Brian Turner', book: 'Elemental', why: 'Turner\'s formal poetry invites contemplation.' }
     }
   },
   {
@@ -916,10 +916,10 @@ const BLOG_DATA = [
     country: 'IE',
     stance: 'open',
     writers: {
-      CA: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
-      UK: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
-      AU: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
-      NZ: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
+      CA: { writer: 'Alice Munro', book: 'Runaway', why: 'Munro says little but implies much, inviting interpretation.' },
+      UK: { writer: 'Kazuo Ishiguro', book: 'Never Let Me Go', why: 'Ishiguro\'s spare prose creates space for discovery.' },
+      AU: { writer: 'Gerald Murnane', book: 'The Plains', why: 'Murnane\'s minimal style opens rather than closes meaning.' },
+      NZ: { writer: 'Janet Frame', book: 'Towards Another Summer', why: 'Frame\'s economy creates expansive ambiguity.' }
     }
   },
   {
@@ -931,10 +931,10 @@ const BLOG_DATA = [
     profile: 'assertive',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      UK: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      AU: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      NZ: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
+      CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
+      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith asserts contradictory truths with equal conviction.' },
+      AU: { writer: 'Peter Carey', book: 'True History of the Kelly Gang', why: 'Carey\'s Kelly is certain even when unreliable.' },
+      NZ: { writer: 'Keri Hulme', book: 'The Bone People', why: 'Hulme writes with fierce conviction about irresolvable tensions.' }
     }
   },
   {
@@ -946,10 +946,10 @@ const BLOG_DATA = [
     profile: 'longform',
     stance: 'open',
     writers: {
-      CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      UK: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      AU: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      NZ: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
+      CA: { writer: 'Michael Ignatieff', book: 'The Russian Album', why: 'Ignatieff\'s extended meditation remains questioning.' },
+      UK: { writer: 'Olivia Laing', book: 'The Lonely City', why: 'Laing\'s extended essays explore with curiosity.' },
+      AU: { writer: 'Anna Krien', book: 'Night Games', why: 'Krien\'s longform journalism remains genuinely uncertain.' },
+      NZ: { writer: 'Steve Braunias', book: 'Civilisation', why: 'Braunias\' extended profiles invite interpretation.' }
     }
   },
   {
@@ -962,10 +962,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      UK: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      AU: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      NZ: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
+      CA: { writer: 'Anne Michaels', book: 'Fugitive Pieces', why: 'Michaels\' poetry is certain even when beautiful.' },
+      UK: { writer: 'Jeanette Winterson', book: 'The Passion', why: 'Winterson\'s lyrical prose delivers truth with certainty.' },
+      AU: { writer: 'David Malouf', book: 'Ransom', why: 'Malouf\'s poetic prose makes definitive claims.' },
+      NZ: { writer: 'Elizabeth Knox', book: 'The Vintner\'s Luck', why: 'Knox\'s beautiful prose is confident in its vision.' }
     }
   },
   {
@@ -978,10 +978,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'open',
     writers: {
-      CA: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      AU: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      NZ: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
+      CA: { writer: 'Stuart McLean', book: 'Vinyl Cafe Stories', why: 'McLean invites you in and asks what you think.' },
+      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s chatty prose genuinely wonders.' },
+      AU: { writer: 'Tim Winton', book: 'Cloudstreet', why: 'Winton\'s vernacular storytelling invites participation.' },
+      NZ: { writer: 'Carl Shuker', book: 'The Method Actors', why: 'Shuker\'s conversational style opens interpretation.' }
     }
   },
   {
@@ -994,10 +994,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      UK: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      NZ: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
+      CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
+      UK: { writer: 'John Fowles', book: 'The French Lieutenant\'s Woman', why: 'Fowles\' dense metafiction embraces paradox.' },
+      AU: { writer: 'Peter Carey', book: 'Oscar and Lucinda', why: 'Carey\'s intricate prose holds contradiction.' },
+      NZ: { writer: 'Ian Wedde', book: 'Symmes Hole', why: 'Wedde\'s dense style embraces postmodern paradox.' }
     }
   },
   {
@@ -1010,10 +1010,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'open',
     writers: {
-      CA: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      UK: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      AU: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      NZ: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
+      CA: { writer: 'Michael Ondaatje', book: 'The English Patient', why: 'Ondaatje\'s lyrical prose invites multiple readings.' },
+      UK: { writer: 'Virginia Woolf', book: 'To the Lighthouse', why: 'Woolf\'s poetic style opens endless interpretation.' },
+      AU: { writer: 'Alexis Wright', book: 'Carpentaria', why: 'Wright\'s lyrical storytelling invites diverse readings.' },
+      NZ: { writer: 'Patricia Grace', book: 'Potiki', why: 'Grace\'s poetic prose opens to multiple interpretations.' }
     }
   },
   {
@@ -1039,10 +1039,10 @@ const BLOG_DATA = [
     profile: 'assertive',
     stance: 'closed',
     writers: {
-      CA: { writer: 'George Orwell', book: 'Essays', why: 'Orwell\'s clarity is absolute — he has decided and he tells you.' },
-      UK: { writer: 'George Orwell', book: 'Essays', why: 'Orwell\'s clarity is absolute — he has decided and he tells you.' },
-      AU: { writer: 'George Orwell', book: 'Essays', why: 'Orwell\'s clarity is absolute — he has decided and he tells you.' },
-      NZ: { writer: 'George Orwell', book: 'Essays', why: 'Orwell\'s clarity is absolute — he has decided and he tells you.' },
+      CA: { writer: 'Margaret Atwood', book: 'The Handmaid\'s Tale', why: 'Atwood makes declarative statements without hedging.' },
+      UK: { writer: 'George Orwell', book: '1984', why: 'Orwell\'s prose is direct, certain, and uncompromising.' },
+      AU: { writer: 'Tim Winton', book: 'Breath', why: 'Winton writes with masculine directness and unflinching certainty.' },
+      NZ: { writer: 'Lloyd Jones', book: 'Mister Pip', why: 'Jones delivers narrative with quiet but absolute confidence.' }
     }
   },
   {
@@ -1055,10 +1055,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      UK: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      AU: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      NZ: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Divisadero', why: 'Ondaatje holds contradictions tentatively.' },
+      UK: { writer: 'Ali Smith', book: 'Autumn', why: 'Smith\'s uncertain prose embraces Brexit\'s contradictions.' },
+      AU: { writer: 'Alexis Wright', book: 'The Swan Book', why: 'Wright holds climate contradictions in uncertain prose.' },
+      NZ: { writer: 'Pip Adam', book: 'The New Animals', why: 'Adam\'s hesitant prose holds identity contradictions.' }
     }
   },
   {
@@ -1071,10 +1071,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'open',
     writers: {
-      CA: { writer: 'Penelope Fitzgerald', book: 'The Bookshop', why: 'Fitzgerald\'s tentativeness is an invitation.' },
-      UK: { writer: 'Penelope Fitzgerald', book: 'The Bookshop', why: 'Fitzgerald\'s tentativeness is an invitation.' },
-      AU: { writer: 'Penelope Fitzgerald', book: 'The Bookshop', why: 'Fitzgerald\'s tentativeness is an invitation.' },
-      NZ: { writer: 'Penelope Fitzgerald', book: 'The Bookshop', why: 'Fitzgerald\'s tentativeness is an invitation.' },
+      CA: { writer: 'Miriam Toews', book: 'All My Puny Sorrows', why: 'Toews writes with gentle uncertainty, inviting response.' },
+      UK: { writer: 'Penelope Fitzgerald', book: 'The Blue Flower', why: 'Fitzgerald\'s tentative prose invites interpretation.' },
+      AU: { writer: 'Sonya Hartnett', book: 'Of a Boy', why: 'Hartnett\'s uncertain narrator invites reader engagement.' },
+      NZ: { writer: 'Charlotte Grimshaw', book: 'The Night Book', why: 'Grimshaw\'s tentative prose opens interpretation.' }
     }
   },
   {
@@ -1087,10 +1087,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      UK: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      AU: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      NZ: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
+      CA: { writer: 'Thomas Homer-Dixon', book: 'The Upside of Down', why: 'Homer-Dixon holds contradictory futures in balance.' },
+      UK: { writer: 'John Gray', book: 'Straw Dogs', why: 'Gray presents balanced view of humanity\'s contradictions.' },
+      AU: { writer: 'Tim Flannery', book: 'The Weather Makers', why: 'Flannery balances hope and despair about climate.' },
+      NZ: { writer: 'Geoff Park', book: 'Theatre Country', why: 'Park holds environmental contradictions in balance.' }
     }
   },
   {
@@ -1117,10 +1117,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      UK: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      AU: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
-      NZ: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
+      CA: { writer: 'Thomas Homer-Dixon', book: 'The Upside of Down', why: 'Homer-Dixon holds contradictory futures in balance.' },
+      UK: { writer: 'John Gray', book: 'Straw Dogs', why: 'Gray presents balanced view of humanity\'s contradictions.' },
+      AU: { writer: 'Tim Flannery', book: 'The Weather Makers', why: 'Flannery balances hope and despair about climate.' },
+      NZ: { writer: 'Geoff Park', book: 'Theatre Country', why: 'Park holds environmental contradictions in balance.' }
     }
   },
   {
@@ -1133,10 +1133,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'open',
     writers: {
-      CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      UK: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      AU: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      NZ: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Warlight', why: 'Ondaatje writes with confidence but leaves space for mystery.' },
+      UK: { writer: 'Ian McEwan', book: 'Atonement', why: 'McEwan asserts his narrative while remaining open to moral complexity.' },
+      AU: { writer: 'Richard Flanagan', book: 'The Narrow Road to the Deep North', why: 'Flanagan writes with conviction while exploring ambiguity.' },
+      NZ: { writer: 'Eleanor Catton', book: 'The Luminaries', why: 'Catton builds assertive prose with genuine openness.' }
     }
   },
   {
@@ -1148,10 +1148,10 @@ const BLOG_DATA = [
     profile: 'minimal',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'W.G. Sebald', book: 'The Rings of Saturn', why: 'Sebald\'s minimalism enacts the contradictions it describes.' },
-      UK: { writer: 'W.G. Sebald', book: 'The Rings of Saturn', why: 'Sebald\'s minimalism enacts the contradictions it describes.' },
-      AU: { writer: 'W.G. Sebald', book: 'The Rings of Saturn', why: 'Sebald\'s minimalism enacts the contradictions it describes.' },
-      NZ: { writer: 'W.G. Sebald', book: 'The Rings of Saturn', why: 'Sebald\'s minimalism enacts the contradictions it describes.' },
+      CA: { writer: 'Anne Carson', book: 'Autobiography of Red', why: 'Carson\'s spare verse holds contradictions.' },
+      UK: { writer: 'Tom McCarthy', book: 'Remainder', why: 'McCarthy\'s stripped prose embodies productive contradiction.' },
+      AU: { writer: 'J.M. Coetzee', book: 'Waiting for the Barbarians', why: 'Coetzee\'s spare style contains paradox.' },
+      NZ: { writer: 'Bill Manhire', book: 'Selected Poems', why: 'Manhire\'s minimal verse embraces contradiction.' }
     }
   },
   {
@@ -1163,10 +1163,10 @@ const BLOG_DATA = [
     profile: 'interrogative',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'John Berger', book: 'G.', why: 'Berger interrogates every position with equal rigour.' },
-      UK: { writer: 'John Berger', book: 'G.', why: 'Berger interrogates every position with equal rigour.' },
-      AU: { writer: 'John Berger', book: 'G.', why: 'Berger interrogates every position with equal rigour.' },
-      NZ: { writer: 'John Berger', book: 'G.', why: 'Berger interrogates every position with equal rigour.' },
+      CA: { writer: 'Michael Ignatieff', book: 'The Lesser Evil', why: 'Ignatieff questions torture ethics from all angles.' },
+      UK: { writer: 'Kwame Anthony Appiah', book: 'Cosmopolitanism', why: 'Appiah questions identity from multiple perspectives.' },
+      AU: { writer: 'Robert Manne', book: 'The Monthly Essays', why: 'Manne questions Australian politics fairly.' },
+      NZ: { writer: 'Andrew Dean', book: 'Ruth, Roger and Me', why: 'Dean questions neoliberalism from multiple angles.' }
     }
   },
   {
@@ -1179,10 +1179,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      UK: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      AU: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      NZ: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
+      CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
+      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formal essays balance intellectual traditions.' },
+      AU: { writer: 'Inga Clendinnen', book: 'Dancing with Strangers', why: 'Clendinnen\'s formal prose balances colonial perspectives.' },
+      NZ: { writer: 'Ranginui Walker', book: 'Ka Whawhai Tonu Matou', why: 'Walker\'s formal analysis balances perspectives.' }
     }
   },
   {
@@ -1194,10 +1194,10 @@ const BLOG_DATA = [
     profile: 'longform',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'Patrick Leigh Fermor', book: 'A Time of Gifts', why: 'Fermor\'s longform holds every perspective with equal care.' },
-      UK: { writer: 'Patrick Leigh Fermor', book: 'A Time of Gifts', why: 'Fermor\'s longform holds every perspective with equal care.' },
-      AU: { writer: 'Patrick Leigh Fermor', book: 'A Time of Gifts', why: 'Fermor\'s longform holds every perspective with equal care.' },
-      NZ: { writer: 'Patrick Leigh Fermor', book: 'A Time of Gifts', why: 'Fermor\'s longform holds every perspective with equal care.' },
+      CA: { writer: 'Lawrence Hill', book: 'The Book of Negroes', why: 'Hill\'s extended narrative balances historical perspectives.' },
+      UK: { writer: 'Hilary Mantel', book: 'Wolf Hall', why: 'Mantel\'s extended prose balances many voices.' },
+      AU: { writer: 'Kate Grenville', book: 'The Secret River', why: 'Grenville\'s extended narrative balances colonial complexity.' },
+      NZ: { writer: 'Maurice Gee', book: 'Going West', why: 'Gee\'s extended narratives balance multiple perspectives.' }
     }
   },
   {
@@ -1209,10 +1209,10 @@ const BLOG_DATA = [
     profile: 'poetic',
     stance: 'open',
     writers: {
-      CA: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      UK: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      AU: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      NZ: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
+      CA: { writer: 'Michael Ondaatje', book: 'The English Patient', why: 'Ondaatje\'s lyrical prose invites multiple readings.' },
+      UK: { writer: 'Virginia Woolf', book: 'To the Lighthouse', why: 'Woolf\'s poetic style opens endless interpretation.' },
+      AU: { writer: 'Alexis Wright', book: 'Carpentaria', why: 'Wright\'s lyrical storytelling invites diverse readings.' },
+      NZ: { writer: 'Patricia Grace', book: 'Potiki', why: 'Grace\'s poetic prose opens to multiple interpretations.' }
     }
   },
   {
@@ -1224,10 +1224,10 @@ const BLOG_DATA = [
     profile: 'dense',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      UK: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      NZ: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
+      CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
+      UK: { writer: 'John Fowles', book: 'The French Lieutenant\'s Woman', why: 'Fowles\' dense metafiction embraces paradox.' },
+      AU: { writer: 'Peter Carey', book: 'Oscar and Lucinda', why: 'Carey\'s intricate prose holds contradiction.' },
+      NZ: { writer: 'Ian Wedde', book: 'Symmes Hole', why: 'Wedde\'s dense style embraces postmodern paradox.' }
     }
   },
   {
@@ -1240,10 +1240,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -1256,10 +1256,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      UK: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      AU: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      NZ: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
+      CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
+      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith asserts contradictory truths with equal conviction.' },
+      AU: { writer: 'Peter Carey', book: 'True History of the Kelly Gang', why: 'Carey\'s Kelly is certain even when unreliable.' },
+      NZ: { writer: 'Keri Hulme', book: 'The Bone People', why: 'Hulme writes with fierce conviction about irresolvable tensions.' }
     }
   },
   {
@@ -1286,10 +1286,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      UK: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      AU: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      NZ: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
+      CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
+      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formal essays balance intellectual traditions.' },
+      AU: { writer: 'Inga Clendinnen', book: 'Dancing with Strangers', why: 'Clendinnen\'s formal prose balances colonial perspectives.' },
+      NZ: { writer: 'Ranginui Walker', book: 'Ka Whawhai Tonu Matou', why: 'Walker\'s formal analysis balances perspectives.' }
     }
   },
   {
@@ -1301,10 +1301,10 @@ const BLOG_DATA = [
     profile: 'minimal',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'Alice Munro', book: 'Lives of Girls and Women', why: 'Munro\'s restraint holds all sides without declaring a winner.' },
-      UK: { writer: 'Alice Munro', book: 'Lives of Girls and Women', why: 'Munro\'s restraint holds all sides without declaring a winner.' },
-      AU: { writer: 'Alice Munro', book: 'Lives of Girls and Women', why: 'Munro\'s restraint holds all sides without declaring a winner.' },
-      NZ: { writer: 'Alice Munro', book: 'Lives of Girls and Women', why: 'Munro\'s restraint holds all sides without declaring a winner.' },
+      CA: { writer: 'Mavis Gallant', book: 'Selected Stories', why: 'Gallant\'s brevity encompasses multiple perspectives.' },
+      UK: { writer: 'Muriel Spark', book: 'The Driver\'s Seat', why: 'Spark balances views in fewest possible words.' },
+      AU: { writer: 'Amy Witting', book: 'I for Isobel', why: 'Witting\'s spare style presents balanced character study.' },
+      NZ: { writer: 'Owen Marshall', book: 'Coming Home in the Dark', why: 'Marshall\'s minimal prose balances perspectives.' }
     }
   },
   {
@@ -1316,10 +1316,10 @@ const BLOG_DATA = [
     profile: 'conversational',
     stance: 'open',
     writers: {
-      CA: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      AU: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      NZ: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
+      CA: { writer: 'Stuart McLean', book: 'Vinyl Cafe Stories', why: 'McLean invites you in and asks what you think.' },
+      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s chatty prose genuinely wonders.' },
+      AU: { writer: 'Tim Winton', book: 'Cloudstreet', why: 'Winton\'s vernacular storytelling invites participation.' },
+      NZ: { writer: 'Carl Shuker', book: 'The Method Actors', why: 'Shuker\'s conversational style opens interpretation.' }
     }
   },
   {
@@ -1331,10 +1331,10 @@ const BLOG_DATA = [
     profile: 'dense',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      UK: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      AU: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
-      NZ: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
+      CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
+      UK: { writer: 'John Fowles', book: 'The French Lieutenant\'s Woman', why: 'Fowles\' dense metafiction embraces paradox.' },
+      AU: { writer: 'Peter Carey', book: 'Oscar and Lucinda', why: 'Carey\'s intricate prose holds contradiction.' },
+      NZ: { writer: 'Ian Wedde', book: 'Symmes Hole', why: 'Wedde\'s dense style embraces postmodern paradox.' }
     }
   },
   {
@@ -1346,10 +1346,10 @@ const BLOG_DATA = [
     profile: 'conversational',
     stance: 'open',
     writers: {
-      CA: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      AU: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      NZ: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
+      CA: { writer: 'Stuart McLean', book: 'Vinyl Cafe Stories', why: 'McLean invites you in and asks what you think.' },
+      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s chatty prose genuinely wonders.' },
+      AU: { writer: 'Tim Winton', book: 'Cloudstreet', why: 'Winton\'s vernacular storytelling invites participation.' },
+      NZ: { writer: 'Carl Shuker', book: 'The Method Actors', why: 'Shuker\'s conversational style opens interpretation.' }
     }
   },
   {
@@ -1362,10 +1362,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -1378,10 +1378,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
-      UK: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
-      AU: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
-      NZ: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
+      CA: { writer: 'Anne Carson', book: 'Nox', why: 'Carson questions grief through productive paradox.' },
+      UK: { writer: 'John Berger', book: 'Ways of Seeing', why: 'Berger asks questions containing their own contradictions.' },
+      AU: { writer: 'Christos Tsiolkas', book: 'The Slap', why: 'Tsiolkas questions morality through irresolvable tensions.' },
+      NZ: { writer: 'Albert Wendt', book: 'Black Rainbow', why: 'Wendt questions identity through dystopian paradox.' }
     }
   },
   {
@@ -1394,10 +1394,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      UK: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      AU: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
-      NZ: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Divisadero', why: 'Ondaatje holds contradictions tentatively.' },
+      UK: { writer: 'Ali Smith', book: 'Autumn', why: 'Smith\'s uncertain prose embraces Brexit\'s contradictions.' },
+      AU: { writer: 'Alexis Wright', book: 'The Swan Book', why: 'Wright holds climate contradictions in uncertain prose.' },
+      NZ: { writer: 'Pip Adam', book: 'The New Animals', why: 'Adam\'s hesitant prose holds identity contradictions.' }
     }
   },
   {
@@ -1410,10 +1410,10 @@ const BLOG_DATA = [
     country: 'GB',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
-      UK: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
-      AU: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
-      NZ: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
+      CA: { writer: 'Anne Carson', book: 'Nox', why: 'Carson questions grief through productive paradox.' },
+      UK: { writer: 'John Berger', book: 'Ways of Seeing', why: 'Berger asks questions containing their own contradictions.' },
+      AU: { writer: 'Christos Tsiolkas', book: 'The Slap', why: 'Tsiolkas questions morality through irresolvable tensions.' },
+      NZ: { writer: 'Albert Wendt', book: 'Black Rainbow', why: 'Wendt questions identity through dystopian paradox.' }
     }
   },
   {
@@ -1426,10 +1426,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'W.G. Sebald', book: 'The Rings of Saturn', why: 'Sebald\'s minimalism enacts the contradictions it describes.' },
-      UK: { writer: 'W.G. Sebald', book: 'The Rings of Saturn', why: 'Sebald\'s minimalism enacts the contradictions it describes.' },
-      AU: { writer: 'W.G. Sebald', book: 'The Rings of Saturn', why: 'Sebald\'s minimalism enacts the contradictions it describes.' },
-      NZ: { writer: 'W.G. Sebald', book: 'The Rings of Saturn', why: 'Sebald\'s minimalism enacts the contradictions it describes.' },
+      CA: { writer: 'Anne Carson', book: 'Autobiography of Red', why: 'Carson\'s spare verse holds contradictions.' },
+      UK: { writer: 'Tom McCarthy', book: 'Remainder', why: 'McCarthy\'s stripped prose embodies productive contradiction.' },
+      AU: { writer: 'J.M. Coetzee', book: 'Waiting for the Barbarians', why: 'Coetzee\'s spare style contains paradox.' },
+      NZ: { writer: 'Bill Manhire', book: 'Selected Poems', why: 'Manhire\'s minimal verse embraces contradiction.' }
     }
   },
   {
@@ -1442,10 +1442,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'open',
     writers: {
-      CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      UK: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      AU: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      NZ: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Warlight', why: 'Ondaatje writes with confidence but leaves space for mystery.' },
+      UK: { writer: 'Ian McEwan', book: 'Atonement', why: 'McEwan asserts his narrative while remaining open to moral complexity.' },
+      AU: { writer: 'Richard Flanagan', book: 'The Narrow Road to the Deep North', why: 'Flanagan writes with conviction while exploring ambiguity.' },
+      NZ: { writer: 'Eleanor Catton', book: 'The Luminaries', why: 'Catton builds assertive prose with genuine openness.' }
     }
   },
   {
@@ -1458,10 +1458,10 @@ const BLOG_DATA = [
     country: 'US',
     stance: 'open',
     writers: {
-      CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      UK: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      AU: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      NZ: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
+      CA: { writer: 'Michael Ignatieff', book: 'The Russian Album', why: 'Ignatieff\'s extended meditation remains questioning.' },
+      UK: { writer: 'Olivia Laing', book: 'The Lonely City', why: 'Laing\'s extended essays explore with curiosity.' },
+      AU: { writer: 'Anna Krien', book: 'Night Games', why: 'Krien\'s longform journalism remains genuinely uncertain.' },
+      NZ: { writer: 'Steve Braunias', book: 'Civilisation', why: 'Braunias\' extended profiles invite interpretation.' }
     }
   },
   {
@@ -1474,10 +1474,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Helen Garner', book: 'The First Stone', why: 'Garner\'s patience with contradiction is structural.' },
-      UK: { writer: 'Helen Garner', book: 'The First Stone', why: 'Garner\'s patience with contradiction is structural.' },
-      AU: { writer: 'Helen Garner', book: 'The First Stone', why: 'Garner\'s patience with contradiction is structural.' },
-      NZ: { writer: 'Helen Garner', book: 'The First Stone', why: 'Garner\'s patience with contradiction is structural.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Coming Through Slaughter', why: 'Ondaatje\'s extended prose holds irresolvable tensions.' },
+      UK: { writer: 'W.G. Sebald', book: 'Austerlitz', why: 'Sebald\'s extended sentences hold memory\'s contradictions.' },
+      AU: { writer: 'Michelle de Kretser', book: 'Questions of Travel', why: 'de Kretser\'s longform holds belonging\'s contradictions.' },
+      NZ: { writer: 'Emily Perkins', book: 'Novel About My Wife', why: 'Perkins\' extended prose holds relationship paradoxes.' }
     }
   },
   {
@@ -1489,10 +1489,10 @@ const BLOG_DATA = [
     profile: 'longform',
     stance: 'closed',
     writers: {
-      CA: { writer: 'Hilary Mantel', book: 'Wolf Hall', why: 'Mantel\'s accumulation arrives at total certainty.' },
-      UK: { writer: 'Hilary Mantel', book: 'Wolf Hall', why: 'Mantel\'s accumulation arrives at total certainty.' },
-      AU: { writer: 'Hilary Mantel', book: 'Wolf Hall', why: 'Mantel\'s accumulation arrives at total certainty.' },
-      NZ: { writer: 'Hilary Mantel', book: 'Wolf Hall', why: 'Mantel\'s accumulation arrives at total certainty.' },
+      CA: { writer: 'John Vaillant', book: 'The Tiger', why: 'Vaillant\'s extended narrative reaches definitive conclusions.' },
+      UK: { writer: 'Patrick Leigh Fermor', book: 'A Time of Gifts', why: 'Fermor\'s extended prose is confident throughout.' },
+      AU: { writer: 'Chloe Hooper', book: 'The Tall Man', why: 'Hooper\'s longform reaches definitive moral conclusions.' },
+      NZ: { writer: 'Ian Cross', book: 'The God Boy', why: 'Cross\' extended narrative is certain in its vision.' }
     }
   },
   {
@@ -1504,10 +1504,10 @@ const BLOG_DATA = [
     profile: 'conversational',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -1520,10 +1520,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      UK: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      AU: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      NZ: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
+      CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
+      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith asserts contradictory truths with equal conviction.' },
+      AU: { writer: 'Peter Carey', book: 'True History of the Kelly Gang', why: 'Carey\'s Kelly is certain even when unreliable.' },
+      NZ: { writer: 'Keri Hulme', book: 'The Bone People', why: 'Hulme writes with fierce conviction about irresolvable tensions.' }
     }
   },
   {
@@ -1535,10 +1535,10 @@ const BLOG_DATA = [
     profile: 'conversational',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'Malcolm Gladwell', book: 'Outliers', why: 'Gladwell gives every argument its fair hearing.' },
-      UK: { writer: 'Malcolm Gladwell', book: 'Outliers', why: 'Gladwell gives every argument its fair hearing.' },
-      AU: { writer: 'Malcolm Gladwell', book: 'Outliers', why: 'Gladwell gives every argument its fair hearing.' },
-      NZ: { writer: 'Malcolm Gladwell', book: 'Outliers', why: 'Gladwell gives every argument its fair hearing.' },
+      CA: { writer: 'Stuart McLean', book: 'Home from the Vinyl Cafe', why: 'McLean\'s warm style presents life\'s complications fairly.' },
+      UK: { writer: 'David Mitchell', book: 'Cloud Atlas', why: 'Mitchell\'s accessible prose balances perspectives.' },
+      AU: { writer: 'Charlotte Wood', book: 'The Natural Way of Things', why: 'Wood\'s readable prose balances perspectives on power.' },
+      NZ: { writer: 'Rachael King', book: 'The Sound of Butterflies', why: 'King balances historical views accessibly.' }
     }
   },
   {
@@ -1579,10 +1579,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
-      UK: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
-      AU: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
-      NZ: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
+      CA: { writer: 'Anne Carson', book: 'Nox', why: 'Carson questions grief through productive paradox.' },
+      UK: { writer: 'John Berger', book: 'Ways of Seeing', why: 'Berger asks questions containing their own contradictions.' },
+      AU: { writer: 'Christos Tsiolkas', book: 'The Slap', why: 'Tsiolkas questions morality through irresolvable tensions.' },
+      NZ: { writer: 'Albert Wendt', book: 'Black Rainbow', why: 'Wendt questions identity through dystopian paradox.' }
     }
   },
   {
@@ -1595,10 +1595,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'closed',
     writers: {
-      CA: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
-      UK: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
-      AU: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
-      NZ: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
+      CA: { writer: 'Sheila Heti', book: 'How Should a Person Be?', why: 'Heti\'s spare prose delivers definitive observations.' },
+      UK: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips language to essence with certainty.' },
+      AU: { writer: 'David Malouf', book: 'An Imaginary Life', why: 'Malouf\'s minimal prose is spare and certain.' },
+      NZ: { writer: 'C.K. Stead', book: 'All Visitors Ashore', why: 'Stead writes with spare, final authority.' }
     }
   },
   {
@@ -1610,10 +1610,10 @@ const BLOG_DATA = [
     profile: 'assertive',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      UK: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      AU: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
-      NZ: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
+      CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
+      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith asserts contradictory truths with equal conviction.' },
+      AU: { writer: 'Peter Carey', book: 'True History of the Kelly Gang', why: 'Carey\'s Kelly is certain even when unreliable.' },
+      NZ: { writer: 'Keri Hulme', book: 'The Bone People', why: 'Hulme writes with fierce conviction about irresolvable tensions.' }
     }
   },
   {
@@ -1625,10 +1625,10 @@ const BLOG_DATA = [
     profile: 'conversational',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -1641,10 +1641,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'open',
     writers: {
-      CA: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      AU: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
-      NZ: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
+      CA: { writer: 'Stuart McLean', book: 'Vinyl Cafe Stories', why: 'McLean invites you in and asks what you think.' },
+      UK: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s chatty prose genuinely wonders.' },
+      AU: { writer: 'Tim Winton', book: 'Cloudstreet', why: 'Winton\'s vernacular storytelling invites participation.' },
+      NZ: { writer: 'Carl Shuker', book: 'The Method Actors', why: 'Shuker\'s conversational style opens interpretation.' }
     }
   },
   {
@@ -1657,10 +1657,10 @@ const BLOG_DATA = [
     country: 'US',
     stance: 'open',
     writers: {
-      CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      UK: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      AU: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
-      NZ: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
+      CA: { writer: 'Michael Ondaatje', book: 'Warlight', why: 'Ondaatje writes with confidence but leaves space for mystery.' },
+      UK: { writer: 'Ian McEwan', book: 'Atonement', why: 'McEwan asserts his narrative while remaining open to moral complexity.' },
+      AU: { writer: 'Richard Flanagan', book: 'The Narrow Road to the Deep North', why: 'Flanagan writes with conviction while exploring ambiguity.' },
+      NZ: { writer: 'Eleanor Catton', book: 'The Luminaries', why: 'Catton builds assertive prose with genuine openness.' }
     }
   },
   {
@@ -1672,10 +1672,10 @@ const BLOG_DATA = [
     profile: 'longform',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'Patrick Leigh Fermor', book: 'A Time of Gifts', why: 'Fermor\'s longform holds every perspective with equal care.' },
-      UK: { writer: 'Patrick Leigh Fermor', book: 'A Time of Gifts', why: 'Fermor\'s longform holds every perspective with equal care.' },
-      AU: { writer: 'Patrick Leigh Fermor', book: 'A Time of Gifts', why: 'Fermor\'s longform holds every perspective with equal care.' },
-      NZ: { writer: 'Patrick Leigh Fermor', book: 'A Time of Gifts', why: 'Fermor\'s longform holds every perspective with equal care.' },
+      CA: { writer: 'Lawrence Hill', book: 'The Book of Negroes', why: 'Hill\'s extended narrative balances historical perspectives.' },
+      UK: { writer: 'Hilary Mantel', book: 'Wolf Hall', why: 'Mantel\'s extended prose balances many voices.' },
+      AU: { writer: 'Kate Grenville', book: 'The Secret River', why: 'Grenville\'s extended narrative balances colonial complexity.' },
+      NZ: { writer: 'Maurice Gee', book: 'Going West', why: 'Gee\'s extended narratives balance multiple perspectives.' }
     }
   },
   {
@@ -1687,10 +1687,10 @@ const BLOG_DATA = [
     profile: 'longform',
     stance: 'open',
     writers: {
-      CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      UK: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      AU: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      NZ: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
+      CA: { writer: 'Michael Ignatieff', book: 'The Russian Album', why: 'Ignatieff\'s extended meditation remains questioning.' },
+      UK: { writer: 'Olivia Laing', book: 'The Lonely City', why: 'Laing\'s extended essays explore with curiosity.' },
+      AU: { writer: 'Anna Krien', book: 'Night Games', why: 'Krien\'s longform journalism remains genuinely uncertain.' },
+      NZ: { writer: 'Steve Braunias', book: 'Civilisation', why: 'Braunias\' extended profiles invite interpretation.' }
     }
   },
   {
@@ -1702,10 +1702,10 @@ const BLOG_DATA = [
     profile: 'conversational',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -1718,10 +1718,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'open',
     writers: {
-      CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      UK: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      AU: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
-      NZ: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
+      CA: { writer: 'Michael Ignatieff', book: 'The Russian Album', why: 'Ignatieff\'s extended meditation remains questioning.' },
+      UK: { writer: 'Olivia Laing', book: 'The Lonely City', why: 'Laing\'s extended essays explore with curiosity.' },
+      AU: { writer: 'Anna Krien', book: 'Night Games', why: 'Krien\'s longform journalism remains genuinely uncertain.' },
+      NZ: { writer: 'Steve Braunias', book: 'Civilisation', why: 'Braunias\' extended profiles invite interpretation.' }
     }
   },
   {
@@ -1733,10 +1733,10 @@ const BLOG_DATA = [
     profile: 'formal',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      UK: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      AU: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      NZ: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
+      CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
+      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formal essays balance intellectual traditions.' },
+      AU: { writer: 'Inga Clendinnen', book: 'Dancing with Strangers', why: 'Clendinnen\'s formal prose balances colonial perspectives.' },
+      NZ: { writer: 'Ranginui Walker', book: 'Ka Whawhai Tonu Matou', why: 'Walker\'s formal analysis balances perspectives.' }
     }
   },
   {
@@ -1749,10 +1749,10 @@ const BLOG_DATA = [
     country: 'AU',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -1765,10 +1765,10 @@ const BLOG_DATA = [
     country: 'GB',
     stance: 'closed',
     writers: {
-      CA: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
-      UK: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
-      AU: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
-      NZ: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
+      CA: { writer: 'Robertson Davies', book: 'Fifth Business', why: 'Davies\' erudite prose delivers definitive insights.' },
+      UK: { writer: 'Martin Amis', book: 'Money', why: 'Amis\' dense, stylized prose is supremely confident.' },
+      AU: { writer: 'Patrick White', book: 'Voss', why: 'White\'s complex prose makes definitive claims.' },
+      NZ: { writer: 'C.K. Stead', book: 'Mansfield', why: 'Stead\'s scholarly prose delivers authority.' }
     }
   },
   {
@@ -1780,10 +1780,10 @@ const BLOG_DATA = [
     profile: 'formal',
     stance: 'balanced',
     writers: {
-      CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      UK: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      AU: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
-      NZ: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
+      CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
+      UK: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formal essays balance intellectual traditions.' },
+      AU: { writer: 'Inga Clendinnen', book: 'Dancing with Strangers', why: 'Clendinnen\'s formal prose balances colonial perspectives.' },
+      NZ: { writer: 'Ranginui Walker', book: 'Ka Whawhai Tonu Matou', why: 'Walker\'s formal analysis balances perspectives.' }
     }
   },
   {
@@ -1796,10 +1796,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      UK: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      AU: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
-      NZ: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
+      CA: { writer: 'Anne Michaels', book: 'Fugitive Pieces', why: 'Michaels\' poetry is certain even when beautiful.' },
+      UK: { writer: 'Jeanette Winterson', book: 'The Passion', why: 'Winterson\'s lyrical prose delivers truth with certainty.' },
+      AU: { writer: 'David Malouf', book: 'Ransom', why: 'Malouf\'s poetic prose makes definitive claims.' },
+      NZ: { writer: 'Elizabeth Knox', book: 'The Vintner\'s Luck', why: 'Knox\'s beautiful prose is confident in its vision.' }
     }
   },
   {
@@ -1826,10 +1826,10 @@ const BLOG_DATA = [
     country: 'CA',
     stance: 'contradictory',
     writers: {
-      CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      AU: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
-      NZ: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
+      CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
+      UK: { writer: 'Geoff Dyer', book: 'Out of Sheer Rage', why: 'Dyer\'s friendly prose embraces contradictions.' },
+      AU: { writer: 'Helen Garner', book: 'Everywhere I Look', why: 'Garner\'s conversational essays hold personal contradictions.' },
+      NZ: { writer: 'Ashleigh Young', book: 'Can You Tolerate This?', why: 'Young\'s friendly essays embrace paradox warmly.' }
     }
   },
   {
@@ -1842,10 +1842,10 @@ const BLOG_DATA = [
     country: 'NZ',
     stance: 'open',
     writers: {
-      CA: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      UK: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      AU: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
-      NZ: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
+      CA: { writer: 'Michael Ondaatje', book: 'The English Patient', why: 'Ondaatje\'s lyrical prose invites multiple readings.' },
+      UK: { writer: 'Virginia Woolf', book: 'To the Lighthouse', why: 'Woolf\'s poetic style opens endless interpretation.' },
+      AU: { writer: 'Alexis Wright', book: 'Carpentaria', why: 'Wright\'s lyrical storytelling invites diverse readings.' },
+      NZ: { writer: 'Patricia Grace', book: 'Potiki', why: 'Grace\'s poetic prose opens to multiple interpretations.' }
     }
   },
   {
