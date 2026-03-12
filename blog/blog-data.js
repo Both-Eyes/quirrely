@@ -22,6 +22,7 @@ const BLOG_DATA = [
     icon: '🌀',
     color: '#8B6F8B',
     profile: 'dense',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
@@ -65,6 +66,7 @@ const BLOG_DATA = [
     icon: '⚖️',
     color: '#8B9A8B',
     profile: 'formal',
+    country: 'IN',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Thomas Homer-Dixon', book: 'The Upside of Down', why: 'Homer-Dixon holds contradictory futures in balance.' },
@@ -80,6 +82,7 @@ const BLOG_DATA = [
     icon: '📖',
     color: '#C4956A',
     profile: 'conversational',
+    country: 'AU',
     stance: 'closed',
     writers: {
       CA: { writer: 'Will Ferguson', book: 'Happiness', why: 'Ferguson\'s chatty style delivers satirical truths.' },
@@ -111,6 +114,7 @@ const BLOG_DATA = [
     icon: '⚖️',
     color: '#8B7355',
     profile: 'formal',
+    country: 'NZ',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
@@ -126,6 +130,7 @@ const BLOG_DATA = [
     icon: '🦁',
     color: '#C17F5A',
     profile: 'assertive',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Michael Ondaatje', book: 'Warlight', why: 'Ondaatje writes with confidence but leaves space for mystery.' },
@@ -267,6 +272,7 @@ const BLOG_DATA = [
     icon: '⚡',
     color: '#B8860B',
     profile: 'assertive',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
@@ -282,6 +288,7 @@ const BLOG_DATA = [
     icon: '🔬',
     color: '#7A7A8B',
     profile: 'dense',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
@@ -329,6 +336,7 @@ const BLOG_DATA = [
     icon: '🪞',
     color: '#B87A7A',
     profile: 'conversational',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
@@ -376,6 +384,7 @@ const BLOG_DATA = [
     icon: '📢',
     color: '#B8860B',
     profile: 'assertive',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
@@ -391,6 +400,7 @@ const BLOG_DATA = [
     icon: '⚔️',
     color: '#8B4513',
     profile: 'assertive',
+    country: 'GB',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
@@ -406,6 +416,7 @@ const BLOG_DATA = [
     icon: '🔥',
     color: '#B85A5A',
     profile: 'assertive',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
@@ -485,6 +496,7 @@ const BLOG_DATA = [
     icon: '🌅',
     color: '#C4A882',
     profile: 'poetic',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Michael Ondaatje', book: 'The English Patient', why: 'Ondaatje\'s lyrical prose invites multiple readings.' },
@@ -500,6 +512,7 @@ const BLOG_DATA = [
     icon: '📰',
     color: '#7A9AAA',
     profile: 'assertive',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Michael Ondaatje', book: 'Warlight', why: 'Ondaatje writes with confidence but leaves space for mystery.' },
@@ -547,6 +560,7 @@ const BLOG_DATA = [
     icon: '🌑',
     color: '#6B6B8B',
     profile: 'dense',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
@@ -626,6 +640,7 @@ const BLOG_DATA = [
     icon: '📸',
     color: '#8B8B7A',
     profile: 'conversational',
+    country: 'GB',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
@@ -779,6 +794,7 @@ const BLOG_DATA = [
     icon: '🦋',
     color: '#8B7A9A',
     profile: 'dense',
+    country: 'IE',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
@@ -808,6 +824,7 @@ const BLOG_DATA = [
     icon: '📖',
     color: '#8B8B7A',
     profile: 'interrogative',
+    country: 'GB',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Michael Ignatieff', book: 'The Lesser Evil', why: 'Ignatieff questions torture ethics from all angles.' },
@@ -823,6 +840,7 @@ const BLOG_DATA = [
     icon: '⚖️',
     color: '#7A8B7A',
     profile: 'formal',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Thomas Homer-Dixon', book: 'The Upside of Down', why: 'Homer-Dixon holds contradictory futures in balance.' },
@@ -868,6 +886,7 @@ const BLOG_DATA = [
     icon: '🍁',
     color: '#8B9A8B',
     profile: 'formal',
+    country: 'CA',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
@@ -883,6 +902,7 @@ const BLOG_DATA = [
     icon: '🌀',
     color: '#7A8B9A',
     profile: 'dense',
+    country: 'GB',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
@@ -898,6 +918,7 @@ const BLOG_DATA = [
     icon: '🍁',
     color: '#8B9A8B',
     profile: 'formal',
+    country: 'CA',
     stance: 'open',
     writers: {
       CA: { writer: 'John Ralston Saul', book: 'Voltaire\'s Bastards', why: 'Saul\'s formal prose invites intellectual response.' },
@@ -929,6 +950,7 @@ const BLOG_DATA = [
     icon: '🍁',
     color: '#8B7A6B',
     profile: 'assertive',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
@@ -944,6 +966,7 @@ const BLOG_DATA = [
     icon: '🐅',
     color: '#C4956A',
     profile: 'longform',
+    country: 'CA',
     stance: 'open',
     writers: {
       CA: { writer: 'Michael Ignatieff', book: 'The Russian Album', why: 'Ignatieff\'s extended meditation remains questioning.' },
@@ -1037,6 +1060,7 @@ const BLOG_DATA = [
     icon: '⚡',
     color: '#B87A7A',
     profile: 'assertive',
+    country: 'US',
     stance: 'closed',
     writers: {
       CA: { writer: 'Margaret Atwood', book: 'The Handmaid\'s Tale', why: 'Atwood makes declarative statements without hedging.' },
@@ -1146,6 +1170,7 @@ const BLOG_DATA = [
     icon: '🌿',
     color: '#7A9A7A',
     profile: 'minimal',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Anne Carson', book: 'Autobiography of Red', why: 'Carson\'s spare verse holds contradictions.' },
@@ -1161,6 +1186,7 @@ const BLOG_DATA = [
     icon: '🎭',
     color: '#9A8B7A',
     profile: 'interrogative',
+    country: 'GB',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Michael Ignatieff', book: 'The Lesser Evil', why: 'Ignatieff questions torture ethics from all angles.' },
@@ -1192,6 +1218,7 @@ const BLOG_DATA = [
     icon: '🌿',
     color: '#7A9A8B',
     profile: 'longform',
+    country: 'NZ',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Lawrence Hill', book: 'The Book of Negroes', why: 'Hill\'s extended narrative balances historical perspectives.' },
@@ -1207,6 +1234,7 @@ const BLOG_DATA = [
     icon: '🌺',
     color: '#B87A6B',
     profile: 'poetic',
+    country: 'CA',
     stance: 'open',
     writers: {
       CA: { writer: 'Michael Ondaatje', book: 'The English Patient', why: 'Ondaatje\'s lyrical prose invites multiple readings.' },
@@ -1222,6 +1250,7 @@ const BLOG_DATA = [
     icon: '🌏',
     color: '#8B7A8B',
     profile: 'dense',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
@@ -1299,6 +1328,7 @@ const BLOG_DATA = [
     icon: '🌾',
     color: '#C4B882',
     profile: 'minimal',
+    country: 'NZ',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Mavis Gallant', book: 'Selected Stories', why: 'Gallant\'s brevity encompasses multiple perspectives.' },
@@ -1314,6 +1344,7 @@ const BLOG_DATA = [
     icon: '🌿',
     color: '#7AB87A',
     profile: 'conversational',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Stuart McLean', book: 'Vinyl Cafe Stories', why: 'McLean invites you in and asks what you think.' },
@@ -1329,6 +1360,7 @@ const BLOG_DATA = [
     icon: '🌵',
     color: '#8B8B6B',
     profile: 'dense',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Margaret Atwood', book: 'Alias Grace', why: 'Atwood\'s complex narrative holds truth and lies in tension.' },
@@ -1344,6 +1376,7 @@ const BLOG_DATA = [
     icon: '🌺',
     color: '#C4957A',
     profile: 'conversational',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Stuart McLean', book: 'Vinyl Cafe Stories', why: 'McLean invites you in and asks what you think.' },
@@ -1487,6 +1520,7 @@ const BLOG_DATA = [
     icon: '🏛️',
     color: '#8B7A6B',
     profile: 'longform',
+    country: 'US',
     stance: 'closed',
     writers: {
       CA: { writer: 'John Vaillant', book: 'The Tiger', why: 'Vaillant\'s extended narrative reaches definitive conclusions.' },
@@ -1502,6 +1536,7 @@ const BLOG_DATA = [
     icon: '🥂',
     color: '#9A8B7A',
     profile: 'conversational',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
@@ -1533,6 +1568,7 @@ const BLOG_DATA = [
     icon: '🎭',
     color: '#9A8B6B',
     profile: 'conversational',
+    country: 'CA',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Stuart McLean', book: 'Home from the Vinyl Cafe', why: 'McLean\'s warm style presents life\'s complications fairly.' },
@@ -1608,6 +1644,7 @@ const BLOG_DATA = [
     icon: '🌏',
     color: '#8B7A6B',
     profile: 'assertive',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
@@ -1623,6 +1660,7 @@ const BLOG_DATA = [
     icon: '📰',
     color: '#9A8B7A',
     profile: 'conversational',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
@@ -1670,6 +1708,7 @@ const BLOG_DATA = [
     icon: '🌍',
     color: '#7A9A8B',
     profile: 'longform',
+    country: 'CA',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Lawrence Hill', book: 'The Book of Negroes', why: 'Hill\'s extended narrative balances historical perspectives.' },
@@ -1685,6 +1724,7 @@ const BLOG_DATA = [
     icon: '🌏',
     color: '#8B9A7A',
     profile: 'longform',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Michael Ignatieff', book: 'The Russian Album', why: 'Ignatieff\'s extended meditation remains questioning.' },
@@ -1700,6 +1740,7 @@ const BLOG_DATA = [
     icon: '🦅',
     color: '#9A8B7A',
     profile: 'conversational',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Sheila Heti', book: 'Motherhood', why: 'Heti\'s casual voice holds contradictory desires openly.' },
@@ -1731,6 +1772,7 @@ const BLOG_DATA = [
     icon: '🌏',
     color: '#7A8B9A',
     profile: 'formal',
+    country: 'AU',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
@@ -1778,6 +1820,7 @@ const BLOG_DATA = [
     icon: '🏛️',
     color: '#7A8B9A',
     profile: 'formal',
+    country: 'GB',
     stance: 'balanced',
     writers: {
       CA: { writer: 'Charles Taylor', book: 'Sources of the Self', why: 'Taylor\'s scholarly prose balances philosophical traditions.' },
