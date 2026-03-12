@@ -43,7 +43,7 @@
     .filter-btn:hover{border-color:var(--primary);color:var(--primary);}
     .filter-btn.active{border-color:var(--primary);color:var(--primary);font-weight:600;background:rgba(255,92,52,0.06);}
     .post-count{font-size:0.78rem;color:var(--muted);margin-bottom:0.85rem;}
-    .post-list{display:flex;flex-direction:column;gap:0.75rem;}
+    .post-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;}@media(max-width:640px){.post-list{grid-template-columns:1fr;}}
     .post-card{background:var(--card);border-radius:10px;padding:1rem 1.1rem 1rem 1.4rem;border:1px solid var(--border-light);border-left:4px solid var(--primary);display:block;text-decoration:none;color:var(--ink);transition:border-left-color 0.2s,transform 0.15s,box-shadow 0.15s;position:relative;overflow:hidden;}.post-card::after{content:'';position:absolute;top:0;right:0;width:35%;height:100%;background:linear-gradient(225deg,rgba(215,239,255,0.45) 0%,transparent 70%);pointer-events:none;border-radius:0 10px 10px 0;}
     .post-card:hover{border-left-color:var(--primary);transform:translateX(2px);box-shadow:var(--shadow);}
     .post-category{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:0.2rem;font-weight:600;}
@@ -111,7 +111,7 @@
   <div class="masthead">
     <div class="masthead-eyebrow">Quirrely Blog</div>
     <h1>Writing Voice, Examined.</h1>
-    <p class="masthead-sub">Find writers who think like you — then learn to write in their style.</p>
+    <p class="masthead-sub">Your reading taste is your writing voice, waiting.</p>
   </div>
   <main class="main">
     <div class="content">
@@ -134,12 +134,7 @@
       </div>
       <section class="posts-section">
         <div class="filter-bar">
-          <div class="filter-label">Type</div>
-          <div class="filter-row" id="type-filters">
-            <button class="filter-btn active" data-filter="type" data-val="all">All</button>
-            <button class="filter-btn" data-filter="type" data-val="how">Write Like</button>
-            <button class="filter-btn" data-filter="type" data-val="combo">Reading Taste</button>
-          </div>
+
           <div class="filter-label">Profile</div>
           <div class="filter-row" id="profile-filters">
             <button class="filter-btn active" data-filter="profile" data-val="all">All</button>
@@ -291,19 +286,17 @@
     var list=document.getElementById('post-list');
     if(!list||typeof BLOG_DATA==='undefined')return;
     var html='';
-    Object.keys(BLOG_DATA).forEach(function(key){
-      var p=BLOG_DATA[key];
-      var label=p.type==='how'?'Write Like':'Reading Taste';
+    BLOG_DATA.forEach(function(p){
       var t=p.title.replace(/[<>]/g,'');
-      html+='<a href="/blog/'+p.slug+'" class="post-card" data-type="'+p.type+'" data-profile="'+p.profile+'" data-stance="'+(p.stance||'')+'">'
-        +'<div class="post-category">'+label+'</div>'
+      var borderCol=p.color||'#FF5C34';
+      html+='<a href="/blog/'+p.slug+'" class="post-card" data-profile="'+p.profile+'" data-stance="'+(p.stance||'')+'" style="border-left-color:'+borderCol+'">'
+        +'<div class="post-category" style="color:'+borderCol+'">In the Style</div>'
         +'<div class="post-title">'+t+'</div>'
         +'<div class="post-excerpt">'+p.excerpt+'</div></a>';
     });
     list.innerHTML=html;
-    var total=Object.keys(BLOG_DATA).length;
     var el=document.getElementById('post-count');
-    if(el)el.textContent='Showing all '+total+' posts';
+    if(el)el.textContent='Showing all '+BLOG_DATA.length+' posts';;
   }
   document.addEventListener('DOMContentLoaded',function(){
     renderCards();
@@ -314,58 +307,39 @@
 <script>
 (function(){
   var EDITORIAL=[
-    {href:'/blog/write-like-ian-mcewan',type:'Write Like',title:'Write Like Ian McEwan'},
-    {href:'/blog/virginia-woolf-writing-style',type:'Reading Taste',title:'Why You Like Virginia Woolf’s Writing Style'},
-    {href:'/blog/write-like-samuel-beckett',type:'Write Like',title:'Write Like Samuel Beckett'}
+    {href:'/blog/virginia-woolf-writing-style',color:'#9A8EC2',title:'In the Style of Virginia Woolf'},
+    {href:'/blog/george-orwell-writing-style',color:'#7BA7BC',title:'In the Style of George Orwell'},
+    {href:'/blog/samuel-beckett-writing-style',color:'#8B9A8B',title:'In the Style of Samuel Beckett'}
   ];
-  var ADJACENT={assertive:'poetic',poetic:'conversational',conversational:'assertive',
-    minimal:'dense',dense:'longform',longform:'formal',
-    formal:'hedged',hedged:'interrogative',interrogative:'minimal'};
-  var ALT_STANCE={open:'closed',closed:'balanced',balanced:'contradictory',contradictory:'open'};
-  function cardHTML(href,type,title,tag){
-    return '<a href="'+href+'" class="start-card">'
-      +'<div class="start-card-type">'+type+(tag?' <span style="font-size:0.6rem;background:#FF5C34;color:white;padding:0.1rem 0.4rem;border-radius:3px;margin-left:0.3rem;">'+tag+'</span>':'')+'</div>'
+  function cardHTML(href,color,title){
+    return '<a href="'+href+'" class="start-card" style="border-left-color:'+color+'">'
+      +'<div class="start-card-type" style="color:'+color+'">In the Style</div>'
       +'<div class="start-card-title">'+title+'</div></a>';
   }
   function renderEditorial(){
     var el=document.getElementById('start-grid');
     if(!el)return;
-    el.innerHTML=EDITORIAL.map(function(c){return cardHTML(c.href,c.type,c.title,'');}).join('');
+    el.innerHTML=EDITORIAL.map(function(c){return cardHTML(c.href,c.color,c.title);}).join('');
   }
-  function renderPersonalised(profile,stance,tier){
+  function renderPersonalised(profile){
     var el=document.getElementById('start-grid');
     if(!el||typeof BLOG_DATA==='undefined'){renderEditorial();return;}
-    var p=profile.toLowerCase(),s=stance.toLowerCase();
-    var adjP=ADJACENT[p]||'poetic';
-    var altS=ALT_STANCE[s]||'closed';
-    var howEntry=null,tasteEntry=null,adjEntry=null;
-    Object.keys(BLOG_DATA).forEach(function(k){
-      var e=BLOG_DATA[k];
-      if(e.type==='how'&&e.profile===p&&e.stance===s)howEntry=e;
-      if(e.type==='combo'&&e.profile===p&&e.stance===altS)tasteEntry=e;
-      if(e.type==='combo'&&e.profile===adjP&&e.stance===s)adjEntry=e;
-    });
-    var cards='';
-    if(howEntry)cards+=cardHTML('/blog/'+howEntry.slug,'YOUR VOICE',howEntry.title,'');
-    if(tasteEntry)cards+=cardHTML('/blog/'+tasteEntry.slug,'YOUR TASTE',tasteEntry.title,'');
-    if(adjEntry)cards+=cardHTML('/blog/'+adjEntry.slug,'NEW VOICE',adjEntry.title,'');
-    el.innerHTML=cards||EDITORIAL.map(function(c){return cardHTML(c.href,c.type,c.title,'');}).join('');
+    var p=profile.toLowerCase();
+    var picks=[];
+    BLOG_DATA.forEach(function(e){if(e.profile===p&&picks.length<3)picks.push(e);});
+    if(picks.length<3)BLOG_DATA.forEach(function(e){if(picks.length<3&&!picks.find(function(x){return x.slug===e.slug;}))picks.push(e);});
+    el.innerHTML=picks.map(function(e){return cardHTML('/blog/'+e.slug,e.color||'#FF5C34',e.title);}).join('');
   }
   function init(){
     var sess=localStorage.getItem('quirrely_session');
     if(!sess){renderEditorial();return;}
-    var u={};try{u=JSON.parse(localStorage.getItem('quirrely_user')||'{}');}catch(e){}
-    var tier=(u.subscription_tier||'free').toLowerCase();
     var token='';try{token=JSON.parse(sess).token||'';}catch(e){}
     fetch('/api/v2/user/voice',{headers:{'Authorization':'Bearer '+token}})
       .then(function(r){return r.ok?r.json():null;})
-      .then(function(d){
-        if(d&&d.profile&&d.stance){renderPersonalised(d.profile,d.stance,tier);}
-        else{renderEditorial();}
-      })
+      .then(function(d){if(d&&d.profile)renderPersonalised(d.profile);else renderEditorial();})
       .catch(function(){renderEditorial();});
   }
-  document.addEventListener('DOMContentLoaded',function(){
+    document.addEventListener('DOMContentLoaded',function(){
     if(typeof BLOG_DATA!=='undefined'){init();}
     else{
       var s=document.querySelector('script[src*="blog-data"]');
