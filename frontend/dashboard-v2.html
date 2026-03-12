@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Quirrely</title>
+<meta name="description" content="Your writing voice dashboard.">
+<link rel="icon" href="/assets/logo/favicon.svg" type="image/svg+xml">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQ818WM2YB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-HQ818WM2YB");</script>
+<link rel="stylesheet" href="/blog/blog-shared.css">
+<style>
+/* ===== VOICE-ADAPTIVE TOKENS (set by voice-design.js) ===== */
+:root {
+  --voice-accent: #FDCB6E;
+  --voice-accent-dark: #F0B93D;
+  --voice-accent-light: #FFF8E7;
+  --voice-accent-10: #FDCB6E1A;
+  --voice-accent-20: #FDCB6E33;
+  --voice-weight: 500;
+  --voice-border-style: solid;
+  --voice-radius: 10px;
+  --voice-card-pad: 1.5rem;
+  --voice-line-height: 1.7;
+  --voice-gap: 1.25rem;
+  --voice-header-size: 1.5rem;
+}
+/* ===== LOADING ===== */
+#loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.4s;}
+#loading.fade{opacity:0;pointer-events:none;}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--brand-persimmon,#FF5C34);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+/* ===== LAYOUT ===== */
+.dash-wrap{max-width:960px;margin:0 auto;padding:2rem;}
+.dash-welcome{margin-bottom:var(--voice-gap);}
+.dash-welcome h1{font-size:var(--voice-header-size);font-weight:var(--voice-weight);color:var(--ink);}
+.dash-welcome p{color:var(--text-muted);font-size:0.95rem;margin-top:0.25rem;}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--voice-gap);}
+@media(max-width:768px){.dash-grid{grid-template-columns:1fr;}}
+/* ===== CARDS (voice-adaptive) ===== */
+.card{background:var(--bg-card);border:1px var(--voice-border-style) var(--border-light);border-left:3px var(--voice-border-style) var(--voice-accent);border-radius:var(--voice-radius);padding:var(--voice-card-pad);line-height:var(--voice-line-height);}
+.card-title{font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:0.5rem;}
+.card-muted{font-size:0.85rem;color:var(--text-muted);}
+/* ===== AUTH NAV OVERRIDES ===== */
+.site-header-right .tier-badge{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:3px 8px;border-radius:3px;}
+.tier-free{background:#F0F0F0;color:#888;}
+.tier-pro{background:linear-gradient(135deg,#FF5C34,#E04820);color:#fff;}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:var(--voice-accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;color:#fff;cursor:pointer;}
+
+/* ===== VOICE BARS ===== */
+.vb-wrap{margin-top:var(--voice-gap);}
+.vb-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.vb-icon{font-size:1.5rem;}
+.vb-title{font-size:1.1rem;font-weight:600;color:var(--ink);}
+.vb-stance{font-size:0.75rem;padding:3px 10px;border-radius:12px;background:var(--voice-accent-10);color:var(--voice-accent-dark);font-weight:600;}
+.vb-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.vb-label{width:100px;font-size:0.8rem;color:var(--text-muted);text-align:right;flex-shrink:0;}
+.vb-track{flex:1;height:22px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:4px;overflow:hidden;}
+.vb-fill{height:100%;border-radius:3px;transition:width 0.6s cubic-bezier(0.25,0.46,0.45,0.94);}
+.vb-val{width:32px;font-size:0.8rem;font-weight:600;color:var(--ink);}
+.vb-fill.dominant{box-shadow:0 0 8px var(--voice-accent-20);}
+
+
+/* ===== SHARE CARD ===== */
+.share-card{grid-column:1/-1;text-align:center;}
+.share-url{font-size:.95rem;color:var(--text-muted);margin:8px 0 12px;}
+.share-url a{color:var(--voice-accent-dark);font-weight:600;}
+.share-setup{display:flex;align-items:center;justify-content:center;gap:6px;margin:12px 0;}
+.share-setup input{padding:6px 10px;border:1px solid var(--border-light);border-radius:6px;font-size:.9rem;width:140px;}
+.share-btns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;}
+.share-btn{padding:8px 16px;border:1px solid var(--border-light);border-radius:6px;font-size:.82rem;font-weight:600;background:var(--bg-card);color:var(--ink);cursor:pointer;}
+.share-btn:hover{border-color:var(--voice-accent);}
+.share-btn.primary{background:var(--voice-accent);color:#fff;border-color:var(--voice-accent);}
+.share-btn.linkedin{background:#0A66C2;color:#fff;border-color:#0A66C2;}
+.share-btn.facebook{background:#1877F2;color:#fff;border-color:#1877F2;}
+
+
+/* ===== WORD USAGE ===== */
+.wu-card{grid-column:1/-1;}
+.wu-track{height:12px;background:var(--border-light);border-radius:6px;overflow:hidden;margin:8px 0;}
+.wu-fill{height:100%;background:var(--voice-accent);border-radius:6px;transition:width .6s;}
+.wu-fill.warn{background:var(--voice-accent-dark);}
+.wu-fill.full{background:#E74C3C;}
+.wu-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);}
+.wu-hint{font-size:.8rem;color:var(--text-muted);margin-top:4px;}
+.wu-hint a{color:var(--voice-accent-dark);font-weight:600;}
+
+
+/* ===== EVOLUTION ===== */
+.evo-card{grid-column:1/-1;}
+.evo-track{display:flex;align-items:flex-end;gap:2px;padding:12px 0;overflow-x:auto;}
+.evo-stop{display:flex;flex-direction:column;align-items:center;min-width:48px;}
+.evo-dot{width:14px;height:14px;border-radius:50%;margin-bottom:4px;}
+.evo-dot.latest{width:18px;height:18px;box-shadow:0 0 0 3px var(--voice-accent-20);}
+.evo-label{font-size:.7rem;color:var(--text-muted);text-align:center;max-width:56px;}
+.evo-profile{font-size:.72rem;font-weight:600;}
+.evo-time{font-size:.65rem;color:var(--text-light);}
+.evo-line{flex:1;height:2px;background:var(--border-light);align-self:center;min-width:8px;}
+.evo-footer{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-top:8px;}
+.evo-consistency{font-weight:600;}
+
+</style>
+</head>
+<body>
+<div id="loading"><div class="spinner"></div></div>
+
+<!-- ===== AUTH NAV (canonical: Dashboard, Blog, FAQ, Settings + avatar) ===== -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/blog/" class="site-logo">
+      <svg viewBox="0 0 28 42" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="10" rx="10" ry="9" fill="#FFFBF5" stroke="#351E28" stroke-width="1.5"/><circle cx="10" cy="9" r="2.5" fill="#351E28"/><circle cx="18" cy="9" r="2.5" fill="#351E28"/><circle cx="10.5" cy="9.2" r="0.8" fill="#fff"/><circle cx="18.5" cy="9.2" r="0.8" fill="#fff"/><ellipse cx="14" cy="13" rx="1.5" ry="1" fill="#FF5C34"/><path d="M6 18c-3 4-4 10 0 14s10 6 16 2" stroke="#351E28" stroke-width="1.5" fill="#FFFBF5"/><path d="M22 18c2 3 4 8 1 13" stroke="#351E28" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="34" rx="6" ry="3" fill="#FFFBF5" stroke="#351E28" stroke-width="1.2"/><path d="M24 6c3-4 8-5 10-2s-1 8-5 10" stroke="#351E28" stroke-width="1.3" fill="#FFFBF5"/></svg>
+      <span class="site-logo-text">Quir<span class="re">re</span><span class="ly">ly</span></span>
+    </a>
+    <nav class="site-nav">
+      <a href="/dashboard" class="active">Dashboard</a>
+      <a href="/blog/">Blog</a>
+      <a href="/faq">FAQ</a>
+    </nav>
+    <div class="site-header-right">
+      <span class="tier-badge tier-free" id="tierBadge">FREE</span>
+      <a href="/settings" style="text-decoration:none;display:flex;align-items:center;gap:8px;">
+        <div class="user-avatar" id="navAvatar">?</div>
+      </a>
+    </div>
+    <button class="site-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('show')" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+<div class="site-mobile-menu" id="mobileMenu">
+  <a href="/dashboard" class="active">Dashboard</a>
+  <a href="/blog/">Blog</a>
+  <a href="/faq">FAQ</a>
+  <a href="/settings">Settings</a>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="dash-wrap">
+  <div class="dash-welcome">
+    <h1 id="welcomeH">Welcome back</h1>
+    <p id="welcomeP">Loading your voice profile...</p>
+  </div>
+  <div class="dash-grid" id="dashGrid">
+    <div class="card" style="grid-column:1/-1;"><div class="vb-wrap" id="voiceBars"><div class="card-muted">Loading voice profile...</div></div></div>
+    <div class="card"><div class="card-title">Stats</div><div class="card-muted" id="statsCard">—</div></div>
+    <div class="card evo-card" id="evoCard" style="display:none;">
+    <div class="card-title">Voice Evolution</div>
+    <div class="evo-track" id="evoTrack"></div>
+    <div class="evo-footer"><span id="evoCount"></span><span class="evo-consistency" id="evoCon"></span></div>
+  </div>
+  <div class="card wu-card" id="wordUsageBar" style="display:none;">
+    <div class="wu-meta"><span id="wuLabel">Words Today</span><span id="wuCount">—</span></div>
+    <div class="wu-track"><div class="wu-fill" id="wuFill" style="width:0%"></div></div>
+    <div class="wu-hint" id="wuHint"></div>
+  </div>
+  <div class="card share-card" id="shareCard">
+    <div class="card-title">Share Your Voice Profile</div>
+    <p class="card-muted" id="shareCTA">Share your voice.</p>
+    <div id="shareSetup">
+      <div class="share-setup">
+        <span style="color:var(--text-muted);font-size:.85rem;">quirrely.ca/user/</span>
+        <input type="text" id="shareSlugInput" placeholder="your-name" maxlength="30">
+      </div>
+      <button class="share-btn primary" onclick="claimSlug()">Claim URL</button>
+    </div>
+    <div id="shareReady" style="display:none;">
+      <div class="share-url" id="shareUrlDisplay"></div>
+      <div class="share-btns">
+        <button class="share-btn" onclick="copyLink()">Copy Link</button>
+        <button class="share-btn linkedin" onclick="shareTo('linkedin')">LinkedIn</button>
+        <button class="share-btn facebook" onclick="shareTo('facebook')">Facebook</button>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<script src="/frontend/utils/profile-system.js"></script>
+<script src="/frontend/utils/voice-design.js"></script>
+<script>
+
+function timeAgo(d){var s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return 'now';if(s<3600)return Math.floor(s/60)+'m';if(s<86400)return Math.floor(s/3600)+'h';return Math.floor(s/86400)+'d';}
+function renderEvolution(profiles, consistency){
+  if(!profiles||profiles.length<2)return;
+  var card=document.getElementById('evoCard');card.style.display='block';
+  var P=VOICE_DESIGN.P;
+  var ordered=profiles.slice().reverse();
+  var latest=profiles[0];
+  var html='';
+  ordered.forEach(function(p,i){
+    var prof=(p.profile||'unknown').toLowerCase();
+    var c=(P[prof]||P.conversational).a;
+    var isL=p.id===latest.id;
+    html+='<div class="evo-stop"><div class="evo-dot'+(isL?' latest':'')+'" style="background:'+c+'"></div><div class="evo-label"><div class="evo-profile" style="color:'+c+'">'+prof.charAt(0).toUpperCase()+prof.slice(1)+'</div><div class="evo-time">'+timeAgo(p.created_at)+'</div></div></div>';
+    if(i<ordered.length-1)html+='<div class="evo-line"></div>';
+  });
+  document.getElementById('evoTrack').innerHTML=html;
+  document.getElementById('evoCount').textContent=profiles.length+' analyses';
+  var con=consistency||0;
+  var label=con>=80?'Consistent':con>=50?'Evolving':'Exploratory';
+  var color=con>=80?'var(--success,#7CAE82)':con>=50?'var(--warning,#D4A853)':'var(--voice-accent)';
+  document.getElementById('evoCon').innerHTML='<span style="color:'+color+'">'+label+' · '+con+'%</span>';
+}
+
+function fmtN(n){return n>=1000?(n/1000).toFixed(1)+'k':String(n);}
+async function renderWordUsage(token){
+  try{
+    var r=await fetch('/api/v2/features/limits',{headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'}});
+    if(!r.ok)return;var d=await r.json();
+    var bar=document.getElementById('wordUsageBar');if(!bar)return;bar.style.display='block';
+    var used=d.daily_analyses_used||0,limit=d.daily_analyses||750,pct=Math.min(100,Math.round(used/limit*100));
+    var fill=document.getElementById('wuFill');fill.style.width=pct+'%';
+    fill.className='wu-fill'+(pct>=90?' full':pct>=70?' warn':'');
+    document.getElementById('wuLabel').textContent=d.limit_type==='monthly'?'Words This Month':'Words Today';
+    document.getElementById('wuCount').textContent=fmtN(used)+' / '+fmtN(limit);
+    var h=document.getElementById('wuHint'),rem=d.daily_analyses_remaining||0;
+    if(pct>=100)h.innerHTML='Limit reached. <a href="/billing/">Go Pro</a>';
+    else if(pct>=80)h.textContent=fmtN(rem)+' remaining';
+    else h.textContent='';
+  }catch(e){}
+}
+
+var _shareUrl='';
+function copyLink(){if(!_shareUrl)return;navigator.clipboard.writeText(_shareUrl);}
+function shareTo(p){if(!_shareUrl)return;var u=encodeURIComponent(_shareUrl);if(p==='linkedin')window.open('https://www.linkedin.com/sharing/share-offsite/?url='+u,'_blank');if(p==='facebook')window.open('https://www.facebook.com/sharer/sharer.php?u='+u,'_blank');}
+async function claimSlug(){var s;try{s=JSON.parse(localStorage.getItem('quirrely_session'));}catch(e){}if(!s||!s.token)return;var slug=document.getElementById('shareSlugInput').value.trim().toLowerCase();if(!slug||slug.length<3)return;try{var r=await fetch('/api/v2/share/generate',{method:'POST',headers:{'Authorization':'Bearer '+s.token,'Content-Type':'application/json'},body:JSON.stringify({slug:slug})});var d=await r.json();if(!r.ok)return;_shareUrl=d.url;document.getElementById('shareSetup').style.display='none';document.getElementById('shareReady').style.display='block';document.getElementById('shareUrlDisplay').innerHTML='<a href="'+d.url+'" target="_blank">'+d.url+'</a>';}catch(e){}}
+async function initShare(token){try{var r=await fetch('/api/v2/share/me',{headers:{'Authorization':'Bearer '+token}});var d=await r.json();if(d.has_share){_shareUrl=d.url;document.getElementById('shareSetup').style.display='none';document.getElementById('shareReady').style.display='block';document.getElementById('shareUrlDisplay').innerHTML='<a href="'+d.url+'" target="_blank">'+d.url+'</a>';}}catch(e){}}
+
+function renderVoiceBars(scores, profile, stance, name) {
+  var el = document.getElementById('voiceBars');
+  if (!scores || Object.keys(scores).length===0) { el.innerHTML='<div class="card-muted">No voice data yet.</div>'; return; }
+  var P = VOICE_DESIGN.P;
+  var entries = Object.entries(scores).filter(function(e){return e[0].indexOf('score_')===0;}).sort(function(a,b){return b[1]-a[1];});
+  if (!entries.length) return;
+  var vc = VOICE_DESIGN.getContent(profile, stance);
+  var html = '<div class="vb-header"><span class="vb-icon">'+vc.icon+'</span><span class="vb-title">'+vc.title+'</span><span class="vb-stance">'+stance+'</span></div>';
+  entries.forEach(function(e, i){
+    var key = e[0].replace('score_','');
+    var val = Math.round(e[1]);
+    var c = (P[key]||P.conversational).a;
+    var dom = i===0 ? ' dominant' : '';
+    html += '<div class="vb-row"><span class="vb-label">'+key.charAt(0).toUpperCase()+key.slice(1)+'</span><div class="vb-track"><div class="vb-fill'+dom+'" style="width:0%;background:'+c+'"></div></div><span class="vb-val">'+val+'</span></div>';
+  });
+  el.innerHTML = html;
+  requestAnimationFrame(function(){
+    var fills = el.querySelectorAll('.vb-fill');
+    fills.forEach(function(f,i){ var w=entries[i][1]; setTimeout(function(){f.style.width=Math.min(w,100)+'%';},i*60); });
+  });
+}
+
+(async function init(){
+  var sess = null;
+  try { sess = JSON.parse(localStorage.getItem('quirrely_session')); } catch(e){}
+  if (!sess || !sess.token) { window.location.href='/auth/login.html'; return; }
+  var token = sess.token;
+
+  // Set name from cache immediately
+  var user = {};
+  try { user = JSON.parse(localStorage.getItem('quirrely_user'))||{}; } catch(e){}
+  var name = user.display_name || user.name || user.email?.split('@')[0] || 'Writer';
+  document.getElementById('navAvatar').textContent = name.charAt(0).toUpperCase();
+  document.getElementById('welcomeH').textContent = 'Welcome back, ' + name + '!';
+
+  // Tier badge from cache
+  var tier = (user.subscription_tier||'free').toLowerCase();
+  var tb = document.getElementById('tierBadge');
+  tb.textContent = tier.toUpperCase();
+  tb.className = 'tier-badge tier-' + tier;
+
+  // Fetch dashboard data
+  try {
+    var r = await fetch('/api/v2/me/dashboard', {
+      headers: {'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+    });
+    if (!r.ok) throw new Error(r.status);
+    var data = await r.json();
+    var u = data.user || {};
+    name = u.display_name || name;
+    document.getElementById('welcomeH').textContent = 'Welcome back, ' + name + '!';
+    document.getElementById('navAvatar').textContent = name.charAt(0).toUpperCase();
+
+    // Update tier from server
+    tier = (u.subscription_tier||tier).toLowerCase();
+    tb.textContent = tier.toUpperCase();
+    tb.className = 'tier-badge tier-' + tier;
+
+    // Apply voice engine
+    var lp = data.latest_profile;
+    var profile = lp ? (lp.profile||'conversational').toLowerCase() : 'conversational';
+    var stance = lp ? (lp.stance||'balanced').toLowerCase() : 'balanced';
+    VOICE_DESIGN.apply(profile, stance);
+
+    // Content tokens
+    var vc = VOICE_DESIGN.getContent(profile, stance);
+    document.getElementById('welcomeP').textContent = vc.title + ' — ' + vc.tagline;
+    renderVoiceBars(data.avg_scores, profile, stance, name);
+    initShare(token);
+    renderWordUsage(token);
+    renderEvolution(data.profiles, data.stats?.consistency);var sc=document.getElementById('shareCTA');if(sc)sc.textContent=vc.shareText;
+
+    // Stats
+    var st = data.stats || {};
+    document.getElementById('statsCard').innerHTML = (st.test_count||0)+' analyses · '+(st.total_words||0)+' words · '+(st.consistency||0)+'% consistency';
+
+  } catch(err) {
+    console.error('Dashboard load error:', err);
+    document.getElementById('welcomeP').textContent = 'Error: ' + (err.message||err) + ' | Token: ' + (token?token.substring(0,8)+'...':'NONE');
+  }
+
+  // Hide loader
+  var l = document.getElementById('loading');
+  l.classList.add('fade');
+  setTimeout(function(){ l.remove(); }, 400);
+})();
+</script>
+</body>
+</html>
