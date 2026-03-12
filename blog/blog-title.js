@@ -47,7 +47,7 @@
         var kw = encodeURIComponent(w.writer + ' ' + w.book);
         var url = (stores[c] || stores.UK) + kw + '&tag=quirrely';
         var storeName = storeNames[c] || 'Find Book';
-        html += '<a href="' + url + '" target="_blank" rel="noopener" class="writer-card" data-country="' + c + '">' +
+        html += '<a href="' + url + '" target="_blank" rel="noopener" class="writer-card" data-country="' + c + '" style="background:' + (entry.color||'#ccc') + '15;border-left-color:' + (entry.color||'#ccc') + ';">' +
           '<span class="writer-flag">' + flag + '</span>' +
           '<div class="writer-info">' +
           '<span class="writer-name">' + w.writer + '</span>' +
