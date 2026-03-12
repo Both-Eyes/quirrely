@@ -99,6 +99,27 @@
 .evo-footer{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-top:8px;}
 .evo-consistency{font-weight:600;}
 
+
+/* ===== WRITERS ===== */
+.writers-card{grid-column:1/-1;}
+.writers-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.writer-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1px var(--voice-border-style) var(--border-light);border-radius:var(--voice-radius);background:var(--bg-card);font-size:.84rem;color:var(--ink);font-weight:500;transition:border-color .2s,background .2s;text-decoration:none;}
+.writer-chip:hover{border-color:var(--voice-accent);background:var(--voice-accent-10);}
+.writer-chip .wc-dot{width:8px;height:8px;border-radius:50%;background:var(--voice-accent);flex-shrink:0;}
+.writers-note{font-size:.78rem;color:var(--text-muted);margin-top:8px;}
+/* ===== BOOKS ===== */
+.books-card{grid-column:1/-1;}
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:10px;}
+.book-item{padding:10px 14px;border:1px var(--voice-border-style) var(--border-light);border-left:3px var(--voice-border-style) var(--voice-accent);border-radius:var(--voice-radius);background:var(--bg-card);text-decoration:none;display:block;transition:border-color .2s;}
+.book-item:hover{border-color:var(--voice-accent);}
+.book-title{font-size:.88rem;font-weight:600;color:var(--ink);}
+.book-author{font-size:.78rem;color:var(--text-muted);margin-top:2px;}
+.book-why{font-size:.75rem;color:var(--text-light);margin-top:4px;line-height:1.4;}
+/* ===== STRETCH ===== */
+.stretch-card{grid-column:1/-1;text-align:center;border-left-color:var(--voice-accent-dark);}
+.stretch-sub{font-size:.88rem;color:var(--text-muted);margin:4px 0 14px;}
+.stretch-btn{display:inline-block;padding:10px 24px;background:var(--voice-accent);color:#fff;border:none;border-radius:var(--voice-radius);font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.stretch-btn:hover{background:var(--voice-accent-dark);}
 </style>
 </head>
 <body>
@@ -153,6 +174,22 @@
     <div class="wu-track"><div class="wu-fill" id="wuFill" style="width:0%"></div></div>
     <div class="wu-hint" id="wuHint"></div>
   </div>
+  
+  <div class="card writers-card" id="writersCard" style="display:none;">
+    <div class="card-title">Writers Like You</div>
+    <div class="writers-grid" id="writersGrid"></div>
+    <div class="writers-note" id="writersNote"></div>
+  </div>
+  <div class="card books-card" id="booksCard" style="display:none;">
+    <div class="card-title">Recommended Reading</div>
+    <p class="card-muted">Books that resonate with your voice.</p>
+    <div class="books-grid" id="booksGrid"></div>
+  </div>
+  <div class="card stretch-card" id="stretchCard" style="display:none;">
+    <div class="card-title" id="stretchTitle">Ready to Stretch?</div>
+    <p class="stretch-sub" id="stretchSub">Push your voice into new territory</p>
+    <button class="stretch-btn" id="stretchBtn" onclick="startStretch()">Start Your First Stretch</button>
+  </div>
   <div class="card share-card" id="shareCard">
     <div class="card-title">Share Your Voice Profile</div>
     <p class="card-muted" id="shareCTA">Share your voice.</p>
@@ -177,6 +214,7 @@
 
 <script src="/frontend/utils/profile-system.js"></script>
 <script src="/frontend/utils/voice-design.js"></script>
+<script src="/frontend/utils/dashboard-books.js"></script>
 <script>
 
 function timeAgo(d){var s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return 'now';if(s<3600)return Math.floor(s/60)+'m';if(s<86400)return Math.floor(s/3600)+'h';return Math.floor(s/86400)+'d';}
@@ -248,6 +286,41 @@ function renderVoiceBars(scores, profile, stance, name) {
   });
 }
 
+
+var CMAP={GB:'UK',IE:'UK',US:'CA',ZA:'AU',IN:'AU',WS:'NZ'};
+function mapCC(x){return CMAP[x]||x||'CA';}
+function renderWriters(prof,stance){
+  var vc=VOICE_DESIGN.getContent(prof,stance),w=vc.writers||[];
+  if(!w.length)return;
+  document.getElementById('writersCard').style.display='block';
+  var col=(VOICE_DESIGN.P[prof]||VOICE_DESIGN.P.conversational).a;
+  document.getElementById('writersGrid').innerHTML=w.map(function(n){
+    var s=n.toLowerCase().replace(/\s*\(.*\)$/,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    return '<a class="writer-chip" href="/blog/'+s+'-writing-style"><span class="wc-dot" style="background:'+col+'"></span>'+n+'</a>';
+  }).join('');
+  var pt=(typeof PROFILE_TYPES!=='undefined')?PROFILE_TYPES[prof.toUpperCase()]:null;
+  if(pt&&pt.shortDesc)document.getElementById('writersNote').textContent='Your voice: '+pt.shortDesc.toLowerCase()+'.';
+}
+function renderBooks(prof,cc){
+  if(typeof DASH_BOOKS==='undefined')return;
+  var mc=mapCC(cc),recs=(DASH_BOOKS[prof]||{})[mc]||(DASH_BOOKS[prof]||{})['CA']||[];
+  if(!recs.length)return;
+  document.getElementById('booksCard').style.display='block';
+  document.getElementById('booksGrid').innerHTML=recs.map(function(r){
+    return '<a class="book-item" href="/blog/'+r.s+'"><div class="book-title">'+r.b+'</div><div class="book-author">by '+r.w+'</div><div class="book-why">'+r.y+'</div></a>';
+  }).join('');
+}
+async function renderStretch(tok,uid){
+  try{var r=await fetch('/api/v2/stretch/cta/'+uid,{headers:{'Authorization':'Bearer '+tok}});
+  if(!r.ok)return;var d=await r.json();
+  document.getElementById('stretchCard').style.display='block';
+  if(d.headline)document.getElementById('stretchTitle').textContent=d.headline;
+  if(d.subhead)document.getElementById('stretchSub').textContent=d.subhead;
+  if(d.cta_text)document.getElementById('stretchBtn').textContent=d.cta_text;
+  }catch(e){}
+}
+function startStretch(){alert('Stretch exercises coming soon!');}
+
 (async function init(){
   var sess = null;
   try { sess = JSON.parse(localStorage.getItem('quirrely_session')); } catch(e){}
@@ -296,7 +369,10 @@ function renderVoiceBars(scores, profile, stance, name) {
     renderVoiceBars(data.avg_scores, profile, stance, name);
     initShare(token);
     renderWordUsage(token);
-    renderEvolution(data.profiles, data.stats?.consistency);var sc=document.getElementById('shareCTA');if(sc)sc.textContent=vc.shareText;
+    renderEvolution(data.profiles, data.stats?.consistency);
+    renderWriters(profile,stance);
+    renderBooks(profile,(u.country||'').toUpperCase());
+    renderStretch(token,u.id||'');var sc=document.getElementById('shareCTA');if(sc)sc.textContent=vc.shareText;
 
     // Stats
     var st = data.stats || {};
