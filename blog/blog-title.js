@@ -38,6 +38,7 @@
       NZ:'https://www.fishpond.co.nz/search?keywords=',
       US:'https://bookshop.org/search?keywords='
     };
+    var storeNames={CA:'Indigo',UK:'Bookshop.org',AU:'Booktopia',NZ:'Whitcoulls'};
     if (wGrid) {
       var html = '';
       Object.keys(entry.writers).forEach(function(c) {
@@ -45,14 +46,15 @@
         var flag = flags[c] || '';
         var kw = encodeURIComponent(w.writer + ' ' + w.book);
         var url = (stores[c] || stores.UK) + kw + '&tag=quirrely';
-        html += '<div class="writer-card" data-country="' + c + '">' +
+        var storeName = storeNames[c] || 'Find Book';
+        html += '<a href="' + url + '" target="_blank" rel="noopener" class="writer-card" data-country="' + c + '">' +
           '<span class="writer-flag">' + flag + '</span>' +
           '<div class="writer-info">' +
           '<span class="writer-name">' + w.writer + '</span>' +
           '<span class="writer-book">' + w.book + '</span>' +
           '</div>' +
-          '<a href="' + url + '" target="_blank" rel="noopener" class="writer-link">Find Book →</a>' +
-          '</div>';
+          '<span class="writer-store">' + storeName + ' →</span>' +
+          '</a>';
       });
       wGrid.innerHTML = html;
     }
