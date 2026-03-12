@@ -28,18 +28,37 @@
 
   // Build related voices from BLOG_DATA
   var related = [];
-  Object.keys(BLOG_DATA).forEach(function(k) {
-    var e = BLOG_DATA[k];
-    if (e.type !== entry.type) return;
+  var seenCombo = {};
+  // First: same profile+stance
+  BLOG_DATA.forEach(function(e) {
     if (e.slug === entry.slug) return;
-    if (e.profile === entry.profile && related.length < 3) related.push(e);
+    var combo = e.profile+'+'+e.stance;
+    if (e.profile === entry.profile && e.stance === entry.stance && !seenCombo[combo]) {
+      seenCombo[combo] = true;
+      related.push(e);
+    }
   });
-  Object.keys(BLOG_DATA).forEach(function(k) {
-    var e = BLOG_DATA[k];
-    if (e.type !== entry.type) return;
+  // Then: same profile different stance
+  BLOG_DATA.forEach(function(e) {
+    if (related.length >= 4) return;
     if (e.slug === entry.slug) return;
-    if (e.profile !== entry.profile && related.length < 6) related.push(e);
+    var combo = e.profile+'+'+e.stance;
+    if (e.profile === entry.profile && e.stance !== entry.stance && !seenCombo[combo]) {
+      seenCombo[combo] = true;
+      related.push(e);
+    }
   });
+  // Then: different profile
+  BLOG_DATA.forEach(function(e) {
+    if (related.length >= 4) return;
+    if (e.slug === entry.slug) return;
+    var combo = e.profile+'+'+e.stance;
+    if (e.profile !== entry.profile && !seenCombo[combo]) {
+      seenCombo[combo] = true;
+      related.push(e);
+    }
+  });
+  related = related.slice(0,4);
   var relHtml = '';
   related.forEach(function(e) {
     var n = e.profile.toUpperCase()+' + '+e.stance.toUpperCase();
