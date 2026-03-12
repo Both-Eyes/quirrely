@@ -148,6 +148,19 @@
             <button class="filter-btn" data-filter="profile" data-val="longform">Longform</button>
             <button class="filter-btn" data-filter="profile" data-val="formal">Formal</button>
           </div>
+          <div class="filter-label">Country</div>
+          <div class="filter-row" id="country-filters">
+            <button class="filter-btn active" data-filter="country" data-val="all">All</button>
+            <button class="filter-btn" data-filter="country" data-val="NZ">NZ</button>
+            <button class="filter-btn" data-filter="country" data-val="AU">AU</button>
+            <button class="filter-btn" data-filter="country" data-val="CA">CA</button>
+            <button class="filter-btn" data-filter="country" data-val="GB">GB</button>
+            <button class="filter-btn" data-filter="country" data-val="IE">IE</button>
+            <button class="filter-btn" data-filter="country" data-val="US">US</button>
+            <button class="filter-btn" data-filter="country" data-val="ZA">ZA</button>
+            <button class="filter-btn" data-filter="country" data-val="IN">IN</button>
+            <button class="filter-btn" data-filter="country" data-val="WS">WS</button>
+          </div>
           <div class="filter-label">Stance</div>
           <div class="filter-row" id="stance-filters">
             <button class="filter-btn active" data-filter="stance" data-val="all">All</button>
@@ -157,7 +170,7 @@
             <button class="filter-btn" data-filter="stance" data-val="contradictory">Contradictory</button>
           </div>
         </div>
-        <div class="post-count" id="post-count">Showing all 80 posts</div>
+        <div class="post-count" id="post-count">Showing all 121 posts</div>
         <div class="post-list" id="post-list"></div>
       </section>
     </div>
@@ -247,7 +260,7 @@
 
 <script>
 (function(){
-  var activeType = 'all', activeProfile = 'all', activeStance = 'all';
+  var activeType = 'all', activeProfile = 'all', activeStance = 'all', activeCountry = 'all';
   function applyFilters(){
     var cards = document.querySelectorAll('#post-list .post-card');
     var shown = 0;
@@ -256,7 +269,8 @@
       var typeOk = activeType==='all' || t===activeType;
       var profOk = activeProfile==='all' || p===activeProfile;
       var stanceOk = activeStance==='all' || s===activeStance;
-      if(typeOk && profOk && stanceOk){ card.style.display=''; shown++; }
+      var countryOk = activeCountry==='all' || card.dataset.country===activeCountry;
+      if(typeOk && profOk && stanceOk && countryOk){ card.style.display=''; shown++; }
       else { card.style.display='none'; }
     });
     var el = document.getElementById('post-count');
@@ -269,6 +283,7 @@
         if(filter==='type') activeType = val;
         if(filter==='profile') activeProfile = val;
         if(filter==='stance') activeStance = val;
+        if(filter==='country') activeCountry = val;
         document.querySelectorAll('[data-filter="'+filter+'"]').forEach(function(b){
           b.classList.remove('active');
         });
@@ -286,11 +301,12 @@
     var list=document.getElementById('post-list');
     if(!list||typeof BLOG_DATA==='undefined')return;
     var html='';
+    var FLAGS={};
     BLOG_DATA.forEach(function(p){
       var t=p.title.replace(/[<>]/g,'');
       var borderCol=p.color||'#FF5C34';
-      html+='<a href="/blog/'+p.slug+'" class="post-card" data-profile="'+p.profile+'" data-stance="'+(p.stance||'')+'" style="border-left-color:'+borderCol+'">'
-        +'<div class="post-category" style="color:'+borderCol+'">In the Style</div>'
+      html+='<a href="/blog/'+p.slug+'" class="post-card" data-profile="'+p.profile+'" data-stance="'+(p.stance||'')+'" data-country="'+(p.country||'')+'" style="border-left-color:'+borderCol+'">'
+        +'<div class="post-category" style="color:'+borderCol+'">In the Style <span style="font-size:0.6rem;background:'+borderCol+';color:#fff;padding:0.1rem 0.35rem;border-radius:3px;margin-left:0.3rem;vertical-align:middle;">'+( p.country||'')+' </span></div>'
         +'<div class="post-title">'+t+'</div>'
         +'<div class="post-excerpt">'+p.excerpt+'</div></a>';
     });

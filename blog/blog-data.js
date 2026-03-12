@@ -6,6 +6,7 @@ const BLOG_DATA = [
     icon: '🌊',
     color: '#7BA7BC',
     profile: 'poetic',
+    country: 'WS',
     stance: 'open',
     writers: {
       CA: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
@@ -36,6 +37,7 @@ const BLOG_DATA = [
     icon: '🌙',
     color: '#9A8EC2',
     profile: 'poetic',
+    country: 'GB',
     stance: 'balanced',
     writers: {CA: { writer: 'Dionne Brand', book: 'A Map to the Door of No Return', why: 'Brand\'s poetic prose balances personal and historical.' },
       UK: { writer: 'Ali Smith', book: 'How to be Both', why: 'Smith balances time periods lyrically.' },
@@ -45,10 +47,11 @@ const BLOG_DATA = [
   {
     slug: 'alice-munro-writing-style',
     title: 'In the Style of Alice Munro',
-    excerpt: 'Munro\'s sentences look simple until you reach the end of a paragraph and realise the ground has shifted beneath you.'s sentences look simple until you reach the end of a paragraph and realise the ground has shifted beneath you.',
+    excerpt: 'Munro\'s sentences look simple until you reach the end of a paragraph and realise the ground has shifted beneath you.',
     icon: '🪨',
     color: '#7CAE82',
     profile: 'minimal',
+    country: 'CA',
     stance: 'open',
     writers: {CA: { writer: 'Alice Munro', book: 'Runaway', why: 'Munro says little but implies much, inviting interpretation.' },
       UK: { writer: 'Kazuo Ishiguro', book: 'Never Let Me Go', why: 'Ishiguro\'s spare prose creates space for discovery.' },
@@ -92,6 +95,7 @@ const BLOG_DATA = [
     icon: '🔍',
     color: '#7A9E9F',
     profile: 'interrogative',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
@@ -137,6 +141,7 @@ const BLOG_DATA = [
     icon: '✨',
     color: '#9A8EC2',
     profile: 'poetic',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
@@ -152,6 +157,7 @@ const BLOG_DATA = [
     icon: '🍀',
     color: '#8B9A7A',
     profile: 'hedged',
+    country: 'IE',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
@@ -167,6 +173,7 @@ const BLOG_DATA = [
     icon: '🕯️',
     color: '#7B8FA6',
     profile: 'poetic',
+    country: 'CA',
     stance: 'closed',
     writers: {
       CA: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
@@ -182,6 +189,7 @@ const BLOG_DATA = [
     icon: '🌿',
     color: '#7A9E7A',
     profile: 'interrogative',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Reni Eddo-Lodge', book: 'Why I\'m No Longer Talking', why: 'Eddo-Lodge\'s questions open the most closed spaces.' },
@@ -197,6 +205,7 @@ const BLOG_DATA = [
     icon: '🔬',
     color: '#E8C875',
     profile: 'dense',
+    country: 'GB',
     stance: 'open',
     writers: {CA: { writer: 'Thomas King', book: 'Green Grass, Running Water', why: 'King\'s complex narrative remains open.' },
       UK: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s dense prose invites multiple readings.' },
@@ -206,10 +215,11 @@ const BLOG_DATA = [
   {
     slug: 'bill-manhire-writing-style',
     title: 'In the Style of Bill Manhire',
-    excerpt: 'Manhire writes with the lightness of someone who has thought very hard about what to leave out.'s poems are small and strange and leave an enormous amount unsaid — the silence is load-bearing.',
+    excerpt: 'Manhire\'s poems are small and strange and leave an enormous amount unsaid — the silence is load-bearing.',
     icon: '🌙',
     color: '#6B8CAE',
     profile: 'minimal',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
@@ -225,6 +235,7 @@ const BLOG_DATA = [
     icon: '📊',
     color: '#7A8B7A',
     profile: 'formal',
+    country: 'NZ',
     stance: 'balanced',
     writers: {
       CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
@@ -240,6 +251,7 @@ const BLOG_DATA = [
     icon: '🏔️',
     color: '#8B9E8B',
     profile: 'minimal',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
@@ -285,6 +297,7 @@ const BLOG_DATA = [
     icon: '🎭',
     color: '#9A7A9A',
     profile: 'poetic',
+    country: 'NZ',
     stance: 'closed',
     writers: {
       CA: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
@@ -300,6 +313,7 @@ const BLOG_DATA = [
     icon: '🏛️',
     color: '#7A8B9A',
     profile: 'formal',
+    country: 'CA',
     stance: 'balanced',
     writers: {
       CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
@@ -330,6 +344,7 @@ const BLOG_DATA = [
     icon: '🌱',
     color: '#8B9A7A',
     profile: 'hedged',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
@@ -345,6 +360,7 @@ const BLOG_DATA = [
     icon: '🔦',
     color: '#C4956A',
     profile: 'assertive',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
@@ -405,6 +421,7 @@ const BLOG_DATA = [
     icon: '🎪',
     color: '#C4956A',
     profile: 'conversational',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
@@ -420,6 +437,7 @@ const BLOG_DATA = [
     icon: '🌊',
     color: '#7A8B9A',
     profile: 'hedged',
+    country: 'IE',
     stance: 'closed',
     writers: {
       CA: { writer: 'Kazuo Ishiguro', book: 'The Remains of the Day', why: 'Ishiguro\'s qualifications arrive at devastating certainty.' },
@@ -435,6 +453,7 @@ const BLOG_DATA = [
     icon: '🌵',
     color: '#8B7355',
     profile: 'minimal',
+    country: 'US',
     stance: 'closed',
     writers: {
       CA: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
@@ -450,6 +469,7 @@ const BLOG_DATA = [
     icon: '😈',
     color: '#8B7A6B',
     profile: 'conversational',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
@@ -495,6 +515,7 @@ const BLOG_DATA = [
     icon: '🎬',
     color: '#9A8B7A',
     profile: 'conversational',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
@@ -510,6 +531,7 @@ const BLOG_DATA = [
     icon: '🌊',
     color: '#6B7A9A',
     profile: 'poetic',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
@@ -540,6 +562,7 @@ const BLOG_DATA = [
     icon: '🌐',
     color: '#8B7A9A',
     profile: 'dense',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
@@ -555,6 +578,7 @@ const BLOG_DATA = [
     icon: '🌫️',
     color: '#9A9AB8',
     profile: 'hedged',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
@@ -566,10 +590,11 @@ const BLOG_DATA = [
   {
     slug: 'fiona-kidman-writing-style',
     title: 'In the Style of Fiona Kidman',
-    excerpt: 'Kidman writes New Zealand women into history without sentimentalising the difficulty of their lives.'s experience across historical periods with patience and specificity.',
+    excerpt: 'Kidman writes New Zealand women\'s experience across historical periods with patience and specificity.',
     icon: '🌸',
     color: '#C4957A',
     profile: 'conversational',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
@@ -585,6 +610,7 @@ const BLOG_DATA = [
     icon: '🎨',
     color: '#9A7A8B',
     profile: 'poetic',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
@@ -615,6 +641,7 @@ const BLOG_DATA = [
     icon: '🌿',
     color: '#7A9A7A',
     profile: 'longform',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
@@ -630,6 +657,7 @@ const BLOG_DATA = [
     icon: '📊',
     color: '#7A8B9A',
     profile: 'formal',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Isaiah Berlin', book: 'The Hedgehog and the Fox', why: 'Berlin\'s formality opens to genuine intellectual hospitality.' },
@@ -641,10 +669,11 @@ const BLOG_DATA = [
   {
     slug: 'george-orwell-writing-style',
     title: 'In the Style of George Orwell',
-    excerpt: 'Orwell writes as though clarity is a moral act — every vague word is a small dishonesty.'s sentences do not qualify. They state, and they move on.',
+    excerpt: 'Orwell\'s sentences do not qualify. They state, and they move on.',
     icon: '🎯',
     color: '#FF6B6B',
     profile: 'assertive',
+    country: 'GB',
     stance: 'closed',
     writers: {CA: { writer: 'Margaret Atwood', book: 'The Handmaid\'s Tale', why: 'Atwood makes declarative statements without hedging.' },
       UK: { writer: 'George Orwell', book: '1984', why: 'Orwell\'s prose is direct, certain, and uncompromising.' },
@@ -654,10 +683,11 @@ const BLOG_DATA = [
   {
     slug: 'gerald-murnane-writing-style',
     title: 'In the Style of Gerald Murnane',
-    excerpt: 'Murnane writes about the act of writing and imagining as though it were the most urgent subject available.'s prose is radically stripped — he has eliminated everything except the phenomenology of reading and remembering.',
+    excerpt: 'Murnane\'s prose is radically stripped — he has eliminated everything except the phenomenology of reading and remembering.',
     icon: '🏜️',
     color: '#9A8B7A',
     profile: 'dense',
+    country: 'AU',
     stance: 'closed',
     writers: {
       CA: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
@@ -673,6 +703,7 @@ const BLOG_DATA = [
     icon: '🎯',
     color: '#FF6B6B',
     profile: 'assertive',
+    country: 'GB',
     stance: 'balanced',
     writers: {CA: { writer: 'Joseph Boyden', book: 'Three Day Road', why: 'Boyden presents multiple perspectives with strong narrative voice.' },
       UK: { writer: 'Hilary Mantel', book: 'Wolf Hall', why: 'Mantel balances historical perspectives with assertive prose.' },
@@ -686,6 +717,7 @@ const BLOG_DATA = [
     icon: '🗿',
     color: '#8B8B8B',
     profile: 'minimal',
+    country: 'NZ',
     stance: 'closed',
     writers: {
       CA: { writer: 'Samuel Beckett', book: 'Endgame', why: 'Nothing surplus. The conclusion was always already there.' },
@@ -701,6 +733,7 @@ const BLOG_DATA = [
     icon: '🎯',
     color: '#FF6B6B',
     profile: 'assertive',
+    country: 'GB',
     stance: 'open',
     writers: {CA: { writer: 'Michael Ondaatje', book: 'Warlight', why: 'Ondaatje writes with confidence but leaves space for mystery.' },
       UK: { writer: 'Ian McEwan', book: 'Atonement', why: 'McEwan asserts his narrative while remaining open to moral complexity.' },
@@ -714,6 +747,7 @@ const BLOG_DATA = [
     icon: '🌊',
     color: '#7A8B9A',
     profile: 'poetic',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
@@ -729,6 +763,7 @@ const BLOG_DATA = [
     icon: '🏺',
     color: '#C4A882',
     profile: 'longform',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
@@ -755,10 +790,11 @@ const BLOG_DATA = [
   {
     slug: 'jm-coetzee-writing-style',
     title: 'In the Style of J.M. Coetzee',
-    excerpt: 'Coetzee writes with a cold precision that makes the reader feel the temperature of the prose.'s prose is stripped to the point where what remains feels almost skeletal, and the skeleton is load-bearing.',
+    excerpt: 'Coetzee\'s prose is stripped to the point where what remains feels almost skeletal, and the skeleton is load-bearing.',
     icon: '🪨',
     color: '#7CAE82',
     profile: 'minimal',
+    country: 'ZA',
     stance: 'contradictory',
     writers: {CA: { writer: 'Anne Carson', book: 'Autobiography of Red', why: 'Carson\'s spare verse holds contradictions.' },
       UK: { writer: 'Tom McCarthy', book: 'Remainder', why: 'McCarthy\'s stripped prose embodies productive contradiction.' },
@@ -802,6 +838,7 @@ const BLOG_DATA = [
     icon: '🪶',
     color: '#9A8B9A',
     profile: 'poetic',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
@@ -813,10 +850,11 @@ const BLOG_DATA = [
   {
     slug: 'jeanette-winterson-writing-style',
     title: 'In the Style of Jeanette Winterson',
-    excerpt: 'Winterson writes as though language is the only country she has ever lived in.'s sentences are lyrical to the point of incantation — the rhythm carries meaning the way poetry does.',
+    excerpt: 'Winterson\'s sentences are lyrical to the point of incantation — the rhythm carries meaning the way poetry does.',
     icon: '🌙',
     color: '#9A8EC2',
     profile: 'poetic',
+    country: 'GB',
     stance: 'contradictory',
     writers: {CA: { writer: 'Anne Michaels', book: 'Fugitive Pieces', why: 'Michaels\' poetry is certain even when beautiful.' },
       UK: { writer: 'Jeanette Winterson', book: 'The Passion', why: 'Winterson\'s lyrical prose delivers truth with certainty.' },
@@ -875,6 +913,7 @@ const BLOG_DATA = [
     icon: '🌾',
     color: '#8B9A7A',
     profile: 'minimal',
+    country: 'IE',
     stance: 'open',
     writers: {
       CA: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips to the bone and leaves room for the reader.' },
@@ -920,6 +959,7 @@ const BLOG_DATA = [
     icon: '🦅',
     color: '#8B7A6B',
     profile: 'poetic',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
@@ -935,6 +975,7 @@ const BLOG_DATA = [
     icon: '🌏',
     color: '#7AA87A',
     profile: 'conversational',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
@@ -950,6 +991,7 @@ const BLOG_DATA = [
     icon: '🌊',
     color: '#6B8B9A',
     profile: 'dense',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'J.M. Coetzee', book: 'Disgrace', why: 'Coetzee\'s compression holds opposites without resolution.' },
@@ -965,6 +1007,7 @@ const BLOG_DATA = [
     icon: '🌅',
     color: '#C4956A',
     profile: 'poetic',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
@@ -980,6 +1023,7 @@ const BLOG_DATA = [
     icon: '🌙',
     color: '#9A8EC2',
     profile: 'poetic',
+    country: 'CA',
     stance: 'contradictory',
     writers: {CA: { writer: 'Leonard Cohen', book: 'Beautiful Losers', why: 'Cohen\'s poetic prose embraces spiritual contradiction.' },
       UK: { writer: 'Iris Murdoch', book: 'The Sea, The Sea', why: 'Murdoch\'s beautiful prose holds irreconcilable tensions.' },
@@ -1008,6 +1052,7 @@ const BLOG_DATA = [
     icon: '❄️',
     color: '#8B9AB8',
     profile: 'hedged',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
@@ -1023,6 +1068,7 @@ const BLOG_DATA = [
     icon: '🌊',
     color: '#7A9AB8',
     profile: 'hedged',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Penelope Fitzgerald', book: 'The Bookshop', why: 'Fitzgerald\'s tentativeness is an invitation.' },
@@ -1038,6 +1084,7 @@ const BLOG_DATA = [
     icon: '🏙️',
     color: '#8B8B9A',
     profile: 'formal',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
@@ -1053,6 +1100,7 @@ const BLOG_DATA = [
     icon: '🔬',
     color: '#E8C875',
     profile: 'dense',
+    country: 'GB',
     stance: 'closed',
     writers: {CA: { writer: 'Robertson Davies', book: 'Fifth Business', why: 'Davies\' erudite prose delivers definitive insights.' },
       UK: { writer: 'Martin Amis', book: 'Money', why: 'Amis\' dense, stylized prose is supremely confident.' },
@@ -1062,10 +1110,11 @@ const BLOG_DATA = [
   {
     slug: 'mavis-gallant-writing-style',
     title: 'In the Style of Mavis Gallant',
-    excerpt: 'Gallant writes expatriate life with the precision of someone who has learned to see from the outside.'s expatriate prose is spare and ironic in equal measure — the distance from Canada is both literal and tonal.',
+    excerpt: 'Gallant\'s expatriate prose is spare and ironic in equal measure — the distance from Canada is both literal and tonal.',
     icon: '🥐',
     color: '#9A8B7A',
     profile: 'formal',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Martin Amis', book: 'Experience', why: 'Amis\'s formal surface holds irresolvable tensions.' },
@@ -1081,6 +1130,7 @@ const BLOG_DATA = [
     icon: '🌞',
     color: '#C4A87A',
     profile: 'assertive',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
@@ -1126,6 +1176,7 @@ const BLOG_DATA = [
     icon: '🕊️',
     color: '#8B9AAA',
     profile: 'formal',
+    country: 'CA',
     stance: 'balanced',
     writers: {
       CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
@@ -1186,6 +1237,7 @@ const BLOG_DATA = [
     icon: '❄️',
     color: '#9AB8C4',
     profile: 'conversational',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
@@ -1197,10 +1249,11 @@ const BLOG_DATA = [
   {
     slug: 'mordecai-richler-writing-style',
     title: 'In the Style of Mordecai Richler',
-    excerpt: 'Richler writes with a comic ferocity that disguises how seriously he takes everything.'s satirical warmth is the product of genuine affection for everything he is attacking.',
+    excerpt: 'Richler\'s satirical warmth is the product of genuine affection for everything he is attacking.',
     icon: '🍁',
     color: '#B86B6B',
     profile: 'assertive',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
@@ -1216,6 +1269,7 @@ const BLOG_DATA = [
     icon: '🪨',
     color: '#7CAE82',
     profile: 'minimal',
+    country: 'GB',
     stance: 'balanced',
     writers: {CA: { writer: 'Mavis Gallant', book: 'Selected Stories', why: 'Gallant\'s brevity encompasses multiple perspectives.' },
       UK: { writer: 'Muriel Spark', book: 'The Driver\'s Seat', why: 'Spark balances views in fewest possible words.' },
@@ -1229,6 +1283,7 @@ const BLOG_DATA = [
     icon: '📚',
     color: '#8B8B7A',
     profile: 'formal',
+    country: 'CA',
     stance: 'balanced',
     writers: {
       CA: { writer: 'David Goodhart', book: 'The Road to Somewhere', why: 'Goodhart\'s formal register gives all sides serious treatment.' },
@@ -1304,6 +1359,7 @@ const BLOG_DATA = [
     icon: '🐊',
     color: '#8B9A6B',
     profile: 'conversational',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
@@ -1319,6 +1375,7 @@ const BLOG_DATA = [
     icon: '🔮',
     color: '#8B8BA8',
     profile: 'interrogative',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
@@ -1334,6 +1391,7 @@ const BLOG_DATA = [
     icon: '🌑',
     color: '#8B8B9A',
     profile: 'hedged',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Muriel Spark', book: 'The Prime of Miss Jean Brodie', why: 'Spark\'s precision enacts the contradictions it names.' },
@@ -1349,6 +1407,7 @@ const BLOG_DATA = [
     icon: '🪞',
     color: '#9A9AB8',
     profile: 'interrogative',
+    country: 'GB',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
@@ -1364,6 +1423,7 @@ const BLOG_DATA = [
     icon: '🏜️',
     color: '#C4A882',
     profile: 'minimal',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'W.G. Sebald', book: 'The Rings of Saturn', why: 'Sebald\'s minimalism enacts the contradictions it describes.' },
@@ -1379,6 +1439,7 @@ const BLOG_DATA = [
     icon: '✊',
     color: '#8B7A6B',
     profile: 'assertive',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
@@ -1394,6 +1455,7 @@ const BLOG_DATA = [
     icon: '🗺️',
     color: '#7A9AB8',
     profile: 'longform',
+    country: 'US',
     stance: 'open',
     writers: {
       CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
@@ -1409,6 +1471,7 @@ const BLOG_DATA = [
     icon: '🌊',
     color: '#6B8B9A',
     profile: 'longform',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Helen Garner', book: 'The First Stone', why: 'Garner\'s patience with contradiction is structural.' },
@@ -1454,6 +1517,7 @@ const BLOG_DATA = [
     icon: '🎨',
     color: '#B87A5A',
     profile: 'assertive',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'G.K. Chesterton', book: 'Orthodoxy', why: 'Chesterton\'s paradoxes are arguments, not ornaments.' },
@@ -1484,6 +1548,7 @@ const BLOG_DATA = [
     icon: '🔬',
     color: '#E8C875',
     profile: 'dense',
+    country: 'GB',
     stance: 'balanced',
     writers: {CA: { writer: 'Miriam Toews', book: 'Women Talking', why: 'Toews\' complex narrative balances multiple voices.' },
       UK: { writer: 'Salman Rushdie', book: 'Midnight\'s Children', why: 'Rushdie\'s dense prose balances myth and history.' },
@@ -1497,6 +1562,7 @@ const BLOG_DATA = [
     icon: '🪨',
     color: '#7CAE82',
     profile: 'minimal',
+    country: 'IE',
     stance: 'closed',
     writers: {CA: { writer: 'Sheila Heti', book: 'How Should a Person Be?', why: 'Heti\'s spare prose delivers definitive observations.' },
       UK: { writer: 'Samuel Beckett', book: 'Molloy', why: 'Beckett strips language to essence with certainty.' },
@@ -1510,6 +1576,7 @@ const BLOG_DATA = [
     icon: '🪞',
     color: '#9A9AAA',
     profile: 'interrogative',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Samuel Beckett', book: 'Waiting for Godot', why: 'Beckett\'s questions resist every resolution.' },
@@ -1525,6 +1592,7 @@ const BLOG_DATA = [
     icon: '🌑',
     color: '#8B8BA8',
     profile: 'poetic',
+    country: 'AU',
     stance: 'closed',
     writers: {
       CA: { writer: 'Penelope Fitzgerald', book: 'The Gate of Angels', why: 'Fitzgerald\'s lyricism arrives at quiet certainty.' },
@@ -1570,6 +1638,7 @@ const BLOG_DATA = [
     icon: '🍁',
     color: '#C4A882',
     profile: 'conversational',
+    country: 'CA',
     stance: 'open',
     writers: {
       CA: { writer: 'Nick Hornby', book: 'High Fidelity', why: 'Hornby\'s warmth keeps the door permanently open.' },
@@ -1585,6 +1654,7 @@ const BLOG_DATA = [
     icon: '📷',
     color: '#8B8B9A',
     profile: 'assertive',
+    country: 'US',
     stance: 'open',
     writers: {
       CA: { writer: 'Ian McEwan', book: 'Saturday', why: 'McEwan\'s prose holds conviction and curiosity in equal measure.' },
@@ -1645,6 +1715,7 @@ const BLOG_DATA = [
     icon: '🦘',
     color: '#8B9A7A',
     profile: 'longform',
+    country: 'AU',
     stance: 'open',
     writers: {
       CA: { writer: 'Robert Manne', book: 'Left Right Left', why: 'Manne\'s patience with the reader is genuine.' },
@@ -1675,6 +1746,7 @@ const BLOG_DATA = [
     icon: '🌊',
     color: '#6B8B9A',
     profile: 'conversational',
+    country: 'AU',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
@@ -1690,6 +1762,7 @@ const BLOG_DATA = [
     icon: '⚙️',
     color: '#7A7A8B',
     profile: 'dense',
+    country: 'GB',
     stance: 'closed',
     writers: {
       CA: { writer: 'A.S. Byatt', book: 'Possession', why: 'Byatt\'s compression arrives at a considered verdict.' },
@@ -1720,6 +1793,7 @@ const BLOG_DATA = [
     icon: '🪶',
     color: '#9A8BA8',
     profile: 'poetic',
+    country: 'NZ',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Jeanette Winterson', book: 'Written on the Body', why: 'Winterson\'s language enacts the contradictions it explores.' },
@@ -1735,6 +1809,7 @@ const BLOG_DATA = [
     icon: '🌙',
     color: '#9A8EC2',
     profile: 'poetic',
+    country: 'GB',
     stance: 'open',
     writers: {CA: { writer: 'Michael Ondaatje', book: 'The English Patient', why: 'Ondaatje\'s lyrical prose invites multiple readings.' },
       UK: { writer: 'Virginia Woolf', book: 'To the Lighthouse', why: 'Woolf\'s poetic style opens endless interpretation.' },
@@ -1748,6 +1823,7 @@ const BLOG_DATA = [
     icon: '🍁',
     color: '#9A8B7A',
     profile: 'conversational',
+    country: 'CA',
     stance: 'contradictory',
     writers: {
       CA: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith\'s voice embodies the contradictions it explores.' },
@@ -1763,6 +1839,7 @@ const BLOG_DATA = [
     icon: '🌺',
     color: '#C4957A',
     profile: 'poetic',
+    country: 'NZ',
     stance: 'open',
     writers: {
       CA: { writer: 'Virginia Woolf', book: 'The Waves', why: 'Woolf\'s language opens outward, always.' },
@@ -1778,6 +1855,7 @@ const BLOG_DATA = [
     icon: '🎯',
     color: '#FF6B6B',
     profile: 'assertive',
+    country: 'GB',
     stance: 'contradictory',
     writers: {CA: { writer: 'Mordecai Richler', book: 'Barney\'s Version', why: 'Richler\'s narrator confidently contradicts himself.' },
       UK: { writer: 'Zadie Smith', book: 'White Teeth', why: 'Smith asserts contradictory truths with equal conviction.' },

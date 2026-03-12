@@ -13,7 +13,7 @@
   var hook = document.querySelector('.hero .hook');
   if (hook) hook.textContent = entry.excerpt || '';
   var label = document.querySelector('.hero-label');
-  if (label) label.textContent = "Writing Style";
+  if (label) label.textContent = (entry.country ? entry.country + ' · ' : '') + 'Writing Style';
   var badges = document.querySelectorAll('.hero .badges .badge');
   if (badges.length >= 1) badges[0].textContent = entry.profile ? entry.profile.toUpperCase() : '';
   if (badges.length >= 2) badges[1].textContent = entry.stance ? entry.stance.toUpperCase() : '';
