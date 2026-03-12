@@ -120,6 +120,35 @@
 .stretch-sub{font-size:.88rem;color:var(--text-muted);margin:4px 0 14px;}
 .stretch-btn{display:inline-block;padding:10px 24px;background:var(--voice-accent);color:#fff;border:none;border-radius:var(--voice-radius);font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s;}
 .stretch-btn:hover{background:var(--voice-accent-dark);}
+
+/* ===== STRETCH MODAL ===== */
+.sm-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9000;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;}
+.sm-bg.show{opacity:1;}
+.sm-box{background:var(--bg);border-radius:var(--voice-radius);max-width:680px;width:92%;max-height:85vh;overflow-y:auto;padding:2rem;position:relative;box-shadow:0 12px 40px rgba(0,0,0,.15);}
+.sm-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text-muted);}
+.sm-close:hover{color:var(--ink);}
+.sm-author{font-size:1.15rem;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.sm-profile{font-size:.78rem;color:var(--voice-accent-dark);margin-bottom:1rem;}
+.sm-progress{display:flex;gap:3px;margin-bottom:1.25rem;}
+.sm-pip{flex:1;height:6px;border-radius:3px;background:var(--border-light);}
+.sm-pip.done{background:var(--voice-accent);}
+.sm-pip.active{background:var(--voice-accent-dark);}
+.sm-cycle-label{font-size:.75rem;font-weight:600;color:var(--voice-accent-dark);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.sm-technique{font-size:.88rem;color:var(--ink);line-height:1.6;padding:12px;background:var(--voice-accent-10);border-left:3px var(--voice-border-style) var(--voice-accent);border-radius:4px;margin-bottom:1rem;font-style:italic;}
+.sm-instruction{font-size:.9rem;color:var(--ink);line-height:1.6;margin-bottom:1rem;}
+.sm-starter{font-size:.88rem;color:var(--text-muted);padding:10px;background:var(--bg-card);border:1px dashed var(--border-light);border-radius:6px;margin-bottom:1rem;}
+.sm-starter::before{content:'Story starter: ';font-weight:600;color:var(--text-muted);}
+.sm-textarea{width:100%;min-height:120px;padding:12px;border:1px solid var(--border-light);border-radius:var(--voice-radius);font-family:inherit;font-size:.9rem;line-height:1.6;resize:vertical;background:var(--bg-card);color:var(--ink);}
+.sm-textarea:focus{outline:none;border-color:var(--voice-accent);}
+.sm-footer{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;}
+.sm-wc{font-size:.78rem;color:var(--text-muted);}
+.sm-wc.met{color:var(--voice-accent-dark);font-weight:600;}
+.sm-next{padding:8px 20px;background:var(--voice-accent);color:#fff;border:none;border-radius:var(--voice-radius);font-size:.85rem;font-weight:600;cursor:pointer;opacity:.5;pointer-events:none;}
+.sm-next.ready{opacity:1;pointer-events:auto;}
+.sm-next:hover{background:var(--voice-accent-dark);}
+.sm-done{text-align:center;padding:2rem 0;}
+.sm-done h3{font-size:1.1rem;color:var(--ink);margin-bottom:8px;}
+.sm-done p{color:var(--text-muted);font-size:.9rem;}
 </style>
 </head>
 <body>
@@ -210,11 +239,21 @@
     </div>
   </div>
 </div>
+
+<div class="sm-bg" id="smBg" style="display:none;" onclick="if(event.target===this)smClose()">
+  <div class="sm-box">
+    <button class="sm-close" onclick="smClose()">&times;</button>
+    <div id="smContent"></div>
+  </div>
+</div>
 </main>
 
 <script src="/frontend/utils/profile-system.js"></script>
 <script src="/frontend/utils/voice-design.js"></script>
-<script src="/frontend/utils/dashboard-books.js"></script>
+<script src="/frontend/utils/dashboard-books.js?v=1"></script>
+<script src="/blog/blog-author-voice.js?v=3"></script>
+<script src="/frontend/utils/stretch-actions.js?v=1"></script>
+<script src="/frontend/utils/stretch-engine.js?v=1"></script>
 <script>
 
 function timeAgo(d){var s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return 'now';if(s<3600)return Math.floor(s/60)+'m';if(s<86400)return Math.floor(s/3600)+'h';return Math.floor(s/86400)+'d';}
@@ -289,14 +328,20 @@ function renderVoiceBars(scores, profile, stance, name) {
 
 var CMAP={GB:'UK',IE:'UK',US:'CA',ZA:'AU',IN:'AU',WS:'NZ'};
 function mapCC(x){return CMAP[x]||x||'CA';}
-function renderWriters(prof,stance){
-  var vc=VOICE_DESIGN.getContent(prof,stance),w=vc.writers||[];
-  if(!w.length)return;
+function getBlogAuthors(prof,cc,max){
+  if(typeof DASH_BOOKS==='undefined')return[];
+  var mc=mapCC(cc),recs=(DASH_BOOKS[prof]||{})[mc]||(DASH_BOOKS[prof]||{})['CA']||[];
+  var seen={},out=[];
+  recs.forEach(function(r){if(!seen[r.w]&&out.length<(max||4)){seen[r.w]=1;out.push({name:r.w,slug:r.s});}});
+  return out;
+}
+function renderWriters(prof,stance,cc){
+  var authors=getBlogAuthors(prof,cc,4);
+  if(!authors.length)return;
   document.getElementById('writersCard').style.display='block';
   var col=(VOICE_DESIGN.P[prof]||VOICE_DESIGN.P.conversational).a;
-  document.getElementById('writersGrid').innerHTML=w.map(function(n){
-    var s=n.toLowerCase().replace(/\s*\(.*\)$/,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-    return '<a class="writer-chip" href="/blog/'+s+'-writing-style"><span class="wc-dot" style="background:'+col+'"></span>'+n+'</a>';
+  document.getElementById('writersGrid').innerHTML=authors.map(function(a){
+    return '<a class="writer-chip" href="/blog/'+a.slug+'"><span class="wc-dot" style="background:'+col+'"></span>'+a.name+'</a>';
   }).join('');
   var pt=(typeof PROFILE_TYPES!=='undefined')?PROFILE_TYPES[prof.toUpperCase()]:null;
   if(pt&&pt.shortDesc)document.getElementById('writersNote').textContent='Your voice: '+pt.shortDesc.toLowerCase()+'.';
@@ -310,16 +355,90 @@ function renderBooks(prof,cc){
     return '<a class="book-item" href="/blog/'+r.s+'"><div class="book-title">'+r.b+'</div><div class="book-author">by '+r.w+'</div><div class="book-why">'+r.y+'</div></a>';
   }).join('');
 }
-async function renderStretch(tok,uid){
-  try{var r=await fetch('/api/v2/stretch/cta/'+uid,{headers:{'Authorization':'Bearer '+tok}});
-  if(!r.ok)return;var d=await r.json();
+function renderStretch(prof,cc){
+  if(typeof DASH_BOOKS==='undefined')return;
+  var mc=mapCC(cc),P=VOICE_DESIGN.P,col=function(p){return(P[p]||P.conversational).a;};
+  var likeRecs=(DASH_BOOKS[prof]||{})[mc]||[];
+  var like=likeRecs.length?likeRecs[Math.floor(Math.random()*likeRecs.length)]:null;
+  var others=Object.keys(DASH_BOOKS).filter(function(p){return p!==prof;});
+  var unlike=null;
+  if(others.length){var op=others[Math.floor(Math.random()*others.length)];
+  var ur=(DASH_BOOKS[op]||{})[mc]||[];
+  if(ur.length){var pick=ur[Math.floor(Math.random()*ur.length)];unlike={w:pick.w,b:pick.b,s:pick.s,profile:op};}}
+  if(!like&&!unlike)return;
   document.getElementById('stretchCard').style.display='block';
-  if(d.headline)document.getElementById('stretchTitle').textContent=d.headline;
-  if(d.subhead)document.getElementById('stretchSub').textContent=d.subhead;
-  if(d.cta_text)document.getElementById('stretchBtn').textContent=d.cta_text;
-  }catch(e){}
+  document.getElementById('stretchBtn').style.display='none';
+  var h='<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px;">';
+  if(like)h+='<a class="book-item" href="#" onclick="smOpen(\''+like.s+'\',\''+like.w.replace(/'/g,"")+'\');return false;" style="flex:1;min-width:200px;border-left-color:'+col(prof)+';cursor:pointer;"><div style="font-size:.72rem;color:var(--text-muted);margin-bottom:4px;">WRITE LIKE ME</div><div class="book-title">'+like.w+'</div><div class="book-author">'+like.b+'</div></a>';
+  if(unlike)h+='<a class="book-item" href="#" onclick="smOpen(\''+unlike.s+'\',\''+unlike.w.replace(/'/g,"")+'\');return false;" style="flex:1;min-width:200px;border-left-color:'+col(unlike.profile)+';cursor:pointer;"><div style="font-size:.72rem;color:var(--text-muted);margin-bottom:4px;">STRETCH INTO '+unlike.profile.toUpperCase()+'</div><div class="book-title">'+unlike.w+'</div><div class="book-author">'+unlike.b+'</div></a>';
+  h+='</div>';
+  document.getElementById('stretchCard').insertAdjacentHTML('beforeend',h);
 }
-function startStretch(){alert('Stretch exercises coming soon!');}
+
+
+var _smData=null,_smPos={c:0,p:0},_smInputs={};
+function smOpen(slug,writerName){
+  var name=writerName||STRETCH_ENGINE.findAuthorName(slug);
+  if(!name){alert('Author voice not found');return;}
+  _smData=STRETCH_ENGINE.getPrompts(name);
+  if(!_smData){alert('Not enough voice data for this author');return;}
+  _smPos={c:0,p:0};_smInputs={};
+  document.getElementById('smBg').style.display='flex';
+  requestAnimationFrame(function(){document.getElementById('smBg').classList.add('show');});
+  document.body.style.overflow='hidden';
+  smRender();
+}
+function smClose(){
+  var bg=document.getElementById('smBg');bg.classList.remove('show');
+  setTimeout(function(){bg.style.display='none';},300);
+  document.body.style.overflow='';
+}
+function smRender(){
+  var d=_smData,ci=_smPos.c,pi=_smPos.p;
+  if(ci>=d.cycles.length){smDone();return;}
+  var cy=d.cycles[ci],pr=cy.prompts[pi],total=ci*3+pi,el=document.getElementById('smContent');
+  var pips='<div class="sm-progress">';
+  for(var i=0;i<9;i++)pips+='<div class="sm-pip'+(i<total?' done':i===total?' active':'')+'"></div>';
+  pips+='</div>';
+  var key=ci+'-'+pi;
+  var saved=_smInputs[key]||'';
+  el.innerHTML='<div class="sm-author">'+d.author+'</div>'+
+    '<div class="sm-profile">Stretch Exercise — Prompt '+(total+1)+' of 9</div>'+pips+
+    '<div class="sm-cycle-label">'+pr.techniqueName+' — Cycle '+(ci+1)+', Prompt '+(pi+1)+'</div>'+
+    '<div class="sm-technique">'+pr.technique+'</div>'+
+    '<div class="sm-instruction" style="font-weight:600;color:var(--voice-accent-dark);">Try this: '+pr.action+'</div>'+
+    '<div class="sm-instruction" style="font-size:.82rem;">'+pr.instruction+'</div>'+
+    '<div class="sm-starter">'+pr.starter+'</div>'+
+    '<textarea class="sm-textarea" id="smText" placeholder="Start writing here..." oninput="smCount()">'+saved+'</textarea>'+
+    '<div class="sm-footer"><span class="sm-wc" id="smWc">0 / '+pr.wordMin+' words minimum</span>'+
+    '<button class="sm-next" id="smNext" onclick="smNext()">'+((total<8)?'Next Prompt':'Complete Stretch')+'</button></div>';
+  smCount();
+}
+function smCount(){
+  var t=document.getElementById('smText'),w=t.value.trim().split(/\s+/).filter(function(x){return x;}).length;
+  var pr=_smData.cycles[_smPos.c].prompts[_smPos.p],min=pr.wordMin;
+  var wc=document.getElementById('smWc'),btn=document.getElementById('smNext');
+  wc.textContent=w+' / '+min+' words minimum';
+  wc.className='sm-wc'+(w>=min?' met':'');
+  btn.className='sm-next'+(w>=min?' ready':'');
+}
+function smNext(){
+  var t=document.getElementById('smText'),w=t.value.trim().split(/\s+/).filter(function(x){return x;}).length;
+  var pr=_smData.cycles[_smPos.c].prompts[_smPos.p];
+  if(w<pr.wordMin)return;
+  _smInputs[_smPos.c+'-'+_smPos.p]=t.value;
+  _smPos.p++;
+  if(_smPos.p>=3){_smPos.c++;_smPos.p=0;}
+  smRender();
+}
+function smDone(){
+  var total=0;for(var k in _smInputs)total+=_smInputs[k].trim().split(/\s+/).length;
+  document.getElementById('smContent').innerHTML='<div class="sm-done">'+
+    '<h3>Stretch Complete!</h3>'+
+    '<p>You wrote '+total+' words across 9 prompts in the voice of '+_smData.author+'.</p>'+
+    '<p style="margin-top:12px;font-size:.85rem;color:var(--text-muted)">Your writing range just expanded.</p>'+
+    '<button class="stretch-btn" onclick="smClose()" style="margin-top:1rem;">Close</button></div>';
+}
 
 (async function init(){
   var sess = null;
@@ -370,9 +489,10 @@ function startStretch(){alert('Stretch exercises coming soon!');}
     initShare(token);
     renderWordUsage(token);
     renderEvolution(data.profiles, data.stats?.consistency);
-    renderWriters(profile,stance);
-    renderBooks(profile,(u.country||'').toUpperCase());
-    renderStretch(token,u.id||'');var sc=document.getElementById('shareCTA');if(sc)sc.textContent=vc.shareText;
+    var ucc=(u.country||'').toUpperCase();
+    renderWriters(profile,stance,ucc);
+    renderBooks(profile,ucc);
+    renderStretch(profile,ucc);var sc=document.getElementById('shareCTA');if(sc)sc.textContent=vc.shareText;
 
     // Stats
     var st = data.stats || {};
