@@ -45,7 +45,7 @@ const BLOG_DATA = [
   {
     slug: 'alice-munro-writing-style',
     title: 'In the Style of Alice Munro',
-    excerpt: 'Munro\'s sentences look simple until you reach the end of a paragraph and realise the ground has shifted beneath you.',
+    excerpt: 'Munro\'s sentences look simple until you reach the end of a paragraph and realise the ground has shifted beneath you.'s sentences look simple until you reach the end of a paragraph and realise the ground has shifted beneath you.',
     icon: '🪨',
     color: '#7CAE82',
     profile: 'minimal',
@@ -206,7 +206,7 @@ const BLOG_DATA = [
   {
     slug: 'bill-manhire-writing-style',
     title: 'In the Style of Bill Manhire',
-    excerpt: 'Manhire\'s poems are small and strange and leave an enormous amount unsaid — the silence is load-bearing.',
+    excerpt: 'Manhire writes with the lightness of someone who has thought very hard about what to leave out.'s poems are small and strange and leave an enormous amount unsaid — the silence is load-bearing.',
     icon: '🌙',
     color: '#6B8CAE',
     profile: 'minimal',
@@ -566,7 +566,7 @@ const BLOG_DATA = [
   {
     slug: 'fiona-kidman-writing-style',
     title: 'In the Style of Fiona Kidman',
-    excerpt: 'Kidman writes New Zealand women\'s experience across historical periods with patience and specificity.',
+    excerpt: 'Kidman writes New Zealand women into history without sentimentalising the difficulty of their lives.'s experience across historical periods with patience and specificity.',
     icon: '🌸',
     color: '#C4957A',
     profile: 'conversational',
@@ -641,7 +641,7 @@ const BLOG_DATA = [
   {
     slug: 'george-orwell-writing-style',
     title: 'In the Style of George Orwell',
-    excerpt: 'Orwell\'s sentences do not qualify. They state, and they move on.',
+    excerpt: 'Orwell writes as though clarity is a moral act — every vague word is a small dishonesty.'s sentences do not qualify. They state, and they move on.',
     icon: '🎯',
     color: '#FF6B6B',
     profile: 'assertive',
@@ -654,7 +654,7 @@ const BLOG_DATA = [
   {
     slug: 'gerald-murnane-writing-style',
     title: 'In the Style of Gerald Murnane',
-    excerpt: 'Murnane\'s prose is radically stripped — he has eliminated everything except the phenomenology of reading and remembering.',
+    excerpt: 'Murnane writes about the act of writing and imagining as though it were the most urgent subject available.'s prose is radically stripped — he has eliminated everything except the phenomenology of reading and remembering.',
     icon: '🏜️',
     color: '#9A8B7A',
     profile: 'dense',
@@ -755,7 +755,7 @@ const BLOG_DATA = [
   {
     slug: 'jm-coetzee-writing-style',
     title: 'In the Style of J.M. Coetzee',
-    excerpt: 'Coetzee\'s prose is stripped to the point where what remains feels almost skeletal, and the skeleton is load-bearing.',
+    excerpt: 'Coetzee writes with a cold precision that makes the reader feel the temperature of the prose.'s prose is stripped to the point where what remains feels almost skeletal, and the skeleton is load-bearing.',
     icon: '🪨',
     color: '#7CAE82',
     profile: 'minimal',
@@ -813,7 +813,7 @@ const BLOG_DATA = [
   {
     slug: 'jeanette-winterson-writing-style',
     title: 'In the Style of Jeanette Winterson',
-    excerpt: 'Winterson\'s sentences are lyrical to the point of incantation — the rhythm carries meaning the way poetry does.',
+    excerpt: 'Winterson writes as though language is the only country she has ever lived in.'s sentences are lyrical to the point of incantation — the rhythm carries meaning the way poetry does.',
     icon: '🌙',
     color: '#9A8EC2',
     profile: 'poetic',
@@ -1062,7 +1062,7 @@ const BLOG_DATA = [
   {
     slug: 'mavis-gallant-writing-style',
     title: 'In the Style of Mavis Gallant',
-    excerpt: 'Gallant\'s expatriate prose is spare and ironic in equal measure — the distance from Canada is both literal and tonal.',
+    excerpt: 'Gallant writes expatriate life with the precision of someone who has learned to see from the outside.'s expatriate prose is spare and ironic in equal measure — the distance from Canada is both literal and tonal.',
     icon: '🥐',
     color: '#9A8B7A',
     profile: 'formal',
@@ -1197,7 +1197,7 @@ const BLOG_DATA = [
   {
     slug: 'mordecai-richler-writing-style',
     title: 'In the Style of Mordecai Richler',
-    excerpt: 'Richler\'s satirical warmth is the product of genuine affection for everything he is attacking.',
+    excerpt: 'Richler writes with a comic ferocity that disguises how seriously he takes everything.'s satirical warmth is the product of genuine affection for everything he is attacking.',
     icon: '🍁',
     color: '#B86B6B',
     profile: 'assertive',
@@ -1566,7 +1566,7 @@ const BLOG_DATA = [
   {
     slug: 'stuart-mclean-writing-style',
     title: 'In the Style of Stuart Mclean',
-    excerpt: 'Warm and curious. The McLean way.',
+    excerpt: 'McLean writes about ordinary Canadian domestic life with the attention that other writers give to heroic action.',
     icon: '🍁',
     color: '#C4A882',
     profile: 'conversational',
@@ -1716,7 +1716,7 @@ const BLOG_DATA = [
   {
     slug: 'vincent-osullivan-writing-style',
     title: 'In the Style of Vincent O\'Sullivan',
-    excerpt: 'Lyrical and unresolved. The O',
+    excerpt: 'O\'Sullivan writes New Zealand poetry and drama with lyrical precision and historical scope.',
     icon: '🪶',
     color: '#9A8BA8',
     profile: 'poetic',
