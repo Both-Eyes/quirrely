@@ -36,8 +36,8 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--ink);line-hei
 .nav-links{display:flex;align-items:center;gap:1.5rem;}
 .nav-links a{font-size:0.875rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.15s;}
 .nav-links a:hover{color:var(--ink);}
-.nav-links .signin-link{color:var(--muted);}
-.nav-links .signin-link:hover{color:var(--primary);}
+.nav-links .signin-link{padding:0.5rem 1.25rem;border:2px solid var(--primary);color:var(--primary);border-radius:6px;font-size:0.85rem;font-weight:600;text-decoration:none;transition:background 0.15s,color 0.15s;}
+.nav-links .signin-link:hover{background:var(--primary);color:#fff;}
 .nav-links .signup-btn{padding:0.5rem 1.25rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-radius:6px;font-weight:600;font-size:0.85rem;box-shadow:0 2px 8px rgba(255,92,52,0.25);text-decoration:none;}
 .nav-links .signup-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,92,52,0.35);}
 @media(max-width:640px){.nav-links .nav-hide{display:none;}}
@@ -113,10 +113,12 @@ article .author-voice{font-size:0.9rem;color:var(--muted);border-left:2px solid 
     </svg>
     <span class="nav-wordmark">Quir<span>re</span>ly</span>
   </a>
+  <div class="nav-links" id="main-nav">
+    <a href="/blog/">Blog</a>
+    <a href="/faq">FAQ</a>
+  </div>
   <div class="nav-links">
-    <a href="/blog/" class="nav-hide">Blog</a>
-    <a href="/faq" class="nav-hide">FAQ</a>
-    <a href="/sign-in" class="nav-hide">Sign In</a>
+    <a href="/sign-in" class="signin-link">Sign In</a>
     <a href="/sign-up" class="signup-btn">Sign Up</a>
   </div>
 </nav>
