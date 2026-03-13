@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import FileResponse
+import hashlib
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 import logging
@@ -163,3 +165,201 @@ async def get_dashboard(user: Dict = Depends(require_auth)):
             "scores": {k: latest.get(k, 0) for k in style_keys},
         }
     return response
+
+
+VIDEO_DIR = "/home/quirrely/quirrely.ca/videos"
+VIDEO_SCRIPT = "/opt/quirrely/quirrely_v313_integrated/backend/utils/voice-video.py"
+AUDIO_SCRIPT = "/opt/quirrely/quirrely_v313_integrated/backend/utils/voice-audio.py"
+PYTHON = "/usr/bin/python3.12"
+
+PROFILE_META = {
+    'assertive': 'The Direct Voice',
+    'minimal': 'The Quiet Inviter',
+    'poetic': 'The Lyric Wanderer',
+    'dense': 'The Deep Diver',
+    'conversational': 'The Natural Storyteller',
+    'formal': 'The Measured Authority',
+    'balanced': 'The Even Hand',
+    'longform': 'The Long View',
+    'interrogative': 'The Restless Questioner',
+    'hedged': 'The Careful Navigator',
+}
+
+STANCE_LABELS = {
+    'open': 'Open ears.',
+    'closed': 'Closed form.',
+    'balanced': 'Balanced stance.',
+    'contradictory': 'Contradictions held.',
+}
+
+
+@router.get("/video")
+async def get_voice_video(user: Dict = Depends(require_auth)):
+    """
+    Generate or return cached voice video for the authenticated user.
+    Requires: Pro subscription, 5+ analyses, 1000+ words.
+    """
+    import subprocess, hashlib, json, os
+    from fastapi.responses import FileResponse
+
+    user_id = str(user["id"])
+    tier = (user.get("subscription_tier") or "free").lower()
+
+    # === TIER CHECK ===
+    if tier != "pro":
+        raise HTTPException(status_code=403, detail="Pro subscription required")
+
+    # === THRESHOLD CHECK ===
+    stats = db_query(
+        """SELECT COUNT(*) as cnt, COALESCE(SUM(input_word_count), 0) as words
+           FROM writing_profiles WHERE user_id = %s""",
+        (user_id,)
+    )
+    row = stats[0] if stats else {"cnt": 0, "words": 0}
+    test_count = row.get("cnt", 0)
+    total_words = row.get("words", 0)
+
+    if test_count < 5 or total_words < 1000:
+        remaining = []
+        if test_count < 5:
+            remaining.append(f"{5 - test_count} more analyses")
+        if total_words < 1000:
+            remaining.append(f"{1000 - total_words} more words")
+        raise HTTPException(
+            status_code=403,
+            detail=f"Not enough data. Need: {', '.join(remaining)}."
+        )
+
+    # === GET VOICE DATA ===
+    profiles = db_query(
+        """SELECT profile, stance,
+                  AVG(score_assertive) as score_assertive,
+                  AVG(score_minimal) as score_minimal,
+                  AVG(score_poetic) as score_poetic,
+                  AVG(score_dense) as score_dense,
+                  AVG(score_conversational) as score_conversational,
+                  AVG(score_formal) as score_formal,
+                  AVG(score_balanced) as score_balanced,
+                  AVG(score_longform) as score_longform,
+                  AVG(score_interrogative) as score_interrogative,
+                  AVG(score_hedged) as score_hedged,
+                  COUNT(*) as cnt
+           FROM writing_profiles WHERE user_id = %s
+           GROUP BY profile, stance
+           ORDER BY cnt DESC LIMIT 1""",
+        (user_id,)
+    )
+
+    if not profiles:
+        raise HTTPException(status_code=404, detail="No voice profile found")
+
+    p = profiles[0]
+    profile = (p.get("profile") or "conversational").lower()
+    stance = (p.get("stance") or "balanced").lower()
+    username = user.get("display_name") or user.get("email", "").split("@")[0]
+
+    scores = {
+        "score_assertive": float(p.get("score_assertive") or 0),
+        "score_minimal": float(p.get("score_minimal") or 0),
+        "score_poetic": float(p.get("score_poetic") or 0),
+        "score_dense": float(p.get("score_dense") or 0),
+        "score_conversational": float(p.get("score_conversational") or 0),
+        "score_formal": float(p.get("score_formal") or 0),
+        "score_balanced": float(p.get("score_balanced") or 0),
+        "score_longform": float(p.get("score_longform") or 0),
+        "score_interrogative": float(p.get("score_interrogative") or 0),
+        "score_hedged": float(p.get("score_hedged") or 0),
+    }
+
+    # Build tagline
+    meta_title = PROFILE_META.get(profile, profile.capitalize())
+    stance_label = STANCE_LABELS.get(stance, '')
+    tagline = f"{meta_title} \u2014 {stance_label}" if stance_label else meta_title
+
+    # === CACHE CHECK ===
+    # Hash scores to detect changes — regenerate if profile shifts
+    score_hash = hashlib.md5(json.dumps(scores, sort_keys=True).encode()).hexdigest()[:8]
+    os.makedirs(VIDEO_DIR, exist_ok=True)
+    video_path = os.path.join(VIDEO_DIR, f"{user_id}_{score_hash}.mp4")
+
+    if os.path.exists(video_path):
+        logger.info(f"Video cache hit: {user_id}")
+        return FileResponse(
+            video_path,
+            media_type="video/mp4",
+            filename=f"{username}-voice.mp4",
+            headers={"Cache-Control": "public, max-age=86400"}
+        )
+
+    # === GENERATE VIDEO ===
+    logger.info(f"Generating video for {user_id} ({profile}/{stance})")
+
+    tmp_video = f"/tmp/voice-video-{user_id}.mp4"
+    tmp_audio = f"/tmp/voice-audio-{user_id}.wav"
+    tmp_final = f"/tmp/voice-final-{user_id}.mp4"
+
+    try:
+        # Generate video frames
+        cmd_video = [
+            PYTHON, VIDEO_SCRIPT,
+            "--username", username,
+            "--profile", profile,
+            "--stance", stance,
+            "--tagline", tagline,
+            "--scores", json.dumps(scores),
+            "--output", tmp_video,
+        ]
+        result = subprocess.run(cmd_video, capture_output=True, text=True, timeout=180)
+        if result.returncode != 0:
+            logger.error(f"Video gen failed: {result.stderr[-300:]}")
+            raise HTTPException(status_code=500, detail="Video generation failed")
+
+        # Generate audio
+        cmd_audio = [
+            PYTHON, AUDIO_SCRIPT,
+            "--profile", profile,
+            "--stance", stance,
+            "--scores", json.dumps(scores),
+            "--output", tmp_audio,
+            "--mux", tmp_video,
+            "--final", tmp_final,
+        ]
+        result = subprocess.run(cmd_audio, capture_output=True, text=True, timeout=60)
+        if result.returncode != 0:
+            logger.error(f"Audio gen failed: {result.stderr[-300:]}")
+            raise HTTPException(status_code=500, detail="Audio generation failed")
+
+        # Move to cache
+        import shutil
+        shutil.move(tmp_final, video_path)
+
+        # Clean up old videos for this user (keep only current hash)
+        for f in os.listdir(VIDEO_DIR):
+            if f.startswith(f"{user_id}_") and f != os.path.basename(video_path):
+                try:
+                    os.remove(os.path.join(VIDEO_DIR, f))
+                except:
+                    pass
+
+        logger.info(f"Video generated: {video_path} ({os.path.getsize(video_path)} bytes)")
+
+        return FileResponse(
+            video_path,
+            media_type="video/mp4",
+            filename=f"{username}-voice.mp4",
+            headers={"Cache-Control": "public, max-age=86400"}
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Video generation error: {e}")
+        raise HTTPException(status_code=500, detail="Video generation failed")
+    finally:
+        # Clean temp files
+        for tmp in [tmp_video, tmp_audio]:
+            try:
+                os.remove(tmp)
+            except:
+                pass
+

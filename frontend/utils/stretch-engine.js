@@ -82,5 +82,30 @@ var STRETCH_ENGINE = (function(){
     return null;
   }
 
-  return {getPrompts: getPrompts, findAuthorName: findAuthorName};
+
+  // === PERSISTENCE ===
+  var SK = 'quirrely_stretch_';
+  function _k(a){return SK+a.replace(/[^a-zA-Z0-9]/g,'_');}
+  function saveProgress(a,pos,inputs){
+    try{localStorage.setItem(_k(a),JSON.stringify({pos:pos,inputs:inputs,ts:Date.now()}));}catch(e){}
+  }
+  function loadProgress(a){
+    try{var d=JSON.parse(localStorage.getItem(_k(a)));
+    if(!d||!d.pos)return null;
+    if(Date.now()-d.ts>7*24*3600*1000){localStorage.removeItem(_k(a));return null;}
+    return d;}catch(e){return null;}
+  }
+  function clearProgress(a){try{localStorage.removeItem(_k(a));}catch(e){}}
+  function markComplete(a){
+    try{var done=JSON.parse(localStorage.getItem(SK+'_done')||'[]');
+    if(done.indexOf(a)===-1)done.push(a);
+    localStorage.setItem(SK+'_done',JSON.stringify(done));
+    clearProgress(a);}catch(e){}
+  }
+  function getCompleted(){
+    try{return JSON.parse(localStorage.getItem(SK+'_done')||'[]');}catch(e){return[];}
+  }
+  function isCompleted(a){return getCompleted().indexOf(a)!==-1;}
+
+  return {getPrompts:getPrompts,findAuthorName:findAuthorName,saveProgress:saveProgress,loadProgress:loadProgress,clearProgress:clearProgress,markComplete:markComplete,getCompleted:getCompleted,isCompleted:isCompleted};
 })();

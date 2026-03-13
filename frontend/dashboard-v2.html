@@ -28,16 +28,24 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
 .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--brand-persimmon,#FF5C34);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 /* ===== LAYOUT ===== */
-.dash-wrap{max-width:960px;margin:0 auto;padding:2.5rem 2rem;}
-.dash-welcome{margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border-light);}
-.dash-welcome h1{font-size:1.6rem;font-weight:700;color:var(--ink);line-height:1.2;}
-.dash-welcome p{color:var(--text-muted);font-size:.92rem;margin-top:.35rem;line-height:1.6;}
-.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-@media(max-width:768px){.dash-grid{grid-template-columns:1fr;}}
+.dash-wrap{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;display:grid;grid-template-columns:1fr 300px;gap:2.5rem;align-items:start;}
+.dash-welcome{grid-column:1/-1;}
+.dash-main{display:flex;flex-direction:column;gap:1rem;min-width:0;}
+.dash-sidebar{display:flex;flex-direction:column;gap:1rem;position:sticky;top:72px;}
+@media(max-width:900px){.dash-wrap{grid-template-columns:1fr;}.dash-sidebar{position:static;}}
+.dash-welcome{background:linear-gradient(180deg,#D7EFFF 0%,#EEF7FF 60%,var(--bg) 100%);border-bottom:3px solid var(--brand-persimmon);padding:3rem 2rem 2rem;text-align:center;margin:-2.5rem -2rem 1.5rem;grid-column:1/-1;}
+.dash-welcome h1{font-size:2.4rem;font-weight:700;color:var(--ink);line-height:1.15;margin-bottom:0.5rem;}
+.voice-name{-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.dash-welcome p{color:var(--text-muted);font-size:1.05rem;line-height:1.6;}
+
+
 /* ===== CARDS (voice-adaptive) ===== */
 .card{background:var(--bg-card);border:1px solid var(--border-light);border-left:4px solid var(--voice-accent);border-radius:10px;padding:var(--voice-card-pad);line-height:var(--voice-line-height);position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s;}
 .card::after{content:'';position:absolute;top:0;right:0;width:35%;height:100%;background:linear-gradient(225deg,rgba(215,239,255,0.3) 0%,transparent 70%);pointer-events:none;border-radius:0 10px 10px 0;}
 .card:hover{transform:translateX(2px);box-shadow:var(--shadow);}
+.voice-hero{border-left:none;border-top:3px solid var(--brand-persimmon);padding:0;overflow:hidden;background:linear-gradient(180deg,#D7EFFF 0%,#EEF7FF 40%,var(--bg-card) 100%);}
+.voice-hero .vb-wrap{padding:0;}
+.voice-hero canvas{border-radius:0;}
 .card.card-static{cursor:default;}
 .card.card-static:hover{transform:none;box-shadow:none;}
 .card.card-static::after{display:none;}
@@ -52,10 +60,10 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
 .user-avatar:hover{transform:scale(1.05);}
 
 /* ===== VOICE BARS ===== */
-.vb-wrap{margin-top:var(--voice-gap);}
-.vb-header{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
-.vb-icon{font-size:1.4rem;}
-.vb-title{font-size:1.05rem;font-weight:700;color:var(--ink);}
+
+
+
+
 .vb-stance{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;padding:4px 10px;border-radius:20px;background:var(--ink);color:#fff;font-weight:700;}
 .vb-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
 .vb-label{width:100px;font-size:0.8rem;color:var(--text-muted);text-align:right;flex-shrink:0;}
@@ -66,7 +74,7 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
 
 
 /* ===== SHARE CARD ===== */
-.share-card{grid-column:1/-1;text-align:center;border-left-color:var(--brand-persimmon);}
+.share-card{text-align:center;border-left-color:var(--brand-persimmon);}
 .share-url{font-size:.95rem;color:var(--text-muted);margin:8px 0 12px;}
 .share-url a{color:var(--voice-accent-dark);font-weight:600;}
 .share-setup{display:flex;align-items:center;justify-content:center;gap:6px;margin:12px 0;}
@@ -80,12 +88,16 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
 
 
 /* ===== WORD USAGE ===== */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;}
+.stat-item{text-align:center;padding:8px 4px;background:var(--bg);border-radius:6px;}
+.stat-num{font-size:1.1rem;font-weight:700;color:var(--ink);line-height:1.2;}
+.stat-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-top:2px;}
 .wu-card{grid-column:1/-1;}
-.wu-track{height:10px;background:var(--border-light);border-radius:20px;overflow:hidden;margin:8px 0;}
+.wu-track{height:10px;background:var(--bg);border:1px solid var(--border-light);border-radius:20px;overflow:hidden;margin:8px 0;}
 .wu-fill{height:100%;background:linear-gradient(90deg,var(--voice-accent),var(--voice-accent-dark));border-radius:20px;transition:width .6s;}
 .wu-fill.warn{background:var(--voice-accent-dark);}
 .wu-fill.full{background:#E74C3C;}
-.wu-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);}
+.wu-meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--ink);font-weight:500;}
 .wu-hint{font-size:.8rem;color:var(--text-muted);margin-top:4px;}
 .wu-hint a{color:var(--voice-accent-dark);font-weight:600;}
 
@@ -106,8 +118,9 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
 
 /* ===== WRITERS ===== */
 .writers-card{grid-column:1/-1;}
-.writers-grid{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:.75rem;}
-.writer-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px 8px 16px;border:1px solid var(--border-light);border-left:4px solid var(--voice-accent);border-radius:0 10px 10px 0;background:var(--bg-card);font-size:.88rem;color:var(--ink);font-weight:600;text-decoration:none;transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden;}
+.writers-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.75rem;}
+@media(max-width:600px){.writers-grid{grid-template-columns:1fr;}}
+.writer-chip{display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem .7rem 1.1rem;border:1px solid var(--border-light);border-left:4px solid var(--voice-accent);border-radius:0 10px 10px 0;background:var(--bg-card);font-size:.88rem;color:var(--ink);font-weight:600;text-decoration:none;transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden;}
 .writer-chip::after{content:'';position:absolute;top:0;right:0;width:35%;height:100%;background:linear-gradient(225deg,rgba(215,239,255,0.35) 0%,transparent 70%);pointer-events:none;}
 .writer-chip:hover{transform:translateX(2px);box-shadow:var(--shadow);}
 .writer-chip .wc-dot{display:none;}
@@ -156,6 +169,9 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
 .sm-done{text-align:center;padding:2rem 0;}
 .sm-done h3{font-size:1.1rem;color:var(--ink);margin-bottom:8px;}
 .sm-done p{color:var(--text-muted);font-size:.9rem;}
+.site-footer{background:var(--ink);color:rgba(255,255,255,0.6);text-align:center;padding:2rem;margin-top:2rem;font-size:.85rem;}
+.site-footer a{color:rgba(255,255,255,0.8);text-decoration:none;font-weight:500;}
+.site-footer a:hover{color:#fff;}
 </style>
 </head>
 <body>
@@ -165,7 +181,7 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
 <header class="site-header">
   <div class="site-header-inner">
     <a href="/blog/" class="site-logo">
-      <svg viewBox="0 0 28 42" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="10" rx="10" ry="9" fill="#FFFBF5" stroke="#351E28" stroke-width="1.5"/><circle cx="10" cy="9" r="2.5" fill="#351E28"/><circle cx="18" cy="9" r="2.5" fill="#351E28"/><circle cx="10.5" cy="9.2" r="0.8" fill="#fff"/><circle cx="18.5" cy="9.2" r="0.8" fill="#fff"/><ellipse cx="14" cy="13" rx="1.5" ry="1" fill="#FF5C34"/><path d="M6 18c-3 4-4 10 0 14s10 6 16 2" stroke="#351E28" stroke-width="1.5" fill="#FFFBF5"/><path d="M22 18c2 3 4 8 1 13" stroke="#351E28" stroke-width="1.5" fill="none"/><ellipse cx="14" cy="34" rx="6" ry="3" fill="#FFFBF5" stroke="#351E28" stroke-width="1.2"/><path d="M24 6c3-4 8-5 10-2s-1 8-5 10" stroke="#351E28" stroke-width="1.3" fill="#FFFBF5"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120" width="28" height="42"><path d="M58 112 Q85 98,94 62 Q100 26,74 8 Q50-8,42 22 Q38 44,54 60 Q70 78,62 100 Q58 110,58 112" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="40" cy="98" rx="22" ry="26" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><path d="M20 68 Q12 72,14 80 Q16 86,24 88 L32 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><path d="M60 68 Q68 72,66 80 Q64 86,56 88 L48 86" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.8"/><ellipse cx="28" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="52" cy="86" rx="7" ry="5" fill="#FFFEF9"/><ellipse cx="40" cy="78" rx="9" ry="4" fill="#E85A5A"/><rect x="38.5" y="74" width="3" height="4" rx="1.5" fill="#D4504A"/><path d="M31 78 Q30 94,40 99 Q50 94,49 78 Z" fill="#FF5C34"/><ellipse cx="40" cy="50" rx="22" ry="20" fill="#FFFEF9" stroke="#E0DBD5" stroke-width="1.4"/><ellipse cx="24" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="56" cy="30" rx="8" ry="14" fill="#D4CCC4" opacity="0.6"/><ellipse cx="32" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><ellipse cx="48" cy="48" rx="5.5" ry="6" fill="#1a1a1a"/><circle cx="33" cy="46.5" r="2" fill="#FFF"/><circle cx="49" cy="46.5" r="2" fill="#FFF"/><ellipse cx="40" cy="60" rx="4.5" ry="3.5" fill="#4A4A4A"/></svg>
       <span class="site-logo-text">Quir<span class="re">re</span><span class="ly">ly</span></span>
     </a>
     <nav class="site-nav">
@@ -197,54 +213,81 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
     <h1 id="welcomeH">Welcome back</h1>
     <p id="welcomeP">Loading your voice profile...</p>
   </div>
-  <div class="dash-grid" id="dashGrid">
-    <div class="card card-static" style="grid-column:1/-1;"><div class="vb-wrap" id="voiceBars"><div class="card-muted">Loading voice profile...</div></div></div>
-    <div class="card card-static"><div class="card-title">Stats</div><div class="card-muted" id="statsCard">—</div></div>
-    <div class="card card-static evo-card" id="evoCard" style="display:none;">
-    <div class="card-title section-label">Voice Evolution</div>
-    <div class="evo-track" id="evoTrack"></div>
-    <div class="evo-footer"><span id="evoCount"></span><span class="evo-consistency" id="evoCon"></span></div>
+  <div class="dash-main" id="dashMain">
+    <div class="card card-static voice-hero"><div class="vb-wrap" id="voiceBars"><canvas id="voiceCanvas" style="width:100%;height:auto;display:block;"></canvas>
+<div id="shareCard" style="padding:1rem 1.5rem 1.25rem;text-align:center;border-top:1px solid var(--border-light);">
+    <div id="shareSetup" style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
+      <span style="color:var(--text-muted);font-size:.88rem;font-weight:500;">Share as</span>
+      <span style="color:var(--text-muted);font-size:.88rem;">quirrely.ca/user/</span>
+      <input type="text" id="shareSlugInput" placeholder="your-name" maxlength="30" style="padding:5px 10px;border:1px solid var(--border-light);border-radius:6px;font-size:.88rem;width:120px;">
+      <button class="share-btn primary" onclick="claimSlug()" style="padding:6px 14px;font-size:.82rem;">Claim & Share</button>
+    </div>
+    <div id="shareReady" style="display:none;">
+      <p style="font-size:.92rem;font-weight:600;color:var(--ink);margin:0 0 10px;">Love your results? Share them.</p>
+      <div class="share-btns" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <button class="share-btn" onclick="copyLink()" style="padding:6px 16px;font-size:.82rem;">Copy Link</button>
+        <button class="share-btn linkedin" onclick="shareTo('linkedin')" style="padding:6px 16px;font-size:.82rem;">LinkedIn</button>
+        <button class="share-btn facebook" onclick="shareTo('facebook')" style="padding:6px 16px;font-size:.82rem;">Facebook</button>
+      </div>
+    </div>
   </div>
-  <div class="card card-static wu-card" id="wordUsageBar" style="display:none;">
-    <div class="wu-meta"><span id="wuLabel">Words Today</span><span id="wuCount">—</span></div>
-    <div class="wu-track"><div class="wu-fill" id="wuFill" style="width:0%"></div></div>
-    <div class="wu-hint" id="wuHint"></div>
-  </div>
-  
-  <div class="card writers-card" id="writersCard" style="display:none;">
+  </div></div>
+        <div class="card writers-card" id="writersCard" style="display:none;">
     <div class="card-title section-label">Writers Like You</div>
     <div class="writers-grid" id="writersGrid"></div>
     <div class="writers-note" id="writersNote"></div>
   </div>
-  <div class="card books-card" id="booksCard" style="display:none;">
-    <div class="card-title section-label">Recommended Reading</div>
-    <p class="card-muted">Books that resonate with your voice.</p>
-    <div class="books-grid" id="booksGrid"></div>
+  <div class="card card-static evo-card" id="evoCard" style="display:none;">
+    <div class="card-title section-label">Voice Evolution</div>
+    <div class="evo-track" id="evoTrack"></div>
+    <div class="evo-footer"><span id="evoCount"></span><span class="evo-consistency" id="evoCon"></span></div>
   </div>
-  <div class="card stretch-card" id="stretchCard" style="display:none;">
+  
+  
+  
+
+  </div>
+<div class="dash-sidebar" id="dashSidebar">
+<div class="card card-static" id="videoSection" style="display:none;border-left:none;overflow:hidden;">
+    <div id="videoLocked" style="display:none;background:linear-gradient(135deg,var(--brand-persimmon),var(--brand-persimmon-dark));border-radius:9px;padding:1rem 1.25rem;text-align:center;">
+      <p style="font-size:1.05rem;font-weight:700;color:#fff;margin:0 0 6px;">Your Voice Video</p>
+      <p style="font-size:.85rem;color:rgba(255,255,255,0.85);margin:0 0 14px;line-height:1.5;" id="videoLockedMsg"></p>
+      <div id="videoProgress" style="display:none;margin:0 0 14px;">
+        <div style="height:6px;background:rgba(255,255,255,0.25);border-radius:3px;overflow:hidden;margin:8px 0;">
+          <div id="videoProgressFill" style="height:100%;background:#fff;border-radius:3px;transition:width .3s;"></div>
+        </div>
+        <div style="font-size:.75rem;color:rgba(255,255,255,0.7);" id="videoProgressLabel"></div>
+      </div>
+      <button id="videoLockedBtn" style="background:#fff;color:var(--brand-persimmon);border:none;border-radius:6px;padding:.5rem 1.5rem;font-size:.88rem;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);">Go Pro</button>
+    </div>
+    <div id="videoReady" style="display:none;text-align:center;padding:1rem;">
+      <p style="font-size:.95rem;font-weight:600;color:var(--ink);margin:0 0 10px;">Your Voice Video</p>
+      <div style="position:relative;display:inline-block;width:100%;max-width:540px;">
+        <video id="voiceVideo" style="width:100%;border-radius:8px;" controls preload="none"></video>
+        <div id="videoCTA" style="display:none;position:absolute;inset:0;background:rgba(53,30,40,0.75);border-radius:8px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
+          <p style="color:#fff;font-size:1.1rem;font-weight:700;">Find your voice.</p>
+          <a href="/blog/" style="background:linear-gradient(135deg,var(--brand-persimmon),var(--brand-persimmon-dark));color:#fff;padding:.6rem 1.5rem;border-radius:6px;font-weight:700;font-size:.9rem;text-decoration:none;box-shadow:0 2px 8px rgba(255,92,52,0.3);">Start Writing</a>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <button class="share-btn primary" id="videoDownloadBtn" style="padding:6px 16px;font-size:.82rem;">Download</button>
+      </div>
+    </div>
+  </div>
+<div class="card card-static"><div class="card-title section-label">Stats</div><div id="statsCard">—</div></div>
+
+<div class="card card-static wu-card" id="wordUsageBar" style="display:none;">
+    <div class="card-title section-label" style="margin-bottom:6px;">Word Usage</div>
+    <div class="wu-meta"><span id="wuLabel">Words Today</span><span id="wuCount">—</span></div>
+    <div class="wu-track"><div class="wu-fill" id="wuFill" style="width:0%"></div></div>
+    <div class="wu-hint" id="wuHint"></div>
+  </div>
+<div class="card stretch-card" id="stretchCard" style="display:none;">
     <div style="font-size:1.1rem;font-weight:700;color:var(--brand-persimmon-dark);margin-bottom:.25rem;" id="stretchTitle">Ready to Stretch?</div>
     <p class="stretch-sub" id="stretchSub">Push your voice into new territory</p>
     <button class="stretch-btn" id="stretchBtn" onclick="startStretch()">Start Your First Stretch</button>
   </div>
-  <div class="card share-card" id="shareCard">
-    <div class="card-title section-label">Share Your Voice Profile</div>
-    <p class="card-muted" id="shareCTA">Share your voice.</p>
-    <div id="shareSetup">
-      <div class="share-setup">
-        <span style="color:var(--text-muted);font-size:.85rem;">quirrely.ca/user/</span>
-        <input type="text" id="shareSlugInput" placeholder="your-name" maxlength="30">
-      </div>
-      <button class="share-btn primary" onclick="claimSlug()">Claim URL</button>
-    </div>
-    <div id="shareReady" style="display:none;">
-      <div class="share-url" id="shareUrlDisplay"></div>
-      <div class="share-btns">
-        <button class="share-btn" onclick="copyLink()">Copy Link</button>
-        <button class="share-btn linkedin" onclick="shareTo('linkedin')">LinkedIn</button>
-        <button class="share-btn facebook" onclick="shareTo('facebook')">Facebook</button>
-      </div>
-    </div>
-  </div>
+  
 </div>
 
 <div class="sm-bg" id="smBg" style="display:none;" onclick="if(event.target===this)smClose()">
@@ -254,13 +297,18 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
   </div>
 </div>
 </main>
+<footer class="site-footer">
+  <p><a href="/dashboard">Dashboard</a> &nbsp;&middot;&nbsp; <a href="/blog/">Blog</a> &nbsp;&middot;&nbsp; <a href="/faq">FAQ</a> &nbsp;&middot;&nbsp; <a href="/frontend/privacy.html">Privacy</a></p>
+  <p style="margin-top:0.5rem;">&copy; 2026 Quirrely</p>
+</footer>
 
 <script src="/frontend/utils/profile-system.js"></script>
 <script src="/frontend/utils/voice-design.js"></script>
 <script src="/frontend/utils/dashboard-books.js?v=1"></script>
 <script src="/blog/blog-author-voice.js?v=3"></script>
-<script src="/frontend/utils/stretch-actions.js?v=1"></script>
-<script src="/frontend/utils/stretch-engine.js?v=1"></script>
+<script src="/frontend/utils/stretch-actions.js?v=2"></script>
+<script src="/frontend/utils/stretch-engine.js?v=2"></script>
+<script src="/frontend/utils/voice-fingerprint.js?v=9"></script>
 <script>
 
 function timeAgo(d){var s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return 'now';if(s<3600)return Math.floor(s/60)+'m';if(s<86400)return Math.floor(s/3600)+'h';return Math.floor(s/86400)+'d';}
@@ -310,31 +358,14 @@ function shareTo(p){if(!_shareUrl)return;var u=encodeURIComponent(_shareUrl);if(
 async function claimSlug(){var s;try{s=JSON.parse(localStorage.getItem('quirrely_session'));}catch(e){}if(!s||!s.token)return;var slug=document.getElementById('shareSlugInput').value.trim().toLowerCase();if(!slug||slug.length<3)return;try{var r=await fetch('/api/v2/share/generate',{method:'POST',headers:{'Authorization':'Bearer '+s.token,'Content-Type':'application/json'},body:JSON.stringify({slug:slug})});var d=await r.json();if(!r.ok)return;_shareUrl=d.url;document.getElementById('shareSetup').style.display='none';document.getElementById('shareReady').style.display='block';document.getElementById('shareUrlDisplay').innerHTML='<a href="'+d.url+'" target="_blank">'+d.url+'</a>';}catch(e){}}
 async function initShare(token){try{var r=await fetch('/api/v2/share/me',{headers:{'Authorization':'Bearer '+token}});var d=await r.json();if(d.has_share){_shareUrl=d.url;document.getElementById('shareSetup').style.display='none';document.getElementById('shareReady').style.display='block';document.getElementById('shareUrlDisplay').innerHTML='<a href="'+d.url+'" target="_blank">'+d.url+'</a>';}}catch(e){}}
 
-function renderVoiceBars(scores, profile, stance, name) {
-  var el = document.getElementById('voiceBars');
-  if (!scores || Object.keys(scores).length===0) { el.innerHTML='<div class="card-muted">No voice data yet.</div>'; return; }
-  var P = VOICE_DESIGN.P;
-  var entries = Object.entries(scores).filter(function(e){return e[0].indexOf('score_')===0;}).sort(function(a,b){return b[1]-a[1];});
-  if (!entries.length) return;
-  var vc = VOICE_DESIGN.getContent(profile, stance);
-  var html = '<div class="vb-header"><span class="vb-icon">'+vc.icon+'</span><span class="vb-title">'+vc.title+'</span><span class="vb-stance">'+stance+'</span></div>';
-  entries.forEach(function(e, i){
-    var key = e[0].replace('score_','');
-    var val = Math.round(e[1]);
-    var c = (P[key]||P.conversational).a;
-    var dom = i===0 ? ' dominant' : '';
-    html += '<div class="vb-row"><span class="vb-label">'+key.charAt(0).toUpperCase()+key.slice(1)+'</span><div class="vb-track"><div class="vb-fill'+dom+'" style="width:0%;background:'+c+'"></div></div><span class="vb-val">'+val+'</span></div>';
-  });
-  el.innerHTML = html;
-  requestAnimationFrame(function(){
-    var fills = el.querySelectorAll('.vb-fill');
-    fills.forEach(function(f,i){ var w=entries[i][1]; setTimeout(function(){f.style.width=Math.min(w,100)+'%';},i*60); });
-  });
-}
+
 
 
 var CMAP={GB:'UK',IE:'UK',US:'CA',ZA:'AU',IN:'AU',WS:'NZ'};
 function mapCC(x){return CMAP[x]||x||'CA';}
+var BOOKSTORES={CA:'https://www.chapters.indigo.ca/en-ca/home/search/?keywords=',UK:'https://uk.bookshop.org/search?keywords=',AU:'https://www.booktopia.com.au/search.ep?keywords=',NZ:'https://www.fishpond.co.nz/search?keywords=',US:'https://bookshop.org/search?keywords='};
+function nameToSlug(n){return n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-writing-style';}
+function getStoreUrl(cc,book,writer){var mc=mapCC(cc);var base=BOOKSTORES[mc]||BOOKSTORES['CA'];return base+encodeURIComponent(book+' '+writer);}
 function getBlogAuthors(prof,cc,max){
   if(typeof DASH_BOOKS==='undefined')return[];
   var mc=mapCC(cc),recs=(DASH_BOOKS[prof]||{})[mc]||(DASH_BOOKS[prof]||{})['CA']||[];
@@ -347,21 +378,22 @@ function renderWriters(prof,stance,cc){
   if(!authors.length)return;
   document.getElementById('writersCard').style.display='block';
   var col=(VOICE_DESIGN.P[prof]||VOICE_DESIGN.P.conversational).a;
+  var mc2=mapCC(cc);
+  var allRecs=(typeof DASH_BOOKS!=='undefined')?(DASH_BOOKS[prof]||{})[mc2]||(DASH_BOOKS[prof]||{})['CA']||[]:[];
+  var bkMap={};allRecs.forEach(function(r){if(!bkMap[r.w])bkMap[r.w]={b:r.b,y:r.y,s:r.s};});
   document.getElementById('writersGrid').innerHTML=authors.map(function(a){
-    return '<a class="writer-chip" href="/blog/'+a.slug+'"><span class="wc-dot" style="background:'+col+'"></span>'+a.name+'</a>';
+    var bk=bkMap[a.name]||{};
+    return '<a class="writer-chip" href="/blog/'+nameToSlug(a.name)+'" style="border-left-color:'+col+'">'+
+      '<div style="flex:1;min-width:0;">'+
+        '<span style="display:block;font-size:.88rem;font-weight:600;color:var(--brand-persimmon-dark);">'+a.name+'</span>'+
+        (bk.b?'<span style="display:block;font-size:.8rem;color:var(--ink);font-style:italic;margin-top:2px;">'+bk.b+'</span>':'')+
+        (bk.y?'<span style="display:block;font-size:.72rem;color:var(--text-muted);margin-top:3px;line-height:1.4;">'+bk.y+'</span>':'')+
+      '</div></a>';
   }).join('');
   var pt=(typeof PROFILE_TYPES!=='undefined')?PROFILE_TYPES[prof.toUpperCase()]:null;
   if(pt&&pt.shortDesc)document.getElementById('writersNote').textContent='Your voice: '+pt.shortDesc.toLowerCase()+'.';
 }
-function renderBooks(prof,cc){
-  if(typeof DASH_BOOKS==='undefined')return;
-  var mc=mapCC(cc),recs=(DASH_BOOKS[prof]||{})[mc]||(DASH_BOOKS[prof]||{})['CA']||[];
-  if(!recs.length)return;
-  document.getElementById('booksCard').style.display='block';
-  document.getElementById('booksGrid').innerHTML=recs.map(function(r){
-    return '<a class="book-item" href="/blog/'+r.s+'"><div class="book-title">'+r.b+'</div><div class="book-author">by '+r.w+'</div><div class="book-why">'+r.y+'</div></a>';
-  }).join('');
-}
+
 function renderStretch(prof,cc){
   if(typeof DASH_BOOKS==='undefined')return;
   var mc=mapCC(cc),P=VOICE_DESIGN.P,col=function(p){return(P[p]||P.conversational).a;};
@@ -389,7 +421,12 @@ function smOpen(slug,writerName){
   if(!name){alert('Author voice not found');return;}
   _smData=STRETCH_ENGINE.getPrompts(name);
   if(!_smData){alert('Not enough voice data for this author');return;}
-  _smPos={c:0,p:0};_smInputs={};
+  var saved=STRETCH_ENGINE.loadProgress(name);
+  if(saved&&(saved.pos.c>0||saved.pos.p>0)){
+    if(confirm('Resume where you left off? ('+((saved.pos.c*3)+saved.pos.p)+'/9 done)')){
+      _smPos=saved.pos;_smInputs=saved.inputs||{};
+    }else{_smPos={c:0,p:0};_smInputs={};STRETCH_ENGINE.clearProgress(name);}
+  }else{_smPos={c:0,p:0};_smInputs={};}
   document.getElementById('smBg').style.display='flex';
   requestAnimationFrame(function(){document.getElementById('smBg').classList.add('show');});
   document.body.style.overflow='hidden';
@@ -416,12 +453,15 @@ function smRender(){
     '<div class="sm-instruction" style="font-weight:600;color:var(--voice-accent-dark);">Try this: '+pr.action+'</div>'+
     '<div class="sm-instruction" style="font-size:.82rem;">'+pr.instruction+'</div>'+
     '<div class="sm-starter">'+pr.starter+'</div>'+
-    '<textarea class="sm-textarea" id="smText" placeholder="Start writing here..." oninput="smCount()">'+saved+'</textarea>'+
+    '<textarea class="sm-textarea" id="smText" placeholder="Start writing here..." oninput="_smInputs[_smPos.c+'-'+_smPos.p]=this.value;smCount()">'+saved+'</textarea>'+
     '<div class="sm-footer"><span class="sm-wc" id="smWc">0 / '+pr.wordMin+' words minimum</span>'+
     '<button class="sm-next" id="smNext" onclick="smNext()">'+((total<8)?'Next Prompt':'Complete Stretch')+'</button></div>';
   smCount();
 }
+var _smSaveTimer=null;
 function smCount(){
+  clearTimeout(_smSaveTimer);
+  _smSaveTimer=setTimeout(function(){if(_smData)STRETCH_ENGINE.saveProgress(_smData.author,_smPos,_smInputs);},1000);
   var t=document.getElementById('smText'),w=t.value.trim().split(/\s+/).filter(function(x){return x;}).length;
   var pr=_smData.cycles[_smPos.c].prompts[_smPos.p],min=pr.wordMin;
   var wc=document.getElementById('smWc'),btn=document.getElementById('smNext');
@@ -436,9 +476,11 @@ function smNext(){
   _smInputs[_smPos.c+'-'+_smPos.p]=t.value;
   _smPos.p++;
   if(_smPos.p>=3){_smPos.c++;_smPos.p=0;}
+  STRETCH_ENGINE.saveProgress(_smData.author,_smPos,_smInputs);
   smRender();
 }
 function smDone(){
+  STRETCH_ENGINE.markComplete(_smData.author);
   var total=0;for(var k in _smInputs)total+=_smInputs[k].trim().split(/\s+/).length;
   document.getElementById('smContent').innerHTML='<div class="sm-done">'+
     '<h3>Stretch Complete!</h3>'+
@@ -458,7 +500,7 @@ function smDone(){
   try { user = JSON.parse(localStorage.getItem('quirrely_user'))||{}; } catch(e){}
   var name = user.display_name || user.name || user.email?.split('@')[0] || 'Writer';
   document.getElementById('navAvatar').textContent = name.charAt(0).toUpperCase();
-  document.getElementById('welcomeH').textContent = 'Welcome back, ' + name + '!';
+  document.getElementById('welcomeH').innerHTML = 'Welcome back, <span class="voice-name">' + name + '</span>!';
 
   // Tier badge from cache
   var tier = (user.subscription_tier||'free').toLowerCase();
@@ -475,7 +517,7 @@ function smDone(){
     var data = await r.json();
     var u = data.user || {};
     name = u.display_name || name;
-    document.getElementById('welcomeH').textContent = 'Welcome back, ' + name + '!';
+    document.getElementById('welcomeH').innerHTML = 'Welcome back, <span class="voice-name">' + name + '</span>!';
     document.getElementById('navAvatar').textContent = name.charAt(0).toUpperCase();
 
     // Update tier from server
@@ -489,21 +531,92 @@ function smDone(){
     var stance = lp ? (lp.stance||'balanced').toLowerCase() : 'balanced';
     VOICE_DESIGN.apply(profile, stance);
 
+    // Apply top-5 voice colour gradient to username
+    var scoreEntries = Object.entries(data.avg_scores||{}).filter(function(e){return e[0].indexOf('score_')===0;}).sort(function(a,b){return b[1]-a[1];});
+    var top5 = scoreEntries.slice(0,5).map(function(e){var k=e[0].replace('score_','');return (VOICE_DESIGN.P[k]||VOICE_DESIGN.P.conversational).a;});
+    if(top5.length>=3){
+      var vn=document.querySelector('.voice-name');
+      if(vn){vn.style.backgroundImage='linear-gradient(135deg,'+top5.join(',')+')';vn.style.webkitBackgroundClip='text';vn.style.webkitTextFillColor='transparent';vn.style.backgroundClip='text';}
+    }
+
     // Content tokens
     var vc = VOICE_DESIGN.getContent(profile, stance);
     document.getElementById('welcomeP').textContent = vc.title + ' — ' + vc.tagline;
-    renderVoiceBars(data.avg_scores, profile, stance, name);
+    var vcTitle = name + "\u2019s Writing Voice";
+    var vcSub = vc.title + ' \u2014 ' + vc.tagline;
+    VoiceFingerprint.render('voiceCanvas', data.avg_scores, profile, stance, {title: vcTitle, subtitle: vcSub, width: 1200, height: 1000, rejjiScale: 1.9});
     initShare(token);
     renderWordUsage(token);
     renderEvolution(data.profiles, data.stats?.consistency);
     var ucc=(u.country||'').toUpperCase();
     renderWriters(profile,stance,ucc);
-    renderBooks(profile,ucc);
+    
     renderStretch(profile,ucc);var sc=document.getElementById('shareCTA');if(sc)sc.textContent=vc.shareText;
 
     // Stats
     var st = data.stats || {};
-    document.getElementById('statsCard').innerHTML = (st.test_count||0)+' analyses · '+(st.total_words||0)+' words · '+(st.consistency||0)+'% consistency';
+    // === SHARE GATE: 3+ analyses, 250+ words, 40%+ consistency ===
+    var shareUnlocked = (st.test_count||0) >= 3 && (st.total_words||0) >= 250 && (st.consistency||0) >= 40;
+    var shareCard = document.getElementById('shareCard');
+    if (shareCard) shareCard.style.display = shareUnlocked ? '' : 'none';
+
+    // === VIDEO GATE ===
+    var videoSection = document.getElementById('videoSection');
+    var isPro = tier === 'pro';
+    var videoQualified = (st.test_count||0) >= 5 && (st.total_words||0) >= 1000;
+
+    if (videoSection) {
+      videoSection.style.display = 'block';
+      var vLocked = document.getElementById('videoLocked');
+      var vReady = document.getElementById('videoReady');
+
+      if (!isPro) {
+        vLocked.style.display = 'block';
+        vReady.style.display = 'none';
+        document.getElementById('videoLockedMsg').textContent = 'Go Pro to unlock your personalised Voice Video.';
+        document.getElementById('videoLockedBtn').textContent = 'Go Pro';
+        document.getElementById('videoLockedBtn').onclick = function(){window.location.href='/billing/';};
+      } else if (!videoQualified) {
+        vLocked.style.display = 'block';
+        vReady.style.display = 'none';
+        var remaining = [];
+        if ((st.test_count||0) < 5) remaining.push((5-(st.test_count||0))+' more analyses');
+        if ((st.total_words||0) < 1000) remaining.push((1000-(st.total_words||0))+' more words');
+        document.getElementById('videoLockedMsg').textContent = 'Almost there! '+remaining.join(' and ')+' to unlock.';
+        document.getElementById('videoLockedBtn').textContent = 'Keep Writing';
+        document.getElementById('videoLockedBtn').onclick = function(){window.location.href='/blog/';};
+        var vProg = document.getElementById('videoProgress');
+        vProg.style.display = 'block';
+        var analysisPct = Math.min(100, ((st.test_count||0)/5)*100);
+        var wordsPct = Math.min(100, ((st.total_words||0)/1000)*100);
+        var totalPct = Math.round((analysisPct + wordsPct) / 2);
+        document.getElementById('videoProgressFill').style.width = totalPct+'%';
+        document.getElementById('videoProgressLabel').textContent = totalPct+'% complete';
+      } else {
+        vLocked.style.display = 'none';
+        vReady.style.display = 'block';
+        // Video URL would be set by backend
+        var vid = document.getElementById('voiceVideo');
+        vid.src = '/api/v2/me/video';
+        vid.poster = '';
+        document.getElementById('videoDownloadBtn').onclick = function(){
+          var a=document.createElement('a');a.href=vid.src;a.download=name+'-voice.mp4';a.click();
+        };
+        vid.addEventListener('ended', function(){
+          document.getElementById('videoCTA').style.display='flex';
+        });
+        vid.addEventListener('play', function(){
+          document.getElementById('videoCTA').style.display='none';
+        });
+      }
+    }
+
+    var sc=document.getElementById('statsCard');
+    sc.innerHTML='<div class="stats-grid">'+
+      '<div class="stat-item"><div class="stat-num">'+(st.test_count||0)+'</div><div class="stat-label">Analyses</div></div>'+
+      '<div class="stat-item"><div class="stat-num">'+fmtN(st.total_words||0)+'</div><div class="stat-label">Words</div></div>'+
+      '<div class="stat-item"><div class="stat-num">'+(st.consistency||0)+'%</div><div class="stat-label">Consistency</div></div>'+
+    '</div>';
 
   } catch(err) {
     console.error('Dashboard load error:', err);

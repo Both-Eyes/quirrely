@@ -23,7 +23,7 @@ var STRETCH_ACTIONS = [
     'Write a sentence that keeps adding — clause after clause — until the accumulation becomes the point.',
     'Build a paragraph where each sentence adds one element to an image. Do not summarise. Let the weight arrive.',
   ]},
-  {p:/contradict|paradox|simultane|tension|oppose|both.*once/i, t:'Holding Contradictions', a:[
+  {p:/contradict|paradox|simultane|tension|oppose|both.*once|irresolution|complexity/i, t:'Holding Contradictions', a:[
     'Write a sentence containing two true things that seem to oppose each other. Do not resolve the tension.',
     'Describe a person who is two contradictory things at once. Hold both as equally real.',
     'Write a paragraph where argument and counter-argument coexist. The reader should feel the pull both ways.',
@@ -68,7 +68,7 @@ var STRETCH_ACTIONS = [
     'Share a small, specific memory. Do not explain why it matters. Specificity is the explanation.',
     'Move between "I" and a larger observation. The personal and the general should feel inseparable.',
   ]},
-  {p:/observe|detail|notice|attend|specific/i, t:'Radical Attention', a:[
+  {p:/observe|detail|notice|attend|specific|civilisation/i, t:'Radical Attention', a:[
     'Look at one object for thirty seconds. Write exactly what you see — no metaphor, just the thing itself.',
     'Describe a familiar place as if you have never been there. Notice what habit normally erases.',
     'Write a paragraph where every sentence contains one detail so specific it could only be true.',
@@ -78,7 +78,7 @@ var STRETCH_ACTIONS = [
     'Make an argument in three sentences: claim, evidence, implication. No qualifiers.',
     'Write a paragraph that leads with conviction. The reader knows where you stand by sentence two.',
   ]},
-  {p:/time|temporal|chronolog|memory|retrospect|past/i, t:'Temporal Movement', a:[
+  {p:/time|temporal|chronolog|memory|retrospect|past|tense/i, t:'Temporal Movement', a:[
     'Write two sentences: one present tense, one past. Place them together without transition.',
     'Start in the present. Slip into a memory mid-sentence. Return without announcing the shift.',
     'Write a passage where three time periods coexist. Time should fold, not jump.',
@@ -108,12 +108,12 @@ var STRETCH_ACTIONS = [
     'Describe an intense moment in under 20 words. Every word carries weight or it goes.',
     'Write a paragraph with no sentence longer than 10 words. Let the white space do the emotional work.',
   ]},
-  {p:/perspective|angle|fairness|balance|multiple.*view|each.*version/i, t:'Generous Perspective', a:[
+  {p:/perspective|angle|fairness|balance|multiple.*view|each.*version|pluralism/i, t:'Generous Perspective', a:[
     'Write two sentences about the same event from two opposing viewpoints. Give each its full weight.',
     'Describe a disagreement where both sides are right. Do not resolve it — just render it honestly.',
     'Write a paragraph that holds three perspectives simultaneously without ranking them.',
   ]},
-  {p:/structur|architect|organis|formal premise|arrange/i, t:'Structural Thinking', a:[
+  {p:/structur|architect|organis|formal premise|arrange|sweep|synthesis/i, t:'Structural Thinking', a:[
     'Before writing, choose a shape: circular, telescoping, or mirrored. Let the structure carry meaning.',
     'Write a paragraph where the arrangement of ideas matters as much as the ideas themselves.',
     'Organise three observations so their sequence creates an argument the sentences never state directly.',
@@ -122,6 +122,56 @@ var STRETCH_ACTIONS = [
     'Write a sentence that creates space for the reader to bring their own experience into the text.',
     'Write a paragraph that poses a problem without solving it. Invite the reader to sit with the difficulty.',
     'Write as if speaking to someone you respect but have never met. Warmth without presumption.',
+  ]},
+  {p:/genuine|authenticity|not perform|actual(?:ly)?|real(?:ly)?.*uncertain/i, t:'Genuine Uncertainty', a:[
+    'Write a paragraph where you do not know the answer. Let the not-knowing be the engine, not an apology.',
+    'Start with a confident claim. By the third sentence, let honest doubt erode it. Do not rescue the claim.',
+    'Write as someone thinking in real time. No thesis, no conclusion — just the mind moving through difficulty.',
+  ]},
+  {p:/boundary|threshold|between.*and|neither.*nor|settle|dissolv/i, t:'Threshold Writing', a:[
+    'Write two sentences that each belong to a different genre or mode. Place them together without transition.',
+    'Describe a moment that is neither one thing nor another — dawn, an ending that is also a beginning.',
+    'Write a paragraph that refuses to land. Let the reader feel the ground shifting beneath each sentence.',
+  ]},
+  {p:/landscape|place|terrain|geography|territory|Australian|Canadian|Zealand/i, t:'Place as Structure', a:[
+    'Describe a place so precisely that it carries emotional weight without any stated feeling.',
+    'Write a paragraph where the setting is not background but the thing the sentences are actually about.',
+    'Name three physical details of a landscape. Let them accumulate until they become an argument.',
+  ]},
+  {p:/damage|trauma|surviv|difficult|hard subject|serious.*subject|does not compress|resist/i, t:'Facing Difficulty', a:[
+    'Write about something painful without flinching and without dramatising. Just say what happened.',
+    'Take a subject that resists easy summary. Give it the space it demands — do not compress.',
+    'Write a paragraph about loss where the restraint of the prose is what makes it land.',
+  ]},
+  {p:/persist|keeps going|despite|impossib|what survives|endur|refuse.*consolation/i, t:'Persistence Against Limits', a:[
+    'Write a sentence that reaches for meaning and fails. Then write the next sentence anyway.',
+    'Describe something that endures despite every reason it should not. Let survival be the point.',
+    'Write a paragraph that acknowledges impossibility in the first sentence and keeps building regardless.',
+  ]},
+  {p:/erudition|intellectual.*weight|curiosity.*genuine|enthusiasm|lightly|capacious/i, t:'Learned Lightness', a:[
+    'Share a complex idea as if telling a friend something fascinating. Warmth, not authority.',
+    'Write a sentence containing a genuinely surprising fact. Let the surprise do the work — no underlining.',
+    'Write a paragraph moving across three fields of knowledge. The connections should feel inevitable.',
+  ]},
+  {p:/absurd|rigour|logic.*follow|internal.*logic|construct.*scenario/i, t:'Rigorous Absurdity', a:[
+    'Write a premise that makes no sense. Now follow it with complete logical seriousness for three sentences.',
+    'Build an absurd situation with real internal rules. The comedy comes from the rigour, not the silliness.',
+    'Write a paragraph where the conclusion is ridiculous but the reasoning is airtight.',
+  ]},
+  {p:/negation|reversal|counter-intuitive|overturn|invert|not comfort/i, t:'Productive Negation', a:[
+    'Write a sentence that negates the obvious reading. "It was not X — it was Y." Let the reversal carry weight.',
+    'Take a familiar idea and turn it inside out in one paragraph. The reversal should feel earned, not clever.',
+    'Write three sentences where each undoes the expectation set by the one before it.',
+  ]},
+  {p:/hedge|unhedged|does not qualify|fundamental claim|definitive judgment/i, t:'Unhedged Conviction', a:[
+    'Write three statements with zero qualifiers. No "perhaps", no "it seems". Just say what you mean.',
+    'Take a position you believe and defend it in one paragraph without softening. Confidence is a style choice.',
+    'Remove every hedge from a paragraph you have written. What survives is what you actually think.',
+  ]},
+  {p:/form |genre refusal|new form|essay form|first person.*exposure|testimony|archive/i, t:'Form as Meaning', a:[
+    'Choose an unusual structure for a paragraph — a list, a letter, a transcript. Let the form carry the argument.',
+    'Write about one subject in two different forms. Notice what each form reveals and conceals.',
+    'Write a paragraph where how it is organised matters as much as what it says.',
   ]},
   {p:/prose|sentence|write|voice|style|word/i, t:'Voice Craft', a:[
     'Write a sentence you admire. Then write the same idea in your own natural voice. Notice the difference.',
