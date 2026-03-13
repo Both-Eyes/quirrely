@@ -263,7 +263,13 @@ body{font-family:'Jost',-apple-system,sans-serif;background:var(--bg);color:var(
     <div id="videoReady" style="display:none;text-align:center;padding:1rem;">
       <p style="font-size:.95rem;font-weight:600;color:var(--ink);margin:0 0 10px;">Your Voice Video</p>
       <div style="position:relative;display:inline-block;width:100%;max-width:540px;">
+        <div style="position:relative;display:inline-block;width:100%;max-width:540px;">
         <video id="voiceVideo" style="width:100%;border-radius:8px;" controls preload="none"></video>
+        <div id="videoCTA" style="display:none;position:absolute;inset:0;background:rgba(53,30,40,0.75);border-radius:8px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
+          <p style="color:#fff;font-size:1.1rem;font-weight:700;">Find your voice.</p>
+          <a href="/blog/" style="background:linear-gradient(135deg,var(--brand-persimmon),var(--brand-persimmon-dark));color:#fff;padding:.6rem 1.5rem;border-radius:6px;font-weight:700;font-size:.9rem;text-decoration:none;box-shadow:0 2px 8px rgba(255,92,52,0.3);">Start Writing</a>
+        </div>
+      </div>
         <div id="videoCTA" style="display:none;position:absolute;inset:0;background:rgba(53,30,40,0.75);border-radius:8px;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
           <p style="color:#fff;font-size:1.1rem;font-weight:700;">Find your voice.</p>
           <a href="/blog/" style="background:linear-gradient(135deg,var(--brand-persimmon),var(--brand-persimmon-dark));color:#fff;padding:.6rem 1.5rem;border-radius:6px;font-weight:700;font-size:.9rem;text-decoration:none;box-shadow:0 2px 8px rgba(255,92,52,0.3);">Start Writing</a>
@@ -602,6 +608,12 @@ function smDone(){
         document.getElementById('videoDownloadBtn').onclick = function(){
           var a=document.createElement('a');a.href=vid.src;a.download=name+'-voice.mp4';a.click();
         };
+        vid.addEventListener('ended', function(){
+          document.getElementById('videoCTA').style.display='flex';
+        });
+        vid.addEventListener('play', function(){
+          document.getElementById('videoCTA').style.display='none';
+        });
         vid.addEventListener('ended', function(){
           document.getElementById('videoCTA').style.display='flex';
         });
