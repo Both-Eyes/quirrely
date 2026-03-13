@@ -7,7 +7,125 @@
   });
   if (!entry) return;
 
-  document.title = entry.title + ' | Quirrely';
+  // ═══════════════════════════════════════════════════════════
+  // SEO META INJECTION
+  // ═══════════════════════════════════════════════════════════
+
+  var pageTitle = entry.title + ' | Quirrely';
+  var pageDesc = entry.excerpt || 'Explore this writing voice profile on Quirrely.';
+  var pageUrl = 'https://quirrely.ca/blog/' + entry.slug;
+  var profileKey = (entry.profile || 'conversational').toLowerCase();
+  var ogImage = 'https://quirrely.ca/og/' + profileKey + '.png';
+  var authorName = entry.title.replace(/^In the Style of /, '');
+
+  // Title
+  document.title = pageTitle;
+
+  // Helper: set or create meta tag
+  function setMeta(attr, attrVal, content) {
+    var sel = 'meta[' + attr + '="' + attrVal + '"]';
+    var el = document.querySelector(sel);
+    if (!el) {
+      el = document.createElement('meta');
+      el.setAttribute(attr, attrVal);
+      document.head.appendChild(el);
+    }
+    el.setAttribute('content', content);
+  }
+
+  // Meta description
+  setMeta('name', 'description', pageDesc);
+
+  // Open Graph
+  setMeta('property', 'og:title', pageTitle);
+  setMeta('property', 'og:description', pageDesc);
+  setMeta('property', 'og:url', pageUrl);
+  setMeta('property', 'og:image', ogImage);
+  setMeta('property', 'og:image:width', '1200');
+  setMeta('property', 'og:image:height', '630');
+  setMeta('property', 'og:type', 'article');
+  setMeta('property', 'og:site_name', 'Quirrely');
+  setMeta('property', 'og:locale', 'en_CA');
+
+  // Twitter Card
+  setMeta('name', 'twitter:card', 'summary_large_image');
+  setMeta('name', 'twitter:title', pageTitle);
+  setMeta('name', 'twitter:description', pageDesc);
+  setMeta('name', 'twitter:image', ogImage);
+  setMeta('name', 'twitter:site', '@quirrelyca');
+
+  // Canonical URL
+  var canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.setAttribute('rel', 'canonical');
+    document.head.appendChild(canonical);
+  }
+  canonical.setAttribute('href', pageUrl);
+
+  // Robots
+  setMeta('name', 'robots', 'index, follow');
+
+  // JSON-LD Structured Data — Article schema
+  var jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    'headline': entry.title,
+    'description': pageDesc,
+    'url': pageUrl,
+    'image': ogImage,
+    'author': {
+      '@type': 'Organization',
+      'name': 'Quirrely',
+      'url': 'https://quirrely.ca'
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'Quirrely',
+      'url': 'https://quirrely.ca',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': 'https://quirrely.ca/assets/logo/favicon.svg'
+      }
+    },
+    'mainEntityOfPage': {
+      '@type': 'WebPage',
+      '@id': pageUrl
+    },
+    'about': {
+      '@type': 'Thing',
+      'name': authorName + ' writing style',
+      'description': 'Analysis of ' + authorName + '\'s writing voice: ' + (entry.profile || '') + ', ' + (entry.stance || '') + ' stance.'
+    },
+    'keywords': [
+      authorName,
+      'writing style',
+      'voice profile',
+      entry.profile || '',
+      entry.stance || '',
+      'writing analysis',
+      'Quirrely'
+    ].filter(function(k) { return k; }).join(', '),
+    'inLanguage': 'en',
+    'isAccessibleForFree': true,
+  };
+
+  // Add country if available
+  var countryNames = {CA:'Canada',UK:'United Kingdom',AU:'Australia',NZ:'New Zealand',US:'United States',IE:'Ireland',ZA:'South Africa',IN:'India',WS:'Samoa'};
+  if (entry.country && countryNames[entry.country]) {
+    jsonLd.about.description += ' ' + countryNames[entry.country] + ' literature.';
+    jsonLd.keywords += ', ' + countryNames[entry.country] + ' literature';
+  }
+
+  var ldScript = document.createElement('script');
+  ldScript.type = 'application/ld+json';
+  ldScript.textContent = JSON.stringify(jsonLd);
+  document.head.appendChild(ldScript);
+
+  // ═══════════════════════════════════════════════════════════
+  // VISUAL CONTENT (existing engine logic)
+  // ═══════════════════════════════════════════════════════════
+
   var h1 = document.querySelector('h1');
   if (h1) h1.textContent = entry.title;
   var hook = document.querySelector('.hero .hook');

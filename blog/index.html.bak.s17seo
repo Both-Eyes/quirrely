@@ -12,34 +12,6 @@
   <title>Blog | Quirrely — The curious way to find your writing voice</title>
   <meta name="description" content="Explore writing styles, voice profiles, and tips to strengthen your unique writing identity. Updated weekly with featured writers.">
   <meta property="og:title" content="Quirrely Blog — Writing Voice Insights">
-<meta property="og:image" content="https://quirrely.ca/og/conversational.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Writing Voice, Examined. | Quirrely Blog">
-<meta name="twitter:description" content="Your reading taste is your writing voice, waiting.">
-<meta name="twitter:image" content="https://quirrely.ca/og/conversational.png">
-<meta name="twitter:site" content="@quirrelyca">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  "name": "Quirrely Blog",
-  "description": "Writing Voice, Examined. Your reading taste is your writing voice, waiting.",
-  "url": "https://quirrely.ca/blog/",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Quirrely",
-    "url": "https://quirrely.ca",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://quirrely.ca/assets/logo/favicon.svg"
-    }
-  },
-  "inLanguage": "en",
-  "isAccessibleForFree": true
-}
-</script>
   <meta property="og:description" content="Explore writing styles and discover your unique voice.">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://quirrely.ca/blog">

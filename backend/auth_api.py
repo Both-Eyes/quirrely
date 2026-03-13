@@ -1006,7 +1006,21 @@ async def confirm_verification(token: str):
     db_execute("UPDATE users SET email_verified = true WHERE id = %s", (row["user_id"],))
     db_execute("UPDATE email_verification_requests SET verified = true, verified_at = NOW() WHERE id = %s", (row["id"],))
     logger.info(f"Email verified: {row['email']}")
-    return {"message": "Email verified successfully"}
+    # Auto-login: create session for verified user
+    session = create_session(str(row["user_id"]))
+    user = db_query_one("SELECT * FROM users WHERE id = %s", (row["user_id"],))
+    user_data = {
+        "id": str(user["id"]),
+        "email": user.get("email", ""),
+        "display_name": user.get("display_name", ""),
+        "subscription_tier": user.get("subscription_tier", "free"),
+    } if user else {}
+    return {
+        "message": "Email verified successfully",
+        "access_token": session["access_token"],
+        "refresh_token": session["refresh_token"],
+        "user": user_data,
+    }
 
 
 @router.get("/verify/required")
